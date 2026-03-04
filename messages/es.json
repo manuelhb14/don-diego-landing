@@ -1,0 +1,93 @@
+{
+  "nav": {
+    "proyecto": "Proyecto",
+    "galeria": "Galería",
+    "ubicacion": "Ubicación",
+    "equipo": "Equipo",
+    "contacto": "Contacto"
+  },
+  "hero": {
+    "tagline": "Vivir en Conexión",
+    "subtitle": "Con la Tierra. Con la Comunidad. Con uno Mismo.",
+    "secondary": "Cerca de todo, lejos de lo común",
+    "location": "San Miguel de Allende, Guanajuato",
+    "cta": "Conoce más"
+  },
+  "about": {
+    "quote": "\"La Mejor Ciudad Pequeña del Mundo\"",
+    "source": "— Condé Nast Traveler & Travel + Leisure",
+    "p1": "San Miguel de Allende es Patrimonio de la Humanidad por la UNESCO, reconocida internacionalmente por su arquitectura colonial, su vibrante escena cultural y su clima primaveral durante todo el año.",
+    "p2": "Con una de las comunidades de expatriados más grandes de México y una apreciación inmobiliaria sostenida, San Miguel combina la riqueza histórica con una calidad de vida excepcional.",
+    "p3": "Un destino donde la tradición mexicana y la sofisticación contemporánea convergen en perfecta armonía."
+  },
+  "project": {
+    "heading": "El Proyecto",
+    "intro": "Don Diego Club Residencial es un desarrollo de uso mixto que integra cuatro componentes únicos alrededor de la Presa La Cantera — construido sobre las tierras de la antigua Hacienda de Don Diego, a solo 8 minutos del centro histórico.",
+    "residencial": {
+      "name": "Club Residencial",
+      "description": "364 residencias en un entorno 100% peatonal con casa club, restaurantes, spa, deportes y amenidades de primer nivel."
+    },
+    "farm": {
+      "name": "Organic Farm & Flowers",
+      "description": "Agricultura orgánica que recupera la herencia agrícola original. Huertos, flores de temporada e invernaderos en terrazas."
+    },
+    "wellness": {
+      "name": "Wellness Center",
+      "description": "Centro de rehabilitación, retiro activo y senior living con beach club frente a la Presa Allende."
+    },
+    "presa": {
+      "name": "Presa de la Cantera",
+      "description": "Malecón lacustre, parque acuático, club náutico, anfiteatro al aire libre y espacios comerciales junto al agua."
+    },
+    "comingSoon": "Próximamente"
+  },
+  "gallery": {
+    "heading": "Galería"
+  },
+  "location": {
+    "heading": "Ubicación",
+    "address": "Cerrada del Trébol, Carretera Celaya – Dolores Hidalgo",
+    "city": "San Miguel de Allende, Guanajuato",
+    "centro": "Centro Histórico SMA",
+    "centroTime": "8 min",
+    "queretaro": "Querétaro",
+    "queretaroTime": "~2 hrs",
+    "cdmx": "Ciudad de México",
+    "cdmxTime": "~3.5 hrs",
+    "celaya": "Celaya",
+    "celayaTime": "Directo",
+    "presaNote": "Colinda con la Presa Ignacio Allende y la Presa La Cantera"
+  },
+  "team": {
+    "heading": "El Equipo",
+    "cimenta": {
+      "name": "Grupo Cimienta",
+      "role": "Desarrollo y Dirección General",
+      "description": "Más de 30 años de experiencia en el ciclo completo de desarrollo inmobiliario."
+    },
+    "barragan": {
+      "name": "Barragán Arquitectos",
+      "role": "Diseño Arquitectónico",
+      "description": "Arq. Luis Barragán Rivera — estética contemporánea enraizada en la identidad de SMA."
+    },
+    "arredarq": {
+      "name": "Espacios Verdes / Arredarq",
+      "role": "Paisajismo y Sustentabilidad",
+      "description": "Arq. Eliseo Arredondo — fundador de la Sociedad de Arquitectos Paisajistas de México."
+    }
+  },
+  "contact": {
+    "heading": "Agenda tu visita",
+    "subtitle": "Descubre Don Diego en persona. Contáctanos para programar un recorrido privado.",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "submit": "Enviar",
+    "whatsapp": "Escríbenos por WhatsApp",
+    "privacy": "Al enviar este formulario, aceptas nuestra política de privacidad."
+  },
+  "footer": {
+    "rights": "© 2026 Don Diego Club Residencial. Todos los derechos reservados.",
+    "location": "San Miguel de Allende, Guanajuato, México"
+  }
+}
