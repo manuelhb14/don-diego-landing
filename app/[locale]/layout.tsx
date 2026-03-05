@@ -23,6 +23,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale} className={cormorant.variable}>
       <body>
+        <style dangerouslySetInnerHTML={{ __html: 'html { scroll-behavior: auto !important; }' }} />
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

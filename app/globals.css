@@ -61,7 +61,20 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* 
+    CRITICAL NOTE REGARDING PAGE TRANSITIONS / SCROLLING
+    ====================================================
+    Never apply 'scroll-behavior: smooth' globally to the html or body tags 
+    in a Next.js App Router project (or use the Tailwind 'scroll-smooth' class on the root). 
+    
+    Next.js handles page routing by instantly replacing the DOM and internally firing 
+    window.scrollTo(0, 0) to jump to the top of the new page. If global smooth scrolling 
+    is enabled, the browser hijacks this jump and physically scrolls all the way up 
+    across the entire page before loading the new content.
+
+    If you need anchor link smooth scrolling, apply the 'scroll-smooth' class ONLY 
+    to specific scrollable containers, not globally!
+  */
 }
 
 body {

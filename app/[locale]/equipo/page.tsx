@@ -1,23 +1,23 @@
 import { setRequestLocale } from "next-intl/server";
 import Navbar from "@/components/Navbar";
-import HeroPresa from "@/components/presa/HeroPresa";
-import ConceptPresa from "@/components/presa/ConceptPresa";
+import HeroEquipo from "@/components/equipo/HeroEquipo";
+import DetailsEquipo from "@/components/equipo/DetailsEquipo";
 import Footer from "@/components/Footer";
 
 type Props = {
     params: Promise<{ locale: string }>;
 };
 
-export default async function PresaPage({ params }: Props) {
+export default async function EquipoPage({ params }: Props) {
     const { locale } = await params;
     setRequestLocale(locale);
 
     return (
         <>
-            <Navbar locale={locale} />
+            <Navbar locale={locale} theme="dark" />
             <main>
-                <HeroPresa />
-                <ConceptPresa />
+                <HeroEquipo />
+                <DetailsEquipo />
             </main>
             <Footer />
         </>

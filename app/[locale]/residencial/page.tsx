@@ -1,9 +1,9 @@
 import { setRequestLocale } from "next-intl/server";
-import NavbarV5 from "@/components/v5/NavbarV5";
+import Navbar from "@/components/Navbar";
 import HeroResidencial from "@/components/residencial/HeroResidencial";
 import FeaturesResidencial from "@/components/residencial/FeaturesResidencial";
 import AmenitiesResidencial from "@/components/residencial/AmenitiesResidencial";
-import FooterV5 from "@/components/v5/FooterV5";
+import Footer from "@/components/Footer";
 
 type Props = {
     params: Promise<{ locale: string }>;
@@ -15,13 +15,13 @@ export default async function ResidencialPage({ params }: Props) {
 
     return (
         <>
-            <NavbarV5 locale={locale} />
+            <Navbar locale={locale} />
             <main>
                 <HeroResidencial />
                 <FeaturesResidencial />
                 <AmenitiesResidencial />
             </main>
-            <FooterV5 />
+            <Footer />
         </>
     );
 }

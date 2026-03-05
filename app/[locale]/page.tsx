@@ -1,37 +1,39 @@
 import { setRequestLocale } from "next-intl/server";
 import Navbar from "@/components/Navbar";
+import Loading from "@/components/Loading";
 import Hero from "@/components/Hero";
-import AboutSection from "@/components/AboutSection";
-import ProjectOverview from "@/components/ProjectOverview";
+import Manifesto from "@/components/Manifesto";
+import Projects from "@/components/Projects";
 import Gallery from "@/components/Gallery";
-import LocationSection from "@/components/LocationSection";
-import TeamSection from "@/components/TeamSection";
-import ContactCTA from "@/components/ContactCTA";
+import Location from "@/components/Location";
+import Services from "@/components/Services";
+import Team from "@/components/Team";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import WhatsAppFAB from "@/components/WhatsAppFAB";
-
+import Stats from "@/components/Stats";
 type Props = {
-  params: Promise<{ locale: string }>;
+    params: Promise<{ locale: string }>;
 };
 
-export default async function LandingPage({ params }: Props) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export default async function Page({ params }: Props) {
+    const { locale } = await params;
+    setRequestLocale(locale);
 
-  return (
-    <>
-      <Navbar locale={locale} />
-      <main>
-        <Hero />
-        <AboutSection />
-        <ProjectOverview />
-        <Gallery />
-        <LocationSection />
-        <TeamSection />
-        <ContactCTA />
-      </main>
-      <Footer />
-      <WhatsAppFAB />
-    </>
-  );
+    return (
+        <>
+            {/* <Loading /> */}
+            <Navbar locale={locale} />
+            <main>
+                <Hero />
+                <Manifesto />
+                <Services />
+                <Projects />
+                <Location />
+                <Gallery />
+                <Team />
+                <Contact />
+            </main>
+            <Footer />
+        </>
+    );
 }
