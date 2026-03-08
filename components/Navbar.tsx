@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname, Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 
 const navLinks = [
     { key: "inicio", label: "Inicio", href: "/" },
@@ -26,15 +26,21 @@ const navLinks = [
 export default function Navbar({ locale, theme = "light", hideLogoAtTop = false }: { locale: string; theme?: "light" | "dark"; hideLogoAtTop?: boolean }) {
     const router = useRouter();
     const pathname = usePathname();
+    const shouldReduceMotion = useReducedMotion();
     const [hidden, setHidden] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [openDesktopMenu, setOpenDesktopMenu] = useState<string | null>(null);
+    const [desktopDropdownPosition, setDesktopDropdownPosition] = useState<{ left: number; top: number } | null>(null);
+    const desktopDropdownCloseTimeout = useRef<number | null>(null);
     useEffect(() => {
         let lastScrollY = window.scrollY;
 
         const onScroll = () => {
             const currentScrollY = window.scrollY;
             setScrolled(currentScrollY > 60);
+            setOpenDesktopMenu(null);
+            setDesktopDropdownPosition(null);
 
             if (currentScrollY > lastScrollY && currentScrollY > 0) {
                 setHidden(true);
@@ -54,10 +60,43 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
         return () => { document.body.style.overflow = ""; };
     }, [mobileOpen]);
 
+    useEffect(() => {
+        return () => {
+            if (desktopDropdownCloseTimeout.current !== null) {
+                window.clearTimeout(desktopDropdownCloseTimeout.current);
+            }
+        };
+    }, []);
+
     const switchLocale = () => {
         const next = locale === "es" ? "en" : "es";
         router.replace(pathname, { locale: next });
     };
+
+    const clearDesktopDropdownClose = () => {
+        if (desktopDropdownCloseTimeout.current !== null) {
+            window.clearTimeout(desktopDropdownCloseTimeout.current);
+            desktopDropdownCloseTimeout.current = null;
+        }
+    };
+
+    const openDesktopDropdown = (key: string, trigger: HTMLDivElement) => {
+        clearDesktopDropdownClose();
+        const rect = trigger.getBoundingClientRect();
+        setOpenDesktopMenu(key);
+        setDesktopDropdownPosition({ left: rect.left, top: rect.bottom + 10 });
+    };
+
+    const scheduleDesktopDropdownClose = () => {
+        clearDesktopDropdownClose();
+        desktopDropdownCloseTimeout.current = window.setTimeout(() => {
+            setOpenDesktopMenu(null);
+            setDesktopDropdownPosition(null);
+            desktopDropdownCloseTimeout.current = null;
+        }, 120);
+    };
+
+    const activeDesktopSubLinks = navLinks.find((link) => link.key === openDesktopMenu)?.subLinks;
 
     return (
         <>
@@ -69,9 +108,15 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                     <div className="flex-1 hidden lg:flex items-center justify-start gap-4">
                         {navLinks.map(({ key, label, href, subLinks }) => {
                             const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+                            const isDesktopDropdownOpen = openDesktopMenu === key;
 
                             return (
-                                <div key={key} className="relative group">
+                                <div
+                                    key={key}
+                                    className="relative group"
+                                    onMouseEnter={subLinks ? (event) => openDesktopDropdown(key, event.currentTarget) : undefined}
+                                    onMouseLeave={subLinks ? scheduleDesktopDropdownClose : undefined}
+                                >
                                     <Link
                                         href={href}
                                         className={`relative flex items-center px-2 pt-1.5 text-xs font-light tracking-[0.18em] uppercase transition-all duration-300 ${isActive ? (theme === "dark" && !scrolled ? "text-black font-medium" : "text-white font-medium") : (theme === "dark" && !scrolled ? "text-black/70 hover:text-black" : "text-white/70 hover:text-white")}`}
@@ -79,33 +124,14 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                     >
                                         {label}
                                         {subLinks && (
-                                            <span className="ml-1.5 opacity-70 transition-transform duration-300 text-[8px] group-hover:rotate-90">
+                                            <span className={`ml-1.5 opacity-70 transition-transform duration-300 text-[8px] ${isDesktopDropdownOpen ? "rotate-90" : "group-hover:rotate-90"}`}>
                                                 ▶
                                             </span>
                                         )}
                                         <span
-                                            className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px transition-all duration-300 ${theme === "dark" && !scrolled ? "bg-black" : "bg-white"} ${isActive ? "w-[32px]" : "w-0 group-hover:w-[32px]"}`}
+                                            className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px transition-all duration-300 ${theme === "dark" && !scrolled ? "bg-black" : "bg-white"} ${isActive || isDesktopDropdownOpen ? "w-[32px]" : "w-0 group-hover:w-[32px]"}`}
                                         />
                                     </Link>
-
-                                    {subLinks && (
-                                        <div className="absolute top-full left-0 mt-0 flex-col gap-3 min-w-[220px] bg-black px-5 py-5 rounded-sm border border-white/20 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex">
-                                            {subLinks.map((sub) => {
-                                                const isSubActive = pathname === sub.href;
-                                                return (
-                                                    <Link
-                                                        key={sub.key}
-                                                        href={sub.href}
-                                                        className={`flex items-center gap-3 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "hover:text-white text-white/70"}`}
-                                                        style={{ fontFamily: "var(--font-sans)", color: isSubActive ? sub.color : undefined }}
-                                                    >
-                                                        <span className={`w-2.5 h-2.5 flex-none transition-all duration-300 ${isSubActive ? "rounded-full" : "rounded-sm"}`} style={{ backgroundColor: sub.color, transform: isSubActive ? "scale(1.4)" : "scale(1)", boxShadow: isSubActive ? `0 0 10px 1px ${sub.color}80` : "none" }} />
-                                                        {sub.label}
-                                                    </Link>
-                                                );
-                                            })}
-                                        </div>
-                                    )}
                                 </div>
                             );
                         })}
@@ -150,6 +176,40 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                     </div>
                 </div>
             </nav>
+
+            <AnimatePresence>
+                {activeDesktopSubLinks && desktopDropdownPosition && (
+                    <motion.div
+                        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -12 }}
+                        animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                        exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+                        transition={{ duration: shouldReduceMotion ? 0.12 : 0.2, ease: [0.215, 0.61, 0.355, 1] }}
+                        className="fixed left-0 top-0 z-[60] hidden min-w-[220px] flex-col gap-3 rounded-sm border border-white/20 bg-zinc-950/90 px-5 py-5 backdrop-blur-md will-change-transform lg:flex"
+                        style={{ left: desktopDropdownPosition.left, top: desktopDropdownPosition.top }}
+                        onMouseEnter={clearDesktopDropdownClose}
+                        onMouseLeave={scheduleDesktopDropdownClose}
+                    >
+                        {activeDesktopSubLinks.map((sub) => {
+                            const isSubActive = pathname === sub.href;
+                            return (
+                                <Link
+                                    key={sub.key}
+                                    href={sub.href}
+                                    className={`flex items-center gap-3 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "hover:text-white text-white/70"}`}
+                                    style={{ fontFamily: "var(--font-sans)", color: isSubActive ? sub.color : undefined }}
+                                    onClick={() => {
+                                        setOpenDesktopMenu(null);
+                                        setDesktopDropdownPosition(null);
+                                    }}
+                                >
+                                    <span className={`w-2.5 h-2.5 flex-none transition-all duration-300 ${isSubActive ? "rounded-full" : "rounded-sm"}`} style={{ backgroundColor: sub.color, transform: isSubActive ? "scale(1.4)" : "scale(1)", boxShadow: isSubActive ? `0 0 10px 1px ${sub.color}80` : "none" }} />
+                                    {sub.label}
+                                </Link>
+                            );
+                        })}
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Mobile fullscreen overlay */}
             <AnimatePresence>

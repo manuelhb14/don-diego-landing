@@ -146,10 +146,12 @@ export default function Footer() {
                     {/* Navigation Links */}
                     <div className="col-span-3 lg:col-span-3">
                         <ul className="space-y-3 font-sans text-xs tracking-widest uppercase font-medium">
+                            <li><a className="hover:underline underline-offset-4" href="/inicio">Inicio</a></li>
                             <li><a className="hover:underline underline-offset-4" href="/proyecto">Proyecto</a></li>
                             <li><a className="hover:underline underline-offset-4" href="/ubicacion">Ubicación</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="/acerca">Acerca de</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="/preguntas">Preguntas</a></li>
+                            <li><a className="hover:underline underline-offset-4" href="/equipo">Equipo</a></li>
+                            {/* <li><a className="hover:underline underline-offset-4" href="/preguntas">Preguntas</a></li> */}
+                            {/* <li><a className="hover:underline underline-offset-4" href="/galeria">Galería</a></li> */}
                             <li><a className="hover:underline underline-offset-4" href="/contacto">Contacto</a></li>
                             {/* subtitle sections */}
                             <li><p className="text-sm font-serif tracking-widest uppercase font-light pt-2">Componentes</p></li>

@@ -83,14 +83,14 @@ export default function HeroPresa() {
                             strokeMiterlimit={2}
                         >
                             <g transform="matrix(1,0,0,1,-20434.627629,-598.731937)">
-                                <motion.g
+                            <motion.g
                                     variants={{
                                         hidden: { opacity: 0 },
                                         visible: {
                                             opacity: 1,
                                             transition: {
-                                                staggerChildren: 0.04,
-                                                delayChildren: 0
+                                                staggerChildren: 0.03,
+                                                delayChildren: 1.2
                                             }
                                         }
                                     }}
@@ -759,8 +759,8 @@ export default function HeroPresa() {
                                         visible: {
                                             opacity: 1,
                                             transition: {
-                                                staggerChildren: 0.03,
-                                                delayChildren: 1.2
+                                                staggerChildren: 0.075,
+                                                delayChildren: 0.15
                                             }
                                         }
                                     }}

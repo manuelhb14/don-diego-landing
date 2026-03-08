@@ -14,7 +14,7 @@ const projects = [
         title: "Club Residencial",
         description: "364 residencias en un entorno 100% peatonal con casa club, restaurantes, spa, deportes y amenidades de primer nivel.",
         image: "/images/renders/render-5.png",
-        accent: "#E1B19B",
+        accent: "#cc8767",
         features: [
             { icon: Footprints, text: "100% Peatonal" },
             { icon: Utensils, text: "Casa Club & Restaurantes" },
@@ -190,7 +190,7 @@ function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjec
                     fill
                     className="object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/10 to-transparent" />
+                {/* <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/10 to-transparent" /> */}
             </div>
 
             {/* Content */}

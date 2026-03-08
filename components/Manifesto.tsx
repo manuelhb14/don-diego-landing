@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 
 export default function Manifesto() {
     const containerRef = useRef<HTMLElement>(null);
+    const shouldReduceMotion = useReducedMotion();
     const { scrollYProgress: textScrollProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end end"],
@@ -28,6 +29,7 @@ export default function Manifesto() {
 
     // Global fade out near the end so it transitions cleanly to the next section
     const textGroupOpacity = useTransform(textScrollProgress, [0, 1], [1, 1]);
+    const scrollIndicatorOpacity = useTransform(textScrollProgress, [0, 0.06, 0.42, 0.5], [0, 0.45, 0.45, 0]);
 
     // Image Parallax transforms
     // Mapped over the entire screen visibility range ("start end" to "end start")
@@ -131,6 +133,42 @@ export default function Manifesto() {
                             Con uno Mismo.
                         </motion.p>
                     </div>
+                </motion.div>
+
+                <motion.div
+                    className="pointer-events-none absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[#E6E1D6]/85"
+                    style={{ opacity: scrollIndicatorOpacity }}
+                    aria-label="Desliza para explorar el manifiesto"
+                >
+                    <span
+                        className="text-[9px] uppercase tracking-[0.24em]"
+                        style={{ fontFamily: "var(--font-sans)" }}
+                    >
+                        Desliza
+                    </span>
+                    <div className="relative h-10 w-px bg-[#E6E1D6]/60">
+                        <motion.span
+                            className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[#E6E1D6]/95"
+                            animate={
+                                shouldReduceMotion
+                                    ? undefined
+                                    : {
+                                        y: [0, 22, 0],
+                                        opacity: [0.15, 0.55, 0.15],
+                                    }
+                            }
+                            transition={
+                                shouldReduceMotion
+                                    ? undefined
+                                    : {
+                                        duration: 2.4,
+                                        ease: [0.215, 0.61, 0.355, 1],
+                                        repeat: Number.POSITIVE_INFINITY,
+                                    }
+                            }
+                        />
+                    </div>
+                    <span className="sr-only">Desliza para explorar el manifiesto</span>
                 </motion.div>
 
             </div>

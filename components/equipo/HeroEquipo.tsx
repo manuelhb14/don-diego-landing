@@ -5,8 +5,8 @@ import { motion } from "motion/react";
 export default function HeroEquipo() {
     return (
         <section className="relative flex h-[40vh] md:h-[60vh] min-h-[500px] w-full items-center justify-center overflow-hidden bg-[#fff8ed]">
-            <div className="absolute inset-0 bg-[#222] mix-blend-multiply"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-[#fff8ed] via-transparent to-[#fff8ed] opacity-80" />
+            <div className="absolute inset-0 b mix-blend-multiply"></div>
+            {/* <div className="absolute inset-0 bg-gradient-to-b from-[#fff8ed] via-transparent to-[#fff8ed] opacity-80" /> */}
 
             <div className="relative z-10 flex flex-col items-center justify-center px-4 w-full max-w-7xl text-center mt-12 md:mt-16">
                 <div className="w-full flex flex-col items-center mb-6">
