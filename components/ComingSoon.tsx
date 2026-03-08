@@ -106,7 +106,9 @@ export default function ComingSoon() {
                         </a>
                         {/* Youtube */}
                         <a href="https://www.youtube.com/@dondiegosma" target="_blank" rel="noopener noreferrer" className="text-[#AA7D69]/70 hover:text-[#AA7D69] hover:-translate-y-1 transition-all duration-300">
-                            <Youtube className="w-6 h-6 sm:w-7 sm:h-7" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"
+                            className="w-7 h-7 lg:w-8 lg:h-8 fill-current"
+                        ><path d="M581.7 188.1C575.5 164.4 556.9 145.8 533.4 139.5C490.9 128 320.1 128 320.1 128C320.1 128 149.3 128 106.7 139.5C83.2 145.8 64.7 164.4 58.4 188.1C47 231 47 320.4 47 320.4C47 320.4 47 409.8 58.4 452.7C64.7 476.3 83.2 494.2 106.7 500.5C149.3 512 320.1 512 320.1 512C320.1 512 490.9 512 533.5 500.5C557 494.2 575.5 476.3 581.8 452.7C593.2 409.8 593.2 320.4 593.2 320.4C593.2 320.4 593.2 231 581.8 188.1zM264.2 401.6L264.2 239.2L406.9 320.4L264.2 401.6z" /></svg>
                         </a>
                         {/* TikTok */}
                         <a href="https://www.tiktok.com/@dondiegosma" target="_blank" rel="noopener noreferrer" className="text-[#AA7D69]/70 hover:text-[#AA7D69] hover:-translate-y-1 transition-all duration-300">

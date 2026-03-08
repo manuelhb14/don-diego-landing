@@ -1,6 +1,55 @@
 "use client";
 
+import { useState } from "react";
+
 export default function Footer() {
+    const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setError(null);
+        setLoading(true);
+
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+        const firstName = (formData.get("firstName") as string)?.trim() ?? "";
+        const lastName = (formData.get("lastName") as string)?.trim() ?? "";
+        const email = (formData.get("email") as string)?.trim() ?? "";
+        const consent = formData.get("consent") === "on";
+
+        if (!consent) {
+            setError("Debes aceptar la política de privacidad para continuar.");
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: `${firstName} ${lastName}`.trim() || "Newsletter",
+                    email,
+                    phone: "",
+                    message: "Suscripción al newsletter desde el footer",
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || "Error al enviar");
+            }
+            setSubmitted(true);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Error al enviar. Intenta de nuevo.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <footer className="bg-[#C8D7E6] text-[#222222] w-full relative overflow-hidden pt-16 lg:pt-24 transition-colors duration-300" id="contact">
             <div className="container mx-auto px-6 lg:px-12 mb-8 lg:mb-16 relative z-10">
@@ -17,60 +66,77 @@ export default function Footer() {
                                 Suscríbete para unirte a nuestra comunidad y mantenerte al día con el desarrollo.
                             </p>
                         </div>
-                        <form className="w-full max-w-md space-y-4 pt-4 lg:space-y-6">
-                            <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-                                <div className="w-full relative">
-                                    <input
-                                        className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors"
-                                        id="firstName"
-                                        name="firstName"
-                                        placeholder="NOMBRE *"
-                                        required
-                                        type="text"
-                                    />
-                                </div>
-                                <div className="w-full relative">
-                                    <input
-                                        className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors"
-                                        id="lastName"
-                                        name="lastName"
-                                        placeholder="APELLIDO *"
-                                        required
-                                        type="text"
-                                    />
-                                </div>
-                            </div>
-                            <div className="w-full relative">
-                                <input
-                                    className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors"
-                                    id="email"
-                                    name="email"
-                                    placeholder="CORREO ELECTRÓNICO *"
-                                    required
-                                    type="email"
-                                />
-                            </div>
-                            <div className="flex items-start gap-3 mt-4">
-                                <div className="flex items-center h-5">
-                                    <input
-                                        className="focus:ring-[#222222] h-4 w-4 text-[#222222] border-[#222222] rounded-sm bg-transparent"
-                                        id="consent"
-                                        name="consent"
-                                        type="checkbox"
-                                    />
-                                </div>
-                                <div className="ml-0 lg:ml-1 text-xs font-sans font-light leading-tight opacity-80">
-                                    <label className="font-medium text-[#222222]" htmlFor="consent">
-                                        Consiento que mi información sea recopilada de acuerdo con la política de privacidad de Don Diego
-                                    </label>
-                                </div>
-                            </div>
-                            <button
-                                className="inline-block border-b border-[#222222] pb-1 text-xs font-sans tracking-widest uppercase hover:opacity-70 transition-opacity mt-2 lg:mt-4"
-                                type="submit"
-                            >
-                                Enviar Formulario
-                            </button>
+                        <form onSubmit={handleNewsletterSubmit} className="w-full max-w-md space-y-4 pt-4 lg:space-y-6">
+                            {error && (
+                                <p className="text-red-700/90 text-xs font-sans">{error}</p>
+                            )}
+                            {submitted ? (
+                                <p className="text-[#222222] text-xs font-sans font-medium">
+                                    ¡Gracias! Te hemos añadido a nuestra lista.
+                                </p>
+                            ) : (
+                                <>
+                                    <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+                                        <div className="w-full relative">
+                                            <input
+                                                className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors disabled:opacity-60"
+                                                id="firstName"
+                                                name="firstName"
+                                                placeholder="NOMBRE *"
+                                                required
+                                                type="text"
+                                                disabled={loading}
+                                            />
+                                        </div>
+                                        <div className="w-full relative">
+                                            <input
+                                                className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors disabled:opacity-60"
+                                                id="lastName"
+                                                name="lastName"
+                                                placeholder="APELLIDO *"
+                                                required
+                                                type="text"
+                                                disabled={loading}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="w-full relative">
+                                        <input
+                                            className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors disabled:opacity-60"
+                                            id="email"
+                                            name="email"
+                                            placeholder="CORREO ELECTRÓNICO *"
+                                            required
+                                            type="email"
+                                            disabled={loading}
+                                        />
+                                    </div>
+                                    <div className="flex items-start gap-3 mt-4">
+                                        <div className="flex items-center h-5">
+                                            <input
+                                                className="focus:ring-[#222222] h-4 w-4 text-[#222222] border-[#222222] rounded-sm bg-transparent disabled:opacity-60"
+                                                id="consent"
+                                                name="consent"
+                                                type="checkbox"
+                                                required
+                                                disabled={loading}
+                                            />
+                                        </div>
+                                        <div className="ml-0 lg:ml-1 text-xs font-sans font-light leading-tight opacity-80">
+                                            <label className="font-medium text-[#222222]" htmlFor="consent">
+                                                Consiento que mi información sea recopilada de acuerdo con la política de privacidad de Don Diego
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button
+                                        className="cursor-pointer inline-block border-b border-[#222222] pb-1 text-xs font-sans tracking-widest uppercase hover:opacity-70 transition-opacity mt-2 lg:mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
+                                        type="submit"
+                                        disabled={loading}
+                                    >
+                                        {loading ? "Enviando…" : "Enviar Formulario"}
+                                    </button>
+                                </>
+                            )}
                         </form>
                     </div>
 

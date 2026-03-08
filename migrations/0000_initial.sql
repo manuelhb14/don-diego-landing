@@ -1,0 +1,1 @@
+-- Initial schema for Don Diego landing

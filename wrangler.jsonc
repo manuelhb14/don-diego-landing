@@ -1,0 +1,55 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"main": ".open-next/worker.js",
+	"name": "don-diego-landing",
+	"compatibility_date": "2024-12-30",
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"services": [
+		{
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "don-diego-landing"
+		}
+	],
+	"preview_urls": true,
+	"routes": [
+		{
+			"pattern": "dondiegosma.com",
+			"custom_domain": true
+		},
+		{
+			"pattern": "dondiegosma.com.mx",
+			"custom_domain": true
+		},
+		{
+			"pattern": "dondiegosma.mx",
+			"custom_domain": true
+		}
+	],
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"invocation_logs": true
+		}
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "don-diego-db",
+			"database_id": "d4bc36c5-caa9-4c95-b681-24f9aa1cf75e",
+			"migrations_dir": "migrations"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "IMAGES",
+			"bucket_name": "don-diego"
+		}
+	]
+}

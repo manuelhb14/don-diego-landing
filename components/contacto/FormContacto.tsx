@@ -2,14 +2,44 @@
 
 import { motion } from "motion/react";
 import { useState } from "react";
-import { Copy, MapPin, Mail, Phone } from "lucide-react";
+import { MapPin, Mail, Phone } from "lucide-react";
 
 export default function FormContacto() {
     const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setSubmitted(true);
+        setError(null);
+        setLoading(true);
+
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: formData.get("name"),
+                    email: formData.get("email"),
+                    phone: formData.get("phone") || "",
+                    message: formData.get("message"),
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || "Error al enviar");
+            }
+            setSubmitted(true);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Error al enviar. Intenta de nuevo.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -98,26 +128,34 @@ export default function FormContacto() {
                                     className="text-[#E6E1D6] text-3xl mb-4"
                                     style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}
                                 >
-                                    ¡Gracias por tu mensaje!
+                                    Gracias por tu interés
                                 </p>
                                 <p
                                     className="text-[#E6E1D6]/60 text-base max-w-xs mx-auto"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
-                                    Nuestro equipo se pondrá en contacto contigo muy pronto.
+                                    Nos pondremos en contacto contigo pronto.
                                 </p>
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                                 <h3 className="text-[#E6E1D6] font-serif text-2xl mb-6 lg:mb-8">Envíanos un mensaje</h3>
 
+                                {error && (
+                                    <p className="text-red-400/90 text-sm" style={{ fontFamily: "var(--font-sans)" }}>
+                                        {error}
+                                    </p>
+                                )}
+
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="flex flex-col gap-0 lg:gap-2">
                                         <label className="text-[#E6E1D6]/60 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>Nombre Completo</label>
                                         <input
+                                            name="name"
                                             type="text"
                                             required
-                                            className="w-full bg-transparent border-b border-[#E6E1D6]/20 py-3 text-[#E6E1D6] placeholder-[#E6E1D6]/30 text-base outline-none focus:border-[#AA7D69] transition-colors"
+                                            disabled={loading}
+                                            className="w-full bg-transparent border-b border-[#E6E1D6]/20 py-3 text-[#E6E1D6] placeholder-[#E6E1D6]/30 text-base outline-none focus:border-[#AA7D69] transition-colors disabled:opacity-60"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                             placeholder="Tu nombre"
                                         />
@@ -125,8 +163,10 @@ export default function FormContacto() {
                                     <div className="flex flex-col gap-0 lg:gap-2">
                                         <label className="text-[#E6E1D6]/60 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>Teléfono</label>
                                         <input
+                                            name="phone"
                                             type="tel"
-                                            className="w-full bg-transparent border-b border-[#E6E1D6]/20 py-3 text-[#E6E1D6] placeholder-[#E6E1D6]/30 text-base outline-none focus:border-[#AA7D69] transition-colors"
+                                            disabled={loading}
+                                            className="w-full bg-transparent border-b border-[#E6E1D6]/20 py-3 text-[#E6E1D6] placeholder-[#E6E1D6]/30 text-base outline-none focus:border-[#AA7D69] transition-colors disabled:opacity-60"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                             placeholder="Tu número"
                                         />
@@ -135,9 +175,11 @@ export default function FormContacto() {
                                 <div className="flex flex-col gap-0 lg:gap-2">
                                     <label className="text-[#E6E1D6]/60 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>Correo Electrónico</label>
                                     <input
+                                        name="email"
                                         type="email"
                                         required
-                                        className="w-full bg-transparent border-b border-[#E6E1D6]/20 py-3 text-[#E6E1D6] placeholder-[#E6E1D6]/30 text-base outline-none focus:border-[#AA7D69] transition-colors"
+                                        disabled={loading}
+                                        className="w-full bg-transparent border-b border-[#E6E1D6]/20 py-3 text-[#E6E1D6] placeholder-[#E6E1D6]/30 text-base outline-none focus:border-[#AA7D69] transition-colors disabled:opacity-60"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                         placeholder="tu@correo.com"
                                     />
@@ -145,9 +187,11 @@ export default function FormContacto() {
                                 <div className="flex flex-col gap-0 lg:gap-2">
                                     <label className="text-[#E6E1D6]/60 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>Mensaje</label>
                                     <textarea
+                                        name="message"
                                         rows={4}
                                         required
-                                        className="w-full bg-transparent border-b border-[#E6E1D6]/20 py-3 text-[#E6E1D6] placeholder-[#E6E1D6]/30 text-base outline-none focus:border-[#AA7D69] transition-colors resize-none"
+                                        disabled={loading}
+                                        className="w-full bg-transparent border-b border-[#E6E1D6]/20 py-3 text-[#E6E1D6] placeholder-[#E6E1D6]/30 text-base outline-none focus:border-[#AA7D69] transition-colors resize-none disabled:opacity-60"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                         placeholder="¿En qué podemos ayudarte?"
                                     />
@@ -156,10 +200,11 @@ export default function FormContacto() {
                                 <div className="pt-4 flex flex-col md:flex-row items-center justify-between gap-4">
                                     <button
                                         type="submit"
-                                        className="w-full md:flex-1 bg-[#AA7D69] hover:bg-[#8C7B6C] text-[#FFF3E1] px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 rounded-sm whitespace-nowrap"
+                                        disabled={loading}
+                                        className="cursor-pointer w-full md:flex-1 bg-[#AA7D69] hover:brightness-110 transition-brightness duration-300 disabled:opacity-60 disabled:cursor-not-allowed text-[#FFF3E1] px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 rounded-sm whitespace-nowrap"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
-                                        Enviar Mensaje
+                                        {loading ? "Enviando…" : "Enviar Mensaje"}
                                     </button>
 
                                     <a

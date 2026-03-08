@@ -6,9 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "optimize:images": "uv run scripts/optimize-images.py",
+    "db:create": "wrangler d1 create don-diego-db",
+    "db:migrate:local": "wrangler d1 migrations apply don-diego-db",
+    "db:migrate:remote": "wrangler d1 migrations apply don-diego-db --remote",
+    "db:migration:new": "wrangler d1 migrations create don-diego-db",
+    "r2:create": "wrangler r2 bucket create don-diego-images"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.17.0",
     "lucide-react": "^0.575.0",
     "motion": "^12.34.3",
     "next": "16.1.6",
@@ -17,7 +28,9 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260226.0",
     "@tailwindcss/postcss": "^4",
+    "wrangler": "^4.65.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

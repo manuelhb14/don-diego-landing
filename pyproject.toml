@@ -1,0 +1,9 @@
+[project]
+name = "don-diego-image-optimizer"
+version = "0.1.0"
+description = "Scripts for the Don Diego landing project"
+requires-python = ">=3.11"
+dependencies = [
+    "pillow>=11.0.0",
+]
+
