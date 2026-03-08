@@ -6,9 +6,9 @@ import { Search } from "lucide-react";
 
 export default function AmenitiesResidencial() {
     const gridImages = [
-        "/images/renders/render-1.png",
-        "/images/renders/render-2.png",
-        "/images/renders/render-3.png",
+        "/images/renders/padel.png",
+        "/images/renders/padel-1.png",
+        "/images/renders/padel-2.png",
         "/images/renders/render-5.png",
         "/images/renders/render-1.png",
         "/images/renders/render-2.png"
@@ -63,19 +63,19 @@ export default function AmenitiesResidencial() {
                         <div className="relative w-full md:w-1/2 h-80 md:h-auto overflow-hidden">
                             <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-0 p-0 h-full w-full">
                                 <div className="relative col-span-2 row-span-2 md:rounded-tl-none overflow-hidden">
-                                    <Image src="/images/renders/render-5.png" alt="Casa Club" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                    <Image src="/images/renders/render-8.png" alt="Casa Club" fill className="object-cover hover:scale-105 transition-transform duration-700" />
                                 </div>
                                 <div className="relative col-span-1 row-span-1 md:rounded-tr-none overflow-hidden">
-                                    <Image src="/images/gallery/gallery-5.png" alt="Restaurante" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                    <Image src="/images/renders/restaurants.jpeg" alt="Restaurante" fill className="object-cover hover:scale-105 transition-transform duration-700" />
                                 </div>
                                 <div className="relative col-span-1 row-span-2 md:rounded-br-none overflow-hidden">
-                                    <Image src="/images/renders/render-1.png" alt="Coworking" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                    <Image src="/images/renders/pool.jpeg" alt="Coworking" fill className="object-cover hover:scale-105 transition-transform duration-700" />
                                 </div>
                                 <div className="relative col-span-1 row-span-1 md:rounded-bl-none overflow-hidden">
-                                    <Image src="/images/renders/render-6.jpg" alt="Terrazas" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                    <Image src="/images/renders/terrace.jpeg" alt="Terrazas" fill className="object-cover hover:scale-105 transition-transform duration-700" />
                                 </div>
                                 <div className="relative col-span-1 row-span-1 overflow-hidden">
-                                    <Image src="/images/renders/render-7.jpg" alt="Piscina" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                    <Image src="/images/renders/coworking.jpeg" alt="Piscina" fill className="object-cover hover:scale-105 transition-transform duration-700" />
                                 </div>
                             </div>
                         </div>
@@ -100,19 +100,22 @@ export default function AmenitiesResidencial() {
 
                         {/* Image Playground mock */}
                         <div className="flex-1 w-full relative mt-16 lg:mt-24 flex items-center justify-center">
-                            <div className="absolute w-40 h-40 lg:w-48 lg:h-48 rounded-full shadow-2xl overflow-hidden border-[6px] border-[#FFF3E1] z-20">
-                                <Image src="/images/renders/render-1.png" alt="Spa" fill className="object-cover" />
-                            </div>
-                            <div className="absolute w-28 h-28 lg:w-32 lg:h-32 rounded-full shadow-xl overflow-hidden border-4 border-[#FFF3E1] -translate-x-20 -translate-y-24 z-10">
-                                <Image src="/images/renders/render-2.png" alt="Yoga" fill className="object-cover" />
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute bottom-2 lg:bottom-4 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">YOGA</span>
+                            <div className="absolute w-53 h-53 lg:w-56 lg:h-56 rounded-full shadow-2xl overflow-hidden border-[6px] border-[#FFF3E1] z-20">
+                                <Image src="/images/renders/spa.jpeg" alt="Spa" fill className="object-cover" />
+                                <div className="hidden lg:flex absolute inset-0 flex items-center justify-center">
+                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute bottom-2 lg:bottom-3 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">SPA</span>
                                 </div>
                             </div>
-                            <div className="absolute w-24 h-24 lg:w-28 lg:h-28 rounded-full shadow-xl overflow-hidden border-4 border-[#FFF3E1] translate-x-24 translate-y-16 z-30">
-                                <Image src="/images/renders/render-3.png" alt="Relax" fill className="object-cover" />
+                            <div className="absolute w-36 h-36 lg:w-56 lg:h-56 rounded-full shadow-xl overflow-hidden border-4 border-[#FFF3E1] -translate-x-20 -translate-y-24 lg:-translate-x-34 lg:-translate-y-0  z-10">
+                                <Image src="/images/renders/yoga.png" alt="Yoga" fill className="object-cover" />
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute bottom-2 lg:bottom-3 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">SPA</span>
+                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute top-2 lg:top-46 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">YOGA</span>
+                                </div>
+                            </div>
+                            <div className="absolute w-32 h-32 lg:w-56 lg:h-56 rounded-full shadow-xl overflow-hidden border-4 border-[#FFF3E1] translate-x-24 translate-y-16 lg:translate-x-34 lg:-translate-y-0  z-30">
+                                <Image src="/images/renders/spa-2.png" alt="Relax" fill className="object-cover" />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute bottom-2 lg:bottom-3 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">JACUZZI</span>
                                 </div>
                             </div>
                         </div>

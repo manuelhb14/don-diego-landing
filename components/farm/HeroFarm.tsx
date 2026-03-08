@@ -2,12 +2,22 @@
 
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 export default function HeroFarm() {
     const ref = useRef(null);
+    const [isDesktop, setIsDesktop] = useState(true);
+
+    useEffect(() => {
+        const mq = window.matchMedia("(min-width: 1024px)");
+        setIsDesktop(mq.matches);
+        const handler = () => setIsDesktop(mq.matches);
+        mq.addEventListener("change", handler);
+        return () => mq.removeEventListener("change", handler);
+    }, []);
+
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ["start start", "end start"],
@@ -16,19 +26,19 @@ export default function HeroFarm() {
     const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
 
     return (
-        <section ref={ref} className="relative w-full bg-[#DEBEBF] py-16 px-20">
+        <section ref={ref} className="relative w-full bg-[#DEBEBF] py-16 px-6 md:px-10 lg:px-20">
             <div className="flex flex-col lg:flex-row h-[90dvh] min-h-[600px] w-full overflow-hidden">
 
                 {/* Left: Content Panel */}
                 <motion.div
-                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-1/2 lg:h-full bg-[#1F1D1B]"
+                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#1F1D1B]"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
                 >
                     {/* Top row */}
                     <motion.div
-                        className="flex justify-between items-start px-8 lg:px-12 pt-24 lg:pt-10 mt-10 lg:mt-0"
+                        className="flex justify-between items-start px-4 lg:px-12 pt-4 lg:pt-10"
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.7 }}
@@ -48,12 +58,12 @@ export default function HeroFarm() {
                     </motion.div>
 
                     {/* Center: Title */}
-                    <div className="flex-1 flex flex-col items-center justify-center px-8 lg:px-12">
+                    <div className="flex-1 flex flex-col items-center justify-center px-8 lg:px-12 text-center">
                         <motion.p
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.7 }}
-                            className="text-[10px] lg:text-xs tracking-[0.3em] text-[#DEBEBF] uppercase mb-4 lg:mb-6"
+                            className="text-xs lg:text-sm tracking-[0.3em] text-[#DEBEBF] uppercase mb-2 lg:mb-8 pt-4 lg:pt-0"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             [EL PAISAJE PRODUCTIVO]
@@ -64,7 +74,7 @@ export default function HeroFarm() {
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.3 }}
                             viewBox="0 0 3679 1972"
-                            className="w-full h-auto max-w-[280px] lg:max-w-[440px] pb-6 pt-2"
+                            className="w-full h-auto max-w-[280px] lg:max-w-[440px] pt-1 pb-1 lg:pb-6 lg:pt-2"
                             preserveAspectRatio="xMidYMid meet"
                             fillRule="evenodd"
                             clipRule="evenodd"
@@ -72,14 +82,14 @@ export default function HeroFarm() {
                             strokeMiterlimit={2}
                         >
                             <g transform="matrix(1,0,0,1,-19924.747335,-4344.538747)">
-                                <motion.g
+                            <motion.g
                                     variants={{
                                         hidden: { opacity: 0 },
                                         visible: {
                                             opacity: 1,
                                             transition: {
-                                                staggerChildren: 0.04,
-                                                delayChildren: 0
+                                                staggerChildren: 0.03,
+                                                delayChildren: 1.2
                                             }
                                         }
                                     }}
@@ -414,7 +424,7 @@ export default function HeroFarm() {
                                             opacity: 1,
                                             transition: {
                                                 staggerChildren: 0.05,
-                                                delayChildren: 0.6
+                                                delayChildren: 0.5
                                             }
                                         }
                                     }}
@@ -792,8 +802,8 @@ export default function HeroFarm() {
                                         visible: {
                                             opacity: 1,
                                             transition: {
-                                                staggerChildren: 0.03,
-                                                delayChildren: 1.2
+                                                staggerChildren: 0.075,
+                                                delayChildren: 0.15
                                             }
                                         }
                                     }}
@@ -846,15 +856,28 @@ export default function HeroFarm() {
                             </g>
                         </motion.svg>
 
-                        <motion.p
+                        <motion.div
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.7 }}
-                            className="mt-6 text-[#fff3e1] text-center text-sm lg:text-base italic pt-2 max-w-sm"
-                            style={{ fontFamily: "var(--font-serif)" }}
+                            className="hidden lg:block mt-2 lg:mt-6 flex flex-col items-center gap-2"
+                        >
+                            <p
+                                className="text-[#DEBEBF]/90 text-base lg:text-xl leading-relaxed"
+                                style={{ fontFamily: "var(--font-serif)" }}
+                            >
+                            Una granja para cosechar comunidad.
+                            </p>
+                            <motion.p
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.7 }}
+                            className="hidden lg:block text-[#FFF3E1]/70 text-sm lg:text-base leading-relaxed max-w-sm"
+                            style={{ fontFamily: "var(--font-sans)" }}
                         >
                             Huertos orgánicos, frutales y flores de temporada. Una comunidad conectada a los ciclos de la tierra.
                         </motion.p>
+                        </motion.div>
                     </div>
 
                     {/* Bottom row */}
@@ -862,18 +885,18 @@ export default function HeroFarm() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 1.2 }}
-                        className="px-8 lg:px-12 pb-8 lg:pb-10"
+                        className="px-4 lg:px-12 pb-4 lg:pb-10"
                     >
                         <div className="w-full h-px bg-[#fff3e1]/20 mb-4" />
                         <div className="flex justify-between items-end">
                             <p
-                                className="text-[10px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
+                                className="text-[9px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 San Miguel de Allende
                             </p>
                             <p
-                                className="text-[10px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
+                                className="text-[9px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 Guanajuato, MX
@@ -885,8 +908,11 @@ export default function HeroFarm() {
                 {/* Right: Image */}
                 <div className="relative w-full lg:w-1/2 h-1/2 lg:h-full overflow-hidden">
                     <motion.div
-                        className="absolute inset-0 w-full h-[120%]"
-                        style={{ y: imgY }}
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1.5, ease: "easeOut" }}
+                        className="absolute inset-0 w-full h-full lg:h-[120%]"
+                        style={{ y: isDesktop ? imgY : 0 }}
                     >
                         <Image
                             src="/images/renders/farm.jpg"

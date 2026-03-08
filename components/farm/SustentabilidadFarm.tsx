@@ -17,14 +17,14 @@ export default function SustentabilidadFarm() {
     const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
 
     return (
-        <section id="sustentabilidad" ref={containerRef} className="relative w-full py-32 lg:py-48 overflow-hidden bg-[#1F1D1B]">
+        <section id="sustentabilidad" ref={containerRef} className="relative w-full py-12 lg:py-12 overflow-hidden bg-[#1F1D1B]">
 
             <div className="max-w-[1400px] mx-auto w-full px-6 lg:px-16 flex flex-col lg:flex-row relative">
 
                 {/* Left Side: Editorial Typography */}
                 <motion.div
                     style={{ y: textY }}
-                    className="w-full lg:w-[45%] flex flex-col justify-center z-20 pt-10 lg:pt-32 pr-0 lg:pr-12"
+                    className="w-full lg:w-[45%] flex flex-col justify-center z-20 pt-10 lg:pt-0 pr-0 lg:pr-12"
                 >
                     <p
                         className="text-[10px] tracking-[0.3em] text-[#DEBEBF] uppercase mb-8"
@@ -48,7 +48,7 @@ export default function SustentabilidadFarm() {
                     <div className="space-y-8 max-w-md">
                         <p
                             className="text-[#FFF3E1]/80 text-lg lg:text-xl font-medium leading-relaxed"
-                            style={{ fontFamily: "var(--font-sans)" }}
+                            style={{ fontFamily: "var(--font-serif)" }}
                         >
                             Huertos orgánicos, frutales y flores de temporada. Produce para abastecer el ecosistema y mantenerlo vivo todo el año.
                         </p>
@@ -65,12 +65,12 @@ export default function SustentabilidadFarm() {
                 </motion.div>
 
                 {/* Right Side: Parallax Image Grid */}
-                <div className="w-full lg:w-[55%] relative h-[600px] lg:h-[900px] mt-24 lg:mt-0">
+                <div className="w-full lg:w-[55%] relative h-[550px] lg:h-[900px] -mt-12 lg:-mt-0">
 
                     {/* Main Image Layer */}
                     <motion.div
                         style={{ y: imageY1 }}
-                        className="absolute right-0 top-0 w-[80%] lg:w-[70%] h-[70%] lg:h-[80%] z-10 overflow-hidden shadow-2xl"
+                        className="absolute right-0 top-0 w-[80%] lg:w-[70%] h-[75%] lg:h-[80%] z-10 overflow-hidden shadow-2xl"
                     >
                         <Image
                             src="/images/renders/farm.jpg"

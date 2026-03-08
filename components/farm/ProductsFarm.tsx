@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const products = [
     {
@@ -37,15 +37,24 @@ export default function ProductsFarm() {
         target: targetRef,
     });
 
-    // Translate the cards container horizontally based on vertical scroll
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
+    // Desktop (lg): end at -52% so last two cards visible. Mobile/tablet: -75%.
+    const [scrollEnd, setScrollEnd] = useState("-75%");
+    useEffect(() => {
+        const mq = window.matchMedia("(min-width: 1024px)");
+        const update = () => setScrollEnd(mq.matches ? "-52%" : "-75%");
+        update();
+        mq.addEventListener("change", update);
+        return () => mq.removeEventListener("change", update);
+    }, []);
+
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", scrollEnd]);
 
     return (
         <section ref={targetRef} className="relative h-[400vh] bg-[#DEBEBF]">
-            <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+            <div className="sticky top-0 h-[88vh] md:h-screen flex items-center overflow-hidden lg:mb-20 mb-0">
 
                 {/* Intro Title fixed on the left for the first phase, then scrolls out? No, let's include it in the scrolling timeline or absolute positioned smartly */}
-                <div className="absolute top-12 md:top-24 left-6 md:left-16 z-20">
+                <div className="absolute top-20 left-6 md:left-16 z-20">
                     <p
                         className="text-[10px] tracking-[0.3em] text-[#1F1D1B] uppercase mb-4"
                         style={{ fontFamily: "var(--font-sans)" }}
@@ -63,14 +72,14 @@ export default function ProductsFarm() {
                     </h2>
                 </div>
 
-                <motion.div style={{ x }} className="flex gap-8 lg:gap-16 px-6 md:px-16 pt-32 lg:pt-0 pb-12 items-center h-full">
+                <motion.div style={{ x }} className="flex gap-8 lg:gap-16 px-0 md:px-16 pt-32 lg:pt-56 pb-0 items-center h-full">
                     {/* Empty placeholder spacer so the first card sits cleanly center/right initially */}
-                    <div className="w-[10vw] md:w-[30vw] flex-shrink-0" />
+                    <div className="w-[0vw] md:w-[0px] flex-shrink-0" />
 
                     {products.map((item) => (
                         <div
                             key={item.id}
-                            className="w-[85vw] md:w-[60vw] lg:w-[45vw] h-[60vh] lg:h-[70vh] flex-shrink-0 group relative rounded-[32px] overflow-hidden shadow-2xl flex flex-col bg-[#1F1D1B]"
+                            className="w-[85vw] md:w-[60vw] lg:w-[45vw] h-[60vh] lg:h-[70vh] flex-shrink-0 group relative rounded-[32px] overflow-hidden shadow-sm flex flex-col bg-[#1F1D1B]"
                         >
                             {/* Image Background */}
                             <div className="absolute inset-0 z-0">
@@ -109,7 +118,7 @@ export default function ProductsFarm() {
                     ))}
 
                     {/* End Spacer */}
-                    <div className="w-[10vw] flex-shrink-0" />
+                    {/* <div className="w-[10vw] flex-shrink-0" /> */}
                 </motion.div>
             </div>
         </section>

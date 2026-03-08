@@ -182,7 +182,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                         </Link>
 
                                         {subLinks && (
-                                            <div className="flex flex-col items-center gap-3 mt-4 mb-2">
+                                            <div className="flex flex-col items-start gap-3 mt-4 mb-2">
                                                 {subLinks.map(sub => {
                                                     const isSubActive = pathname === sub.href;
                                                     return (

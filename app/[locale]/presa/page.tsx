@@ -14,7 +14,7 @@ export default async function PresaPage({ params }: Props) {
 
     return (
         <>
-            <Navbar locale={locale} />
+            <Navbar locale={locale} theme="dark"/>
             <main>
                 <HeroPresa />
                 <ConceptPresa />

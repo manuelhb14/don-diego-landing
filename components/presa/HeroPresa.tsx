@@ -1,74 +1,102 @@
-"use client";
+ "use client";
 
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function HeroPresa() {
     const ref = useRef(null);
+    const [isDesktop, setIsDesktop] = useState(true);
+
+    useEffect(() => {
+        const mq = window.matchMedia("(min-width: 1024px)");
+        setIsDesktop(mq.matches);
+        const handler = () => setIsDesktop(mq.matches);
+        mq.addEventListener("change", handler);
+        return () => mq.removeEventListener("change", handler);
+    }, []);
+
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ["start start", "end start"],
     });
 
     const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-    const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
     return (
-        <section ref={ref} className="relative flex flex-col lg:flex-row h-dvh min-h-[700px] w-full overflow-hidden bg-[#1F1D1B]">
+        <section
+            ref={ref}
+            className="relative w-full bg-[#C8D7E6] py-16 px-6 md:px-10 lg:px-20"
+        >
+            <div className="flex flex-col lg:flex-row h-[90dvh] min-h-[600px] w-full overflow-hidden">
 
-            <div className="lg:hidden absolute inset-0">
+                {/* Left: Content Panel */}
                 <motion.div
-                    className="absolute inset-0 w-full h-full overflow-hidden"
-                    style={{ y: imgY }}
+                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#1F1D1B]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6 }}
                 >
-                    <Image
-                        src="/images/renders/presa-1.png"
-                        alt="Presa de la Cantera"
-                        fill
-                        priority
-                        className="object-cover object-center"
-                    />
-                    <div className="absolute inset-0 bg-[#1F1D1B]/60" />
-                </motion.div>
-            </div>
+                    {/* Top row */}
+                    <motion.div
+                        className="flex justify-between items-start px-4 lg:px-12 pt-4 lg:pt-10"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.7 }}
+                    >
+                        <p
+                            className="text-[10px] lg:text-xs tracking-[0.25em] text-[#C8D7E6] uppercase"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            Comunidad
+                        </p>
+                        <p
+                            className="text-[10px] lg:text-xs tracking-[0.25em] text-[#C8D7E6] uppercase"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            Presa de la Cantera
+                        </p>
+                    </motion.div>
 
-            <motion.div
-                className="relative z-10 flex flex-col items-center justify-center px-6 md:px-8 lg:px-16 text-center w-full lg:w-1/2 h-full bg-[#1F1D1B]"
-                style={{ y: contentY }}
-            >
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                    className="text-sm tracking-[0.3em] text-[#C8D7E6] uppercase mb-6 lg:mb-8"
-                    style={{ fontFamily: "var(--font-sans)" }}
-                >
-                    [VIDA JUNTO AL AGUA]
-                </motion.p>
+                    {/* Center: Tagline + Logo placeholder + Copy */}
+                    <div className="flex-1 flex flex-col items-center justify-center px-8 lg:px-12 text-center">
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.7 }}
+                            className="text-xs lg:text-sm tracking-[0.3em] text-[#C8D7E6] uppercase mb-2 lg:mb-8 pt-4 lg:pt-0"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            [VIDA JUNTO AL AGUA]
+                        </motion.p>
 
-                <motion.svg
-                    variants={{
-                        hidden: { opacity: 0 },
-                        visible: {
-                            opacity: 1,
-                            transition: {
-                                staggerChildren: 0.08,
-                                delayChildren: 0.05
-                            }
-                        }
-                    }}
-                    initial="hidden"
-                    animate="visible"
-                    viewBox="0 0 2698 1984"
-                    className="w-full h-auto max-w-[280px] lg:max-w-[420px] pb-6 pt-2"
-                    preserveAspectRatio="xMidYMid meet"
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    strokeLinejoin="round"
-                    strokeMiterlimit={2}
-                >
+                                        <motion.svg
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                            viewBox="0 0 2698 1984"
+                            className="w-full h-auto max-w-[280px] lg:max-w-[420px] pb-6 pt-2 px-4 lg:px-8"
+                            preserveAspectRatio="xMidYMid meet"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            strokeLinejoin="round"
+                            strokeMiterlimit={2}
+                        >
                             <g transform="matrix(1,0,0,1,-20434.627629,-598.731937)">
+                                <motion.g
+                                    variants={{
+                                        hidden: { opacity: 0 },
+                                        visible: {
+                                            opacity: 1,
+                                            transition: {
+                                                staggerChildren: 0.04,
+                                                delayChildren: 0
+                                            }
+                                        }
+                                    }}
+                                    initial="hidden"
+                                    animate="visible"
+                                >
                                 <g transform="matrix(0.666927,0,0,0.666927,7402.199721,1166.159021)">
                                     <g transform="matrix(2.852297,0,0,2.852297,20734.810127,2104.482148)">
                                         <motion.path
@@ -79,8 +107,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -100,8 +128,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -121,8 +149,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -142,8 +170,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -163,8 +191,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -184,8 +212,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -205,8 +233,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -226,8 +254,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -247,8 +275,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -268,8 +296,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -289,8 +317,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -310,8 +338,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -331,8 +359,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -352,8 +380,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -373,8 +401,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -394,8 +422,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -405,6 +433,21 @@ export default function HeroPresa() {
                                         />
                                     </g>
                                 </g>
+                                </motion.g>
+                                <motion.g
+                                    variants={{
+                                        hidden: { opacity: 0 },
+                                        visible: {
+                                            opacity: 1,
+                                            transition: {
+                                                staggerChildren: 0.05,
+                                                delayChildren: 0.6
+                                            }
+                                        }
+                                    }}
+                                    initial="hidden"
+                                    animate="visible"
+                                >
                                 <g transform="matrix(2.247312,0,0,2.770701,-700.45436,-12437.147279)">
                                     <motion.path
                                         d="M9404.606,5098.471L9404.606,4993.203L9452.07,4993.203C9464.554,4993.203 9474.288,4996.01 9481.272,5001.625C9488.255,5007.239 9491.747,5014.808 9491.747,5024.332C9491.747,5033.857 9488.255,5041.426 9481.272,5047.04C9474.288,5052.655 9464.554,5055.462 9452.07,5055.462L9425.186,5055.462L9425.186,5098.471L9404.606,5098.471ZM9425.186,5039.972L9451.514,5039.972C9464.369,5039.972 9470.796,5034.759 9470.796,5024.332C9470.796,5013.906 9464.369,5008.693 9451.514,5008.693L9425.186,5008.693L9425.186,5039.972Z"
@@ -414,8 +457,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -433,8 +476,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -452,8 +495,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -471,8 +514,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -490,8 +533,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -509,8 +552,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -528,8 +571,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -547,8 +590,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -566,8 +609,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -585,8 +628,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -604,8 +647,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -623,8 +666,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -642,8 +685,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -661,8 +704,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -680,8 +723,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -699,8 +742,8 @@ export default function HeroPresa() {
                                                 pathLength: 1,
                                                 fill: "rgba(200, 215, 230, 1)",
                                                 transition: {
-                                                    pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                    fill: { duration: 0.6, ease: "easeOut" }
+                                                    pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    fill: { duration: 0.4, ease: "easeOut" }
                                                 }
                                             }
                                         }}
@@ -709,6 +752,21 @@ export default function HeroPresa() {
                                         fillRule="nonzero"
                                     />
                                 </g>
+                                </motion.g>
+                                <motion.g
+                                    variants={{
+                                        hidden: { opacity: 0 },
+                                        visible: {
+                                            opacity: 1,
+                                            transition: {
+                                                staggerChildren: 0.03,
+                                                delayChildren: 1.2
+                                            }
+                                        }
+                                    }}
+                                    initial="hidden"
+                                    animate="visible"
+                                >
                                 <g transform="matrix(1,0,0,1,215.919296,3.1903)">
                                     <g transform="matrix(11.718191,0,0,11.718191,21773.684673,846.278207)">
                                         <motion.path
@@ -719,8 +777,8 @@ export default function HeroPresa() {
                                                     pathLength: 1,
                                                     fill: "rgba(200, 215, 230, 1)",
                                                     transition: {
-                                                        pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                        fill: { duration: 0.6, ease: "easeOut" }
+                                                        pathLength: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.3, ease: "easeOut" }
                                                     }
                                                 }
                                             }}
@@ -730,79 +788,75 @@ export default function HeroPresa() {
                                         />
                                     </g>
                                 </g>
+                                </motion.g>
                             </g>
                 </motion.svg>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                    className="mt-8 lg:mt-10 max-w-md"
-                >
-                    <p
-                        className="text-[#C8D7E6]/90 text-lg lg:text-xl leading-relaxed mb-4"
-                        style={{ fontFamily: "var(--font-serif)" }}
-                    >
-                        Espacio público/privado junto al agua
-                    </p>
-                    <p
-                        className="text-[#FFF3E1]/70 text-sm lg:text-base leading-relaxed"
-                        style={{ fontFamily: "var(--font-sans)" }}
-                    >
-                        Naturaleza, comunidad y vida social integradas en un frente lacustre único.
-                    </p>
-                </motion.div>
-
-                {/* <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                    className="mt-10 lg:mt-12"
-                >
-                    <a
-                        href="#espacios"
-                        className="inline-flex items-center justify-center gap-4 group"
-                    >
-                        <span className="h-px w-8 bg-[#C8D7E6]/40 group-hover:w-12 transition-all duration-500" />
-                        <span
-                            className="text-[11px] tracking-[0.2em] text-[#C8D7E6] uppercase"
-                            style={{ fontFamily: "var(--font-sans)" }}
+                        <motion.div
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.9 }}
+                            className="mt-2 lg:mt-6 max-w-md flex flex-col items-center gap-2"
                         >
-                            Conocer más
-                        </span>
-                        <span className="h-px w-8 bg-[#C8D7E6]/40 group-hover:w-12 transition-all duration-500" />
-                    </a>
-                </motion.div> */}
-            </motion.div>
+                            <p
+                                className="hidden lg:block text-[#C8D7E6]/90 text-base lg:text-xl leading-relaxed"
+                                style={{ fontFamily: "var(--font-serif)" }}
+                            >
+                                Espacio público/privado junto al agua
+                            </p>
+                            <p
+                                className="hidden lg:block text-[#FFF3E1]/70 text-sm lg:text-base leading-relaxed"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                Naturaleza, comunidad y vida social integradas en un frente lacustre único.
+                            </p>
+                        </motion.div>
+                    </div>
 
-            <div className="hidden lg:block relative w-1/2 h-full overflow-hidden">
-                <motion.div
-                    className="absolute inset-0 w-full h-[120%]"
-                    style={{ y: imgY }}
-                >
-                    <Image
-                        src="/images/renders/presa-1.png"
-                        alt="Presa de la Cantera"
-                        fill
-                        priority
-                        className="object-cover object-center"
-                    />
+                    {/* Bottom row */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 1.2 }}
+                        className="px-4 lg:px-12 pb-4 lg:pb-10"
+                    >
+                        <div className="w-full h-px bg-[#C8D7E6]/20 mb-4" />
+                        <div className="flex justify-between items-end">
+                            <p
+                                className="text-[9px] lg:text-xs tracking-[0.25em] text-[#C8D7E6] uppercase"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                San Miguel de Allende
+                            </p>
+                            <p
+                                className="text-[9px] lg:text-xs tracking-[0.25em] text-[#C8D7E6] uppercase"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                Guanajuato, MX
+                            </p>
+                        </div>
+                    </motion.div>
                 </motion.div>
-            </div>
 
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 1.2 }}
-                className="absolute bottom-6 left-6 lg:bottom-10 lg:left-16 z-20"
-            >
-                <p
-                    className="text-sm text-[#C8D7E6]/70"
-                    style={{ fontFamily: "var(--font-sans)" }}
-                >
-                    San Miguel de Allende, Guanajuato
-                </p>
-            </motion.div>
+                {/* Right: Image */}
+                <div className="relative w-full lg:w-1/2 h-1/2 lg:h-full overflow-hidden">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1.5, ease: "easeOut" }}
+                        className="absolute inset-0 w-full h-full lg:h-[120%]"
+                        style={{ y: isDesktop ? imgY : 0 }}
+                    >
+                        <Image
+                            src="/images/renders/presa-1.png"
+                            alt="Presa de la Cantera"
+                            fill
+                            priority
+                            className="object-cover object-center"
+                        />
+                    </motion.div>
+                </div>
+            </div>
         </section>
     );
 }

@@ -41,7 +41,7 @@ const residences = [
         label: "03",
         title: "Penthouses",
         description: "El punto más alto de Club Residencial. Vistas ininterrumpidas, amplitud extrema y acabados de lujo de la región guiados por el diseño consciente.",
-        image: "/images/renders/render-2.png",
+        image: "/images/renders/render-8.png",
         accent: "#E1B19B",
         features: [
             { icon: Wine, text: "Rooftop Privado" },
@@ -55,7 +55,7 @@ const residences = [
         label: "04",
         title: "Villas Familiares",
         description: "Residencias premium independientes con el máximo grado de privacidad. Extensos jardines propios en el corazón del entorno sin vehículos.",
-        image: "/images/renders/render-3.png",
+        image: "/images/renders/presa-1.png",
         accent: "#E1B19B",
         features: [
             { icon: Home, text: "Residencias Independientes" },
@@ -84,7 +84,7 @@ function ResidenceCard({ residence, index, totalResidences, scrollYProgress }: R
     const nextStartTransitionWeight = (index + 1) * pauseWeight + index * transitionWeight;
     const nextEndTransitionWeight = nextStartTransitionWeight + transitionWeight;
 
-    const y = useTransform(
+    const x = useTransform(
         scrollYProgress,
         [
             0,
@@ -100,19 +100,25 @@ function ResidenceCard({ residence, index, totalResidences, scrollYProgress }: R
         ]
     );
 
-    const contentY = useTransform(
+    const contentAnimDelay = pauseWeight * 0.15;
+    const contentAnimDuration = pauseWeight * 0.3;
+
+    const contentStartWeight = (index === 0 ? pauseWeight * 0.3 : endTransitionWeight) + contentAnimDelay;
+    const contentEndWeight = contentStartWeight + contentAnimDuration;
+
+    const contentX = useTransform(
         scrollYProgress,
         [
             0,
-            nextStartTransitionWeight / totalWeight,
-            nextEndTransitionWeight / totalWeight,
+            contentStartWeight / totalWeight,
+            contentEndWeight / totalWeight,
             1
         ],
         [
+            "30%",
+            "30%",
             "0%",
-            "0%",
-            index === totalResidences - 1 ? "0%" : "-100%",
-            index === totalResidences - 1 ? "0%" : "-100%"
+            "0%"
         ]
     );
 
@@ -120,36 +126,24 @@ function ResidenceCard({ residence, index, totalResidences, scrollYProgress }: R
         scrollYProgress,
         [
             0,
-            nextStartTransitionWeight / totalWeight,
-            nextEndTransitionWeight / totalWeight,
+            contentStartWeight / totalWeight,
+            contentEndWeight / totalWeight,
             1
         ],
         [
+            0,
+            0,
             1,
-            1,
-            index === totalResidences - 1 ? 1 : 0,
-            index === totalResidences - 1 ? 1 : 0
+            1
         ]
     );
 
-    const cardArrivedWeight = index === 0 ? 0 : endTransitionWeight;
-    const textAnimStartWeight = index === 0 ? 0 : cardArrivedWeight + (pauseWeight * 0.1);
-    const textAnimDurationWeight = pauseWeight * 0.4;
-
-    const textAnimStart = textAnimStartWeight / totalWeight;
-    const textAnimDuration = textAnimDurationWeight / totalWeight;
-
-    const staggerFraction = 0.5;
-    const step = (textAnimDuration * staggerFraction) / 4;
-
     const createInputRange = (elementIndex: number) => {
-        const elementStart = textAnimStart + step * elementIndex;
-        const elementEnd = elementStart + (textAnimDuration * (1 - staggerFraction));
-        return [0, elementStart, elementEnd, 1];
+        return [0, 0, 1, 1];
     };
 
-    const createYOutputRange = () => [30, 30, 0, 0];
-    const createOpacityOutputRange = () => [0, 0, 1, 1];
+    const createYOutputRange = () => [0, 0, 0, 0];
+    const createOpacityOutputRange = () => [1, 1, 1, 1];
 
     const labelY = useTransform(scrollYProgress, createInputRange(0), createYOutputRange());
     const labelOpacity = useTransform(scrollYProgress, createInputRange(0), createOpacityOutputRange());
@@ -157,8 +151,8 @@ function ResidenceCard({ residence, index, totalResidences, scrollYProgress }: R
     const titleY = useTransform(scrollYProgress, createInputRange(1), createYOutputRange());
     const titleOpacity = useTransform(scrollYProgress, createInputRange(1), createOpacityOutputRange());
 
-    const lineY = useTransform(scrollYProgress, createInputRange(2), createYOutputRange());
-    const lineOpacity = useTransform(scrollYProgress, createInputRange(2), createOpacityOutputRange());
+    const cardY = useTransform(scrollYProgress, createInputRange(2), createYOutputRange());
+    const cardOpacity = useTransform(scrollYProgress, createInputRange(2), createOpacityOutputRange());
 
     const descY = useTransform(scrollYProgress, createInputRange(3), createYOutputRange());
     const descOpacity = useTransform(scrollYProgress, createInputRange(3), createOpacityOutputRange());
@@ -169,7 +163,7 @@ function ResidenceCard({ residence, index, totalResidences, scrollYProgress }: R
     return (
         <motion.div
             className="absolute inset-0 w-full h-full shadow-[0_-10px_40px_rgba(0,0,0,0.5)] overflow-hidden"
-            style={{ y }}
+            style={{ x, zIndex: index + 1 }}
         >
             {/* Background image */}
             <div className="absolute inset-0 bg-[#1F1D1B]">
@@ -177,50 +171,52 @@ function ResidenceCard({ residence, index, totalResidences, scrollYProgress }: R
                     src={residence.image}
                     alt={residence.title}
                     fill
-                    className="object-cover object-center opacity-85"
+                    className="object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:hidden" />
+                {/* <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" /> */}
+                {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:hidden" /> */}
             </div>
 
             {/* Content */}
             <motion.div
-                className="relative z-10 flex h-full items-end p-8 lg:p-16 pb-12 lg:pb-24"
-                style={{ y: contentY, opacity: contentOpacity }}
+                className="relative z-10 flex flex-col h-full justify-end items-end p-8 lg:p-16 pb-12 lg:pb-24"
+                style={{ x: contentX, opacity: contentOpacity }}
             >
-                <div className="max-w-2xl bg-[#1F1D1B]/40 backdrop-blur-md p-8 lg:p-12 rounded-[24px] border border-white/5 shadow-2xl">
-                    {/* Number */}
-                    <motion.p
-                        className="text-[#E1B19B]/60 mb-2 leading-none"
-                        style={{
-                            fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(3rem, 6vw, 6rem)",
-                            fontWeight: 300,
-                            y: labelY,
-                            opacity: labelOpacity,
-                        }}
-                    >
-                        {residence.label}
-                    </motion.p>
+                {/* Number */}
+                <motion.p
+                    className="text-[#E1B19B]/90 mb-2 leading-none"
+                    style={{
+                        fontFamily: "var(--font-serif)",
+                        fontSize: "clamp(3.5rem, 6vw, 6rem)",
+                        fontWeight: 300,
+                        y: labelY,
+                        opacity: labelOpacity,
+                    }}
+                >
+                    {residence.label}
+                </motion.p>
 
-                    {/* Title */}
-                    <motion.h3
-                        className="text-[#FFF3E1] leading-none mb-6"
-                        style={{
-                            fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(2rem, 4vw, 4rem)",
-                            y: titleY,
-                            opacity: titleOpacity,
-                        }}
-                    >
-                        {residence.title}
-                    </motion.h3>
-
+                {/* Title */}
+                <motion.h3
+                    className="text-[#FFF3E1] leading-none mb-2 lg:mb-4"
+                    style={{
+                        fontFamily: "var(--font-serif)",
+                        fontSize: "clamp(2.7rem, 4vw, 4rem)",
+                        y: titleY,
+                        opacity: titleOpacity,
+                    }}
+                >
+                    {residence.title}
+                </motion.h3>
+                <motion.div
+                    className="max-w-xl bg-[#1F1D1B]/40 backdrop-blur-md p-4 lg:p-8 rounded-[24px] border border-white/5 shadow-2xl"
+                    style={{ y: cardY, opacity: cardOpacity }}
+                >
                     {/* Description */}
                     <motion.p
-                        className="text-[#FFF3E1]/90 text-base lg:text-lg leading-relaxed max-w-lg mb-6 lg:mb-10"
+                        className="text-[#FFF3E1] text-base lg:text-xl leading-relaxed max-w-lg mb-4 lg:mb-4"
                         style={{
-                            fontFamily: "var(--font-sans)",
+                            fontFamily: "var(--font-serif)",
                             y: descY,
                             opacity: descOpacity,
                         }}
@@ -230,7 +226,7 @@ function ResidenceCard({ residence, index, totalResidences, scrollYProgress }: R
 
                     {/* Features Grid */}
                     <motion.div
-                        className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6"
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-y-1.5 lg:gap-y-3 gap-x-6"
                         style={{
                             y: featuresY,
                             opacity: featuresOpacity,
@@ -239,12 +235,12 @@ function ResidenceCard({ residence, index, totalResidences, scrollYProgress }: R
                         {residence.features.map((feature, idx) => {
                             const Icon = feature.icon;
                             return (
-                                <div key={idx} className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-full bg-[#E1B19B]/20 flex items-center justify-center shrink-0 border border-[#E1B19B]/30">
-                                        <Icon size={14} className="text-[#E1B19B]" strokeWidth={2} />
+                                <div key={idx} className="flex items-center gap-2">
+                                    <div className="w-6 h-6 rounded-full bg-[#E1B19B]/20 flex items-center justify-center shrink-0 border border-[#E1B19B]/30">
+                                        <Icon size={13} className="text-[#E1B19B]" strokeWidth={2} />
                                     </div>
                                     <span
-                                        className="text-[#FFF3E1]/80 text-[13px] tracking-wider uppercase font-medium"
+                                        className="text-[#FFF3E1]/90 text-[13px] tracking-wider font-medium"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
                                         {feature.text}
@@ -253,7 +249,7 @@ function ResidenceCard({ residence, index, totalResidences, scrollYProgress }: R
                             );
                         })}
                     </motion.div>
-                </div>
+                </motion.div>
             </motion.div>
         </motion.div>
     );
@@ -271,7 +267,7 @@ export default function FeaturesResidencial() {
             {/* Section label */}
             <div className="sticky top-0 h-screen overflow-hidden">
                 {/* Top bar */}
-                <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 lg:px-14 pt-16">
+                <div className="absolute top-0 left-0 right-0 z-20 flex flex-col gap-1 px-6 lg:px-14 pt-16">
                     <p
                         className="text-[10px] tracking-[0.3em] text-[#E1B19B] uppercase"
                         style={{ fontFamily: "var(--font-sans)" }}

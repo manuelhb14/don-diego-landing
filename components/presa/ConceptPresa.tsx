@@ -40,15 +40,15 @@ export default function ConceptPresa() {
     const [activeFeature, setActiveFeature] = useState(features[0].id);
 
     return (
-        <section id="concepto" className="bg-[#1F1D1B] py-24 lg:py-32 overflow-hidden min-h-screen flex items-center">
+        <section id="concepto" className="bg-[#1F1D1B] py-16 lg:py-24 overflow-hidden min-h-screen flex items-center">
             <div className="max-w-[1600px] mx-auto w-full px-6 lg:px-16">
 
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="mb-12"
+                    transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    className="mb-6 lg:mb-8"
                 >
                     <p
                         className="text-[10px] tracking-[0.3em] text-[#C8D7E6] uppercase mb-4"
@@ -121,37 +121,41 @@ export default function ConceptPresa() {
                                     </h3>
                                 </div>
 
-                                {/* Active State Content */}
-                                <div className={`absolute inset-0 p-8 lg:p-12 flex flex-col justify-end z-20 transition-opacity duration-500 delay-200 ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                                {/* Active State Content - fades out fast when inactive to avoid bump during resize */}
+                                <div className={`absolute inset-0 p-8 lg:p-12 flex flex-col justify-end z-20 pointer-events-none ${isActive ? 'pointer-events-auto' : ''}`}>
                                     <motion.div
                                         initial={false}
                                         animate={{ y: isActive ? 0 : 20, opacity: isActive ? 1 : 0 }}
-                                        transition={{ duration: 0.4, delay: 0.2 }}
+                                        transition={{
+                                            duration: isActive ? 0.35 : 0.15,
+                                            delay: isActive ? 0.15 : 0,
+                                            ease: [0.25, 0.46, 0.45, 0.94],
+                                        }}
                                     >
-                                        <div className="flex items-center gap-4 mb-4">
+                                        <div className="flex items-center gap-4 mb-1 lg:mb-4">
                                             <span className="text-[#C8D7E6] text-sm font-bold tracking-widest" style={{ fontFamily: "var(--font-sans)" }}>
                                                 0{index + 1}
                                             </span>
                                             <div className="h-px flex-grow max-w-[50px] bg-[#C8D7E6]/40" />
                                         </div>
                                         <h3
-                                            className="text-[#FFF3E1] text-3xl lg:text-5xl mb-4 leading-tight"
+                                            className="text-[#FFF3E1] text-3xl lg:text-5xl mb-1 lg:mb-4 leading-tight"
                                             style={{ fontFamily: "var(--font-serif)" }}
                                         >
                                             {feature.title}
                                         </h3>
                                         <p
-                                            className="text-[#FFF3E1]/80 text-base lg:text-lg max-w-xl leading-relaxed"
+                                            className="text-[#FFF3E1]/80 text-sm lg:text-lg max-w-xl leading-relaxed"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
                                             {feature.description}
                                         </p>
 
                                         {/* Optional Explore Button */}
-                                        <button className="mt-8 flex items-center gap-2 text-[#C8D7E6] font-medium text-sm hover:gap-4 transition-all duration-300" style={{ fontFamily: "var(--font-sans)" }}>
+                                        {/* <button className="mt-8 flex items-center gap-2 text-[#C8D7E6] font-medium text-sm hover:gap-4 transition-all duration-300" style={{ fontFamily: "var(--font-sans)" }}>
                                             <span>Descubrir más</span>
                                             <ChevronRight className="w-4 h-4" />
-                                        </button>
+                                        </button> */}
                                     </motion.div>
                                 </div>
                             </motion.div>

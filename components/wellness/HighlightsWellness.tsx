@@ -132,10 +132,10 @@ export default function HighlightsWellness() {
                     {highlights.map((item, index) => (
                         <motion.div
                             key={item.id}
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.7, delay: index * 0.1 }}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true, margin: "0px 1px 0px 1px" }}
+                            transition={{ duration: 0.5, delay: index * 0.06, ease: [0.25, 0.46, 0.45, 0.94] }}
                             onClick={() => scrollTo(index)}
                             className="group relative shrink-0 w-[85vw] sm:w-[75vw] md:w-[60vw] lg:w-[60vw] max-w-[1000px] aspect-[4/5] sm:aspect-[4/3] md:aspect-[1.6] lg:aspect-[1.7] overflow-hidden snap-center bg-[#11100F] border border-white/5 flex flex-col cursor-pointer rounded-md"
                         >
@@ -156,15 +156,15 @@ export default function HighlightsWellness() {
                                 )}
                             </div>
 
-                            <div className="relative z-10 p-8 sm:p-10 lg:p-8 flex flex-col items-start justify-end h-full">
+                            <div className="relative z-10 p-4 lg:p-8 flex flex-col items-start justify-end h-full">
                                 <h3
-                                    className="text-[#D7D7AA] text-3xl sm:text-4xl lg:text-5xl mb-4 max-w-sm tracking-tight"
+                                    className="text-[#D7D7AA] text-3xl sm:text-4xl lg:text-5xl mb-1 lg:mb-4 max-w-sm tracking-tight"
                                     style={{ fontFamily: "var(--font-serif)" }}
                                 >
                                     {item.title}
                                 </h3>
                                 <p
-                                    className="text-[#FFF3E1] text-base max-w-md leading-relaxed pl-2"
+                                    className="text-[#FFF3E1] text-sm lg:text-base max-w-md leading-relaxed pl-2"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
                                     {item.description}
