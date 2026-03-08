@@ -165,10 +165,9 @@ export default function Footer() {
                     {/* Social Links */}
                     <div className="col-span-2 lg:col-span-2 lg:text-right">
                         <ul className="space-y-3 font-sans text-xs tracking-widest uppercase font-medium">
-                            <li><a className="hover:underline underline-offset-4" href="https://www.instagram.com/don_diego_oficial/">Instagram</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="https://www.pinterest.com/don_diego_oficial/">Pinterest</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="https://www.linkedin.com/company/don_diego_oficial/">Linkedin</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="https://www.facebook.com/don_diego_oficial/">Facebook</a></li>
+                            <li><a className="hover:underline underline-offset-4" href="https://www.instagram.com/dondiegosma/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                            <li><a className="hover:underline underline-offset-4" href="https://www.youtube.com/@dondiegosma" target="_blank" rel="noopener noreferrer">Youtube</a></li>
+                            <li><a className="hover:underline underline-offset-4" href="https://www.tiktok.com/@dondiegosma" target="_blank" rel="noopener noreferrer">TikTok</a></li>
                         </ul>
                     </div>
                 </div>

@@ -57,7 +57,7 @@ export default function LocationSummaryProyecto() {
                     </h2>
 
                     <p className="text-[#E6E1D6]/70 leading-relaxed text-base lg:text-lg font-sans font-light mb-12 max-w-md">
-                        A solo diez minutos del vibrante centro histórico de San Miguel de Allende.
+                        A solo ocho minutos del vibrante centro histórico de San Miguel de Allende.
                         Don Diego ofrece un refugio de paz y privacidad, manteniendo una conexión íntima
                         con una de las ciudades más cautivadoras del mundo.
                     </p>
