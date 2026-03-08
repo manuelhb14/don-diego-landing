@@ -9,7 +9,7 @@ export default function LocationSummaryProyecto() {
     const hasVisited = useHasVisited();
 
     return (
-        <section className="relative bg-[#1F1D1B] w-full py-24 md:py-32 lg:py-40 px-6 md:px-12 lg:px-24">
+        <section className="relative bg-[#1F1D1B] w-full py-16 md:py-24 lg:py-32 px-6 md:px-12 lg:px-24">
             <div className="max-w-[1440px] mx-auto w-full flex flex-col md:flex-row items-center gap-12 lg:gap-24">
 
                 {/* Left: Image */}
@@ -18,10 +18,10 @@ export default function LocationSummaryProyecto() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 1, ease: "easeOut" }}
-                    className="w-full md:w-1/3 relative aspect-[4/5] sm:aspect-square md:aspect-[4/5] lg:aspect-[3/4] overflow-hidden rounded-sm group"
+                    className="w-full md:w-full relative aspect-[16/9] overflow-hidden rounded-sm group"
                 >
                     <Image
-                        src="/images/gallery/gallery-13.jpg"
+                        src="/images/location/aerial-2.png"
                         alt="San Miguel de Allende"
                         fill
                         className="object-cover transition-transform duration-[2s] group-hover:scale-105"
@@ -63,7 +63,7 @@ export default function LocationSummaryProyecto() {
                     </p>
 
                     <Link
-                        href="/location" /* Note: Replace with actual location link when ready */
+                        href="/ubicacion"
                         className="inline-flex items-center gap-4 group cursor-pointer"
                     >
                         <span

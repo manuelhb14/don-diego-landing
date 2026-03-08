@@ -44,7 +44,7 @@ export default function GridProyecto() {
     const hasVisited = useHasVisited();
 
     return (
-        <section id="componentes" className="bg-[#FFF3E1] pt-12 pb-24 px-6 md:px-12 lg:px-24 w-full">
+        <section id="componentes" className="bg-[#FFF3E1] pt-12 pb-12 md:pb-24 px-6 md:px-12 lg:px-24 w-full">
             <div className="max-w-[1440px] mx-auto w-full">
                 {/* Bento Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
@@ -100,7 +100,7 @@ export default function GridProyecto() {
                     ))}
                 </div>
 
-                <div className="w-full mt-10 md:mt-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+                <div className="w-full mt-10 md:mt-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 md:gap-8">
                     <motion.div
                         initial={hasVisited ? false : { opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -127,10 +127,7 @@ export default function GridProyecto() {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="max-w-md md:mb-2 lg:mb-4"
                     >
-                        <p
-                            className="text-[#222222]/80 text-base md:text-lg leading-relaxed"
-                            style={{ fontFamily: "var(--font-serif)", letterSpacing: "0.05em" }}
-                        >
+                        <p className="text-[#222] text-lg md:text-xl font-medium leading-relaxed mb-0" style={{ fontFamily: "var(--font-serif)" }}>
                             Cada componente ha sido diseñado como parte de un ecosistema integral, respetando la vocación del lugar y ofreciendo una experiencia de vida única y armoniosa.
                         </p>
                     </motion.div>

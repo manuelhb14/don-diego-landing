@@ -32,102 +32,85 @@ const products = [
 ];
 
 export default function ProductsFarm() {
-    const sectionRef = useRef<HTMLDivElement>(null);
+    const targetRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start end", "end start"]
+        target: targetRef,
     });
 
-    const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+    // Translate the cards container horizontally based on vertical scroll
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
 
     return (
-        <section ref={sectionRef} className="bg-[#1F1D1B] py-24 lg:py-40 overflow-hidden relative">
-            <div className="max-w-[1440px] mx-auto w-full px-6 lg:px-16">
+        <section ref={targetRef} className="relative h-[400vh] bg-[#DEBEBF]">
+            <div className="sticky top-0 h-screen flex items-center overflow-hidden">
 
-                {/* Floating/Parallax Title */}
-                <motion.div
-                    style={{ y: titleY }}
-                    className="text-center mb-32 lg:mb-48 relative z-0 pointer-events-none"
-                >
+                {/* Intro Title fixed on the left for the first phase, then scrolls out? No, let's include it in the scrolling timeline or absolute positioned smartly */}
+                <div className="absolute top-12 md:top-24 left-6 md:left-16 z-20">
                     <p
-                        className="text-[10px] tracking-[0.3em] text-[#D7D7AA] uppercase mb-6"
+                        className="text-[10px] tracking-[0.3em] text-[#1F1D1B] uppercase mb-4"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         [Producción]
                     </p>
                     <h2
-                        className="text-[#D7D7AA] leading-tight"
+                        className="text-[#1F1D1B] leading-tight"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(3rem, 7vw, 6rem)",
-                            opacity: 0.15
+                            fontSize: "clamp(2.5rem, 5vw, 4rem)",
                         }}
                     >
                         Ciclo Natural
                     </h2>
-                </motion.div>
-
-                {/* Overlapping Zig-Zag Items */}
-                <div className="relative z-10 flex flex-col gap-32 lg:gap-40 mt-[-150px] lg:mt-[-250px]">
-                    {products.map((item, index) => {
-                        const isEven = index % 2 === 0;
-
-                        return (
-                            <div key={item.id} className={`flex flex-col lg:flex-row items-center gap-10 lg:gap-0 ${isEven ? '' : 'lg:flex-row-reverse'}`}>
-
-                                {/* Image Box */}
-                                <motion.div
-                                    initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ margin: "-10% 0px -10% 0px" }}
-                                    transition={{ duration: 0.8, ease: "easeOut" }}
-                                    className={`w-full lg:w-3/5 ${isEven ? 'lg:pr-10' : 'lg:pl-10'}`}
-                                >
-                                    <div className="relative w-full aspect-[4/3] lg:aspect-[16/10] overflow-hidden">
-                                        <Image
-                                            src={item.image}
-                                            alt={item.title}
-                                            fill
-                                            className="object-cover"
-                                        />
-                                    </div>
-                                </motion.div>
-
-                                {/* Text Box (Overlapping) */}
-                                <motion.div
-                                    initial={{ opacity: 0, y: 50 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ margin: "-10% 0px -10% 0px" }}
-                                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                                    className={`w-full lg:w-2/5 relative ${isEven ? 'lg:-ml-16' : 'lg:-mr-16'} z-20`}
-                                >
-                                    <div className="bg-[#D7D7AA] p-10 lg:p-16 shadow-2xl">
-                                        <span
-                                            className="text-[#1F1D1B] text-sm font-bold tracking-widest mb-6 block"
-                                            style={{ fontFamily: "var(--font-sans)" }}
-                                        >
-                                            {item.id}
-                                        </span>
-                                        <h3
-                                            className="text-[#1F1D1B] text-2xl lg:text-4xl mb-6 leading-tight"
-                                            style={{ fontFamily: "var(--font-serif)" }}
-                                        >
-                                            {item.title}
-                                        </h3>
-                                        <div className="h-px w-12 bg-[#1F1D1B]/20 mb-6" />
-                                        <p
-                                            className="text-[#1F1D1B]/80 text-base lg:text-lg leading-relaxed font-medium"
-                                            style={{ fontFamily: "var(--font-sans)" }}
-                                        >
-                                            {item.description}
-                                        </p>
-                                    </div>
-                                </motion.div>
-                            </div>
-                        );
-                    })}
                 </div>
 
+                <motion.div style={{ x }} className="flex gap-8 lg:gap-16 px-6 md:px-16 pt-32 lg:pt-0 pb-12 items-center h-full">
+                    {/* Empty placeholder spacer so the first card sits cleanly center/right initially */}
+                    <div className="w-[10vw] md:w-[30vw] flex-shrink-0" />
+
+                    {products.map((item) => (
+                        <div
+                            key={item.id}
+                            className="w-[85vw] md:w-[60vw] lg:w-[45vw] h-[60vh] lg:h-[70vh] flex-shrink-0 group relative rounded-[32px] overflow-hidden shadow-2xl flex flex-col bg-[#1F1D1B]"
+                        >
+                            {/* Image Background */}
+                            <div className="absolute inset-0 z-0">
+                                <Image
+                                    src={item.image}
+                                    alt={item.title}
+                                    fill
+                                    className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-[1.5s]"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#1F1D1B] via-transparent to-transparent opacity-90" />
+                            </div>
+
+                            {/* Content Block */}
+                            <div className="relative z-10 flex flex-col justify-end h-full p-8 md:p-12">
+                                <span
+                                    className="text-[#DEBEBF] text-lg font-bold tracking-widest mb-4"
+                                    style={{ fontFamily: "var(--font-sans)" }}
+                                >
+                                    {item.id}
+                                </span>
+                                <h3
+                                    className="text-[#FFF3E1] text-3xl lg:text-5xl mb-6 leading-tight"
+                                    style={{ fontFamily: "var(--font-serif)" }}
+                                >
+                                    {item.title}
+                                </h3>
+                                <div className="h-px w-16 bg-[#DEBEBF]/30 mb-6" />
+                                <p
+                                    className="text-[#FFF3E1]/80 text-base lg:text-xl leading-relaxed font-light max-w-md"
+                                    style={{ fontFamily: "var(--font-sans)" }}
+                                >
+                                    {item.description}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+
+                    {/* End Spacer */}
+                    <div className="w-[10vw] flex-shrink-0" />
+                </motion.div>
             </div>
         </section>
     );

@@ -45,9 +45,9 @@ export default function Gallery() {
 
     return (
         <>
-            <section id="galeria" className="bg-[#FFF3E1] pt-2 lg:pt-28 pb-6 lg:pb-28 overflow-hidden">
+            <section id="galeria" className="bg-[#FFF3E1] pt-2 lg:pt-4 pb-6 lg:pb-28 overflow-hidden">
                 {/* Header */}
-                <div className="max-w-[1400px] mx-auto px-6 lg:px-14 mb-12 flex items-end justify-between">
+                <div className="max-w-[1400px] mx-auto px-6 lg:px-14 mb-6 flex items-end justify-between">
                     <motion.div
                         initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -80,7 +80,7 @@ export default function Gallery() {
 
                 {/* Carousel */}
                 <div
-                    className="relative w-full h-[45vh] md:h-[75vh] max-h-[500px] md:max-h-[800px] flex items-center justify-center mb-10 md:mb-16"
+                    className="relative w-full h-[45vh] md:h-[60vh] max-h-[500px] md:max-h-[800px] flex items-center justify-center mb-6"
                     onMouseEnter={() => setIsPaused(true)}
                     onMouseLeave={() => setIsPaused(false)}
                 >
@@ -91,7 +91,7 @@ export default function Gallery() {
                         }
 
                         const isCenter = offset === 0;
-                        const xOffset = offset * 110;
+                        const xOffset = offset * 102;
 
                         // Optimize rendering: completely hide items too far out of view
                         const isVisible = Math.abs(offset) <= 2;
@@ -100,9 +100,8 @@ export default function Gallery() {
                         return (
                             <motion.div
                                 key={`${item.src}-${i}`}
-                                className="absolute top-0 bottom-0 cursor-pointer flex items-center justify-center"
+                                className="absolute top-0 bottom-0 my-auto cursor-pointer flex items-center justify-center w-[clamp(280px,70vw,420px)] md:w-[clamp(500px,50vw,900px)] h-full md:h-[clamp(400px,55vh,700px)]"
                                 style={{
-                                    width: "clamp(220px, 35vw, 450px)",
                                     zIndex: 10 - Math.abs(offset),
                                 }}
                                 initial={false}
@@ -122,7 +121,7 @@ export default function Gallery() {
                                 <div
                                     className="relative w-full h-full overflow-hidden transition-all duration-700 bg-black/5"
                                     style={{
-                                        border: isCenter ? `clamp(8px, 1.5vw, 16px) solid ${item.borderColor}` : '0px solid transparent'
+                                        border: isCenter ? `clamp(6px, 1vw, 12px) solid ${item.borderColor}` : '0px solid transparent'
                                     }}
                                 >
                                     <Image
@@ -130,7 +129,7 @@ export default function Gallery() {
                                         alt={item.alt}
                                         fill
                                         className="object-cover object-center"
-                                        sizes="(max-width: 768px) 80vw, 45vw"
+                                        sizes="(max-width: 768px) 80vw, 65vw"
                                     />
                                     {isCenter && (
                                         <div className="absolute inset-0 bg-[#AA7D69]/0 hover:bg-[#AA7D69]/10 transition-colors duration-500" />

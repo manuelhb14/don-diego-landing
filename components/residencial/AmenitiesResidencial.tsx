@@ -2,134 +2,157 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-
-const amenities = [
-    {
-        id: 1,
-        title: "Casa Club",
-        description: "Restaurante, cafeterías y barras de bar en distintas zonas. Business center.",
-        image: "/images/gallery/gallery-5.png",
-        className: "col-span-1 md:col-span-2 row-span-2 min-h-[400px] md:min-h-[600px]",
-    },
-    {
-        id: 2,
-        title: "Mercados Locales",
-        description: "Espacio central para mercados de productos locales y actividades de comunidad.",
-        image: "/images/gallery/gallery-6.png",
-        className: "col-span-1 row-span-1 min-h-[300px]",
-    },
-    {
-        id: 3,
-        title: "Bienestar",
-        description: "Alberca panorámica, spa, gimnasio, ludoteca y salón de usos múltiples.",
-        image: "/images/gallery/gallery-7.png",
-        className: "col-span-1 row-span-1 min-h-[300px]",
-    },
-    {
-        id: 4,
-        title: "Deportes",
-        description: "Pádel y pickleball, jacuzzis, cicloruta, parques infantiles, pet garden.",
-        image: "/images/gallery/gallery-10.jpg",
-        className: "col-span-1 md:col-span-2 row-span-1 min-h-[400px]",
-    },
-];
+import { Search } from "lucide-react";
 
 export default function AmenitiesResidencial() {
+    const gridImages = [
+        "/images/renders/render-1.png",
+        "/images/renders/render-2.png",
+        "/images/renders/render-3.png",
+        "/images/renders/render-5.png",
+        "/images/renders/render-1.png",
+        "/images/renders/render-2.png"
+    ];
+
     return (
         <section id="amenidades" className="bg-[#1F1D1B] text-[#FFF3E1] py-24 lg:py-32 overflow-hidden">
-            <div className="max-w-[1600px] mx-auto w-full px-6 lg:px-16">
-
+            <div className="max-w-[1200px] mx-auto w-full px-6 lg:px-12">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="mb-16 lg:mb-24 max-w-2xl"
+                    className="mb-12 lg:mb-16 max-w-2xl text-center mx-auto"
                 >
                     <p
-                        className="text-[10px] tracking-[0.3em] text-[#E1B19B] uppercase mb-6"
+                        className="text-[10px] tracking-[0.3em] text-[#E1B19B] uppercase mb-4"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Actividades]
+                        [AMENIDADES RESIDENCIALES]
                     </p>
                     <h2
-                        className="text-[#E1B19B] leading-tight"
+                        className="text-[#FFF3E1] leading-tight"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
+                            fontSize: "clamp(2.5rem, 5vw, 4rem)",
                         }}
                     >
-                        Comunidad y Vida en Don Diego
+                        Comunidad y Vida
                     </h2>
                 </motion.div>
 
-                {/* Bento Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 auto-rows-[minmax(300px,auto)]">
-                    {amenities.map((item, index) => (
-                        <motion.div
-                            key={item.id}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: index * 0.1 }}
-                            className={`group relative overflow-hidden bg-[#2A2826] border border-white/5 ${item.className}`}
-                        >
-                            <Image
-                                src={item.image}
-                                alt={item.title}
-                                fill
-                                className="object-cover transition-transform duration-1000 group-hover:scale-110 opacity-60 group-hover:opacity-40"
-                            />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="col-span-1 md:col-span-2 rounded-[32px] lg:rounded-[40px] bg-[#C28E7A] overflow-hidden relative min-h-[400px] lg:min-h-[450px] flex flex-col md:flex-row"
+                    >
+                        {/* Left Side: Text */}
+                        <div className="w-full md:w-1/2 p-10 lg:p-16 flex flex-col justify-center relative z-10">
+                            <h3 className="text-[#FFF3E1] text-3xl lg:text-5xl font-medium mb-6 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
+                                El Corazón Social
+                            </h3>
+                            <p className="text-[#FFF3E1] text-base lg:text-lg leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}>
+                                Casa Club de clase mundial equipada con restaurante de autor, barras de café, espacios coworking y grandes terrazas inmersas en el paisaje de San Miguel.
+                            </p>
+                        </div>
 
-                            {/* Gradient Overlay for Text Legibility */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#1F1D1B] via-[#1F1D1B]/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
-
-                            <div className="absolute inset-0 p-8 lg:p-10 flex flex-col justify-end">
-                                <span
-                                    className="text-[#E1B19B] text-sm font-bold tracking-widest mb-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100"
-                                    style={{ fontFamily: "var(--font-sans)" }}
-                                >
-                                    0{item.id}
-                                </span>
-                                <h3
-                                    className="text-[#FFF3E1] text-2xl lg:text-3xl mb-3 translate-y-8 group-hover:translate-y-0 transition-transform duration-500 will-change-transform"
-                                    style={{ fontFamily: "var(--font-serif)" }}
-                                >
-                                    {item.title}
-                                </h3>
-                                <p
-                                    className="text-[#FFF3E1]/70 text-base md:text-sm lg:text-base leading-relaxed opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-75"
-                                    style={{ fontFamily: "var(--font-sans)" }}
-                                >
-                                    {item.description}
-                                </p>
+                        {/* Right Side: Image Collage */}
+                        <div className="relative w-full md:w-1/2 h-80 md:h-auto overflow-hidden">
+                            <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-0 p-0 h-full w-full">
+                                <div className="relative col-span-2 row-span-2 md:rounded-tl-none overflow-hidden">
+                                    <Image src="/images/renders/render-5.png" alt="Casa Club" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                </div>
+                                <div className="relative col-span-1 row-span-1 md:rounded-tr-none overflow-hidden">
+                                    <Image src="/images/gallery/gallery-5.png" alt="Restaurante" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                </div>
+                                <div className="relative col-span-1 row-span-2 md:rounded-br-none overflow-hidden">
+                                    <Image src="/images/renders/render-1.png" alt="Coworking" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                </div>
+                                <div className="relative col-span-1 row-span-1 md:rounded-bl-none overflow-hidden">
+                                    <Image src="/images/renders/render-6.jpg" alt="Terrazas" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                </div>
+                                <div className="relative col-span-1 row-span-1 overflow-hidden">
+                                    <Image src="/images/renders/render-7.jpg" alt="Piscina" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                </div>
                             </div>
-                        </motion.div>
-                    ))}
+                        </div>
+                    </motion.div>
+
+                    {/* Card 2 (Bottom Left) */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.1 }}
+                        className="col-span-1 rounded-[32px] lg:rounded-[40px] bg-[#FFF3E1] overflow-hidden relative min-h-[450px] p-8 lg:p-12 flex flex-col"
+                    >
+                        <div className="relative z-10 max-w-sm">
+                            <h3 className="text-[#1F1D1B] text-2xl lg:text-3xl font-medium mb-3 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
+                                Bienestar y Relax
+                            </h3>
+                            <p className="text-[#1F1D1B]/80 text-sm lg:text-base leading-relaxed" style={{ fontFamily: "var(--font-sans)" }}>
+                                Santuario de calma con alberca templada, salón de yoga, spa y jacuzzis privados entre riachuelos.
+                            </p>
+                        </div>
+
+                        {/* Image Playground mock */}
+                        <div className="flex-1 w-full relative mt-16 lg:mt-24 flex items-center justify-center">
+                            <div className="absolute w-40 h-40 lg:w-48 lg:h-48 rounded-full shadow-2xl overflow-hidden border-[6px] border-[#FFF3E1] z-20">
+                                <Image src="/images/renders/render-1.png" alt="Spa" fill className="object-cover" />
+                            </div>
+                            <div className="absolute w-28 h-28 lg:w-32 lg:h-32 rounded-full shadow-xl overflow-hidden border-4 border-[#FFF3E1] -translate-x-20 -translate-y-24 z-10">
+                                <Image src="/images/renders/render-2.png" alt="Yoga" fill className="object-cover" />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute bottom-2 lg:bottom-4 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">YOGA</span>
+                                </div>
+                            </div>
+                            <div className="absolute w-24 h-24 lg:w-28 lg:h-28 rounded-full shadow-xl overflow-hidden border-4 border-[#FFF3E1] translate-x-24 translate-y-16 z-30">
+                                <Image src="/images/renders/render-3.png" alt="Relax" fill className="object-cover" />
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute bottom-2 lg:bottom-3 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">SPA</span>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Card 3 (Bottom Right) */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="col-span-1 rounded-[32px] lg:rounded-[40px] bg-[#2A2826] overflow-hidden relative min-h-[450px] flex flex-col pt-8 lg:pt-12"
+                    >
+                        <div className="px-8 lg:px-12 mb-8 relative z-10">
+                            <h3 className="text-[#FFF3E1] text-2xl lg:text-3xl font-medium mb-3 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
+                                Deporte y Recreación
+                            </h3>
+                            <p className="text-[#FFF3E1]/70 text-sm lg:text-base leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-sans)" }}>
+                                Canchas de pádel y amenidades deportivas envueltas en la espectacular vegetación perimetral.
+                            </p>
+                        </div>
+
+                        {/* Photos style block */}
+                        <div className="relative flex-1 bg-[#1F1D1B] rounded-t-3xl overflow-hidden shadow-[inset_0_10px_30px_rgba(0,0,0,0.5)] h-[250px] sm:h-auto">
+                            <div className="grid grid-cols-2 gap-1 absolute inset-0 pb-1 px-1 pt-1">
+                                {gridImages.slice(0, 4).map((src, i) => (
+                                    <div key={i} className="relative w-full h-full rounded-md overflow-hidden">
+                                        <Image src={src} alt="Activity" fill className="object-cover opacity-70 hover:opacity-100 transition-opacity" />
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Photos style search bar */}
+                            <div className="absolute bottom-8 lg:bottom-10 left-1/2 -translate-x-1/2 bg-[#FFF3E1]/90 backdrop-blur-xl px-5 py-3 rounded-2xl lg:rounded-full flex items-center gap-3 w-[85%] max-w-[300px] shadow-2xl">
+                                <Search className="w-5 h-5 text-[#1F1D1B]/60" />
+                                <span className="text-[#1F1D1B]/80 text-sm font-medium tracking-tight" style={{ fontFamily: "var(--font-sans)" }}>Agendar clase de pádel...</span>
+                            </div>
+                        </div>
+                    </motion.div>
                 </div>
-
-                {/* Additional Detail Box */}
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    className="mt-6 p-8 lg:p-12 bg-[#E1B19B] flex items-center justify-between flex-wrap gap-8"
-                >
-                    <h3
-                        className="text-[#1F1D1B] text-xl lg:text-2xl font-bold"
-                        style={{ fontFamily: "var(--font-serif)" }}
-                    >
-                        Diseño Peatonal
-                    </h3>
-                    <p
-                        className="text-[#1F1D1B]/80 text-base font-medium max-w-2xl leading-relaxed"
-                        style={{ fontFamily: "var(--font-sans)" }}
-                    >
-                        Interior 100% peatonal, sin autos visibles. Circulación vehicular periférica en desnivel con estacionamiento techado y acceso peatonal directo (2 cajones por vivienda).
-                    </p>
-                </motion.div>
-
             </div>
         </section>
     );

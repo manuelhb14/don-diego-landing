@@ -15,7 +15,7 @@ export default async function ResidencialPage({ params }: Props) {
 
     return (
         <>
-            <Navbar locale={locale} />
+            <Navbar theme="dark" locale={locale} />
             <main>
                 <HeroResidencial />
                 <FeaturesResidencial />

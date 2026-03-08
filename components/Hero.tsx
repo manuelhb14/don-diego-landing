@@ -31,7 +31,7 @@ export default function Hero() {
                 />
                 {/* Gradient overlay to ensure text is readable */}
                 {/* <div className="absolute inset-0 bg-black/40" /> */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
             </motion.div>
 
             {/* Centered content block */}

@@ -29,7 +29,7 @@ const projects = [
         title: "Organic Farm & Flowers",
         description: "Componente sostenible que recupera la vocación agrícola original con huertos orgánicos, frutales y flores de temporada.",
         image: "/images/renders/farm.jpg",
-        accent: "#AA7D69",
+        accent: "#DEBEBF",
         features: [
             { icon: Sprout, text: "Huertos Orgánicos" },
             { icon: Sun, text: "Invernaderos y Terrazas" },
@@ -44,7 +44,7 @@ const projects = [
         title: "Wellness Center",
         description: "Centro especializado para rehabilitación, retiro activo y bienestar integral con acceso directo a la Presa Allende.",
         image: "/images/gallery/gallery-3.png",
-        accent: "#E1B19B",
+        accent: "#D7D7AA",
         features: [
             { icon: HeartPulse, text: "Rehabilitación y Salud" },
             { icon: Users, text: "Senior Living Especializado" },
@@ -59,7 +59,7 @@ const projects = [
         title: "Presa de la Cantera",
         description: "Un gran espacio público-privado que integra naturaleza, comunidad y vida social junto al agua.",
         image: "/images/renders/presa-1.png",
-        accent: "#AA7D69",
+        accent: "#C8D7E6",
         features: [
             { icon: Sailboat, text: "Parque Acuático y Náutico" },
             { icon: Theater, text: "Anfiteatro y Eventos" },
@@ -89,7 +89,7 @@ function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjec
     const nextStartTransitionWeight = (index + 1) * pauseWeight + index * transitionWeight;
     const nextEndTransitionWeight = nextStartTransitionWeight + transitionWeight;
 
-    const y = useTransform(
+    const clipPath = useTransform(
         scrollYProgress,
         [
             0,
@@ -98,10 +98,10 @@ function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjec
             1
         ],
         [
-            index === 0 ? "0%" : "100%",
-            index === 0 ? "0%" : "100%",
-            "0%",
-            "0%"
+            index === 0 ? "inset(0% 0px 0px 0px)" : "inset(100% 0px 0px 0px)",
+            index === 0 ? "inset(0% 0px 0px 0px)" : "inset(100% 0px 0px 0px)",
+            "inset(0% 0px 0px 0px)",
+            "inset(0% 0px 0px 0px)"
         ]
     );
 
@@ -116,8 +116,8 @@ function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjec
         [
             "0%",
             "0%",
-            index === totalProjects - 1 ? "0%" : "-100%",
-            index === totalProjects - 1 ? "0%" : "-100%"
+            "0%",
+            "0%"
         ]
     );
 
@@ -165,8 +165,8 @@ function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjec
     const titleY = useTransform(scrollYProgress, createInputRange(1), createYOutputRange());
     const titleOpacity = useTransform(scrollYProgress, createInputRange(1), createOpacityOutputRange());
 
-    const lineY = useTransform(scrollYProgress, createInputRange(2), createYOutputRange());
-    const lineOpacity = useTransform(scrollYProgress, createInputRange(2), createOpacityOutputRange());
+    const cardY = useTransform(scrollYProgress, createInputRange(2), createYOutputRange());
+    const cardOpacity = useTransform(scrollYProgress, createInputRange(2), createOpacityOutputRange());
 
     const descY = useTransform(scrollYProgress, createInputRange(3), createYOutputRange());
     const descOpacity = useTransform(scrollYProgress, createInputRange(3), createOpacityOutputRange());
@@ -179,8 +179,8 @@ function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjec
 
     return (
         <motion.div
-            className="absolute inset-0 w-full h-full shadow-[0_-10px_40px_rgba(0,0,0,0.5)] overflow-hidden"
-            style={{ y }}
+            className="absolute inset-0 w-full h-full overflow-hidden"
+            style={{ clipPath, zIndex: index }}
         >
             {/* Background image */}
             <div className="absolute inset-0">
@@ -195,19 +195,20 @@ function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjec
 
             {/* Content */}
             <motion.div
-                className="relative z-10 flex h-full items-end p-8 lg:p-16 pb-12"
+                className="relative z-10 flex h-full items-end p-4 md:p-8 lg:p-16 pb-8 md:pb-12"
                 style={{ y: contentY, opacity: contentOpacity }}
             >
                 <div className="max-w-2xl">
                     {/* Number */}
                     <motion.p
-                        className="text-white/50 mb-4 leading-none"
+                        className="mb-2 leading-none"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(4rem, 10vw, 10rem)",
+                            fontSize: "clamp(3rem, 8vw, 8rem)",
                             fontWeight: 300,
-                            y: labelY,
+                            color: project.accent,
                             opacity: labelOpacity,
+                            y: labelY,
                         }}
                     >
                         {project.label}
@@ -215,10 +216,10 @@ function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjec
 
                     {/* Title */}
                     <motion.h3
-                        className="text-white leading-none mb-6"
+                        className="text-white leading-none mb-2 md:mb-6"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(2.5rem, 5vw, 5rem)",
+                            fontSize: "clamp(2.5rem, 5vw, 4rem)",
                             y: titleY,
                             opacity: titleOpacity,
                         }}
@@ -226,61 +227,128 @@ function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjec
                         {project.title}
                     </motion.h3>
 
-                    {/* Description */}
-                    <motion.p
-                        className="text-white text-lg lg:text-xl font-medium leading-relaxed max-w-lg mb-4 md:mb-8 font-serif"
-                        style={{
-                            y: descY,
-                            opacity: descOpacity,
-                        }}
-                    >
-                        {project.description}
-                    </motion.p>
-
-                    {/* Features Grid */}
+                    {/* Card Container for details */}
                     <motion.div
-                        className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 md:gap-y-4 gap-x-4 md:gap-x-8 mb-10"
+                        className="rounded-[1.5rem] px-6 py-3 shadow-2xl relative overflow-hidden group/card border"
                         style={{
-                            y: featuresY,
-                            opacity: featuresOpacity,
-                        }}
+                            "--accent": project.accent,
+                            "--accent-bg": `${project.accent}30`,
+                            background: `linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%)`,
+                            borderColor: `${project.accent}40`,
+                            boxShadow: `0 25px 50px -12px rgba(0,0,0,0.5), inset 0 0 20px ${project.accent}15`,
+                            y: cardY,
+                            opacity: cardOpacity,
+                        } as any}
                     >
-                        {project.features.map((feature, idx) => {
-                            const Icon = feature.icon;
-                            return (
-                                <div key={idx} className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                                        <Icon size={16} className="text-white/90" strokeWidth={1.5} />
-                                    </div>
-                                    <span
-                                        className="text-white/90 text-sm tracking-wider"
-                                        style={{ fontFamily: "var(--font-sans)" }}
-                                    >
-                                        {feature.text}
-                                    </span>
-                                </div>
-                            );
-                        })}
-                    </motion.div>
 
-                    {/* Learn More Button */}
-                    <motion.div
-                        className="inline-block"
-                        style={{
-                            y: btnY,
-                            opacity: btnOpacity,
-                        }}
-                    >
-                        <Link
-                            href={project.href}
-                            className="group flex items-center gap-4 text-white text-sm tracking-widest uppercase transition-colors hover:text-white/70"
+                        {/* Glow effect matching project accent color */}
+                        <div
+                            className="absolute -inset-24 opacity-0 group-hover/card:opacity-10 pointer-events-none transition-opacity duration-1000 mix-blend-screen blur-3xl z-0"
+                            style={{ backgroundColor: project.accent }}
+                        />
+
+                        {/* Description */}
+                        <motion.p
+                            className="relative text-white/90 text-lg font-medium leading-relaxed max-w-lg mb-2 md:mb-6 font-serif z-10"
                             style={{
-                                fontFamily: "var(--font-sans)",
+                                y: descY,
+                                opacity: descOpacity,
                             }}
                         >
-                            <span>Conocer más</span>
-                            <div className="w-8 h-[1px] bg-white/50 group-hover:w-12 group-hover:bg-white transition-all duration-300" />
-                        </Link>
+                            {project.description}
+                        </motion.p>
+
+                        {/* Features Grid */}
+                        <motion.div
+                            className="relative grid grid-cols-1 sm:grid-cols-2 gap-y-1 md:gap-y-4 gap-x-4 md:gap-x-6 mb-5 z-10"
+                            style={{
+                                y: featuresY,
+                                opacity: featuresOpacity,
+                            }}
+                        >
+                            {project.features.map((feature, idx) => {
+                                const Icon = feature.icon;
+                                return (
+                                    <div
+                                        key={idx}
+                                        className="flex items-center gap-3 group/feature cursor-default"
+                                    >
+                                        <div
+                                            className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 transition-all duration-300"
+                                            style={{
+                                                backgroundColor: "var(--feature-hover-bg, rgba(255,255,255,0.05))",
+                                                borderColor: "var(--feature-hover-border, rgba(255,255,255,0.1))",
+                                                boxShadow: "var(--feature-hover-shadow, none)"
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.setProperty('--feature-hover-bg', `${project.accent}30`);
+                                                e.currentTarget.style.setProperty('--feature-hover-border', project.accent);
+                                                e.currentTarget.style.setProperty('--feature-hover-shadow', `0 0 10px ${project.accent}50`);
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.setProperty('--feature-hover-bg', `rgba(255,255,255,0.05)`);
+                                                e.currentTarget.style.setProperty('--feature-hover-border', `rgba(255,255,255,0.1)`);
+                                                e.currentTarget.style.setProperty('--feature-hover-shadow', `none`);
+                                            }}
+                                        >
+                                            <Icon size={14} className="transition-colors duration-300 group-hover/feature:brightness-125" style={{ color: project.accent }} strokeWidth={1.5} />
+                                        </div>
+                                        <span
+                                            className="text-white/80 text-sm tracking-wider transition-all duration-300 group-hover/feature:translate-x-1"
+                                            style={{
+                                                fontFamily: "var(--font-sans)",
+                                                color: "var(--feature-text-color, rgba(255,255,255,0.8))"
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.setProperty('--feature-text-color', project.accent);
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.setProperty('--feature-text-color', 'rgba(255,255,255,0.8)');
+                                            }}
+                                        >
+                                            {feature.text}
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                        </motion.div>
+
+                        {/* Learn More Button */}
+                        <motion.div
+                            className="relative inline-block z-10"
+                            style={{
+                                y: btnY,
+                                opacity: btnOpacity,
+                            }}
+                        >
+                            <Link
+                                href={project.href}
+                                className="group flex items-center gap-4 text-white hover:text-white text-xs md:text-sm tracking-widest uppercase transition-colors"
+                                style={{
+                                    fontFamily: "var(--font-sans)",
+                                }}
+                            >
+                                <span>Conocer más</span>
+                                <div className="relative flex items-center">
+                                    <div className="w-8 h-[1px] bg-white/50 group-hover:w-12 transition-all duration-300" />
+                                    {/* Arrow icon that appears on hover, matching accent color */}
+                                    <svg
+                                        className="absolute right-0 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300"
+                                        width="14"
+                                        height="14"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke={project.accent}
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M5 12h14" />
+                                        <path d="m12 5 7 7-7 7" />
+                                    </svg>
+                                </div>
+                            </Link>
+                        </motion.div>
                     </motion.div>
                 </div>
             </motion.div>
@@ -290,13 +358,11 @@ function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjec
                 className="absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-4"
                 style={{ y: contentY, opacity: contentOpacity }}
             >
-                {allProjects.map((_, j) => (
+                {allProjects.map((p, j) => (
                     <div
                         key={j}
-                        className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${j === index
-                            ? "bg-[#E1B19B] scale-150"
-                            : "bg-white/20"
-                            }`}
+                        className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${j === index ? "scale-150" : "bg-white/20"}`}
+                        style={j === index ? { backgroundColor: project.accent, boxShadow: `0 0 10px ${project.accent}80` } : {}}
                     />
                 ))}
             </motion.div>

@@ -43,7 +43,7 @@ export default function Services() {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="hidden lg:flex"
                     >
-                        <p className="text-[#222]/80 text-[14px] md:text-[16px] leading-[1.8] font-normal tracking-[0.01em] w-[350px] text-right font-serif">
+                        <p className="text-[#222]/80 text-lg leading-[1.8] font-normal tracking-[0.01em] w-[350px] text-right font-serif">
                             Don Diego Club Residencial se estructura en torno a cuatro componentes con
                             identidad propia, integrados en una visión coherente de comunidad y territorio.
                         </p>
@@ -56,9 +56,9 @@ export default function Services() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="flex lg:hidden mb-16"
+                    className="flex lg:hidden mb-8 md:mb-16"
                 >
-                    <p className="text-[#222]/80 text-[14px] md:text-[15px] leading-[1.8] font-normal tracking-[0.01em] w-full font-serif">
+                    <p className="text-[#222]/80 text-lg leading-[1.8] font-normal tracking-[0.01em] w-full font-serif">
                         Don Diego Club Residencial se estructura en torno a cuatro componentes con
                         identidad propia, integrados en una visión coherente de comunidad y territorio.
                     </p>
@@ -66,7 +66,7 @@ export default function Services() {
 
                 {/* Bottom Section: Staggered Image Cards */}
                 <div className="w-full flex flex-col">
-                    <div className="flex flex-col md:flex-row justify-between gap-6 md:gap-4 lg:gap-8 items-start w-full">
+                    <div className="flex flex-col md:flex-row justify-between gap-2 lg:gap-8 items-start w-full">
 
                         {/* Image 1 - Club Residencial */}
                         <motion.div
@@ -101,9 +101,9 @@ export default function Services() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1, delay: 0.15, ease: "easeOut" }}
-                            className="w-[85%] sm:w-[70%] md:w-[23%] flex flex-col pt-0 md:pt-16 lg:pt-24 self-end md:self-start order-2 relative z-20 mt-4 md:mt-0 right-0"
+                            className="w-[85%] sm:w-[70%] md:w-[23%] flex flex-col pt-0 md:pt-8 lg:pt-12 self-end md:self-start order-2 relative z-20 mt-4 md:mt-0 right-0"
                         >
-                            <Link href="/farm" className="block relative w-full aspect-[4/3] md:aspect-[3/4] group cursor-pointer overflow-hidden rounded-sm">
+                            <Link href="/farm" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
                                     src="/images/gallery/gallery-5.png"
                                     alt="Organic Farm"
@@ -128,7 +128,7 @@ export default function Services() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-                            className="w-[85%] sm:w-[70%] md:w-[23%] flex flex-col pt-0 md:pt-32 lg:pt-48 self-start order-3 relative z-30 mt-4 md:mt-0 text-left"
+                            className="w-[85%] sm:w-[70%] md:w-[23%] flex flex-col pt-0 md:pt-16 lg:pt-24 self-start order-3 relative z-30 mt-4 md:mt-0 text-left"
                         >
                             <Link href="/wellness" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
@@ -155,9 +155,9 @@ export default function Services() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1, delay: 0.45, ease: "easeOut" }}
-                            className="w-[85%] sm:w-[70%] md:w-[23%] flex flex-col pt-0 md:pt-48 lg:pt-72 self-end md:self-start order-4 relative z-40 mt-4 md:mt-0 right-0"
+                            className="w-[85%] sm:w-[70%] md:w-[23%] flex flex-col pt-0 md:pt-24 lg:pt-36 self-end md:self-start order-4 relative z-40 mt-4 md:mt-0 right-0"
                         >
-                            <Link href="/presa" className="block relative w-full aspect-[4/3] md:aspect-[3/4] group cursor-pointer overflow-hidden rounded-sm">
+                            <Link href="/presa" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
                                     src="/images/gallery/gallery-4.png"
                                     alt="Presa de la Cantera"
@@ -193,7 +193,7 @@ export default function Services() {
                                 reinterpretándola con sensibilidad contemporánea.
                             </p>
                             <Link
-                                href="#"
+                                href="/proyecto"
                                 className="inline-block text-[#222] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#222] pb-1 hover:opacity-60 transition-opacity"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >

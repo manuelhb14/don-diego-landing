@@ -11,79 +11,94 @@ export default function SustentabilidadFarm() {
         offset: ["start end", "end start"],
     });
 
-    // Subtly parallax the background image slower than the scroll
-    const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-    // Subtly parallax the central glass card faster than the scroll
-    const cardY = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
+    // Parallax layers for images
+    const imageY1 = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+    const imageY2 = useTransform(scrollYProgress, [0, 1], ["10%", "-20%"]);
+    const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
 
     return (
-        <section id="sustentabilidad" ref={containerRef} className="relative w-full h-[120vh] min-h-[800px] overflow-hidden flex items-center justify-center bg-[#1F1D1B]">
+        <section id="sustentabilidad" ref={containerRef} className="relative w-full py-32 lg:py-48 overflow-hidden bg-[#1F1D1B]">
 
-            {/* Full Immersive Background Layer */}
-            <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
-                <motion.div style={{ y: imageY }} className="absolute inset-0 h-[150%] w-full">
-                    <Image
-                        src="/images/renders/farm.jpg"
-                        alt="Organic Farm"
-                        fill
-                        className="object-cover object-center"
-                        quality={100}
-                    />
-                </motion.div>
-                {/* Dark overlay to ensure text legibility */}
-                <div className="absolute inset-0 bg-black/40" />
-            </div>
+            <div className="max-w-[1400px] mx-auto w-full px-6 lg:px-16 flex flex-col lg:flex-row relative">
 
-            {/* Central Glassmorphism Island */}
-            <motion.div
-                style={{ y: cardY }}
-                className="relative z-10 w-full max-w-4xl px-6 md:px-12 lg:px-0 flex flex-col items-center justify-center"
-            >
-                <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-8 md:p-16 lg:p-20 shadow-2xl rounded-sm w-full text-center hover:bg-white/15 transition-colors duration-500">
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+                {/* Left Side: Editorial Typography */}
+                <motion.div
+                    style={{ y: textY }}
+                    className="w-full lg:w-[45%] flex flex-col justify-center z-20 pt-10 lg:pt-32 pr-0 lg:pr-12"
+                >
+                    <p
+                        className="text-[10px] tracking-[0.3em] text-[#DEBEBF] uppercase mb-8"
+                        style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        <h2
-                            className="text-[#FFF3E1] leading-tight mb-8 lg:mb-12"
-                            style={{
-                                fontFamily: "var(--font-serif)",
-                                fontSize: "clamp(3rem, 6vw, 5rem)",
-                            }}
+                        [Filosofía Cíclica]
+                    </p>
+
+                    <h2
+                        className="text-[#DEBEBF] leading-[1.1] mb-10 tracking-tight"
+                        style={{
+                            fontFamily: "var(--font-serif)",
+                            fontSize: "clamp(3.5rem, 6vw, 5.5rem)",
+                        }}
+                    >
+                        El paisaje<br />
+                        <span className="italic opacity-80">productivo</span><br />
+                        del proyecto
+                    </h2>
+
+                    <div className="space-y-8 max-w-md">
+                        <p
+                            className="text-[#FFF3E1]/80 text-lg lg:text-xl font-medium leading-relaxed"
+                            style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            Organic Farm <br className="hidden sm:block" />& Flowers
-                        </h2>
+                            Huertos orgánicos, frutales y flores de temporada. Produce para abastecer el ecosistema y mantenerlo vivo todo el año.
+                        </p>
 
-                        <div className="space-y-6 lg:space-y-8 max-w-2xl mx-auto">
-                            <p
-                                className="text-[#FFF3E1]/90 text-lg md:text-xl lg:text-2xl font-medium leading-relaxed"
-                                style={{ fontFamily: "var(--font-sans)" }}
-                            >
-                                El paisaje productivo del proyecto
-                            </p>
+                        <div className="h-px w-24 bg-[#DEBEBF]/30 hidden lg:block" />
 
-                            <div className="h-px w-24 bg-[#D7D7AA]/40 mx-auto" />
+                        <p
+                            className="text-[#FFF3E1]/60 text-base lg:text-lg leading-relaxed"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            Una comunidad que consume lo que produce, conectada a los ciclos de la tierra.
+                        </p>
+                    </div>
+                </motion.div>
 
-                            <p
-                                className="text-[#FFF3E1]/80 text-base md:text-lg lg:text-xl font-medium leading-relaxed"
-                                style={{ fontFamily: "var(--font-sans)" }}
-                            >
-                                Huertos orgánicos, frutales y flores de temporada. Produce para abastecer el ecosistema y mantenerlo vivo todo el año.
-                            </p>
-                            <p
-                                className="text-[#FFF3E1]/80 text-base md:text-lg lg:text-xl font-medium leading-relaxed"
-                                style={{ fontFamily: "var(--font-sans)" }}
-                            >
-                                Una comunidad que consume lo que produce, conectada a los ciclos de la tierra.
-                            </p>
-                        </div>
+                {/* Right Side: Parallax Image Grid */}
+                <div className="w-full lg:w-[55%] relative h-[600px] lg:h-[900px] mt-24 lg:mt-0">
+
+                    {/* Main Image Layer */}
+                    <motion.div
+                        style={{ y: imageY1 }}
+                        className="absolute right-0 top-0 w-[80%] lg:w-[70%] h-[70%] lg:h-[80%] z-10 overflow-hidden shadow-2xl"
+                    >
+                        <Image
+                            src="/images/renders/farm.jpg"
+                            alt="The Farm"
+                            fill
+                            className="object-cover hover:scale-105 transition-transform duration-1000"
+                        />
                     </motion.div>
-                </div>
-            </motion.div>
 
+                    {/* Offset Accelerated Image Layer */}
+                    <motion.div
+                        style={{ y: imageY2 }}
+                        className="absolute left-0 bottom-0 lg:bottom-10 w-[60%] lg:w-[50%] h-[50%] lg:h-[55%] z-20 overflow-hidden shadow-2xl border-4 lg:border-8 border-[#1F1D1B]"
+                    >
+                        <Image
+                            src="/images/gallery/gallery-4.png"
+                            alt="Crops"
+                            fill
+                            className="object-cover object-[center_30%] hover:scale-105 transition-transform duration-1000"
+                        />
+                    </motion.div>
+
+                    {/* Decorative minimalist shapes */}
+                    <div className="absolute top-20 right-[75%] lg:right-[65%] w-32 h-32 border border-[#DEBEBF]/10 rounded-full hidden md:block" />
+                    <div className="absolute bottom-40 -right-10 w-64 h-64 border border-[#DEBEBF]/5 rounded-full z-0 hidden lg:block" />
+                </div>
+
+            </div>
         </section>
     );
 }

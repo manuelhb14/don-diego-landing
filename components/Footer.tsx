@@ -3,13 +3,13 @@
 export default function Footer() {
     return (
         <footer className="bg-[#C8D7E6] text-[#222222] w-full relative overflow-hidden pt-16 lg:pt-24 transition-colors duration-300" id="contact">
-            <div className="container mx-auto px-6 lg:px-12 mb-16 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+            <div className="container mx-auto px-6 lg:px-12 mb-8 lg:mb-16 relative z-10">
+                <div className="grid grid-cols-5 lg:grid-cols-12 gap-x-4 gap-y-12 lg:gap-8">
                     {/* Newsletter Section */}
-                    <div className="lg:col-span-5 flex flex-col space-y-8">
+                    <div className="col-span-5 lg:col-span-5 flex flex-col space-y-4 lg:space-y-8">
                         <div>
-                            <h2 className="font-serif text-4xl md:text-5xl leading-tight mb-4">
-                                ÚNETE al<br />
+                            <h2 className="font-serif text-4xl md:text-5xl leading-tight mb-2 lg:mb-4">
+                                ÚNETE al <br className="hidden lg:block" />
                                 MUNDO<br />
                                 de DON DIEGO
                             </h2>
@@ -17,11 +17,11 @@ export default function Footer() {
                                 Suscríbete para unirte a nuestra comunidad y mantenerte al día con el desarrollo.
                             </p>
                         </div>
-                        <form className="w-full max-w-md space-y-6 pt-4">
-                            <div className="flex flex-col md:flex-row gap-6">
+                        <form className="w-full max-w-md space-y-4 pt-4 lg:space-y-6">
+                            <div className="flex flex-col md:flex-row gap-4 md:gap-6">
                                 <div className="w-full relative">
                                     <input
-                                        className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors"
+                                        className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors"
                                         id="firstName"
                                         name="firstName"
                                         placeholder="NOMBRE *"
@@ -31,7 +31,7 @@ export default function Footer() {
                                 </div>
                                 <div className="w-full relative">
                                     <input
-                                        className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors"
+                                        className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors"
                                         id="lastName"
                                         name="lastName"
                                         placeholder="APELLIDO *"
@@ -42,7 +42,7 @@ export default function Footer() {
                             </div>
                             <div className="w-full relative">
                                 <input
-                                    className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors"
+                                    className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors"
                                     id="email"
                                     name="email"
                                     placeholder="CORREO ELECTRÓNICO *"
@@ -59,14 +59,14 @@ export default function Footer() {
                                         type="checkbox"
                                     />
                                 </div>
-                                <div className="ml-1 text-xs font-sans font-light leading-tight opacity-80">
+                                <div className="ml-0 lg:ml-1 text-xs font-sans font-light leading-tight opacity-80">
                                     <label className="font-medium text-[#222222]" htmlFor="consent">
                                         Consiento que mi información sea recopilada de acuerdo con la política de privacidad de Don Diego
                                     </label>
                                 </div>
                             </div>
                             <button
-                                className="inline-block border-b border-[#222222] pb-1 text-xs font-sans tracking-widest uppercase hover:opacity-70 transition-opacity mt-4"
+                                className="inline-block border-b border-[#222222] pb-1 text-xs font-sans tracking-widest uppercase hover:opacity-70 transition-opacity mt-2 lg:mt-4"
                                 type="submit"
                             >
                                 Enviar Formulario
@@ -78,7 +78,7 @@ export default function Footer() {
                     <div className="hidden lg:block lg:col-span-2"></div>
 
                     {/* Navigation Links */}
-                    <div className="lg:col-span-3">
+                    <div className="col-span-3 lg:col-span-3">
                         <ul className="space-y-3 font-sans text-xs tracking-widest uppercase font-medium">
                             <li><a className="hover:underline underline-offset-4" href="/proyecto">Proyecto</a></li>
                             <li><a className="hover:underline underline-offset-4" href="/ubicacion">Ubicación</a></li>
@@ -95,7 +95,7 @@ export default function Footer() {
                     </div>
 
                     {/* Social Links */}
-                    <div className="lg:col-span-2 lg:text-right">
+                    <div className="col-span-2 lg:col-span-2 lg:text-right">
                         <ul className="space-y-3 font-sans text-xs tracking-widest uppercase font-medium">
                             <li><a className="hover:underline underline-offset-4" href="https://www.instagram.com/don_diego_oficial/">Instagram</a></li>
                             <li><a className="hover:underline underline-offset-4" href="https://www.pinterest.com/don_diego_oficial/">Pinterest</a></li>
@@ -107,23 +107,17 @@ export default function Footer() {
             </div>
 
             {/* Large DON DIEGO Text */}
-            <div className="w-full overflow-hidden leading-none select-none pointer-events-none mt-12 md:mt-0">
+            <div className="w-full overflow-hidden leading-none select-none pointer-events-none mt-12 md:mt-0 mb-4 lg:mb-0">
                 <h1 className="font-serif text-[18vw] text-center tracking-tighter text-[#222222] opacity-100 transform translate-y-[15%]">
                     DON DIEGO
                 </h1>
             </div>
 
             {/* Bottom Links */}
-            <div className="w-full px-4 lg:px-8 mt-2 mb-6 flex justify-end items-end text-[9px] md:text-[10px] font-sans tracking-widest uppercase text-white/60 z-20 mix-blend-difference gap-6">
-                <div className="flex gap-6">
-                    <a className="hover:underline underline-offset-4" href="#">Términos de Servicio</a>
-                </div>
-                <div className="hidden md:block">
-                    <a className="hover:underline underline-offset-4" href="#">Política de Privacidad</a>
-                </div>
-                <div className="text-right">
-                    <span>Marca Registrada de Don Diego 2026</span>
-                </div>
+            <div className="w-full px-2 sm:px-4 lg:px-8 mt-2 mb-6 flex justify-between sm:justify-end items-end text-[10px] md:text-xs font-sans tracking-wider sm:tracking-widest uppercase text-white/60 z-20 mix-blend-difference gap-2 sm:gap-4 md:gap-6 whitespace-nowrap">
+                <a className="hover:underline underline-offset-4" href="/terminos">Términos de Servicio</a>
+                <a className="hover:underline underline-offset-4" href="/privacidad">Política de Privacidad</a>
+                <span>® Don Diego 2026</span>
             </div>
         </footer>
     );

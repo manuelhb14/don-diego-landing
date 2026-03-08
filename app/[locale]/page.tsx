@@ -9,6 +9,7 @@ import Location from "@/components/Location";
 import Services from "@/components/Services";
 import Team from "@/components/Team";
 import Contact from "@/components/Contact";
+import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import Stats from "@/components/Stats";
 type Props = {
@@ -22,7 +23,7 @@ export default async function Page({ params }: Props) {
     return (
         <>
             {/* <Loading /> */}
-            <Navbar locale={locale} />
+            <Navbar locale={locale} hideLogoAtTop={true} />
             <main>
                 <Hero />
                 <Manifesto />
@@ -32,6 +33,7 @@ export default async function Page({ params }: Props) {
                 <Gallery />
                 <Team />
                 <Contact />
+                <Faq />
             </main>
             <Footer />
         </>

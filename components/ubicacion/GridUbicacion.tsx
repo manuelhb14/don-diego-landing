@@ -7,18 +7,18 @@ import { useHasVisited } from "@/hooks/useHasVisited";
 
 const locations = [
     {
-        id: "centro",
-        title: "Centro Histórico",
-        subtitle: "15 min",
-        description: "El corazón vibrante de la ciudad, lleno de restaurantes, galerías, tiendas exclusivas y toda la cultura que hace famoso a San Miguel.",
-        image: "/images/gallery/gallery-2.png",
-    },
-    {
         id: "fábrica",
         title: "Fábrica La Aurora",
         subtitle: "10 min",
         description: "Un centro de arte y diseño reconocido internacionalmente, albergado en un hermoso entorno industrial con decenas de galerías y estudios.",
         image: "/images/gallery/gallery-5.png",
+    },
+    {
+        id: "centro",
+        title: "Centro Histórico",
+        subtitle: "8 min",
+        description: "El corazón vibrante de la ciudad, lleno de restaurantes, galerías, tiendas exclusivas y toda la cultura que hace famoso a San Miguel.",
+        image: "/images/gallery/gallery-2.png",
     },
     {
         id: "mercados",
@@ -79,18 +79,20 @@ export default function GridUbicacion() {
                     </motion.div>
                 </div>
 
-                <div className="relative flex flex-col md:flex-row gap-12 lg:gap-24 items-start w-full">
+                <div className="relative flex flex-col md:flex-row gap-12 lg:gap-16 items-start w-full">
                     {/* Left: Text sections */}
-                    <div className="w-full md:w-[45%] lg:w-[40%] flex flex-col gap-12 md:gap-[30vh] md:pb-[30vh]">
+                    <div className="w-full md:w-[50%] flex flex-col gap-12 md:gap-[30vh] pt-[0vh] md:pt-[40vh] pb-[10vh] md:pb-[50vh]">
                         {locations.map((item, index) => (
                             <motion.div
                                 key={item.id}
-                                className={`flex flex-col gap-4 relative ${index === locations.length - 1 ? "pb-[30vh] md:pb-0" : ""}`}
-                                initial={{ opacity: 0.3 }}
-                                whileInView={{ opacity: 1 }}
+                                className="flex flex-col gap-4 relative"
+                                animate={{
+                                    opacity: activeIndex === index ? 1 : 0.3,
+                                    filter: activeIndex === index ? "blur(0px)" : "blur(4px)"
+                                }}
                                 onViewportEnter={() => setActiveIndex(index)}
-                                viewport={{ margin: "-40% 0px -40% 0px", amount: 0.5, once: index === locations.length - 1 }}
-                                transition={{ duration: 0.4 }}
+                                viewport={{ margin: "-40% 0px -40% 0px", amount: 0.3 }}
+                                transition={{ duration: 0.5 }}
                             >
                                 <div className="block md:hidden w-full aspect-[4/3] rounded-lg overflow-hidden relative mb-4 shadow-lg">
                                     <Image
@@ -126,7 +128,7 @@ export default function GridUbicacion() {
                     </div>
 
                     {/* Right: Sticky Image Gallery (Desktop only) */}
-                    <div className="hidden md:block w-[55%] lg:w-[60%] sticky top-[20vh] h-[60vh] rounded-xl overflow-hidden shadow-2xl group border border-[#AA7D69]/20">
+                    <div className="hidden md:block w-[45%] sticky top-[10vh] h-[80vh] rounded-xl overflow-hidden shadow-2xl group border border-[#AA7D69]/20">
                         <AnimatePresence mode="popLayout" initial={false}>
                             <motion.div
                                 key={activeIndex}

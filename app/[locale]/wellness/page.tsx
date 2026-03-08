@@ -15,7 +15,7 @@ export default async function WellnessCenterPage({ params }: Props) {
 
     return (
         <>
-            <Navbar locale={locale} />
+            <Navbar theme="dark" locale={locale} />
             <main>
                 <HeroWellness />
                 <HighlightsWellness />

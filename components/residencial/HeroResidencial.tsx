@@ -12,143 +12,905 @@ export default function HeroResidencial() {
     });
 
     const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-    const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
     return (
-        <section ref={ref} className="relative flex flex-col lg:flex-row h-dvh min-h-[700px] w-full overflow-hidden bg-[#1F1D1B]">
+        <section ref={ref} className="relative w-full bg-[#E1B19B] py-16 px-6 md:px-10 lg:px-20">
+            <div className="flex flex-col lg:flex-row h-[90dvh] min-h-[600px] w-full overflow-hidden shadow-2xl">
 
-            <div className="lg:hidden absolute inset-0">
+                {/* Left: Content Panel */}
                 <motion.div
-                    className="absolute inset-0 w-full h-full overflow-hidden"
-                    style={{ y: imgY }}
+                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#1F1D1B]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6 }}
                 >
-                    <Image
-                        src="/images/renders/render-5.png"
-                        alt="Club Residencial"
-                        fill
-                        priority
-                        className="object-cover object-center"
-                    />
-                    <div className="absolute inset-0 bg-[#1F1D1B]/60" />
-                </motion.div>
-            </div>
-
-            <motion.div
-                className="relative z-10 flex flex-col items-center justify-center px-6 md:px-8 lg:px-16 text-center w-full lg:w-1/2 h-full bg-[#1F1D1B]"
-                style={{ y: contentY }}
-            >
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3 }}
-                    className="text-sm tracking-[0.3em] text-[#E1B19B] uppercase mb-6 lg:mb-8"
-                    style={{ fontFamily: "var(--font-sans)" }}
-                >
-                    [EL NÚCLEO PRIVADO]
-                </motion.p>
-
-                <div className="overflow-hidden">
-                    <motion.h1
-                        initial={{ y: "110%" }}
-                        animate={{ y: 0 }}
-                        transition={{ duration: 1.1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                        className="text-[#E1B19B] leading-none tracking-tight"
-                        style={{
-                            fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(3rem, 8vw, 7rem)",
-                            lineHeight: 0.9,
-                        }}
+                    {/* Top row */}
+                    <motion.div
+                        className="flex justify-between items-start px-4 lg:px-12 pt-4 lg:pt-10"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.7 }}
                     >
-                        Club
-                    </motion.h1>
-                </div>
-                <div className="overflow-hidden">
-                    <motion.h1
-                        initial={{ y: "110%" }}
-                        animate={{ y: 0 }}
-                        transition={{ duration: 1.1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                        className="text-[#E1B19B] leading-none tracking-tight"
-                        style={{
-                            fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(3rem, 8vw, 7rem)",
-                            lineHeight: 0.9,
-                        }}
-                    >
-                        Residencial
-                    </motion.h1>
-                </div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
-                    className="mt-8 lg:mt-10 max-w-md"
-                >
-                    <p
-                        className="text-[#E1B19B]/90 text-lg lg:text-xl leading-relaxed mb-4"
-                        style={{ fontFamily: "var(--font-serif)" }}
-                    >
-                        364 residencias entre dúplex y departamentos
-                    </p>
-                    <p
-                        className="text-[#FFF3E1]/70 text-sm lg:text-base leading-relaxed"
-                        style={{ fontFamily: "var(--font-sans)" }}
-                    >
-                        Densidad inteligente que protege vistas y privacidad.
-                        Paisaje vivo con jardines, fuentes y riachuelos.
-                    </p>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.9 }}
-                    className="mt-10 lg:mt-12"
-                >
-                    <a
-                        href="#amenidades"
-                        className="inline-flex items-center justify-center gap-4 group"
-                    >
-                        <span className="h-px w-8 bg-[#E1B19B]/40 group-hover:w-12 transition-all duration-500" />
-                        <span
-                            className="text-[11px] tracking-[0.2em] text-[#E1B19B] uppercase"
+                        <p
+                            className="text-[10px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            Conocer más
-                        </span>
-                        <span className="h-px w-8 bg-[#E1B19B]/40 group-hover:w-12 transition-all duration-500" />
-                    </a>
-                </motion.div>
-            </motion.div>
+                            Comunidad
+                        </p>
+                        <p
+                            className="text-[10px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            Residencial
+                        </p>
+                    </motion.div>
 
-            <div className="hidden lg:block relative w-1/2 h-full overflow-hidden">
-                <motion.div
-                    className="absolute inset-0 w-full h-[120%]"
-                    style={{ y: imgY }}
-                >
-                    <Image
-                        src="/images/renders/render-5.png"
-                        alt="Club Residencial"
-                        fill
-                        priority
-                        className="object-cover object-center"
-                    />
+                    {/* Center: Title & Description */}
+                    <div className="flex-1 flex flex-col items-center justify-center px-8 lg:px-12 text-center">
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.7 }}
+                            className="text-xs lg:text-sm tracking-[0.3em] text-[#E1B19B] uppercase mb-2 lg:mb-8"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            [EL NÚCLEO PRIVADO]
+                        </motion.p>
+
+                        <motion.svg
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                            viewBox="0 0 4090 1518"
+                            className="w-full h-auto max-w-[280px] lg:max-w-[488px] pb-2 pt-2 md:pt-6"
+                            preserveAspectRatio="xMidYMid meet"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            strokeLinejoin="round"
+                            strokeMiterlimit={2}
+                        >
+                            <g transform="matrix(1,0,0,1,-13555.622653,-4316.195617)">
+                                <motion.g
+                                    variants={{
+                                        hidden: { opacity: 0 },
+                                        visible: {
+                                            opacity: 1,
+                                            transition: {
+                                                staggerChildren: 0.04,
+                                                delayChildren: 1.2
+                                            }
+                                        }
+                                    }}
+                                    initial="hidden"
+                                    animate="visible"
+                                >
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,20734.810127,2104.482148)">
+                                            <motion.path
+                                                d="M0,-55.673C-0.324,-52.512 -0.486,-48.542 -0.486,-43.76L-0.486,-13.048C-0.486,-7.781 -0.243,-3.485 0.162,-0.163C9.725,-0.649 17.342,-3.161 22.933,-7.781C28.525,-12.4 31.361,-18.882 31.361,-27.391C31.361,-43.76 19.205,-54.863 0,-55.673M-8.67,-41.815C-8.67,-49.838 -9.481,-54.943 -11.507,-60.859C-8.509,-61.183 -5.349,-61.345 -2.026,-61.345C25.526,-61.345 40.842,-48.136 40.842,-28.202C41.166,-7.294 23.744,5.672 1.053,5.51L-11.021,5.51C-9.319,-0.325 -8.67,-5.43 -8.67,-13.534L-8.67,-41.815Z"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,21013.202834,1947.786604)">
+                                            <motion.path
+                                                d="M0,55.185C13.695,55.428 23.824,43.515 23.662,29.334C23.987,13.775 11.507,-0.325 -2.998,-0.001C-15.397,-0.163 -26.337,10.453 -26.094,25.768C-26.337,41.166 -15.235,55.509 0,55.185M-1.621,61.587C-21.556,61.911 -35.575,45.055 -35.251,27.471C-35.575,9.156 -19.935,-6.726 -1.297,-6.403C17.18,-6.726 33.144,7.536 32.819,27.308C33.224,46.838 17.423,61.911 -1.621,61.587"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,21322.306789,2057.096944)">
+                                            <motion.path
+                                                d="M0,-23.095C0,-27.876 0.162,-31.847 0.487,-35.008C0.892,-38.168 1.458,-41.409 2.35,-44.732L-10.535,-44.732C-9.643,-41.409 -9.076,-38.168 -8.752,-35.008C-8.347,-31.847 -8.185,-27.876 -8.185,-23.095L-8.185,7.374L-39.951,-35.899C-42.868,-39.465 -44.733,-42.382 -45.543,-44.732L-55.834,-44.732C-54.781,-38.655 -54.213,-32.496 -54.213,-23.096L-54.213,0C-54.213,4.781 -54.376,8.752 -54.7,11.912C-55.105,15.073 -55.672,18.314 -56.564,21.637L-43.679,21.637C-44.57,18.314 -45.138,15.073 -45.461,11.912C-45.867,8.752 -46.029,4.781 -46.029,0L-46.029,-30.469L-14.262,12.804C-11.345,16.37 -9.481,19.287 -8.671,21.637L1.621,21.637C0.567,15.559 0,9.401 0,0L0,-23.095Z"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,21501.953558,2104.482148)">
+                                            <motion.path
+                                                d="M0,-55.673C-0.324,-52.512 -0.486,-48.542 -0.486,-43.76L-0.486,-13.048C-0.486,-7.781 -0.243,-3.485 0.162,-0.163C9.725,-0.649 17.342,-3.161 22.933,-7.781C28.525,-12.4 31.361,-18.882 31.361,-27.391C31.361,-43.76 19.205,-54.863 0,-55.673M-8.67,-41.815C-8.67,-49.838 -9.481,-54.943 -11.507,-60.859C-8.509,-61.183 -5.349,-61.345 -2.026,-61.345C25.526,-61.345 40.842,-48.136 40.842,-28.202C41.166,-7.294 23.744,5.672 1.053,5.51L-11.021,5.51C-9.319,-0.325 -8.67,-5.43 -8.67,-13.534L-8.67,-41.815Z"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,21689.835192,2064.492949)">
+                                            <motion.path
+                                                d="M0,-28.281C0,-36.385 -0.649,-41.49 -2.35,-47.325L10.534,-47.325C8.833,-41.49 8.185,-36.385 8.185,-28.281L8.185,0.001C8.185,8.104 8.833,13.21 10.534,19.044L-2.35,19.044C-0.649,13.21 0,8.104 0,0.001L0,-28.281Z"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,22107.528361,2090.160471)">
+                                            <motion.path
+                                                d="M0,-44.733L-0.243,-44.651C-6.969,-48.299 -12.722,-49.676 -19.125,-49.676C-34.44,-49.676 -45.785,-38.817 -45.785,-22.529C-46.028,-6.564 -33.954,5.104 -18.152,4.861C-13.047,4.861 -8.59,3.97 -4.862,2.268L-4.862,-4.539C-4.862,-11.589 -6.159,-17.667 -8.833,-22.61L5.106,-22.61C4.052,-19.935 3.404,-15.236 3.404,-10.778L3.404,-3.323C3.404,1.296 3.809,4.861 4.62,7.374C-2.188,10.048 -10.453,11.668 -18.476,11.668C-43.435,11.831 -55.104,-3.485 -54.942,-20.989C-55.185,-41.491 -39.788,-56.564 -18.314,-56.321C-11.912,-56.321 -5.834,-55.673 0,-54.295L0,-44.733Z"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,22283.664237,1947.786604)">
+                                            <motion.path
+                                                d="M0,55.185C13.695,55.428 23.824,43.515 23.662,29.334C23.986,13.775 11.507,-0.325 -2.998,-0.001C-15.398,-0.163 -26.337,10.453 -26.094,25.768C-26.337,41.166 -15.235,55.509 0,55.185M-1.621,61.587C-21.556,61.911 -35.575,45.055 -35.251,27.471C-35.575,9.156 -19.935,-6.726 -1.297,-6.403C17.18,-6.726 33.144,7.536 32.819,27.308C33.224,46.838 17.422,61.911 -1.621,61.587"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,21894.893356,2092.459717)">
+                                            <motion.path
+                                                d="M0,-47.891L0,-57.13L-35.089,-57.13C-33.387,-51.294 -32.738,-46.19 -32.738,-38.086L-32.738,-9.804C-32.738,-1.701 -33.387,3.405 -35.089,9.239L0,9.239L0,0.001C-5.591,2.27 -16.613,3.404 -24.554,3.404L-24.554,-21.011L-21.354,-21.011C-15.543,-21.011 -11.883,-20.546 -7.699,-19.326L-7.699,-28.565C-11.883,-27.345 -15.543,-26.879 -21.354,-26.879L-24.554,-26.879L-24.554,-51.294C-16.613,-51.294 -5.591,-50.161 0,-47.891"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,20734.810127,2104.482148)">
+                                            <motion.path
+                                                d="M0,-55.673C-0.324,-52.512 -0.486,-48.542 -0.486,-43.76L-0.486,-13.048C-0.486,-7.781 -0.243,-3.485 0.162,-0.163C9.725,-0.649 17.342,-3.161 22.933,-7.781C28.525,-12.4 31.361,-18.882 31.361,-27.391C31.361,-43.76 19.205,-54.863 0,-55.673M-8.67,-41.815C-8.67,-49.838 -9.481,-54.943 -11.507,-60.859C-8.509,-61.183 -5.349,-61.345 -2.026,-61.345C25.526,-61.345 40.842,-48.136 40.842,-28.202C41.166,-7.294 23.744,5.672 1.053,5.51L-11.021,5.51C-9.319,-0.325 -8.67,-5.43 -8.67,-13.534L-8.67,-41.815Z"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,21013.202834,1947.786604)">
+                                            <motion.path
+                                                d="M0,55.185C13.695,55.428 23.824,43.515 23.662,29.334C23.987,13.775 11.507,-0.325 -2.998,-0.001C-15.397,-0.163 -26.337,10.453 -26.094,25.768C-26.337,41.166 -15.235,55.509 0,55.185M-1.621,61.587C-21.556,61.911 -35.575,45.055 -35.251,27.471C-35.575,9.156 -19.935,-6.726 -1.297,-6.403C17.18,-6.726 33.144,7.536 32.819,27.308C33.224,46.838 17.423,61.911 -1.621,61.587"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,21322.306789,2057.096944)">
+                                            <motion.path
+                                                d="M0,-23.095C0,-27.876 0.162,-31.847 0.487,-35.008C0.892,-38.168 1.458,-41.409 2.35,-44.732L-10.535,-44.732C-9.643,-41.409 -9.076,-38.168 -8.752,-35.008C-8.347,-31.847 -8.185,-27.876 -8.185,-23.095L-8.185,7.374L-39.951,-35.899C-42.868,-39.465 -44.733,-42.382 -45.543,-44.732L-55.834,-44.732C-54.781,-38.655 -54.213,-32.496 -54.213,-23.096L-54.213,0C-54.213,4.781 -54.376,8.752 -54.7,11.912C-55.105,15.073 -55.672,18.314 -56.564,21.637L-43.679,21.637C-44.57,18.314 -45.138,15.073 -45.461,11.912C-45.867,8.752 -46.029,4.781 -46.029,0L-46.029,-30.469L-14.262,12.804C-11.345,16.37 -9.481,19.287 -8.671,21.637L1.621,21.637C0.567,15.559 0,9.401 0,0L0,-23.095Z"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,21501.953558,2104.482148)">
+                                            <motion.path
+                                                d="M0,-55.673C-0.324,-52.512 -0.486,-48.542 -0.486,-43.76L-0.486,-13.048C-0.486,-7.781 -0.243,-3.485 0.162,-0.163C9.725,-0.649 17.342,-3.161 22.933,-7.781C28.525,-12.4 31.361,-18.882 31.361,-27.391C31.361,-43.76 19.205,-54.863 0,-55.673M-8.67,-41.815C-8.67,-49.838 -9.481,-54.943 -11.507,-60.859C-8.509,-61.183 -5.349,-61.345 -2.026,-61.345C25.526,-61.345 40.842,-48.136 40.842,-28.202C41.166,-7.294 23.744,5.672 1.053,5.51L-11.021,5.51C-9.319,-0.325 -8.67,-5.43 -8.67,-13.534L-8.67,-41.815Z"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,21689.835192,2064.492949)">
+                                            <motion.path
+                                                d="M0,-28.281C0,-36.385 -0.649,-41.49 -2.35,-47.325L10.534,-47.325C8.833,-41.49 8.185,-36.385 8.185,-28.281L8.185,0.001C8.185,8.104 8.833,13.21 10.534,19.044L-2.35,19.044C-0.649,13.21 0,8.104 0,0.001L0,-28.281Z"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,22107.528361,2090.160471)">
+                                            <motion.path
+                                                d="M0,-44.733L-0.243,-44.651C-6.969,-48.299 -12.722,-49.676 -19.125,-49.676C-34.44,-49.676 -45.785,-38.817 -45.785,-22.529C-46.028,-6.564 -33.954,5.104 -18.152,4.861C-13.047,4.861 -8.59,3.97 -4.862,2.268L-4.862,-4.539C-4.862,-11.589 -6.159,-17.667 -8.833,-22.61L5.106,-22.61C4.052,-19.935 3.404,-15.236 3.404,-10.778L3.404,-3.323C3.404,1.296 3.809,4.861 4.62,7.374C-2.188,10.048 -10.453,11.668 -18.476,11.668C-43.435,11.831 -55.104,-3.485 -54.942,-20.989C-55.185,-41.491 -39.788,-56.564 -18.314,-56.321C-11.912,-56.321 -5.834,-55.673 0,-54.295L0,-44.733Z"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,22283.664237,1947.786604)">
+                                            <motion.path
+                                                d="M0,55.185C13.695,55.428 23.824,43.515 23.662,29.334C23.986,13.775 11.507,-0.325 -2.998,-0.001C-15.398,-0.163 -26.337,10.453 -26.094,25.768C-26.337,41.166 -15.235,55.509 0,55.185M-1.621,61.587C-21.556,61.911 -35.575,45.055 -35.251,27.471C-35.575,9.156 -19.935,-6.726 -1.297,-6.403C17.18,-6.726 33.144,7.536 32.819,27.308C33.224,46.838 17.422,61.911 -1.621,61.587"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
+                                        <g transform="matrix(2.852297,0,0,2.852297,21894.893356,2092.459717)">
+                                            <motion.path
+                                                d="M0,-47.891L0,-57.13L-35.089,-57.13C-33.387,-51.294 -32.738,-46.19 -32.738,-38.086L-32.738,-9.804C-32.738,-1.701 -33.387,3.405 -35.089,9.239L0,9.239L0,0.001C-5.591,2.27 -16.613,3.404 -24.554,3.404L-24.554,-21.011L-21.354,-21.011C-15.543,-21.011 -11.883,-20.546 -7.699,-19.326L-7.699,-28.565C-11.883,-27.345 -15.543,-26.879 -21.354,-26.879L-24.554,-26.879L-24.554,-51.294C-16.613,-51.294 -5.591,-50.161 0,-47.891"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.4, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                </motion.g>
+                                <motion.g
+                                    variants={{
+                                        hidden: { opacity: 0 },
+                                        visible: {
+                                            opacity: 1,
+                                            transition: {
+                                                staggerChildren: 0.05,
+                                                delayChildren: 0.6
+                                            }
+                                        }
+                                    }}
+                                    initial="hidden"
+                                    animate="visible"
+                                >
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M9089.322,5141.167C9089.075,5095.333 9094.822,5058.875 9106.565,5031.792C9118.307,5004.708 9132.583,4991.444 9149.394,4992C9162.99,4992 9174.331,4999.569 9183.416,5014.708C9192.501,5029.847 9198.588,5051.167 9201.678,5078.667L9182.952,5089.917C9177.39,5053.25 9166.204,5034.917 9149.394,5034.917C9137.898,5034.917 9128.504,5044.153 9121.212,5062.625C9113.919,5081.097 9110.273,5107.278 9110.273,5141.167C9110.273,5175.056 9113.919,5201.236 9121.212,5219.708C9128.504,5238.181 9137.898,5247.417 9149.394,5247.417C9166.204,5247.417 9177.39,5229.083 9182.952,5192.417L9201.678,5203.667C9198.588,5231.167 9192.501,5252.486 9183.416,5267.625C9174.331,5282.764 9162.99,5290.333 9149.394,5290.333C9132.583,5290.889 9118.307,5277.625 9106.565,5250.542C9094.822,5223.458 9089.075,5187 9089.322,5141.167Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M9240.057,5287L9240.057,4995.333L9260.638,4995.333L9260.638,5244.083L9317.372,5244.083L9317.372,5287L9240.057,5287Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M9345.183,5181.583L9345.183,4995.333L9365.763,4995.333L9365.763,5182.833C9365.763,5203.667 9368.019,5219.639 9372.531,5230.75C9377.042,5241.861 9383.686,5247.417 9392.462,5247.417C9401.238,5247.417 9407.85,5241.861 9412.3,5230.75C9416.75,5219.639 9418.975,5203.667 9418.975,5182.833L9418.975,4995.333L9439.555,4995.333L9439.555,5181.583C9439.555,5216.583 9435.322,5243.458 9426.855,5262.208C9418.388,5280.958 9406.923,5290.333 9392.462,5290.333C9378,5290.333 9366.505,5280.958 9357.976,5262.208C9349.447,5243.458 9345.183,5216.583 9345.183,5181.583Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M9482.755,5287L9482.755,4995.333L9528.55,4995.333C9540.045,4995.333 9549.038,5002.069 9555.527,5015.542C9562.016,5029.014 9565.261,5048.111 9565.261,5072.833C9565.261,5085.333 9564.025,5096.375 9561.553,5105.958C9559.081,5115.542 9555.743,5122.833 9551.541,5127.833C9565.137,5139.778 9571.935,5163.944 9571.935,5200.333C9571.935,5227.556 9568.227,5248.806 9560.811,5264.083C9553.395,5279.361 9543.136,5287 9530.033,5287L9482.755,5287ZM9503.335,5111.583L9527.623,5111.583C9539.366,5111.583 9545.237,5099.361 9545.237,5074.917C9545.237,5062.139 9543.784,5052.833 9540.88,5047C9537.975,5041.167 9533.433,5038.25 9527.252,5038.25L9503.335,5038.25L9503.335,5111.583ZM9503.335,5244.083L9527.809,5244.083C9543.506,5244.083 9551.355,5229.222 9551.355,5199.5C9551.355,5169.5 9543.506,5154.5 9527.809,5154.5L9503.335,5154.5L9503.335,5244.083Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M9672.426,5287L9672.426,4995.333L9718.036,4995.333C9730.273,4995.333 9739.79,5002.417 9746.589,5016.583C9753.387,5030.75 9756.786,5050.333 9756.786,5075.333C9756.786,5095.333 9754.592,5112 9750.204,5125.333C9745.816,5138.667 9739.543,5147.556 9731.385,5152L9768.652,5287L9745.661,5287L9709.136,5155.75L9693.006,5155.75L9693.006,5287L9672.426,5287ZM9693.006,5112.833L9718.036,5112.833C9730.149,5112.833 9736.206,5100.333 9736.206,5075.333C9736.206,5050.611 9730.149,5038.25 9718.036,5038.25L9693.006,5038.25L9693.006,5112.833Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M9799.059,5287L9799.059,4995.333L9877.3,4995.333L9877.3,5038.25L9819.639,5038.25L9819.639,5110.333L9866.176,5110.333L9866.176,5152.833L9819.639,5152.833L9819.639,5244.083L9879.154,5244.083L9879.154,5287L9799.059,5287Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M9907.892,5209.5L9924.764,5186.167C9929.461,5227 9938.484,5247.417 9951.834,5247.417C9957.52,5247.417 9962.062,5243.875 9965.461,5236.792C9968.86,5229.708 9970.56,5219.5 9970.56,5206.167C9970.56,5197.556 9969.447,5190.194 9967.222,5184.083C9965.121,5178.25 9962.556,5173.111 9959.528,5168.667C9956.5,5164.222 9951.525,5158.25 9944.603,5150.75L9941.266,5147C9932.737,5137.278 9926.309,5126.236 9921.983,5113.875C9917.657,5101.514 9915.494,5085.889 9915.494,5067C9915.494,5045.611 9918.77,5027.764 9925.321,5013.458C9931.872,4999.153 9940.153,4992 9950.165,4992C9967.099,4992 9978.78,5008.806 9985.207,5042.417L9968.706,5066.167C9965.121,5045.333 9958.941,5034.917 9950.165,5034.917C9945.963,5034.917 9942.44,5037.903 9939.597,5043.875C9936.754,5049.847 9935.333,5057 9935.333,5065.333C9935.333,5073.944 9936.507,5081.306 9938.855,5087.417C9941.08,5093.528 9943.799,5098.736 9947.013,5103.042C9950.227,5107.347 9955.109,5112.694 9961.66,5119.083C9971.672,5129.639 9979.119,5141.306 9984.002,5154.083C9988.884,5166.861 9991.325,5183.528 9991.325,5204.083C9991.325,5229.917 9987.586,5250.75 9980.108,5266.583C9972.63,5282.417 9963.02,5290.333 9951.278,5290.333C9940.277,5290.333 9930.821,5282.625 9922.91,5267.208C9915,5251.792 9909.994,5232.556 9907.892,5209.5Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.rect
+                                            x="10028.778"
+                                            y="4995.333"
+                                            width="20.58"
+                                            height="291.667"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M10094.968,5287L10094.968,4995.333L10133.718,4995.333C10150.528,4994.778 10164.773,5007.556 10176.454,5033.667C10188.135,5059.778 10193.851,5095.611 10193.604,5141.167C10193.851,5186.722 10188.135,5222.556 10176.454,5248.667C10164.773,5274.778 10150.528,5287.556 10133.718,5287L10094.968,5287ZM10115.548,5244.083L10128.341,5244.083C10140.949,5244.083 10151.455,5236.028 10159.86,5219.917C10168.389,5203.528 10172.653,5177.278 10172.653,5141.167C10172.653,5104.5 10168.389,5078.25 10159.86,5062.417C10151.579,5046.306 10141.072,5038.25 10128.341,5038.25L10115.548,5038.25L10115.548,5244.083Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M10232.725,5287L10232.725,4995.333L10310.967,4995.333L10310.967,5038.25L10253.305,5038.25L10253.305,5110.333L10299.842,5110.333L10299.842,5152.833L10253.305,5152.833L10253.305,5244.083L10312.821,5244.083L10312.821,5287L10232.725,5287Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M10351.756,5287L10351.756,4995.333L10373.819,4995.333L10426.475,5204.5L10426.475,4995.333L10447.055,4995.333L10447.055,5287L10424.992,5287L10372.336,5078.25L10372.336,5287L10351.756,5287Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M10486.176,5141.167C10485.929,5095.333 10491.676,5058.875 10503.419,5031.792C10515.161,5004.708 10529.437,4991.444 10546.248,4992C10559.844,4992 10571.185,4999.569 10580.27,5014.708C10589.355,5029.847 10595.442,5051.167 10598.532,5078.667L10579.806,5089.917C10574.244,5053.25 10563.058,5034.917 10546.248,5034.917C10534.752,5034.917 10525.358,5044.153 10518.066,5062.625C10510.773,5081.097 10507.127,5107.278 10507.127,5141.167C10507.127,5175.056 10510.773,5201.236 10518.066,5219.708C10525.358,5238.181 10534.752,5247.417 10546.248,5247.417C10563.058,5247.417 10574.244,5229.083 10579.806,5192.417L10598.532,5203.667C10595.442,5231.167 10589.355,5252.486 10580.27,5267.625C10571.185,5282.764 10559.844,5290.333 10546.248,5290.333C10529.437,5290.889 10515.161,5277.625 10503.419,5250.542C10491.676,5223.458 10485.929,5187 10486.176,5141.167Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.rect
+                                            x="10636.911"
+                                            y="4995.333"
+                                            width="20.58"
+                                            height="291.667"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M10689.752,5287L10734.435,4995.333L10754.645,4995.333L10799.513,5287L10777.45,5287L10767.067,5214.083L10722.199,5214.083L10711.63,5287L10689.752,5287ZM10728.132,5171.167L10760.949,5171.167L10744.633,5056.583L10728.132,5171.167Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                    <g transform="matrix(2.247312,0,0,1,-6870.900487,148.812181)">
+                                        <motion.path
+                                            d="M10831.589,5287L10831.589,4995.333L10852.169,4995.333L10852.169,5244.083L10908.903,5244.083L10908.903,5287L10831.589,5287Z"
+                                            variants={{
+                                                hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                visible: {
+                                                    pathLength: 1,
+                                                    fill: "rgba(225, 177, 155, 1)",
+                                                    transition: {
+                                                        pathLength: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                        fill: { duration: 0.4, ease: "easeOut" }
+                                                    }
+                                                }
+                                            }}
+                                            stroke="#E1B19B"
+                                            strokeWidth={1}
+                                            fillRule="nonzero"
+                                        />
+                                    </g>
+                                </motion.g>
+                                <motion.g
+                                    variants={{
+                                        hidden: { opacity: 0 },
+                                        visible: {
+                                            opacity: 1,
+                                            transition: {
+                                                staggerChildren: 0.03,
+                                                delayChildren: 0
+                                            }
+                                        }
+                                    }}
+                                    initial="hidden"
+                                    animate="visible"
+                                >
+                                    <g transform="matrix(1,0,0,1,-6018.526831,3749.812181)">
+                                        <g transform="matrix(12.082011,0,0,12.082011,21928.824328,663.69704)">
+                                            <motion.path
+                                                d="M0,5.392C-0.094,5.229 -0.325,5.147 -0.5,5.045C-0.733,4.911 -1.03,4.694 -1.39,4.512C-1.684,4.364 -2.009,4.217 -2.318,4.051C-2.637,3.879 -2.959,3.723 -3.224,3.547C-3.591,3.305 -3.849,3.049 -3.952,2.833C-4.185,2.409 -3.713,2.167 -3.395,1.992C-3.153,1.859 -2.837,1.675 -2.482,1.493C-2.185,1.34 -1.873,1.169 -1.566,1C-1.244,0.823 -0.935,0.646 -0.674,0.471C-0.277,0.203 0.037,-0.026 0.074,-0.231C0.07,-0.598 -0.298,-0.669 -0.691,-0.631C-1.046,-0.597 -1.436,-0.475 -1.642,-0.433C-1.946,-0.372 -2.348,-0.256 -2.766,-0.167C-3.16,-0.082 -3.568,-0.029 -3.91,-0.016C-4.428,0.005 -4.797,-0.101 -4.774,-0.508C-4.738,-0.736 -4.601,-0.987 -4.458,-1.183C-4.257,-1.451 -3.962,-1.803 -3.665,-2.184C-3.401,-2.522 -3.061,-2.831 -2.84,-3.163C-2.515,-3.651 -2.307,-4.12 -2.373,-4.354C-2.448,-4.67 -2.99,-4.56 -3.296,-4.352C-3.572,-4.18 -3.953,-3.969 -4.32,-3.701C-4.649,-3.46 -4.956,-3.156 -5.279,-2.957C-5.729,-2.679 -6.147,-2.517 -6.409,-2.586C-6.692,-2.679 -6.674,-3.024 -6.614,-3.404C-6.561,-3.74 -6.486,-4.104 -6.465,-4.324C-6.389,-4.723 -6.316,-5.146 -6.27,-5.533C-6.21,-6.047 -6.219,-6.49 -6.294,-6.742C-6.393,-7.073 -6.595,-7.045 -7.117,-6.367C-7.34,-6.084 -7.592,-5.805 -7.787,-5.501C-7.933,-5.315 -8.108,-4.921 -8.325,-4.587C-8.562,-4.222 -8.825,-3.942 -9.119,-4.027C-9.349,-4.143 -9.452,-4.517 -9.547,-4.992C-9.617,-5.339 -9.703,-5.724 -9.743,-6.091C-9.792,-6.54 -9.866,-6.943 -9.931,-7.184C-10.026,-7.567 -10.044,-7.992 -10.401,-8.054C-10.629,-8.065 -10.872,-7.86 -10.964,-7.493C-11.037,-7.161 -11.077,-6.814 -11.132,-6.471C-11.186,-6.13 -11.175,-5.777 -11.234,-5.441C-11.348,-4.782 -11.43,-4.352 -11.597,-4.124C-11.895,-3.803 -12.187,-4.097 -12.491,-4.489C-12.758,-4.833 -12.994,-5.263 -13.127,-5.473C-13.271,-5.692 -13.543,-6.046 -13.762,-6.383C-14.017,-6.775 -14.267,-7.093 -14.581,-6.88C-14.744,-6.731 -14.701,-6.324 -14.639,-5.817C-14.598,-5.476 -14.558,-5.092 -14.48,-4.723C-14.396,-4.323 -14.317,-3.936 -14.256,-3.637C-14.134,-3.11 -14.202,-2.83 -14.341,-2.691C-14.521,-2.511 -14.863,-2.549 -15.269,-2.753C-15.541,-2.889 -15.796,-3.146 -16.081,-3.344C-16.375,-3.548 -16.706,-3.694 -16.937,-3.867C-17.118,-3.995 -17.367,-4.298 -17.655,-4.453C-17.979,-4.628 -18.326,-4.659 -18.49,-4.356C-18.566,-4.126 -18.32,-3.709 -17.995,-3.217C-17.775,-2.884 -17.532,-2.507 -17.267,-2.168C-16.971,-1.787 -16.649,-1.457 -16.446,-1.188C-16.213,-0.889 -15.883,-0.307 -16.343,-0.058C-16.504,0.068 -16.895,0.033 -17.371,-0.049C-17.681,-0.103 -18.021,-0.23 -18.378,-0.313C-18.721,-0.393 -19.072,-0.472 -19.396,-0.536C-19.795,-0.616 -20.168,-0.654 -20.438,-0.642C-20.863,-0.622 -21.018,-0.435 -20.764,0.057C-20.658,0.198 -20.545,0.366 -20.379,0.459C-20.144,0.591 -19.789,0.678 -19.442,0.854C-19.152,1 -18.862,1.199 -18.56,1.362C-18.248,1.53 -17.948,1.707 -17.687,1.878C-17.332,2.113 -17.079,2.357 -16.966,2.567C-16.706,2.991 -17.187,3.196 -17.514,3.371C-17.756,3.505 -18.046,3.743 -18.405,3.927C-18.704,4.081 -19.027,4.24 -19.336,4.41C-19.661,4.588 -19.991,4.741 -20.254,4.918C-20.656,5.189 -20.934,5.459 -20.962,5.665C-20.945,6.024 -20.593,6.094 -20.203,6.056C-19.851,6.021 -19.466,5.896 -19.259,5.854C-18.955,5.793 -18.551,5.687 -18.133,5.598C-17.739,5.514 -17.333,5.445 -16.99,5.432C-16.473,5.411 -16.143,5.52 -16.166,5.926C-16.203,6.154 -16.305,6.405 -16.448,6.602C-16.649,6.869 -16.988,7.187 -17.285,7.568C-17.549,7.906 -17.818,8.267 -18.04,8.599C-18.364,9.087 -18.551,9.532 -18.484,9.766C-18.41,10.082 -17.875,10.037 -17.569,9.829C-17.294,9.656 -16.958,9.376 -16.592,9.108C-16.263,8.866 -15.929,8.603 -15.606,8.404C-15.156,8.127 -14.766,7.982 -14.504,8.051C-14.221,8.143 -14.243,8.444 -14.303,8.824C-14.356,9.16 -14.383,9.531 -14.404,9.752C-14.48,10.151 -14.542,10.573 -14.588,10.961C-14.649,11.474 -14.668,11.908 -14.593,12.16C-14.494,12.492 -14.292,12.478 -13.77,11.8C-13.547,11.517 -13.325,11.215 -13.13,10.912C-12.984,10.726 -12.753,10.37 -12.536,10.036C-12.298,9.67 -12.067,9.344 -11.774,9.429C-11.544,9.545 -11.41,9.931 -11.315,10.407C-11.245,10.754 -11.14,11.14 -11.1,11.507C-11.051,11.956 -11.056,12.371 -10.992,12.612C-10.896,12.995 -10.853,13.384 -10.496,13.447C-10.268,13.457 -10.091,13.268 -9.999,12.901C-9.926,12.569 -9.892,12.225 -9.838,11.882C-9.784,11.541 -9.647,11.213 -9.588,10.877C-9.474,10.219 -9.457,9.786 -9.291,9.557C-8.993,9.236 -8.692,9.503 -8.388,9.895C-8.121,10.24 -7.872,10.663 -7.738,10.873C-7.595,11.092 -7.359,11.469 -7.139,11.806C-6.884,12.197 -6.646,12.499 -6.332,12.286C-6.169,12.137 -6.123,11.737 -6.184,11.23C-6.226,10.889 -6.362,10.518 -6.439,10.149C-6.523,9.749 -6.526,9.346 -6.588,9.047C-6.71,8.52 -6.75,8.202 -6.61,8.063C-6.43,7.883 -6.044,7.985 -5.638,8.188C-5.366,8.325 -5.08,8.533 -4.795,8.731C-4.5,8.935 -4.205,9.13 -3.974,9.303C-3.793,9.431 -3.495,9.647 -3.206,9.803C-2.882,9.977 -2.608,10.066 -2.445,9.763C-2.369,9.534 -2.534,9.105 -2.857,8.616C-3.076,8.285 -3.395,7.965 -3.658,7.627C-3.951,7.25 -4.193,6.862 -4.396,6.593C-4.542,6.397 -4.675,6.169 -4.715,5.939C-4.747,5.512 -4.462,5.349 -3.959,5.372C-3.641,5.386 -3.267,5.547 -2.861,5.638C-2.5,5.72 -2.118,5.794 -1.761,5.877C-1.347,5.974 -0.952,5.979 -0.645,5.995C-0.145,6.021 0.184,5.92 0.01,5.418C0.003,5.39 0.003,5.398 0,5.392"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.3, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(1,0,0,1,-6018.526831,3749.812181)">
+                                        <g transform="matrix(12.082011,0,0,12.082011,21698.309222,949.266245)">
+                                            <motion.path
+                                                d="M0,1.684C0.317,1.699 0.63,1.709 0.947,1.783C1.257,1.855 1.613,1.768 1.925,1.853C2.236,1.937 2.522,2.091 2.836,2.144C3.154,2.198 3.454,2.172 3.776,2.15C4.11,2.117 4.459,2.215 4.784,2.139C5.111,2.062 5.452,2.042 5.774,1.961C6.101,1.879 6.395,1.675 6.723,1.628C7.053,1.58 7.389,1.545 7.726,1.573C8.045,1.6 8.396,1.603 8.726,1.734C9.198,1.857 9.64,2.181 10.128,2.205C10.442,2.222 10.781,2.214 11.091,2.162C11.397,2.111 11.643,1.763 11.948,1.683C12.251,1.604 12.622,1.797 12.926,1.728C13.233,1.658 13.507,1.415 13.818,1.395C14.126,1.374 14.431,1.495 14.746,1.56C15.157,1.617 15.562,1.741 15.974,1.807C16.387,1.873 16.818,1.839 17.236,1.819C17.59,1.811 17.926,1.687 18.27,1.602C18.612,1.517 18.938,1.38 19.276,1.278C19.618,1.176 19.972,1.098 20.316,1.039C20.663,0.979 21.036,0.879 21.392,0.925C21.744,0.946 22.076,1.163 22.405,1.299C22.726,1.432 23.035,1.613 23.354,1.759C23.678,1.908 24.024,1.902 24.366,1.965C25.069,2.052 24.946,1.549 24.605,1.194C24.362,0.936 24.143,0.634 23.843,0.435C23.547,0.239 23.216,0.072 22.883,-0.062C22.551,-0.196 22.216,-0.402 21.867,-0.469C21.512,-0.538 21.124,-0.387 20.772,-0.383C20.448,-0.376 20.123,-0.375 19.807,-0.299C19.495,-0.223 19.2,-0.07 18.892,0.026C18.581,0.123 18.24,0.093 17.928,0.164C17.611,0.236 17.314,0.427 16.991,0.423C16.601,0.43 16.23,0.245 15.846,0.18C15.464,0.116 15.088,0.002 14.706,-0.047C14.361,-0.113 13.998,-0.063 13.664,-0.035C13.326,-0.006 13.011,0.181 12.678,0.259C12.348,0.337 11.998,0.341 11.667,0.423C11.336,0.505 10.993,0.459 10.657,0.499C10.355,0.532 10.089,0.546 9.79,0.5C9.495,0.455 9.183,0.501 8.889,0.427C8.596,0.353 8.309,0.244 8.015,0.189C7.717,0.133 7.417,0.287 7.116,0.298C6.811,0.301 6.476,0.04 6.18,0.107C5.887,0.174 5.627,0.399 5.336,0.486C5.046,0.572 4.744,0.607 4.45,0.671C4.155,0.735 3.868,0.743 3.563,0.741C3.252,0.748 2.905,0.957 2.59,0.889C2.286,0.823 1.987,0.672 1.68,0.585C1.375,0.497 1.078,0.402 0.773,0.34C0.458,0.277 0.17,0.309 -0.142,0.325C-0.449,0.341 -0.74,0.295 -1.042,0.438C-1.357,0.599 -1.652,0.744 -1.708,0.944C-1.782,1.205 -1.553,1.498 -1.18,1.557C-0.595,1.653 -0.367,1.659 0,1.684"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.3, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(1,0,0,1,-6018.526831,3749.812181)">
+                                        <g transform="matrix(12.082011,0,0,12.082011,21698.472329,1000.501222)">
+                                            <motion.path
+                                                d="M0,1.06C0.317,1.075 0.655,1.149 0.972,1.223C1.282,1.295 1.597,1.384 1.908,1.469C2.22,1.553 2.52,1.631 2.834,1.684C3.152,1.738 3.442,1.795 3.763,1.773C4.098,1.739 4.41,1.669 4.735,1.593C5.061,1.516 5.419,1.571 5.741,1.489C6.068,1.407 6.363,1.15 6.691,1.103C7.021,1.056 7.364,1.293 7.701,1.322C8.019,1.349 8.35,1.31 8.68,1.44C9.152,1.563 9.633,1.668 10.12,1.692C10.435,1.708 10.763,1.789 11.072,1.737C11.379,1.686 11.643,1.418 11.947,1.338C12.25,1.259 12.542,1.111 12.846,1.042C13.153,0.973 13.488,0.946 13.799,0.925C14.107,0.905 14.452,0.894 14.767,0.96C15.178,1.016 15.546,1.36 15.959,1.426C16.372,1.492 16.807,1.517 17.226,1.497C17.58,1.489 17.91,1.282 18.254,1.197C18.596,1.112 18.955,1.086 19.293,0.984C19.635,0.882 19.981,0.833 20.325,0.773C20.672,0.713 21.02,0.506 21.377,0.552C21.728,0.573 22.041,0.818 22.37,0.955C22.692,1.088 22.972,1.325 23.292,1.471C23.616,1.62 23.976,1.748 24.318,1.811C25.021,1.898 24.841,1.241 24.501,0.886C24.258,0.628 24.166,0.185 23.865,-0.014C23.569,-0.209 23.218,-0.362 22.885,-0.495C22.553,-0.629 22.184,-0.702 21.835,-0.77C21.48,-0.838 21.111,-0.77 20.758,-0.766C20.434,-0.759 20.144,-0.627 19.828,-0.55C19.516,-0.475 19.154,-0.572 18.845,-0.475C18.534,-0.378 18.234,-0.267 17.923,-0.196C17.605,-0.124 17.301,-0.05 16.977,-0.055C16.587,-0.048 16.214,-0.136 15.83,-0.201C15.448,-0.266 15.054,-0.267 14.672,-0.316C14.327,-0.382 14.002,-0.254 13.668,-0.227C13.329,-0.198 13.01,-0.159 12.677,-0.081C12.347,-0.003 12.021,0.095 11.69,0.177C11.359,0.259 10.984,0.103 10.647,0.143C10.346,0.176 10.058,0.265 9.759,0.219C9.464,0.174 9.202,-0.024 8.908,-0.098C8.615,-0.172 8.306,-0.208 8.012,-0.263C7.714,-0.319 7.401,-0.187 7.101,-0.176C6.796,-0.173 6.484,-0.259 6.189,-0.192C5.895,-0.125 5.616,0.013 5.325,0.099C5.035,0.186 4.726,0.189 4.432,0.253C4.136,0.317 3.855,0.402 3.55,0.399C3.239,0.406 2.896,0.541 2.581,0.473C2.277,0.407 1.984,0.24 1.678,0.153C1.372,0.065 1.06,0.03 0.755,-0.032C0.44,-0.095 0.146,-0.294 -0.166,-0.278C-0.473,-0.263 -0.829,-0.254 -1.131,-0.111C-1.447,0.049 -1.569,0.376 -1.626,0.576C-1.699,0.837 -1.562,1.044 -1.189,1.103C-0.593,1.085 -0.367,1.035 0,1.06"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.3, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(1,0,0,1,-6018.526831,3749.812181)">
+                                        <g transform="matrix(12.082011,0,0,12.082011,21698.355134,1043.727033)">
+                                            <motion.path
+                                                d="M0,1.493C0.317,1.508 0.634,1.55 0.951,1.624C1.261,1.696 1.595,1.696 1.906,1.78C2.218,1.864 2.503,2.056 2.817,2.109C3.135,2.163 3.451,2.055 3.773,2.032C4.107,1.999 4.423,1.95 4.748,1.874C5.074,1.798 5.44,1.886 5.763,1.805C6.089,1.723 6.413,1.694 6.741,1.647C7.071,1.599 7.387,1.395 7.724,1.423C8.043,1.45 8.316,1.717 8.646,1.848C9.118,1.971 9.641,1.963 10.129,1.988C10.443,2.004 10.776,2.08 11.086,2.028C11.392,1.977 11.665,1.735 11.97,1.655C12.273,1.576 12.599,1.587 12.903,1.517C13.21,1.448 13.51,1.39 13.821,1.37C14.129,1.349 14.41,1.467 14.725,1.532C15.136,1.589 15.575,1.506 15.988,1.572C16.401,1.637 16.819,1.859 17.238,1.838C17.592,1.83 17.897,1.459 18.241,1.374C18.583,1.29 18.972,1.379 19.31,1.277C19.652,1.175 19.969,0.976 20.313,0.916C20.66,0.856 21.014,0.945 21.371,0.991C21.722,1.011 22.121,0.917 22.451,1.054C22.772,1.187 22.974,1.61 23.294,1.756C23.618,1.904 23.986,2.016 24.328,2.078C25.031,2.166 24.871,1.489 24.531,1.135C24.288,0.877 24.055,0.635 23.755,0.436C23.459,0.24 23.218,-0.07 22.885,-0.204C22.554,-0.337 22.171,-0.316 21.822,-0.384C21.467,-0.452 21.118,-0.673 20.765,-0.669C20.441,-0.662 20.125,-0.476 19.809,-0.4C19.497,-0.324 19.139,-0.382 18.83,-0.285C18.52,-0.188 18.231,-0.058 17.919,0.013C17.602,0.085 17.31,0.193 16.987,0.189C16.597,0.196 16.228,0.111 15.844,0.046C15.461,-0.019 15.066,-0.01 14.684,-0.06C14.339,-0.126 14.005,-0.069 13.671,-0.041C13.332,-0.012 13.008,0.058 12.675,0.136C12.345,0.214 11.986,0.183 11.656,0.265C11.324,0.346 11.006,0.474 10.669,0.515C10.368,0.548 10.068,0.535 9.768,0.489C9.474,0.444 9.219,0.216 8.925,0.142C8.631,0.069 8.309,0.096 8.015,0.041C7.717,-0.015 7.409,-0.012 7.108,-0.001C6.804,0.002 6.529,0.164 6.234,0.231C5.94,0.298 5.602,0.201 5.311,0.288C5.021,0.375 4.77,0.614 4.475,0.678C4.18,0.742 3.866,0.827 3.561,0.824C3.25,0.831 2.925,0.72 2.61,0.652C2.306,0.586 1.996,0.499 1.69,0.411C1.384,0.324 1.112,0.087 0.807,0.025C0.492,-0.038 0.166,0.184 -0.146,0.199C-0.453,0.215 -0.786,0.082 -1.088,0.225C-1.404,0.385 -1.431,0.68 -1.488,0.88C-1.561,1.141 -1.565,1.457 -1.192,1.516C-0.604,1.58 -0.367,1.468 0,1.493"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.3, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(1,0,0,1,-6018.526831,3749.812181)">
+                                        <g transform="matrix(12.082011,0,0,12.082011,21698.279017,1089.463485)">
+                                            <motion.path
+                                                d="M0,1.66C0.317,1.675 0.638,1.617 0.956,1.691C1.266,1.763 1.62,1.689 1.931,1.773C2.242,1.857 2.518,2.065 2.832,2.118C3.15,2.172 3.467,2.232 3.789,2.209C4.123,2.176 4.422,1.979 4.747,1.903C5.073,1.827 5.387,1.71 5.709,1.628C6.036,1.546 6.383,1.504 6.711,1.456C7.041,1.409 7.394,1.452 7.731,1.481C8.05,1.508 8.396,1.542 8.727,1.673C9.199,1.796 9.654,1.894 10.142,1.918C10.456,1.934 10.777,2.105 11.086,2.053C11.393,2.002 11.658,1.742 11.963,1.663C12.266,1.584 12.578,1.527 12.882,1.458C13.189,1.388 13.512,1.392 13.823,1.371C14.131,1.35 14.435,1.416 14.75,1.482C15.161,1.538 15.555,1.735 15.967,1.801C16.38,1.867 16.822,1.824 17.241,1.803C17.595,1.795 17.92,1.587 18.264,1.502C18.606,1.418 18.991,1.479 19.329,1.378C19.67,1.275 20.007,1.222 20.351,1.162C20.698,1.102 21.028,0.926 21.384,0.972C21.736,0.992 22.055,1.153 22.384,1.29C22.705,1.423 22.987,1.656 23.306,1.802C23.63,1.951 23.993,2.07 24.335,2.133C25.038,2.22 24.933,1.497 24.593,1.142C24.35,0.884 24.131,0.59 23.831,0.391C23.535,0.195 23.158,0.154 22.826,0.021C22.494,-0.113 22.184,-0.289 21.835,-0.357C21.48,-0.425 21.129,-0.325 20.776,-0.321C20.453,-0.314 20.093,-0.572 19.778,-0.496C19.465,-0.42 19.221,-0.077 18.913,0.019C18.602,0.116 18.284,0.209 17.972,0.28C17.655,0.353 17.317,0.468 16.994,0.464C16.604,0.47 16.228,0.205 15.844,0.14C15.462,0.075 15.073,0.048 14.69,-0.002C14.346,-0.068 14.007,-0.052 13.673,-0.025C13.335,0.004 13.022,0.152 12.69,0.231C12.359,0.308 11.99,0.232 11.659,0.314C11.328,0.396 11.024,0.641 10.688,0.682C10.386,0.715 10.054,0.724 9.755,0.678C9.46,0.633 9.151,0.571 8.857,0.497C8.564,0.424 8.32,0.132 8.026,0.076C7.728,0.02 7.412,-0.087 7.112,-0.076C6.807,-0.073 6.488,0.014 6.192,0.081C5.899,0.148 5.663,0.445 5.372,0.532C5.082,0.618 4.79,0.742 4.496,0.806C4.201,0.87 3.873,0.899 3.567,0.896C3.256,0.904 2.915,0.858 2.6,0.79C2.295,0.724 1.982,0.632 1.675,0.545C1.37,0.457 1.08,0.341 0.774,0.28C0.459,0.216 0.169,0.19 -0.142,0.206C-0.449,0.221 -0.778,0.145 -1.08,0.288C-1.396,0.449 -1.427,0.74 -1.483,0.94C-1.557,1.201 -1.568,1.514 -1.195,1.573C-0.611,1.69 -0.367,1.635 0,1.66"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.3, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                    <g transform="matrix(1,0,0,1,-6018.526831,3749.812181)">
+                                        <g transform="matrix(12.082011,0,0,12.082011,21623.082996,1036.787125)">
+                                            <motion.path
+                                                d="M0,-13.415C-2.089,-13.411 -4.494,-13.313 -6.998,-13.312C-9.304,-13.311 -11.694,-13.313 -13.999,-13.314C-16.504,-13.315 -18.91,-13.409 -21,-13.412C-24.9,-13.419 -27.644,-13.38 -27.941,-13.395C-25.725,-14.212 -23.909,-15.166 -22.247,-15.815C-19.886,-16.737 -18.009,-17.453 -16.471,-18.041C-13.827,-19.053 -12.121,-19.394 -10.5,-19.44C-8.878,-19.394 -7.152,-19.103 -4.507,-18.09C-2.97,-17.502 -1.087,-16.801 1.273,-15.879C2.934,-15.23 4.792,-14.366 7.009,-13.549C6.712,-13.534 3.901,-13.422 0,-13.415M11,-14.289C9.044,-15.271 6.626,-15.999 4.19,-16.912C1.943,-17.754 -0.392,-18.609 -2.658,-19.404C-5.113,-20.266 -7.403,-21.276 -9.425,-22.095C-10.175,-22.422 -10.564,-22.175 -11.486,-21.874C-13.509,-21.054 -15.85,-20.161 -18.305,-19.3C-20.572,-18.505 -22.968,-17.822 -25.215,-16.98C-27.651,-16.067 -29.937,-15.078 -31.894,-14.096C-32.749,-13.537 -31.559,-12.591 -30.778,-12.355C-30.554,-12.294 -30.496,-12.31 -30.478,-10.111C-30.464,-8.284 -30.58,-6.317 -30.612,-4.366C-30.645,-2.384 -30.902,-0.42 -30.918,1.373C-30.938,3.693 -30.697,5.714 -30.56,7.102C-30.468,8.034 -29.823,8.785 -28.892,8.897C-28.066,8.996 -27.098,8.644 -26.035,8.728C-22.779,8.694 -19.312,8.926 -17.114,8.833C-15.142,8.599 -15.519,5.926 -15.454,3.146C-15.401,0.868 -15.001,-1.384 -12.903,-2.424C-12.205,-2.731 -11.376,-2.897 -10.5,-2.916C-9.623,-2.897 -8.715,-2.895 -8.018,-2.588C-5.92,-1.547 -5.808,0.873 -5.755,3.151C-5.689,5.93 -5.864,8.68 -3.892,8.914C-1.693,9.007 1.78,8.802 5.037,8.836C6.1,8.752 7.066,8.997 7.893,8.898C8.824,8.787 9.416,8.029 9.508,7.097C9.644,5.708 9.768,3.695 9.748,1.375C9.732,-0.417 9.713,-2.384 9.68,-4.366C9.648,-6.317 9.622,-8.282 9.637,-10.109C9.655,-12.308 9.662,-12.291 9.781,-12.354C10.562,-12.59 11.855,-13.73 11,-14.289"
+                                                variants={{
+                                                    hidden: { pathLength: 0, fill: "rgba(225, 177, 155, 0)" },
+                                                    visible: {
+                                                        pathLength: 1,
+                                                        fill: "rgba(225, 177, 155, 1)",
+                                                        transition: {
+                                                            pathLength: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                            fill: { duration: 0.3, ease: "easeOut" }
+                                                        }
+                                                    }
+                                                }}
+                                                stroke="#E1B19B"
+                                                strokeWidth={1}
+                                            />
+                                        </g>
+                                    </g>
+                                </motion.g>
+                            </g>
+                        </motion.svg>
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.7 }}
+                            className="mt-6 flex flex-col items-center gap-2"
+                        >
+                            <p
+                                className="text-[#E1B19B]/90 text-base lg:text-xl leading-relaxed"
+                                style={{ fontFamily: "var(--font-serif)" }}
+                            >
+                                364 residencias entre dúplex y departamentos
+                            </p>
+                            <p
+                                className="hidden lg:block text-[#FFF3E1]/70 text-sm lg:text-base leading-relaxed max-w-sm"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                Densidad inteligente que protege vistas y privacidad. Paisaje vivo con jardines, fuentes y riachuelos.
+                            </p>
+                        </motion.div>
+                    </div>
+
+                    {/* Bottom row */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 1.2 }}
+                        className="px-4 lg:px-12 pb-4 lg:pb-10"
+                    >
+                        <div className="w-full h-px bg-[#fff3e1]/20 mb-4" />
+                        <div className="flex justify-between items-end">
+                            <p
+                                className="text-[10px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                San Miguel de Allende
+                            </p>
+                            <p
+                                className="text-[10px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                Guanajuato, MX
+                            </p>
+                        </div>
+                    </motion.div>
                 </motion.div>
+
+                {/* Right: Image */}
+                <div className="relative w-full lg:w-1/2 h-[55%] lg:h-full overflow-hidden">
+                    <motion.div
+                        className="absolute inset-0 w-full h-[120%]"
+                        style={{ y: imgY }}
+                    >
+                        <Image
+                            src="/images/renders/render-5.png"
+                            alt="Club Residencial"
+                            fill
+                            priority
+                            className="object-cover object-center"
+                        />
+                    </motion.div>
+                </div>
             </div>
-
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 1.2 }}
-                className="absolute bottom-6 left-6 lg:bottom-10 lg:left-16 z-20"
-            >
-                <p
-                    className="text-sm text-[#E1B19B]/70"
-                    style={{ fontFamily: "var(--font-sans)" }}
-                >
-                    San Miguel de Allende, Guanajuato
-                </p>
-            </motion.div>
         </section>
     );
 }

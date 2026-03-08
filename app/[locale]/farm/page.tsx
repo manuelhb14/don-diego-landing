@@ -15,7 +15,7 @@ export default async function FarmPage({ params }: Props) {
 
     return (
         <>
-            <Navbar locale={locale} />
+            <Navbar locale={locale} theme="dark" />
             <main>
                 <HeroFarm />
                 <SustentabilidadFarm />
