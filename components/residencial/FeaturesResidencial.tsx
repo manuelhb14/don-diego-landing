@@ -74,8 +74,8 @@ interface ResidenceCardProps {
 }
 
 function ResidenceCard({ residence, index, totalResidences, scrollYProgress }: ResidenceCardProps) {
-    const pauseWeight = 1.15;
-    const transitionWeight = 1;
+    const pauseWeight = 2.3;
+    const transitionWeight = 1.45;
     const totalWeight = totalResidences * pauseWeight + (totalResidences - 1) * transitionWeight;
 
     const startTransitionWeight = index * pauseWeight + (index - 1) * transitionWeight;
@@ -100,10 +100,13 @@ function ResidenceCard({ residence, index, totalResidences, scrollYProgress }: R
         ]
     );
 
-    const contentAnimDelay = pauseWeight * 0.15;
-    const contentAnimDuration = pauseWeight * 0.3;
+    const pauseStartWeight = index === 0 ? 0 : endTransitionWeight;
+    const pauseEndWeight = nextStartTransitionWeight;
+    const availablePauseWeight = pauseEndWeight - pauseStartWeight;
+    const contentAnimDelay = availablePauseWeight * 0.12;
+    const contentAnimDuration = availablePauseWeight * 0.4;
 
-    const contentStartWeight = (index === 0 ? pauseWeight * 0.3 : endTransitionWeight) + contentAnimDelay;
+    const contentStartWeight = pauseStartWeight + contentAnimDelay;
     const contentEndWeight = contentStartWeight + contentAnimDuration;
 
     const contentX = useTransform(
@@ -263,7 +266,7 @@ export default function FeaturesResidencial() {
     });
 
     return (
-        <section ref={containerRef} className="relative bg-[#1F1D1B]" style={{ height: `${residences.length * 150}vh` }}>
+        <section ref={containerRef} className="relative bg-[#1F1D1B]" style={{ height: `${residences.length * 190}vh` }}>
             {/* Section label */}
             <div className="sticky top-0 h-screen overflow-hidden">
                 {/* Top bar */}

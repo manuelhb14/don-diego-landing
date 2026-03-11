@@ -51,22 +51,21 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-[#C8D7E6] text-[#222222] w-full relative overflow-hidden pt-16 lg:pt-24 transition-colors duration-300" id="contact">
-            <div className="container mx-auto px-6 lg:px-12 mb-8 lg:mb-16 relative z-10">
-                <div className="grid grid-cols-5 lg:grid-cols-12 gap-x-4 gap-y-12 lg:gap-8">
+        <footer className="bg-[#C8D7E6] text-[#222222] w-full relative overflow-hidden pt-8 lg:pt-10 transition-colors duration-300" id="contact">
+            <div className="container mx-auto px-6 lg:px-12 mb-4 relative z-10">
+                <div className="grid grid-cols-5 lg:grid-cols-12 gap-x-4 gap-y-6 lg:gap-8">
                     {/* Newsletter Section */}
-                    <div className="col-span-5 lg:col-span-5 flex flex-col space-y-4 lg:space-y-8">
+                    <div className="col-span-5 lg:col-span-6 flex flex-col space-y-4">
                         <div>
-                            <h2 className="font-serif text-4xl md:text-5xl leading-tight mb-2 lg:mb-4">
-                                ÚNETE al <br className="hidden lg:block" />
-                                MUNDO<br />
-                                de DON DIEGO
+                            <h2 className="font-serif text-4xl md:text-4xl leading-tight mb-2">
+                                ÚNETE al MUNDO de <br className="hidden lg:block" />
+                                DON DIEGO
                             </h2>
-                            <p className="font-sans text-sm font-light leading-relaxed max-w-xs opacity-80">
+                            <p className="font-sans text-sm font-light leading-relaxed opacity-80">
                                 Suscríbete para unirte a nuestra comunidad y mantenerte al día con el desarrollo.
                             </p>
                         </div>
-                        <form onSubmit={handleNewsletterSubmit} className="w-full max-w-md space-y-4 pt-4 lg:space-y-6">
+                        <form onSubmit={handleNewsletterSubmit} className="w-full max-w-md space-y-4 pt-0 lg:space-y-4">
                             {error && (
                                 <p className="text-red-700/90 text-xs font-sans">{error}</p>
                             )}
@@ -111,7 +110,7 @@ export default function Footer() {
                                             disabled={loading}
                                         />
                                     </div>
-                                    <div className="flex items-start gap-3 mt-4">
+                                    <div className="flex items-center gap-2 mt-2 lg:mt-4">
                                         <div className="flex items-center h-5">
                                             <input
                                                 className="focus:ring-[#222222] h-4 w-4 text-[#222222] border-[#222222] rounded-sm bg-transparent disabled:opacity-60"
@@ -122,9 +121,9 @@ export default function Footer() {
                                                 disabled={loading}
                                             />
                                         </div>
-                                        <div className="ml-0 lg:ml-1 text-xs font-sans font-light leading-tight opacity-80">
+                                        <div className="ml-0 text-xs font-sans font-light leading-tight opacity-80">
                                             <label className="font-medium text-[#222222]" htmlFor="consent">
-                                                Consiento que mi información sea recopilada de acuerdo con la política de privacidad de Don Diego
+                                                Acepto recibir información del proyecto y actualizaciones
                                             </label>
                                         </div>
                                     </div>
@@ -141,7 +140,7 @@ export default function Footer() {
                     </div>
 
                     {/* Spacer */}
-                    <div className="hidden lg:block lg:col-span-2"></div>
+                    <div className="hidden lg:block lg:col-span-1"></div>
 
                     {/* Navigation Links */}
                     <div className="col-span-3 lg:col-span-3">
@@ -174,14 +173,14 @@ export default function Footer() {
             </div>
 
             {/* Large DON DIEGO Text */}
-            <div className="w-full overflow-hidden leading-none select-none pointer-events-none mt-12 md:mt-0 mb-4 lg:mb-0">
-                <h1 className="font-serif text-[18vw] text-center tracking-tighter text-[#222222] opacity-100 transform translate-y-[15%]">
+            <div className="w-full overflow-hidden leading-none select-none pointer-events-none mt-4 md:mt-0 mb-4 lg:mb-0">
+                <h1 className="font-serif  lg:text-[12vw] text-[14vw] text-center tracking-[0.12em] text-[#222222] opacity-100 transform translate-y-[15%]">
                     DON DIEGO
                 </h1>
             </div>
 
             {/* Bottom Links */}
-            <div className="w-full px-2 sm:px-4 lg:px-8 mt-2 mb-6 flex justify-between sm:justify-end items-end text-[10px] md:text-xs font-sans tracking-wider sm:tracking-widest uppercase text-white/60 z-20 mix-blend-difference gap-2 sm:gap-4 md:gap-6 whitespace-nowrap">
+            <div className="w-full px-2 sm:px-4 lg:px-8 mt-2 mb-6 flex justify-between sm:justify-end items-end text-[10px] md:text-[11px] font-sans tracking-wider sm:tracking-widest uppercase text-white/60 z-20 mix-blend-difference gap-2 sm:gap-4 md:gap-6 whitespace-nowrap">
                 <a className="hover:underline underline-offset-4" href="/terminos">Términos de Servicio</a>
                 <a className="hover:underline underline-offset-4" href="/privacidad">Política de Privacidad</a>
                 <span>® Don Diego 2026</span>

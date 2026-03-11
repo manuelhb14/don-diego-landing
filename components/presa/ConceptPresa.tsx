@@ -22,9 +22,9 @@ const features = [
     },
     {
         id: "club",
-        title: "Club náutico",
-        shortTitle: "Club",
-        description: "Embarcadero y actividades acuáticas en la Presa La Cantera, exclusivas para la comunidad.",
+        title: "Embarcadero",
+        shortTitle: "Embarcadero",
+        description: "Actividades acuáticas en la Presa La Cantera, exclusivas para la comunidad.",
         image: "/images/gallery/gallery-11.jpg",
     },
     {

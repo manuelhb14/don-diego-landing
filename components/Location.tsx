@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "motion/react";
 import { Home, Anchor, Leaf, Activity } from "lucide-react";
 
@@ -80,6 +81,12 @@ const MobileLocationImages = () => (
 );
 
 export default function Location() {
+    const [activePin, setActivePin] = useState<string | null>(null);
+
+    const togglePin = (pinId: string) => {
+        setActivePin((currentPin) => (currentPin === pinId ? null : pinId));
+    };
+
     return (
         <section id="location" className="bg-[#FFF3E1] text-[#222222] overflow-x-hidden antialiased w-full relative">
             <main className="relative w-full flex flex-col items-center py-12 md:py-16 px-6 md:px-10 max-w-[1440px] mx-auto mb-16 md:mb-12">
@@ -144,24 +151,26 @@ export default function Location() {
                     }}
                 >
                     <div
-                        className="relative w-full rounded-3xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(170,125,105,0.15)] border border-[#AA7D69]/10 group bg-[#EDE5DA]"
+                        className="relative w-full rounded-3xl overflow-visible shadow-[0_20px_60px_-15px_rgba(170,125,105,0.15)] border border-[#AA7D69]/10 group bg-[#EDE5DA]"
                         data-location="San Miguel de Allende"
+                        onClick={() => setActivePin(null)}
                     >
                         {/* Animated inline SVG map */}
-                        <motion.svg
-                            viewBox="0 0 2878 1858"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-full h-auto block"
-                            style={{ fillRule: "evenodd", clipRule: "evenodd", strokeLinecap: "round", strokeLinejoin: "round", strokeMiterlimit: 1.5 }}
-                            variants={{
-                                hidden: {},
-                                visible: {}
-                            }}
-                        >
-                            <g transform="matrix(1,0,0,1,-643.944767,-477.834302)">
-                                <g transform="matrix(1,0,0,1,2082.944767,1406.834302)">
-                                    <g transform="matrix(1,0,0,1,-1439,-929)">
-                                        <g transform="matrix(1,0,0,1,-634.50453,-485)">
+                        <div className="relative z-0 rounded-3xl overflow-hidden">
+                            <motion.svg
+                                viewBox="0 0 2878 1858"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="w-full h-auto block"
+                                style={{ fillRule: "evenodd", clipRule: "evenodd", strokeLinecap: "round", strokeLinejoin: "round", strokeMiterlimit: 1.5 }}
+                                variants={{
+                                    hidden: {},
+                                    visible: {}
+                                }}
+                            >
+                                <g transform="matrix(1,0,0,1,-643.944767,-477.834302)">
+                                    <g transform="matrix(1,0,0,1,2082.944767,1406.834302)">
+                                        <g transform="matrix(1,0,0,1,-1439,-929)">
+                                            <g transform="matrix(1,0,0,1,-634.50453,-485)">
                                             {/* Fracción C — Wellness Center (blue polygon, top-right) */}
                                             <g transform="matrix(1.014606,0,0,1.00267,-51.295034,-3.185581)">
                                                 <motion.path
@@ -220,80 +229,106 @@ export default function Location() {
                                                     style={{ fill: "none", stroke: "rgb(170,125,105)", strokeWidth: "20px" }}
                                                 />
                                             </g>
+                                            </g>
                                         </g>
                                     </g>
                                 </g>
-                            </g>
-                        </motion.svg>
+                            </motion.svg>
+                        </div>
 
-                        {/* Pin 3: Fracción A -> Organic Farm — pink, on the orange marker area top-left */}
-                        <motion.div
-                            variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.4 } } }}
-                            className="absolute top-[65%] right-[46%] flex flex-col items-center z-20 cursor-pointer group/pin"
-                        >
-                            <div className="relative flex items-center justify-center size-7 md:size-12">
-                                <div className="absolute inset-0 bg-[#C4A3A4]/50 rounded-full animate-ping opacity-75"></div>
-                                <div className="relative z-10 bg-[#C4A3A4] text-white p-1.5 md:p-3 rounded-full shadow-lg transition-transform group-hover/pin:scale-110">
-                                    <Leaf className="w-3.5 h-3.5 md:w-5 md:h-5" />
+                        <div className="absolute inset-0 z-20 overflow-visible">
+                            {/* Pin 3: Fracción A -> Organic Farm — pink, on the orange marker area top-left */}
+                            <motion.div
+                                variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.4 } } }}
+                                className={`absolute top-[65%] right-[46%] flex flex-col items-center cursor-pointer group/pin ${activePin === "organic-farm" ? "z-50" : "z-20"}`}
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    togglePin("organic-farm");
+                                }}
+                                onMouseEnter={() => setActivePin("organic-farm")}
+                                onMouseLeave={() => setActivePin((currentPin) => (currentPin === "organic-farm" ? null : currentPin))}
+                            >
+                                <div className="relative flex items-center justify-center size-7 md:size-12">
+                                    <div className="absolute inset-0 bg-[#C4A3A4]/50 rounded-full animate-ping opacity-75"></div>
+                                    <div className={`relative z-10 bg-[#C4A3A4] text-white p-1.5 md:p-3 rounded-full shadow-lg transition-transform group-hover/pin:scale-110 ${activePin === "organic-farm" ? "scale-110" : ""}`}>
+                                        <Leaf className="w-3.5 h-3.5 md:w-5 md:h-5" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-max max-w-[200px] md:max-w-[240px] bg-white/95 backdrop-blur-md p-4 rounded-xl border border-[#AA7D69]/20 shadow-xl opacity-0 translate-y-2 scale-95 group-hover/pin:opacity-100 group-hover/pin:-translate-y-0 group-hover/pin:scale-100 transition-all duration-200 pointer-events-none origin-bottom text-center">
-                                <h4 className="text-[#222] font-bold text-sm mb-1 uppercase tracking-wider">Fracción A</h4>
-                                <p className="text-[#C4A3A4] text-xs leading-relaxed font-semibold">Organic Farm & Flowers</p>
-                            </div>
-                        </motion.div>
-
-                        {/* Pin 2: Fracción B -> Club Residencial — orange, on the pink polygon center */}
-                        <motion.div
-                            variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.5 } } }}
-                            className="absolute top-[40%] left-[30%] flex flex-col items-center z-20 cursor-pointer group/pin"
-                        >
-                            <div className="relative flex items-center justify-center size-7 md:size-12">
-                                <div className="absolute inset-0 bg-[#C99580]/50 rounded-full animate-ping opacity-75"></div>
-                                <div className="relative z-10 bg-[#C99580] text-white p-1.5 md:p-3 rounded-full shadow-lg transition-transform group-hover/pin:scale-110">
-                                    <Home className="w-3 h-3 md:w-5 md:h-5" />
+                                <div className={`absolute bottom-full mb-2 md:mb-3 left-1/2 -translate-x-1/2 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[240px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:p-4 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-bottom text-center ${activePin === "organic-farm" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"} group-hover/pin:opacity-100 group-hover/pin:-translate-y-0 group-hover/pin:scale-100`}>
+                                    <h4 className="text-[#222] font-bold text-[10px] leading-tight md:text-sm mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">Organic Farm & Flowers</h4>
+                                    {/* <p className="text-[#C4A3A4] text-xs leading-relaxed font-semibold">Organic Farm & Flowers</p> */}
                                 </div>
-                            </div>
-                            <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-max max-w-[200px] md:max-w-[240px] bg-white/95 backdrop-blur-md p-4 rounded-xl border border-[#AA7D69]/20 shadow-xl opacity-0 translate-y-2 scale-95 group-hover/pin:opacity-100 group-hover/pin:-translate-y-0 group-hover/pin:scale-100 transition-all duration-200 pointer-events-none origin-bottom text-center">
-                                <h4 className="text-[#222] font-bold text-sm mb-1 uppercase tracking-wider">Fracción B</h4>
-                                <p className="text-[#C99580] text-xs leading-relaxed font-semibold">Club Residencial</p>
-                            </div>
-                        </motion.div>
+                            </motion.div>
 
-                        {/* Pin 1: Fracción C -> Wellness Center — green, on the blue polygon top-right */}
-
-                        <motion.div
-                            variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.6 } } }}
-                            className="absolute top-[21%] left-[19%] md:top-[23%] md:left-[21%] flex flex-col items-center z-20 cursor-pointer group/pin"
-                        >
-                            <div className="relative flex items-center justify-center size-7 md:size-12">
-                                <div className="absolute inset-0 bg-[#B5B588]/50 rounded-full animate-ping opacity-75"></div>
-                                <div className="relative z-10 bg-[#B5B588] text-white p-1.5 md:p-3 rounded-full shadow-lg transition-transform group-hover/pin:scale-110">
-                                    <Activity className="w-3 h-3 md:w-5 md:h-5" />
+                            {/* Pin 2: Fracción B -> Club Residencial — orange, on the pink polygon center */}
+                            <motion.div
+                                variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.5 } } }}
+                                className={`absolute top-[40%] left-[30%] flex flex-col items-center cursor-pointer group/pin ${activePin === "club-residencial" ? "z-50" : "z-20"}`}
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    togglePin("club-residencial");
+                                }}
+                                onMouseEnter={() => setActivePin("club-residencial")}
+                                onMouseLeave={() => setActivePin((currentPin) => (currentPin === "club-residencial" ? null : currentPin))}
+                            >
+                                <div className="relative flex items-center justify-center size-7 md:size-12">
+                                    <div className="absolute inset-0 bg-[#C99580]/50 rounded-full animate-ping opacity-75"></div>
+                                    <div className={`relative z-10 bg-[#C99580] text-white p-1.5 md:p-3 rounded-full shadow-lg transition-transform group-hover/pin:scale-110 ${activePin === "club-residencial" ? "scale-110" : ""}`}>
+                                        <Home className="w-3 h-3 md:w-5 md:h-5" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="absolute bottom-full mb-3 right-0 w-max max-w-[200px] md:max-w-[240px] bg-white/95 backdrop-blur-md p-4 rounded-xl border border-[#AA7D69]/20 shadow-xl opacity-0 translate-y-2 scale-95 group-hover/pin:opacity-100 group-hover/pin:-translate-y-0 group-hover/pin:scale-100 transition-all duration-200 pointer-events-none origin-bottom-right text-right">
-                                <h4 className="text-[#222] font-bold text-sm mb-1 uppercase tracking-wider">Fracción C</h4>
-                                <p className="text-[#B5B588] text-xs leading-relaxed font-semibold">Wellness Center</p>
-                            </div>
-                        </motion.div>
-
-                        {/* Pin 4: Presa de la Cantera — blue, on the river/water area */}
-                        <motion.div
-                            variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.7 } } }}
-                            className="absolute top-[51%] right-[18%] flex flex-col items-center z-20 cursor-pointer group/pin"
-                        >
-                            <div className="relative flex items-center justify-center size-8 md:size-14">
-                                <div className="absolute inset-0 bg-[#8FC0DA]/40 rounded-full animate-ping opacity-75"></div>
-                                <div className="relative z-10 bg-[#8FC0DA] text-white p-2 md:p-3.5 rounded-full shadow-lg transition-transform group-hover/pin:scale-110">
-                                    <Anchor className="w-3 h-3 md:w-5 md:h-5" />
+                                <div className={`absolute bottom-full mb-2 md:mb-3 left-1/2 -translate-x-1/2 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[240px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:p-4 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-bottom text-center ${activePin === "club-residencial" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"} group-hover/pin:opacity-100 group-hover/pin:-translate-y-0 group-hover/pin:scale-100`}>
+                                    <h4 className="text-[#222] font-bold text-[10px] leading-tight md:text-sm mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">Club Residencial</h4>
+                                    {/* <p className="text-[#C99580] text-xs leading-relaxed font-semibold">Club Residencial</p> */}
                                 </div>
-                            </div>
-                            <div className="absolute bottom-full mb-3 right-0 w-max max-w-[200px] md:max-w-[240px] bg-white/95 backdrop-blur-md p-4 rounded-xl border border-[#AA7D69]/20 shadow-xl opacity-0 translate-y-2 scale-95 group-hover/pin:opacity-100 group-hover/pin:-translate-y-0 group-hover/pin:scale-100 transition-all duration-200 pointer-events-none origin-bottom-right text-right">
-                                <h4 className="text-[#222] font-bold text-sm mb-1 uppercase tracking-wider">Presa de la Cantera</h4>
-                                <p className="text-[#8FC0DA] text-xs leading-relaxed font-semibold">Cuerpo de Agua / Marina</p>
-                            </div>
-                        </motion.div>
+                            </motion.div>
+
+                            {/* Pin 1: Fracción C -> Wellness Center — green, on the blue polygon top-right */}
+                            <motion.div
+                                variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.6 } } }}
+                                className={`absolute top-[21%] left-[19%] md:top-[23%] md:left-[21%] flex flex-col items-center cursor-pointer group/pin ${activePin === "wellness-center" ? "z-50" : "z-20"}`}
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    togglePin("wellness-center");
+                                }}
+                                onMouseEnter={() => setActivePin("wellness-center")}
+                                onMouseLeave={() => setActivePin((currentPin) => (currentPin === "wellness-center" ? null : currentPin))}
+                            >
+                                <div className="relative flex items-center justify-center size-7 md:size-12">
+                                    <div className="absolute inset-0 bg-[#B5B588]/50 rounded-full animate-ping opacity-75"></div>
+                                    <div className={`relative z-10 bg-[#B5B588] text-white p-1.5 md:p-3 rounded-full shadow-lg transition-transform group-hover/pin:scale-110 ${activePin === "wellness-center" ? "scale-110" : ""}`}>
+                                        <Activity className="w-3 h-3 md:w-5 md:h-5" />
+                                    </div>
+                                </div>
+                                <div className={`absolute top-full mt-2 md:top-auto md:bottom-full md:mt-0 md:mb-3 left-1/2 -translate-x-1/2 md:left-auto md:right-0 md:translate-x-0 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[240px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:p-4 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-top md:origin-bottom-right text-center md:text-right ${activePin === "wellness-center" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-2 md:translate-y-2 scale-95"} group-hover/pin:opacity-100 group-hover/pin:translate-y-0 group-hover/pin:scale-100`}>
+                                    <h4 className="text-[#222] font-bold text-[10px] leading-tight md:text-sm mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">Wellness Center</h4>
+                                    {/* <p className="text-[#B5B588] text-xs leading-relaxed font-semibold">Wellness Center</p> */}
+                                </div>
+                            </motion.div>
+
+                            {/* Pin 4: Presa de la Cantera — blue, on the river/water area */}
+                            <motion.div
+                                variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.7 } } }}
+                                className={`absolute top-[51%] right-[18%] flex flex-col items-center cursor-pointer group/pin ${activePin === "presa-cantera" ? "z-50" : "z-20"}`}
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    togglePin("presa-cantera");
+                                }}
+                                onMouseEnter={() => setActivePin("presa-cantera")}
+                                onMouseLeave={() => setActivePin((currentPin) => (currentPin === "presa-cantera" ? null : currentPin))}
+                            >
+                                <div className="relative flex items-center justify-center size-8 md:size-14">
+                                    <div className="absolute inset-0 bg-[#8FC0DA]/40 rounded-full animate-ping opacity-75"></div>
+                                    <div className={`relative z-10 bg-[#8FC0DA] text-white p-2 md:p-3.5 rounded-full shadow-lg transition-transform group-hover/pin:scale-110 ${activePin === "presa-cantera" ? "scale-110" : ""}`}>
+                                        <Anchor className="w-3 h-3 md:w-5 md:h-5" />
+                                    </div>
+                                </div>
+                                <div className={`absolute bottom-full mb-2 md:mb-3 right-0 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[240px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:p-4 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-bottom-right text-right ${activePin === "presa-cantera" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"} group-hover/pin:opacity-100 group-hover/pin:-translate-y-0 group-hover/pin:scale-100`}>
+                                    <h4 className="text-[#222] font-bold text-[10px] leading-tight md:text-sm mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">Presa de la Cantera</h4>
+                                    {/* <p className="text-[#8FC0DA] text-xs leading-relaxed font-semibold">Cuerpo de Agua / Marina</p> */}
+                                </div>
+                            </motion.div>
+                        </div>
                     </div>
 
                     <motion.div

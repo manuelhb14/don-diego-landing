@@ -23,7 +23,18 @@
                         <path d="M649.505,2322L1717,497" style="fill:none;stroke:rgb(170,125,105);stroke-width:20px;"/>
                     </g>
                 </g>
+                <path d="M4,1301L151,1117L138,967L102,879L153,794L365,477L369,386L743,-11L-21,-11" style="fill:rgb(187,216,234);"/>
             </g>
         </g>
+    </g>
+    <g transform="matrix(1.248201,0,0,1.248201,-91.054913,-115.96783)">
+        <g transform="matrix(60,0,0,60,450.020245,230.324387)">
+        </g>
+        <text x="122.24px" y="230.324px" style="font-family:'Louize', sans-serif;font-size:60px;">Presa Allende</text>
+    </g>
+    <g transform="matrix(0.891828,0.017909,-0.017909,0.891828,1286.167096,704.79958)">
+        <g transform="matrix(51.569028,0,0,51.569028,535.205019,230.324387)">
+        </g>
+        <text x="122.24px" y="230.324px" style="font-family:'Louize', sans-serif;font-size:51.569px;">Carreter<tspan x="295.564px " y="230.324px ">a</tspan> México 51</text>
     </g>
 </svg>

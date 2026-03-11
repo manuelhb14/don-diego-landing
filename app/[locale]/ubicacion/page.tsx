@@ -1,8 +1,9 @@
 import { setRequestLocale } from "next-intl/server";
 import Navbar from "@/components/Navbar";
 import HeroUbicacion from "@/components/ubicacion/HeroUbicacion";
-import Location from "@/components/Location";
+import LocationMexicoUbicacion from "@/components/ubicacion/LocationMexicoUbicacion";
 import GridUbicacion from "@/components/ubicacion/GridUbicacion";
+import Location from "@/components/Location";
 import Footer from "@/components/Footer";
 
 type Props = {
@@ -18,6 +19,7 @@ export default async function UbicacionPage({ params }: Props) {
             <Navbar locale={locale} theme="dark" />
             <main>
                 <HeroUbicacion />
+                <LocationMexicoUbicacion />
                 <Location />
                 <GridUbicacion />
             </main>

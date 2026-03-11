@@ -79,7 +79,7 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjects }: ProjectCardProps) {
-    const pauseWeight = 1.15;
+    const pauseWeight = 1.5;
     const transitionWeight = 1;
     const totalWeight = totalProjects * pauseWeight + (totalProjects - 1) * transitionWeight;
 
@@ -138,11 +138,12 @@ function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjec
     );
 
     const cardArrivedWeight = index === 0 ? 0 : endTransitionWeight;
-    // Animate text during the pause phase
-    // For index 0, start immediately as user scrolls
-    // For others, delay slightly then animate
-    const textAnimStartWeight = index === 0 ? 0 : cardArrivedWeight + (pauseWeight * 0.1);
-    const textAnimDurationWeight = pauseWeight * 0.4;
+    const textRevealStartFraction = index === 0 ? 0 : 0.1;
+    const textRevealDurationFraction = 0.4;
+
+    // Keep the reveal timing the same while extending the pause window after it.
+    const textAnimStartWeight = cardArrivedWeight + (pauseWeight * textRevealStartFraction);
+    const textAnimDurationWeight = pauseWeight * textRevealDurationFraction;
 
     const textAnimStart = textAnimStartWeight / totalWeight;
     const textAnimDuration = textAnimDurationWeight / totalWeight;

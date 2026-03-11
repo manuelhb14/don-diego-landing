@@ -60,7 +60,7 @@ export default function Manifesto() {
             id="proyecto"
             ref={containerRef}
             className="relative bg-[#1F1D1B] w-full"
-            style={{ height: "250vh" }} // Tall enough for comfortable scrolling
+            style={{ height: "350vh" }} // Tall enough for comfortable scrolling
         >
             <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
 
