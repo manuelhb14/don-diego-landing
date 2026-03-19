@@ -29,7 +29,7 @@ export default function Contact() {
                 }),
             });
 
-            const data = await res.json();
+            const data = (await res.json()) as { error?: string };
 
             if (!res.ok) {
                 throw new Error(data.error || "Error al enviar");
@@ -43,7 +43,17 @@ export default function Contact() {
     };
 
     return (
-        <section id="contacto" className="relative flex items-center overflow-hidden bg-[#FFF3E1]">
+        <section
+            id="contacto"
+            className="relative flex items-center overflow-hidden bg-[#e6e1d6]"
+            style={{
+                // Horizontal stripes: repeat the texture on the Y axis, each tile stretched full width.
+                backgroundImage: "url('/babylon/texture.png')",
+                backgroundRepeat: "repeat-y",
+                backgroundSize: "100% 280px",
+                backgroundPosition: "left top",
+            }}
+        >
             <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-14 py-12 lg:py-24">
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-24 items-center">
 
@@ -55,10 +65,10 @@ export default function Contact() {
                         transition={{ duration: 1 }}
                     >
                         <p
-                            className="text-[10px] tracking-[0.3em] text-[#E1B19B]/80 uppercase mb-8"
+                            className="text-[10px] tracking-[0.3em] text-[#E1B19B] uppercase mb-8"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            (Contacto)
+                            [Contacto]
                         </p>
 
                         <h2
@@ -120,7 +130,7 @@ export default function Contact() {
                         transition={{ duration: 0.9, delay: 0.2 }}
                         className="w-full h-full min-h-[500px] flex items-center"
                     >
-                        <div className="w-full bg-[#1A1A1A] p-6 md:p-8 rounded-2xl shadow-xl border border-[#E1B19B]/20 relative overflow-hidden group">
+                        <div className="w-full bg-[#222222] p-6 md:p-8 shadow-xl border border-[#E1B19B]/20 relative overflow-hidden group">
                             {/* Decorative bg shape */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-[#E1B19B]/5 blur-[100px] rounded-full group-hover:bg-[#E1B19B]/10 transition-colors duration-1000 -translate-y-1/2 translate-x-1/3"></div>
 
@@ -189,17 +199,17 @@ export default function Contact() {
                                         <button
                                             type="submit"
                                             disabled={loading}
-                                            className="w-full md:flex-1 bg-[#E1B19B] hover:bg-[#d4a48e] disabled:opacity-60 disabled:cursor-not-allowed text-[#111] px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 rounded-sm whitespace-nowrap"
+                                            className="w-full md:flex-1 bg-[#E1B19B] hover:bg-[#d4a48e] disabled:opacity-60 disabled:cursor-not-allowed text-[#111] px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 whitespace-nowrap"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
-                                            {loading ? "Enviando…" : "Agendar visita"}
+                                            {loading ? "Enviando…" : "Solicitar visita privada"}
                                         </button>
 
                                         <a
                                             href="https://wa.me/5200000000000"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex w-full md:flex-1 items-center justify-center gap-3 border border-[#25D366]/30 hover:border-[#25D366]/60 bg-[#25D366]/5 hover:bg-[#25D366]/10 px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#25D366]/90 transition-all duration-300 rounded-sm whitespace-nowrap"
+                                            className="flex w-full md:flex-1 items-center justify-center gap-3 border border-[#25D366]/30 hover:border-[#25D366]/60 bg-[#25D366]/5 hover:bg-[#25D366]/10 px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#25D366]/90 transition-all duration-300 whitespace-nowrap"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
                                             <svg className="h-4 w-4 shrink-0 transition-colors" fill="currentColor" viewBox="0 0 24 24">

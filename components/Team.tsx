@@ -33,7 +33,7 @@ const team = [
 
 export default function Team() {
     return (
-        <section id="equipo" className="bg-[#111] py-24 lg:py-36 overflow-hidden">
+        <section id="equipo" className="bg-[#fff8ef] py-24 lg:py-36 overflow-hidden">
             <div className="max-w-[1400px] mx-auto px-6 lg:px-14">
                 {/* Header */}
                 <motion.div
@@ -44,13 +44,13 @@ export default function Team() {
                     className="mb-16 lg:mb-24"
                 >
                     <p
-                        className="text-[10px] tracking-[0.3em] text-[#E1B19B]/40 uppercase mb-4"
+                        className="text-[10px] tracking-[0.3em] text-[#AA7D69]/55 uppercase mb-4"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         (El Equipo)
                     </p>
                     <h2
-                        className="text-white leading-none"
+                        className="text-[#111] leading-none"
                         style={{
                             fontFamily: "var(--font-serif)",
                             fontSize: "clamp(2.8rem, 5vw, 5.5rem)",
@@ -76,7 +76,7 @@ export default function Team() {
                             }}
                         >
                             <div
-                                className="relative bg-[#1A1A1A] border border-white/5 px-6 pt-5 pb-2 lg:p-10 transition-all duration-500 group-hover:border-white/15 group-hover:bg-[#1E1E1E] lg:-mr-3 h-full flex flex-col"
+                                className="relative bg-[#fffdf9] border border-black/6 px-6 pt-5 pb-2 lg:p-10 transition-all duration-500 group-hover:border-black/12 group-hover:bg-[#f6ecdf] lg:-mr-3 h-full flex flex-col"
                             >
                                 {/* Top accent line & Icon */}
                                 <div className="flex justify-between items-start mb-0 lg:mb-4 h-10">
@@ -90,7 +90,8 @@ export default function Team() {
                                                 src={member.logo}
                                                 alt={member.name}
                                                 fill
-                                                className="object-contain opacity-40 group-hover:opacity-80 transition-opacity duration-500 brightness-0 invert"
+                                                // The team section background is light; force logos to render dark for contrast.
+                                                className="object-contain opacity-40 group-hover:opacity-80 transition-opacity duration-500 brightness-0"
                                             />
                                         </div>
                                     )}
@@ -109,7 +110,7 @@ export default function Team() {
 
                                 {/* Name */}
                                 <h3
-                                    className="text-white text-xl lg:text-2xl mb-2 lg:mb-4 leading-snug"
+                                    className="text-[#111] text-xl lg:text-2xl mb-2 lg:mb-4 leading-snug"
                                     style={{ fontFamily: "var(--font-serif)" }}
                                 >
                                     {member.name}
@@ -117,7 +118,7 @@ export default function Team() {
 
                                 {/* Description */}
                                 <p
-                                    className="text-white/30 text-sm leading-relaxed mb-0 lg:mb-6"
+                                    className="text-[#111]/60 text-sm leading-relaxed mb-0 lg:mb-6"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
                                     {member.description}
@@ -126,7 +127,7 @@ export default function Team() {
                                 {/* Number - aligned bottom right */}
                                 <div className="mt-auto flex justify-end">
                                     <p
-                                        className="text-white/[0.03] text-6xl lg:text-8xl leading-none pointer-events-none select-none transition-colors duration-500 group-hover:text-white/[0.05]"
+                                        className="text-[#111]/[0.06] text-6xl lg:text-8xl leading-none pointer-events-none select-none transition-colors duration-500 group-hover:text-[#111]/[0.09]"
                                         style={{
                                             fontFamily: "var(--font-serif)",
                                             lineHeight: "0.8",

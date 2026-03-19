@@ -9,7 +9,7 @@ export default function Services() {
     const hasVisited = useHasVisited();
     return (
         <section id="services" className="bg-[#FFF3E1] text-[#222222] overflow-hidden relative">
-            <div className="max-w-[1440px] mx-auto w-full py-12 lg:py-24 px-6 md:px-10 lg:px-16 flex flex-col">
+            <div className="max-w-[1440px] mx-auto w-full py-12 lg:pt-24 px-6 md:px-10 lg:px-16 flex flex-col">
 
                 {/* Top Section: Headers & Intro Paragraph */}
                 <div className="w-full flex justify-between items-end mb-4 lg:mb-8">
@@ -43,7 +43,7 @@ export default function Services() {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="hidden lg:flex"
                     >
-                        <p className="text-[#222]/80 text-lg leading-[1.8] font-normal tracking-[0.01em] w-[350px] text-right font-serif">
+                        <p className="text-[#222]/80 text-base leading-[1.8] font-normal tracking-[0.01em] w-[350px] text-right font-serif">
                             Don Diego Club Residencial se estructura en torno a cuatro componentes con
                             identidad propia, integrados en una visión coherente de comunidad y territorio.
                         </p>
@@ -78,7 +78,7 @@ export default function Services() {
                         >
                             <Link href="/residencial" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
-                                    src="/images/gallery/gallery-2.png"
+                                    src="/babylon/club-residencial.webp"
                                     alt="Club Residencial"
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-105"
@@ -101,11 +101,11 @@ export default function Services() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1, delay: 0.15, ease: "easeOut" }}
-                            className="w-[85%] sm:w-[70%] md:w-[23%] flex flex-col pt-0 md:pt-8 lg:pt-12 self-end md:self-start order-2 relative z-20 mt-4 md:mt-0 right-0"
+                            className="w-[85%] sm:w-[70%] md:w-[23%] flex flex-col pt-0 md:pt-8 lg:pt-6 self-end md:self-start order-2 relative z-20 mt-4 md:mt-0 right-0"
                         >
                             <Link href="/farm" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
-                                    src="/images/gallery/gallery-5.png"
+                                    src="/babylon/organic-farm.webp"
                                     alt="Organic Farm"
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-[1.03]"
@@ -128,11 +128,11 @@ export default function Services() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-                            className="w-[85%] sm:w-[70%] md:w-[23%] flex flex-col pt-0 md:pt-16 lg:pt-24 self-start order-3 relative z-30 mt-4 md:mt-0 text-left"
+                            className="w-[85%] sm:w-[70%] md:w-[23%] flex flex-col pt-0 md:pt-16 lg:pt-12 self-start order-3 relative z-30 mt-4 md:mt-0 text-left"
                         >
                             <Link href="/wellness" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
-                                    src="/images/gallery/gallery-10.jpg"
+                                    src="/babylon/wellness-center.webp"
                                     alt="Wellness Center"
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-105"
@@ -155,11 +155,11 @@ export default function Services() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 1, delay: 0.45, ease: "easeOut" }}
-                            className="w-[85%] sm:w-[70%] md:w-[23%] flex flex-col pt-0 md:pt-24 lg:pt-36 self-end md:self-start order-4 relative z-40 mt-4 md:mt-0 right-0"
+                            className="w-[85%] sm:w-[70%] md:w-[23%] flex flex-col pt-0 md:pt-24 lg:pt-18 self-end md:self-start order-4 relative z-40 mt-4 md:mt-0 right-0"
                         >
                             <Link href="/presa" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
-                                    src="/images/gallery/gallery-4.png"
+                                    src="/babylon/presa-de-la-cantera.webp"
                                     alt="Presa de la Cantera"
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-[1.03]"
@@ -179,7 +179,7 @@ export default function Services() {
                     </div>
 
                     {/* Bottom Right: Paragraph & Link */}
-                    <div className="flex justify-center mt-10 md:mt-16 w-full mb-12 md:mb-0">
+                    <div className="flex justify-center mt-10 md:mt-12 w-full mb-12 md:mb-0">
                         <motion.div
                             initial={hasVisited ? false : { opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}

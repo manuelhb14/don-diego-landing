@@ -4,6 +4,12 @@
 /node_modules
 /.pnp
 .pnp.*
+
+# pnpm project-local content-addressable store (not part of the repo)
+.pnpm-store/
+
+# archive duplicate of public/babylon/ (folder is tracked for the app)
+/public/babylon.zip
 .yarn/*
 !.yarn/patches
 !.yarn/plugins

@@ -3,15 +3,19 @@ import Navbar from "@/components/Navbar";
 import Loading from "@/components/Loading";
 import Hero from "@/components/Hero";
 import Manifesto from "@/components/Manifesto";
-import Projects from "@/components/Projects";
+import Vision from "@/components/Vision";
+import ProjectsEditorial from "@/components/ProjectsEditorial";
 import Gallery from "@/components/Gallery";
 import Location from "@/components/Location";
+import Exclusivity from "@/components/Exclusivity";
 import Services from "@/components/Services";
 import Team from "@/components/Team";
 import Contact from "@/components/Contact";
 import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import Stats from "@/components/Stats";
+import ThingsToDo from "@/components/ThingsToDo";
+import Blogs from "@/components/Blogs";
 type Props = {
     params: Promise<{ locale: string }>;
 };
@@ -27,11 +31,15 @@ export default async function Page({ params }: Props) {
             <main>
                 <Hero />
                 <Manifesto />
+                <Vision />
                 <Services />
-                <Projects />
+                <ProjectsEditorial />
+                <ThingsToDo />
                 <Location />
+                <Blogs />
                 <Gallery />
                 <Team />
+                <Exclusivity />
                 <Contact />
                 <Faq />
             </main>

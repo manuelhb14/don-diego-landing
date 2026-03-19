@@ -184,7 +184,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                         animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                         exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
                         transition={{ duration: shouldReduceMotion ? 0.12 : 0.2, ease: [0.215, 0.61, 0.355, 1] }}
-                        className="fixed left-0 top-0 z-[60] hidden min-w-[220px] flex-col gap-3 rounded-sm border border-white/20 bg-zinc-950/90 px-5 py-5 backdrop-blur-md will-change-transform lg:flex"
+                        className="fixed left-0 top-0 z-[60] hidden min-w-[220px] flex-col gap-3 rounded-sm border border-black/10 bg-white/90 px-5 py-5 shadow-lg shadow-black/10 backdrop-blur-md will-change-transform lg:flex"
                         style={{ left: desktopDropdownPosition.left, top: desktopDropdownPosition.top }}
                         onMouseEnter={clearDesktopDropdownClose}
                         onMouseLeave={scheduleDesktopDropdownClose}
@@ -195,7 +195,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                 <Link
                                     key={sub.key}
                                     href={sub.href}
-                                    className={`flex items-center gap-3 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "hover:text-white text-white/70"}`}
+                                    className={`flex items-center gap-3 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "text-black/70 hover:text-black"}`}
                                     style={{ fontFamily: "var(--font-sans)", color: isSubActive ? sub.color : undefined }}
                                     onClick={() => {
                                         setOpenDesktopMenu(null);
@@ -219,7 +219,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.4 }}
-                        className="fixed inset-0 z-40 bg-[#111]/98 backdrop-blur-xl lg:hidden"
+                        className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl lg:hidden"
                     >
                         <div className="flex h-full flex-col items-center justify-center gap-6 overflow-y-auto py-20">
                             {navLinks.map(({ key, label, href, subLinks }, i) => {
@@ -235,7 +235,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                         <Link
                                             href={href}
                                             onClick={() => setMobileOpen(false)}
-                                            className={`text-2xl transition-colors tracking-[0.15em] uppercase block ${isActive ? "text-[#E1B19B]" : "text-white/80 hover:text-[#E1B19B]"}`}
+                                            className={`text-2xl transition-colors tracking-[0.15em] uppercase block ${isActive ? "text-[#E1B19B]" : "text-black/70 hover:text-black"}`}
                                             style={{ fontFamily: "var(--font-serif)" }}
                                         >
                                             {label}
@@ -250,7 +250,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                                             key={sub.key}
                                                             href={sub.href}
                                                             onClick={() => setMobileOpen(false)}
-                                                            className={`flex items-center gap-3 text-[13px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "text-white/60 hover:text-white"}`}
+                                                            className={`flex items-center gap-3 text-[13px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "text-black/60 hover:text-black"}`}
                                                             style={{ fontFamily: "var(--font-sans)", color: isSubActive ? sub.color : undefined }}
                                                         >
                                                             <span className={`w-2.5 h-2.5 flex-none transition-all duration-300 ${isSubActive ? "rounded-full" : "rounded-sm"}`} style={{ backgroundColor: sub.color, transform: isSubActive ? "scale(1.4)" : "scale(1)", boxShadow: isSubActive ? `0 0 10px 1px ${sub.color}80` : "none" }} />

@@ -29,7 +29,7 @@ export default function HeroResidencial() {
 
                 {/* Left: Content Panel */}
                 <motion.div
-                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#1F1D1B]"
+                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#FFF3E1]"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
@@ -872,7 +872,7 @@ export default function HeroResidencial() {
                                 364 residencias entre dúplex y departamentos
                             </p>
                             <p
-                                className="hidden lg:block text-[#FFF3E1]/70 text-sm lg:text-base leading-relaxed max-w-sm"
+                                className="hidden lg:block text-[#222222]/70 text-sm lg:text-base leading-relaxed max-w-sm"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 Densidad inteligente que protege vistas y privacidad. Paisaje vivo con jardines, fuentes y riachuelos.

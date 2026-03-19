@@ -4,38 +4,30 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { Home, Anchor, Leaf, Activity } from "lucide-react";
 
+const LocationVideo = () => (
+    <video
+        className="w-full h-full object-cover brightness-110 contrast-110"
+        src="/babylon/sma-video.mp4"
+        muted
+        loop
+        playsInline
+        autoPlay
+        preload="metadata"
+    />
+);
+
 const DesktopLocationImages = () => (
     <>
         <motion.div
-            className="hidden lg:block absolute -top-12 -right-8 xl:-right-16 w-48 aspect-[3/4] z-10 pointer-events-none"
+            className="hidden lg:block absolute -top-20 -right-6 xl:-right-16 w-68 aspect-[3/4] z-10 pointer-events-none"
             variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.8 } } }}
         >
-            <div className="w-full h-full rounded-xl overflow-hidden border-2 border-white shadow-[0_15px_40px_-12px_rgba(0,0,0,0.12)] relative bg-[#222]">
-                <div
-                    className="w-full h-full bg-cover bg-center"
-                    style={{ backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuDs00-_GCKkrCFoxuqIdnSQPBxxiSQOB34r6bUBs4vDrhv7xcLgDNId9KW3fzHaZjAJ0BL2gdc62yx5W2TMofi1XrWQJAiha_vWecWib2NbdFaqSXcLectwiuzP_uasJ6WR2aX6uUq05yQy0ahv0IRQF63LLInINhNuPfoSaWFIc0Oz0OchmKztsZvsTspnRbvNl_XPTBTSLrLjc_newbjbVlYWMRHqC4d8xTtIdxrWfzNn_6En6--apeBhJOC3d2u51EtT5AQ6yqef")` }}
-                ></div>
+            <div className="w-full h-full overflow-hidden border-2 border-white shadow-[0_15px_40px_-12px_rgba(0,0,0,0.12)] relative bg-[#222]">
+                <LocationVideo />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#222]/80 via-transparent to-transparent opacity-80"></div>
                 <div className="absolute bottom-3 left-3 z-10">
                     <p className="text-white text-sm font-bold leading-tight">Centro Histórico</p>
                     <p className="text-[#E1B19B] text-[10px] uppercase tracking-wide">Encanto Colonial</p>
-                </div>
-            </div>
-        </motion.div>
-
-        <motion.div
-            className="hidden lg:block absolute -top-2 w-60 aspect-video z-20 pointer-events-none -right-32 xl:-right-48"
-            variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 1 } } }}
-        >
-            <div className="w-full h-full rounded-xl overflow-hidden border-2 border-white shadow-[0_15px_40px_-12px_rgba(0,0,0,0.12)] relative bg-[#222]">
-                <div
-                    className="w-full h-full bg-cover bg-center"
-                    style={{ backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuAsXLPABdSM9fcKIShbnfpbg8h2Y9UqsiOi9oAKnNNsQKhknnXl6x-ikZHuRFPXtOaLEe3QX83TxDdPganEgmlvCby8PtiOzU_I1ep9twDHIiY_tzb6XpocVrnxGvm_HY6OD1h6A3mWhiurKSFoNv9WK7b21FMzX6wlPbostRbNpxfZ1WQ-HvAHT1Ny2c-gkiHlwTDKTRCO8S-z6caoZcN8ceKhcH7S2KC-HXe20oweKB8-INxGIZxhKrTvajqBZA0wA_PnCpOnzu9n")` }}
-                ></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-[#222]/80 via-transparent to-transparent opacity-80"></div>
-                <div className="absolute bottom-3 left-3 z-10">
-                    <p className="text-white text-sm font-bold leading-tight drop-shadow-sm">La Parroquia</p>
-                    <p className="text-[#E1B19B]/90 text-[10px] uppercase tracking-wide">Ícono Histórico</p>
                 </div>
             </div>
         </motion.div>
@@ -45,35 +37,15 @@ const DesktopLocationImages = () => (
 const MobileLocationImages = () => (
     <div className="absolute -bottom-32 right-4 flex lg:hidden items-start gap-2 z-40 pointer-events-none translate-x-4 outline-none">
         <motion.div
-            className="w-36 aspect-[3/4] shadow-2xl rounded-xl relative z-40 origin-bottom translate-y-6"
+            className="w-48 aspect-[3/4] shadow-2xl relative z-40 origin-bottom translate-y-6"
             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15, delay: 1.4 } } }}
         >
-            <div className="w-full h-full rounded-xl overflow-hidden border-2 border-white/80 shadow-[0_15px_40px_-12px_rgba(0,0,0,0.12)] relative bg-[#222]">
-                <div
-                    className="w-full h-full bg-cover bg-center"
-                    style={{ backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuDs00-_GCKkrCFoxuqIdnSQPBxxiSQOB34r6bUBs4vDrhv7xcLgDNId9KW3fzHaZjAJ0BL2gdc62yx5W2TMofi1XrWQJAiha_vWecWib2NbdFaqSXcLectwiuzP_uasJ6WR2aX6uUq05yQy0ahv0IRQF63LLInINhNuPfoSaWFIc0Oz0OchmKztsZvsTspnRbvNl_XPTBTSLrLjc_newbjbVlYWMRHqC4d8xTtIdxrWfzNn_6En6--apeBhJOC3d2u51EtT5AQ6yqef")` }}
-                ></div>
+            <div className="w-full h-full overflow-hidden border-2 border-white/80 shadow-[0_15px_40px_-12px_rgba(0,0,0,0.12)] relative bg-[#222]">
+                <LocationVideo />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#222]/80 via-[#222]/30 to-transparent"></div>
                 <div className="absolute bottom-2 left-2 z-10 w-[calc(100%-16px)]">
                     <p className="text-white text-xs font-bold leading-tight truncate">Centro Histórico</p>
                     <p className="text-[#E1B19B] text-[8px] uppercase tracking-wide truncate">Encanto Colonial</p>
-                </div>
-            </div>
-        </motion.div>
-
-        <motion.div
-            className="w-44 aspect-video mt-8 -ml-8 shadow-2xl rounded-xl relative z-30 origin-bottom"
-            variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15, delay: 1.6 } } }}
-        >
-            <div className="w-full h-full rounded-xl overflow-hidden border-2 border-white/80 shadow-[0_15px_40px_-12px_rgba(0,0,0,0.12)] relative bg-[#222]">
-                <div
-                    className="w-full h-full bg-cover bg-center"
-                    style={{ backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuAsXLPABdSM9fcKIShbnfpbg8h2Y9UqsiOi9oAKnNNsQKhknnXl6x-ikZHuRFPXtOaLEe3QX83TxDdPganEgmlvCby8PtiOzU_I1ep9twDHIiY_tzb6XpocVrnxGvm_HY6OD1h6A3mWhiurKSFoNv9WK7b21FMzX6wlPbostRbNpxfZ1WQ-HvAHT1Ny2c-gkiHlwTDKTRCO8S-z6caoZcN8ceKhcH7S2KC-HXe20oweKB8-INxGIZxhKrTvajqBZA0wA_PnCpOnzu9n")` }}
-                ></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-[#222]/80 via-[#222]/30 to-transparent"></div>
-                <div className="absolute bottom-2 left-2 z-10 w-[calc(100%-16px)]">
-                    <p className="text-white text-xs font-bold leading-tight drop-shadow-sm truncate">La Parroquia</p>
-                    <p className="text-[#E1B19B]/90 text-[8px] uppercase tracking-wide truncate">Ícono Histórico</p>
                 </div>
             </div>
         </motion.div>
@@ -151,12 +123,12 @@ export default function Location() {
                     }}
                 >
                     <div
-                        className="relative w-full rounded-3xl overflow-visible shadow-[0_20px_60px_-15px_rgba(170,125,105,0.15)] border border-[#AA7D69]/10 group bg-[#EDE5DA]"
+                        className="relative w-full overflow-visible shadow-[0_20px_60px_-15px_rgba(170,125,105,0.15)] border border-[#AA7D69]/10 group bg-[#EDE5DA]"
                         data-location="San Miguel de Allende"
                         onClick={() => setActivePin(null)}
                     >
                         {/* Animated inline SVG map */}
-                        <div className="relative z-0 rounded-3xl overflow-hidden">
+                        <div className="relative z-0 overflow-hidden">
                             <motion.svg
                                 viewBox="0 0 2878 1858"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -332,11 +304,11 @@ export default function Location() {
                     </div>
 
                     <motion.div
-                        className="relative lg:absolute lg:-left-32 lg:-bottom-8 mt-8 lg:mt-0 z-30 flex flex-col justify-start pointer-events-auto w-full lg:w-auto lg:max-w-[280px]"
+                        className="relative lg:absolute lg:-left-40 lg:-bottom-8 mt-8 lg:mt-0 z-30 flex flex-col justify-start pointer-events-auto w-full lg:w-auto lg:max-w-[280px]"
                         variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 1.2 } } }}
                     >
                         <div
-                            className="relative z-30 bg-white/80 backdrop-blur-xl border border-[#D7D7AA]/40 p-6 md:p-8 rounded-2xl shadow-[0_15px_40px_-10px_rgba(225,177,155,0.2)] hover:bg-white transition-all duration-300 group/panel"
+                            className="relative z-30 bg-white/80 backdrop-blur-xl border border-[#D7D7AA]/40 p-6 md:p-8 shadow-[0_15px_40px_-10px_rgba(225,177,155,0.2)] hover:bg-white transition-all duration-300 group/panel"
                         >
                             <div
                                 className="flex items-center gap-3 mb-8 pb-4 border-b border-[#AA7D69]/10"

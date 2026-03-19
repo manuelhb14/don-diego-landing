@@ -17,15 +17,24 @@ export default function Manifesto() {
         offset: ["start end", "end start"], // Extends the tracking to keep images moving as you scroll past
     });
 
-    // Text scroll-linked opacity sequences
-    // We break the scroll into phases:
-    // 0.20 - 0.35: Scroll in "Con la Tierra"
-    // 0.50 - 0.65: Scroll in "Con la Comunidad"
-    // 0.80 - 0.95: Scroll in "Con uno Mismo"
+    // Tracks the scroll from when the section enters the bottom of the screen until it hits the top (sticky start)
+    const { scrollYProgress: approachProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "start start"],
+    });
 
-    const tierraOpacity = useTransform(textScrollProgress, [0.2, 0.35, 1], [0, 1, 1]);
-    const comunidadOpacity = useTransform(textScrollProgress, [0.5, 0.65, 1], [0, 1, 1]);
-    const mismoOpacity = useTransform(textScrollProgress, [0.8, 0.95, 1], [0, 1, 1]);
+    const approachFade = useTransform(approachProgress, [0, 1], [0, 1]);
+
+    // Text scroll-linked opacity sequences
+    // We break the scroll into phases (tuned to feel responsive):
+    // 0.00 - 0.20: "Con la Tierra" settles
+    // 0.32 - 0.52: "Con la Comunidad" arrives
+    // 0.56 - 0.76: "Con uno Mismo" arrives
+
+    // Start subtle, reach full opacity once the section is fully in view.
+    const tierraOpacity = useTransform(textScrollProgress, [0, 0.2, 1], [0.35, 1, 1]);
+    const comunidadOpacity = useTransform(textScrollProgress, [0.32, 0.52, 1], [0, 1, 1]);
+    const mismoOpacity = useTransform(textScrollProgress, [0.56, 0.76, 1], [0, 1, 1]);
 
     // Global fade out near the end so it transitions cleanly to the next section
     const textGroupOpacity = useTransform(textScrollProgress, [0, 1], [1, 1]);
@@ -42,25 +51,41 @@ export default function Manifesto() {
     const y6 = useTransform(imageScrollProgress, [0, 1], ["110%", "-100%"]); // Bottom right (fast up)
 
     // Opacities linked to text appearance
-    // Group 1: With "Con la Tierra" (0.20 - 0.35)
-    const op1 = useTransform(textScrollProgress, [0.2, 0.35, 1], [0, 1, 1]);
-    const op4 = useTransform(textScrollProgress, [0.25, 0.40, 1], [0, 1, 1]);
+    // Group 1: With "Con la Tierra" (0.00 - 0.20)
+    // First ones: Top Left (op1) and Bottom Right (op6)
+    const op1 = useTransform(textScrollProgress, [0, 0.2, 1], [0.35, 1, 1]);
+    const op6 = useTransform(textScrollProgress, [0, 0.2, 1], [0.35, 1, 1]);
 
-    // Group 2: With "Con la Comunidad" (0.50 - 0.65)
-    const op2 = useTransform(textScrollProgress, [0.5, 0.65, 1], [0, 1, 1]);
-    const op5 = useTransform(textScrollProgress, [0.55, 0.70, 1], [0, 1, 1]);
+    // Group 2: With "Con la Comunidad" (0.32 - 0.52)
+    // Keep these images fully hidden until their phase begins.
+    const op2 = useTransform(textScrollProgress, [0, 0.32, 0.52, 1], [0, 0, 1, 1]);
+    const op5 = useTransform(textScrollProgress, [0, 0.36, 0.56, 1], [0, 0, 1, 1]);
 
-    // Group 3: With "Con uno Mismo" (0.80 - 0.95)
-    const op3 = useTransform(textScrollProgress, [0.8, 0.95, 1], [0, 1, 1]);
-    const op6 = useTransform(textScrollProgress, [0.85, 0.98, 1], [0, 1, 1]);
+    // Group 3: With "Con uno Mismo" (0.56 - 0.76)
+    // Keep these images fully hidden until their phase begins.
+    const op3 = useTransform(textScrollProgress, [0, 0.56, 0.76, 1], [0, 0, 1, 1]);
+    const op4 = useTransform(textScrollProgress, [0, 0.60, 0.80, 1], [0, 0, 1, 1]);
+
+    // Logic: while approaching (before progress 1), scale from 0 to 25%.
+    // Once progress hits 1 (sticky), jump to op values (starting at 35%).
+    const imgOp1 = useTransform([approachFade, op1], (latest: number[]) => latest[0] < 1 ? latest[0] * 0.25 : latest[1]);
+    const imgOp6 = useTransform([approachFade, op6], (latest: number[]) => latest[0] < 1 ? latest[0] * 0.25 : latest[1]);
+
+    // Group 2/3: do NOT fade in during the approach phase.
+    // They must remain at 0 opacity until their text phase starts.
+    const imgOp2 = op2;
+    const imgOp5 = op5;
+
+    const imgOp3 = op3;
+    const imgOp4 = op4;
 
 
     return (
         <section
             id="proyecto"
             ref={containerRef}
-            className="relative bg-[#1F1D1B] w-full"
-            style={{ height: "350vh" }} // Tall enough for comfortable scrolling
+            className="relative bg-[#fff8ed] w-full"
+            style={{ height: "320vh" }} // Slightly shorter so the animation progresses faster
         >
             <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
 
@@ -69,32 +94,32 @@ export default function Manifesto() {
                   Option 1: Sized down and pushed partially off-screen on mobile.
                   Desktop has small collisions (around 10-15%).
                 */}
-                <motion.div className="absolute top-[10%] left-[8%] md:left-[10%] lg:left-[15%] w-30 md:w-32 lg:w-48 xl:w-64 aspect-[4/5] z-0" style={{ y: y1, opacity: op1 }}>
-                    <Image src="/images/gallery/gallery-10.jpg" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute top-[10%] left-[8%] md:left-[10%] lg:left-[12.5%] w-36 md:w-40 lg:w-56 xl:w-72 aspect-[4/5] z-0" style={{ y: y1, opacity: imgOp1 }}>
+                    <Image src="/babylon/tierra-1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute top-[18%] right-[8%] md:right-[5%] lg:right-[10%] w-28 md:w-32 lg:w-40 xl:w-56 aspect-square z-0" style={{ y: y4, opacity: op4 }}>
-                    <Image src="/images/gallery/gallery-9.jpg" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute top-[18%] right-[8%] md:right-[5%] lg:right-[10%] w-32 md:w-40 lg:w-48 xl:w-64 aspect-square z-0" style={{ y: y4, opacity: imgOp4 }}>
+                    <Image src="/babylon/mismo-1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute top-[45%] -right-[15%] md:right-[10%] lg:right-[15%] w-32 md:w-48 lg:w-56 xl:w-80 aspect-[3/4] z-0" style={{ y: y2, opacity: op2 }}>
-                    <Image src="/images/gallery/gallery-15.jpg" alt="Gallery" fill className="object-cover rounded-sm shadow-2xl" />
+                <motion.div className="absolute top-[45%] -right-[15%] md:right-[10%] lg:right-[12%] w-32 md:w-48 lg:w-56 xl:w-80 aspect-[3/4] z-0" style={{ y: y2, opacity: imgOp2 }}>
+                    <Image src="/babylon/sma-1.jpg" alt="Gallery" fill className="object-cover rounded-sm shadow-2xl" />
                 </motion.div>
 
-                <motion.div className="absolute top-[60%] left-[-5%] md:left-[5%] lg:left-[8%] w-24 md:w-28 lg:w-32 xl:w-48 aspect-square z-0" style={{ y: y5, opacity: op5 }}>
-                    <Image src="/images/gallery/gallery-13.jpg" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute top-[60%] left-[-5%] md:left-[5%] lg:left-[12%] w-24 md:w-28 lg:w-32 xl:w-72 aspect-[4/3] z-0" style={{ y: y5, opacity: imgOp5 }}>
+                    <Image src="/babylon/comunidad-1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute bottom-[2%] md:bottom-[-10%] -left-[0%] md:left-[15%] lg:left-[20%] w-48 md:w-56 lg:w-60 xl:w-96 aspect-video z-0 border-4 md:border-8 border-[#1F1D1B] origin-bottom-left" style={{ y: y3, opacity: op3 }}>
-                    <Image src="/images/gallery/gallery-11.jpg" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute bottom-[2%] md:bottom-[-10%] -left-[0%] md:left-[15%] lg:left-[20%] w-48 md:w-56 lg:w-60 xl:w-96 aspect-video z-0 origin-bottom-left" style={{ y: y3, opacity: imgOp3 }}>
+                    <Image src="/babylon/comunidad-2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute bottom-[10%] md:bottom-[5%] right-[2%] md:right-[10%] lg:right-[15%] w-32 md:w-36 lg:w-44 xl:w-60 aspect-[4/3] z-0  origin-bottom-right" style={{ y: y6, opacity: op6 }}>
-                    <Image src="/images/gallery/gallery-12.jpg" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute bottom-[10%] md:bottom-[5%] right-[2%] md:right-[10%] lg:right-[15%] w-32 md:w-36 lg:w-44 xl:w-60 aspect-[4/3] z-0  origin-bottom-right" style={{ y: y6, opacity: imgOp6 }}>
+                    <Image src="/babylon/tierra-2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
 
-                {/* Foreground Centered Text */}
+                {/* Foreground Centered Text (always above images) */}
                 <motion.div
                     className="relative z-10 flex flex-col items-center justify-center text-center pb-32 md:pb-0 px-6 mix-blend-difference"
                     style={{ opacity: textGroupOpacity }}
@@ -107,13 +132,14 @@ export default function Manifesto() {
                     </p>
 
                     <h2
-                        className="text-[#E6E1D6] leading-none mb-12"
+                        className="text-[#222222] leading-none mb-12"
                         style={{
                             fontFamily: "var(--font-serif)",
                             fontSize: "clamp(3.5rem, 8vw, 8rem)",
                         }}
                     >
-                        Arraigado en <br /><span className="italic text-[#8C7B6C]">San Miguel</span>
+                        Arraigado en <br />
+                        <span className="italic text-[#6e5947]">San Miguel</span>
                     </h2>
 
                     <div
@@ -123,19 +149,19 @@ export default function Manifesto() {
                             fontSize: "clamp(1.5rem, 3vw, 3rem)",
                         }}
                     >
-                        <motion.p className="text-[#D7D7AA] italic self-start ml-4 md:ml-12" style={{ opacity: tierraOpacity }}>
+                        <motion.p className="text-[#6F7F52] italic self-start ml-4 md:ml-12" style={{ opacity: tierraOpacity }}>
                             Con la Tierra.
                         </motion.p>
-                        <motion.p className="text-[#D7D7AA] italic self-center" style={{ opacity: comunidadOpacity }}>
+                        <motion.p className="text-[#6F7F52] italic self-center" style={{ opacity: comunidadOpacity }}>
                             Con la Comunidad.
                         </motion.p>
-                        <motion.p className="text-[#D7D7AA] italic self-end mr-4 md:mr-12" style={{ opacity: mismoOpacity }}>
+                        <motion.p className="text-[#6F7F52] italic self-end mr-4 md:mr-12" style={{ opacity: mismoOpacity }}>
                             Con uno Mismo.
                         </motion.p>
                     </div>
                 </motion.div>
 
-                <motion.div
+                {/* <motion.div
                     className="pointer-events-none absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[#E6E1D6]/85"
                     style={{ opacity: scrollIndicatorOpacity }}
                     aria-label="Desliza para explorar el manifiesto"
@@ -169,7 +195,7 @@ export default function Manifesto() {
                         />
                     </div>
                     <span className="sr-only">Desliza para explorar el manifiesto</span>
-                </motion.div>
+                </motion.div> */}
 
             </div>
         </section>

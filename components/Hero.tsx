@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { MapPin } from "lucide-react";
@@ -17,18 +16,21 @@ export default function Hero() {
 
     return (
         <section ref={ref} className="relative flex h-[800px] md:h-dvh min-h-[700px] w-full items-center justify-center overflow-hidden bg-[#111]">
-            {/* Full-bleed background image */}
+            {/* Full-bleed background video */}
             <motion.div
                 className="absolute inset-0 z-0 h-full w-full overflow-hidden"
                 style={{ scale: imgScale }}
             >
-                <Image
-                    src="/images/renders/render-1.png"
-                    alt="Don Diego — Club Residencial"
-                    fill
-                    priority
-                    className="object-cover object-center"
-                />
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="h-full w-full object-cover object-center"
+                >
+                    <source src="/videos/video.webm" type="video/webm" />
+                    <source src="/videos/render-1.mp4" type="video/mp4" />
+                </video>
                 {/* Gradient overlay to ensure text is readable */}
                 {/* <div className="absolute inset-0 bg-black/40" /> */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />

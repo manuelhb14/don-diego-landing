@@ -45,7 +45,7 @@ export default function Gallery() {
 
     return (
         <>
-            <section id="galeria" className="bg-[#FFF3E1] pt-2 lg:pt-4 pb-6 lg:pb-28 overflow-hidden">
+            <section id="galeria" className="bg-[#FFF3E1] pt-2 lg:pt-24 pb-6 lg:pb-28 overflow-hidden">
                 {/* Header */}
                 <div className="max-w-[1400px] mx-auto px-6 lg:px-14 mb-6 flex items-end justify-between">
                     <motion.div
