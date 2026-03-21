@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import HeroWellness from "@/components/wellness/HeroWellness";
 import HighlightsWellness from "@/components/wellness/HighlightsWellness";
 import ServicesWellness from "@/components/wellness/ServicesWellness";
+import Exclusivity from "@/components/Exclusivity";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 type Props = {
@@ -20,6 +22,8 @@ export default async function WellnessCenterPage({ params }: Props) {
                 <HeroWellness />
                 <HighlightsWellness />
                 <ServicesWellness />
+                <Exclusivity />
+                <Contact />
             </main>
             <Footer />
         </>

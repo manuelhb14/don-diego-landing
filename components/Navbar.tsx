@@ -5,7 +5,15 @@ import { useRouter, usePathname, Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 
-const navLinks = [
+type NavbarTheme = "light" | "dark";
+type DropdownPosition = { left: number; top: number };
+type NavScrollState = { hidden: boolean; scrolled: boolean };
+type NavSubLink = { key: string; label: string; href: string; color: string };
+type NavLink = { key: string; label: string; href: string; subLinks?: NavSubLink[] };
+
+const contactCta = { key: "contacto", label: "Contacto", href: "/contacto" } as const;
+
+const navLinks: NavLink[] = [
     { key: "inicio", label: "Inicio", href: "/" },
     {
         key: "proyecto",
@@ -18,47 +26,159 @@ const navLinks = [
             { key: "presa", label: "Presa de la Cantera", href: "/presa", color: "#C8D7E6" },
         ]
     },
+    { key: "experiencias", label: "Experiencias", href: "/experiencias" },
     { key: "ubicacion", label: "Ubicación", href: "/ubicacion" },
     { key: "equipo", label: "Equipo", href: "/equipo" },
-    { key: "contacto", label: "Contacto", href: "/contacto" },
 ];
 
-export default function Navbar({ locale, theme = "light", hideLogoAtTop = false }: { locale: string; theme?: "light" | "dark"; hideLogoAtTop?: boolean }) {
+const NAV_SCROLL_CONFIG = {
+    alwaysShowBelowPx: 10,
+    minHideScrollYPx: 20,
+    scrolledOnPx: 72,
+    scrolledOffPx: 56,
+} as const;
+
+const DESKTOP_DROPDOWN_OFFSET_PX = 10;
+const DESKTOP_DROPDOWN_CLOSE_DELAY_MS = 120;
+const DESKTOP_DROPDOWN_TRANSITION = {
+    duration: 0.2,
+    ease: [0.215, 0.61, 0.355, 1],
+} as const;
+
+function isActivePath(pathname: string, href: string) {
+    return pathname === href || (href !== "/" && pathname.startsWith(href));
+}
+
+function getDesktopLinkClassName(isActive: boolean, isDarkAtTop: boolean) {
+    const toneClasses = isActive
+        ? isDarkAtTop
+            ? "text-black font-medium"
+            : "text-white font-medium"
+        : isDarkAtTop
+            ? "text-black/70 hover:text-black"
+            : "text-white/70 hover:text-white";
+
+    return `relative flex items-center px-2 pt-1.5 text-xs font-light tracking-[0.18em] uppercase transition-all duration-300 ${toneClasses}`;
+}
+
+function getDesktopUnderlineClassName(isActive: boolean, isOpen: boolean, isDarkAtTop: boolean) {
+    return `absolute -bottom-1 left-1/2 -translate-x-1/2 h-px transition-all duration-300 ${isDarkAtTop ? "bg-black" : "bg-white"} ${isActive || isOpen ? "w-[32px]" : "w-0 group-hover:w-[32px]"}`;
+}
+
+function getContactCtaClassName(isActive: boolean, isDarkAtTop: boolean) {
+    const stateClasses = isActive
+        ? isDarkAtTop
+            ? "border-black bg-black/[0.06] font-medium text-black"
+            : "border-white bg-white/10 font-medium text-white"
+        : isDarkAtTop
+            ? "border-black/35 text-black/80 hover:border-black/55 hover:bg-black/[0.04]"
+            : "border-white/40 text-white/90 hover:border-white/60 hover:bg-white/10";
+
+    return `relative flex shrink-0 items-center rounded-sm border px-3 py-1.5 text-[11px] font-light tracking-[0.18em] uppercase transition-all duration-300 sm:px-4 sm:text-xs ${stateClasses}`;
+}
+
+function getLocaleButtonClassName(isDarkAtTop: boolean) {
+    return `text-[13px] font-light tracking-[0.18em] uppercase transition-colors duration-300 ${isDarkAtTop ? "hover:text-black/80" : "hover:text-white/80"}`;
+}
+
+function getHamburgerClassName(isDarkAtTop: boolean) {
+    return `flex h-8 w-8 flex-col items-center justify-center gap-[6px] lg:hidden ${isDarkAtTop ? "text-black" : "text-white"}`;
+}
+
+function getDesktopSubLinkClassName(isActive: boolean) {
+    return `flex items-center gap-3 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 ${isActive ? "font-bold" : "text-black/70 hover:text-black"}`;
+}
+
+function getDesktopSubLinkDotStyle(subLink: NavSubLink, isActive: boolean) {
+    return {
+        backgroundColor: subLink.color,
+        transform: isActive ? "scale(1.4)" : "scale(1)",
+        boxShadow: isActive ? `0 0 10px 1px ${subLink.color}80` : "none",
+    };
+}
+
+function useNavbarScrollState() {
+    const [navScroll, setNavScroll] = useState<NavScrollState>({ hidden: false, scrolled: false });
+
+    useEffect(() => {
+        const {
+            alwaysShowBelowPx,
+            minHideScrollYPx,
+            scrolledOnPx,
+            scrolledOffPx,
+        } = NAV_SCROLL_CONFIG;
+
+        const lastScrollYRef = { current: window.scrollY };
+        let rafId: number | null = null;
+
+        const flush = () => {
+            rafId = null;
+            const y = window.scrollY;
+            const delta = y - lastScrollYRef.current;
+            lastScrollYRef.current = y;
+
+            setNavScroll((prev) => {
+                const nextHidden =
+                    y <= alwaysShowBelowPx || delta < 0
+                        ? false
+                        : y > minHideScrollYPx
+                            ? true
+                            : prev.hidden;
+
+                const nextScrolled = nextHidden
+                    ? prev.scrolled
+                    : prev.scrolled
+                        ? y > scrolledOffPx
+                        : y > scrolledOnPx;
+
+                if (nextHidden === prev.hidden && nextScrolled === prev.scrolled) {
+                    return prev;
+                }
+
+                return { hidden: nextHidden, scrolled: nextScrolled };
+            });
+        };
+
+        const onScroll = () => {
+            if (rafId !== null) return;
+            rafId = requestAnimationFrame(flush);
+        };
+
+        flush();
+        window.addEventListener("scroll", onScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            if (rafId !== null) cancelAnimationFrame(rafId);
+        };
+    }, []);
+
+    return navScroll;
+}
+
+export default function Navbar({ locale, theme = "light", hideLogoAtTop = false }: { locale: string; theme?: NavbarTheme; hideLogoAtTop?: boolean }) {
     const router = useRouter();
     const pathname = usePathname();
     const shouldReduceMotion = useReducedMotion();
-    const [hidden, setHidden] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
+    const navScroll = useNavbarScrollState();
     const [openDesktopMenu, setOpenDesktopMenu] = useState<string | null>(null);
-    const [desktopDropdownPosition, setDesktopDropdownPosition] = useState<{ left: number; top: number } | null>(null);
+    const [desktopDropdownPosition, setDesktopDropdownPosition] = useState<DropdownPosition | null>(null);
     const desktopDropdownCloseTimeout = useRef<number | null>(null);
-    useEffect(() => {
-        let lastScrollY = window.scrollY;
-
-        const onScroll = () => {
-            const currentScrollY = window.scrollY;
-            setScrolled(currentScrollY > 60);
-            setOpenDesktopMenu(null);
-            setDesktopDropdownPosition(null);
-
-            if (currentScrollY > lastScrollY && currentScrollY > 0) {
-                setHidden(true);
-            } else if (currentScrollY < lastScrollY) {
-                setHidden(false);
-            }
-            lastScrollY = currentScrollY;
-        };
-
-        window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
+    const { hidden, scrolled } = navScroll;
+    const isDarkAtTop = theme === "dark" && !scrolled;
+    const isContactActive = pathname === contactCta.href;
 
     // Lock body scroll when mobile menu open
     useEffect(() => {
         document.body.style.overflow = mobileOpen ? "hidden" : "";
         return () => { document.body.style.overflow = ""; };
     }, [mobileOpen]);
+
+    useEffect(() => {
+        setOpenDesktopMenu(null);
+        setDesktopDropdownPosition(null);
+    }, [hidden, scrolled]);
 
     useEffect(() => {
         return () => {
@@ -80,20 +200,24 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
         }
     };
 
+    const closeDesktopDropdown = () => {
+        setOpenDesktopMenu(null);
+        setDesktopDropdownPosition(null);
+    };
+
     const openDesktopDropdown = (key: string, trigger: HTMLDivElement) => {
         clearDesktopDropdownClose();
         const rect = trigger.getBoundingClientRect();
         setOpenDesktopMenu(key);
-        setDesktopDropdownPosition({ left: rect.left, top: rect.bottom + 10 });
+        setDesktopDropdownPosition({ left: rect.left, top: rect.bottom + DESKTOP_DROPDOWN_OFFSET_PX });
     };
 
     const scheduleDesktopDropdownClose = () => {
         clearDesktopDropdownClose();
         desktopDropdownCloseTimeout.current = window.setTimeout(() => {
-            setOpenDesktopMenu(null);
-            setDesktopDropdownPosition(null);
+            closeDesktopDropdown();
             desktopDropdownCloseTimeout.current = null;
-        }, 120);
+        }, DESKTOP_DROPDOWN_CLOSE_DELAY_MS);
     };
 
     const activeDesktopSubLinks = navLinks.find((link) => link.key === openDesktopMenu)?.subLinks;
@@ -103,11 +227,11 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
             <nav
                 className={`fixed left-0 right-0 z-50 transition-[top] duration-500 bg-transparent ${scrolled ? "mix-blend-difference text-white" : ""} ${hidden ? "-top-28 pointer-events-none" : "top-0"}`}
             >
-                <div className={`mx-auto flex w-full items-center justify-between px-6 py-4 lg:px-4 lg:pt-2.5 ${theme === "dark" && !scrolled ? "text-black" : "text-white"}`}>
+                <div className={`mx-auto flex w-full items-center justify-between px-6 py-4 lg:px-4 lg:pt-2.5 ${isDarkAtTop ? "text-black" : "text-white"}`}>
                     {/* Left: Links (Desktop) */}
                     <div className="flex-1 hidden lg:flex items-center justify-start gap-4">
                         {navLinks.map(({ key, label, href, subLinks }) => {
-                            const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+                            const isActive = isActivePath(pathname, href);
                             const isDesktopDropdownOpen = openDesktopMenu === key;
 
                             return (
@@ -119,7 +243,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                 >
                                     <Link
                                         href={href}
-                                        className={`relative flex items-center px-2 pt-1.5 text-xs font-light tracking-[0.18em] uppercase transition-all duration-300 ${isActive ? (theme === "dark" && !scrolled ? "text-black font-medium" : "text-white font-medium") : (theme === "dark" && !scrolled ? "text-black/70 hover:text-black" : "text-white/70 hover:text-white")}`}
+                                        className={getDesktopLinkClassName(isActive, isDarkAtTop)}
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
                                         {label}
@@ -129,7 +253,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                             </span>
                                         )}
                                         <span
-                                            className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px transition-all duration-300 ${theme === "dark" && !scrolled ? "bg-black" : "bg-white"} ${isActive || isDesktopDropdownOpen ? "w-[32px]" : "w-0 group-hover:w-[32px]"}`}
+                                            className={getDesktopUnderlineClassName(isActive, isDesktopDropdownOpen, isDarkAtTop)}
                                         />
                                     </Link>
                                 </div>
@@ -147,17 +271,24 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                             alt="Don Diego Logo"
                             width={160}
                             height={50}
-                            className={`h-3.5 md:h-4.5 w-auto transition-all duration-500 ${theme === "dark" && !scrolled ? "[filter:invert(1)_brightness(0)]" : ""}`}
+                            className={`h-3.5 md:h-4.5 w-auto transition-all duration-500 ${isDarkAtTop ? "[filter:invert(1)_brightness(0)]" : ""}`}
                             priority
                         />
                     </Link>
 
-                    {/* Right: Actions */}
-                    <div className="flex flex-1 items-center justify-end gap-6">
+                    {/* Right: Contact CTA + locale + mobile menu */}
+                    <div className="flex flex-1 items-center justify-end gap-4 lg:gap-6">
+                        <Link
+                            href={contactCta.href}
+                            className={getContactCtaClassName(isContactActive, isDarkAtTop)}
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            {contactCta.label}
+                        </Link>
                         {/* Locale Switch */}
                         <button
                             onClick={switchLocale}
-                            className={`text-[13px] font-light tracking-[0.18em] uppercase transition-colors duration-300 ${theme === "dark" && !scrolled ? "hover:text-black/80" : "hover:text-white/80"}`}
+                            className={getLocaleButtonClassName(isDarkAtTop)}
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {locale === "es" ? "EN" : "ES"}
@@ -166,7 +297,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                         {/* Mobile hamburger */}
                         <button
                             onClick={() => setMobileOpen(!mobileOpen)}
-                            className={`flex lg:hidden h-8 w-8 flex-col items-center justify-center gap-[6px] ${theme === "dark" && !scrolled ? "text-black" : "text-white"}`}
+                            className={getHamburgerClassName(isDarkAtTop)}
                             aria-label="Menu"
                         >
                             <span className={`block h-px w-6 bg-current transition-all duration-300 origin-center ${mobileOpen ? "translate-y-[7px] rotate-45" : ""}`} />
@@ -183,7 +314,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                         initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -12 }}
                         animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                         exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
-                        transition={{ duration: shouldReduceMotion ? 0.12 : 0.2, ease: [0.215, 0.61, 0.355, 1] }}
+                        transition={shouldReduceMotion ? { duration: 0.12 } : DESKTOP_DROPDOWN_TRANSITION}
                         className="fixed left-0 top-0 z-[60] hidden min-w-[220px] flex-col gap-3 rounded-sm border border-black/10 bg-white/90 px-5 py-5 shadow-lg shadow-black/10 backdrop-blur-md will-change-transform lg:flex"
                         style={{ left: desktopDropdownPosition.left, top: desktopDropdownPosition.top }}
                         onMouseEnter={clearDesktopDropdownClose}
@@ -195,14 +326,11 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                 <Link
                                     key={sub.key}
                                     href={sub.href}
-                                    className={`flex items-center gap-3 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "text-black/70 hover:text-black"}`}
+                                    className={getDesktopSubLinkClassName(isSubActive)}
                                     style={{ fontFamily: "var(--font-sans)", color: isSubActive ? sub.color : undefined }}
-                                    onClick={() => {
-                                        setOpenDesktopMenu(null);
-                                        setDesktopDropdownPosition(null);
-                                    }}
+                                    onClick={closeDesktopDropdown}
                                 >
-                                    <span className={`w-2.5 h-2.5 flex-none transition-all duration-300 ${isSubActive ? "rounded-full" : "rounded-sm"}`} style={{ backgroundColor: sub.color, transform: isSubActive ? "scale(1.4)" : "scale(1)", boxShadow: isSubActive ? `0 0 10px 1px ${sub.color}80` : "none" }} />
+                                    <span className={`w-2.5 h-2.5 flex-none transition-all duration-300 ${isSubActive ? "rounded-full" : "rounded-sm"}`} style={getDesktopSubLinkDotStyle(sub, isSubActive)} />
                                     {sub.label}
                                 </Link>
                             );
@@ -223,7 +351,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                     >
                         <div className="flex h-full flex-col items-center justify-center gap-6 overflow-y-auto py-20">
                             {navLinks.map(({ key, label, href, subLinks }, i) => {
-                                const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+                                const isActive = isActivePath(pathname, href);
                                 return (
                                     <motion.div
                                         key={key}

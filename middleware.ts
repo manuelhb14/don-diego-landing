@@ -18,8 +18,11 @@ export default function middleware(request: NextRequest) {
     return intlMiddleware(request);
   }
 
-  // In production only: redirect all pages to proximamente
-  if (process.env.NODE_ENV === "production") {
+  // Optional “coming soon” gate: set COMING_SOON=true on the Worker (e.g. Cloudflare dashboard) to send all traffic to /proximamente
+  if (
+    process.env.NODE_ENV === "production" &&
+    process.env.COMING_SOON === "true"
+  ) {
     const url = request.nextUrl.clone();
     url.pathname = `/${routing.defaultLocale}/proximamente`;
     return NextResponse.redirect(url);

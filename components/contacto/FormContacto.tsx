@@ -29,7 +29,7 @@ export default function FormContacto() {
                 }),
             });
 
-            const data = await res.json();
+            const data = (await res.json()) as { error?: string };
 
             if (!res.ok) {
                 throw new Error(data.error || "Error al enviar");

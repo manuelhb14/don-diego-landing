@@ -1,125 +1,101 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef, useState, useEffect } from "react";
+import { motion } from "motion/react";
 
 const products = [
     {
-        id: "01",
         title: "Invernaderos y zonas de cultivo",
-        description: "Espacios organizados en terrazas con tecnología de agricultura sostenible que garantizan el origen más fresco posible.",
-        image: "/images/gallery/gallery-4.png",
+        description:
+            "Espacios organizados en terrazas con tecnología de agricultura sostenible que garantizan el origen más fresco posible.",
+        image: "/babylon/farm-5.png",
     },
     {
-        id: "02",
         title: "Andadores y cicloruta",
-        description: "Recorrer a pie o en bici la vasta extensión productiva permite integrarse físicamente al proceso natural.",
-        image: "/images/gallery/gallery-5.png",
+        description:
+            "Recorrer a pie o en bici la vasta extensión productiva permite integrarse físicamente al proceso natural.",
+        image: "/babylon/farm-3.png",
     },
     {
-        id: "03",
         title: "Experiencia comunitaria",
-        description: "Programas educativos alrededor de lo que se cultiva para enseñar a los habitantes la riqueza de cosechar lo que siembras.",
-        image: "/images/gallery/gallery-3.png",
+        description:
+            "Programas educativos alrededor de lo que se cultiva para enseñar a los habitantes la riqueza de cosechar lo que siembras.",
+        image: "/babylon/farm-7.png",
     },
     {
-        id: "04",
         title: "El origen de lo local",
-        description: "Sustentabilidad pura; un ecosistema cerrado donde los productos nutren directamente los cuerpos y el entorno de Don Diego.",
-        image: "/images/gallery/gallery-2.png",
+        description:
+            "Sustentabilidad pura; un ecosistema cerrado donde los productos nutren directamente los cuerpos y el entorno de Don Diego.",
+        image: "/babylon/farm-6.png",
     },
 ];
 
 export default function ProductsFarm() {
-    const targetRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: targetRef,
-    });
-
-    // Desktop (lg): end at -52% so last two cards visible. Mobile/tablet: -75%.
-    const [scrollEnd, setScrollEnd] = useState("-75%");
-    useEffect(() => {
-        const mq = window.matchMedia("(min-width: 1024px)");
-        const update = () => setScrollEnd(mq.matches ? "-52%" : "-75%");
-        update();
-        mq.addEventListener("change", update);
-        return () => mq.removeEventListener("change", update);
-    }, []);
-
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", scrollEnd]);
-
     return (
-        <section ref={targetRef} className="relative h-[400vh] bg-[#DEBEBF]">
-            <div className="sticky top-0 h-[88vh] md:h-screen flex items-center overflow-hidden lg:mb-20 mb-0">
-
-                {/* Intro Title fixed on the left for the first phase, then scrolls out? No, let's include it in the scrolling timeline or absolute positioned smartly */}
-                <div className="absolute top-20 left-6 md:left-16 z-20">
+        <section className="relative bg-[#FFF8ED] py-14 pb-20 lg:py-20 lg:pb-28">
+            <div className="mx-auto w-full max-w-[1200px] px-6 lg:px-12">
+                <div className="mb-8 lg:mb-10">
                     <p
-                        className="text-[10px] tracking-[0.3em] text-[#1F1D1B] uppercase mb-4"
+                        className="mb-8 text-[10px] tracking-[0.3em] text-[#9B5C6E]/85 uppercase"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         [Producción]
                     </p>
                     <h2
-                        className="text-[#1F1D1B] leading-tight"
+                        className="tracking-tight text-[#1a1917] leading-[1.1]"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(2.5rem, 5vw, 4rem)",
+                            fontSize: "clamp(3.125rem, 5.25vw, 4.25rem)",
                         }}
                     >
-                        Ciclo Natural
+                        Ciclo{" "}
+                        <span className="italic text-[#8B4A5E]">Natural</span>
                     </h2>
                 </div>
 
-                <motion.div style={{ x }} className="flex gap-8 lg:gap-16 px-0 md:px-16 pt-32 lg:pt-56 pb-0 items-center h-full">
-                    {/* Empty placeholder spacer so the first card sits cleanly center/right initially */}
-                    <div className="w-[0vw] md:w-[0px] flex-shrink-0" />
-
-                    {products.map((item) => (
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-8 lg:gap-x-8 lg:gap-y-10">
+                    {products.map((item, i) => (
                         <div
-                            key={item.id}
-                            className="w-[85vw] md:w-[60vw] lg:w-[45vw] h-[60vh] lg:h-[70vh] flex-shrink-0 group relative rounded-[32px] overflow-hidden shadow-sm flex flex-col bg-[#1F1D1B]"
+                            key={item.title}
+                            className={
+                                i % 2 === 1 ? "sm:translate-y-8 lg:translate-y-12" : ""
+                            }
                         >
-                            {/* Image Background */}
-                            <div className="absolute inset-0 z-0">
-                                <Image
-                                    src={item.image}
-                                    alt={item.title}
-                                    fill
-                                    className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-[1.5s]"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#1F1D1B] via-transparent to-transparent opacity-90" />
-                            </div>
+                            <motion.article
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-40px" }}
+                                transition={{ duration: 0.5, delay: i * 0.06 }}
+                                className="group relative flex min-h-[340px] flex-col overflow-hidden bg-[#1F1D1B] shadow-sm ring-1 ring-[#DEBEBF]/10 sm:min-h-[360px] lg:min-h-[380px]"
+                            >
+                                <div className="absolute inset-0 z-0">
+                                    <Image
+                                        src={item.image}
+                                        alt={item.title}
+                                        fill
+                                        className="object-cover opacity-90 lg:opacity-75 transition-transform duration-[1.5s] group-hover:scale-105"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#1F1D1B] via-transparent to-transparent opacity-90" />
+                                </div>
 
-                            {/* Content Block */}
-                            <div className="relative z-10 flex flex-col justify-end h-full p-8 md:p-12">
-                                <span
-                                    className="text-[#DEBEBF] text-lg font-bold tracking-widest mb-4"
-                                    style={{ fontFamily: "var(--font-sans)" }}
-                                >
-                                    {item.id}
-                                </span>
-                                <h3
-                                    className="text-[#FFF3E1] text-3xl lg:text-5xl mb-6 leading-tight"
-                                    style={{ fontFamily: "var(--font-serif)" }}
-                                >
-                                    {item.title}
-                                </h3>
-                                <div className="h-px w-16 bg-[#DEBEBF]/30 mb-6" />
-                                <p
-                                    className="text-[#FFF3E1]/80 text-base lg:text-xl leading-relaxed font-light max-w-md"
-                                    style={{ fontFamily: "var(--font-sans)" }}
-                                >
-                                    {item.description}
-                                </p>
-                            </div>
+                                <div className="relative z-10 mt-auto flex h-full flex-col justify-end p-5 md:p-8">
+                                    <h3
+                                        className="mb-1 text-balance text-xl leading-[1.15] text-[#FFF8ED] md:text-2xl lg:text-3xl"
+                                        style={{ fontFamily: "var(--font-serif)" }}
+                                    >
+                                        {item.title}
+                                    </h3>
+                                    <p
+                                        className="max-w-md text-sm leading-relaxed font-light text-[#FFF8ED]/88 md:text-base"
+                                        style={{ fontFamily: "var(--font-sans)" }}
+                                    >
+                                        {item.description}
+                                    </p>
+                                </div>
+                            </motion.article>
                         </div>
                     ))}
-
-                    {/* End Spacer */}
-                    {/* <div className="w-[10vw] flex-shrink-0" /> */}
-                </motion.div>
+                </div>
             </div>
         </section>
     );

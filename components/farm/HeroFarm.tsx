@@ -3,9 +3,6 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-
 export default function HeroFarm() {
     const ref = useRef(null);
     const [isDesktop, setIsDesktop] = useState(true);
@@ -27,11 +24,11 @@ export default function HeroFarm() {
 
     return (
         <section ref={ref} className="relative w-full bg-[#DEBEBF] py-16 px-6 md:px-10 lg:px-20">
-            <div className="flex flex-col lg:flex-row h-[90dvh] min-h-[600px] w-full overflow-hidden">
+            <div className="flex flex-col lg:flex-row h-[90svh] min-h-[600px] w-full overflow-hidden">
 
                 {/* Left: Content Panel */}
                 <motion.div
-                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#1F1D1B]"
+                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#FFF3E1]"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
@@ -57,13 +54,13 @@ export default function HeroFarm() {
                         </p>
                     </motion.div>
 
-                    {/* Center: Title */}
+                    {/* Center: Title & Description */}
                     <div className="flex-1 flex flex-col items-center justify-center px-8 lg:px-12 text-center">
                         <motion.p
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.7 }}
-                            className="text-xs lg:text-sm tracking-[0.3em] text-[#DEBEBF] uppercase mb-2 lg:mb-8 pt-4 lg:pt-0"
+                            className="text-xs lg:text-sm tracking-[0.3em] text-[#DEBEBF] uppercase mb-2 lg:mb-8"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             [EL PAISAJE PRODUCTIVO]
@@ -74,7 +71,7 @@ export default function HeroFarm() {
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.3 }}
                             viewBox="0 0 3679 1972"
-                            className="w-full h-auto max-w-[280px] lg:max-w-[440px] pt-1 pb-1 lg:pb-6 lg:pt-2"
+                            className="w-full h-auto max-w-[280px] lg:max-w-[488px] pb-2 pt-2 md:pt-6"
                             preserveAspectRatio="xMidYMid meet"
                             fillRule="evenodd"
                             clipRule="evenodd"
@@ -88,7 +85,7 @@ export default function HeroFarm() {
                                         visible: {
                                             opacity: 1,
                                             transition: {
-                                                staggerChildren: 0.03,
+                                                staggerChildren: 0.04,
                                                 delayChildren: 1.2
                                             }
                                         }
@@ -424,7 +421,7 @@ export default function HeroFarm() {
                                             opacity: 1,
                                             transition: {
                                                 staggerChildren: 0.05,
-                                                delayChildren: 0.5
+                                                delayChildren: 0.6
                                             }
                                         }
                                     }}
@@ -860,23 +857,20 @@ export default function HeroFarm() {
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.7 }}
-                            className="hidden lg:block mt-2 lg:mt-6 flex flex-col items-center gap-2"
+                            className="mt-6 flex flex-col items-center gap-2"
                         >
                             <p
                                 className="text-[#DEBEBF]/90 text-base lg:text-xl leading-relaxed"
                                 style={{ fontFamily: "var(--font-serif)" }}
                             >
-                            Una granja para cosechar comunidad.
+                                Una granja para cosechar comunidad.
                             </p>
-                            <motion.p
-                            initial={{ opacity: 0, y: 15 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.7 }}
-                            className="hidden lg:block text-[#FFF3E1]/70 text-sm lg:text-base leading-relaxed max-w-sm"
-                            style={{ fontFamily: "var(--font-sans)" }}
-                        >
-                            Huertos orgánicos, frutales y flores de temporada. Una comunidad conectada a los ciclos de la tierra.
-                        </motion.p>
+                            <p
+                                className="hidden lg:block text-[#222222]/70 text-sm lg:text-base leading-relaxed max-w-sm"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                Huertos orgánicos, frutales y flores de temporada. Una comunidad conectada a los ciclos de la tierra.
+                            </p>
                         </motion.div>
                     </div>
 
@@ -890,13 +884,13 @@ export default function HeroFarm() {
                         <div className="w-full h-px bg-[#fff3e1]/20 mb-4" />
                         <div className="flex justify-between items-end">
                             <p
-                                className="text-[9px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
+                                className="text-[10px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 San Miguel de Allende
                             </p>
                             <p
-                                className="text-[9px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
+                                className="text-[10px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 Guanajuato, MX
@@ -906,7 +900,7 @@ export default function HeroFarm() {
                 </motion.div>
 
                 {/* Right: Image */}
-                <div className="relative w-full lg:w-1/2 h-1/2 lg:h-full overflow-hidden">
+                <div className="relative w-full lg:w-1/2 h-[55%] lg:h-full overflow-hidden">
                     <motion.div
                         initial={{ opacity: 0, scale: 1.1 }}
                         animate={{ opacity: 1, scale: 1 }}

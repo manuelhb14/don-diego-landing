@@ -3,8 +3,16 @@ import { getEnv } from "@/lib/cloudflare";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { name, email, phone, message } = body;
+    const raw: unknown = await request.json();
+    const record =
+      raw !== null && typeof raw === "object" && !Array.isArray(raw)
+        ? (raw as Record<string, unknown>)
+        : {};
+
+    const name = typeof record.name === "string" ? record.name : "";
+    const email = typeof record.email === "string" ? record.email : "";
+    const phone = typeof record.phone === "string" ? record.phone : "";
+    const message = typeof record.message === "string" ? record.message : "";
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -19,7 +27,7 @@ export async function POST(request: Request) {
       .prepare(
         "INSERT INTO contact_submissions (name, email, phone, message) VALUES (?, ?, ?, ?)"
       )
-      .bind(name.trim(), email.trim(), phone?.trim() ?? "", message.trim())
+      .bind(name.trim(), email.trim(), phone.trim(), message.trim())
       .run();
 
     const id = result.meta.last_row_id;

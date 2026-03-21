@@ -1,25 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useHasVisited } from "@/hooks/useHasVisited";
-import { Eye, Heart } from "lucide-react";
+import { useRef } from "react";
+import { Plus } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
+import { formatPostDate, getAllPosts, isVideoSrc, type BlogPost } from "@/content/blogPosts";
 
-type Post = {
-    id: string;
-    title: string;
-    kicker: string;
-    tags: string[];
-    likes: number;
-    views: number;
-    comments: number;
-    imageSrc: string;
-    imageAlt: string;
-};
-
-function isVideoSrc(src: string) {
-    return /\.(mp4|webm)$/i.test(src);
-}
+const posts = getAllPosts();
 
 function MediaCover({ src, alt }: { src: string; alt: string }) {
     if (isVideoSrc(src)) {
@@ -40,52 +30,34 @@ function MediaCover({ src, alt }: { src: string; alt: string }) {
     return <Image src={src} alt={alt} fill className="object-cover" />;
 }
 
-const posts: Post[] = [
-    {
-        id: "mejor-ciudad-pequena",
-        title: "La Mejor Ciudad Pequeña del Mundo",
-        kicker: "San Miguel de Allende",
-        tags: ["Patrimonio Cultural"],
-        comments: 40,
-        likes: 297,
-        views: 850,
-        imageSrc: "/babylon/sma.mp4",
-        imageAlt: "San Miguel de Allende [cite: 10]",
-    },
-    {
-        id: "diseno-tranquilidad",
-        title: "Diseño para la Tranquilidad",
-        kicker: "Club Residencial",
-        tags: ["Paisaje Vivo"],
-        comments: 25,
-        likes: 310,
-        views: 620,
-        imageSrc: "/babylon/tranquilidad.webp",
-        imageAlt: "Club Residencial Don Diego",
-    },
-    {
-        id: "huerto-a-la-mesa",
-        title: "Del Huerto a la Mesa",
-        kicker: "Organic Farm & Flowers",
-        tags: ["Huertos Orgánicos", "Sustentabilidad", "Ciclo Natural"],
-        comments: 45,
-        likes: 530,
-        views: 1105,
-        imageSrc: "/babylon/greenhouse-2.webp",
-        imageAlt: "Organic Farm & Flowers [cite: 97]",
-    },
-    {
-        id: "vida-junto-al-agua",
-        title: "La Vida junto al Agua",
-        kicker: "Presa de la Cantera",
-        tags: ["Parque Acuático", "Embarcadero", "Naturaleza"],
-        comments: 28,
-        likes: 375,
-        views: 740,
-        imageSrc: "/babylon/lago.webp",
-        imageAlt: "Presa de la Cantera [cite: 129]",
-    }
-];
+function ParallaxBlogImage({
+    imageSrc,
+    alt,
+    y,
+    reduceMotion,
+}: {
+    imageSrc: string;
+    alt: string;
+    y: MotionValue<string>;
+    reduceMotion: boolean;
+}) {
+    return (
+        <div className="absolute inset-0 overflow-hidden bg-[#EFE6DC]">
+            <motion.div
+                className="absolute left-0 right-0 h-[145%] w-full -top-[22.5%]"
+                style={reduceMotion ? undefined : { y }}
+            >
+                <Image
+                    src={imageSrc}
+                    alt={alt}
+                    fill
+                    className="object-cover object-[center_58%]"
+                    sizes="(max-width: 768px) 100vw, 45vw"
+                />
+            </motion.div>
+        </div>
+    );
+}
 
 function TagRow({ tags }: { tags: string[] }) {
     return (
@@ -103,38 +75,52 @@ function TagRow({ tags }: { tags: string[] }) {
     );
 }
 
-function MetaRow({ likes, views }: { likes: number; views: number }) {
-    return (
-        <div className="flex items-center justify-end gap-5">
-            <div className="flex items-center gap-2 text-[#222]/45">
-                <Heart className="w-4 h-4" />
-                <span className="text-[12px]">{likes}</span>
-            </div>
-            <div className="flex items-center gap-2 text-[#222]/45">
-                <Eye className="w-4 h-4" />
-                <span className="text-[12px]">{views}</span>
-            </div>
-        </div>
-    );
-}
-
-function PostCard({ post }: { post: Post }) {
+function PostCard({
+    post,
+    locale,
+    parallaxY,
+    reduceMotion,
+}: {
+    post: BlogPost;
+    locale: string;
+    parallaxY: MotionValue<string>;
+    reduceMotion: boolean;
+}) {
     return (
         <article className="relative">
-            <div className="relative overflow-hidden rounded-sm border border-[#222]/[0.06] bg-[#EFE6DC]">
+            <Link
+                href={`/blog/${post.slug}`}
+                className="block relative overflow-hidden rounded-sm border border-[#222]/[0.06] bg-[#EFE6DC] cursor-pointer hover:brightness-105 transition-all duration-300 hover:border-[#AA7D69]/20 hover:bg-[#EFE6DC]/80"
+            >
                 <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#AA7D69] to-[#E1B19B]" />
 
                 <div className="relative aspect-[2/1]">
-                    <MediaCover src={post.imageSrc} alt={post.imageAlt} />
+                    {isVideoSrc(post.imageSrc) ? (
+                        <MediaCover src={post.imageSrc} alt={post.imageAlt} />
+                    ) : (
+                        <ParallaxBlogImage
+                            imageSrc={post.imageSrc}
+                            alt={post.imageAlt}
+                            y={parallaxY}
+                            reduceMotion={reduceMotion}
+                        />
+                    )}
                 </div>
 
                 <div className="p-4 md:p-6">
                     <div
-                        className="text-[10px] tracking-[0.3em] text-[#AA7D69]/55 uppercase mb-3"
+                        className="text-[10px] tracking-[0.3em] text-[#AA7D69]/55 uppercase mb-2"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         {post.kicker}
                     </div>
+                    <time
+                        dateTime={post.publishedAt}
+                        className="text-[10px] text-[#222]/45 mb-3 block tabular-nums"
+                        style={{ fontFamily: "var(--font-sans)" }}
+                    >
+                        {formatPostDate(post.publishedAt, locale)}
+                    </time>
 
                     <h3
                         className="font-serif text-[#222] leading-tight"
@@ -147,20 +133,34 @@ function PostCard({ post }: { post: Post }) {
                         <TagRow tags={post.tags} />
                     </div>
 
-                    {/* <div className="mt-6">
-                        <MetaRow likes={post.likes} views={post.views} />
-                    </div> */}
                 </div>
-            </div>
+
+                <div
+                    className="pointer-events-none absolute bottom-3 right-3 flex size-9 items-center justify-center rounded-full bg-[#222222] text-[#EFE6DC] shadow-sm"
+                    aria-hidden
+                >
+                    <Plus className="size-4" strokeWidth={2} />
+                </div>
+            </Link>
         </article>
     );
 }
 
 export default function Blogs() {
+    const locale = useLocale();
     const hasVisited = useHasVisited();
+    const reduceMotion = useReducedMotion();
+    const sectionRef = useRef<HTMLElement | null>(null);
+
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"],
+    });
+
+    const imageParallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "-11%"]);
 
     return (
-        <section id="blogs" className="bg-[#F6F0E8] overflow-hidden">
+        <section ref={sectionRef} id="blogs" className="bg-[#F6F0E8] overflow-hidden">
             <div className="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16 py-16 md:py-20 lg:py-24">
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-14">
                     <motion.div
@@ -207,7 +207,12 @@ export default function Blogs() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <PostCard post={posts[0]} />
+                            <PostCard
+                                post={posts[0]}
+                                locale={locale}
+                                parallaxY={imageParallaxY}
+                                reduceMotion={!!reduceMotion}
+                            />
                         </motion.div>
                         <motion.div
                             initial={hasVisited ? false : { opacity: 0, y: 24 }}
@@ -215,7 +220,12 @@ export default function Blogs() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.05 }}
                         >
-                            <PostCard post={posts[2]} />
+                            <PostCard
+                                post={posts[2]}
+                                locale={locale}
+                                parallaxY={imageParallaxY}
+                                reduceMotion={!!reduceMotion}
+                            />
                         </motion.div>
                     </div>
 
@@ -227,7 +237,12 @@ export default function Blogs() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.05 }}
                         >
-                            <PostCard post={posts[1]} />
+                            <PostCard
+                                post={posts[1]}
+                                locale={locale}
+                                parallaxY={imageParallaxY}
+                                reduceMotion={!!reduceMotion}
+                            />
                         </motion.div>
                         <motion.div
                             initial={hasVisited ? false : { opacity: 0, y: 24 }}
@@ -235,9 +250,31 @@ export default function Blogs() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.1 }}
                         >
-                            <PostCard post={posts[3]} />
+                            <PostCard
+                                post={posts[3]}
+                                locale={locale}
+                                parallaxY={imageParallaxY}
+                                reduceMotion={!!reduceMotion}
+                            />
                         </motion.div>
                     </div>
+                </div>
+
+                <div className="flex justify-center mt-10 md:mt-12 w-full">
+                    <motion.div
+                        initial={hasVisited ? false : { opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                    >
+                        <Link
+                            href="/blog"
+                            className="inline-block text-[#222] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#222] pb-1 hover:opacity-60 transition-opacity"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            EXPLORAR EL BLOG
+                        </Link>
+                    </motion.div>
                 </div>
             </div>
         </section>

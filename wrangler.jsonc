@@ -51,5 +51,49 @@
 			"binding": "IMAGES",
 			"bucket_name": "don-diego"
 		}
-	]
+	],
+	// Staging-only Worker: don-diego-landing-staging on *.workers.dev — does not attach production custom domains
+	"env": {
+		"staging": {
+			"workers_dev": true,
+			"routes": [],
+			"main": ".open-next/worker.js",
+			"compatibility_date": "2024-12-30",
+			"compatibility_flags": [
+				"nodejs_compat",
+				"global_fetch_strictly_public"
+			],
+			"assets": {
+				"directory": ".open-next/assets",
+				"binding": "ASSETS"
+			},
+			"preview_urls": true,
+			"observability": {
+				"logs": {
+					"enabled": true,
+					"invocation_logs": true
+				}
+			},
+			"services": [
+				{
+					"binding": "WORKER_SELF_REFERENCE",
+					"service": "don-diego-landing-staging"
+				}
+			],
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "don-diego-db",
+					"database_id": "d4bc36c5-caa9-4c95-b681-24f9aa1cf75e",
+					"migrations_dir": "migrations"
+				}
+			],
+			"r2_buckets": [
+				{
+					"binding": "IMAGES",
+					"bucket_name": "don-diego"
+				}
+			]
+		}
+	}
 }

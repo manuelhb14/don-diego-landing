@@ -25,7 +25,7 @@ export default function HeroResidencial() {
 
     return (
         <section ref={ref} className="relative w-full bg-[#E1B19B] py-16 px-6 md:px-10 lg:px-20">
-            <div className="flex flex-col lg:flex-row h-[90dvh] min-h-[600px] w-full overflow-hidden">
+            <div className="flex flex-col lg:flex-row h-[90svh] min-h-[600px] w-full overflow-hidden">
 
                 {/* Left: Content Panel */}
                 <motion.div

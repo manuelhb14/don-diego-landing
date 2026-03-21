@@ -33,7 +33,7 @@ const team = [
 
 export default function Team() {
     return (
-        <section id="equipo" className="bg-[#fff8ef] py-24 lg:py-36 overflow-hidden">
+        <section id="equipo" className="bg-[#EFE6DC] py-24 lg:py-36 overflow-hidden">
             <div className="max-w-[1400px] mx-auto px-6 lg:px-14">
                 {/* Header */}
                 <motion.div

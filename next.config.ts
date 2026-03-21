@@ -4,7 +4,10 @@ import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
-const nextConfig: NextConfig = {};
+const nextConfig: NextConfig = {
+  // OpenNext on Workers: avoid default `/_next/image` optimization (often unstable or throws on the edge).
+  images: { unoptimized: true },
+};
 
 const config = withNextIntl(nextConfig);
 initOpenNextCloudflareForDev();

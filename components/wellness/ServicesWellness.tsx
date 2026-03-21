@@ -9,25 +9,25 @@ const services = [
         id: 1,
         title: "Centro de rehabilitación",
         description: "Espacios especializados con tecnología de vanguardia para recuperación física y manejo integral del dolor.",
-        image: "/images/gallery/gallery-10.jpg",
+        image: "/babylon/wellness-5.png",
     },
     {
         id: 2,
         title: "Senior Living",
         description: "Residencias diseñadas para una vida activa y digna, con atención personalizada y comunidad de apoyo en todo momento.",
-        image: "/images/gallery/gallery-12.jpg",
+        image: "/babylon/wellness-6.png",
     },
     {
         id: 3,
         title: "Departamentos familiares",
         description: "Espacios de hospedaje pensados para que las familias estén cómodas y cerca de sus seres queridos durante su proceso de recuperación.",
-        image: "/images/gallery/gallery-13.jpg",
+        image: "/babylon/wellness-7.png",
     },
     {
         id: 4,
         title: "Amenidades",
         description: "Áreas comunes, jardines terapéuticos, alberca y espacios de esparcimiento integrados armoniosamente con la naturaleza.",
-        image: "/images/gallery/gallery-14.JPG",
+        image: "/babylon/wellness-8.png",
     },
 ];
 
@@ -35,7 +35,7 @@ export default function ServicesWellness() {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
     return (
-        <section id="servicios" className="bg-[#1F1D1B] py-24 lg:py-32 overflow-hidden">
+        <section id="servicios" className="bg-[#FFF8ED] py-24 lg:py-32 overflow-hidden">
             <div className="max-w-[1440px] mx-auto w-full px-6 md:px-10 lg:px-16">
 
                 {/* Header */}
@@ -47,24 +47,24 @@ export default function ServicesWellness() {
                     className="mb-8 lg:mb-12"
                 >
                     <p
-                        className="text-[10px] tracking-[0.3em] text-[#D7D7AA] uppercase mb-4"
+                        className="text-[10px] tracking-[0.3em] text-[#5a6b52]/85 uppercase mb-4"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Serivicios]
+                        [Servicios]
                     </p>
                     <h2
-                        className="text-[#D7D7AA] leading-tight font-medium"
+                        className="tracking-tight text-[#1a221f] leading-[1.1] font-medium"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
+                            fontSize: "clamp(2.75rem, 4.75vw, 4.25rem)",
                         }}
                     >
-                        Un espacio para sanar
+                        Un espacio <span className="italic text-[#5a6b52]">para sanar</span>
                     </h2>
                 </motion.div>
 
                 {/* Interactive Container */}
-                <div className="relative w-full min-h-[600px] md:min-h-0 md:aspect-[4/3] lg:aspect-[2] rounded-[32px] lg:rounded-[20px] overflow-hidden bg-[#11100F] flex items-center border border-white/5">
+                <div className="relative w-full min-h-[600px] md:min-h-0 md:aspect-[4/3] lg:aspect-[2] rounded-sm overflow-hidden bg-[#1F2420] flex items-center border border-white/5">
 
                     {/* Background Images */}
                     <AnimatePresence mode="sync">
@@ -74,7 +74,7 @@ export default function ServicesWellness() {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 1 }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="absolute inset-0 z-0 bg-[#11100F]"
+                            className="absolute inset-0 z-0 bg-[#1F2420]"
                         >
                             <Image
                                 src={activeIndex !== null ? services[activeIndex].image : "/images/gallery/gallery-9.jpg"}
@@ -104,8 +104,8 @@ export default function ServicesWellness() {
                                     key={`pill-${service.id}`}
                                     onClick={() => setActiveIndex(isActive ? null : index)}
                                     className={`relative z-10 cursor-pointer overflow-hidden backdrop-blur-xl border border-white/10 transition-colors duration-[150ms] ease-out ${isActive
-                                            ? "bg-[#2A2826]/80 rounded-[28px] w-full"
-                                            : "bg-[#2A2826]/50 hover:bg-[#2A2826]/70 rounded-full w-auto"
+                                            ? "bg-[#2A302C]/80 rounded-[28px] w-full"
+                                            : "bg-[#2A302C]/50 hover:bg-[#2A302C]/70 rounded-full w-auto"
                                         }`}
                                     style={{
                                         boxShadow: "0 10px 40px rgba(0,0,0,0.2)"
@@ -150,7 +150,7 @@ export default function ServicesWellness() {
                                         {/* Text Container */}
                                         <div className="flex flex-col flex-1 overflow-hidden min-h-[28px] justify-start pt-1">
                                             <span
-                                                className={`whitespace-nowrap transition-all duration-300 ${isActive ? 'text-lg font-serif' : 'text-[14px] sm:text-[15px] font-sans'} text-[#D7D7AA] font-semibold`}
+                                                className={`whitespace-nowrap transition-all duration-300 ${isActive ? 'text-lg font-serif' : 'text-[14px] sm:text-[15px] font-sans'} text-[#b8c9a8] font-semibold`}
                                             >
                                                 {service.title}{isActive ? '.' : ''}
                                             </span>
@@ -161,7 +161,7 @@ export default function ServicesWellness() {
                                                     initial={{ opacity: 0, filter: "blur(4px)" }}
                                                     animate={{ opacity: 1, filter: "blur(0px)" }}
                                                     transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-                                                    className="pt-2 text-[#E0E0E0] text-[15px] sm:text-base leading-relaxed font-sans font-normal"
+                                                    className="pt-2 text-[#E8EDE3]/95 text-[15px] sm:text-base leading-relaxed font-sans font-normal"
                                                 >
                                                     {service.description}
                                                 </motion.div>
@@ -182,7 +182,7 @@ export default function ServicesWellness() {
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ duration: 0.2, ease: [0.165, 0.84, 0.44, 1] }} // ease-out-quart
                                 onClick={() => setActiveIndex(null)}
-                                className="absolute top-6 right-6 md:top-8 md:right-8 w-10 h-10 rounded-full bg-[#2A2826]/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:bg-[#2A2826]/90 hover:text-white transition-colors duration-[150ms] ease-out z-20 shadow-lg"
+                                className="absolute top-6 right-6 md:top-8 md:right-8 w-10 h-10 rounded-full bg-[#2A302C]/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:bg-[#2A302C]/90 hover:text-white transition-colors duration-[150ms] ease-out z-20 shadow-lg"
                                 aria-label="Close"
                             >
                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -8,6 +8,8 @@ const LocationVideo = () => (
     <video
         className="w-full h-full object-cover brightness-110 contrast-110"
         src="/babylon/sma-video.mp4"
+        width={720}
+        height={406}
         muted
         loop
         playsInline
@@ -60,7 +62,7 @@ export default function Location() {
     };
 
     return (
-        <section id="location" className="bg-[#FFF3E1] text-[#222222] overflow-x-hidden antialiased w-full relative">
+        <section id="location" className="bg-[#fff8ed] text-[#222222] overflow-x-hidden antialiased w-full relative">
             <main className="relative w-full flex flex-col items-center py-12 md:py-16 px-6 md:px-10 max-w-[1440px] mx-auto mb-16 md:mb-12">
                 <div className="w-full max-w-6xl mb-8 md:mb-12 z-10 relative flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
                     <motion.div

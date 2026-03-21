@@ -25,11 +25,11 @@ export default function HeroWellness() {
 
     return (
         <section ref={ref} className="relative w-full bg-[#D7D7AA] py-16 px-6 md:px-10 lg:px-20">
-            <div className="flex flex-col lg:flex-row h-[90dvh] min-h-[600px] w-full overflow-hidden">
+            <div className="flex flex-col lg:flex-row h-[90svh] min-h-[600px] w-full overflow-hidden">
 
                 {/* Left: Content Panel */}
                 <motion.div
-                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#1F1D1B]"
+                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#FFF3E1]"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
@@ -42,13 +42,13 @@ export default function HeroWellness() {
                         transition={{ duration: 0.8, delay: 0.7 }}
                     >
                         <p
-                            className="text-[10px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
+                            className="text-[10px] lg:text-xs tracking-[0.25em] text-[#4a5740]/85 uppercase"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             Comunidad
                         </p>
                         <p
-                            className="text-[10px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
+                            className="text-[10px] lg:text-xs tracking-[0.25em] text-[#4a5740]/85 uppercase"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             Bienestar
@@ -56,7 +56,7 @@ export default function HeroWellness() {
                     </motion.div>
 
                     {/* Center: Logo & Title */}
-                    <div className="flex-1 flex flex-col items-center justify-center px-8 lg:px-12">
+                    <div className="flex-1 flex flex-col items-center justify-center px-8 lg:px-12 text-center">
                         <motion.p
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -799,7 +799,7 @@ export default function HeroWellness() {
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.7 }}
-                            className="block mt-2 lg:mt-6 flex flex-col items-center gap-2"
+                            className="mt-6 flex flex-col items-center gap-2"
                         >
                             <p
                                 className="text-[#D7D7AA]/90 text-base lg:text-xl leading-relaxed"
@@ -811,7 +811,7 @@ export default function HeroWellness() {
                                 initial={{ opacity: 0, y: 15 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.7 }}
-                                className="hidden lg:block text-[#FFF3E1]/70 text-sm lg:text-base leading-relaxed max-w-sm"
+                                className="hidden lg:block text-[#222222]/70 text-sm lg:text-base leading-relaxed max-w-sm"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 Actividades físicas, terapias y cuidados para la salud.
@@ -826,16 +826,16 @@ export default function HeroWellness() {
                         transition={{ duration: 1, delay: 1.2 }}
                         className="px-4 lg:px-12 pb-4 lg:pb-10"
                     >
-                        <div className="w-full h-px bg-[#fff3e1]/20 mb-4" />
+                        <div className="w-full h-px bg-[#222222]/10 mb-4" />
                         <div className="flex justify-between items-end">
                             <p
-                                className="text-[9px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
+                                className="text-[10px] lg:text-xs tracking-[0.25em] text-[#4a5740]/85 uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 San Miguel de Allende
                             </p>
                             <p
-                                className="text-[9px] lg:text-xs tracking-[0.25em] text-[#fff3e1] uppercase"
+                                className="text-[10px] lg:text-xs tracking-[0.25em] text-[#4a5740]/85 uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 Guanajuato, MX
@@ -845,7 +845,7 @@ export default function HeroWellness() {
                 </motion.div>
 
                 {/* Right: Image */}
-                <div className="relative w-full lg:w-1/2 h-1/2 lg:h-full overflow-hidden">
+                <div className="relative w-full lg:w-1/2 h-[55%] lg:h-full overflow-hidden">
                     <motion.div
                         initial={{ opacity: 0, scale: 1.1 }}
                         animate={{ opacity: 1, scale: 1 }}

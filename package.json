@@ -9,6 +9,8 @@
     "lint": "eslint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy:staging": "opennextjs-cloudflare build && wrangler deploy --env staging",
+    "deploy:staging:version": "opennextjs-cloudflare build && wrangler versions upload --preview-alias staging --env staging",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "optimize:images": "uv run scripts/optimize-images.py",
@@ -24,6 +26,8 @@
     "motion": "^12.34.3",
     "next": "16.1.6",
     "next-intl": "^4.8.3",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },

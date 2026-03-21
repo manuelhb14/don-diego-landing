@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useHasVisited } from "@/hooks/useHasVisited";
 import { useMemo, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ArrowRightIcon } from "lucide-react";
 
 type ExclusivityItem = {
@@ -13,8 +13,38 @@ type ExclusivityItem = {
     imageSrc?: string; // optional for now; you can add later
 };
 
+function ParallaxCardImage({
+    imageSrc,
+    title,
+    y,
+    reduceMotion,
+}: {
+    imageSrc: string;
+    title: string;
+    y: MotionValue<string>;
+    reduceMotion: boolean;
+}) {
+    return (
+        <div className="relative overflow-hidden bg-[#EFE6DC] aspect-[7/8]">
+            <motion.div
+                className="absolute left-0 right-0 h-[145%] w-full -top-[22.5%]"
+                style={reduceMotion ? undefined : { y }}
+            >
+                <Image
+                    src={imageSrc}
+                    alt={title}
+                    fill
+                    className="object-cover object-[center_58%]"
+                    sizes="(max-width: 640px) 300px, (max-width: 1024px) 360px, 490px"
+                />
+            </motion.div>
+        </div>
+    );
+}
+
 export default function ThingsToDo() {
     const hasVisited = useHasVisited();
+    const reduceMotion = useReducedMotion();
     const items = useMemo<ExclusivityItem[]>(
         () => [
             { id: "clubhouse", title: "Clubhouse", imageSrc: "/babylon/clubhouse.png" },
@@ -28,9 +58,17 @@ export default function ThingsToDo() {
     );
 
     const scrollerRef = useRef<HTMLDivElement | null>(null);
+    const sectionRef = useRef<HTMLElement | null>(null);
+
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"],
+    });
+
+    const imageParallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "-11%"]);
 
     return (
-        <section className="overflow-visible bg-[#F6F0E8]">
+        <section ref={sectionRef} className="overflow-visible bg-[#F6F0E8]">
             <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16 py-12 lg:py-16">
                 <motion.div
                     initial={hasVisited ? false : { opacity: 0, y: 24 }}
@@ -66,8 +104,8 @@ export default function ThingsToDo() {
 
                 <div className="relative mt-8">
                     <motion.div
-                        initial={hasVisited ? false : { opacity: 0, y: 14 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={hasVisited ? false : { opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.05 }}
                         ref={scrollerRef}
@@ -100,14 +138,18 @@ export default function ThingsToDo() {
                                     idx === 0 ? "z-[1]" : "",
                                 ].join(" ")}
                             >
-                                <div className="relative overflow-hidden bg-[#EFE6DC] aspect-[7/8]">
-                                    {item.imageSrc ? (
-                                        // When you add images, swap to next/image here.
-                                        <Image src={item.imageSrc} alt={item.title} fill className="object-cover" />
-                                    ) : (
+                                {item.imageSrc ? (
+                                    <ParallaxCardImage
+                                        imageSrc={item.imageSrc}
+                                        title={item.title}
+                                        y={imageParallaxY}
+                                        reduceMotion={!!reduceMotion}
+                                    />
+                                ) : (
+                                    <div className="relative overflow-hidden bg-[#EFE6DC] aspect-[7/8]">
                                         <div className="absolute inset-0 bg-gradient-to-br from-[#E7DCCE] via-[#EFE6DC] to-[#E1D4C5]" />
-                                    )}
-                                </div>
+                                    </div>
+                                )}
 
                                 <div className="pt-4 flex items-center justify-between gap-4">
                                     <div

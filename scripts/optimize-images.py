@@ -2,7 +2,11 @@
 """
 Optimize images in public/ for web: resize large images and compress.
 Run with: uv run scripts/optimize-images.py
+Examples:
+  uv run scripts/optimize-images.py
+  uv run scripts/optimize-images.py babylon --skip-webp residencias
 """
+import argparse
 from pathlib import Path
 import sys
 
@@ -41,13 +45,57 @@ def optimize_image(path: Path) -> tuple[bool, str]:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Optimize images under public/ (resize if > max dimension, recompress)."
+    )
+    parser.add_argument(
+        "paths",
+        nargs="*",
+        metavar="SUBPATH",
+        help="One or more paths relative to public/ (default: entire public/)",
+    )
+    parser.add_argument(
+        "--skip-webp",
+        action="store_true",
+        help="Do not process .webp files (e.g. when optimizing only raster sources in a mixed folder)",
+    )
+    args = parser.parse_args()
+
     if not PUBLIC_DIR.is_dir():
         print(f"Error: {PUBLIC_DIR} not found", file=sys.stderr)
         return 1
+
+    roots: list[Path]
+    if args.paths:
+        roots = []
+        for p in args.paths:
+            root = (PUBLIC_DIR / p).resolve()
+            try:
+                root.relative_to(PUBLIC_DIR.resolve())
+            except ValueError:
+                print(f"Error: path must stay under {PUBLIC_DIR}", file=sys.stderr)
+                return 1
+            if not root.is_dir():
+                print(f"Error: not a directory: {root}", file=sys.stderr)
+                return 1
+            roots.append(root)
+    else:
+        roots = [PUBLIC_DIR]
+
+    skip_webp = args.skip_webp
     total_saved = 0
     total_files = 0
-    for path in sorted(PUBLIC_DIR.rglob("*")):
-        if path.is_file() and path.suffix in EXTENSIONS:
+    seen: set[Path] = set()
+    for root in roots:
+        for path in sorted(root.rglob("*")):
+            if not path.is_file() or path.suffix not in EXTENSIONS:
+                continue
+            if skip_webp and path.suffix.lower() == ".webp":
+                continue
+            resolved = path.resolve()
+            if resolved in seen:
+                continue
+            seen.add(resolved)
             total_files += 1
             before = path.stat().st_size
             changed, msg = optimize_image(path)

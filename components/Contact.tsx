@@ -45,14 +45,14 @@ export default function Contact() {
     return (
         <section
             id="contacto"
-            className="relative flex items-center overflow-hidden bg-[#e6e1d6]"
-            style={{
-                // Horizontal stripes: repeat the texture on the Y axis, each tile stretched full width.
-                backgroundImage: "url('/babylon/texture.png')",
-                backgroundRepeat: "repeat-y",
-                backgroundSize: "100% 280px",
-                backgroundPosition: "left top",
-            }}
+            className="relative flex items-center overflow-hidden bg-[#fff8ed]"
+            // style={{
+            //     // Horizontal stripes: repeat the texture on the Y axis, each tile stretched full width.
+            //     backgroundImage: "url('/babylon/texture.png')",
+            //     backgroundRepeat: "repeat-y",
+            //     backgroundSize: "100% 280px",
+            //     backgroundPosition: "left top",
+            // }}
         >
             <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-14 py-12 lg:py-24">
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-24 items-center">

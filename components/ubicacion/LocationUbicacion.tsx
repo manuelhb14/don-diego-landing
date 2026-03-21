@@ -254,7 +254,12 @@ function MapPins() {
                 return (
                     <g key={pin.title} transform={`translate(${pin.x} ${pin.y})`} className="group cursor-pointer">
                         <foreignObject x={-48} y={-48} width={96} height={96} className="overflow-visible pointer-events-none">
-                            <div xmlns="http://www.w3.org/1999/xhtml" className="relative flex h-24 w-24 items-center justify-center">
+                            <div
+                                {...({
+                                    xmlns: "http://www.w3.org/1999/xhtml",
+                                    className: "relative flex h-24 w-24 items-center justify-center",
+                                } as React.HTMLAttributes<HTMLDivElement>)}
+                            >
                                 <div className={`absolute inset-[10px] rounded-full animate-ping opacity-75 transition-transform duration-300 group-hover:scale-125 ${pin.pulseClassName}`} />
                                 <div className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full text-white shadow-lg transition-transform duration-300 group-hover:scale-110 ${pin.buttonClassName}`}>
                                     <Icon className="h-5 w-5" />
@@ -264,8 +269,10 @@ function MapPins() {
 
                         <foreignObject x={labelX + pin.labelDx} y={pin.labelDy - 54} width={labelWidth} height={72} className="overflow-visible pointer-events-none">
                             <div
-                                xmlns="http://www.w3.org/1999/xhtml"
-                                className={`rounded-xl border border-[#AA7D69]/20 bg-white/95 p-3 shadow-xl opacity-0 transition-all duration-200 ease-out group-hover:-translate-y-1 group-hover:opacity-100 ${labelTextAlign}`}
+                                {...({
+                                    xmlns: "http://www.w3.org/1999/xhtml",
+                                    className: `rounded-xl border border-[#AA7D69]/20 bg-white/95 p-3 shadow-xl opacity-0 transition-all duration-200 ease-out group-hover:-translate-y-1 group-hover:opacity-100 ${labelTextAlign}`,
+                                } as React.HTMLAttributes<HTMLDivElement>)}
                             >
                                 <div className="text-[#222] text-sm font-bold uppercase tracking-wider">{pin.title}</div>
                                 <div className="text-[#AA7D69] text-xs font-semibold leading-relaxed">{pin.subtitle}</div>

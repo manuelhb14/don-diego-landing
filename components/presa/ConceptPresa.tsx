@@ -3,36 +3,39 @@
 import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronRight } from "lucide-react";
 
 const features = [
     {
-        id: "concept",
-        title: "Un destino en sí mismo",
-        shortTitle: "Concepto",
-        description: "El agua como hilo conductor de comunidad y vida. Un frente lacustre vivo para San Miguel de Allende.",
-        image: "/images/gallery/gallery-4.png",
+        id: "vistas",
+        title: "Horizontes sobre el agua",
+        shortTitle: "Vistas",
+        description:
+            "Orientación y diseño para que la presa sea el telón de fondo cotidiano: luz matutina, atardeceres largos y profundidad visual en cada recorrido.",
+        image: "/babylon/presa-1.png",
     },
     {
-        id: "park",
-        title: "Parque acuático",
-        shortTitle: "Recreación",
-        description: "Áreas recreativas para toda la familia. Espacios diseñados para disfrutar del entorno natural.",
-        image: "/images/gallery/gallery-13.jpg",
+        id: "aire-libre",
+        title: "El día a cielo abierto",
+        shortTitle: "Aire libre",
+        description:
+            "Un ritmo más lento entre cielo y lago: espacios para moverte, descansar y compartir con la familia sin salir del desarrollo.",
+        image: "/babylon/presa-2.png",
     },
     {
-        id: "club",
-        title: "Embarcadero",
-        shortTitle: "Embarcadero",
-        description: "Actividades acuáticas en la Presa La Cantera, exclusivas para la comunidad.",
-        image: "/images/gallery/gallery-11.jpg",
+        id: "identidad",
+        title: "Un nuevo frente",
+        shortTitle: "Identidad",
+        description:
+            "La presa como polo de vida que amplía la oferta de la ciudad con un carácter propio.",
+        image: "/babylon/presa-3.png",
     },
     {
-        id: "living",
-        title: "Vivir junto al agua",
-        shortTitle: "Residencial",
-        description: "Departamentos con vista privilegiada a la presa y espacios gastronómicos con terraza.",
-        image: "/images/gallery/gallery-14.JPG",
+        id: "encuentro",
+        title: "La vida en comunidad",
+        shortTitle: "Encuentro",
+        description:
+            "Desde la mañana tranquila hasta la noche con luces sobre el agua: un entorno pensado para convivir, no solo para habitar.",
+        image: "/babylon/presa-4.png",
     },
 ];
 
@@ -40,7 +43,11 @@ export default function ConceptPresa() {
     const [activeFeature, setActiveFeature] = useState(features[0].id);
 
     return (
-        <section id="concepto" className="bg-[#1F1D1B] py-16 lg:py-24 overflow-hidden min-h-screen flex items-center">
+        <section
+            id="concepto"
+            className="bg-[#FFF8ED] py-16 lg:py-24 overflow-hidden min-h-screen flex items-center"
+            aria-label="Experiencia y propuesta de valor frente a la presa"
+        >
             <div className="max-w-[1600px] mx-auto w-full px-6 lg:px-16">
 
                 <motion.div
@@ -51,19 +58,20 @@ export default function ConceptPresa() {
                     className="mb-6 lg:mb-8"
                 >
                     <p
-                        className="text-[10px] tracking-[0.3em] text-[#C8D7E6] uppercase mb-4"
+                        className="text-[10px] tracking-[0.3em] text-[#4d6d80]/90 uppercase mb-4"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [La Presa]
+                        [Experiencia]
                     </p>
                     <h2
-                        className="text-[#C8D7E6] leading-tight"
+                        className="tracking-tight text-[#1a221f] leading-[1.1] font-medium"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(2rem, 4vw, 3.5rem)",
+                            fontSize: "clamp(2.75rem, 4.75vw, 4.25rem)",
                         }}
                     >
-                        El Frente Lacustre
+                        Cuatro formas de vivir{` `}
+                        <span className="italic text-[#5a7a8a]">la Presa</span>
                     </h2>
                 </motion.div>
 
@@ -75,17 +83,16 @@ export default function ConceptPresa() {
                         return (
                             <motion.div
                                 key={feature.id}
-                                layout
                                 onClick={() => setActiveFeature(feature.id)}
                                 initial={{ opacity: 0, x: 20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.1, layout: { duration: 0.4, ease: "easeInOut" } }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
                                 className={`relative cursor-pointer overflow-hidden rounded-xl transition-all duration-500 ease-in-out ${isActive
                                         ? 'flex-[5] lg:flex-[6] h-full shadow-2xl'
-                                        : 'flex-[1] lg:flex-[1] h-24 lg:h-full opacity-60 hover:opacity-100 hover:bg-[#C8D7E6]/5'
+                                        : 'flex-[1] lg:flex-[1] h-24 lg:h-full opacity-60 hover:opacity-100 hover:bg-[#5a7a8a]/10'
                                     }`}
-                                style={{ backgroundColor: isActive ? 'transparent' : '#2A2826' }}
+                                style={{ backgroundColor: isActive ? 'transparent' : '#2A302C' }}
                             >
                                 {/* Background Image (Only visible when active) */}
                                 <AnimatePresence>
@@ -105,8 +112,8 @@ export default function ConceptPresa() {
                                                 priority={index === 0}
                                             />
                                             {/* Gradient Overlay for Text Legibility */}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[#1F1D1B] via-[#1F1D1B]/40 to-transparent" />
-                                            <div className="absolute inset-0 bg-black/20" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-[#1F2420] via-[#1F2420]/40 to-transparent" />
+                                            {/* <div className="absolute inset-0 bg-black/20" /> */}
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -114,7 +121,7 @@ export default function ConceptPresa() {
                                 {/* Inactive State UI (Vertical Text on Desktop, Horizontal on Mobile) */}
                                 <div className={`absolute inset-0 flex items-center justify-center p-4 z-10 transition-opacity duration-300 ${isActive ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
                                     <h3
-                                        className="text-[#C8D7E6] font-bold tracking-widest text-sm lg:text-base whitespace-nowrap lg:-rotate-90 origin-center"
+                                        className="text-[#a8c9d9] font-bold tracking-widest text-sm lg:text-base whitespace-nowrap lg:-rotate-90 origin-center"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
                                         {feature.shortTitle}
@@ -133,19 +140,19 @@ export default function ConceptPresa() {
                                         }}
                                     >
                                         <div className="flex items-center gap-4 mb-1 lg:mb-4">
-                                            <span className="text-[#C8D7E6] text-sm font-bold tracking-widest" style={{ fontFamily: "var(--font-sans)" }}>
+                                            <span className="text-[#a8c9d9] text-sm font-bold tracking-widest" style={{ fontFamily: "var(--font-sans)" }}>
                                                 0{index + 1}
                                             </span>
-                                            <div className="h-px flex-grow max-w-[50px] bg-[#C8D7E6]/40" />
+                                            <div className="h-px flex-grow max-w-[50px] bg-[#5a7a8a]/45" />
                                         </div>
                                         <h3
-                                            className="text-[#FFF3E1] text-3xl lg:text-5xl mb-1 lg:mb-4 leading-tight"
+                                            className="text-[#E8F0F6] text-3xl lg:text-5xl mb-1 lg:mb-4 leading-tight"
                                             style={{ fontFamily: "var(--font-serif)" }}
                                         >
                                             {feature.title}
                                         </h3>
                                         <p
-                                            className="text-[#FFF3E1]/80 text-sm lg:text-lg max-w-xl leading-relaxed"
+                                            className="text-[#E8F0F6]/95 text-sm lg:text-lg max-w-xl leading-relaxed"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
                                             {feature.description}

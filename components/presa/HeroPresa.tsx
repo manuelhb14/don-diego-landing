@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
@@ -28,11 +28,11 @@ export default function HeroPresa() {
             ref={ref}
             className="relative w-full bg-[#C8D7E6] py-16 px-6 md:px-10 lg:px-20"
         >
-            <div className="flex flex-col lg:flex-row h-[90dvh] min-h-[600px] w-full overflow-hidden">
+            <div className="flex flex-col lg:flex-row h-[90svh] min-h-[600px] w-full overflow-hidden">
 
                 {/* Left: Content Panel */}
                 <motion.div
-                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#1F1D1B]"
+                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#FFF3E1]"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
@@ -45,13 +45,13 @@ export default function HeroPresa() {
                         transition={{ duration: 0.8, delay: 0.7 }}
                     >
                         <p
-                            className="text-[10px] lg:text-xs tracking-[0.25em] text-[#C8D7E6] uppercase"
+                            className="text-[10px] lg:text-xs tracking-[0.25em] text-[#3d5a6b]/85 uppercase"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             Comunidad
                         </p>
                         <p
-                            className="text-[10px] lg:text-xs tracking-[0.25em] text-[#C8D7E6] uppercase"
+                            className="text-[10px] lg:text-xs tracking-[0.25em] text-[#3d5a6b]/85 uppercase"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             Presa de la Cantera
@@ -64,7 +64,7 @@ export default function HeroPresa() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.7 }}
-                            className="text-xs lg:text-sm tracking-[0.3em] text-[#C8D7E6] uppercase mb-2 lg:mb-8 pt-4 lg:pt-0"
+                            className="text-xs lg:text-sm tracking-[0.3em] text-[#5a7a8a] uppercase mb-2 lg:mb-8 pt-4 lg:pt-0"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             [VIDA JUNTO AL AGUA]
@@ -796,16 +796,16 @@ export default function HeroPresa() {
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.9 }}
-                            className="mt-2 lg:mt-6 max-w-md flex flex-col items-center gap-2"
+                            className="mt-6 max-w-md flex flex-col items-center gap-2"
                         >
                             <p
-                                className="hidden lg:block text-[#C8D7E6]/90 text-base lg:text-xl leading-relaxed"
+                                className="hidden lg:block text-[#1a221f]/85 text-base lg:text-xl leading-relaxed"
                                 style={{ fontFamily: "var(--font-serif)" }}
                             >
                                 Espacio público/privado junto al agua
                             </p>
                             <p
-                                className="hidden lg:block text-[#FFF3E1]/70 text-sm lg:text-base leading-relaxed"
+                                className="hidden lg:block text-[#222222]/70 text-sm lg:text-base leading-relaxed"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 Naturaleza, comunidad y vida social integradas en un frente lacustre único.
@@ -820,16 +820,16 @@ export default function HeroPresa() {
                         transition={{ duration: 1, delay: 1.2 }}
                         className="px-4 lg:px-12 pb-4 lg:pb-10"
                     >
-                        <div className="w-full h-px bg-[#C8D7E6]/20 mb-4" />
+                        <div className="w-full h-px bg-[#222222]/10 mb-4" />
                         <div className="flex justify-between items-end">
                             <p
-                                className="text-[9px] lg:text-xs tracking-[0.25em] text-[#C8D7E6] uppercase"
+                                className="text-[10px] lg:text-xs tracking-[0.25em] text-[#3d5a6b]/85 uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 San Miguel de Allende
                             </p>
                             <p
-                                className="text-[9px] lg:text-xs tracking-[0.25em] text-[#C8D7E6] uppercase"
+                                className="text-[10px] lg:text-xs tracking-[0.25em] text-[#3d5a6b]/85 uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 Guanajuato, MX
@@ -839,7 +839,7 @@ export default function HeroPresa() {
                 </motion.div>
 
                 {/* Right: Image */}
-                <div className="relative w-full lg:w-1/2 h-1/2 lg:h-full overflow-hidden">
+                <div className="relative w-full lg:w-1/2 h-[55%] lg:h-full overflow-hidden">
                     <motion.div
                         initial={{ opacity: 0, scale: 1.1 }}
                         animate={{ opacity: 1, scale: 1 }}

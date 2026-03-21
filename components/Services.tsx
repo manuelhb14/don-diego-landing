@@ -8,7 +8,7 @@ import { useHasVisited } from "@/hooks/useHasVisited";
 export default function Services() {
     const hasVisited = useHasVisited();
     return (
-        <section id="services" className="bg-[#FFF3E1] text-[#222222] overflow-hidden relative">
+        <section id="services" className="bg-[#fff8ed] text-[#222222] overflow-hidden relative">
             <div className="max-w-[1440px] mx-auto w-full py-12 lg:pt-24 px-6 md:px-10 lg:px-16 flex flex-col">
 
                 {/* Top Section: Headers & Intro Paragraph */}
