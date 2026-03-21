@@ -73,7 +73,7 @@ export default function SustentabilidadFarm() {
                         className="absolute right-0 top-0 w-[80%] lg:w-[70%] h-[75%] lg:h-[80%] z-10 overflow-hidden shadow-2xl"
                     >
                         <Image
-                            src="/babylon/farm-1.png"
+                            src="/babylon/farm-1.webp"
                             alt="La granja orgánica Don Diego"
                             fill
                             className="object-cover hover:scale-105 transition-transform duration-1000"
@@ -86,7 +86,7 @@ export default function SustentabilidadFarm() {
                         className="absolute left-0 bottom-0 lg:bottom-10 w-[60%] lg:w-[50%] h-[50%] lg:h-[55%] z-20 overflow-hidden shadow-2xl border-4 lg:border-8 border-[#EFE6DC]"
                     >
                         <Image
-                            src="/babylon/farm-2.png"
+                            src="/babylon/farm-2.webp"
                             alt="Invernadero y cultivo de temporada"
                             fill
                             className="object-cover object-[center_30%] hover:scale-105 transition-transform duration-1000"

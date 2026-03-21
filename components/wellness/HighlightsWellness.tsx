@@ -9,25 +9,25 @@ const highlights = [
         id: 1,
         title: "Naturaleza y tranquilidad",
         description: "Un entorno de paz donde los jardines, el agua y el paisaje de la Presa Allende crean el ambiente ideal para la recuperación y el bienestar.",
-        image: "/babylon/wellness-1.png",
+        image: "/babylon/wellness-1.webp",
     },
     {
         id: 2,
         title: "Atención personalizada",
         description: "Equipos médicos especializados y cuidados certificados que entienden que cada persona tiene necesidades únicas.",
-        image: "/babylon/wellness-2.png",
+        image: "/babylon/wellness-2.webp",
     },
     {
         id: 3,
         title: "Vida en comunidad",
         description: "Espacios diseñados para la convivencia, actividades compartidas y la construcción de vínculos significativos.",
-        image: "/babylon/wellness-3.png",
+        image: "/babylon/wellness-3.webp",
     },
     {
         id: 4,
         title: "Ubicación privilegiada",
         description: "A minutos de San Miguel de Allende, con acceso inmediato a servicios médicos, culturales y de ocio de primer nivel.",
-        image: "/babylon/wellness-4.png",
+        image: "/babylon/wellness-4.webp",
     },
 ];
 

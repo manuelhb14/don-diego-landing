@@ -26,7 +26,7 @@ const posts: BlogPost[] = [
         comments: 33,
         likes: 412,
         views: 920,
-        imageSrc: "/babylon/sustentabilidad.png",
+        imageSrc: "/babylon/sustentabilidad.webp",
         imageAlt: "Vegetación y paisaje en Don Diego",
         intro: "Un máster plan donde el agua, la tierra y la producción orgánica dialogan en el día a día del desarrollo.",
         body: `La sustentabilidad dejó hace tiempo de ser un adjetivo de marketing para convertirse en una forma de habitar el territorio. En Don Diego, esa idea no se resume en una lista de buenas intenciones: se traduce en un trazado que entiende el predio como lo que siempre fue —un paisaje con vocación agrícola— y lo proyecta hacia adelante con una visión ambiental integrada.
@@ -154,7 +154,7 @@ En el fondo, **Del Huerto a la Mesa** es una invitación a comer con mapa: menos
         comments: 28,
         likes: 375,
         views: 740,
-        imageSrc: "/babylon/organic-farm.png",
+        imageSrc: "/babylon/organic-farm.webp",
         imageAlt: "Paisaje de cultivo y naturaleza en la región de San Miguel de Allende",
         intro: "Terruño, enoturismo de lujo y viñedos imperdibles en el renacimiento vitivinícola de Guanajuato.",
         body: `Cuando se piensa en San Miguel de Allende, la mente suele evocar calles empedradas, vibrantes flores de cempasúchil, arquitectura colonial y las icónicas torres rosadas de la Parroquia. Sin embargo, al aventurarse a pocos minutos de los límites de la ciudad, se descubre una magia distinta echando raíces: **la cultura del viñedo**.

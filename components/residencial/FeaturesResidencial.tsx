@@ -35,7 +35,7 @@ const residences: {
         accentSoft: "#ead7cc",
         description:
             "Bloques alrededor del complejo habitacional: estacionamiento techado y bodegas a desnivel forman un circuito que mantiene las calles interiores libres de tránsito vehicular. Cuatro departamentos por nivel con terrazas y azoteas aprovechables.",
-        image: "/residencias/departamentos.jpg",
+        image: "/residencias/departamentos.webp",
         specs: {
             superficie: "113–173 m² (según prototipo)",
             recamaras: "2–3",
@@ -51,7 +51,7 @@ const residences: {
         accentSoft: "#debebf",
         description:
             "Una vivienda por nivel, cada una con terraza o patio interior y vínculo claro con el exterior. Posibilidad de rentar una recámara de forma independiente.",
-        image: "/residencias/duplex-1.jpg",
+        image: "/residencias/duplex-1.webp",
         specs: {
             superficie: "128–155 m²",
             recamaras: "2–3",
@@ -67,7 +67,7 @@ const residences: {
         accentSoft: "#d7d7aa",
         description:
             "Viviendas en torno a un patio interior, una casa por nivel. El Tipo 2 conecta las calles peatonales a través del primer nivel. Jacuzzi en prototipos seleccionados.",
-        image: "/residencias/duplex-2.jpg",
+        image: "/residencias/duplex-2.webp",
         specs: {
             superficie: "166–185 m²",
             recamaras: "2–4",
@@ -83,7 +83,7 @@ const residences: {
         accentSoft: "#dbe3ea",
         description:
             "Patio central con una vivienda por nivel; distribuciones con varias terrazas y, en prototipos tipo B, sala de estar. Posibilidad de rentar una recámara de forma independiente.",
-        image: "/residencias/duplex-3.jpg",
+        image: "/residencias/duplex-3.webp",
         specs: {
             superficie: "142–181 m² (según prototipo)",
             recamaras: "2–3",

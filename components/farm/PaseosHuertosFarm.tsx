@@ -24,7 +24,7 @@ const highlights = [
 
 const IMAGES = [
     {
-        src: "/babylon/huerto.png",
+        src: "/babylon/huerto.webp",
         alt: "Huertos y senderos en Don Diego",
     },
     {

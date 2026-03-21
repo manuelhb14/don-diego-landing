@@ -23,7 +23,7 @@ const highlights = [
 ] as const;
 
 const HERO_IMAGE = {
-    src: "/babylon/flowers.png",
+    src: "/babylon/flowers.webp",
     alt: "Flores de temporada en Don Diego",
 } as const;
 

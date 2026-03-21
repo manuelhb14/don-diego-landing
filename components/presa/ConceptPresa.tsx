@@ -11,7 +11,7 @@ const features = [
         shortTitle: "Vistas",
         description:
             "Orientación y diseño para que la presa sea el telón de fondo cotidiano: luz matutina, atardeceres largos y profundidad visual en cada recorrido.",
-        image: "/babylon/presa-1.png",
+        image: "/babylon/presa-1.webp",
     },
     {
         id: "aire-libre",
@@ -19,7 +19,7 @@ const features = [
         shortTitle: "Aire libre",
         description:
             "Un ritmo más lento entre cielo y lago: espacios para moverte, descansar y compartir con la familia sin salir del desarrollo.",
-        image: "/babylon/presa-2.png",
+        image: "/babylon/presa-2.webp",
     },
     {
         id: "identidad",
@@ -27,7 +27,7 @@ const features = [
         shortTitle: "Identidad",
         description:
             "La presa como polo de vida que amplía la oferta de la ciudad con un carácter propio.",
-        image: "/babylon/presa-3.png",
+        image: "/babylon/presa-3.webp",
     },
     {
         id: "encuentro",
@@ -35,7 +35,7 @@ const features = [
         shortTitle: "Encuentro",
         description:
             "Desde la mañana tranquila hasta la noche con luces sobre el agua: un entorno pensado para convivir, no solo para habitar.",
-        image: "/babylon/presa-4.png",
+        image: "/babylon/presa-4.webp",
     },
 ];
 

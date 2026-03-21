@@ -24,7 +24,7 @@ const highlights = [
 ] as const;
 
 const HERO_IMAGE = {
-    src: "/babylon/sustentabilidad.png",
+    src: "/babylon/sustentabilidad.webp",
     alt: "Vegetación y paisaje en Don Diego",
 } as const;
 

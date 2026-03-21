@@ -48,7 +48,7 @@ export default function Contact() {
             className="relative flex items-center overflow-hidden bg-[#fff8ed]"
             // style={{
             //     // Horizontal stripes: repeat the texture on the Y axis, each tile stretched full width.
-            //     backgroundImage: "url('/babylon/texture.png')",
+            //     backgroundImage: "url('/babylon/texture.webp')",
             //     backgroundRepeat: "repeat-y",
             //     backgroundSize: "100% 280px",
             //     backgroundPosition: "left top",

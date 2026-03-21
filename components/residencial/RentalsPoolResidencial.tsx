@@ -22,7 +22,7 @@ export default function RentalsPoolResidencial() {
                     >
                         <div className="relative w-full aspect-[4/3] lg:aspect-[5/4] overflow-hidden rounded-sm border border-[#1F1D1B]/[0.08] shadow-[0_20px_50px_rgba(47,39,33,0.12)]">
                             <Image
-                                src="/babylon/rental.png"
+                                src="/babylon/rental.webp"
                                 alt="Rentals Don Diego"
                                 fill
                                 className="object-cover"

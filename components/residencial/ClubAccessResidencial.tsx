@@ -5,9 +5,9 @@ import Link from "next/link";
 import { motion } from "motion/react";
 
 const gallery = [
-    { src: "/babylon/clubhouse.png", alt: "Clubhouse Don Diego" },
-    { src: "/babylon/spa.jpg", alt: "Spa y bienestar" },
-    { src: "/babylon/restaurant.png", alt: "Restaurante" },
+    { src: "/babylon/clubhouse.webp", alt: "Clubhouse Don Diego" },
+    { src: "/babylon/spa.webp", alt: "Spa y bienestar" },
+    { src: "/babylon/restaurant.webp", alt: "Restaurante" },
 ] as const;
 
 export default function ClubAccessResidencial() {

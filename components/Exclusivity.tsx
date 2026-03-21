@@ -12,7 +12,7 @@ export default function Exclusivity() {
             {/* Background image */}
             <div className="absolute inset-0">
                 <Image
-                    src="/babylon/banner-4.png"
+                    src="/babylon/banner-4.webp"
                     alt="Don Diego — Exclusividad"
                     fill
                     className="object-cover"

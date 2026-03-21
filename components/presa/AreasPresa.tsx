@@ -43,7 +43,7 @@ const rows: AreaRow[] = [
         titleItalic: "restaurantes",
         description:
             "Terrazas y propuestas gastronómicas frente al agua: el lugar natural para cerrar el día o recibir a quienes visitan el desarrollo.",
-        image: { src: "/babylon/presa-5.png", alt: "Zona gastronómica junto a la presa" },
+        image: { src: "/babylon/presa-5.webp", alt: "Zona gastronómica junto a la presa" },
         Icon: UtensilsCrossed,
         imageLeft: false,
         card: {
@@ -65,7 +65,7 @@ const rows: AreaRow[] = [
         titleItalic: "",
         description:
             "Cajones y circulación pensados para visitantes y residentes, facilitando la llegada a restaurantes, comercios y amenidades sin fricción.",
-        image: { src: "/babylon/presa-6.png", alt: "Accesos y estacionamiento del desarrollo" },
+        image: { src: "/babylon/presa-6.webp", alt: "Accesos y estacionamiento del desarrollo" },
         Icon: CircleParking,
         imageLeft: true,
         card: {
@@ -87,7 +87,7 @@ const rows: AreaRow[] = [
         titleItalic: "comerciales",
         description:
             "Frentes comerciales integrados al paseo lacustre: servicios, boutique y experiencias que activan el día a día del frente al agua.",
-        image: { src: "/babylon/presa-7.png", alt: "Locales comerciales en el desarrollo" },
+        image: { src: "/babylon/presa-7.webp", alt: "Locales comerciales en el desarrollo" },
         Icon: Store,
         imageLeft: false,
         card: {
@@ -109,7 +109,7 @@ const rows: AreaRow[] = [
         titleItalic: "con vista",
         description:
             "Vivienda vertical con panoramas hacia la presa: privacidad, luz y conexión permanente con el paisaje lacustre.",
-        image: { src: "/babylon/presa-8.png", alt: "Departamentos con vista a la presa" },
+        image: { src: "/babylon/presa-8.webp", alt: "Departamentos con vista a la presa" },
         Icon: Building2,
         imageLeft: true,
         card: {
@@ -131,7 +131,7 @@ const rows: AreaRow[] = [
         titleItalic: "infantiles",
         description:
             "Áreas de juego seguras y al aire libre para que los más pequeños exploren, corran y compartan el entorno con otras familias.",
-        image: { src: "/babylon/presa-9.png", alt: "Parques infantiles" },
+        image: { src: "/babylon/presa-9.webp", alt: "Parques infantiles" },
         Icon: PlayCircle,
         imageLeft: false,
         card: {
@@ -153,7 +153,7 @@ const rows: AreaRow[] = [
         titleItalic: "náutico",
         description:
             "Amarres y actividades acuáticas en la Presa La Cantera: el corazón náutico del proyecto para quienes viven el lago a diario.",
-        image: { src: "/babylon/presa-10.png", alt: "Club náutico y embarcadero" },
+        image: { src: "/babylon/presa-10.webp", alt: "Club náutico y embarcadero" },
         Icon: Anchor,
         imageLeft: true,
         card: {
@@ -175,7 +175,7 @@ const rows: AreaRow[] = [
         titleItalic: "al aire libre",
         description:
             "Un escenario abierto para conciertos, cine y encuentros comunitarios frente al agua — el pulso cultural del frente lacustre.",
-        image: { src: "/babylon/presa-11.png", alt: "Anfiteatro y eventos al aire libre" },
+        image: { src: "/babylon/presa-11.webp", alt: "Anfiteatro y eventos al aire libre" },
         Icon: Mic2,
         imageLeft: false,
         card: {

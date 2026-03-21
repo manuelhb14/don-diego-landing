@@ -47,12 +47,12 @@ export default function ThingsToDo() {
     const reduceMotion = useReducedMotion();
     const items = useMemo<ExclusivityItem[]>(
         () => [
-            { id: "clubhouse", title: "Clubhouse", imageSrc: "/babylon/clubhouse.png" },
-            { id: "piscina", title: "Piscina privada", imageSrc: "/babylon/pool.png" },
-            { id: "gimnasio", title: "Gimnasio exterior", imageSrc: "/babylon/gym.png" },
-            { id: "spa", title: "Spa", imageSrc: "/babylon/spa.jpg" },
-            { id: "restaurante", title: "Restaurantes", imageSrc: "/babylon/restaurant.png" },
-            { id: "padel", title: "Padel", imageSrc: "/babylon/padel.png" },
+            { id: "clubhouse", title: "Clubhouse", imageSrc: "/babylon/clubhouse.webp" },
+            { id: "piscina", title: "Piscina privada", imageSrc: "/babylon/pool.webp" },
+            { id: "gimnasio", title: "Gimnasio exterior", imageSrc: "/babylon/gym.webp" },
+            { id: "spa", title: "Spa", imageSrc: "/babylon/spa.webp" },
+            { id: "restaurante", title: "Restaurantes", imageSrc: "/babylon/restaurant.webp" },
+            { id: "padel", title: "Padel", imageSrc: "/babylon/padel.webp" },
         ],
         [],
     );

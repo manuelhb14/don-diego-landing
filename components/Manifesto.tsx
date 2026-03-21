@@ -103,7 +103,7 @@ export default function Manifesto() {
                 </motion.div>
 
                 <motion.div className="absolute top-[45%] -right-[15%] md:right-[10%] lg:right-[12%] w-32 md:w-48 lg:w-56 xl:w-80 aspect-[3/4] z-0" style={{ y: y2, opacity: imgOp2 }}>
-                    <Image src="/babylon/sma-1.jpg" alt="Gallery" fill className="object-cover rounded-sm shadow-2xl" />
+                    <Image src="/babylon/sma-1.webp" alt="Gallery" fill className="object-cover rounded-sm shadow-2xl" />
                 </motion.div>
 
                 <motion.div className="absolute top-[60%] left-[-5%] md:left-[5%] lg:left-[12%] w-24 md:w-28 lg:w-32 xl:w-72 aspect-[4/3] z-0" style={{ y: y5, opacity: imgOp5 }}>

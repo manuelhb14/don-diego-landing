@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 import { Bus, Leaf, MapPin, Users, Wifi } from "lucide-react";
 
 const WIFI_HERO_IMAGE = {
-    src: "/babylon/wifi.png",
+    src: "/babylon/wifi.webp",
     alt: "Espacios comunes del club con Wi-Fi",
 } as const;
 
@@ -126,7 +126,7 @@ export default function ConnectivityCommonAreasResidencial() {
                         >
                             <div className="relative aspect-[16/11] w-full min-h-[240px] flex-1 overflow-hidden shadow-[0_30px_60px_rgba(26,25,23,0.18)] ring-1 ring-[#1a1917]/10 lg:aspect-auto lg:min-h-[280px] lg:h-full">
                                 <Image
-                                    src="/babylon/shuttle-2.jpeg"
+                                    src="/babylon/shuttle-2.webp"
                                     alt="Shuttles Don Diego"
                                     fill
                                     className="object-cover"

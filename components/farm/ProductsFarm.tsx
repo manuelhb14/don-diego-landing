@@ -8,25 +8,25 @@ const products = [
         title: "Invernaderos y zonas de cultivo",
         description:
             "Espacios organizados en terrazas con tecnología de agricultura sostenible que garantizan el origen más fresco posible.",
-        image: "/babylon/farm-5.png",
+        image: "/babylon/farm-5.webp",
     },
     {
         title: "Andadores y cicloruta",
         description:
             "Recorrer a pie o en bici la vasta extensión productiva permite integrarse físicamente al proceso natural.",
-        image: "/babylon/farm-3.png",
+        image: "/babylon/farm-3.webp",
     },
     {
         title: "Experiencia comunitaria",
         description:
             "Programas educativos alrededor de lo que se cultiva para enseñar a los habitantes la riqueza de cosechar lo que siembras.",
-        image: "/babylon/farm-7.png",
+        image: "/babylon/farm-7.webp",
     },
     {
         title: "El origen de lo local",
         description:
             "Sustentabilidad pura; un ecosistema cerrado donde los productos nutren directamente los cuerpos y el entorno de Don Diego.",
-        image: "/babylon/farm-6.png",
+        image: "/babylon/farm-6.webp",
     },
 ];
 

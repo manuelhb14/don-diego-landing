@@ -9,25 +9,25 @@ const services = [
         id: 1,
         title: "Centro de rehabilitación",
         description: "Espacios especializados con tecnología de vanguardia para recuperación física y manejo integral del dolor.",
-        image: "/babylon/wellness-5.png",
+        image: "/babylon/wellness-5.webp",
     },
     {
         id: 2,
         title: "Senior Living",
         description: "Residencias diseñadas para una vida activa y digna, con atención personalizada y comunidad de apoyo en todo momento.",
-        image: "/babylon/wellness-6.png",
+        image: "/babylon/wellness-6.webp",
     },
     {
         id: 3,
         title: "Departamentos familiares",
         description: "Espacios de hospedaje pensados para que las familias estén cómodas y cerca de sus seres queridos durante su proceso de recuperación.",
-        image: "/babylon/wellness-7.png",
+        image: "/babylon/wellness-7.webp",
     },
     {
         id: 4,
         title: "Amenidades",
         description: "Áreas comunes, jardines terapéuticos, alberca y espacios de esparcimiento integrados armoniosamente con la naturaleza.",
-        image: "/babylon/wellness-8.png",
+        image: "/babylon/wellness-8.webp",
     },
 ];
 
