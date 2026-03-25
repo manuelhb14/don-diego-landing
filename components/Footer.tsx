@@ -1,8 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function Footer() {
+    const t = useTranslations("footer");
+    const tn = useTranslations("nav");
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -20,7 +24,7 @@ export default function Footer() {
         const consent = formData.get("consent") === "on";
 
         if (!consent) {
-            setError("Debes aceptar la política de privacidad para continuar.");
+            setError(t("errConsent"));
             setLoading(false);
             return;
         }
@@ -33,18 +37,18 @@ export default function Footer() {
                     name: `${firstName} ${lastName}`.trim() || "Newsletter",
                     email,
                     phone: "",
-                    message: "Suscripción al newsletter desde el footer",
+                    message: t("newsletterInternal"),
                 }),
             });
 
             const data = (await res.json()) as { error?: string };
 
             if (!res.ok) {
-                throw new Error(data.error || "Error al enviar");
+                throw new Error(data.error || t("errSend"));
             }
             setSubmitted(true);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error al enviar. Intenta de nuevo.");
+            setError(err instanceof Error ? err.message : t("errSend"));
         } finally {
             setLoading(false);
         }
@@ -58,11 +62,11 @@ export default function Footer() {
                     <div className="col-span-5 lg:col-span-6 flex flex-col space-y-4">
                         <div>
                             <h2 className="font-serif text-4xl md:text-4xl leading-tight mb-2">
-                                ÚNETE al MUNDO de <br className="hidden lg:block" />
-                                DON DIEGO
+                                {t("joinTitleLine1")} <br className="hidden lg:block" />
+                                {t("joinTitleLine2")}
                             </h2>
                             <p className="font-sans text-sm font-light leading-relaxed opacity-80">
-                                Suscríbete para unirte a nuestra comunidad y mantenerte al día con el desarrollo.
+                                {t("joinSubtitle")}
                             </p>
                         </div>
                         <form onSubmit={handleNewsletterSubmit} className="w-full max-w-md space-y-4 pt-0 lg:space-y-4">
@@ -71,7 +75,7 @@ export default function Footer() {
                             )}
                             {submitted ? (
                                 <p className="text-[#222222] text-xs font-sans font-medium">
-                                    ¡Gracias! Te hemos añadido a nuestra lista.
+                                    {t("thanks")}
                                 </p>
                             ) : (
                                 <>
@@ -81,7 +85,7 @@ export default function Footer() {
                                                 className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors disabled:opacity-60"
                                                 id="firstName"
                                                 name="firstName"
-                                                placeholder="NOMBRE *"
+                                                placeholder={t("firstNamePh")}
                                                 required
                                                 type="text"
                                                 disabled={loading}
@@ -92,7 +96,7 @@ export default function Footer() {
                                                 className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors disabled:opacity-60"
                                                 id="lastName"
                                                 name="lastName"
-                                                placeholder="APELLIDO *"
+                                                placeholder={t("lastNamePh")}
                                                 required
                                                 type="text"
                                                 disabled={loading}
@@ -104,7 +108,7 @@ export default function Footer() {
                                             className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors disabled:opacity-60"
                                             id="email"
                                             name="email"
-                                            placeholder="CORREO ELECTRÓNICO *"
+                                            placeholder={t("emailPh")}
                                             required
                                             type="email"
                                             disabled={loading}
@@ -123,7 +127,7 @@ export default function Footer() {
                                         </div>
                                         <div className="ml-0 text-xs font-sans font-light leading-tight opacity-80">
                                             <label className="font-medium text-[#222222]" htmlFor="consent">
-                                                Acepto recibir información del proyecto y actualizaciones
+                                                {t("consent")}
                                             </label>
                                         </div>
                                     </div>
@@ -132,7 +136,7 @@ export default function Footer() {
                                         type="submit"
                                         disabled={loading}
                                     >
-                                        {loading ? "Enviando…" : "Enviar Formulario"}
+                                        {loading ? t("sending") : t("submit")}
                                     </button>
                                 </>
                             )}
@@ -145,19 +149,16 @@ export default function Footer() {
                     {/* Navigation Links */}
                     <div className="col-span-3 lg:col-span-3">
                         <ul className="space-y-3 font-sans text-xs tracking-widest uppercase font-medium">
-                            <li><a className="hover:underline underline-offset-4" href="/inicio">Inicio</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="/proyecto">Proyecto</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="/ubicacion">Ubicación</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="/equipo">Equipo</a></li>
-                            {/* <li><a className="hover:underline underline-offset-4" href="/preguntas">Preguntas</a></li> */}
-                            {/* <li><a className="hover:underline underline-offset-4" href="/galeria">Galería</a></li> */}
-                            <li><a className="hover:underline underline-offset-4" href="/contacto">Contacto</a></li>
-                            {/* subtitle sections */}
-                            <li><p className="text-sm font-serif tracking-widest uppercase font-light pt-2">Componentes</p></li>
-                            <li><a className="hover:underline underline-offset-4" href="/residencial">Club Residencial</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="/farm">Organic Farm</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="/wellness">Wellness Center</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="/presa">Presa de la Cantera</a></li>
+                            <li><Link className="hover:underline underline-offset-4" href="/">{t("navHome")}</Link></li>
+                            <li><Link className="hover:underline underline-offset-4" href="/proyecto">{t("navProject")}</Link></li>
+                            <li><Link className="hover:underline underline-offset-4" href="/ubicacion">{t("navLocation")}</Link></li>
+                            <li><Link className="hover:underline underline-offset-4" href="/equipo">{t("navTeam")}</Link></li>
+                            <li><Link className="hover:underline underline-offset-4" href="/contacto">{t("navContact")}</Link></li>
+                            <li><p className="text-sm font-serif tracking-widest uppercase font-light pt-2">{t("components")}</p></li>
+                            <li><Link className="hover:underline underline-offset-4" href="/residencial">{tn("sub.residencial")}</Link></li>
+                            <li><Link className="hover:underline underline-offset-4" href="/farm">{tn("sub.farm")}</Link></li>
+                            <li><Link className="hover:underline underline-offset-4" href="/wellness">{tn("sub.wellness")}</Link></li>
+                            <li><Link className="hover:underline underline-offset-4" href="/presa">{tn("sub.presa")}</Link></li>
                         </ul>
                     </div>
 
@@ -167,23 +168,24 @@ export default function Footer() {
                             <li><a className="hover:underline underline-offset-4" href="https://www.instagram.com/dondiegosma/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                             <li><a className="hover:underline underline-offset-4" href="https://www.youtube.com/@dondiegosma" target="_blank" rel="noopener noreferrer">Youtube</a></li>
                             <li><a className="hover:underline underline-offset-4" href="https://www.tiktok.com/@dondiegosma" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+                            <li><a className="hover:underline underline-offset-4" href="https://wa.me/5200000000000" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
 
             {/* Large DON DIEGO Text */}
-            <div className="w-full overflow-hidden leading-none select-none pointer-events-none mt-4 md:mt-0 mb-4 lg:mb-0">
+            {/* <div className="w-full overflow-hidden leading-none select-none pointer-events-none mt-4 md:mt-0 mb-4 lg:mb-0">
                 <h1 className="font-serif  lg:text-[12vw] text-[14vw] text-center tracking-[0.12em] text-[#222222] opacity-100 transform translate-y-[15%]">
                     DON DIEGO
                 </h1>
-            </div>
+            </div> */}
 
             {/* Bottom Links */}
             <div className="w-full px-2 sm:px-4 lg:px-8 mt-2 mb-6 flex justify-between sm:justify-end items-end text-[10px] md:text-[11px] font-sans tracking-wider sm:tracking-widest uppercase text-white/60 z-20 mix-blend-difference gap-2 sm:gap-4 md:gap-6 whitespace-nowrap">
-                <a className="hover:underline underline-offset-4" href="/terminos">Términos de Servicio</a>
-                <a className="hover:underline underline-offset-4" href="/privacidad">Política de Privacidad</a>
-                <span>® Don Diego 2026</span>
+                <Link className="hover:underline underline-offset-4" href="/terminos">{t("terms")}</Link>
+                <Link className="hover:underline underline-offset-4" href="/privacidad">{t("privacy")}</Link>
+                <span>{t("brandLine")}</span>
             </div>
         </footer>
     );

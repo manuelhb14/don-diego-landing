@@ -1,6 +1,14 @@
-export type BlogPost = {
+import {
+    culturaVinedoEn,
+    guiaSma2026En,
+    huertoMesaEn,
+    mejorCiudadEn,
+    sustentabilidadEn,
+    type BlogLocaleBlock,
+} from "./blogPostsEn";
+
+export type BlogPostView = {
     slug: string;
-    /** ISO date `YYYY-MM-DD` */
     publishedAt: string;
     title: string;
     kicker: string;
@@ -10,26 +18,39 @@ export type BlogPost = {
     comments: number;
     imageSrc: string;
     imageAlt: string;
-    /** Short teaser; shown only on the featured card on the blog index. */
     intro: string;
-    /** Article body (Markdown: headings, lists, emphasis, blockquotes, horizontal rules). */
     body: string;
+};
+
+export type BlogPost = {
+    slug: string;
+    publishedAt: string;
+    likes: number;
+    views: number;
+    comments: number;
+    imageSrc: string;
+    locales: {
+        es: BlogLocaleBlock;
+        en: BlogLocaleBlock;
+    };
 };
 
 const posts: BlogPost[] = [
     {
         slug: "sustentabilidad-como-habitat",
         publishedAt: "2026-03-21",
-        title: "Sustentabilidad como hábitat",
-        kicker: "Don Diego",
-        tags: ["Sustentabilidad", "Paisaje vivo", "Comunidad"],
         comments: 33,
         likes: 412,
         views: 920,
         imageSrc: "/babylon/sustentabilidad.webp",
-        imageAlt: "Vegetación y paisaje en Don Diego",
-        intro: "Un máster plan donde el agua, la tierra y la producción orgánica dialogan en el día a día del desarrollo.",
-        body: `La sustentabilidad dejó hace tiempo de ser un adjetivo de marketing para convertirse en una forma de habitar el territorio. En Don Diego, esa idea no se resume en una lista de buenas intenciones: se traduce en un trazado que entiende el predio como lo que siempre fue —un paisaje con vocación agrícola— y lo proyecta hacia adelante con una visión ambiental integrada.
+        locales: {
+            es: {
+                title: "Sustentabilidad como hábitat",
+                kicker: "Don Diego",
+                tags: ["Sustentabilidad", "Paisaje vivo", "Comunidad"],
+                imageAlt: "Vegetación y paisaje en Don Diego",
+                intro: "Un máster plan donde el agua, la tierra y la producción orgánica dialogan en el día a día del desarrollo.",
+                body: `La sustentabilidad dejó hace tiempo de ser un adjetivo de marketing para convertirse en una forma de habitar el territorio. En Don Diego, esa idea no se resume en una lista de buenas intenciones: se traduce en un trazado que entiende el predio como lo que siempre fue —un paisaje con vocación agrícola— y lo proyecta hacia adelante con una visión ambiental integrada.
 
 El desarrollo se estructura en torno a cuatro componentes con identidad propia —Club Residencial, Organic Farm & Flowers, Wellness Center y la Presa de la Cantera— pero comparten un mismo principio: **convivir con el agua, la tierra y lo que la tierra produce**, en lugar de empujarlos al fondo del plano.
 
@@ -58,20 +79,25 @@ Mirando en perspectiva, Don Diego apuesta por prácticas que hoy son casi de sen
 No se promete un mundo perfecto; se propone uno **coherente con el lugar**: menos extractivo, más relacional. Un hábitat donde el lujo no compite con la tierra, sino que aprende a medirse con ella.
 
 > **En síntesis:** la sustentabilidad en Don Diego es un sistema —paisaje, agua, cultivo y comunidad— que se refuerza cada vez que alguien elige caminar el huerto, mirar la presa al atardecer o llevarse a casa lo que ayer estaba en el suelo.`,
+            },
+            en: sustentabilidadEn,
+        },
     },
     {
         slug: "mejor-ciudad-pequena",
         publishedAt: "2026-03-20",
-        title: "La Mejor Ciudad Pequeña del Mundo",
-        kicker: "San Miguel de Allende",
-        tags: ["Patrimonio Cultural"],
         comments: 40,
         likes: 297,
         views: 850,
         imageSrc: "/babylon/sma.mp4",
-        imageAlt: "San Miguel de Allende [cite: 10]",
-        intro: "Premios internacionales, calles empedradas y una calidad de vida que une historia colonial y lujo contemporáneo.",
-        body: `No es casualidad que San Miguel de Allende encabece constantemente las listas de publicaciones internacionales como *Condé Nast Traveler* y *Travel + Leisure*. Sin embargo, el título de "La Mejor Ciudad Pequeña del Mundo" no se gana únicamente con premios; se respira en sus calles empedradas, se refleja en sus fachadas coloridas y se vive en su vibrante escena cultural.
+        locales: {
+            es: {
+                title: "La Mejor Ciudad Pequeña del Mundo",
+                kicker: "San Miguel de Allende",
+                tags: ["Patrimonio Cultural"],
+                imageAlt: "San Miguel de Allende [cite: 10]",
+                intro: "Premios internacionales, calles empedradas y una calidad de vida que une historia colonial y lujo contemporáneo.",
+                body: `No es casualidad que San Miguel de Allende encabece constantemente las listas de publicaciones internacionales como *Condé Nast Traveler* y *Travel + Leisure*. Sin embargo, el título de "La Mejor Ciudad Pequeña del Mundo" no se gana únicamente con premios; se respira en sus calles empedradas, se refleja en sus fachadas coloridas y se vive en su vibrante escena cultural.
 
 Ubicada en el corazón de México, esta joya colonial ofrece una calidad de vida que equilibra el encanto histórico con el lujo contemporáneo. A continuación, exploramos las razones por las que San Miguel de Allende sigue cautivando a visitantes y residentes por igual.
 
@@ -100,20 +126,25 @@ El estilo de vida en San Miguel invita a la pausa y al disfrute de los sentidos.
 ### El Veredicto
 
 San Miguel de Allende demuestra que no se necesita el tamaño de una metrópolis para ofrecer una experiencia de vida de clase mundial. Es una ciudad que se recorre a pie, pero que ofrece un mundo entero de sofisticación, comunidad y belleza arquitectónica. Más que un destino para visitar, es un lugar diseñado para quedarse.`,
+            },
+            en: mejorCiudadEn,
+        },
     },
     {
         slug: "huerto-a-la-mesa",
         publishedAt: "2026-03-17",
-        title: "Del Huerto a la Mesa",
-        kicker: "Organic Farm & Flowers",
-        tags: ["Huertos Orgánicos", "Sustentabilidad", "Ciclo Natural"],
         comments: 45,
         likes: 530,
         views: 1105,
         imageSrc: "/babylon/greenhouse-2.webp",
-        imageAlt: "Organic Farm & Flowers [cite: 97]",
-        intro: "De la tierra al plato: cultivo orgánico, estaciones y un recorrido corto que sabe a comunidad.",
-        body: `Hay comidas que saben a supermercado y otras que saben a **lugar**. En Don Diego, Organic Farm & Flowers existe para acortar la distancia entre esas dos experiencias: recuperar la vocación agrícola del predio y convertirla en algo vivo —visible, caminable, compartible— para quienes viven o visitan el desarrollo.
+        locales: {
+            es: {
+                title: "Del Huerto a la Mesa",
+                kicker: "Organic Farm & Flowers",
+                tags: ["Huertos Orgánicos", "Sustentabilidad", "Ciclo Natural"],
+                imageAlt: "Organic Farm & Flowers [cite: 97]",
+                intro: "De la tierra al plato: cultivo orgánico, estaciones y un recorrido corto que sabe a comunidad.",
+                body: `Hay comidas que saben a supermercado y otras que saben a **lugar**. En Don Diego, Organic Farm & Flowers existe para acortar la distancia entre esas dos experiencias: recuperar la vocación agrícola del predio y convertirla en algo vivo —visible, caminable, compartible— para quienes viven o visitan el desarrollo.
 
 No se trata solo de “tener un huerto bonito”. Se trata de **respetar el suelo y el ritmo de las estaciones**, de entender que cada lluvia y cada helada le hablan al cultivo, y de traducir eso en verduras, hierbas aromáticas y flores que llegan a la mesa con historia breve y sabor largo.
 
@@ -144,20 +175,25 @@ Las **ciclorutas** y los recorridos peatonales enlazan la granja con el resto de
 En el fondo, **Del Huerto a la Mesa** es una invitación a comer con mapa: menos anonimato alimentario, más conciencia de origen, y una comunidad que celebra lo fresco no como moda, sino como **forma de estar en el territorio**.
 
 > **Recuerda:** el menú del entorno cambia con las estaciones; lo que encuentres en mesa o en mercado interno en una visita puede ser distinto en la siguiente —y eso, lejos de ser un problema, es la prueba de que el huerto sigue vivo.`,
+            },
+            en: huertoMesaEn,
+        },
     },
     {
         slug: "cultura-del-vinedo",
         publishedAt: "2026-03-14",
-        title: "La cultura del Viñedo",
-        kicker: "San Miguel de Allende",
-        tags: ["Vino", "Enoturismo", "Guanajuato"],
         comments: 28,
         likes: 375,
         views: 740,
         imageSrc: "/babylon/organic-farm.webp",
-        imageAlt: "Paisaje de cultivo y naturaleza en la región de San Miguel de Allende",
-        intro: "Terruño, enoturismo de lujo y viñedos imperdibles en el renacimiento vitivinícola de Guanajuato.",
-        body: `Cuando se piensa en San Miguel de Allende, la mente suele evocar calles empedradas, vibrantes flores de cempasúchil, arquitectura colonial y las icónicas torres rosadas de la Parroquia. Sin embargo, al aventurarse a pocos minutos de los límites de la ciudad, se descubre una magia distinta echando raíces: **la cultura del viñedo**.
+        locales: {
+            es: {
+                title: "La cultura del Viñedo",
+                kicker: "San Miguel de Allende",
+                tags: ["Vino", "Enoturismo", "Guanajuato"],
+                imageAlt: "Paisaje de cultivo y naturaleza en la región de San Miguel de Allende",
+                intro: "Terruño, enoturismo de lujo y viñedos imperdibles en el renacimiento vitivinícola de Guanajuato.",
+                body: `Cuando se piensa en San Miguel de Allende, la mente suele evocar calles empedradas, vibrantes flores de cempasúchil, arquitectura colonial y las icónicas torres rosadas de la Parroquia. Sin embargo, al aventurarse a pocos minutos de los límites de la ciudad, se descubre una magia distinta echando raíces: **la cultura del viñedo**.
 
 Durante la última década, el estado de Guanajuato se ha transformado de manera constante en uno de los principales destinos vitivinícolas de México. San Miguel se encuentra en el corazón de este renacimiento enológico, ofreciendo una experiencia que rivaliza con regiones consagradas como el Valle de Guadalupe o la Toscana, pero con un alma innegablemente mexicana.
 
@@ -197,15 +233,102 @@ Si estás planeando un recorrido, estas son algunas de las propiedades destacada
 San Miguel de Allende siempre se ha distinguido como un santuario para artistas, viajeros internacionales y amantes de la gastronomía. La consolidación de una cultura del vino de clase mundial se percibe como la evolución natural de esta ciudad. Ya sea que disfrutes de una copa ocasional o seas un conocedor experimentado, los viñedos de Guanajuato representan una frontera fresca y emocionante en el panorama internacional del vino.
 
 *¡Salud!* 🍷`,
+            },
+            en: culturaVinedoEn,
+        },
+    },
+    {
+        slug: "guia-san-miguel-allende-2026",
+        publishedAt: "2026-03-01",
+        comments: 22,
+        likes: 341,
+        views: 680,
+        imageSrc: "/babylon/banner-3.webp",
+        locales: {
+            es: {
+                title: "Guía San Miguel de Allende 2026",
+                kicker: "San Miguel de Allende",
+                tags: ["Guía", "Tendencias", "Bienestar", "Diseño"],
+                imageAlt: "Vista y ambiente de San Miguel de Allende",
+                intro: "Qué hacer, ver y saborear en 2026: diseño minimalista, workations, gastronomía consciente y joyas fuera del circuito turístico.",
+                body: `San Miguel de Allende ha evolucionado. Si bien sus calles empedradas y su icónica Parroquia siguen siendo el corazón de la ciudad, en 2026 este destino ha madurado hasta convertirse en un sofisticado epicentro de diseño, bienestar y cultura contemporánea. Ya no se trata solo de un viaje al pasado colonial, sino de experimentar una ciudad que marca tendencias a nivel global.
+
+Esta guía definitiva explora lo que realmente vale la pena hacer, ver y saborear en San Miguel este año, alejándonos de las trampas para turistas y adentrándonos en su escena más exclusiva.
+
+---
+
+### 1. Las Nuevas Tendencias en 2026
+
+**El Renacimiento del Diseño Minimalista y los Bienes Raíces**
+El mercado inmobiliario y arquitectónico de la ciudad está viviendo una transformación fascinante. Detrás de las clásicas fachadas virreinales, las nuevas restauraciones y desarrollos están apostando por una estética profundamente minimalista. Se priorizan las líneas limpias, la luz natural, los materiales crudos y la integración de tecnología inteligente. Visitar las jornadas de "puertas abiertas" de agencias locales es ahora una actividad de nicho para los amantes del diseño. *Si estás considerando dar el siguiente paso e invertir o establecerte aquí, comunidades exclusivas como **Don Diego** se están perfilando como el refugio perfecto, ofreciendo propiedades que equilibran la tranquilidad de las afueras con una arquitectura de primer nivel.*
+
+**Workations para Fundadores y Creativos**
+San Miguel se ha posicionado como un refugio de alto nivel para emprendedores y desarrolladores tecnológicos. La tendencia de este año son los cafés de especialidad y espacios híbridos diseñados para el trabajo profundo, con internet de alta velocidad y ambientes estéticamente impecables que fomentan la concentración y el networking silencioso.
+
+**Gastronomía Consciente y "Farm-to-Table"**
+La escena culinaria ha cambiado su enfoque hacia la trazabilidad. Los nuevos restaurantes de moda ofrecen menús donde la proteína limpia y los vegetales orgánicos son los protagonistas. Esto es ideal para quienes mantienen un estilo de vida estructurado, cuidan su nutrición o simplemente buscan comida real de la más alta calidad sin sacrificar la experiencia gourmet.
+
+---
+
+### 2. Qué Hacer: Más Allá de lo Evidente
+
+**Inmersión en Arte Contemporáneo**
+*Fábrica La Aurora* sigue siendo un imperdible, pero el enfoque en 2026 está en sus galerías más vanguardistas. Busca las exhibiciones de arte abstracto e instalaciones inmersivas que contrastan dramáticamente con el entorno industrial del antiguo molino de algodón.
+
+**Cultura Termal y Bienestar Físico**
+Mantener la rutina de entrenamiento o recuperación es fácil en San Miguel. La tendencia dicta escapar a los santuarios de aguas termales en las afueras (como *The Mayan Baths* o *Escondido Place*), pero combinándolo con visitas a los nuevos estudios de entrenamiento funcional y gimnasios boutique que han abierto cerca del centro, perfectos para una sesión intensa antes de salir a explorar.
+
+**La Ruta del Vino de Altura**
+Los viñedos de Guanajuato son parada obligatoria. En 2026, la tendencia es reservar experiencias privadas de maridaje al atardecer en bodegas con arquitectura moderna, alejadas del bullicio de los recorridos masivos.
+
+---
+
+### 3. Las Joyas Ocultas (Hidden Gems)
+
+Para salirte del algoritmo de recomendaciones habituales, anota estos puntos en tu mapa:
+
+* **El Charco del Ingenio al Amanecer:** Este jardín botánico no es un secreto, pero ir a las 7:00 a.m. para correr o hacer senderismo por el cañón antes de que la ciudad despierte, sí lo es. Las vistas son espectaculares y es el mejor cardio de la zona.
+* **Barras de Especialidad (Calle Hernández Macías):** Pequeñas barras con tostadores locales. Ofrecen el ambiente perfecto para abrir la laptop, conectar los audífonos y avanzar en proyectos con un café de extracción perfecta.
+* **Boutiques de la Colonia Guadalupe:** El centro histórico tiene excelentes tiendas, pero el "Distrito de las Artes" en la colonia Guadalupe alberga los verdaderos talleres de creadores locales que trabajan cerámica minimalista y diseño industrial.
+* **Terrazas Secretas:** En lugar de ir a los *rooftops* más promocionados frente a la plaza principal, busca las terrazas de los pequeños hoteles boutique escondidos en la calle de Sollano o Recreo. Ofrecen mixología de autor, un ambiente mucho más íntimo y vistas ininterrumpidas.
+
+---
+
+### El Veredicto para el 2026
+
+San Miguel de Allende es una ciudad que exige ser vivida a un ritmo distinto. La clave para disfrutarla este año está en los detalles: apreciar la estética de sus espacios interiores, disfrutar de una gastronomía honesta, y encontrar el equilibrio perfecto entre la productividad y el descanso de lujo.`,
+            },
+            en: guiaSma2026En,
+        },
     },
 ];
 
-export function getAllPosts(): BlogPost[] {
-    return posts;
+export function localizePost(post: BlogPost, locale: string): BlogPostView {
+    const l = locale === "en" ? "en" : "es";
+    const block = post.locales[l];
+    return {
+        slug: post.slug,
+        publishedAt: post.publishedAt,
+        likes: post.likes,
+        views: post.views,
+        comments: post.comments,
+        imageSrc: post.imageSrc,
+        title: block.title,
+        kicker: block.kicker,
+        tags: block.tags,
+        imageAlt: block.imageAlt,
+        intro: block.intro,
+        body: block.body,
+    };
 }
 
-export function getPostBySlug(slug: string): BlogPost | undefined {
-    return posts.find((p) => p.slug === slug);
+export function getAllPosts(locale: string): BlogPostView[] {
+    return posts.map((p) => localizePost(p, locale));
+}
+
+export function getPostBySlug(slug: string, locale: string): BlogPostView | undefined {
+    const post = posts.find((p) => p.slug === slug);
+    return post ? localizePost(post, locale) : undefined;
 }
 
 export function getAllSlugs(): string[] {

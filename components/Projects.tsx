@@ -28,7 +28,7 @@ const projects = [
         label: "02",
         title: "Organic Farm & Flowers",
         description: "Componente sostenible que recupera la vocación agrícola original con huertos orgánicos, frutales y flores de temporada.",
-        image: "/images/renders/farm.jpg",
+        image: "/babylon/organic-farm.jpeg",
         accent: "#DEBEBF",
         features: [
             { icon: Sprout, text: "Huertos Orgánicos" },

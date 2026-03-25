@@ -1,30 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useTranslations } from "next-intl";
 
-const faqs = [
-    {
-        question: "¿Qué es Don Diego Club Residencial y de qué componentes consta?",
-        answer: "Es un desarrollo inmobiliario de uso mixto estructurado en torno a cuatro componentes con identidad propia: el Club Residencial (núcleo privado de residencias), Organic Farm & Flowers (paisaje productivo), Wellness Center (centro de bienestar integral y senior living) y la Presa de la Cantera (espacio público-privado junto al agua)."
-    },
-    {
-        question: "¿Dónde se encuentra ubicado el desarrollo?",
-        answer: "El desarrollo está ubicado de manera estratégica a tan solo 8 minutos del centro histórico de San Miguel de Allende, sobre la Carretera Celaya – Dolores Hidalgo. Colinda con la emblemática Presa Ignacio Allende y la Presa La Cantera."
-    },
-    {
-        question: "¿El acceso a todos los componentes es exclusivo para residentes?",
-        answer: "Mientras que el Club Residencial y el Organic Farm son exclusivos y prioritarios para los dueños y residentes, la Presa de la Cantera está concebida como un destino que se abre a la comunidad de San Miguel de Allende, integrando naturaleza y vida social con actividades culturales y recreativas."
-    },
-    {
-        question: "¿Cómo funciona la parte productiva de \"Organic Farm & Flowers\"?",
-        answer: "Recupera la vocación agrícola original del predio mediante agricultura orgánica y producción floral de temporada. Más allá de lo estético, los productos frescos nutren los restaurantes y la vida cotidiana del desarrollo. Este componente cuenta con huertos orgánicos, invernaderos y granjas de producción rodeados de andadores y ciclorutas."
-    },
-    {
-        question: "¿Cuál es el diseño urbanístico enfocado al peatón?",
-        answer: "El interior del desarrollo es 100% peatonal, liberando el espacio interior de automóviles. El diseño propone un circuito vehicular periférico en desnivel, mientras que el estacionamiento está techado con acceso peatonal directo a las viviendas con dos cajones por unidad."
-    }
-];
+type FaqEntry = { question: string; answer: string };
 
 function FaqItem({ question, answer, isOpen, toggle }: { question: string, answer: string, isOpen: boolean, toggle: () => void }) {
     return (
@@ -73,6 +53,8 @@ function FaqItem({ question, answer, isOpen, toggle }: { question: string, answe
 
 export default function Faq() {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
+    const t = useTranslations("faq");
+    const faqs = useMemo(() => t.raw("items") as FaqEntry[], [t]);
 
     return (
         <section id="faq" className="bg-[#111] py-16 lg:py-36 overflow-hidden">
@@ -89,7 +71,7 @@ export default function Faq() {
                             className="text-[10px] tracking-[0.3em] text-[#E1B19B]/40 uppercase mb-4"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [FAQ]
+                            {t("kicker")}
                         </p>
                         <h2
                             className="text-white leading-none mb-6"
@@ -98,13 +80,13 @@ export default function Faq() {
                                 fontSize: "clamp(2.4rem, 4.5vw, 4.8rem)",
                             }}
                         >
-                            Preguntas Frecuentes
+                            {t("title")}
                         </h2>
                         <p
                             className="text-white/40 text-base leading-relaxed max-w-sm"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
-                            Encuentra respuestas a las dudas más comunes sobre el desarrollo, inversión y servicios de Don Diego Club Residencial.
+                            {t("intro")}
                         </p>
                     </motion.div>
 

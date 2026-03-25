@@ -3,9 +3,11 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { useHasVisited } from "@/hooks/useHasVisited";
+import { useTranslations } from "next-intl";
 
 export default function Exclusivity() {
     const hasVisited = useHasVisited();
+    const tx = useTranslations("exclusivity");
 
     return (
         <section className="relative overflow-hidden">
@@ -13,7 +15,7 @@ export default function Exclusivity() {
             <div className="absolute inset-0">
                 <Image
                     src="/babylon/banner-4.webp"
-                    alt="Don Diego — Exclusividad"
+                    alt={tx("imageAlt")}
                     fill
                     className="object-cover"
                     sizes="100vw"
@@ -34,10 +36,10 @@ export default function Exclusivity() {
                             fontSize: "clamp(1.85rem, 3.2vw, 2.75rem)",
                         }}
                     >
-                        Una invitación a pertenecer
+                        {tx("title1")}
                         <br />
-                        a algo{" "}
-                        <em className="text-[#AA7D69]">extraordinario.</em>
+                        {tx("title2")}{" "}
+                        <em className="text-[#AA7D69]">{tx("titleEm")}</em>
                     </motion.h2>
 
                     <motion.p
@@ -48,7 +50,7 @@ export default function Exclusivity() {
                         className="text-[#222222]/55 text-base lg:text-lg leading-[1.85] max-w-sm"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
-                        Un espacio que se comparte en privado.
+                        {tx("subtitle")}
                     </motion.p>
                 </div>
             </div>

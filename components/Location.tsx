@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Home, Anchor, Leaf, Activity } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 const LocationVideo = () => (
     <video
@@ -18,7 +20,14 @@ const LocationVideo = () => (
     />
 );
 
-const DesktopLocationImages = () => (
+function DesktopLocationImages({
+    centroLabel,
+    centroSub,
+}: {
+    centroLabel: string;
+    centroSub: string;
+}) {
+    return (
     <>
         <motion.div
             className="hidden lg:block absolute -top-20 -right-6 xl:-right-16 w-68 aspect-[3/4] z-10 pointer-events-none"
@@ -28,15 +37,23 @@ const DesktopLocationImages = () => (
                 <LocationVideo />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#222]/80 via-transparent to-transparent opacity-80"></div>
                 <div className="absolute bottom-3 left-3 z-10">
-                    <p className="text-white text-sm font-bold leading-tight">Centro Histórico</p>
-                    <p className="text-[#E1B19B] text-[10px] uppercase tracking-wide">Encanto Colonial</p>
+                    <p className="text-white text-sm font-bold leading-tight">{centroLabel}</p>
+                    <p className="text-[#E1B19B] text-[10px] uppercase tracking-wide">{centroSub}</p>
                 </div>
             </div>
         </motion.div>
     </>
-);
+    );
+}
 
-const MobileLocationImages = () => (
+function MobileLocationImages({
+    centroLabel,
+    centroSub,
+}: {
+    centroLabel: string;
+    centroSub: string;
+}) {
+    return (
     <div className="absolute -bottom-32 right-4 flex lg:hidden items-start gap-2 z-40 pointer-events-none translate-x-4 outline-none">
         <motion.div
             className="w-48 aspect-[3/4] shadow-2xl relative z-40 origin-bottom translate-y-6"
@@ -46,15 +63,17 @@ const MobileLocationImages = () => (
                 <LocationVideo />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#222]/80 via-[#222]/30 to-transparent"></div>
                 <div className="absolute bottom-2 left-2 z-10 w-[calc(100%-16px)]">
-                    <p className="text-white text-xs font-bold leading-tight truncate">Centro Histórico</p>
-                    <p className="text-[#E1B19B] text-[8px] uppercase tracking-wide truncate">Encanto Colonial</p>
+                    <p className="text-white text-xs font-bold leading-tight truncate">{centroLabel}</p>
+                    <p className="text-[#E1B19B] text-[8px] uppercase tracking-wide truncate">{centroSub}</p>
                 </div>
             </div>
         </motion.div>
     </div>
-);
+    );
+}
 
 export default function Location() {
+    const t = useTranslations("locationSection");
     const [activePin, setActivePin] = useState<string | null>(null);
 
     const togglePin = (pinId: string) => {
@@ -76,7 +95,7 @@ export default function Location() {
                             className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [El Lugar]
+                            {t("kicker")}
                         </p>
                         <h2
                             className="text-[#222] leading-none"
@@ -85,7 +104,7 @@ export default function Location() {
                                 fontSize: "clamp(3rem, 6vw, 6rem)",
                             }}
                         >
-                            Cerca de todo
+                            {t("title1")}
                         </h2>
                         <h2
                             className="text-[#AA7D69]/90 italic"
@@ -94,7 +113,7 @@ export default function Location() {
                                 fontSize: "clamp(3rem, 6vw, 6rem)",
                             }}
                         >
-                            Lejos de lo común
+                            {t("title2")}
                         </h2>
                     </motion.div>
                     <motion.p
@@ -105,7 +124,7 @@ export default function Location() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.15 }}
                     >
-                        Un santuario de vida consciente donde el lujo se encuentra con la naturaleza. Conectado al vibrante corazón de la ciudad, pero resguardado en la tranquilidad.
+                        {t("body")}
                     </motion.p>
                 </div>
 
@@ -229,7 +248,7 @@ export default function Location() {
                                     </div>
                                 </div>
                                 <div className={`absolute bottom-full mb-2 md:mb-3 left-1/2 -translate-x-1/2 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[240px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:p-4 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-bottom text-center ${activePin === "organic-farm" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"} group-hover/pin:opacity-100 group-hover/pin:-translate-y-0 group-hover/pin:scale-100`}>
-                                    <h4 className="text-[#222] font-bold text-[10px] leading-tight md:text-sm mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">Organic Farm & Flowers</h4>
+                                    <h4 className="text-[#222] font-bold text-[10px] leading-tight md:text-sm mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">{t("pinFarm")}</h4>
                                     {/* <p className="text-[#C4A3A4] text-xs leading-relaxed font-semibold">Organic Farm & Flowers</p> */}
                                 </div>
                             </motion.div>
@@ -252,7 +271,7 @@ export default function Location() {
                                     </div>
                                 </div>
                                 <div className={`absolute bottom-full mb-2 md:mb-3 left-1/2 -translate-x-1/2 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[240px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:p-4 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-bottom text-center ${activePin === "club-residencial" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"} group-hover/pin:opacity-100 group-hover/pin:-translate-y-0 group-hover/pin:scale-100`}>
-                                    <h4 className="text-[#222] font-bold text-[10px] leading-tight md:text-sm mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">Club Residencial</h4>
+                                    <h4 className="text-[#222] font-bold text-[10px] leading-tight md:text-sm mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">{t("pinResidencial")}</h4>
                                     {/* <p className="text-[#C99580] text-xs leading-relaxed font-semibold">Club Residencial</p> */}
                                 </div>
                             </motion.div>
@@ -275,7 +294,7 @@ export default function Location() {
                                     </div>
                                 </div>
                                 <div className={`absolute top-full mt-2 md:top-auto md:bottom-full md:mt-0 md:mb-3 left-1/2 -translate-x-1/2 md:left-auto md:right-0 md:translate-x-0 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[240px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:p-4 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-top md:origin-bottom-right text-center md:text-right ${activePin === "wellness-center" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-2 md:translate-y-2 scale-95"} group-hover/pin:opacity-100 group-hover/pin:translate-y-0 group-hover/pin:scale-100`}>
-                                    <h4 className="text-[#222] font-bold text-[10px] leading-tight md:text-sm mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">Wellness Center</h4>
+                                    <h4 className="text-[#222] font-bold text-[10px] leading-tight md:text-sm mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">{t("pinWellness")}</h4>
                                     {/* <p className="text-[#B5B588] text-xs leading-relaxed font-semibold">Wellness Center</p> */}
                                 </div>
                             </motion.div>
@@ -298,7 +317,7 @@ export default function Location() {
                                     </div>
                                 </div>
                                 <div className={`absolute bottom-full mb-2 md:mb-3 right-0 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[240px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:p-4 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-bottom-right text-right ${activePin === "presa-cantera" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"} group-hover/pin:opacity-100 group-hover/pin:-translate-y-0 group-hover/pin:scale-100`}>
-                                    <h4 className="text-[#222] font-bold text-[10px] leading-tight md:text-sm mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">Presa de la Cantera</h4>
+                                    <h4 className="text-[#222] font-bold text-[10px] leading-tight md:text-sm mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">{t("pinPresa")}</h4>
                                     {/* <p className="text-[#8FC0DA] text-xs leading-relaxed font-semibold">Cuerpo de Agua / Marina</p> */}
                                 </div>
                             </motion.div>
@@ -319,7 +338,7 @@ export default function Location() {
                                 <h3
                                     className="text-[#222] text-sm font-bold uppercase tracking-widest"
                                 >
-                                    Proximidad
+                                    {t("proximityTitle")}
                                 </h3>
                             </div>
                             <motion.ul
@@ -346,13 +365,13 @@ export default function Location() {
                                             className="text-[#222] font-bold text-xl leading-none mb-1"
                                             style={{ fontFamily: 'var(--font-serif)' }}
                                         >
-                                            10 Min
+                                            {t("p1Time")}
                                         </h4>
                                         <p className="text-[#AA7D69] text-sm font-medium mb-1">
-                                            Fábrica La Aurora
+                                            {t("p1Name")}
                                         </p>
                                         <p className="text-[#222]/60 text-xs">
-                                            Centro de arte y diseño.
+                                            {t("p1Desc")}
                                         </p>
                                     </div>
                                 </motion.li>
@@ -370,13 +389,13 @@ export default function Location() {
                                             className="text-[#222] font-bold text-xl leading-none mb-1"
                                             style={{ fontFamily: 'var(--font-serif)' }}
                                         >
-                                            8 Min
+                                            {t("p2Time")}
                                         </h4>
                                         <p className="text-[#AA7D69] text-sm font-medium mb-1">
-                                            Centro Histórico
+                                            {t("p2Name")}
                                         </p>
                                         <p className="text-[#222]/60 text-xs">
-                                            Corazón de la ciudad, restaurantes y cultura.
+                                            {t("p2Desc")}
                                         </p>
                                     </div>
                                 </motion.li>
@@ -394,35 +413,35 @@ export default function Location() {
                                             className="text-[#222] font-bold text-xl leading-none mb-1"
                                             style={{ fontFamily: 'var(--font-serif)' }}
                                         >
-                                            5 Min
+                                            {t("p3Time")}
                                         </h4>
                                         <p className="text-[#AA7D69] text-sm font-medium mb-1">
-                                            Mercados Orgánicos
+                                            {t("p3Name")}
                                         </p>
                                         <p className="text-[#222]/60 text-xs">
-                                            Productos locales y comunidad.
+                                            {t("p3Desc")}
                                         </p>
                                     </div>
                                 </motion.li>
                             </motion.ul>
                             <div className="md:mt-8 mt-2 md:pt-6 pt-4 border-t border-[#AA7D69]/10">
-                                <a
+                                <Link
                                     className="inline-flex items-center gap-2 text-[#AA7D69] hover:text-[#222] transition-colors text-sm font-bold uppercase tracking-wider group/link"
                                     href="/ubicacion"
                                 >
-                                    Ver más
+                                    {t("seeMore")}
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor" className="text-lg group-hover/link:translate-x-1 transition-transform"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" /></svg>
-                                </a>
+                                </Link>
                             </div>
                         </div>
 
                         {/* Images attached cleanly to the bottom right on mobile */}
-                        <MobileLocationImages />
+                        <MobileLocationImages centroLabel={t("centroLabel")} centroSub={t("centroSub")} />
                     </motion.div>
 
                     {/* Render Desktop images outside of the map's overflow-hidden */}
                     <div className="absolute top-0 right-0 w-full h-full pointer-events-none z-10 hidden lg:block max-w-5xl mx-auto">
-                        <DesktopLocationImages />
+                        <DesktopLocationImages centroLabel={t("centroLabel")} centroSub={t("centroSub")} />
                     </div>
                 </motion.div>
 

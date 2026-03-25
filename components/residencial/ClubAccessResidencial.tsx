@@ -26,7 +26,7 @@ export default function ClubAccessResidencial() {
                         className="max-w-xl lg:max-w-none"
                     >
                         <p
-                            className="text-[10px] tracking-[0.3em] text-[#C28E7A] uppercase mb-4"
+                            className="text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase mb-4"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             [COMUNIDAD]
@@ -39,10 +39,10 @@ export default function ClubAccessResidencial() {
                                 fontSize: "clamp(2rem, 4vw, 3.35rem)",
                             }}
                         >
-                            Ser dueño es formar parte de la comunidad
+                            Ser dueño es formar parte de la <span className="italic text-[#b76d4b]">comunidad</span>
                         </h2>
                         <p
-                            className="mt-4 text-[#C28E7A]/95 italic"
+                            className="mt-4 text-[#b76d4b]/95 italic"
                             style={{
                                 fontFamily: "var(--font-serif)",
                                 fontSize: "clamp(1.2rem, 2vw, 1.65rem)",
@@ -67,7 +67,7 @@ export default function ClubAccessResidencial() {
                         >
                             <Link
                                 href="/experiencias"
-                                className="inline-block text-[#FFF3E1] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#FFF3E1]/70 pb-1 hover:opacity-70 transition-opacity"
+                                className="inline-block text-[#FFF3E1] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#b76d4b]/70 pb-1 hover:opacity-70 transition-opacity"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 EXPLORAR LAS EXPERIENCIAS

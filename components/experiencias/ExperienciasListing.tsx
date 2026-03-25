@@ -52,10 +52,21 @@ function getGridColumnCount(): number {
     return 3;
 }
 
+/** Tailwind `sm` breakpoint: mobile = below 640px */
+const MOBILE_MQ = "(max-width: 639px)";
+
+function allItemIds(items: ExperienciaItem[]): Set<string> {
+    return new Set(items.map((i) => i.id));
+}
+
 export default function ExperienciasListing() {
     const hasVisited = useHasVisited();
     const baseId = useId();
     const [openIds, setOpenIds] = useState<Set<string>>(new Set());
+    const [isMobile, setIsMobile] = useState(false);
+    const [activeId, setActiveId] = useState<string | null>(null);
+    /** Mobile: how “centered” the active card is in the viewport band (0–1), drives border/shadow strength while scrolling. */
+    const [mobileFocusStrength, setMobileFocusStrength] = useState(0);
     const columnCountRef = useRef(getGridColumnCount());
     /** Measure only image + title row — excludes expanding panel so height doesn’t feed back into scroll scoring. */
     const anchorRefs = useRef<Map<string, HTMLDivElement | null>>(new Map());
@@ -63,8 +74,10 @@ export default function ExperienciasListing() {
     const scrollTickingRef = useRef(false);
     const skipLayoutPauseRef = useRef(true);
 
+    /** Desktop/tablet: reset row-open state when column count changes. Mobile handled by matchMedia effect. */
     useEffect(() => {
         const onResize = () => {
+            if (typeof window !== "undefined" && window.matchMedia(MOBILE_MQ).matches) return;
             const c = getGridColumnCount();
             if (c !== columnCountRef.current) {
                 columnCountRef.current = c;
@@ -271,6 +284,26 @@ export default function ExperienciasListing() {
         [],
     );
 
+    /** Mobile: keep all descriptions open; leaving mobile clears row state for scroll sync. useLayoutEffect avoids one paint of wrong (collapsed) state. */
+    useLayoutEffect(() => {
+        const mq = window.matchMedia(MOBILE_MQ);
+        const syncMobileLayout = () => {
+            const mobile = mq.matches;
+            setIsMobile(mobile);
+            columnCountRef.current = getGridColumnCount();
+            if (mobile) {
+                setOpenIds(allItemIds(items));
+            } else {
+                setActiveId(null);
+                setMobileFocusStrength(0);
+                setOpenIds(new Set());
+            }
+        };
+        syncMobileLayout();
+        mq.addEventListener("change", syncMobileLayout);
+        return () => mq.removeEventListener("change", syncMobileLayout);
+    }, [items]);
+
     const getRowItemIds = useCallback(
         (itemId: string): string[] => {
             const cols = columnCountRef.current;
@@ -310,6 +343,33 @@ export default function ExperienciasListing() {
             }
         }
 
+        if (typeof window !== "undefined" && window.matchMedia(MOBILE_MQ).matches) {
+            const nextActive = winner?.id ?? null;
+            let nextStrength = 0;
+            if (winner) {
+                const el = anchorRefs.current.get(winner.id);
+                if (el) {
+                    const r = el.getBoundingClientRect();
+                    const overlapTop = Math.max(r.top, bandTop);
+                    const overlapBottom = Math.min(r.bottom, bandBottom);
+                    const overlap = Math.max(0, overlapBottom - overlapTop);
+                    const bandH = bandBottom - bandTop;
+                    const overlapT =
+                        bandH > 0 ? Math.min(1, overlap / Math.min(Math.max(r.height, 1), bandH)) : 0;
+                    const cardCenterY = r.top + r.height / 2;
+                    const dist = Math.abs(cardCenterY - bandCenterY);
+                    const falloff = vh * 0.32;
+                    const centerT = falloff > 0 ? Math.max(0, 1 - dist / falloff) : 0;
+                    nextStrength = Math.max(0, Math.min(1, overlapT * 0.45 + centerT * 0.55));
+                }
+            }
+            setActiveId((prev) => (prev === nextActive ? prev : nextActive));
+            setMobileFocusStrength((prev) =>
+                Math.abs(prev - nextStrength) < 0.02 ? prev : nextStrength,
+            );
+            return;
+        }
+
         const nextIds = winner === null ? new Set<string>() : new Set(getRowItemIds(winner.id));
         setOpenIds((prev) => {
             if (prev.size === nextIds.size && [...prev].every((id) => nextIds.has(id))) return prev;
@@ -317,8 +377,9 @@ export default function ExperienciasListing() {
         });
     }, [items, getRowItemIds]);
 
-    /** After any open state commit, briefly ignore scroll so browser scroll-anchoring / layout doesn’t re-enter the scorer. */
+    /** After any open state commit, briefly ignore scroll so browser scroll-anchoring / layout doesn’t re-enter the scorer. (Desktop row expand/collapse only.) */
     useLayoutEffect(() => {
+        if (typeof window !== "undefined" && window.matchMedia(MOBILE_MQ).matches) return;
         if (skipLayoutPauseRef.current) {
             skipLayoutPauseRef.current = false;
             return;
@@ -392,12 +453,55 @@ export default function ExperienciasListing() {
                     {items.map((item) => {
                         const isOpen = openIds.has(item.id);
                         const panelId = `${baseId}-${item.id}-panel`;
+                        const isFocusedMobile = isMobile && activeId === item.id;
+                        const isDimmedMobile = isMobile && activeId !== null && activeId !== item.id;
 
                         return (
-                            <div
+                            <motion.div
                                 key={item.id}
-                                className="bg-[#F6F0E8] p-2.5 sm:p-3 md:p-3.5 lg:p-4 flex flex-col min-w-0 w-full"
+                                className={[
+                                    "bg-[#F6F0E8] p-2.5 sm:p-3 md:p-3.5 lg:p-4 flex flex-col min-w-0 w-full relative",
+                                    isFocusedMobile ? "z-[2]" : isMobile ? "z-0" : "",
+                                ]
+                                    .filter(Boolean)
+                                    .join(" ")}
+                                animate={
+                                    isMobile
+                                        ? { opacity: isDimmedMobile ? 0.9 : 1 }
+                                        : { opacity: 1 }
+                                }
+                                transition={{
+                                    opacity: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+                                }}
                             >
+                                {isMobile && (
+                                    <motion.div
+                                        aria-hidden
+                                        className="pointer-events-none absolute inset-0 z-[1]"
+                                        initial={false}
+                                        style={{
+                                            boxShadow:
+                                                "inset 0 0 0 1px rgba(170, 125, 105, 0.2), 0 12px 36px rgba(34, 34, 34, 0.06)",
+                                        }}
+                                        animate={{
+                                            opacity: isFocusedMobile ? mobileFocusStrength : 0,
+                                            scale: isFocusedMobile ? 1 : 0.992,
+                                        }}
+                                        transition={{
+                                            opacity: {
+                                                type: "spring",
+                                                stiffness: 220,
+                                                damping: 26,
+                                                mass: 0.55,
+                                            },
+                                            scale: {
+                                                type: "spring",
+                                                stiffness: 260,
+                                                damping: 32,
+                                            },
+                                        }}
+                                    />
+                                )}
                                 <div
                                     ref={(el) => {
                                         if (el) anchorRefs.current.set(item.id, el);
@@ -418,6 +522,7 @@ export default function ExperienciasListing() {
                                         <button
                                             type="button"
                                             onClick={() => {
+                                                if (isMobile) return;
                                                 scrollSyncPausedUntilRef.current = Date.now() + 900;
                                                 const rowIds = getRowItemIds(item.id);
                                                 setOpenIds((prev) => {
@@ -437,7 +542,7 @@ export default function ExperienciasListing() {
                                                     : `Abrir descripción de ${item.title}`
                                             }
                                             className={[
-                                                "shrink-0 mt-px flex h-7 w-7 items-center justify-center rounded-full",
+                                                "hidden sm:flex shrink-0 mt-px h-7 w-7 items-center justify-center rounded-full",
                                                 "bg-[#111111] text-white shadow-[0_1px_0_rgba(255,255,255,0.06)_inset]",
                                                 "transition-[transform,background-color,box-shadow] duration-200",
                                                 "hover:bg-black hover:shadow-[0_6px_16px_rgba(0,0,0,0.16)]",
@@ -456,31 +561,46 @@ export default function ExperienciasListing() {
                                     </div>
                                 </div>
 
-                                <AnimatePresence initial={false}>
-                                    {isOpen && (
-                                        <motion.div
-                                            id={panelId}
-                                            role="region"
-                                            aria-labelledby={`${baseId}-${item.id}-title`}
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: "auto", opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            transition={{
-                                                height: { duration: 0.32, ease: [0.25, 0.46, 0.45, 0.94] },
-                                                opacity: { duration: 0.22 },
-                                            }}
-                                            className="overflow-hidden"
+                                {isMobile ? (
+                                    <div
+                                        id={panelId}
+                                        role="region"
+                                        aria-labelledby={`${baseId}-${item.id}-title`}
+                                    >
+                                        <p
+                                            className="pt-2.5 text-[13px] sm:text-[14px] leading-relaxed text-[#222]/72 border-t border-[#222222]/[0.08] mt-2.5"
+                                            style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                                         >
-                                            <p
-                                                className="pt-2.5 text-[13px] sm:text-[14px] leading-relaxed text-[#222]/72 border-t border-[#222222]/[0.08] mt-2.5"
-                                                style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
+                                            {item.description}
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <AnimatePresence initial={false}>
+                                        {isOpen && (
+                                            <motion.div
+                                                id={panelId}
+                                                role="region"
+                                                aria-labelledby={`${baseId}-${item.id}-title`}
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: "auto", opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                transition={{
+                                                    height: { duration: 0.32, ease: [0.25, 0.46, 0.45, 0.94] },
+                                                    opacity: { duration: 0.22 },
+                                                }}
+                                                className="overflow-hidden"
                                             >
-                                                {item.description}
-                                            </p>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
+                                                <p
+                                                    className="pt-2.5 text-[13px] sm:text-[14px] leading-relaxed text-[#222]/72 border-t border-[#222222]/[0.08] mt-2.5"
+                                                    style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
+                                                >
+                                                    {item.description}
+                                                </p>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                )}
+                            </motion.div>
                         );
                     })}
                 </motion.div>

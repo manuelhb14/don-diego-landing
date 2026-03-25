@@ -2,9 +2,10 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { MapPin } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function Hero() {
+    const th = useTranslations("hero");
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -49,7 +50,7 @@ export default function Hero() {
                     className="text-sm tracking-[0.3em] text-[#FFF3E1] uppercase mb-6 lg:mb-8"
                     style={{ fontFamily: "var(--font-sans)" }}
                 >
-                    [DESARROLLO RESIDENCIAL]
+                    {th("eyebrow")}
                 </motion.p>
 
                 {/* Title Animation */}
@@ -237,8 +238,9 @@ export default function Hero() {
                     className="mt-6 lg:mt-4 max-w-md"
                 >
                     <p className="text-[#FFF3E1] text-xl font-medium leading-relaxed mb-4" style={{ fontFamily: "var(--font-serif)" }}>
-                        Un santuario donde la arquitectura se encuentra con la naturaleza.
-                        Diseñado para una vida en conexión.
+                        {th("bodyLine1")}
+                        <br />
+                        {th("bodyLine2")}
                     </p>
                     <motion.a
                         href="#proyecto"
@@ -251,7 +253,7 @@ export default function Hero() {
                             className="text-[11px] tracking-[0.2em] text-[#FFF3E1] uppercase"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            Explorar
+                            {th("explore")}
                         </span>
                         <span className="h-px w-8 bg-[#FFF3E1]/40 group-hover:w-12 transition-all duration-500" />
                     </motion.a>

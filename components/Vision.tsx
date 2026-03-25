@@ -3,14 +3,15 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useHasVisited } from "@/hooks/useHasVisited";
+import { useTranslations } from "next-intl";
 
-const YOUTUBE_ID = "gwCrUvxT7-0";
+const YOUTUBE_ID = "CHq0Rr4-Cv8";
 
-function PlayButton({ onClick }: { onClick: () => void }) {
+function PlayButton({ onClick, ariaLabel }: { onClick: () => void; ariaLabel: string }) {
     return (
         <button
             onClick={onClick}
-            aria-label="Reproducir presentación"
+            aria-label={ariaLabel}
             className="group absolute inset-0 z-10 flex items-center justify-center focus-visible:outline-none"
         >
             {/* Outer ring pulse */}
@@ -35,6 +36,7 @@ function PlayButton({ onClick }: { onClick: () => void }) {
 export default function Vision() {
     const hasVisited = useHasVisited();
     const [playing, setPlaying] = useState(false);
+    const tv = useTranslations("vision");
 
     return (
         <section className="bg-[#EDE5DA] overflow-hidden">
@@ -51,7 +53,7 @@ export default function Vision() {
                             className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-4"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [Presentación]
+                            {tv("kicker")}
                         </p>
                         <h2
                             className="text-[#222222] leading-[0.95]"
@@ -60,8 +62,8 @@ export default function Vision() {
                                 fontSize: "clamp(2.75rem, 5.6vw, 5.5rem)",
                             }}
                         >
-                            Descubre{" "}
-                            <em className="text-[#AA7D69]">Don Diego</em>
+                            {tv("titleDiscover")}{" "}
+                            <em className="text-[#AA7D69]">{tv("titleName")}</em>
                         </h2>
                     </motion.div>
 
@@ -73,9 +75,7 @@ export default function Vision() {
                         className="text-[#222222]/70 text-[15px] md:text-[17px] lg:text-lg leading-[1.8] max-w-md md:text-right"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
-                        Un recorrido por la visión, el entorno y los componentes
-                        que dan forma a este proyecto residencial en San Miguel
-                        de Allende.
+                        {tv("body")}
                     </motion.p>
                 </div>
 
@@ -91,7 +91,7 @@ export default function Vision() {
                         {playing ? (
                             <iframe
                                 src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&rel=0&modestbranding=1&color=white`}
-                                title="Don Diego — Presentación"
+                                title={tv("iframeTitle")}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowFullScreen
                                 className="absolute inset-0 w-full h-full"
@@ -100,13 +100,13 @@ export default function Vision() {
                             <>
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
-                                    src={`https://i.ytimg.com/vi/${YOUTUBE_ID}/maxresdefault.jpg`}
-                                    alt="Don Diego — Presentación del proyecto"
+                                    src="/video_photo.webp"
+                                    alt={tv("thumbAlt")}
                                     className="absolute inset-0 w-full h-full object-cover"
                                     loading="lazy"
                                 />
                                 <div className="absolute inset-0 bg-black/25" />
-                                <PlayButton onClick={() => setPlaying(true)} />
+                                <PlayButton onClick={() => setPlaying(true)} ariaLabel={tv("playAria")} />
 
                                 {/* Bottom-left label */}
                                 <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 z-10 flex items-center gap-3">
@@ -115,7 +115,7 @@ export default function Vision() {
                                         className="text-white/55 text-[10px] md:text-[11px] tracking-[0.2em] uppercase"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
-                                        Presentación del proyecto
+                                        {tv("videoLabel")}
                                     </p>
                                 </div>
                             </>

@@ -3,8 +3,10 @@
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 
 export default function Manifesto() {
+    const tm = useTranslations("manifesto");
     const containerRef = useRef<HTMLElement>(null);
     const shouldReduceMotion = useReducedMotion();
     const { scrollYProgress: textScrollProgress } = useScroll({
@@ -85,7 +87,7 @@ export default function Manifesto() {
             id="proyecto"
             ref={containerRef}
             className="relative bg-[#fff8ed] w-full"
-            style={{ height: "320vh" }} // Slightly shorter so the animation progresses faster
+            style={{ height: "200vh" }} // Slightly shorter so the animation progresses faster
         >
             <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
 
@@ -128,7 +130,7 @@ export default function Manifesto() {
                         className="text-[10px] tracking-[0.3em] text-[#AA7D69] uppercase mb-8"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Qué nos define]
+                        {tm("kicker")}
                     </p>
 
                     <h2
@@ -138,8 +140,8 @@ export default function Manifesto() {
                             fontSize: "clamp(3.5rem, 8vw, 8rem)",
                         }}
                     >
-                        Arraigado en <br />
-                        <span className="italic text-[#6e5947]">San Miguel</span>
+                        {tm("titleRooted")} <br />
+                        <span className="italic text-[#6e5947]">{tm("titlePlace")}</span>
                     </h2>
 
                     <div
@@ -150,13 +152,13 @@ export default function Manifesto() {
                         }}
                     >
                         <motion.p className="text-[#6F7F52] italic self-start ml-4 md:ml-12" style={{ opacity: tierraOpacity }}>
-                            Con la Tierra.
+                            {tm("lineEarth")}
                         </motion.p>
                         <motion.p className="text-[#6F7F52] italic self-center" style={{ opacity: comunidadOpacity }}>
-                            Con la Comunidad.
+                            {tm("lineCommunity")}
                         </motion.p>
                         <motion.p className="text-[#6F7F52] italic self-end mr-4 md:mr-12" style={{ opacity: mismoOpacity }}>
-                            Con uno Mismo.
+                            {tm("lineSelf")}
                         </motion.p>
                     </div>
                 </motion.div>

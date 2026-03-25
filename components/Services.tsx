@@ -4,9 +4,12 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { Link } from "@/i18n/navigation";
 import { useHasVisited } from "@/hooks/useHasVisited";
+import { useTranslations } from "next-intl";
 
 export default function Services() {
     const hasVisited = useHasVisited();
+    const ts = useTranslations("servicesPage");
+    const tp = useTranslations("project");
     return (
         <section id="services" className="bg-[#fff8ed] text-[#222222] overflow-hidden relative">
             <div className="max-w-[1440px] mx-auto w-full py-12 lg:pt-24 px-6 md:px-10 lg:px-16 flex flex-col">
@@ -23,7 +26,7 @@ export default function Services() {
                             className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [COMPONENTES]
+                            {ts("kicker")}
                         </p>
                         <h2
                             className="text-[#222] leading-none"
@@ -32,7 +35,7 @@ export default function Services() {
                                 fontSize: "clamp(3rem, 6vw, 6rem)"
                             }}
                         >
-                            El Proyecto
+                            {ts("heading")}
                         </h2>
                     </motion.div>
 
@@ -44,8 +47,7 @@ export default function Services() {
                         className="hidden lg:flex"
                     >
                         <p className="text-[#222]/80 text-base leading-[1.8] font-normal tracking-[0.01em] w-[350px] text-right font-serif">
-                            Don Diego Club Residencial se estructura en torno a cuatro componentes con
-                            identidad propia, integrados en una visión coherente de comunidad y territorio.
+                            {ts("intro")}
                         </p>
                     </motion.div>
                 </div>
@@ -59,8 +61,7 @@ export default function Services() {
                     className="flex lg:hidden mb-8 md:mb-16"
                 >
                     <p className="text-[#222]/80 text-lg leading-[1.8] font-normal tracking-[0.01em] w-full font-serif">
-                        Don Diego Club Residencial se estructura en torno a cuatro componentes con
-                        identidad propia, integrados en una visión coherente de comunidad y territorio.
+                        {ts("intro")}
                     </p>
                 </motion.div>
 
@@ -79,7 +80,7 @@ export default function Services() {
                             <Link href="/residencial" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
                                     src="/babylon/club-residencial.webp"
-                                    alt="Club Residencial"
+                                    alt={tp("residencial.name")}
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-105"
                                 />
@@ -89,7 +90,7 @@ export default function Services() {
                                         className="text-white text-[10px] xl:text-[11px] font-medium uppercase tracking-[0.15em] leading-snug drop-shadow-md"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
-                                        CLUB<br />RESIDENCIAL
+                                        {ts("cardClubL1")}<br />{ts("cardClubL2")}
                                     </h3>
                                 </div>
                             </Link>
@@ -106,7 +107,7 @@ export default function Services() {
                             <Link href="/farm" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
                                     src="/babylon/organic-farm.webp"
-                                    alt="Organic Farm"
+                                    alt={tp("farm.name")}
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-[1.03]"
                                 />
@@ -116,7 +117,7 @@ export default function Services() {
                                         className="text-white text-[10px] xl:text-[11px] font-medium uppercase tracking-[0.15em] leading-snug drop-shadow-md"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
-                                        ORGANIC<br />FARM
+                                        {ts("cardFarmL1")}<br />{ts("cardFarmL2")}
                                     </h3>
                                 </div>
                             </Link>
@@ -133,7 +134,7 @@ export default function Services() {
                             <Link href="/wellness" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
                                     src="/babylon/wellness-center.webp"
-                                    alt="Wellness Center"
+                                    alt={tp("wellness.name")}
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-105"
                                 />
@@ -143,7 +144,7 @@ export default function Services() {
                                         className="text-white text-[10px] xl:text-[11px] font-medium uppercase tracking-[0.15em] leading-snug drop-shadow-md"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
-                                        WELLNESS<br />CENTER
+                                        {ts("cardWellnessL1")}<br />{ts("cardWellnessL2")}
                                     </h3>
                                 </div>
                             </Link>
@@ -160,7 +161,7 @@ export default function Services() {
                             <Link href="/presa" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
                                     src="/babylon/presa-de-la-cantera.webp"
-                                    alt="Presa de la Cantera"
+                                    alt={tp("presa.name")}
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-[1.03]"
                                 />
@@ -170,7 +171,7 @@ export default function Services() {
                                         className="text-white text-[10px] xl:text-[11px] font-medium uppercase tracking-[0.15em] leading-snug drop-shadow-md"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
-                                        PRESA DE LA<br />CANTERA
+                                        {ts("cardPresaL1")}<br />{ts("cardPresaL2")}
                                     </h3>
                                 </div>
                             </Link>
@@ -188,16 +189,14 @@ export default function Services() {
                             className="w-full sm:w-[60%] lg:w-[50%] flex flex-col items-end"
                         >
                             <p className="text-[#222] text-xl font-medium leading-relaxed mb-4" style={{ fontFamily: "var(--font-serif)" }}>
-                                Cada componente ha sido diseñado a partir de una premisa clara: crear un
-                                entorno residencial que dialogue con el alma de San Miguel de Allende,
-                                reinterpretándola con sensibilidad contemporánea.
+                                    {ts("closing")}
                             </p>
                             <Link
                                 href="/proyecto"
                                 className="inline-block text-[#222] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#222] pb-1 hover:opacity-60 transition-opacity"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
-                                EXPLORAR EL DESARROLLO
+                                {ts("cta")}
                             </Link>
                         </motion.div>
                     </div>

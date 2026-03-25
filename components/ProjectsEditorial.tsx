@@ -1,76 +1,28 @@
 "use client";
 
 import Image from "next/image";
+import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
-const editorialProjects = [
-    {
-        id: 1,
-        eyebrow: "Club residencial",
-        title: "Club Residencial",
-        accent: "#c68b70",
-        accentSoft: "#ead7cc",
-        description:
-            "364 residencias en un entorno 100% peatonal con casa club, restaurantes, spa, deportes y amenidades de primer nivel.",
-        supporting:
-            "Una comunidad concebida para caminar, convivir y vivir con mayor calma en contacto con el paisaje.",
-        details: ["364 residencias", "100% peatonal", "Casa club, spa y restaurantes"],
-        image: "/images/renders/render-5.png",
-        href: "/residencial",
-        cta: "Conocer más",
-    },
-    {
-        id: 2,
-        eyebrow: "Organic farm & flowers",
-        title: "Organic Farm & Flowers",
-        accent: "#b77c7e",
-        accentSoft: "#debebf",
-        description:
-            "Componente sostenible que recupera la vocación agrícola original con huertos orgánicos, frutales y flores de temporada.",
-        supporting:
-            "Un paisaje productivo que devuelve al proyecto su memoria agrícola y su relación cotidiana con la tierra.",
-        details: ["Huertos orgánicos", "Frutales de temporada", "Paisaje sostenible"],
-        image: "/images/renders/farm.jpg",
-        href: "/farm",
-        cta: "Explorar",
-    },
-    {
-        id: 3,
-        eyebrow: "Wellness center",
-        title: "Wellness Center",
-        accent: "#b8b267",
-        accentSoft: "#d7d7aa",
-        description:
-            "Centro especializado para rehabilitación, retiro activo y bienestar integral con acceso directo a la Presa Allende.",
-        supporting:
-            "Diseñado para una experiencia de retiro activo donde salud, descanso y naturaleza se integran en un mismo destino.",
-        details: ["Bienestar integral", "Retiro activo", "Acceso a Presa Allende"],
-        image: "/images/gallery/gallery-3.png",
-        href: "/wellness",
-        cta: "Descubrir",
-    },
-    {
-        id: 4,
-        eyebrow: "Presa de la cantera",
-        title: "Presa de la Cantera",
-        accent: "#7a8ea3",
-        accentSoft: "#dbe3ea",
-        description:
-            "Un gran espacio publico-privado que integra naturaleza, comunidad y vida social junto al agua.",
-        supporting:
-            "El borde del agua se convierte en un escenario para actividades recreativas, encuentros y vida comunitaria.",
-        details: ["Vida junto al agua", "Naturaleza y comunidad", "Espacio social activo"],
-        image: "/images/renders/presa-1.png",
-        href: "/presa",
-        cta: "Visitar",
-    },
-];
+export type EditorialProject = {
+    id: number;
+    title: string;
+    accent: string;
+    accentSoft: string;
+    description: string;
+    supporting: string;
+    details: string[];
+    image: string;
+    href: string;
+    cta: string;
+};
 
 function EditorialProjectRow({
     project,
     reverse,
 }: {
-    project: (typeof editorialProjects)[number];
+    project: EditorialProject;
     reverse: boolean;
 }) {
     return (
@@ -173,6 +125,61 @@ function EditorialProjectRow({
 }
 
 export default function ProjectsEditorial() {
+    const t = useTranslations("projectsEditorial");
+    const editorialProjects = useMemo<EditorialProject[]>(
+        () => [
+            {
+                id: 1,
+                title: t("residencial.title"),
+                accent: "#c68b70",
+                accentSoft: "#ead7cc",
+                description: t("residencial.description"),
+                supporting: t("residencial.supporting"),
+                details: [t("residencial.d1"), t("residencial.d2"), t("residencial.d3")],
+                image: "/images/renders/render-1.png",
+                href: "/residencial",
+                cta: t("residencial.cta"),
+            },
+            {
+                id: 2,
+                title: t("farm.title"),
+                accent: "#b77c7e",
+                accentSoft: "#debebf",
+                description: t("farm.description"),
+                supporting: t("farm.supporting"),
+                details: [t("farm.d1"), t("farm.d2"), t("farm.d3")],
+                image: "/babylon/organic-farm.jpeg",
+                href: "/farm",
+                cta: t("farm.cta"),
+            },
+            {
+                id: 3,
+                title: t("wellness.title"),
+                accent: "#b8b267",
+                accentSoft: "#d7d7aa",
+                description: t("wellness.description"),
+                supporting: t("wellness.supporting"),
+                details: [t("wellness.d1"), t("wellness.d2"), t("wellness.d3")],
+                image: "/images/gallery/gallery-3.png",
+                href: "/wellness",
+                cta: t("wellness.cta"),
+            },
+            {
+                id: 4,
+                title: t("presa.title"),
+                accent: "#7a8ea3",
+                accentSoft: "#dbe3ea",
+                description: t("presa.description"),
+                supporting: t("presa.supporting"),
+                details: [t("presa.d1"), t("presa.d2"), t("presa.d3")],
+                image: "/images/renders/presa-1.png",
+                href: "/presa",
+                cta: t("presa.cta"),
+            },
+        ],
+        [t],
+    );
+
     return (
         <section id="proyectos" className="bg-[#fff8ef] px-6 py-24 md:px-10 md:py-32 lg:px-16 lg:py-20">
             <div className="mx-auto max-w-[1280px]">

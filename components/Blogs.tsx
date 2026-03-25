@@ -6,10 +6,8 @@ import { useHasVisited } from "@/hooks/useHasVisited";
 import { useRef } from "react";
 import { Plus } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { useLocale } from "next-intl";
-import { formatPostDate, getAllPosts, isVideoSrc, type BlogPost } from "@/content/blogPosts";
-
-const posts = getAllPosts();
+import { useLocale, useTranslations } from "next-intl";
+import { formatPostDate, getAllPosts, isVideoSrc, type BlogPostView } from "@/content/blogPosts";
 
 function MediaCover({ src, alt }: { src: string; alt: string }) {
     if (isVideoSrc(src)) {
@@ -81,7 +79,7 @@ function PostCard({
     parallaxY,
     reduceMotion,
 }: {
-    post: BlogPost;
+    post: BlogPostView;
     locale: string;
     parallaxY: MotionValue<string>;
     reduceMotion: boolean;
@@ -148,6 +146,8 @@ function PostCard({
 
 export default function Blogs() {
     const locale = useLocale();
+    const tb = useTranslations("blogsHome");
+    const posts = getAllPosts(locale);
     const hasVisited = useHasVisited();
     const reduceMotion = useReducedMotion();
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -173,7 +173,7 @@ export default function Blogs() {
                             className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [Blog]
+                            {tb("kicker")}
                         </p>
                         <h2
                             className="text-[#222] leading-none"
@@ -182,7 +182,7 @@ export default function Blogs() {
                                 fontSize: "clamp(2.25rem, 4.6vw, 4rem)",
                             }}
                         >
-                            Historias & Experiencias
+                            {tb("title")}
                         </h2>
                     </motion.div>
 
@@ -194,7 +194,7 @@ export default function Blogs() {
                         className="text-[#222]/55 text-sm md:text-lg lg:text-xl leading-relaxed max-w-md"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
-                        Un cuaderno visual con momentos del entorno, las caminatas y lo cotidiano en Don Diego.
+                        {tb("subtitle")}
                     </motion.p>
                 </div>
 
@@ -272,7 +272,7 @@ export default function Blogs() {
                             className="inline-block text-[#222] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#222] pb-1 hover:opacity-60 transition-opacity"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            EXPLORAR EL BLOG
+                            {tb("cta")}
                         </Link>
                     </motion.div>
                 </div>

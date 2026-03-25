@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -22,8 +22,8 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { slug } = await params;
-    const post = getPostBySlug(slug);
+    const { slug, locale } = await params;
+    const post = getPostBySlug(slug, locale);
     if (!post) {
         return { title: "Blog" };
     }
@@ -52,7 +52,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BlogPostPage({ params }: Props) {
     const { locale, slug } = await params;
     setRequestLocale(locale);
-    const post = getPostBySlug(slug);
+    const t = await getTranslations("blogPage");
+    const post = getPostBySlug(slug, locale);
     if (!post) {
         notFound();
     }
@@ -68,7 +69,7 @@ export default async function BlogPostPage({ params }: Props) {
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         <ArrowLeft className="size-4" strokeWidth={1.5} />
-                        Volver al blog
+                        {t("backToBlog")}
                     </Link>
 
                     <header className="mb-8 md:mb-10">

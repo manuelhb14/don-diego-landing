@@ -27,7 +27,7 @@ export default function AmenitiesResidencial() {
                     className="mb-8 lg:mb-12 max-w-2xl text-center mx-auto"
                 >
                     <p
-                        className="text-[10px] tracking-[0.3em] text-[#C28E7A] uppercase mb-4"
+                        className="text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase mb-4"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         [AMENIDADES RESIDENCIALES]
@@ -39,7 +39,7 @@ export default function AmenitiesResidencial() {
                             fontSize: "clamp(2.5rem, 5vw, 4rem)",
                         }}
                     >
-                        Comunidad y Vida
+                        Comunidad y <span className="italic text-[#b76d4b]">vida</span>
                     </h2>
                 </motion.div>
 

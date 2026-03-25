@@ -2,29 +2,43 @@
 
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { useTranslations } from "next-intl";
 
-const galleryItems = [
-    { src: "/images/renders/render-1.png", alt: "Club Residencial", title: "CLUB RESIDENCIAL - DISEÑO ARQUITECTÓNICO", description: "Un espacio diseñado para la convivencia comunitaria, combinando el confort interior con vistas privilegiadas y un sofisticado mobiliario contemporáneo.", borderColor: "#8C7D6B" },
-    { src: "/images/gallery/gallery-1.png", alt: "Hogar", title: "HOGAR - MATERIALES Y TEXTURAS", description: "Específicamente diseñado para el confort y la convivencia, combinando la comodidad con la elegancia y la funcionalidad.", borderColor: "#9A6A4E" },
-    { src: "/images/gallery/gallery-4.png", alt: "Iluminación", title: "ILUMINACIÓN NATURAL - ACABADOS", description: "Acabados en tonos cálidos y detalles sutiles que aportan un ritmo táctil y un encanto atemporal a los interiores modernos.", borderColor: "#B58D6A" },
-    { src: "/images/renders/presa-1.png", alt: "Presa de la Cantera", title: "PRESA DE LA CANTERA - ENTORNO NATURAL", description: "Integración perfecta con el paisaje local, ofreciendo vistas inigualables a la presa y manteniendo un profundo respeto por la topografía de la zona.", borderColor: "#617983" },
-    { src: "/images/gallery/gallery-7.png", alt: "Paisaje", title: "EL PAISAJE - VEGETACIÓN ENDÉMICA", description: "Amplias áreas diseñadas para conectar orgánicamente con la naturaleza circundante, maximizando la serenidad del entorno exterior.", borderColor: "#6B7F53" },
-    { src: "/images/gallery/gallery-2.png", alt: "Espacios", title: "ESPACIOS FLUIDOS - ARMONÍA ESPACIAL", description: "Transiciones naturales entre las diferentes áreas del hogar, guiadas por una paleta de colores tierra y una excepcional artesanía en cada detalle.", borderColor: "#AC6F52" },
-    { src: "/images/renders/entrance.jpg", alt: "Entrada", title: "ACCESO PRINCIPAL - BIENVENIDA Y PRESENCIA", description: "Una entrada majestuosa que enmarca el inicio de la experiencia residencial, con una estructura que impone carácter y elegancia rural.", borderColor: "#5E5043" },
-    { src: "/images/renders/farm.jpg", alt: "Organic Farm", title: "HUERTO ORGÁNICO - SOSTENIBILIDAD", description: "Espacios cultivables diseñados para cosechar productos frescos, promoviendo un estilo de vida sustentable y profundamente arraigado en la tierra.", borderColor: "#5C6B45" },
-    { src: "/images/gallery/gallery-5.png", alt: "Exterior", title: "TERRAZA EXTERIOR - VIVENCIA AL AIRE LIBRE", description: "Zonas de descanso exterior que prolongan la comodidad del interior hacia afuera, propiciando reuniones bajo un cielo despejado.", borderColor: "#B89C65" },
-    { src: "/images/gallery/gallery-10.jpg", alt: "Vista aérea", title: "VISTA AÉREA - PLAN MAESTRO", description: "Una perspectiva privilegiada del proyecto integral, donde se aprecia la delicada inserción arquitectónica respetando el fluir del ecosistema local.", borderColor: "#768465" },
-];
+type GallerySlideText = { alt: string; title: string; description: string };
+
+const GALLERY_LAYOUT = [
+    { src: "/images/renders/render-1.png", borderColor: "#8C7D6B" },
+    { src: "/images/gallery/gallery-1.png", borderColor: "#9A6A4E" },
+    { src: "/images/gallery/gallery-4.png", borderColor: "#B58D6A" },
+    { src: "/images/renders/presa-1.png", borderColor: "#617983" },
+    { src: "/images/gallery/gallery-7.png", borderColor: "#6B7F53" },
+    { src: "/images/gallery/gallery-2.png", borderColor: "#AC6F52" },
+    { src: "/images/renders/entrance.jpg", borderColor: "#5E5043" },
+    { src: "/images/renders/farm.jpg", borderColor: "#5C6B45" },
+    { src: "/images/gallery/gallery-5.png", borderColor: "#B89C65" },
+    { src: "/images/gallery/gallery-10.jpg", borderColor: "#768465" },
+] as const;
 
 export default function Gallery() {
+    const t = useTranslations("galleryCarousel");
+    const slidesText = useMemo(() => t.raw("slides") as GallerySlideText[], [t]);
+    const galleryItems = useMemo(
+        () =>
+            GALLERY_LAYOUT.map((layout, i) => ({
+                ...layout,
+                ...slidesText[i],
+            })),
+        [slidesText]
+    );
+
     const [currentIndex, setCurrentIndex] = useState(0);
     const [lightbox, setLightbox] = useState<number | null>(null);
     const [isPaused, setIsPaused] = useState(false);
 
     const nextSlide = useCallback(() => {
         setCurrentIndex((prev) => (prev + 1) % galleryItems.length);
-    }, []);
+    }, [galleryItems.length]);
 
     useEffect(() => {
         if (isPaused || lightbox !== null) return;
@@ -58,7 +72,7 @@ export default function Gallery() {
                             className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            (Galería)
+                            {t("kicker")}
                         </p>
                         <h2
                             className="text-[#222] leading-none"
@@ -67,14 +81,14 @@ export default function Gallery() {
                                 fontSize: "clamp(3rem, 6vw, 6rem)",
                             }}
                         >
-                            El Lugar que Quieres
+                            {t("title")}
                         </h2>
                     </motion.div>
                     <p
                         className="hidden lg:block text-[#222]/30 text-sm max-w-xs text-right leading-relaxed"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        Pasa el cursor para pausar · Click para ampliar
+                        {t("hint")}
                     </p>
                 </div>
 
@@ -182,14 +196,14 @@ export default function Gallery() {
                             setIsPaused(false);
                         }}
                         className="absolute right-6 top-6 text-white/50 hover:text-white transition-colors text-3xl font-light"
-                        aria-label="Close"
+                        aria-label={t("ariaClose")}
                     >
                         ×
                     </button>
                     <button
                         onClick={(e) => { e.stopPropagation(); setLightbox((lightbox - 1 + galleryItems.length) % galleryItems.length); }}
                         className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors text-4xl font-light px-2"
-                        aria-label="Previous"
+                        aria-label={t("ariaPrev")}
                     >
                         ‹
                     </button>
@@ -204,7 +218,7 @@ export default function Gallery() {
                     <button
                         onClick={(e) => { e.stopPropagation(); setLightbox((lightbox + 1) % galleryItems.length); }}
                         className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors text-4xl font-light px-2"
-                        aria-label="Next"
+                        aria-label={t("ariaNext")}
                     >
                         ›
                     </button>

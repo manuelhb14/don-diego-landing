@@ -6,6 +6,7 @@ import { useMemo, useRef } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowRightIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type ExclusivityItem = {
     id: string;
@@ -45,16 +46,17 @@ function ParallaxCardImage({
 export default function ThingsToDo() {
     const hasVisited = useHasVisited();
     const reduceMotion = useReducedMotion();
+    const tt = useTranslations("thingsToDo");
     const items = useMemo<ExclusivityItem[]>(
         () => [
-            { id: "clubhouse", title: "Clubhouse", imageSrc: "/babylon/clubhouse.webp" },
-            { id: "piscina", title: "Piscina privada", imageSrc: "/babylon/pool.webp" },
-            { id: "gimnasio", title: "Gimnasio exterior", imageSrc: "/babylon/gym.webp" },
-            { id: "spa", title: "Spa", imageSrc: "/babylon/spa.webp" },
-            { id: "restaurante", title: "Restaurantes", imageSrc: "/babylon/restaurant.webp" },
-            { id: "padel", title: "Padel", imageSrc: "/babylon/padel.webp" },
+            { id: "clubhouse", title: tt("items.clubhouse"), imageSrc: "/babylon/clubhouse.webp" },
+            { id: "piscina", title: tt("items.pool"), imageSrc: "/babylon/pool.webp" },
+            { id: "gimnasio", title: tt("items.gym"), imageSrc: "/babylon/gym.webp" },
+            { id: "spa", title: tt("items.spa"), imageSrc: "/babylon/spa.webp" },
+            { id: "restaurante", title: tt("items.restaurant"), imageSrc: "/babylon/restaurant.webp" },
+            { id: "padel", title: tt("items.padel"), imageSrc: "/babylon/padel.webp" },
         ],
-        [],
+        [tt],
     );
 
     const scrollerRef = useRef<HTMLDivElement | null>(null);
@@ -80,7 +82,7 @@ export default function ThingsToDo() {
                         className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Experiencias]
+                        {tt("kicker")}
                     </p>
                     <h2
                         className="text-[#222] leading-none"
@@ -89,7 +91,7 @@ export default function ThingsToDo() {
                             fontSize: "clamp(2.25rem, 4.2vw, 3.75rem)",
                         }}
                     >
-                        Actividades para disfrutar
+                        {tt("title1")}
                     </h2>
                     <h2
                         className="text-[#AA7D69]/90 italic"
@@ -98,7 +100,7 @@ export default function ThingsToDo() {
                             fontSize: "clamp(2.25rem, 4.2vw, 3.75rem)",
                         }}
                     >
-                        dentro de Don Diego
+                        {tt("title2")}
                     </h2>
                 </motion.div>
 
@@ -173,7 +175,7 @@ export default function ThingsToDo() {
                         <div className="min-w-[70px] snap-start p-4 -ml-px flex flex-col items-center justify-center">
                             <div className="aspect-square grid place-items-center bg-[#222222] rounded-full p-2">
                                 <Link
-                                    aria-label="Siguiente"
+                                    aria-label={tt("nextAria")}
                                     className="w-full h-full cursor-pointer flex flex-col items-center justify-center"
                                     href="/experiencias"
                                 >
@@ -197,14 +199,14 @@ export default function ThingsToDo() {
                             className="w-full sm:w-[60%] lg:w-[50%] flex flex-col items-end"
                         >
                             <p className="text-[#222] text-xl font-medium leading-relaxed mb-4" style={{ fontFamily: "var(--font-serif)" }}>
-                             El club ofrece una amplia gama de actividades para disfrutar, desde gimnasios hasta restaurantes y spa. La mayoría de las amenidades son exclusivas para los residentes y sus invitados. 
+                                {tt("body")}
                             </p>
                             <Link
                                 href="/experiencias"
                                 className="inline-block text-[#222] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#222] pb-1 hover:opacity-60 transition-opacity"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
-                                EXPLORAR LAS EXPERIENCIAS
+                                {tt("cta")}
                             </Link>
                         </motion.div>
                     </div>

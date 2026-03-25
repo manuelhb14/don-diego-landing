@@ -39,7 +39,7 @@ export default function RentalsPoolResidencial() {
                         className="order-1 lg:order-2 max-w-xl lg:max-w-none"
                     >
                         <p
-                            className="text-[10px] tracking-[0.3em] text-[#C28E7A] uppercase mb-4"
+                            className="text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase mb-4"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             [DON DIEGO RENTALS]
@@ -52,10 +52,10 @@ export default function RentalsPoolResidencial() {
                                 fontSize: "clamp(2rem, 4vw, 3.25rem)",
                             }}
                         >
-                            Estancias de corto plazo, gestionadas por Don Diego
+                            Estancias de corto plazo, gestionadas por<br /><span className="italic text-[#b76d4b]">Don Diego Rentals</span>
                         </h2>
                         <p
-                            className="mt-4 text-[#C28E7A]/95 italic"
+                            className="mt-4 text-[#b76d4b]/95 italic"
                             style={{
                                 fontFamily: "var(--font-serif)",
                                 fontSize: "clamp(1.15rem, 2vw, 1.65rem)",

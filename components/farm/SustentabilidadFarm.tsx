@@ -24,7 +24,7 @@ export default function SustentabilidadFarm() {
                 {/* Left Side: Editorial Typography */}
                 <motion.div
                     style={{ y: textY }}
-                    className="w-full lg:w-[45%] flex flex-col justify-center z-20 pt-10 lg:pt-0 pr-0 lg:pr-12"
+                    className="w-full lg:w-[45%] flex flex-col justify-start z-20 pt-10 lg:pt-16 pr-0 lg:pr-12"
                 >
                     <p
                         className="text-[10px] tracking-[0.3em] text-[#9B5C6E]/85 uppercase mb-8"
@@ -94,8 +94,8 @@ export default function SustentabilidadFarm() {
                     </motion.div>
 
                     {/* Decorative minimalist shapes */}
-                    <div className="absolute top-20 right-[75%] lg:right-[65%] w-32 h-32 border border-[#1a1917]/10 rounded-full hidden md:block" />
-                    <div className="absolute bottom-40 -right-10 w-64 h-64 border border-[#1a1917]/5 rounded-full z-0 hidden lg:block" />
+                    {/* <div className="absolute top-20 right-[75%] lg:right-[65%] w-32 h-32 border border-[#1a1917]/10 rounded-full hidden md:block" /> */}
+                    {/* <div className="absolute bottom-40 -right-10 w-64 h-64 border border-[#1a1917]/5 rounded-full z-0 hidden lg:block" /> */}
                 </div>
 
             </div>

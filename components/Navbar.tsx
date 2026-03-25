@@ -1,35 +1,70 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter, usePathname, Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 type NavbarTheme = "light" | "dark";
 type DropdownPosition = { left: number; top: number };
 type NavScrollState = { hidden: boolean; scrolled: boolean };
 type NavSubLink = { key: string; label: string; href: string; color: string };
-type NavLink = { key: string; label: string; href: string; subLinks?: NavSubLink[] };
+type NavProyectoPopoverLink = { key: string; label: string; href: string };
+type NavGroupLink = { key: string; label: string; href: string };
+type NavTopItem =
+    | { type: "link"; key: string; label: string; href: string }
+    | {
+          type: "proyecto";
+          key: "proyecto";
+          label: string;
+          subLinks: NavSubLink[];
+          popoverLinks: NavProyectoPopoverLink[];
+      }
+    | {
+          type: "navGroup";
+          key: string;
+          label: string;
+          links: NavGroupLink[];
+      };
 
-const contactCta = { key: "contacto", label: "Contacto", href: "/contacto" } as const;
+function buildNavLinks(t: (key: string) => string): NavTopItem[] {
+    const proyectoSubLinks: NavSubLink[] = [
+        { key: "residencial", label: t("sub.residencial"), href: "/residencial", color: "#E1B19B" },
+        { key: "farm", label: t("sub.farm"), href: "/farm", color: "#DEBEBF" },
+        { key: "wellness", label: t("sub.wellness"), href: "/wellness", color: "#D7D7AA" },
+        { key: "presa", label: t("sub.presa"), href: "/presa", color: "#C8D7E6" },
+    ];
+    return [
+        { type: "link", key: "inicio", label: t("inicio"), href: "/" },
+        {
+            type: "proyecto",
+            key: "proyecto",
+            label: t("proyecto"),
+            subLinks: proyectoSubLinks,
+            popoverLinks: [
+                { key: "experiencias", label: t("experiencias"), href: "/experiencias" },
+                { key: "ubicacion", label: t("ubicacion"), href: "/ubicacion" },
+            ],
+        },
+        {
+            type: "navGroup",
+            key: "equipo",
+            label: t("conocenos"),
+            links: [
+                { key: "equipo", label: t("equipo"), href: "/equipo" },
+                { key: "blog", label: t("blog"), href: "/blog" },
+                { key: "contacto", label: t("contacto"), href: "/contacto" },
+            ],
+        },
+    ];
+}
 
-const navLinks: NavLink[] = [
-    { key: "inicio", label: "Inicio", href: "/" },
-    {
-        key: "proyecto",
-        label: "Proyecto",
-        href: "/proyecto",
-        subLinks: [
-            { key: "residencial", label: "Club Residencial", href: "/residencial", color: "#E1B19B" },
-            { key: "farm", label: "Organic Farm", href: "/farm", color: "#DEBEBF" },
-            { key: "wellness", label: "Wellness Center", href: "/wellness", color: "#D7D7AA" },
-            { key: "presa", label: "Presa de la Cantera", href: "/presa", color: "#C8D7E6" },
-        ]
-    },
-    { key: "experiencias", label: "Experiencias", href: "/experiencias" },
-    { key: "ubicacion", label: "Ubicación", href: "/ubicacion" },
-    { key: "equipo", label: "Equipo", href: "/equipo" },
-];
+function isProyectoNavActive(pathname: string, subLinks: NavSubLink[], popoverLinks: NavProyectoPopoverLink[]) {
+    if (pathname === "/proyecto") return true;
+    if (popoverLinks.some((p) => isActivePath(pathname, p.href))) return true;
+    return subLinks.some((s) => isActivePath(pathname, s.href));
+}
 
 const NAV_SCROLL_CONFIG = {
     alwaysShowBelowPx: 10,
@@ -47,6 +82,10 @@ const DESKTOP_DROPDOWN_TRANSITION = {
 
 function isActivePath(pathname: string, href: string) {
     return pathname === href || (href !== "/" && pathname.startsWith(href));
+}
+
+function isNavGroupActive(pathname: string, links: NavGroupLink[]) {
+    return links.some((l) => isActivePath(pathname, l.href));
 }
 
 function getDesktopLinkClassName(isActive: boolean, isDarkAtTop: boolean) {
@@ -74,7 +113,7 @@ function getContactCtaClassName(isActive: boolean, isDarkAtTop: boolean) {
             ? "border-black/35 text-black/80 hover:border-black/55 hover:bg-black/[0.04]"
             : "border-white/40 text-white/90 hover:border-white/60 hover:bg-white/10";
 
-    return `relative flex shrink-0 items-center rounded-sm border px-3 py-1.5 text-[11px] font-light tracking-[0.18em] uppercase transition-all duration-300 sm:px-4 sm:text-xs ${stateClasses}`;
+    return `relative flex shrink-0 items-center rounded-sm border px-3 py-1.5 text-[11px] font-light tracking-[0.18em] font-[variant:small-caps] transition-all duration-300 sm:px-4 sm:text-xs ${stateClasses}`;
 }
 
 function getLocaleButtonClassName(isDarkAtTop: boolean) {
@@ -87,6 +126,10 @@ function getHamburgerClassName(isDarkAtTop: boolean) {
 
 function getDesktopSubLinkClassName(isActive: boolean) {
     return `flex items-center gap-3 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 ${isActive ? "font-bold" : "text-black/70 hover:text-black"}`;
+}
+
+function getDesktopPopoverLinkClassName(isActive: boolean) {
+    return `flex items-center justify-start text-left text-[12px] tracking-[0.15em] uppercase transition-all duration-300 ${isActive ? "font-bold text-black" : "text-black/70 hover:text-black"}`;
 }
 
 function getDesktopSubLinkDotStyle(subLink: NavSubLink, isActive: boolean) {
@@ -157,6 +200,16 @@ function useNavbarScrollState() {
 }
 
 export default function Navbar({ locale, theme = "light", hideLogoAtTop = false }: { locale: string; theme?: NavbarTheme; hideLogoAtTop?: boolean }) {
+    const t = useTranslations("nav");
+    const navLinks = useMemo(() => buildNavLinks(t), [t]);
+    const contactCta = useMemo(
+        () => ({
+            key: "contacto" as const,
+            label: "CONTACTO",
+            href: "https://wa.me/5200000000000" as const,
+        }),
+        [],
+    );
     const router = useRouter();
     const pathname = usePathname();
     const shouldReduceMotion = useReducedMotion();
@@ -167,7 +220,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
     const desktopDropdownCloseTimeout = useRef<number | null>(null);
     const { hidden, scrolled } = navScroll;
     const isDarkAtTop = theme === "dark" && !scrolled;
-    const isContactActive = pathname === contactCta.href;
+    const isContactActive = pathname === "/contacto";
 
     // Lock body scroll when mobile menu open
     useEffect(() => {
@@ -220,7 +273,10 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
         }, DESKTOP_DROPDOWN_CLOSE_DELAY_MS);
     };
 
-    const activeDesktopSubLinks = navLinks.find((link) => link.key === openDesktopMenu)?.subLinks;
+    const proyectoNavItem = navLinks.find((item): item is Extract<NavTopItem, { type: "proyecto" }> => item.type === "proyecto");
+    const equipoNavGroupItem = navLinks.find((item): item is Extract<NavTopItem, { type: "navGroup" }> => item.type === "navGroup");
+    const showProyectoDropdown = openDesktopMenu === "proyecto" && proyectoNavItem && desktopDropdownPosition;
+    const showNavGroupDropdown = openDesktopMenu === "equipo" && equipoNavGroupItem && desktopDropdownPosition;
 
     return (
         <>
@@ -228,34 +284,71 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                 className={`fixed left-0 right-0 z-50 transition-[top] duration-500 bg-transparent ${scrolled ? "mix-blend-difference text-white" : ""} ${hidden ? "-top-28 pointer-events-none" : "top-0"}`}
             >
                 <div className={`mx-auto flex w-full items-center justify-between px-6 py-4 lg:px-4 lg:pt-2.5 ${isDarkAtTop ? "text-black" : "text-white"}`}>
-                    {/* Left: Links (Desktop) */}
-                    <div className="flex-1 hidden lg:flex items-center justify-start gap-4">
-                        {navLinks.map(({ key, label, href, subLinks }) => {
-                            const isActive = isActivePath(pathname, href);
-                            const isDesktopDropdownOpen = openDesktopMenu === key;
+                    {/* Left: Links (Desktop) — flush left */}
+                    <div className="flex-1 hidden lg:flex min-w-0 items-center justify-start gap-4">
+                        {navLinks.map((item) => {
+                            if (item.type === "link") {
+                                const { key, label, href } = item;
+                                const isActive = isActivePath(pathname, href);
+                                return (
+                                    <div key={key} className="relative group">
+                                        <Link
+                                            href={href}
+                                            className={getDesktopLinkClassName(isActive, isDarkAtTop)}
+                                            style={{ fontFamily: "var(--font-sans)" }}
+                                        >
+                                            {label}
+                                            <span className={getDesktopUnderlineClassName(isActive, false, isDarkAtTop)} />
+                                        </Link>
+                                    </div>
+                                );
+                            }
 
+                            if (item.type === "proyecto") {
+                                const { key, label, subLinks, popoverLinks } = item;
+                                const isActive = isProyectoNavActive(pathname, subLinks, popoverLinks);
+                                const isDesktopDropdownOpen = openDesktopMenu === key;
+                                return (
+                                    <div
+                                        key={key}
+                                        className="relative group"
+                                        onMouseEnter={(event) => openDesktopDropdown(key, event.currentTarget)}
+                                        onMouseLeave={scheduleDesktopDropdownClose}
+                                    >
+                                        <span
+                                            className={`${getDesktopLinkClassName(isActive, isDarkAtTop)} cursor-default`}
+                                            style={{ fontFamily: "var(--font-sans)" }}
+                                        >
+                                            {label}
+                                            <span className={`ml-1.5 opacity-70 transition-transform duration-300 text-[8px] ${isDesktopDropdownOpen ? "rotate-90" : "group-hover:rotate-90"}`}>
+                                                ▶
+                                            </span>
+                                            <span className={getDesktopUnderlineClassName(isActive, isDesktopDropdownOpen, isDarkAtTop)} />
+                                        </span>
+                                    </div>
+                                );
+                            }
+
+                            const { key, label, links } = item;
+                            const isActive = isNavGroupActive(pathname, links);
+                            const isDesktopDropdownOpen = openDesktopMenu === key;
                             return (
                                 <div
                                     key={key}
                                     className="relative group"
-                                    onMouseEnter={subLinks ? (event) => openDesktopDropdown(key, event.currentTarget) : undefined}
-                                    onMouseLeave={subLinks ? scheduleDesktopDropdownClose : undefined}
+                                    onMouseEnter={(event) => openDesktopDropdown(key, event.currentTarget)}
+                                    onMouseLeave={scheduleDesktopDropdownClose}
                                 >
-                                    <Link
-                                        href={href}
-                                        className={getDesktopLinkClassName(isActive, isDarkAtTop)}
+                                    <span
+                                        className={`${getDesktopLinkClassName(isActive, isDarkAtTop)} cursor-default`}
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
                                         {label}
-                                        {subLinks && (
-                                            <span className={`ml-1.5 opacity-70 transition-transform duration-300 text-[8px] ${isDesktopDropdownOpen ? "rotate-90" : "group-hover:rotate-90"}`}>
-                                                ▶
-                                            </span>
-                                        )}
-                                        <span
-                                            className={getDesktopUnderlineClassName(isActive, isDesktopDropdownOpen, isDarkAtTop)}
-                                        />
-                                    </Link>
+                                        <span className={`ml-1.5 opacity-70 transition-transform duration-300 text-[8px] ${isDesktopDropdownOpen ? "rotate-90" : "group-hover:rotate-90"}`}>
+                                            ▶
+                                        </span>
+                                        <span className={getDesktopUnderlineClassName(isActive, isDesktopDropdownOpen, isDarkAtTop)} />
+                                    </span>
                                 </div>
                             );
                         })}
@@ -278,13 +371,15 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
 
                     {/* Right: Contact CTA + locale + mobile menu */}
                     <div className="flex flex-1 items-center justify-end gap-4 lg:gap-6">
-                        <Link
+                        <a
                             href={contactCta.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className={getContactCtaClassName(isContactActive, isDarkAtTop)}
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {contactCta.label}
-                        </Link>
+                        </a>
                         {/* Locale Switch */}
                         <button
                             onClick={switchLocale}
@@ -298,7 +393,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                         <button
                             onClick={() => setMobileOpen(!mobileOpen)}
                             className={getHamburgerClassName(isDarkAtTop)}
-                            aria-label="Menu"
+                            aria-label={t("menuAria")}
                         >
                             <span className={`block h-px w-6 bg-current transition-all duration-300 origin-center ${mobileOpen ? "translate-y-[7px] rotate-45" : ""}`} />
                             <span className={`block h-px w-6 bg-current transition-all duration-300 ${mobileOpen ? "opacity-0 scale-x-0" : ""}`} />
@@ -309,29 +404,83 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
             </nav>
 
             <AnimatePresence>
-                {activeDesktopSubLinks && desktopDropdownPosition && (
+                {showProyectoDropdown && proyectoNavItem && desktopDropdownPosition && (
                     <motion.div
                         initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -12 }}
                         animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                         exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
                         transition={shouldReduceMotion ? { duration: 0.12 } : DESKTOP_DROPDOWN_TRANSITION}
-                        className="fixed left-0 top-0 z-[60] hidden min-w-[220px] flex-col gap-3 rounded-sm border border-black/10 bg-white/90 px-5 py-5 shadow-lg shadow-black/10 backdrop-blur-md will-change-transform lg:flex"
+                        className="fixed left-0 top-0 z-[60] hidden min-w-[240px] flex-col items-start gap-3 rounded-sm border border-black/10 bg-white/90 px-5 py-5 text-left shadow-lg shadow-black/10 backdrop-blur-md will-change-transform lg:flex"
                         style={{ left: desktopDropdownPosition.left, top: desktopDropdownPosition.top }}
                         onMouseEnter={clearDesktopDropdownClose}
                         onMouseLeave={scheduleDesktopDropdownClose}
                     >
-                        {activeDesktopSubLinks.map((sub) => {
+                        <Link
+                            href="/proyecto"
+                            className={`block w-full text-left text-[12px] font-light uppercase tracking-[0.18em] transition-colors duration-300 ${pathname === "/proyecto" ? "font-medium text-black" : "text-black/80 hover:text-black"}`}
+                            style={{ fontFamily: "var(--font-sans)" }}
+                            onClick={closeDesktopDropdown}
+                        >
+                            {proyectoNavItem.label}
+                        </Link>
+                        {proyectoNavItem.subLinks.map((sub) => {
                             const isSubActive = pathname === sub.href;
                             return (
                                 <Link
                                     key={sub.key}
                                     href={sub.href}
-                                    className={getDesktopSubLinkClassName(isSubActive)}
+                                    className={`${getDesktopSubLinkClassName(isSubActive)} w-full justify-start`}
                                     style={{ fontFamily: "var(--font-sans)", color: isSubActive ? sub.color : undefined }}
                                     onClick={closeDesktopDropdown}
                                 >
                                     <span className={`w-2.5 h-2.5 flex-none transition-all duration-300 ${isSubActive ? "rounded-full" : "rounded-sm"}`} style={getDesktopSubLinkDotStyle(sub, isSubActive)} />
                                     {sub.label}
+                                </Link>
+                            );
+                        })}
+                        <div className="flex w-full flex-col gap-3">
+                            {proyectoNavItem.popoverLinks.map((pl) => {
+                                const isPlActive = isActivePath(pathname, pl.href);
+                                return (
+                                    <Link
+                                        key={pl.key}
+                                        href={pl.href}
+                                        className={`${getDesktopPopoverLinkClassName(isPlActive)} w-full`}
+                                        style={{ fontFamily: "var(--font-sans)" }}
+                                        onClick={closeDesktopDropdown}
+                                    >
+                                        {pl.label}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {showNavGroupDropdown && equipoNavGroupItem && desktopDropdownPosition && (
+                    <motion.div
+                        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -12 }}
+                        animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                        exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+                        transition={shouldReduceMotion ? { duration: 0.12 } : DESKTOP_DROPDOWN_TRANSITION}
+                        className="fixed left-0 top-0 z-[60] hidden min-w-[240px] flex-col items-start gap-3 rounded-sm border border-black/10 bg-white/90 px-5 py-5 text-left shadow-lg shadow-black/10 backdrop-blur-md will-change-transform lg:flex"
+                        style={{ left: desktopDropdownPosition.left, top: desktopDropdownPosition.top }}
+                        onMouseEnter={clearDesktopDropdownClose}
+                        onMouseLeave={scheduleDesktopDropdownClose}
+                    >
+                        {equipoNavGroupItem.links.map((l) => {
+                            const isLActive = isActivePath(pathname, l.href);
+                            return (
+                                <Link
+                                    key={l.key}
+                                    href={l.href}
+                                    className={`${getDesktopPopoverLinkClassName(isLActive)} w-full`}
+                                    style={{ fontFamily: "var(--font-sans)" }}
+                                    onClick={closeDesktopDropdown}
+                                >
+                                    {l.label}
                                 </Link>
                             );
                         })}
@@ -350,35 +499,84 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                         className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl lg:hidden"
                     >
                         <div className="flex h-full flex-col items-center justify-center gap-6 overflow-y-auto py-20">
-                            {navLinks.map(({ key, label, href, subLinks }, i) => {
-                                const isActive = isActivePath(pathname, href);
+                            {navLinks.map((navItem, i) => {
+                                if (navItem.type === "link") {
+                                    const { key, label, href } = navItem;
+                                    const isActive = isActivePath(pathname, href);
+                                    return (
+                                        <motion.div
+                                            key={key}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: i * 0.08, duration: 0.5 }}
+                                            className="flex flex-col items-center w-full"
+                                        >
+                                            <Link
+                                                href={href}
+                                                onClick={() => setMobileOpen(false)}
+                                                className={`text-2xl transition-colors tracking-[0.15em] uppercase block ${isActive ? "text-[#E1B19B]" : "text-black/70 hover:text-black"}`}
+                                                style={{ fontFamily: "var(--font-serif)" }}
+                                            >
+                                                {label}
+                                            </Link>
+                                        </motion.div>
+                                    );
+                                }
+
+                                if (navItem.type === "navGroup") {
+                                    return (
+                                        <motion.div
+                                            key={navItem.key}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: i * 0.08, duration: 0.5 }}
+                                            className="flex w-full flex-col items-start gap-4 px-6"
+                                        >
+                                            <div className="flex w-full flex-col items-start gap-4">
+                                                {navItem.links.map((l) => {
+                                                    const isLActive = isActivePath(pathname, l.href);
+                                                    return (
+                                                        <Link
+                                                            key={l.key}
+                                                            href={l.href}
+                                                            onClick={() => setMobileOpen(false)}
+                                                            className={`block w-full text-left text-[25px] leading-tight tracking-[0.15em] uppercase transition-colors ${isLActive ? "text-[#E1B19B]" : "text-black/70 hover:text-black"}`}
+                                                            style={{ fontFamily: "var(--font-serif)" }}
+                                                        >
+                                                            {l.label}
+                                                        </Link>
+                                                    );
+                                                })}
+                                            </div>
+                                        </motion.div>
+                                    );
+                                }
+
+                                const proyectoActive = isProyectoNavActive(pathname, navItem.subLinks, navItem.popoverLinks);
                                 return (
                                     <motion.div
-                                        key={key}
+                                        key={navItem.key}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: i * 0.08, duration: 0.5 }}
-                                        className="flex flex-col items-center w-full"
+                                        className="flex w-full flex-col items-start gap-4 px-6"
                                     >
-                                        <Link
-                                            href={href}
-                                            onClick={() => setMobileOpen(false)}
-                                            className={`text-2xl transition-colors tracking-[0.15em] uppercase block ${isActive ? "text-[#E1B19B]" : "text-black/70 hover:text-black"}`}
-                                            style={{ fontFamily: "var(--font-serif)" }}
-                                        >
-                                            {label}
-                                        </Link>
-
-                                        {subLinks && (
-                                            <div className="flex flex-col items-start gap-3 mt-4 mb-2">
-                                                {subLinks.map(sub => {
+                                        <div className="flex w-full flex-col items-start">
+                                            <span
+                                                className={`block w-full text-left text-[25px] leading-tight tracking-[0.15em] uppercase ${proyectoActive ? "text-[#E1B19B]" : "text-black/70"}`}
+                                                style={{ fontFamily: "var(--font-serif)" }}
+                                            >
+                                                {navItem.label}
+                                            </span>
+                                            <div className="mt-4 mb-2 flex w-full flex-col items-start gap-3">
+                                                {navItem.subLinks.map((sub) => {
                                                     const isSubActive = pathname === sub.href;
                                                     return (
                                                         <Link
                                                             key={sub.key}
                                                             href={sub.href}
                                                             onClick={() => setMobileOpen(false)}
-                                                            className={`flex items-center gap-3 text-[13px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "text-black/60 hover:text-black"}`}
+                                                            className={`flex w-full items-center justify-start gap-3 text-[13px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "text-black/60 hover:text-black"}`}
                                                             style={{ fontFamily: "var(--font-sans)", color: isSubActive ? sub.color : undefined }}
                                                         >
                                                             <span className={`w-2.5 h-2.5 flex-none transition-all duration-300 ${isSubActive ? "rounded-full" : "rounded-sm"}`} style={{ backgroundColor: sub.color, transform: isSubActive ? "scale(1.4)" : "scale(1)", boxShadow: isSubActive ? `0 0 10px 1px ${sub.color}80` : "none" }} />
@@ -387,7 +585,23 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                                     );
                                                 })}
                                             </div>
-                                        )}
+                                        </div>
+                                        <div className="flex w-full flex-col items-start gap-4">
+                                            {navItem.popoverLinks.map((pl) => {
+                                                const isActive = isActivePath(pathname, pl.href);
+                                                return (
+                                                    <Link
+                                                        key={pl.key}
+                                                        href={pl.href}
+                                                        onClick={() => setMobileOpen(false)}
+                                                        className={`block w-full text-left text-[25px] leading-tight tracking-[0.15em] uppercase transition-colors ${isActive ? "text-[#E1B19B]" : "text-black/70 hover:text-black"}`}
+                                                        style={{ fontFamily: "var(--font-serif)" }}
+                                                    >
+                                                        {pl.label}
+                                                    </Link>
+                                                );
+                                            })}
+                                        </div>
                                     </motion.div>
                                 );
                             })}

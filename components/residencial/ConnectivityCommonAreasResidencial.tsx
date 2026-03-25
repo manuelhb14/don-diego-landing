@@ -194,7 +194,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                 </div>
 
                                 <p
-                                    className="mb-3 text-center text-[10px] tracking-[0.3em] text-[#C28E7A] uppercase lg:text-left"
+                                    className="mb-3 text-center text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase lg:text-left"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
                                     [ÁREAS COMUNES]
@@ -208,7 +208,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                     }}
                                 >
                                     Wi-Fi en todas las{" "}
-                                    <span className="text-[#C28E7A] italic">áreas comunes</span>
+                                    <span className="text-[#b76d4b] italic">áreas comunes</span>
                                 </h2>
                                 <p
                                     className="mt-4 text-center text-[15px] leading-relaxed text-[#1F1D1B]/75 lg:text-left sm:text-[16px]"

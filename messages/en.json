@@ -1,17 +1,44 @@
 {
   "nav": {
+    "inicio": "Home",
     "proyecto": "Project",
     "galeria": "Gallery",
+    "experiencias": "Experiences",
     "ubicacion": "Location",
     "equipo": "Team",
-    "contacto": "Contact"
+    "blog": "Blog",
+    "contacto": "Contact",
+    "conocenos": "About",
+    "sub": {
+      "residencial": "Club Residencial",
+      "farm": "Organic Farm",
+      "wellness": "Wellness Center",
+      "presa": "Presa de la Cantera"
+    },
+    "menuAria": "Menu"
+  },
+  "blogsHome": {
+    "kicker": "[Blog]",
+    "title": "Stories & Experiences",
+    "subtitle": "A visual notebook of the landscape, walks, and everyday life at Don Diego.",
+    "cta": "EXPLORE THE BLOG"
+  },
+  "blogPage": {
+    "kicker": "[Blog]",
+    "title": "Stories & Experiences",
+    "subtitle": "A visual notebook of the landscape, walks, and everyday life at Don Diego.",
+    "backToBlog": "Back to blog"
   },
   "hero": {
     "tagline": "Living in Connection",
     "subtitle": "With the Land. With the Community. With Yourself.",
     "secondary": "Close to everything, far from the ordinary",
     "location": "San Miguel de Allende, Guanajuato",
-    "cta": "Learn more"
+    "cta": "Learn more",
+    "eyebrow": "[RESIDENTIAL DEVELOPMENT]",
+    "bodyLine1": "A sanctuary where architecture meets nature.",
+    "bodyLine2": "Designed for a life in connection.",
+    "explore": "Explore"
   },
   "about": {
     "quote": "\"Best Small City in the World\"",
@@ -60,6 +87,9 @@
   },
   "team": {
     "heading": "The Team",
+    "kicker": "(The Team)",
+    "headingLine1": "Masters of their",
+    "headingEm": "craft.",
     "cimenta": {
       "name": "Grupo Cimienta",
       "role": "Development & General Direction",
@@ -74,6 +104,11 @@
       "name": "Espacios Verdes / Arredarq",
       "role": "Landscape & Sustainability",
       "description": "Arq. Eliseo Arredondo — founder of the Mexican Landscape Architects Society."
+    },
+    "artemisa": {
+      "name": "Artemisa Branding",
+      "role": "Brand Identity & Strategy",
+      "description": "Visual identity and brand strategy for high-end real estate projects."
     }
   },
   "contact": {
@@ -84,10 +119,266 @@
     "phone": "Phone",
     "submit": "Submit",
     "whatsapp": "Message us on WhatsApp",
-    "privacy": "By submitting this form, you agree to our privacy policy."
+    "privacy": "By submitting this form, you agree to our privacy policy.",
+    "kicker": "[Contact]",
+    "joinLine1": "Join the world of",
+    "joinEm": "Don Diego",
+    "bodyHome": "Discover Don Diego in person. Contact us to schedule a private tour of our lands in San Miguel de Allende.",
+    "belief1t": "Wellbeing",
+    "belief1d": "Whole-life living",
+    "belief2t": "Design",
+    "belief2d": "Tailored spaces",
+    "belief3t": "Nature",
+    "belief3d": "Deep connection",
+    "belief4t": "Community",
+    "belief4d": "Cultural enrichment",
+    "thanksTitle": "Thank you for your interest",
+    "thanksBody": "We will be in touch soon.",
+    "labelName": "Name",
+    "labelPhone": "Phone",
+    "labelEmail": "Email",
+    "phName": "Your name",
+    "phPhone": "Your number",
+    "phEmail": "you@email.com",
+    "submitVisit": "Request a private visit",
+    "sending": "Sending…",
+    "whatsappChat": "Chat on WhatsApp",
+    "errSend": "Something went wrong. Please try again.",
+    "internalVisit": "Visit request from home page"
   },
   "footer": {
     "rights": "© 2026 Don Diego Club Residencial. All rights reserved.",
-    "location": "San Miguel de Allende, Guanajuato, México"
+    "location": "San Miguel de Allende, Guanajuato, México",
+    "joinTitleLine1": "JOIN THE WORLD OF",
+    "joinTitleLine2": "DON DIEGO",
+    "joinSubtitle": "Subscribe to join our community and stay up to date with the development.",
+    "firstNamePh": "FIRST NAME *",
+    "lastNamePh": "LAST NAME *",
+    "emailPh": "EMAIL *",
+    "consent": "I agree to receive project information and updates",
+    "submit": "Submit form",
+    "sending": "Sending…",
+    "thanks": "Thank you! You’ve been added to our list.",
+    "errConsent": "You must accept the privacy policy to continue.",
+    "errSend": "Something went wrong. Please try again.",
+    "navHome": "Home",
+    "navProject": "Project",
+    "navLocation": "Location",
+    "navTeam": "Team",
+    "navContact": "Contact",
+    "components": "Components",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "brandLine": "® Don Diego 2026",
+    "newsletterInternal": "Newsletter signup from footer"
+  },
+  "manifesto": {
+    "kicker": "[What defines us]",
+    "titleRooted": "Rooted in",
+    "titlePlace": "San Miguel",
+    "lineEarth": "With the Land.",
+    "lineCommunity": "With the Community.",
+    "lineSelf": "With Yourself."
+  },
+  "vision": {
+    "kicker": "[Presentation]",
+    "titleDiscover": "Discover",
+    "titleName": "Don Diego",
+    "body": "A journey through the vision, setting, and components that shape this residential development in San Miguel de Allende.",
+    "playAria": "Play presentation",
+    "iframeTitle": "Don Diego — Presentation",
+    "thumbAlt": "Don Diego — Project presentation",
+    "videoLabel": "Project presentation"
+  },
+  "servicesPage": {
+    "kicker": "[COMPONENTS]",
+    "heading": "The Project",
+    "intro": "Don Diego Club Residencial is built around four distinct components, united in a coherent vision of community and territory.",
+    "closing": "Each component is designed from a clear premise: to create a residential environment that speaks to the soul of San Miguel de Allende, reinterpreted with contemporary sensitivity.",
+    "cta": "EXPLORE THE DEVELOPMENT",
+    "cardClubL1": "CLUB",
+    "cardClubL2": "RESIDENCIAL",
+    "cardFarmL1": "ORGANIC",
+    "cardFarmL2": "FARM",
+    "cardWellnessL1": "WELLNESS",
+    "cardWellnessL2": "CENTER",
+    "cardPresaL1": "PRESA DE LA",
+    "cardPresaL2": "CANTERA"
+  },
+  "projectsEditorial": {
+    "residencial": {
+      "title": "Club Residencial",
+      "description": "364 residences in a 100% pedestrian setting with clubhouse, restaurants, spa, sports, and world-class amenities.",
+      "supporting": "A community designed for walking, gathering, and calmer living in touch with the landscape.",
+      "d1": "364 residences",
+      "d2": "100% pedestrian",
+      "d3": "Clubhouse, spa & restaurants",
+      "cta": "Learn more"
+    },
+    "farm": {
+      "title": "Organic Farm & Flowers",
+      "description": "A sustainable component that restores the land’s original farming vocation with organic orchards, fruit trees, and seasonal flowers.",
+      "supporting": "A productive landscape that returns agricultural memory and a daily relationship with the soil.",
+      "d1": "Organic orchards",
+      "d2": "Seasonal fruit",
+      "d3": "Sustainable landscape",
+      "cta": "Explore"
+    },
+    "wellness": {
+      "title": "Wellness Center",
+      "description": "A specialized hub for rehabilitation, active retirement, and holistic wellbeing with direct access to Presa Allende.",
+      "supporting": "Designed for an active-retreat experience where health, rest, and nature belong to one place.",
+      "d1": "Holistic wellbeing",
+      "d2": "Active retirement",
+      "d3": "Access to Presa Allende",
+      "cta": "Discover"
+    },
+    "presa": {
+      "title": "Presa de la Cantera",
+      "description": "A large public–private space that weaves nature, community, and social life along the water.",
+      "supporting": "The waterfront becomes a stage for recreation, gatherings, and community life.",
+      "d1": "Life by the water",
+      "d2": "Nature & community",
+      "d3": "Active social space",
+      "cta": "Visit"
+    }
+  },
+  "thingsToDo": {
+    "kicker": "[Experiences]",
+    "title1": "Activities to enjoy",
+    "title2": "inside Don Diego",
+    "body": "The club offers a wide range of activities—from gyms to restaurants and spa. Most amenities are exclusive to residents and their guests.",
+    "cta": "EXPLORE EXPERIENCES",
+    "nextAria": "Next",
+    "items": {
+      "clubhouse": "Clubhouse",
+      "pool": "Private pool",
+      "gym": "Outdoor gym",
+      "spa": "Spa",
+      "restaurant": "Restaurants",
+      "padel": "Padel"
+    }
+  },
+  "locationSection": {
+    "kicker": "[The Place]",
+    "title1": "Close to everything",
+    "title2": "Far from the ordinary",
+    "body": "A conscious sanctuary where luxury meets nature. Connected to the vibrant heart of the city, yet sheltered in tranquility.",
+    "centroLabel": "Historic Center",
+    "centroSub": "Colonial charm",
+    "proximityTitle": "Proximity",
+    "p1Time": "10 Min",
+    "p1Name": "Fábrica La Aurora",
+    "p1Desc": "Art and design center.",
+    "p2Time": "8 Min",
+    "p2Name": "Historic Center",
+    "p2Desc": "The heart of the city—dining and culture.",
+    "p3Time": "5 Min",
+    "p3Name": "Organic markets",
+    "p3Desc": "Local produce and community.",
+    "seeMore": "See more",
+    "pinFarm": "Organic Farm & Flowers",
+    "pinResidencial": "Club Residencial",
+    "pinWellness": "Wellness Center",
+    "pinPresa": "Presa de la Cantera"
+  },
+  "faq": {
+    "kicker": "[FAQ]",
+    "title": "Frequently Asked Questions",
+    "intro": "Answers to common questions about the development, investment, and services at Don Diego Club Residencial.",
+    "items": [
+      {
+        "question": "What is Don Diego Club Residencial and what are its components?",
+        "answer": "It is a mixed-use residential development built around four components: Club Residencial (private residential core), Organic Farm & Flowers (productive landscape), Wellness Center (holistic wellbeing and senior living), and Presa de la Cantera (public–private waterfront destination)."
+      },
+      {
+        "question": "Where is the development located?",
+        "answer": "It is strategically located about 8 minutes from the historic center of San Miguel de Allende, on the Celaya – Dolores Hidalgo highway. It borders Presa Ignacio Allende and Presa La Cantera."
+      },
+      {
+        "question": "Is access to all components exclusive to residents?",
+        "answer": "Club Residencial and Organic Farm are exclusive and prioritized for owners and residents. Presa de la Cantera is conceived as a destination open to the San Miguel community, blending nature and social life with cultural and recreational activities."
+      },
+      {
+        "question": "How does the productive side of “Organic Farm & Flowers” work?",
+        "answer": "It restores the land’s farming vocation through organic agriculture and seasonal flower production. Beyond aesthetics, fresh products feed restaurants and daily life on the development, with organic gardens, greenhouses, and production fields linked by paths and bike lanes."
+      },
+      {
+        "question": "What is the pedestrian-focused urban design?",
+        "answer": "The interior of the development is 100% pedestrian, keeping cars out of the inner streets. A peripheral road circuit at grade change handles vehicles, while parking is covered with direct pedestrian access to homes—two spaces per unit."
+      }
+    ]
+  },
+  "exclusivity": {
+    "imageAlt": "Don Diego — Exclusivity",
+    "title1": "An invitation to belong",
+    "title2": "to something",
+    "titleEm": "extraordinary.",
+    "subtitle": "A space shared in private."
+  },
+  "galleryCarousel": {
+    "kicker": "(Gallery)",
+    "title": "The Place You Want",
+    "hint": "Hover to pause · Click to enlarge",
+    "ariaClose": "Close",
+    "ariaPrev": "Previous",
+    "ariaNext": "Next",
+    "slides": [
+      {
+        "alt": "Club Residencial",
+        "title": "CLUB RESIDENCIAL — ARCHITECTURAL DESIGN",
+        "description": "A space designed for community life, combining interior comfort with privileged views and sophisticated contemporary furnishings."
+      },
+      {
+        "alt": "Home",
+        "title": "HOME — MATERIALS & TEXTURES",
+        "description": "Designed for comfort and gathering, balancing ease, elegance, and function."
+      },
+      {
+        "alt": "Lighting",
+        "title": "NATURAL LIGHT — FINISHES",
+        "description": "Warm tones and subtle details that add tactile rhythm and timeless charm to modern interiors."
+      },
+      {
+        "alt": "Presa de la Cantera",
+        "title": "PRESA DE LA CANTERA — NATURAL SETTING",
+        "description": "Seamless integration with the local landscape, with unmatched reservoir views and deep respect for topography."
+      },
+      {
+        "alt": "Landscape",
+        "title": "THE LANDSCAPE — NATIVE PLANTING",
+        "description": "Expansive areas designed to connect organically with surrounding nature, maximizing serenity outdoors."
+      },
+      {
+        "alt": "Spaces",
+        "title": "FLUID SPACES — SPATIAL HARMONY",
+        "description": "Natural transitions between living areas guided by an earth-tone palette and exceptional craftsmanship."
+      },
+      {
+        "alt": "Entrance",
+        "title": "MAIN ENTRANCE — WELCOME & PRESENCE",
+        "description": "A majestic entrance that frames the residential experience with structure, character, and rural elegance."
+      },
+      {
+        "alt": "Organic Farm",
+        "title": "ORGANIC GARDEN — SUSTAINABILITY",
+        "description": "Cultivable spaces for fresh harvests, promoting a sustainable lifestyle rooted in the land."
+      },
+      {
+        "alt": "Exterior",
+        "title": "OUTDOOR TERRACE — OPEN-AIR LIVING",
+        "description": "Outdoor lounges that extend indoor comfort outside, inviting gatherings under open skies."
+      },
+      {
+        "alt": "Aerial view",
+        "title": "AERIAL VIEW — MASTER PLAN",
+        "description": "A privileged perspective of the whole project, showing thoughtful architecture within the local ecosystem."
+      }
+    ]
+  },
+  "legal": {
+    "privacyTitle": "Privacy Policy",
+    "termsTitle": "Terms of Service",
+    "lastUpdated": "Last updated:"
   }
 }

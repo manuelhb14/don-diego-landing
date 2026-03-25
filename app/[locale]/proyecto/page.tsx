@@ -5,6 +5,9 @@ import ManifestoProyecto from "@/components/proyecto/ManifestoProyecto";
 import GridProyecto from "@/components/proyecto/GridProyecto";
 import LocationSummaryProyecto from "@/components/proyecto/LocationSummaryProyecto";
 import Footer from "@/components/Footer";
+import ThingsToDo from "@/components/ThingsToDo";
+import Exclusivity from "@/components/Exclusivity";
+import Contact from "@/components/Contact";
 
 type Props = {
     params: Promise<{ locale: string }>;
@@ -22,6 +25,9 @@ export default async function ProyectoPage({ params }: Props) {
                 {/* <ManifestoProyecto /> */}
                 <GridProyecto />
                 <LocationSummaryProyecto />
+                <ThingsToDo />
+                <Exclusivity />
+                <Contact />
             </main>
             <Footer />
         </>

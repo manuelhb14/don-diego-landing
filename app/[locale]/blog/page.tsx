@@ -1,10 +1,10 @@
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "@/i18n/navigation";
-import { formatPostDate, getAllPosts, isVideoSrc, type BlogPost } from "@/content/blogPosts";
+import { formatPostDate, getAllPosts, isVideoSrc, type BlogPostView } from "@/content/blogPosts";
 
 type Props = {
     params: Promise<{ locale: string }>;
@@ -16,14 +16,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         locale === "en"
             ? "Stories & Experiences | Don Diego"
             : "Historias y Experiencias | Don Diego";
+    const description =
+        locale === "en"
+            ? "A visual notebook of the landscape, walks, and everyday life at Don Diego."
+            : "Un cuaderno visual con momentos del entorno, las caminatas y lo cotidiano en Don Diego.";
     return {
         title,
-        description:
-            "Un cuaderno visual con momentos del entorno, las caminatas y lo cotidiano en Don Diego.",
+        description,
         openGraph: {
             title,
-            description:
-                "Un cuaderno visual con momentos del entorno, las caminatas y lo cotidiano en Don Diego.",
+            description,
         },
     };
 }
@@ -33,7 +35,7 @@ function MediaThumb({
     className,
     sizes = "(max-width: 1024px) 100vw, 33vw",
 }: {
-    post: BlogPost;
+    post: BlogPostView;
     className?: string;
     sizes?: string;
 }) {
@@ -63,7 +65,7 @@ function MediaThumb({
     );
 }
 
-function FeaturedCard({ post, locale }: { post: BlogPost; locale: string }) {
+function FeaturedCard({ post, locale }: { post: BlogPostView; locale: string }) {
     return (
         <Link
             href={`/blog/${post.slug}`}
@@ -125,7 +127,7 @@ function FeaturedCard({ post, locale }: { post: BlogPost; locale: string }) {
     );
 }
 
-function GridCard({ post, locale }: { post: BlogPost; locale: string }) {
+function GridCard({ post, locale }: { post: BlogPostView; locale: string }) {
     return (
         <li>
             <Link
@@ -182,7 +184,8 @@ function GridCard({ post, locale }: { post: BlogPost; locale: string }) {
 export default async function BlogIndexPage({ params }: Props) {
     const { locale } = await params;
     setRequestLocale(locale);
-    const posts = getAllPosts();
+    const t = await getTranslations("blogPage");
+    const posts = getAllPosts(locale);
     const [featured, ...rest] = posts;
 
     return (
@@ -195,7 +198,7 @@ export default async function BlogIndexPage({ params }: Props) {
                             className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [Blog]
+                            {t("kicker")}
                         </p>
                         <h1
                             className="text-[#222] leading-none mb-6"
@@ -204,14 +207,13 @@ export default async function BlogIndexPage({ params }: Props) {
                                 fontSize: "clamp(2.25rem, 4.6vw, 4rem)",
                             }}
                         >
-                            Historias & Experiencias
+                            {t("title")}
                         </h1>
                         <p
                             className="text-[#222]/55 text-sm md:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
-                            Un cuaderno visual con momentos del entorno, las caminatas y lo cotidiano en
-                            Don Diego.
+                            {t("subtitle")}
                         </p>
                     </header>
 

@@ -2,36 +2,26 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
+import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 
-const team = [
-    {
-        name: "Grupo Cimienta",
-        role: "Desarrollo y Dirección General",
-        description: "Más de 30 años de experiencia en el ciclo completo de desarrollo inmobiliario.",
-        logo: "/logos/CIMIENTA.png",
-        color: "#AA7D69",
-    },
-    {
-        name: "Barragán Arquitectos",
-        role: "Diseño Arquitectónico",
-        description: "Arq. Luis Barragán Rivera — estética contemporánea enraizada en la identidad de SMA.",
-        color: "#E1B19B",
-    },
-    {
-        name: "Espacios Verdes / Arredarq",
-        role: "Paisajismo y Sustentabilidad",
-        description: "Arq. Eliseo Arredondo — fundador de la Sociedad de Arquitectos Paisajistas de México.",
-        color: "#AA7D69",
-    },
-    {
-        name: "Artemisa Branding",
-        role: "Identidad y Estrategia de Marca",
-        description: "Creación de identidad visual y estrategia de marca para proyectos inmobiliarios de alto nivel.",
-        color: "#E1B19B",
-    },
-];
+const TEAM_KEYS = ["cimenta", "barragan", "arredarq", "artemisa"] as const;
+const TEAM_COLORS = ["#AA7D69", "#E1B19B", "#AA7D69", "#E1B19B"] as const;
 
 export default function Team() {
+    const t = useTranslations("team");
+    const team = useMemo(
+        () =>
+            TEAM_KEYS.map((key, i) => ({
+                name: t(`${key}.name`),
+                role: t(`${key}.role`),
+                description: t(`${key}.description`),
+                logo: key === "cimenta" ? "/logos/CIMIENTA.png" : undefined,
+                color: TEAM_COLORS[i],
+            })),
+        [t]
+    );
+
     return (
         <section id="equipo" className="bg-[#EFE6DC] py-24 lg:py-36 overflow-hidden">
             <div className="max-w-[1400px] mx-auto px-6 lg:px-14">
@@ -47,7 +37,7 @@ export default function Team() {
                         className="text-[10px] tracking-[0.3em] text-[#AA7D69]/55 uppercase mb-4"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        (El Equipo)
+                        {t("kicker")}
                     </p>
                     <h2
                         className="text-[#111] leading-none"
@@ -56,8 +46,8 @@ export default function Team() {
                             fontSize: "clamp(2.8rem, 5vw, 5.5rem)",
                         }}
                     >
-                        Maestros de su{" "}
-                        <em className="text-[#E1B19B]">oficio.</em>
+                        {t("headingLine1")}{" "}
+                        <em className="text-[#E1B19B]">{t("headingEm")}</em>
                     </h2>
                 </motion.div>
 

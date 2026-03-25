@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { useCallback, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 /** Ficha técnica homogénea por tipología (referencia proyecto / fichas tipo). */
 const SPEC_LABELS = {
@@ -24,18 +26,19 @@ const residences: {
     accent: string;
     accentSoft: string;
     description: string;
-    image: string;
+    /** First image is the default; add more paths as assets become available. */
+    images: string[];
     specs: ResidenceSpec;
     highlights: string[];
 }[] = [
     {
         id: 1,
         title: "Departamentos",
-        accent: "#c68b70",
-        accentSoft: "#ead7cc",
+        accent: "#b76d4b",
+        accentSoft: "#e7d2c6",
         description:
             "Bloques alrededor del complejo habitacional: estacionamiento techado y bodegas a desnivel forman un circuito que mantiene las calles interiores libres de tránsito vehicular. Cuatro departamentos por nivel con terrazas y azoteas aprovechables.",
-        image: "/residencias/departamentos.webp",
+        images: ["/residencias/departamentos.webp"],
         specs: {
             superficie: "113–173 m² (según prototipo)",
             recamaras: "2–3",
@@ -47,11 +50,11 @@ const residences: {
     {
         id: 2,
         title: "Casas dúplex Tipo 1",
-        accent: "#b77c7e",
-        accentSoft: "#debebf",
+        accent: "#b76d4b",
+        accentSoft: "#e7d2c6",
         description:
             "Una vivienda por nivel, cada una con terraza o patio interior y vínculo claro con el exterior. Posibilidad de rentar una recámara de forma independiente.",
-        image: "/residencias/duplex-1.webp",
+        images: ["/residencias/duplex-1.webp"],
         specs: {
             superficie: "128–155 m²",
             recamaras: "2–3",
@@ -63,11 +66,11 @@ const residences: {
     {
         id: 3,
         title: "Casas dúplex Tipo 2",
-        accent: "#b8b267",
-        accentSoft: "#d7d7aa",
+        accent: "#b76d4b",
+        accentSoft: "#e7d2c6",
         description:
             "Viviendas en torno a un patio interior, una casa por nivel. El Tipo 2 conecta las calles peatonales a través del primer nivel. Jacuzzi en prototipos seleccionados.",
-        image: "/residencias/duplex-2.webp",
+        images: ["/residencias/duplex-2.webp"],
         specs: {
             superficie: "166–185 m²",
             recamaras: "2–4",
@@ -79,11 +82,11 @@ const residences: {
     {
         id: 4,
         title: "Casas dúplex Tipo 3",
-        accent: "#7a8ea3",
-        accentSoft: "#dbe3ea",
+        accent: "#b76d4b",
+        accentSoft: "#e7d2c6",
         description:
             "Patio central con una vivienda por nivel; distribuciones con varias terrazas y, en prototipos tipo B, sala de estar. Posibilidad de rentar una recámara de forma independiente.",
-        image: "/residencias/duplex-3.webp",
+        images: ["/residencias/duplex-3.webp"],
         specs: {
             superficie: "142–181 m² (según prototipo)",
             recamaras: "2–3",
@@ -93,6 +96,91 @@ const residences: {
         highlights: ["Patio interior", "Varias terrazas", "Sala de estar (prototipo B)"],
     },
 ];
+
+function ResidenceImageCarousel({
+    images,
+    title,
+    accent,
+    accentSoft,
+}: {
+    images: string[];
+    title: string;
+    accent: string;
+    accentSoft: string;
+}) {
+    const [index, setIndex] = useState(0);
+    const n = images.length;
+    const goPrev = useCallback(() => setIndex((i) => (i - 1 + n) % n), [n]);
+    const goNext = useCallback(() => setIndex((i) => (i + 1) % n), [n]);
+
+    return (
+        <div className="relative h-full w-full">
+            <AnimatePresence initial={false} mode="wait">
+                <motion.div
+                    key={images[index]}
+                    className="absolute inset-0"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+                >
+                    <Image
+                        src={images[index]}
+                        alt={n > 1 ? `${title} — ${index + 1} / ${n}` : title}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1280px) 680px, (min-width: 1024px) 52vw, 100vw"
+                    />
+                </motion.div>
+            </AnimatePresence>
+
+            {n > 1 && (
+                <>
+                    <div className="pointer-events-none absolute inset-y-0 left-0 z-20 flex w-14 items-center justify-start bg-gradient-to-r from-[#3a3028]/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:w-16" />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 z-20 flex w-14 items-center justify-end bg-gradient-to-l from-[#3a3028]/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:w-16" />
+                    <button
+                        type="button"
+                        onClick={goPrev}
+                        className="absolute left-2 top-1/2 z-30 -translate-y-1/2 rounded-full bg-[#fff8ed]/90 p-2 text-[#3a3028] shadow-md opacity-90 transition-opacity duration-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3a3028]/40 md:left-3 md:opacity-0 md:group-hover:opacity-90"
+                        aria-label="Imagen anterior"
+                    >
+                        <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
+                    </button>
+                    <button
+                        type="button"
+                        onClick={goNext}
+                        className="absolute right-2 top-1/2 z-30 -translate-y-1/2 rounded-full bg-[#fff8ed]/90 p-2 text-[#3a3028] shadow-md opacity-90 transition-opacity duration-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3a3028]/40 md:right-3 md:opacity-0 md:group-hover:opacity-90"
+                        aria-label="Imagen siguiente"
+                    >
+                        <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
+                    </button>
+                    <div
+                        className="absolute bottom-3 left-1/2 z-30 flex -translate-x-1/2 gap-2"
+                        role="tablist"
+                        aria-label={`Carrusel de ${title}`}
+                    >
+                        {images.map((src, i) => (
+                            <button
+                                key={`${i}-${src}`}
+                                type="button"
+                                role="tab"
+                                aria-selected={i === index}
+                                aria-label={`Ir a imagen ${i + 1} de ${n}`}
+                                onClick={() => setIndex(i)}
+                                className="h-2 rounded-full transition-all duration-300"
+                                style={{
+                                    width: i === index ? 22 : 8,
+                                    backgroundColor: i === index ? accent : accentSoft,
+                                    opacity: i === index ? 1 : 0.55,
+                                }}
+                            />
+                        ))}
+                    </div>
+                </>
+            )}
+        </div>
+    );
+}
 
 function EditorialFeatureRow({
     residence,
@@ -168,17 +256,16 @@ function EditorialFeatureRow({
 
             <div className="order-1 min-w-0 lg:order-0">
                 <div
-                    className={`relative aspect-[16/10] w-full max-w-[820px] overflow-hidden bg-[#ebe1d4] shadow-[0_25px_60px_rgba(73,54,39,0.08)] lg:max-w-[740px] xl:max-w-[760px] ${
+                    className={`group relative aspect-[16/10] w-full max-w-[820px] overflow-hidden bg-[#ebe1d4] shadow-[0_25px_60px_rgba(73,54,39,0.08)] lg:max-w-[740px] xl:max-w-[760px] ${
                         reverse ? "mx-auto lg:mr-auto lg:ml-0" : "mx-auto lg:ml-auto lg:mr-0"
                     }`}
                 >
                     <div className="absolute inset-x-0 top-0 z-10 h-1" style={{ backgroundColor: residence.accent }} />
-                    <Image
-                        src={residence.image}
-                        alt={residence.title}
-                        fill
-                        className="object-cover"
-                        sizes="(min-width: 1280px) 680px, (min-width: 1024px) 52vw, 100vw"
+                    <ResidenceImageCarousel
+                        images={residence.images}
+                        title={residence.title}
+                        accent={residence.accent}
+                        accentSoft={residence.accentSoft}
                     />
                 </div>
             </div>
@@ -191,7 +278,7 @@ export default function FeaturesResidencial() {
         <section className="relative bg-[#EFE6DC] px-6 py-24 md:px-10 md:py-32 lg:px-16 lg:py-20">
             <div className="mx-auto max-w-[1280px]">
                 <p
-                    className="text-[10px] tracking-[0.3em] text-[#E1B19B] uppercase"
+                    className="text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase"
                     style={{ fontFamily: "var(--font-sans)" }}
                 >
                     [TIPOLOGÍA]
@@ -204,7 +291,8 @@ export default function FeaturesResidencial() {
                     viewport={{ once: true, margin: "-80px" }}
                     transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
                 >
-                    Descubre los espacios que ofrecemos.
+                    Descubre los <span className="italic text-[#b76d4b]">espacios</span><br />
+                    que ofrecemos.
                 </motion.h2>
 
                 <div className="mt-8 space-y-18 md:mt-20 md:space-y-20">

@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import HeroExperiencias from "@/components/experiencias/HeroExperiencias";
 import ExperienciasListing from "@/components/experiencias/ExperienciasListing";
 import Footer from "@/components/Footer";
+import Exclusivity from "@/components/Exclusivity";
+import Contact from "@/components/Contact";
 
 type Props = {
     params: Promise<{ locale: string }>;
@@ -18,6 +20,8 @@ export default async function ExperienciasPage({ params }: Props) {
             <main>
                 <HeroExperiencias />
                 <ExperienciasListing />
+                <Exclusivity />
+                <Contact />
             </main>
             <Footer />
         </>

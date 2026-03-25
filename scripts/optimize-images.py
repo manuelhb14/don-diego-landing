@@ -9,6 +9,10 @@ Convert PNG/JPEG to lossy WebP (writes/updates stem.webp; then switch paths in t
   uv run scripts/optimize-images.py babylon --to-webp
   uv run scripts/optimize-images.py babylon residencias --to-webp --delete-sources
 
+Single file (path relative to public/):
+
+  uv run scripts/optimize-images.py babylon/guia.png --to-webp
+
 Recompress in place (no format change): omit --to-webp. --skip-webp skips .webp files in that mode.
 """
 import argparse
