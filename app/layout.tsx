@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
-import { Geist } from "next/font/google";
+import { Geist, Figtree } from "next/font/google";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "Don Diego Club Residencial — San Miguel de Allende",

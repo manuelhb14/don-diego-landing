@@ -99,7 +99,7 @@ def main() -> int:
         "paths",
         nargs="*",
         metavar="SUBPATH",
-        help="One or more paths relative to public/ (default: entire public/)",
+        help="Paths relative to public/: directories and/or image files (default: entire public/)",
     )
     parser.add_argument(
         "--skip-webp",
@@ -125,22 +125,31 @@ def main() -> int:
         print(f"Error: {PUBLIC_DIR} not found", file=sys.stderr)
         return 1
 
-    roots: list[Path]
+    explicit_files: list[Path] = []
+    roots: list[Path] = []
     if args.paths:
-        roots = []
         for p in args.paths:
-            root = (PUBLIC_DIR / p).resolve()
+            cand = (PUBLIC_DIR / p).resolve()
             try:
-                root.relative_to(PUBLIC_DIR.resolve())
+                cand.relative_to(PUBLIC_DIR.resolve())
             except ValueError:
                 print(f"Error: path must stay under {PUBLIC_DIR}", file=sys.stderr)
                 return 1
-            if not root.is_dir():
-                print(f"Error: not a directory: {root}", file=sys.stderr)
+            if cand.is_file():
+                explicit_files.append(cand)
+            elif cand.is_dir():
+                roots.append(cand)
+            else:
+                print(f"Error: not found: {cand}", file=sys.stderr)
                 return 1
-            roots.append(root)
     else:
         roots = [PUBLIC_DIR]
+
+    collected: list[Path] = list(explicit_files)
+    for root in roots:
+        for path in sorted(root.rglob("*")):
+            if path.is_file():
+                collected.append(path)
 
     skip_webp = args.skip_webp
     to_webp = args.to_webp
@@ -148,40 +157,39 @@ def main() -> int:
     total_saved = 0
     total_files = 0
     seen: set[Path] = set()
-    for root in roots:
-        for path in sorted(root.rglob("*")):
-            if not path.is_file():
+    for path in sorted(collected, key=lambda x: str(x)):
+        if not path.is_file():
+            continue
+        suf = path.suffix.lower()
+        if to_webp:
+            if suf not in RASTER_EXT:
                 continue
-            suf = path.suffix.lower()
-            if to_webp:
-                if suf not in RASTER_EXT:
-                    continue
-            elif suf not in EXTENSIONS:
-                continue
-            if not to_webp and skip_webp and suf == ".webp":
-                continue
-            resolved = path.resolve()
-            if resolved in seen:
-                continue
-            seen.add(resolved)
-            total_files += 1
-            if to_webp:
-                rel = path.relative_to(PUBLIC_DIR)
-                before = path.stat().st_size
-                out_path = path.with_suffix(".webp")
-                changed, msg = convert_to_webp(path, delete_source=delete_sources)
-                if changed and out_path.exists():
-                    total_saved += before - out_path.stat().st_size
-                print(f"  {rel} — {msg}")
+        elif suf not in EXTENSIONS:
+            continue
+        if not to_webp and skip_webp and suf == ".webp":
+            continue
+        resolved = path.resolve()
+        if resolved in seen:
+            continue
+        seen.add(resolved)
+        total_files += 1
+        if to_webp:
+            rel = path.relative_to(PUBLIC_DIR)
+            before = path.stat().st_size
+            out_path = path.with_suffix(".webp")
+            changed, msg = convert_to_webp(path, delete_source=delete_sources)
+            if changed and out_path.exists():
+                total_saved += before - out_path.stat().st_size
+            print(f"  {rel} — {msg}")
+        else:
+            before = path.stat().st_size
+            changed, msg = optimize_image(path)
+            if changed:
+                after = path.stat().st_size
+                total_saved += before - after
+                print(f"  {path.relative_to(PUBLIC_DIR)} — {msg}")
             else:
-                before = path.stat().st_size
-                changed, msg = optimize_image(path)
-                if changed:
-                    after = path.stat().st_size
-                    total_saved += before - after
-                    print(f"  {path.relative_to(PUBLIC_DIR)} — {msg}")
-                else:
-                    print(f"  {path.relative_to(PUBLIC_DIR)} — {msg}")
+                print(f"  {path.relative_to(PUBLIC_DIR)} — {msg}")
     print(f"\nProcessed {total_files} images, saved {total_saved // 1024} KiB total.")
     return 0
 

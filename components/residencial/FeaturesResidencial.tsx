@@ -1,9 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { motion } from "motion/react";
+import {
+    type CarouselApi,
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel";
 
 /** Ficha técnica homogénea por tipología (referencia proyecto / fichas tipo). */
 const SPEC_LABELS = {
@@ -97,6 +104,8 @@ const residences: {
     },
 ];
 
+const RESIDENCE_IMAGE_SIZES = "(min-width: 1280px) 680px, (min-width: 1024px) 52vw, 100vw";
+
 function ResidenceImageCarousel({
     images,
     title,
@@ -108,77 +117,111 @@ function ResidenceImageCarousel({
     accent: string;
     accentSoft: string;
 }) {
-    const [index, setIndex] = useState(0);
     const n = images.length;
-    const goPrev = useCallback(() => setIndex((i) => (i - 1 + n) % n), [n]);
-    const goNext = useCallback(() => setIndex((i) => (i + 1) % n), [n]);
+
+    if (n === 1) {
+        return (
+            <div className="relative h-full min-h-0 w-full">
+                <Image
+                    src={images[0]}
+                    alt={title}
+                    fill
+                    className="object-cover"
+                    sizes={RESIDENCE_IMAGE_SIZES}
+                />
+            </div>
+        );
+    }
 
     return (
-        <div className="relative h-full w-full">
-            <AnimatePresence initial={false} mode="wait">
-                <motion.div
-                    key={images[index]}
-                    className="absolute inset-0"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-                >
-                    <Image
-                        src={images[index]}
-                        alt={n > 1 ? `${title} — ${index + 1} / ${n}` : title}
-                        fill
-                        className="object-cover"
-                        sizes="(min-width: 1280px) 680px, (min-width: 1024px) 52vw, 100vw"
-                    />
-                </motion.div>
-            </AnimatePresence>
+        <ResidenceImageCarouselEmbla
+            images={images}
+            title={title}
+            accent={accent}
+            accentSoft={accentSoft}
+        />
+    );
+}
 
-            {n > 1 && (
-                <>
-                    <div className="pointer-events-none absolute inset-y-0 left-0 z-20 flex w-14 items-center justify-start bg-gradient-to-r from-[#3a3028]/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:w-16" />
-                    <div className="pointer-events-none absolute inset-y-0 right-0 z-20 flex w-14 items-center justify-end bg-gradient-to-l from-[#3a3028]/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:w-16" />
-                    <button
-                        type="button"
-                        onClick={goPrev}
-                        className="absolute left-2 top-1/2 z-30 -translate-y-1/2 rounded-full bg-[#fff8ed]/90 p-2 text-[#3a3028] shadow-md opacity-90 transition-opacity duration-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3a3028]/40 md:left-3 md:opacity-0 md:group-hover:opacity-90"
-                        aria-label="Imagen anterior"
-                    >
-                        <ChevronLeft className="h-5 w-5" strokeWidth={1.5} />
-                    </button>
-                    <button
-                        type="button"
-                        onClick={goNext}
-                        className="absolute right-2 top-1/2 z-30 -translate-y-1/2 rounded-full bg-[#fff8ed]/90 p-2 text-[#3a3028] shadow-md opacity-90 transition-opacity duration-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3a3028]/40 md:right-3 md:opacity-0 md:group-hover:opacity-90"
-                        aria-label="Imagen siguiente"
-                    >
-                        <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
-                    </button>
-                    <div
-                        className="absolute bottom-3 left-1/2 z-30 flex -translate-x-1/2 gap-2"
-                        role="tablist"
-                        aria-label={`Carrusel de ${title}`}
-                    >
-                        {images.map((src, i) => (
-                            <button
-                                key={`${i}-${src}`}
-                                type="button"
-                                role="tab"
-                                aria-selected={i === index}
-                                aria-label={`Ir a imagen ${i + 1} de ${n}`}
-                                onClick={() => setIndex(i)}
-                                className="h-2 rounded-full transition-all duration-300"
-                                style={{
-                                    width: i === index ? 22 : 8,
-                                    backgroundColor: i === index ? accent : accentSoft,
-                                    opacity: i === index ? 1 : 0.55,
-                                }}
+function ResidenceImageCarouselEmbla({
+    images,
+    title,
+    accent,
+    accentSoft,
+}: {
+    images: string[];
+    title: string;
+    accent: string;
+    accentSoft: string;
+}) {
+    const [api, setApi] = useState<CarouselApi>();
+    const [current, setCurrent] = useState(0);
+    const n = images.length;
+
+    useEffect(() => {
+        if (!api) return;
+        const sync = () => setCurrent(api.selectedScrollSnap());
+        sync();
+        api.on("select", sync);
+        api.on("reInit", sync);
+        return () => {
+            api.off("select", sync);
+            api.off("reInit", sync);
+        };
+    }, [api]);
+
+    return (
+        <Carousel
+            setApi={setApi}
+            opts={{ align: "start", loop: true }}
+            className="h-full w-full min-h-0 [&_[data-slot=carousel-content]]:h-full"
+        >
+            <CarouselContent className="-ml-0 h-full">
+                {images.map((src, i) => (
+                    <CarouselItem key={`${i}-${src}`} className="h-full basis-full pl-0">
+                        <div className="relative h-full min-h-[12rem] w-full">
+                            <Image
+                                src={src}
+                                alt={`${title} — ${i + 1} / ${n}`}
+                                fill
+                                className="object-cover"
+                                sizes={RESIDENCE_IMAGE_SIZES}
                             />
-                        ))}
-                    </div>
-                </>
-            )}
-        </div>
+                        </div>
+                    </CarouselItem>
+                ))}
+            </CarouselContent>
+            <CarouselPrevious
+                variant="outline"
+                className="top-1/2 left-2 z-20 -translate-y-1/2 border-[#3a3028]/20 bg-[#fff8ed]/95 text-[#3a3028] shadow-sm hover:bg-white md:left-3 md:opacity-0 md:group-hover:opacity-100"
+            />
+            <CarouselNext
+                variant="outline"
+                className="top-1/2 right-2 z-20 -translate-y-1/2 border-[#3a3028]/20 bg-[#fff8ed]/95 text-[#3a3028] shadow-sm hover:bg-white md:right-3 md:opacity-0 md:group-hover:opacity-100"
+            />
+            <div
+                className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 gap-2"
+                role="tablist"
+                aria-label={`Carrusel de ${title}`}
+            >
+                {images.map((src, i) => (
+                    <button
+                        key={`${i}-${src}`}
+                        type="button"
+                        role="tab"
+                        aria-selected={i === current}
+                        aria-label={`Ir a imagen ${i + 1} de ${n}`}
+                        onClick={() => api?.scrollTo(i)}
+                        className="h-2 rounded-full transition-all duration-300"
+                        style={{
+                            width: i === current ? 22 : 8,
+                            backgroundColor: i === current ? accent : accentSoft,
+                            opacity: i === current ? 1 : 0.55,
+                        }}
+                    />
+                ))}
+            </div>
+        </Carousel>
     );
 }
 
@@ -260,13 +303,15 @@ function EditorialFeatureRow({
                         reverse ? "mx-auto lg:mr-auto lg:ml-0" : "mx-auto lg:ml-auto lg:mr-0"
                     }`}
                 >
-                    <div className="absolute inset-x-0 top-0 z-10 h-1" style={{ backgroundColor: residence.accent }} />
-                    <ResidenceImageCarousel
-                        images={residence.images}
-                        title={residence.title}
-                        accent={residence.accent}
-                        accentSoft={residence.accentSoft}
-                    />
+                    <div className="absolute inset-0 z-0 min-h-0">
+                        <ResidenceImageCarousel
+                            images={residence.images}
+                            title={residence.title}
+                            accent={residence.accent}
+                            accentSoft={residence.accentSoft}
+                        />
+                    </div>
+                    <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-1" style={{ backgroundColor: residence.accent }} />
                 </div>
             </div>
         </article>

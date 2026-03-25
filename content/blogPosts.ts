@@ -42,7 +42,7 @@ const posts: BlogPost[] = [
         comments: 33,
         likes: 412,
         views: 920,
-        imageSrc: "/babylon/sustentabilidad.webp",
+        imageSrc: "/babylon/guia.webp",
         locales: {
             es: {
                 title: "Sustentabilidad como hábitat",
