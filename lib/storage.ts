@@ -20,7 +20,7 @@ export type PutOptions = {
  */
 export async function putImage(
   key: string,
-  body: ReadableStream | ArrayBuffer | string,
+  body: ReadableStream | ArrayBuffer | ArrayBufferView | string,
   options?: PutOptions
 ) {
   const bucket = getBucket();

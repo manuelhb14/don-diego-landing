@@ -74,7 +74,7 @@ export default function LocationMexicoUbicacion() {
                 >
                     <div className="relative aspect-square lg:aspect-[16/9] w-full">
                         <Image
-                            src="/images/location/san-miguel.png"
+                            src="/babylon/map.webp"
                             alt="Vista de San Miguel de Allende y su contexto geografico"
                             fill
                             className="object-cover"

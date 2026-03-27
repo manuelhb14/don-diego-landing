@@ -1,12 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { Sparkles } from "lucide-react";
+import { useChat } from "@/components/chat/ChatProvider";
 
 export default function Contact() {
     const t = useTranslations("contact");
+    const { openChat } = useChat();
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -129,8 +131,9 @@ export default function Contact() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.9, delay: 0.2 }}
-                        className="w-full h-full min-h-[500px] flex items-center"
+                        className="w-full h-full min-h-[500px]"
                     >
+                        <div className="flex h-full w-full flex-col gap-4">
                         <div className="w-full bg-[#222222] p-6 md:p-8 shadow-xl border border-[#E1B19B]/20 relative overflow-hidden group">
                             {/* Decorative bg shape */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-[#E1B19B]/5 blur-[100px] rounded-full group-hover:bg-[#E1B19B]/10 transition-colors duration-1000 -translate-y-1/2 translate-x-1/3"></div>
@@ -224,6 +227,36 @@ export default function Contact() {
                                     </p>
                                 </form>
                             )}
+                        </div>
+
+                        <div className="relative overflow-hidden border border-[#9BB7D0]/45 bg-[#EEF4FA] p-5 md:p-6 shadow-xl">
+                            <div className="pointer-events-none absolute -right-12 -top-10 h-32 w-32 rounded-full bg-[#C8D7E6]/70 blur-2xl" />
+                            <div className="pointer-events-none absolute -left-10 -bottom-8 h-24 w-24 rounded-full bg-[#BFD2E4]/70 blur-2xl" />
+
+                            <p
+                                className="relative z-10 text-[10px] tracking-[0.24em] uppercase text-[#4E6A82]"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                Respuesta inmediata
+                            </p>
+
+                            <p
+                                className="relative z-10 mt-2 text-[#1F2E3B] text-base md:text-lg leading-snug"
+                                style={{ fontFamily: "var(--font-serif)" }}
+                            >
+                                ¿Quieres una respuesta inmediata a tus dudas? Habla con nuestro asistente virtual.
+                            </p>
+
+                            <button
+                                type="button"
+                                onClick={openChat}
+                                className="relative z-10 mt-4 inline-flex items-center gap-2 border border-[#7D9CB6]/55 bg-[#C8D7E6] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[#2A4156] transition-colors duration-300 hover:bg-[#B5CBDE] hover:text-[#1D3346]"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                <Sparkles className="size-3.5" />
+                                Abrir asistente virtual
+                            </button>
+                        </div>
                         </div>
                     </motion.div>
                 </div>

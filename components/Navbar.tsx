@@ -5,6 +5,8 @@ import { useRouter, usePathname, Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
+import { Sparkles } from "lucide-react";
+import { useChat } from "@/components/chat/ChatProvider";
 
 type NavbarTheme = "light" | "dark";
 type DropdownPosition = { left: number; top: number };
@@ -88,58 +90,6 @@ function isNavGroupActive(pathname: string, links: NavGroupLink[]) {
     return links.some((l) => isActivePath(pathname, l.href));
 }
 
-function getDesktopLinkClassName(isActive: boolean, isDarkAtTop: boolean) {
-    const toneClasses = isActive
-        ? isDarkAtTop
-            ? "text-black font-medium"
-            : "text-white font-medium"
-        : isDarkAtTop
-            ? "text-black/70 hover:text-black"
-            : "text-white/70 hover:text-white";
-
-    return `relative flex items-center px-2 pt-1.5 text-xs font-light tracking-[0.18em] uppercase transition-all duration-300 ${toneClasses}`;
-}
-
-function getDesktopUnderlineClassName(isActive: boolean, isOpen: boolean, isDarkAtTop: boolean) {
-    return `absolute -bottom-1 left-1/2 -translate-x-1/2 h-px transition-all duration-300 ${isDarkAtTop ? "bg-black" : "bg-white"} ${isActive || isOpen ? "w-[32px]" : "w-0 group-hover:w-[32px]"}`;
-}
-
-function getContactCtaClassName(isActive: boolean, isDarkAtTop: boolean) {
-    const stateClasses = isActive
-        ? isDarkAtTop
-            ? "border-black bg-black/[0.06] font-medium text-black"
-            : "border-white bg-white/10 font-medium text-white"
-        : isDarkAtTop
-            ? "border-black/35 text-black/80 hover:border-black/55 hover:bg-black/[0.04]"
-            : "border-white/40 text-white/90 hover:border-white/60 hover:bg-white/10";
-
-    return `relative flex shrink-0 items-center rounded-sm border px-3 py-1.5 text-[11px] font-light tracking-[0.18em] font-[variant:small-caps] transition-all duration-300 sm:px-4 sm:text-xs ${stateClasses}`;
-}
-
-function getLocaleButtonClassName(isDarkAtTop: boolean) {
-    return `text-[13px] font-light tracking-[0.18em] uppercase transition-colors duration-300 ${isDarkAtTop ? "hover:text-black/80" : "hover:text-white/80"}`;
-}
-
-function getHamburgerClassName(isDarkAtTop: boolean) {
-    return `flex h-8 w-8 flex-col items-center justify-center gap-[6px] lg:hidden ${isDarkAtTop ? "text-black" : "text-white"}`;
-}
-
-function getDesktopSubLinkClassName(isActive: boolean) {
-    return `flex items-center gap-3 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 ${isActive ? "font-bold" : "text-black/70 hover:text-black"}`;
-}
-
-function getDesktopPopoverLinkClassName(isActive: boolean) {
-    return `flex items-center justify-start text-left text-[12px] tracking-[0.15em] uppercase transition-all duration-300 ${isActive ? "font-bold text-black" : "text-black/70 hover:text-black"}`;
-}
-
-function getDesktopSubLinkDotStyle(subLink: NavSubLink, isActive: boolean) {
-    return {
-        backgroundColor: subLink.color,
-        transform: isActive ? "scale(1.4)" : "scale(1)",
-        boxShadow: isActive ? `0 0 10px 1px ${subLink.color}80` : "none",
-    };
-}
-
 function useNavbarScrollState() {
     const [navScroll, setNavScroll] = useState<NavScrollState>({ hidden: false, scrolled: false });
 
@@ -213,7 +163,9 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
     const router = useRouter();
     const pathname = usePathname();
     const shouldReduceMotion = useReducedMotion();
+    const { toggleChat, isOpen: isChatOpen, registerTrigger } = useChat();
     const [mobileOpen, setMobileOpen] = useState(false);
+    const desktopChatTriggerRef = useRef<HTMLButtonElement | null>(null);
     const navScroll = useNavbarScrollState();
     const [openDesktopMenu, setOpenDesktopMenu] = useState<string | null>(null);
     const [desktopDropdownPosition, setDesktopDropdownPosition] = useState<DropdownPosition | null>(null);
@@ -229,9 +181,9 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
     }, [mobileOpen]);
 
     useEffect(() => {
-        setOpenDesktopMenu(null);
-        setDesktopDropdownPosition(null);
-    }, [hidden, scrolled]);
+        if (mobileOpen) return;
+        registerTrigger(desktopChatTriggerRef.current);
+    }, [mobileOpen, registerTrigger]);
 
     useEffect(() => {
         return () => {
@@ -281,7 +233,8 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
     return (
         <>
             <nav
-                className={`fixed left-0 right-0 z-50 transition-[top] duration-500 bg-transparent ${scrolled ? "mix-blend-difference text-white" : ""} ${hidden ? "-top-28 pointer-events-none" : "top-0"}`}
+                className={`fixed left-0 z-50 transition-[top,right] duration-500 bg-transparent ${scrolled ? "mix-blend-difference text-white" : ""} ${hidden ? "-top-28 pointer-events-none" : "top-0"}`}
+                style={{ right: "0px" }}
             >
                 <div className={`mx-auto flex w-full items-center justify-between px-6 py-4 lg:px-4 lg:pt-2.5 ${isDarkAtTop ? "text-black" : "text-white"}`}>
                     {/* Left: Links (Desktop) — flush left */}
@@ -294,11 +247,21 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                     <div key={key} className="relative group">
                                         <Link
                                             href={href}
-                                            className={getDesktopLinkClassName(isActive, isDarkAtTop)}
+                                            className={`relative flex items-center px-2 pt-1.5 text-xs font-light tracking-[0.18em] uppercase transition-all duration-300 ${
+                                                isActive
+                                                    ? isDarkAtTop
+                                                        ? "text-black font-medium"
+                                                        : "text-white font-medium"
+                                                    : isDarkAtTop
+                                                        ? "text-black/70 hover:text-black"
+                                                        : "text-white/70 hover:text-white"
+                                            }`}
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
                                             {label}
-                                            <span className={getDesktopUnderlineClassName(isActive, false, isDarkAtTop)} />
+                                            <span
+                                                className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px transition-all duration-300 ${isDarkAtTop ? "bg-black" : "bg-white"} ${isActive ? "w-[32px]" : "w-0 group-hover:w-[32px]"}`}
+                                            />
                                         </Link>
                                     </div>
                                 );
@@ -316,14 +279,24 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                         onMouseLeave={scheduleDesktopDropdownClose}
                                     >
                                         <span
-                                            className={`${getDesktopLinkClassName(isActive, isDarkAtTop)} cursor-default`}
+                                            className={`relative flex cursor-default items-center px-2 pt-1.5 text-xs font-light tracking-[0.18em] uppercase transition-all duration-300 ${
+                                                isActive
+                                                    ? isDarkAtTop
+                                                        ? "text-black font-medium"
+                                                        : "text-white font-medium"
+                                                    : isDarkAtTop
+                                                        ? "text-black/70 hover:text-black"
+                                                        : "text-white/70 hover:text-white"
+                                            }`}
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
                                             {label}
                                             <span className={`ml-1.5 opacity-70 transition-transform duration-300 text-[8px] ${isDesktopDropdownOpen ? "rotate-90" : "group-hover:rotate-90"}`}>
                                                 ▶
                                             </span>
-                                            <span className={getDesktopUnderlineClassName(isActive, isDesktopDropdownOpen, isDarkAtTop)} />
+                                            <span
+                                                className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px transition-all duration-300 ${isDarkAtTop ? "bg-black" : "bg-white"} ${isActive || isDesktopDropdownOpen ? "w-[32px]" : "w-0 group-hover:w-[32px]"}`}
+                                            />
                                         </span>
                                     </div>
                                 );
@@ -340,14 +313,24 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                     onMouseLeave={scheduleDesktopDropdownClose}
                                 >
                                     <span
-                                        className={`${getDesktopLinkClassName(isActive, isDarkAtTop)} cursor-default`}
+                                        className={`relative flex cursor-default items-center px-2 pt-1.5 text-xs font-light tracking-[0.18em] uppercase transition-all duration-300 ${
+                                            isActive
+                                                ? isDarkAtTop
+                                                    ? "text-black font-medium"
+                                                    : "text-white font-medium"
+                                                : isDarkAtTop
+                                                    ? "text-black/70 hover:text-black"
+                                                    : "text-white/70 hover:text-white"
+                                        }`}
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
                                         {label}
                                         <span className={`ml-1.5 opacity-70 transition-transform duration-300 text-[8px] ${isDesktopDropdownOpen ? "rotate-90" : "group-hover:rotate-90"}`}>
                                             ▶
                                         </span>
-                                        <span className={getDesktopUnderlineClassName(isActive, isDesktopDropdownOpen, isDarkAtTop)} />
+                                        <span
+                                            className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px transition-all duration-300 ${isDarkAtTop ? "bg-black" : "bg-white"} ${isActive || isDesktopDropdownOpen ? "w-[32px]" : "w-0 group-hover:w-[32px]"}`}
+                                        />
                                     </span>
                                 </div>
                             );
@@ -370,29 +353,59 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                     </Link>
 
                     {/* Right: Contact CTA + locale + mobile menu */}
-                    <div className="flex flex-1 items-center justify-end gap-4 lg:gap-6">
-                        <a
-                            href={contactCta.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={getContactCtaClassName(isContactActive, isDarkAtTop)}
+                    <div className="flex flex-1 items-center justify-end gap-4 lg:gap-4">
+                        <button
+                            type="button"
+                            onClick={toggleChat}
+                            ref={(el) => {
+                                desktopChatTriggerRef.current = el;
+                            }}
+                            aria-label={t("aiAssistant")}
+                            aria-pressed={isChatOpen}
+                            className={`hidden lg:inline-flex shrink-0 items-center gap-1.5 rounded-sm px-1 py-1.5 text-[11px] font-light uppercase tracking-[0.18em] transition-all duration-300 sm:text-xs ${
+                                isChatOpen
+                                    ? isDarkAtTop
+                                        ? "border-black bg-black/[0.06] font-medium text-black"
+                                        : "border-white bg-white/10 font-medium text-white"
+                                    : isDarkAtTop
+                                        ? "border-black/35 text-black/80 hover:border-black/55 hover:bg-black/[0.04]"
+                                        : "border-white/40 text-white/90 hover:border-white/60 hover:bg-white/10"
+                            }`}
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            {contactCta.label}
-                        </a>
+                            <Sparkles className="size-3.5" />
+                            <span>{t("aiAssistant")}</span>
+                        </button>
                         {/* Locale Switch */}
                         <button
                             onClick={switchLocale}
-                            className={getLocaleButtonClassName(isDarkAtTop)}
+                            className={`text-[13px] font-light tracking-[0.18em] uppercase transition-colors duration-300 ${isDarkAtTop ? "hover:text-black/80" : "hover:text-white/80"}`}
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {locale === "es" ? "EN" : "ES"}
                         </button>
+                        <a
+                            href={contactCta.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`inline-flex shrink-0 items-center rounded-sm border px-3 py-1.5 text-[11px] font-light font-[variant:small-caps] uppercase tracking-[0.18em] transition-all duration-300 sm:px-4 sm:text-xs ${
+                                isContactActive
+                                    ? isDarkAtTop
+                                        ? "border-black bg-black/[0.06] font-medium text-black"
+                                        : "border-white bg-white/10 font-medium text-white"
+                                    : isDarkAtTop
+                                        ? "border-black/35 text-black/80 hover:border-black/55 hover:bg-black/[0.04]"
+                                        : "border-white/40 text-white/90 hover:border-white/60 hover:bg-white/10"
+                            }`}
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            {contactCta.label}
+                        </a>
 
                         {/* Mobile hamburger */}
                         <button
                             onClick={() => setMobileOpen(!mobileOpen)}
-                            className={getHamburgerClassName(isDarkAtTop)}
+                            className={`flex h-8 w-8 flex-col items-center justify-center gap-[6px] lg:hidden ${isDarkAtTop ? "text-black" : "text-white"}`}
                             aria-label={t("menuAria")}
                         >
                             <span className={`block h-px w-6 bg-current transition-all duration-300 origin-center ${mobileOpen ? "translate-y-[7px] rotate-45" : ""}`} />
@@ -429,11 +442,18 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                 <Link
                                     key={sub.key}
                                     href={sub.href}
-                                    className={`${getDesktopSubLinkClassName(isSubActive)} w-full justify-start`}
+                                    className={`flex w-full items-center justify-start gap-3 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "text-black/70 hover:text-black"}`}
                                     style={{ fontFamily: "var(--font-sans)", color: isSubActive ? sub.color : undefined }}
                                     onClick={closeDesktopDropdown}
                                 >
-                                    <span className={`w-2.5 h-2.5 flex-none transition-all duration-300 ${isSubActive ? "rounded-full" : "rounded-sm"}`} style={getDesktopSubLinkDotStyle(sub, isSubActive)} />
+                                    <span
+                                        className={`w-2.5 h-2.5 flex-none transition-all duration-300 ${isSubActive ? "rounded-full" : "rounded-sm"}`}
+                                        style={{
+                                            backgroundColor: sub.color,
+                                            transform: isSubActive ? "scale(1.4)" : "scale(1)",
+                                            boxShadow: isSubActive ? `0 0 10px 1px ${sub.color}80` : "none",
+                                        }}
+                                    />
                                     {sub.label}
                                 </Link>
                             );
@@ -445,7 +465,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                     <Link
                                         key={pl.key}
                                         href={pl.href}
-                                        className={`${getDesktopPopoverLinkClassName(isPlActive)} w-full`}
+                                        className={`flex w-full items-center justify-start text-left text-[12px] uppercase tracking-[0.15em] transition-all duration-300 ${isPlActive ? "font-bold text-black" : "text-black/70 hover:text-black"}`}
                                         style={{ fontFamily: "var(--font-sans)" }}
                                         onClick={closeDesktopDropdown}
                                     >
@@ -476,7 +496,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                 <Link
                                     key={l.key}
                                     href={l.href}
-                                    className={`${getDesktopPopoverLinkClassName(isLActive)} w-full`}
+                                    className={`flex w-full items-center justify-start text-left text-[12px] uppercase tracking-[0.15em] transition-all duration-300 ${isLActive ? "font-bold text-black" : "text-black/70 hover:text-black"}`}
                                     style={{ fontFamily: "var(--font-sans)" }}
                                     onClick={closeDesktopDropdown}
                                 >
@@ -605,6 +625,32 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                     </motion.div>
                                 );
                             })}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: navLinks.length * 0.08, duration: 0.5 }}
+                                className="flex w-full flex-col items-center px-6"
+                            >
+                                <button
+                                    type="button"
+                                    ref={registerTrigger}
+                                    aria-label={t("aiAssistant")}
+                                    aria-pressed={isChatOpen}
+                                    onClick={() => {
+                                        setMobileOpen(false);
+                                        toggleChat();
+                                    }}
+                                    className={`inline-flex w-full max-w-sm items-center justify-center gap-2 rounded-sm border px-4 py-3 text-[11px] font-light font-[variant:small-caps] uppercase tracking-[0.18em] transition-all duration-300 ${
+                                        isChatOpen
+                                            ? "border-black/25 bg-black/[0.06] font-medium text-black"
+                                            : "border-black/20 text-black/80 hover:border-black/35 hover:bg-black/[0.04]"
+                                    }`}
+                                    style={{ fontFamily: "var(--font-sans)" }}
+                                >
+                                    <Sparkles className="size-4 shrink-0 text-black/70" />
+                                    {t("aiAssistant")}
+                                </button>
+                            </motion.div>
                         </div>
                     </motion.div>
                 )}

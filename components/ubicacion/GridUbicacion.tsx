@@ -43,7 +43,7 @@ export default function GridUbicacion() {
     return (
         <section id="entorno" className="bg-[#FFF3E1] py-12 md:py-24 px-6 md:px-12 lg:px-24 w-full relative">
             <div className="max-w-[1440px] mx-auto w-full">
-                <div className="w-full mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+                <div className="w-full mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-8 max-w-6xl mx-auto">
                     <motion.div
                         initial={hasVisited ? false : { opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -79,7 +79,7 @@ export default function GridUbicacion() {
                     </motion.div>
                 </div>
 
-                <div className="relative flex flex-col md:flex-row gap-12 lg:gap-16 items-start w-full">
+                <div className="relative flex flex-col md:flex-row gap-12 lg:gap-16 items-start w-full max-w-5xl mx-auto">
                     {/* Left: Text sections */}
                     <div className="w-full md:w-[50%] flex flex-col gap-12 md:gap-[30vh] pt-[0vh] md:pt-[40vh] pb-[10vh] md:pb-[50vh]">
                         {locations.map((item, index) => (

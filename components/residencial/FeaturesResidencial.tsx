@@ -8,9 +8,10 @@ import {
     Carousel,
     CarouselContent,
     CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
+import { VirtualStagingModal } from "@/components/virtual-staging/virtual-staging-modal";
+import { EyeIcon } from "lucide-react";
 
 /** Ficha técnica homogénea por tipología (referencia proyecto / fichas tipo). */
 const SPEC_LABELS = {
@@ -45,7 +46,8 @@ const residences: {
         accentSoft: "#e7d2c6",
         description:
             "Bloques alrededor del complejo habitacional: estacionamiento techado y bodegas a desnivel forman un circuito que mantiene las calles interiores libres de tránsito vehicular. Cuatro departamentos por nivel con terrazas y azoteas aprovechables.",
-        images: ["/residencias/departamentos.webp"],
+        // images: ["/residencias/departamentos.webp", "/babylon/departamentos-1-rear.png", "/babylon/departamentos-1-key-interior.png", "/babylon/departamentos-1-primary-bedroom.png", "/babylon/departamentos-1-primary-bath.png"],
+        images: ["/residencias/departamentos.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
         specs: {
             superficie: "113–173 m² (según prototipo)",
             recamaras: "2–3",
@@ -61,7 +63,7 @@ const residences: {
         accentSoft: "#e7d2c6",
         description:
             "Una vivienda por nivel, cada una con terraza o patio interior y vínculo claro con el exterior. Posibilidad de rentar una recámara de forma independiente.",
-        images: ["/residencias/duplex-1.webp"],
+        images: ["/residencias/duplex-1.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
         specs: {
             superficie: "128–155 m²",
             recamaras: "2–3",
@@ -77,7 +79,8 @@ const residences: {
         accentSoft: "#e7d2c6",
         description:
             "Viviendas en torno a un patio interior, una casa por nivel. El Tipo 2 conecta las calles peatonales a través del primer nivel. Jacuzzi en prototipos seleccionados.",
-        images: ["/residencias/duplex-2.webp"],
+        // images: ["/residencias/duplex-2.webp", "/babylon/duplex-2-rear.png", "/babylon/duplex-2-key-interior.png", "/babylon/duplex-2-primary-bedroom.png", "/babylon/duplex-2-primary-bath.png"],
+        images: ["/residencias/duplex-2.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
         specs: {
             superficie: "166–185 m²",
             recamaras: "2–4",
@@ -93,7 +96,8 @@ const residences: {
         accentSoft: "#e7d2c6",
         description:
             "Patio central con una vivienda por nivel; distribuciones con varias terrazas y, en prototipos tipo B, sala de estar. Posibilidad de rentar una recámara de forma independiente.",
-        images: ["/residencias/duplex-3.webp"],
+        // images: ["/residencias/duplex-3.webp", "/babylon/duplex-3-rear.png", "/babylon/duplex-3-key-interior.png", "/babylon/duplex-3-primary-bedroom.png", "/babylon/duplex-3-primary-bath.png"],
+        images: ["/residencias/duplex-3.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
         specs: {
             superficie: "142–181 m² (según prototipo)",
             recamaras: "2–3",
@@ -111,24 +115,39 @@ function ResidenceImageCarousel({
     title,
     accent,
     accentSoft,
+    onVirtualStage,
 }: {
     images: string[];
     title: string;
     accent: string;
     accentSoft: string;
+    onVirtualStage: (imageUrl: string) => void;
 }) {
     const n = images.length;
 
     if (n === 1) {
         return (
-            <div className="relative h-full min-h-0 w-full">
-                <Image
-                    src={images[0]}
-                    alt={title}
-                    fill
-                    className="object-cover"
-                    sizes={RESIDENCE_IMAGE_SIZES}
-                />
+            <div className="flex h-full min-h-0 w-full flex-col">
+                <div className="relative min-h-0 w-full flex-1 border border-[#b76d4b]/20">
+                    <Image
+                        src={images[0]}
+                        alt={title}
+                        fill
+                        className="object-cover"
+                        sizes={RESIDENCE_IMAGE_SIZES}
+                    />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/45 to-transparent" />
+                </div>
+                <div className="flex justify-end px-1 pt-2">
+                    <Button
+                        type="button"
+                        size="xs"
+                        className="h-7 border-transparent bg-[#f4e6db] px-3 text-[11px] text-[#8d5639] shadow-sm hover:bg-[#edd7c8]"
+                        onClick={() => onVirtualStage(images[0])}
+                    >
+                        Visualiza este espacio amueblado
+                    </Button>
+                </div>
             </div>
         );
     }
@@ -139,6 +158,7 @@ function ResidenceImageCarousel({
             title={title}
             accent={accent}
             accentSoft={accentSoft}
+            onVirtualStage={onVirtualStage}
         />
     );
 }
@@ -148,11 +168,13 @@ function ResidenceImageCarouselEmbla({
     title,
     accent,
     accentSoft,
+    onVirtualStage,
 }: {
     images: string[];
     title: string;
     accent: string;
     accentSoft: string;
+    onVirtualStage: (imageUrl: string) => void;
 }) {
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
@@ -171,34 +193,36 @@ function ResidenceImageCarouselEmbla({
     }, [api]);
 
     return (
-        <Carousel
-            setApi={setApi}
-            opts={{ align: "start", loop: true }}
-            className="h-full w-full min-h-0 [&_[data-slot=carousel-content]]:h-full"
-        >
-            <CarouselContent className="-ml-0 h-full">
-                {images.map((src, i) => (
-                    <CarouselItem key={`${i}-${src}`} className="h-full basis-full pl-0">
-                        <div className="relative h-full min-h-[12rem] w-full">
-                            <Image
-                                src={src}
-                                alt={`${title} — ${i + 1} / ${n}`}
-                                fill
-                                className="object-cover"
-                                sizes={RESIDENCE_IMAGE_SIZES}
-                            />
-                        </div>
-                    </CarouselItem>
-                ))}
-            </CarouselContent>
-            <CarouselPrevious
+        <div className="flex h-full min-h-0 w-full flex-col">
+            <Carousel
+                setApi={setApi}
+                opts={{ align: "start", loop: true }}
+                className="w-full min-h-0 flex-1 [&_[data-slot=carousel-content]]:h-full"
+            >
+                <CarouselContent className="-ml-0 h-full">
+                    {images.map((src, i) => (
+                        <CarouselItem key={`${i}-${src}`} className="h-full basis-full pl-0">
+                            <div className="relative h-full min-h-[12rem] w-full border border-[#b76d4b]/20">
+                                <Image
+                                    src={src}
+                                    alt={`${title} — ${i + 1} / ${n}`}
+                                    fill
+                                    className="object-cover"
+                                    sizes={RESIDENCE_IMAGE_SIZES}
+                                />
+                                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/45 to-transparent" />
+                            </div>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                {/* <CarouselPrevious
                 variant="outline"
                 className="top-1/2 left-2 z-20 -translate-y-1/2 border-[#3a3028]/20 bg-[#fff8ed]/95 text-[#3a3028] shadow-sm hover:bg-white md:left-3 md:opacity-0 md:group-hover:opacity-100"
             />
             <CarouselNext
                 variant="outline"
                 className="top-1/2 right-2 z-20 -translate-y-1/2 border-[#3a3028]/20 bg-[#fff8ed]/95 text-[#3a3028] shadow-sm hover:bg-white md:right-3 md:opacity-0 md:group-hover:opacity-100"
-            />
+            /> */}
             <div
                 className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 gap-2"
                 role="tablist"
@@ -221,16 +245,30 @@ function ResidenceImageCarouselEmbla({
                     />
                 ))}
             </div>
-        </Carousel>
+            </Carousel>
+            <div className="flex items-center justify-end py-2">
+                <Button
+                    type="button"
+                    size="xs"
+                    className="h-7 rounded-none border-transparent bg-[#f4e6db] px-3 text-[11px] text-[#8d5639] shadow-sm hover:bg-[#edd7c8]"
+                    onClick={() => onVirtualStage(images[current] ?? images[0])}
+                >
+                    <EyeIcon className="size-3.5 mr-1" />
+                    Visualiza este espacio amueblado
+                </Button>
+            </div>
+        </div>
     );
 }
 
 function EditorialFeatureRow({
     residence,
     reverse,
+    onVirtualStage,
 }: {
     residence: (typeof residences)[number];
     reverse: boolean;
+    onVirtualStage: (imageUrl: string) => void;
 }) {
     return (
         <article
@@ -299,7 +337,7 @@ function EditorialFeatureRow({
 
             <div className="order-1 min-w-0 lg:order-0">
                 <div
-                    className={`group relative aspect-[16/10] w-full max-w-[820px] overflow-hidden bg-[#ebe1d4] shadow-[0_25px_60px_rgba(73,54,39,0.08)] lg:max-w-[740px] xl:max-w-[760px] ${
+                    className={`group relative aspect-[16/10] w-full max-w-[820px] overflow-hidden lg:max-w-[740px] xl:max-w-[760px] ${
                         reverse ? "mx-auto lg:mr-auto lg:ml-0" : "mx-auto lg:ml-auto lg:mr-0"
                     }`}
                 >
@@ -309,6 +347,7 @@ function EditorialFeatureRow({
                             title={residence.title}
                             accent={residence.accent}
                             accentSoft={residence.accentSoft}
+                            onVirtualStage={onVirtualStage}
                         />
                     </div>
                     <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-1" style={{ backgroundColor: residence.accent }} />
@@ -319,7 +358,14 @@ function EditorialFeatureRow({
 }
 
 export default function FeaturesResidencial() {
+    const [virtualStagingOpen, setVirtualStagingOpen] = useState(false);
+    const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
+    const [selectedPropertyImages, setSelectedPropertyImages] = useState<string[]>([]);
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+    const [selectedResidence, setSelectedResidence] = useState<(typeof residences)[number] | null>(null);
+
     return (
+        <>
         <section className="relative bg-[#EFE6DC] px-6 py-24 md:px-10 md:py-32 lg:px-16 lg:py-20">
             <div className="mx-auto max-w-[1280px]">
                 <p
@@ -342,10 +388,38 @@ export default function FeaturesResidencial() {
 
                 <div className="mt-8 space-y-18 md:mt-20 md:space-y-20">
                     {residences.map((residence, index) => (
-                        <EditorialFeatureRow key={residence.id} residence={residence} reverse={index % 2 === 1} />
+                        <EditorialFeatureRow
+                            key={residence.id}
+                            residence={residence}
+                            reverse={index % 2 === 1}
+                            onVirtualStage={(imageUrl) => {
+                                setSelectedImageUrl(imageUrl);
+                                setSelectedPropertyImages(residence.images);
+                                setSelectedResidence(residence);
+                                setSelectedImageIndex(
+                                    Math.max(
+                                        0,
+                                        residence.images.findIndex((img) => img === imageUrl),
+                                    ),
+                                );
+                                setVirtualStagingOpen(true);
+                            }}
+                        />
                     ))}
                 </div>
             </div>
         </section>
+        {selectedImageUrl && (
+            <VirtualStagingModal
+                open={virtualStagingOpen}
+                onOpenChange={setVirtualStagingOpen}
+                preloadedImageUrl={selectedImageUrl}
+                propertyImages={selectedPropertyImages}
+                propertyName={selectedResidence?.title}
+                propertyId={1}
+                imageIndex={selectedImageIndex}
+            />
+        )}
+        </>
     );
 }

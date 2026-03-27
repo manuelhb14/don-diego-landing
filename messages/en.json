@@ -15,7 +15,8 @@
       "wellness": "Wellness Center",
       "presa": "Presa de la Cantera"
     },
-    "menuAria": "Menu"
+    "menuAria": "Menu",
+    "aiAssistant": "Ask me anything"
   },
   "blogsHome": {
     "kicker": "[Blog]",
@@ -36,9 +37,9 @@
     "location": "San Miguel de Allende, Guanajuato",
     "cta": "Learn more",
     "eyebrow": "[RESIDENTIAL DEVELOPMENT]",
-    "bodyLine1": "A sanctuary where architecture meets nature.",
-    "bodyLine2": "Designed for a life in connection.",
-    "explore": "Explore"
+    "bodyLine1": "A sanctuary where architecture meets nature. Designed for a life in connection. ",
+    "bodyLine2": "",
+    "explore": "Go to properties"
   },
   "about": {
     "quote": "\"Best Small City in the World\"",

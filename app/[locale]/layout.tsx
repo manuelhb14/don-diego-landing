@@ -2,9 +2,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { Cormorant } from "next/font/google";
-
-const cormorant = Cormorant({ subsets: ["latin"], variable: "--font-cormorant", weight: ["300", "400", "500"] });
+import { ChatProvider } from "@/components/chat/ChatProvider";
+import ChatLayoutShell from "@/components/chat/ChatLayoutShell";
 
 type Props = {
   children: React.ReactNode;
@@ -21,11 +20,13 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={cormorant.variable}>
+    <html lang={locale}>
       <body>
         <style dangerouslySetInnerHTML={{ __html: 'html { scroll-behavior: auto !important; }' }} />
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <ChatProvider>
+            <ChatLayoutShell>{children}</ChatLayoutShell>
+          </ChatProvider>
         </NextIntlClientProvider>
       </body>
     </html>

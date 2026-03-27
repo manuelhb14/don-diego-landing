@@ -9,6 +9,7 @@ import { ArrowLeft } from "lucide-react";
 import { routing } from "@/i18n/routing";
 import { BlogMarkdown } from "@/components/blog/BlogMarkdown";
 import { formatPostDate, getAllSlugs, getPostBySlug, isVideoSrc } from "@/content/blogPosts";
+import ChatPageContext from "@/components/chat/ChatPageContext";
 
 type Props = {
     params: Promise<{ locale: string; slug: string }>;
@@ -60,6 +61,15 @@ export default async function BlogPostPage({ params }: Props) {
 
     return (
         <>
+            <ChatPageContext
+                pageType="blogPost"
+                detail={{
+                    slug: post.slug,
+                    title: post.title,
+                    category: post.kicker,
+                    tags: post.tags,
+                }}
+            />
             <Navbar locale={locale} theme="dark" />
             <main className="bg-[#F6F0E8] min-h-screen">
                 <article className="mx-auto max-w-[900px] px-6 md:px-10 lg:px-16 pt-28 pb-16 md:pb-24">

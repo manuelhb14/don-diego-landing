@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function Hero() {
     const th = useTranslations("hero");
@@ -242,21 +243,25 @@ export default function Hero() {
                         <br />
                         {th("bodyLine2")}
                     </p>
-                    <motion.a
-                        href="#proyecto"
-                        whileHover={{ y: 2 }}
-                        transition={{ type: "spring", stiffness: 400 }}
-                        className="inline-flex items-center justify-center gap-4 group"
+                    <Link
+                        href="/residencial"
+                        className="inline-flex items-center justify-center min-h-11 px-10 py-4 -mx-10 -my-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFF3E1]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111]"
                     >
-                        <span className="h-px w-8 bg-[#FFF3E1]/40 group-hover:w-12 transition-all duration-500" />
-                        <span
-                            className="text-[11px] tracking-[0.2em] text-[#FFF3E1] uppercase"
-                            style={{ fontFamily: "var(--font-sans)" }}
+                        <motion.span
+                            className="inline-flex items-center justify-center gap-4 group"
+                            whileHover={{ y: 2 }}
+                            transition={{ type: "spring", stiffness: 400 }}
                         >
-                            {th("explore")}
-                        </span>
-                        <span className="h-px w-8 bg-[#FFF3E1]/40 group-hover:w-12 transition-all duration-500" />
-                    </motion.a>
+                            <span className="h-px w-8 bg-[#FFF3E1]/40 group-hover:w-12 transition-all duration-500" />
+                            <span
+                                className="text-[11px] tracking-[0.2em] text-[#FFF3E1] uppercase"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                {th("explore")}
+                            </span>
+                            <span className="h-px w-8 bg-[#FFF3E1]/40 group-hover:w-12 transition-all duration-500" />
+                        </motion.span>
+                    </Link>
                 </motion.div>
             </motion.div>
 

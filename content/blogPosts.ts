@@ -42,7 +42,7 @@ const posts: BlogPost[] = [
         comments: 33,
         likes: 412,
         views: 920,
-        imageSrc: "/babylon/guia.webp",
+        imageSrc: "/babylon/sustentabilidad.webp",
         locales: {
             es: {
                 title: "Sustentabilidad como hábitat",
@@ -243,7 +243,7 @@ San Miguel de Allende siempre se ha distinguido como un santuario para artistas,
         comments: 22,
         likes: 341,
         views: 680,
-        imageSrc: "/babylon/banner-3.webp",
+        imageSrc: "/babylon/guia.webp",
         locales: {
             es: {
                 title: "Guía San Miguel de Allende 2026",
@@ -255,12 +255,14 @@ San Miguel de Allende siempre se ha distinguido como un santuario para artistas,
 
 Esta guía definitiva explora lo que realmente vale la pena hacer, ver y saborear en San Miguel este año, alejándonos de las trampas para turistas y adentrándonos en su escena más exclusiva.
 
+Si estás considerando dar el siguiente paso e invertir o establecerte aquí, comunidades exclusivas como **Don Diego** se están perfilando como el refugio perfecto, ofreciendo propiedades que equilibran la tranquilidad de las afueras con una arquitectura de primer nivel.
+
 ---
 
 ### 1. Las Nuevas Tendencias en 2026
 
 **El Renacimiento del Diseño Minimalista y los Bienes Raíces**
-El mercado inmobiliario y arquitectónico de la ciudad está viviendo una transformación fascinante. Detrás de las clásicas fachadas virreinales, las nuevas restauraciones y desarrollos están apostando por una estética profundamente minimalista. Se priorizan las líneas limpias, la luz natural, los materiales crudos y la integración de tecnología inteligente. Visitar las jornadas de "puertas abiertas" de agencias locales es ahora una actividad de nicho para los amantes del diseño. *Si estás considerando dar el siguiente paso e invertir o establecerte aquí, comunidades exclusivas como **Don Diego** se están perfilando como el refugio perfecto, ofreciendo propiedades que equilibran la tranquilidad de las afueras con una arquitectura de primer nivel.*
+El mercado inmobiliario y arquitectónico de la ciudad está viviendo una transformación fascinante. Detrás de las clásicas fachadas virreinales, las nuevas restauraciones y desarrollos están apostando por una estética profundamente minimalista. Se priorizan las líneas limpias, la luz natural, los materiales crudos y la integración de tecnología inteligente. Visitar las jornadas de "puertas abiertas" de agencias locales es ahora una actividad de nicho para los amantes del diseño.
 
 **Workations para Fundadores y Creativos**
 San Miguel se ha posicionado como un refugio de alto nivel para emprendedores y desarrolladores tecnológicos. La tendencia de este año son los cafés de especialidad y espacios híbridos diseñados para el trabajo profundo, con internet de alta velocidad y ambientes estéticamente impecables que fomentan la concentración y el networking silencioso.
