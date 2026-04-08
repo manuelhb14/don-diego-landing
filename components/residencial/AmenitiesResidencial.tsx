@@ -3,8 +3,10 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Search } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function AmenitiesResidencial() {
+    const t = useTranslations("pages.residencial.amenities");
     const gridImages = [
         "/images/renders/padel.png",
         "/images/renders/padel-1.png",
@@ -30,7 +32,7 @@ export default function AmenitiesResidencial() {
                         className="text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase mb-4"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [AMENIDADES RESIDENCIALES]
+                        {t("kicker")}
                     </p>
                     <h2
                         className="text-[#1F1D1B] leading-tight"
@@ -39,7 +41,7 @@ export default function AmenitiesResidencial() {
                             fontSize: "clamp(2.5rem, 5vw, 4rem)",
                         }}
                     >
-                        Comunidad y <span className="italic text-[#b76d4b]">vida</span>
+                        {t("titleLine1")} <span className="italic text-[#b76d4b]">{t("titleAccent")}</span>
                     </h2>
                 </motion.div>
 
@@ -54,10 +56,10 @@ export default function AmenitiesResidencial() {
                         {/* Left Side: Text */}
                         <div className="w-full md:w-1/2 p-10 lg:p-16 flex flex-col justify-center relative z-10">
                             <h3 className="text-[#FFF3E1] text-3xl lg:text-5xl font-medium mb-6 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
-                                El Corazón Social
+                                {t("socialHeart.title")}
                             </h3>
                             <p className="text-[#FFF3E1] text-base lg:text-lg leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}>
-                                Casa Club de clase mundial equipada con restaurante de autor, barras de café, espacios coworking y grandes terrazas inmersas en el paisaje de San Miguel.
+                                {t("socialHeart.body")}
                             </p>
                         </div>
 
@@ -65,19 +67,19 @@ export default function AmenitiesResidencial() {
                         <div className="relative w-full md:w-1/2 h-80 md:h-auto overflow-hidden">
                             <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-0 p-0 h-full w-full">
                                 <div className="relative col-span-2 row-span-2 overflow-hidden">
-                                    <Image src="/images/renders/render-8.png" alt="Casa Club" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                    <Image src="/images/renders/render-8.png" alt={t("alts.casaClub")} fill className="object-cover hover:scale-105 transition-transform duration-700" />
                                 </div>
                                 <div className="relative col-span-1 row-span-1 overflow-hidden">
-                                    <Image src="/images/renders/restaurants.jpeg" alt="Restaurante" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                    <Image src="/images/renders/restaurants.jpeg" alt={t("alts.restaurante")} fill className="object-cover hover:scale-105 transition-transform duration-700" />
                                 </div>
                                 <div className="relative col-span-1 row-span-2 overflow-hidden">
-                                    <Image src="/images/renders/pool.jpeg" alt="Coworking" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                    <Image src="/images/renders/pool.jpeg" alt={t("alts.coworking")} fill className="object-cover hover:scale-105 transition-transform duration-700" />
                                 </div>
                                 <div className="relative col-span-1 row-span-1 overflow-hidden">
-                                    <Image src="/images/renders/terrace.jpeg" alt="Terrazas" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                    <Image src="/images/renders/terrace.jpeg" alt={t("alts.terrazas")} fill className="object-cover hover:scale-105 transition-transform duration-700" />
                                 </div>
                                 <div className="relative col-span-1 row-span-1 overflow-hidden">
-                                    <Image src="/images/renders/coworking.jpeg" alt="Piscina" fill className="object-cover hover:scale-105 transition-transform duration-700" />
+                                    <Image src="/images/renders/coworking.jpeg" alt={t("alts.piscina")} fill className="object-cover hover:scale-105 transition-transform duration-700" />
                                 </div>
                             </div>
                         </div>
@@ -93,31 +95,31 @@ export default function AmenitiesResidencial() {
                     >
                         <div className="relative z-10 max-w-sm">
                             <h3 className="text-[#1F1D1B] text-2xl lg:text-3xl font-medium mb-3 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
-                                Bienestar y Relax
+                                {t("wellness.title")}
                             </h3>
                             <p className="text-[#1F1D1B]/80 text-sm lg:text-base leading-relaxed" style={{ fontFamily: "var(--font-sans)" }}>
-                                Santuario de calma con alberca templada, salón de yoga, spa y jacuzzis privados entre riachuelos.
+                                {t("wellness.body")}
                             </p>
                         </div>
 
                         {/* Image Playground mock */}
                         <div className="flex-1 w-full relative mt-16 lg:mt-24 flex items-center justify-center">
                             <div className="absolute w-53 h-53 lg:w-56 lg:h-56 rounded-full shadow-2xl overflow-hidden border-[6px] border-[#FFF3E1] z-20">
-                                <Image src="/images/renders/spa.jpeg" alt="Spa" fill className="object-cover" />
+                                <Image src="/images/renders/spa.jpeg" alt={t("alts.spa")} fill className="object-cover" />
                                 <div className="hidden lg:flex absolute inset-0 flex items-center justify-center">
-                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute bottom-2 lg:bottom-3 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">SPA</span>
+                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute bottom-2 lg:bottom-3 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">{t("labels.spa")}</span>
                                 </div>
                             </div>
                             <div className="absolute w-36 h-36 lg:w-56 lg:h-56 rounded-full shadow-xl overflow-hidden border-4 border-[#FFF3E1] -translate-x-20 -translate-y-24 lg:-translate-x-34 lg:-translate-y-0  z-10">
-                                <Image src="/images/renders/yoga.png" alt="Yoga" fill className="object-cover" />
+                                <Image src="/images/renders/yoga.png" alt={t("alts.yoga")} fill className="object-cover" />
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute top-2 lg:top-46 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">YOGA</span>
+                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute top-2 lg:top-46 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">{t("labels.yoga")}</span>
                                 </div>
                             </div>
                             <div className="absolute w-32 h-32 lg:w-56 lg:h-56 rounded-full shadow-xl overflow-hidden border-4 border-[#FFF3E1] translate-x-24 translate-y-16 lg:translate-x-34 lg:-translate-y-0  z-30">
-                                <Image src="/images/renders/spa-2.png" alt="Relax" fill className="object-cover" />
+                                <Image src="/images/renders/spa-2.png" alt={t("alts.relax")} fill className="object-cover" />
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute bottom-2 lg:bottom-3 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">JACUZZI</span>
+                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute bottom-2 lg:bottom-3 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">{t("labels.jacuzzi")}</span>
                                 </div>
                             </div>
                         </div>
@@ -133,10 +135,10 @@ export default function AmenitiesResidencial() {
                     >
                         <div className="px-8 lg:px-12 mb-8 relative z-10">
                             <h3 className="text-[#FFF3E1] text-2xl lg:text-3xl font-medium mb-3 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
-                                Deporte y Recreación
+                                {t("sports.title")}
                             </h3>
                             <p className="text-[#FFF3E1]/70 text-sm lg:text-base leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-sans)" }}>
-                                Canchas de pádel y amenidades deportivas envueltas en la espectacular vegetación perimetral.
+                                {t("sports.body")}
                             </p>
                         </div>
 
@@ -148,7 +150,7 @@ export default function AmenitiesResidencial() {
                                         key={i}
                                         className={`relative w-full h-full overflow-hidden ${padelGridInnerCorners[i]}`}
                                     >
-                                        <Image src={src} alt="Activity" fill className="object-cover transition-transform duration-500 hover:scale-[1.03]" />
+                                        <Image src={src} alt={t("alts.activity")} fill className="object-cover transition-transform duration-500 hover:scale-[1.03]" />
                                     </div>
                                 ))}
                             </div>
@@ -156,7 +158,7 @@ export default function AmenitiesResidencial() {
                             {/* Photos style search bar */}
                             <div className="absolute bottom-8 lg:bottom-10 left-1/2 -translate-x-1/2 bg-[#FFF3E1]/90 backdrop-blur-xl px-5 py-3 rounded-2xl lg:rounded-full flex items-center gap-3 w-[85%] max-w-[300px] shadow-2xl">
                                 <Search className="w-5 h-5 text-[#1F1D1B]/60" />
-                                <span className="text-[#1F1D1B]/80 text-sm font-medium tracking-tight" style={{ fontFamily: "var(--font-sans)" }}>Agendar clase de pádel...</span>
+                                <span className="text-[#1F1D1B]/80 text-sm font-medium tracking-tight" style={{ fontFamily: "var(--font-sans)" }}>{t("searchPlaceholder")}</span>
                             </div>
                         </div>
                     </motion.div>

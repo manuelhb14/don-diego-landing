@@ -4,49 +4,59 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { motion } from "motion/react";
 import { useHasVisited } from "@/hooks/useHasVisited";
+import { useTranslations } from "next-intl";
 
-const components = [
-    {
-        title: "Club Residencial",
-        description: "364 residencias diseñadas con densidad inteligente para proteger vistas y privacidad.",
-        image: "/images/gallery/gallery-2.png",
-        href: "/residencial",
-        colSpan: "col-span-1 md:col-span-8",
-        aspect: "aspect-[4/3] md:aspect-[21/9]",
-    },
-    {
-        title: "Organic Farm",
-        description: "Un espacio agrario vivo donde la tierra nos nutre y conecta con los ciclos naturales.",
-        image: "/images/gallery/gallery-5.png",
-        href: "/farm",
-        colSpan: "col-span-1 md:col-span-4",
-        aspect: "aspect-[4/3] md:aspect-[3/4]",
-    },
-    {
-        title: "Wellness Center",
-        description: "Santuario para el cuerpo y la mente, diseñado para el equilibrio interior.",
-        image: "/images/gallery/gallery-10.jpg",
-        href: "/wellness",
-        colSpan: "col-span-1 md:col-span-5",
-        aspect: "aspect-[4/3] md:aspect-square",
-    },
-    {
-        title: "Presa de la Cantera",
-        description: "El corazón azul del proyecto, un cuerpo de agua que refleja la inmensidad del paisaje.",
-        image: "/images/gallery/gallery-4.png",
-        href: "/presa",
-        colSpan: "col-span-1 md:col-span-7",
-        aspect: "aspect-[4/3] md:aspect-[16/9]",
-    }
-];
+type ProyectoCard = {
+    title: string;
+    description: string;
+    image: string;
+    href: string;
+    colSpan: string;
+    aspect: string;
+};
 
 export default function GridProyecto() {
+    const t = useTranslations("pages.proyecto.grid");
     const hasVisited = useHasVisited();
+
+    const components: ProyectoCard[] = [
+        {
+            title: t("cards.residencial.title"),
+            description: t("cards.residencial.description"),
+            image: "/final/residencial.webp",
+            href: "/residencial",
+            colSpan: "col-span-1 md:col-span-8",
+            aspect: "aspect-[4/3] md:aspect-[21/9]",
+        },
+        {
+            title: t("cards.farm.title"),
+            description: t("cards.farm.description"),
+            image: "/final/organic-farms.webp",
+            href: "/farm",
+            colSpan: "col-span-1 md:col-span-4",
+            aspect: "aspect-[4/3] md:aspect-[3/4]",
+        },
+        {
+            title: t("cards.wellness.title"),
+            description: t("cards.wellness.description"),
+            image: "/final/wellness-2.webp",
+            href: "/wellness",
+            colSpan: "col-span-1 md:col-span-5",
+            aspect: "aspect-[4/3] md:aspect-square",
+        },
+        {
+            title: t("cards.presa.title"),
+            description: t("cards.presa.description"),
+            image: "/final/presa.webp",
+            href: "/presa",
+            colSpan: "col-span-1 md:col-span-7",
+            aspect: "aspect-[4/3] md:aspect-[16/9]",
+        },
+    ];
 
     return (
         <section id="componentes" className="bg-[#FFF3E1] pt-12 pb-12 md:pb-24 px-6 md:px-12 lg:px-24 w-full">
             <div className="max-w-[1440px] mx-auto w-full">
-                {/* Bento Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
                     {components.map((item, index) => (
                         <motion.div
@@ -58,7 +68,6 @@ export default function GridProyecto() {
                             className={`${item.colSpan} relative group overflow-hidden rounded-sm`}
                         >
                             <Link href={item.href} className={`block w-full h-full relative ${item.aspect} bg-[#1F1D1B]`}>
-                                {/* Background Image */}
                                 <Image
                                     src={item.image}
                                     alt={item.title}
@@ -67,10 +76,8 @@ export default function GridProyecto() {
                                     sizes="(max-width: 768px) 100vw, 50vw"
                                 />
 
-                                {/* Overlay / Gradient */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#1F1D1B]/90 via-[#1F1D1B]/20 to-transparent opacity-95 md:opacity-80 transition-opacity duration-700 group-hover:opacity-95" />
 
-                                {/* Content */}
                                 <div className="absolute inset-0 p-5 md:p-12 flex flex-col justify-end">
                                     <div className="transform translate-y-0 md:translate-y-28 transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:translate-y-0">
                                         <h3
@@ -89,7 +96,7 @@ export default function GridProyecto() {
                                                 className="inline-flex items-center gap-3 text-[10px] tracking-[0.2em] text-[#E6E1D6] uppercase group/link"
                                                 style={{ fontFamily: "var(--font-sans)" }}
                                             >
-                                                Descubrir
+                                                {t("discover")}
                                                 <span className="w-6 h-[1px] bg-[#E6E1D6]/50 group-hover/link:w-10 transition-all duration-300" />
                                             </span>
                                         </div>
@@ -115,8 +122,8 @@ export default function GridProyecto() {
                                 fontSize: "clamp(3rem, 6vw, 5rem)",
                             }}
                         >
-                            Cuatro Entornos <br />
-                            <span className="italic text-[#8C7B6C]">Una Comunidad</span>
+                            {t("bottomTitleLine1")} <br />
+                            <span className="italic text-[#8C7B6C]">{t("bottomTitleLine2")}</span>
                         </h2>
                     </motion.div>
 
@@ -128,11 +135,10 @@ export default function GridProyecto() {
                         className="max-w-md md:mb-2 lg:mb-4"
                     >
                         <p className="text-[#222] text-lg md:text-xl font-medium leading-relaxed mb-0" style={{ fontFamily: "var(--font-serif)" }}>
-                            Cada componente ha sido diseñado como parte de un ecosistema integral, respetando la vocación del lugar y ofreciendo una experiencia de vida única y armoniosa.
+                            {t("bottomBody")}
                         </p>
                     </motion.div>
                 </div>
-
             </div>
         </section>
     );

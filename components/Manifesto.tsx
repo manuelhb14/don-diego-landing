@@ -96,34 +96,34 @@ export default function Manifesto() {
                   Option 1: Sized down and pushed partially off-screen on mobile.
                   Desktop has small collisions (around 10-15%).
                 */}
-                <motion.div className="absolute top-[10%] left-[8%] md:left-[10%] lg:left-[12.5%] w-36 md:w-40 lg:w-56 xl:w-72 aspect-[4/5] z-0" style={{ y: y1, opacity: imgOp1 }}>
-                    <Image src="/babylon/tierra-1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute top-[5%] md:top-[10%] left-[6%] md:left-[8%] lg:left-[10.5%] w-40 md:w-52 lg:w-60 xl:w-72 aspect-[4/5] z-0" style={{ y: y1, opacity: imgOp1 }}>
+                    <Image src="/final/tierra1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute top-[18%] right-[8%] md:right-[5%] lg:right-[10%] w-32 md:w-40 lg:w-48 xl:w-64 aspect-square z-0" style={{ y: y4, opacity: imgOp4 }}>
-                    <Image src="/babylon/mismo-1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute top-[18%] right-[8%] md:right-[5%] lg:right-[10%] w-36 md:w-48 lg:w-56 xl:w-64 aspect-square z-0" style={{ y: y4, opacity: imgOp4 }}>
+                    <Image src="/final/mismo2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute top-[45%] -right-[15%] md:right-[10%] lg:right-[12%] w-32 md:w-48 lg:w-56 xl:w-80 aspect-[3/4] z-0" style={{ y: y2, opacity: imgOp2 }}>
-                    <Image src="/babylon/sma-1.webp" alt="Gallery" fill className="object-cover rounded-sm shadow-2xl" />
+                <motion.div className="absolute top-[40%] -right-[18%] md:right-[2%] lg:right-[8%] w-40 md:w-64 lg:w-72 xl:w-80 aspect-[3/4] z-0" style={{ y: y2, opacity: imgOp2 }}>
+                    <Image src="/final/comunidad1.webp" alt="Gallery" fill className="object-cover rounded-sm shadow-2xl" />
                 </motion.div>
 
-                <motion.div className="absolute top-[60%] left-[-5%] md:left-[5%] lg:left-[12%] w-24 md:w-28 lg:w-32 xl:w-72 aspect-[4/3] z-0" style={{ y: y5, opacity: imgOp5 }}>
-                    <Image src="/babylon/comunidad-1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute top-[60%] left-[-9%] md:left-[1%] lg:left-[8%] w-44 md:w-72 lg:w-80 xl:w-96 aspect-[4/3] z-0" style={{ y: y5, opacity: imgOp5 }}>
+                    <Image src="/final/comunidad2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute bottom-[2%] md:bottom-[-10%] -left-[0%] md:left-[15%] lg:left-[20%] w-48 md:w-56 lg:w-60 xl:w-96 aspect-video z-0 origin-bottom-left" style={{ y: y3, opacity: imgOp3 }}>
-                    <Image src="/babylon/comunidad-2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute bottom-[2%] md:bottom-[-10%] -left-[0%] md:left-[15%] lg:left-[20%] w-56 md:w-64 lg:w-80 xl:w-96 aspect-video z-0 origin-bottom-left" style={{ y: y3, opacity: imgOp3 }}>
+                    <Image src="/final/mismo1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute bottom-[10%] md:bottom-[5%] right-[2%] md:right-[10%] lg:right-[15%] w-32 md:w-36 lg:w-44 xl:w-60 aspect-[4/3] z-0  origin-bottom-right" style={{ y: y6, opacity: imgOp6 }}>
-                    <Image src="/babylon/tierra-2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute bottom-[10%] md:bottom-[5%] right-[0%] md:right-[6%] lg:right-[2%] w-52 md:w-56 lg:w-64 xl:w-80 aspect-[4/3] z-0  origin-bottom-right" style={{ y: y6, opacity: imgOp6 }}>
+                    <Image src="/final/tierra2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
 
                 {/* Foreground Centered Text (always above images) */}
                 <motion.div
-                    className="relative z-10 flex flex-col items-center justify-center text-center pb-32 md:pb-0 px-6 mix-blend-difference"
+                    className="relative z-10 flex flex-col items-center justify-center text-center pb-20 md:pb-0 px-6 mix-blend-difference"
                     style={{ opacity: textGroupOpacity }}
                 >
                     <p

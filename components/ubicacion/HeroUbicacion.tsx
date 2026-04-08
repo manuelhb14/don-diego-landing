@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 export default function HeroUbicacion() {
+    const t = useTranslations("pages.ubicacion.hero");
     return (
         <section className="relative flex h-[40vh] md:h-[60vh] min-h-[400px] w-full items-center justify-center overflow-hidden bg-[#fff8ed]">
             <div className="relative z-10 flex flex-col items-center justify-center px-4 w-full max-w-7xl text-center mt-12 md:mt-16">
@@ -11,7 +13,7 @@ export default function HeroUbicacion() {
                         className="text-[10px] sm:text-xs tracking-[0.3em] text-[#AA7D69] uppercase mb-6 sm:mb-8"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [El Entorno]
+                        {t("kicker")}
                     </p>
                     <motion.svg
                         variants={{
@@ -207,7 +209,7 @@ export default function HeroUbicacion() {
                         className="text-[#222222]/80 text-lg md:text-xl font-medium leading-relaxed mb-4"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
-                        Conectado al vibrante corazón de la ciudad, pero resguardado en la tranquilidad de un santuario natural.
+                        {t("body")}
                     </p>
                 </motion.div>
             </div>

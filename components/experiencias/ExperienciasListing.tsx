@@ -6,6 +6,7 @@ import { useMemo, useState, useId, useEffect, useLayoutEffect, useCallback, useR
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type ExperienciaItem = {
     id: string;
@@ -59,7 +60,38 @@ function allItemIds(items: ExperienciaItem[]): Set<string> {
     return new Set(items.map((i) => i.id));
 }
 
+const ITEM_DEFS = [
+    { id: "clubhouse", imageSrc: "/babylon/clubhouse.webp" },
+    { id: "piscina", imageSrc: "/babylon/pool.webp" },
+    { id: "gimnasio", imageSrc: "/babylon/gym.webp" },
+    { id: "spa", imageSrc: "/babylon/spa.webp" },
+    { id: "restaurante", imageSrc: "/final/restaurante-3.webp" },
+    { id: "padel", imageSrc: "/babylon/padel.webp" },
+    { id: "parquesInfantiles", imageSrc: "/babylon/presa-9.webp" },
+    { id: "clubNautico", imageSrc: "/babylon/presa-10.webp" },
+    { id: "localesComerciales", imageSrc: "/babylon/presa-7.webp" },
+    { id: "anfiteatro", imageSrc: "/babylon/presa-11.webp" },
+    { id: "gastronomiaLacustre", imageSrc: "/babylon/presa-5.webp" },
+    { id: "coworking", imageSrc: "/babylon/coworking.webp" },
+    { id: "barrasCafe", imageSrc: "/babylon/coffee-bar.webp" },
+    { id: "salonYoga", imageSrc: "/babylon/yoga.webp" },
+    { id: "jacuzzis", imageSrc: "/babylon/jacuzzi.webp" },
+    { id: "shuttles", imageSrc: "/babylon/shuttle-2.webp" },
+    { id: "paseosHuertos", imageSrc: "/babylon/huerto.webp" },
+    { id: "cicloruta", imageSrc: "/babylon/farm-3.webp" },
+    { id: "invernaderos", imageSrc: "/babylon/farm-5.webp" },
+    { id: "programasEducativos", imageSrc: "/babylon/farm-7.webp" },
+    { id: "floresTemporada", imageSrc: "/babylon/flowers.webp" },
+    { id: "rehabilitacion", imageSrc: "/babylon/wellness-5.webp" },
+    { id: "seniorLiving", imageSrc: "/babylon/wellness-6.webp" },
+    { id: "hospedajeFamiliar", imageSrc: "/babylon/wellness-7.webp" },
+    { id: "jardinesTerapeuticos", imageSrc: "/babylon/wellness-8.webp" },
+    { id: "beachClub", imageSrc: "/babylon/presa-4.webp" },
+    { id: "wifiAreasComunes", imageSrc: "/babylon/wifi.webp" },
+] as const;
+
 export default function ExperienciasListing() {
+    const t = useTranslations("pages.experiencias.listing");
     const hasVisited = useHasVisited();
     const baseId = useId();
     const [openIds, setOpenIds] = useState<Set<string>>(new Set());
@@ -90,198 +122,14 @@ export default function ExperienciasListing() {
     }, []);
 
     const items = useMemo<ExperienciaItem[]>(
-        () => [
-            {
-                id: "clubhouse",
-                title: "Clubhouse",
-                imageSrc: "/babylon/clubhouse.webp",
-                description:
-                    "El corazón social del club: espacios para reunirse, comer y convivir con vistas al entorno de San Miguel.",
-            },
-            {
-                id: "piscina",
-                title: "Piscina privada",
-                imageSrc: "/babylon/pool.webp",
-                description:
-                    "Alberca del club residencial para nadar y relajarse en un entorno controlado y exclusivo para residentes e invitados.",
-            },
-            {
-                id: "gimnasio",
-                title: "Gimnasio exterior",
-                imageSrc: "/babylon/gym.webp",
-                description:
-                    "Entrenamiento al aire libre integrado al paisaje, pensado para moverte sin renunciar al contacto con la naturaleza.",
-            },
-            {
-                id: "spa",
-                title: "Spa",
-                imageSrc: "/babylon/spa.webp",
-                description:
-                    "Rutinas de bienestar y relajación en un santuario de calma dentro del club residencial.",
-            },
-            {
-                id: "restaurante",
-                title: "Restaurantes",
-                imageSrc: "/babylon/restaurant.webp",
-                description:
-                    "Propuestas gastronómicas en la casa club: desde experiencias de autor hasta momentos informales entre vecinos.",
-            },
-            {
-                id: "padel",
-                title: "Padel",
-                imageSrc: "/babylon/padel.webp",
-                description:
-                    "Canchas de pádel rodeadas de vegetación para jugar, tomar clase y organizar partidos con la comunidad.",
-            },
-            {
-                id: "parques-infantiles",
-                title: "Parques infantiles",
-                imageSrc: "/babylon/presa-9.webp",
-                description:
-                    "Áreas de juego seguras y al aire libre para que los más pequeños exploren, corran y compartan el entorno con otras familias.",
-            },
-            {
-                id: "club-nautico",
-                title: "Club náutico",
-                imageSrc: "/babylon/presa-10.webp",
-                description:
-                    "Amarres y actividades acuáticas en la Presa La Cantera: el corazón náutico del proyecto para quienes viven el lago a diario.",
-            },
-            {
-                id: "locales-comerciales",
-                title: "Locales comerciales",
-                imageSrc: "/babylon/presa-7.webp",
-                description:
-                    "Frentes comerciales integrados al paseo lacustre: servicios, boutique y experiencias que activan el día a día del frente al agua.",
-            },
-            {
-                id: "anfiteatro",
-                title: "Anfiteatro al aire libre",
-                imageSrc: "/babylon/presa-11.webp",
-                description:
-                    "Un escenario abierto para conciertos, cine y encuentros comunitarios frente al agua: el pulso cultural del frente lacustre.",
-            },
-            {
-                id: "gastronomia-lacustre",
-                title: "Gastronomía frente al agua",
-                imageSrc: "/babylon/presa-5.webp",
-                description:
-                    "Terrazas y propuestas gastronómicas frente al agua: el lugar natural para cerrar el día o recibir a quienes visitan el desarrollo.",
-            },
-            {
-                id: "coworking",
-                title: "Coworking",
-                imageSrc: "/babylon/coworking.webp",
-                description:
-                    "Espacios de trabajo en la casa club para concentrarte, reunirte y alternar productividad con el entorno del club.",
-            },
-            {
-                id: "barras-cafe",
-                title: "Barras de café",
-                imageSrc: "/babylon/coffee-bar.webp",
-                description:
-                    "Barras de café en el corazón social del club: pausas, encuentros informales y el ritmo del día a día entre vecinos.",
-            },
-            {
-                id: "salon-yoga",
-                title: "Salón de yoga",
-                imageSrc: "/babylon/yoga.webp",
-                description:
-                    "Salón dedicado a yoga y prácticas de movimiento en un ambiente sereno del club residencial.",
-            },
-            {
-                id: "jacuzzis",
-                title: "Jacuzzis privados",
-                imageSrc: "/babylon/jacuzzi.webp",
-                description:
-                    "Jacuzzis entre riachuelos y paisaje: momentos de relax más allá de la alberca principal.",
-            },
-            {
-                id: "shuttles",
-                title: "Shuttles al centro histórico",
-                imageSrc: "/babylon/shuttle-2.webp",
-                description:
-                    "Ruta coordinada entre el club y el centro de San Miguel para moverte sin fricción.",
-            },
-            {
-                id: "paseos-huertos",
-                title: "Paseos por los huertos",
-                imageSrc: "/babylon/huerto.webp",
-                description:
-                    "Andadores que atraviesan hileras y bancales para ver de cerca el trabajo diario del huerto y cómo cambia el paisaje con las estaciones.",
-            },
-            {
-                id: "cicloruta",
-                title: "Cicloruta",
-                imageSrc: "/babylon/farm-3.webp",
-                description:
-                    "Recorrer en bici la extensión productiva para integrarte al proceso natural y al ritmo de la granja.",
-            },
-            {
-                id: "invernaderos",
-                title: "Invernaderos y zonas de cultivo",
-                imageSrc: "/babylon/farm-5.webp",
-                description:
-                    "Invernaderos en terrazas y cultivos organizados con enfoque sostenible y origen cercano.",
-            },
-            {
-                id: "programas-educativos",
-                title: "Programas educativos en la granja",
-                imageSrc: "/babylon/farm-7.webp",
-                description:
-                    "Talleres y experiencias comunitarias alrededor de lo que se cultiva y cosecha en el proyecto.",
-            },
-            {
-                id: "flores-temporada",
-                title: "Flores de temporada",
-                imageSrc: "/babylon/flowers.webp",
-                description:
-                    "Producción floral que marca estaciones, aroma y color en los espacios comunes de Don Diego.",
-            },
-            {
-                id: "rehabilitacion",
-                title: "Centro de rehabilitación",
-                imageSrc: "/babylon/wellness-5.webp",
-                description:
-                    "Espacios especializados para recuperación física y manejo integral del dolor con equipamiento actual.",
-            },
-            {
-                id: "senior-living",
-                title: "Senior Living",
-                imageSrc: "/babylon/wellness-6.webp",
-                description:
-                    "Residencias y servicios para una vida activa y acompañada, con comunidad de apoyo permanente.",
-            },
-            {
-                id: "hospedaje-familiar",
-                title: "Hospedaje familiar",
-                imageSrc: "/babylon/wellness-7.webp",
-                description:
-                    "Departamentos pensados para que las familias estén cerca durante procesos de recuperación o estancias largas.",
-            },
-            {
-                id: "jardines-terapeuticos",
-                title: "Jardines terapéuticos",
-                imageSrc: "/babylon/wellness-8.webp",
-                description:
-                    "Áreas verdes y de esparcimiento integradas con la naturaleza como parte del programa de bienestar.",
-            },
-            {
-                id: "beach-club",
-                title: "Beach club frente a la presa",
-                imageSrc: "/babylon/presa-4.webp",
-                description:
-                    "Amenidades tipo playa frente a la Presa Allende: un polo de descanso y convivencia junto al agua.",
-            },
-            {
-                id: "wifi-areas-comunes",
-                title: "Wi‑Fi en áreas comunes",
-                imageSrc: "/babylon/wifi.webp",
-                description:
-                    "Conectividad en espacios del club y zonas compartidas para trabajar, reunirte o compartir el día sin perder contacto.",
-            },
-        ],
-        [],
+        () =>
+            ITEM_DEFS.map((item) => ({
+                id: item.id,
+                imageSrc: item.imageSrc,
+                title: t(`items.${item.id}.title`),
+                description: t(`items.${item.id}.description`),
+            })),
+        [t],
     );
 
     /** Mobile: keep all descriptions open; leaving mobile clears row state for scroll sync. useLayoutEffect avoids one paint of wrong (collapsed) state. */
@@ -397,7 +245,9 @@ export default function ExperienciasListing() {
             });
         };
 
-        updateOpenRowsFromScroll();
+        requestAnimationFrame(() => {
+            updateOpenRowsFromScroll();
+        });
         window.addEventListener("scroll", onScrollOrResize, { passive: true });
         window.addEventListener("resize", onScrollOrResize);
 
@@ -538,8 +388,8 @@ export default function ExperienciasListing() {
                                             aria-controls={panelId}
                                             aria-label={
                                                 isOpen
-                                                    ? `Cerrar descripción de ${item.title}`
-                                                    : `Abrir descripción de ${item.title}`
+                                                    ? t("toggle.closeAriaLabel", { title: item.title })
+                                                    : t("toggle.openAriaLabel", { title: item.title })
                                             }
                                             className={[
                                                 "hidden sm:flex shrink-0 mt-px h-7 w-7 items-center justify-center rounded-full",
@@ -617,14 +467,14 @@ export default function ExperienciasListing() {
                             className="text-[#222] text-xl font-medium leading-relaxed mb-4"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
-                            El club ofrece una amplia gama de actividades para disfrutar, desde gimnasios hasta restaurantes y spa. La mayoría de las amenidades son exclusivas para los residentes y sus invitados.
+                            {t("footerText")}
                         </p>
                         <Link
                             href="/contacto"
                             className="inline-block text-[#222] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#222] pb-1 hover:opacity-60 transition-opacity"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            Agenda tu visita
+                            {t("cta")}
                         </Link>
                     </motion.div>
                 </div>

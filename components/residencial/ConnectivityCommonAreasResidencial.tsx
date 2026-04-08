@@ -4,27 +4,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Bus, Leaf, MapPin, Users, Wifi } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const WIFI_HERO_IMAGE = {
     src: "/babylon/wifi.webp",
-    alt: "Espacios comunes del club con Wi-Fi",
 } as const;
 
 const COMMUNITY_HERO_IMAGE = {
-    src: "/babylon/comunidad-1.webp",
-    alt: "Comunidad de residentes en Don Diego",
+    src: "/final/mismo2.webp",
 } as const;
 
 const NATURE_HERO_IMAGE = {
-    src: "/babylon/lago.webp",
-    alt: "Naturaleza y paisajes en Don Diego",
+    src: "/final/naturaleza.webp",
 } as const;
 
 export default function ConnectivityCommonAreasResidencial() {
+    const t = useTranslations("pages.residencial.connectivity");
+
     return (
         <section
             className="border-t border-[#1F1D1B]/[0.06] bg-[#EFE6DC] text-[#1F1D1B] py-10 lg:py-14"
-            aria-label="Conectividad, áreas comunes, comunidad y entorno"
+            aria-label={t("sectionAria")}
         >
             <div className="mx-auto w-full max-w-[1200px] px-6 lg:px-12">
                 <div
@@ -54,7 +54,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
                                             <Bus className="h-5 w-5 shrink-0 opacity-70" aria-hidden />
-                                            Ruta
+                                            {t("route")}
                                         </div>
                                         <div
                                             className="flex flex-wrap items-center gap-2.5 text-[13px] sm:gap-3 md:text-sm"
@@ -62,14 +62,14 @@ export default function ConnectivityCommonAreasResidencial() {
                                         >
                                             <span className="flex items-center gap-1.5 text-[#1a1917]/82">
                                                 <MapPin className="h-4 w-4 shrink-0 opacity-60" aria-hidden />
-                                                Club Don Diego
+                                                {t("routeFrom")}
                                             </span>
                                             <div className="hidden h-px min-w-[1.5rem] flex-1 bg-[#1a1917]/20 sm:block" />
                                             <span className="rounded-full border border-[#1a1917]/15 bg-white/65 px-2.5 py-0.5 text-[12px] font-medium tracking-wide text-[#1a1917]/90">
-                                                ~8 min
+                                                {t("routeTime")}
                                             </span>
                                             <div className="hidden h-px min-w-[1.5rem] flex-1 bg-[#1a1917]/20 sm:block" />
-                                            <span className="text-[#1a1917]/82">Centro histórico</span>
+                                            <span className="text-[#1a1917]/82">{t("routeTo")}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                 className="mb-3 text-center text-[10px] tracking-[0.3em] text-[#2C3D38]/80 uppercase lg:text-left"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
-                                [CONECTIVIDAD]
+                                {t("shuttles.kicker")}
                             </p>
                             <h2
                                 id="shuttles-heading"
@@ -89,23 +89,20 @@ export default function ConnectivityCommonAreasResidencial() {
                                     fontSize: "clamp(1.85rem, 3.5vw, 2.5rem)",
                                 }}
                             >
-                                Shuttles{" "}
-                                <span className="text-[#2C3D38]/85 italic">a San Miguel</span>
+                                {t("shuttles.titleLine1")} <span className="text-[#2C3D38]/85 italic">{t("shuttles.titleLine2")}</span>
                             </h2>
                             <p
                                 className="mt-4 text-center text-[15px] leading-relaxed text-[#1a1917]/78 lg:text-left sm:text-[16px]"
                                 style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                             >
-                                Traslados pensados para residentes del Club: conexión cómoda con el centro histórico y
-                                puntos clave de la ciudad—horarios y rutas coordinados para que muevas tu día sin
-                                preocuparte por el trayecto.
+                                {t("shuttles.body")}
                             </p>
                             <Link
                                 href="/ubicacion"
                                 className="mt-8 inline-flex w-fit items-center gap-2 self-center text-[10px] font-bold uppercase tracking-[0.18em] text-[#2C3D38] underline decoration-[#2C3D38]/35 underline-offset-4 transition hover:opacity-70 lg:self-start"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
-                                Ubicación y entorno
+                                {t("shuttles.cta")}
                             </Link>
                         </div>
                     </motion.div>
@@ -127,7 +124,7 @@ export default function ConnectivityCommonAreasResidencial() {
                             <div className="relative aspect-[16/11] w-full min-h-[240px] flex-1 overflow-hidden shadow-[0_30px_60px_rgba(26,25,23,0.18)] ring-1 ring-[#1a1917]/10 lg:aspect-auto lg:min-h-[280px] lg:h-full">
                                 <Image
                                     src="/babylon/shuttle-2.webp"
-                                    alt="Shuttles Don Diego"
+                                    alt={t("shuttles.imageAlt")}
                                     fill
                                     className="object-cover"
                                     sizes="(min-width: 1024px) 50vw, 100vw"
@@ -154,7 +151,7 @@ export default function ConnectivityCommonAreasResidencial() {
                             <div className="relative aspect-[4/3] w-full min-h-[240px] flex-1 overflow-hidden shadow-[0_24px_50px_rgba(47,39,33,0.12)] ring-1 ring-[#1F1D1B]/[0.06] lg:aspect-auto lg:min-h-[320px] lg:h-full">
                                 <Image
                                     src={WIFI_HERO_IMAGE.src}
-                                    alt={WIFI_HERO_IMAGE.alt}
+                                    alt={t("wifi.imageAlt")}
                                     fill
                                     className="object-cover object-center"
                                     sizes="(min-width: 1024px) 50vw, 100vw"
@@ -176,18 +173,9 @@ export default function ConnectivityCommonAreasResidencial() {
                         >
                             <div className="flex h-full min-h-[240px] w-full flex-col justify-center border border-[#1F1D1B]/[0.08] bg-[#fff8ed]/95 px-4 lg:px-7 py-6 shadow-[0_24px_48px_rgba(47,39,33,0.12)] backdrop-blur-md sm:px-9 sm:py-9 lg:min-h-[320px]">
                                 <div className="relative mx-auto mb-6 flex h-[4.5rem] w-[4.5rem] items-center justify-center lg:mx-0">
-                                    <span
-                                        className="absolute inset-0 rounded-full border border-[#C28E7A]/20"
-                                        aria-hidden
-                                    />
-                                    <span
-                                        className="absolute inset-2 rounded-full border border-[#C28E7A]/25"
-                                        aria-hidden
-                                    />
-                                    <span
-                                        className="absolute inset-4 rounded-full border border-[#C28E7A]/30"
-                                        aria-hidden
-                                    />
+                                    <span className="absolute inset-0 rounded-full border border-[#C28E7A]/20" aria-hidden />
+                                    <span className="absolute inset-2 rounded-full border border-[#C28E7A]/25" aria-hidden />
+                                    <span className="absolute inset-4 rounded-full border border-[#C28E7A]/30" aria-hidden />
                                     <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-[#C28E7A]/40 bg-[#FFF3E1] text-[#2C3D38]">
                                         <Wifi className="h-6 w-6 stroke-[1.5]" aria-hidden />
                                     </div>
@@ -197,7 +185,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                     className="mb-3 text-center text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase lg:text-left"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
-                                    [ÁREAS COMUNES]
+                                    {t("wifi.kicker")}
                                 </p>
                                 <h2
                                     id="wifi-common-heading"
@@ -207,16 +195,13 @@ export default function ConnectivityCommonAreasResidencial() {
                                         fontSize: "clamp(1.85rem, 3.5vw, 2.5rem)",
                                     }}
                                 >
-                                    Wi-Fi en todas las{" "}
-                                    <span className="text-[#b76d4b] italic">áreas comunes</span>
+                                    {t("wifi.titleLine1")} <span className="text-[#b76d4b] italic">{t("wifi.titleLine2")}</span>
                                 </h2>
                                 <p
                                     className="mt-4 text-center text-[15px] leading-relaxed text-[#1F1D1B]/75 lg:text-left sm:text-[16px]"
                                     style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                                 >
-                                    Cobertura pensada para que trabajes, te conectes y disfrutes los espacios compartidos
-                                    del club sin interrupciones—desde la Casa Club hasta albercas, terrazas y zonas de
-                                    encuentro.
+                                    {t("wifi.body")}
                                 </p>
                             </div>
                         </motion.div>
@@ -238,18 +223,9 @@ export default function ConnectivityCommonAreasResidencial() {
                         >
                             <div className="flex h-full min-h-[240px] w-full flex-col justify-center border border-[#4A7C8C]/[0.12] bg-[#E8F2F7]/95 px-4 lg:px-7 py-4 lg:py-6 shadow-[0_24px_48px_rgba(44,90,108,0.08)] backdrop-blur-md sm:px-9 sm:py-9 lg:min-h-[320px]">
                                 <div className="relative mx-auto mb-4 lg:mb-6 flex h-[4.5rem] w-[4.5rem] items-center justify-center lg:mx-0">
-                                    <span
-                                        className="absolute inset-0 rounded-full border border-[#5B8FA8]/18"
-                                        aria-hidden
-                                    />
-                                    <span
-                                        className="absolute inset-2 rounded-full border border-[#5B8FA8]/22"
-                                        aria-hidden
-                                    />
-                                    <span
-                                        className="absolute inset-4 rounded-full border border-[#5B8FA8]/28"
-                                        aria-hidden
-                                    />
+                                    <span className="absolute inset-0 rounded-full border border-[#5B8FA8]/18" aria-hidden />
+                                    <span className="absolute inset-2 rounded-full border border-[#5B8FA8]/22" aria-hidden />
+                                    <span className="absolute inset-4 rounded-full border border-[#5B8FA8]/28" aria-hidden />
                                     <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-[#5B8FA8]/35 bg-[#DCEEF5] text-[#3D6B80]">
                                         <Users className="h-6 w-6 stroke-[1.5]" aria-hidden />
                                     </div>
@@ -259,7 +235,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                     className="mb-3 text-center text-[10px] tracking-[0.3em] text-[#4A7C8C]/85 uppercase lg:text-left"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
-                                    [COMUNIDAD]
+                                    {t("community.kicker")}
                                 </p>
                                 <h2
                                     id="comunidad-heading"
@@ -269,16 +245,13 @@ export default function ConnectivityCommonAreasResidencial() {
                                         fontSize: "clamp(1.85rem, 3.5vw, 2.5rem)",
                                     }}
                                 >
-                                    Un vecindario{" "}
-                                    <span className="text-[#4A7C8C]/90 italic">con alma</span>
+                                    {t("community.titleLine1")} <span className="text-[#4A7C8C]/90 italic">{t("community.titleLine2")}</span>
                                 </h2>
                                 <p
                                     className="mt-4 text-center text-[15px] leading-relaxed text-[#1a1917]/78 lg:text-left sm:text-[16px]"
                                     style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                                 >
-                                    Don Diego reúne familias y perfiles diversos en un entorno tranquilo y seguro:
-                                    encuentros informales, rutinas compartidas y el respaldo de un equipo que cuida la
-                                    convivencia—para que sentirte en casa vaya más allá de tu residencia.
+                                    {t("community.body")}
                                 </p>
                             </div>
                         </motion.div>
@@ -300,7 +273,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                 <div className="relative aspect-[16/11] w-full min-h-[240px] flex-1 overflow-hidden shadow-[0_30px_60px_rgba(26,25,23,0.18)] ring-1 ring-[#1a1917]/10 lg:aspect-auto lg:min-h-[280px] lg:h-full">
                                     <Image
                                         src={COMMUNITY_HERO_IMAGE.src}
-                                        alt={COMMUNITY_HERO_IMAGE.alt}
+                                        alt={t("community.imageAlt")}
                                         fill
                                         className="object-cover object-center"
                                         sizes="(min-width: 1024px) 50vw, 100vw"
@@ -328,7 +301,7 @@ export default function ConnectivityCommonAreasResidencial() {
                             <div className="relative aspect-[4/3] w-full min-h-[240px] flex-1 overflow-hidden shadow-[0_24px_50px_rgba(47,39,33,0.12)] ring-1 ring-[#1F1D1B]/[0.06] lg:aspect-auto lg:min-h-[320px] lg:h-full">
                                 <Image
                                     src={NATURE_HERO_IMAGE.src}
-                                    alt={NATURE_HERO_IMAGE.alt}
+                                    alt={t("nature.imageAlt")}
                                     fill
                                     className="object-cover object-center"
                                     sizes="(min-width: 1024px) 50vw, 100vw"
@@ -350,18 +323,9 @@ export default function ConnectivityCommonAreasResidencial() {
                         >
                             <div className="flex h-full min-h-[240px] w-full flex-col justify-center border border-[#6B6358]/[0.14] bg-[#F2EFE8]/95 px-4 lg:px-7 py-6 shadow-[0_24px_48px_rgba(47,39,33,0.1)] backdrop-blur-md sm:px-9 sm:py-9 lg:min-h-[320px]">
                                 <div className="relative mx-auto mb-6 flex h-[4.5rem] w-[4.5rem] items-center justify-center lg:mx-0">
-                                    <span
-                                        className="absolute inset-0 rounded-full border border-[#8B8478]/22"
-                                        aria-hidden
-                                    />
-                                    <span
-                                        className="absolute inset-2 rounded-full border border-[#8B8478]/26"
-                                        aria-hidden
-                                    />
-                                    <span
-                                        className="absolute inset-4 rounded-full border border-[#8B8478]/30"
-                                        aria-hidden
-                                    />
+                                    <span className="absolute inset-0 rounded-full border border-[#8B8478]/22" aria-hidden />
+                                    <span className="absolute inset-2 rounded-full border border-[#8B8478]/26" aria-hidden />
+                                    <span className="absolute inset-4 rounded-full border border-[#8B8478]/30" aria-hidden />
                                     <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-[#7A7268]/35 bg-[#E8E4DB] text-[#4A453E]">
                                         <Leaf className="h-6 w-6 stroke-[1.5]" aria-hidden />
                                     </div>
@@ -371,7 +335,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                     className="mb-3 text-center text-[10px] tracking-[0.3em] text-[#6B6358]/90 uppercase lg:text-left"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
-                                    [ENTORNO]
+                                    {t("nature.kicker")}
                                 </p>
                                 <h2
                                     id="naturaleza-heading"
@@ -381,16 +345,13 @@ export default function ConnectivityCommonAreasResidencial() {
                                         fontSize: "clamp(1.85rem, 3.5vw, 2.5rem)",
                                     }}
                                 >
-                                    Naturaleza{" "}
-                                    <span className="text-[#6B6358]/95 italic">a tu ritmo</span>
+                                    {t("nature.titleLine1")} <span className="text-[#6B6358]/95 italic">{t("nature.titleLine2")}</span>
                                 </h2>
                                 <p
                                     className="mt-4 text-center text-[15px] leading-relaxed text-[#1F1D1B]/75 lg:text-left sm:text-[16px]"
                                     style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                                 >
-                                    Lagos, vegetación y caminos para caminar o pedalear sin salir del desarrollo: un
-                                    respiro verde entre jornadas urbanas, pensado para que el día termine con calma y
-                                    perspectiva.
+                                    {t("nature.body")}
                                 </p>
                             </div>
                         </motion.div>

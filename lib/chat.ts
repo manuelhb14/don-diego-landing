@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import type { ChatContext, ChatMessage } from "@/components/chat/types";
+import { SITE_CONTACT } from "@/lib/site-contact";
 
 type GenerateChatReplyParams = {
     messages: ChatMessage[];
@@ -41,24 +42,73 @@ Componentes legales y de confianza: existencia de terminos de servicio, politica
 `;
 
 function sanitizeContext(context: ChatContext): ChatContext {
-    const allowedDetailKeys = ["slug", "title", "category", "tags"];
-    const detail: Record<string, unknown> = {};
-    if (context.detail) {
-        for (const key of allowedDetailKeys) {
-            const value = context.detail[key];
-            if (typeof value === "string" || Array.isArray(value)) {
-                detail[key] = value;
-            }
+    const sanitizeValue = (value: unknown, depth = 0): unknown => {
+        if (value == null) return undefined;
+        if (depth > 4) return undefined;
+
+        if (typeof value === "string") {
+            const trimmed = value.trim();
+            return trimmed ? trimmed.slice(0, 400) : undefined;
         }
-    }
+
+        if (typeof value === "number" || typeof value === "boolean") {
+            return value;
+        }
+
+        if (Array.isArray(value)) {
+            const sanitized = value
+                .slice(0, 20)
+                .map((item) => sanitizeValue(item, depth + 1))
+                .filter((item): item is Exclude<typeof item, undefined> => item !== undefined);
+            return sanitized.length ? sanitized : undefined;
+        }
+
+        if (typeof value === "object") {
+            const entries = Object.entries(value as Record<string, unknown>).slice(0, 40);
+            const sanitizedEntries = entries
+                .map(([key, nested]) => [key, sanitizeValue(nested, depth + 1)] as const)
+                .filter(([, nested]) => nested !== undefined);
+            return sanitizedEntries.length ? Object.fromEntries(sanitizedEntries) : undefined;
+        }
+
+        return undefined;
+    };
+
+    const detail = sanitizeValue(context.detail);
 
     return {
         pathname: context.pathname,
         locale: context.locale,
         pageType: context.pageType,
-        detail: Object.keys(detail).length ? detail : undefined,
+        detail: detail && typeof detail === "object" ? detail as Record<string, unknown> : undefined,
     };
 }
+
+const IMPORTANT_FACTS = [
+    "Core promise: conscious, high-end residential living connected to land, community, and wellbeing.",
+    "Location: San Miguel de Allende, around 8 minutes from historic center, near Presa Ignacio Allende and Presa La Cantera.",
+    "Master plan: four components (Club Residencial, Organic Farm & Flowers, Wellness Center, Presa de la Cantera).",
+    "Club Residencial highlights: 364 residences, 100% pedestrian interior, premium amenities and social life.",
+    "Urban model: interior without cars, peripheral lower-level vehicular circuit, covered parking with pedestrian access.",
+    "CTA priority: invite private visit, provide clear next steps, and keep response concise.",
+].join(" ");
+
+const ALWAYS_ON_PROPERTY_TYPES = [
+    "Property types in Club Residencial:",
+    "Departamentos: 113-173 m2, 2-3 bedrooms, 2-3 bathrooms, 2 parking spaces.",
+    "Casas duplex Tipo 1: 128-155 m2, 2-3 bedrooms, 2-3 bathrooms, 2 parking spaces.",
+    "Casas duplex Tipo 2: 166-185 m2, 2-4 bedrooms, 3-4 bathrooms, 2 parking spaces.",
+    "Casas duplex Tipo 3: 142-181 m2, 2-3 bedrooms, 2-3 bathrooms, 2 parking spaces.",
+    "Notes: selected prototypes include jacuzzi; some layouts allow independent bedroom rental.",
+].join(" ");
+
+const WHATSAPP_CONTACT_REFERENCE = [
+    "WhatsApp contact reference:",
+    `Phone display: ${SITE_CONTACT.phoneDisplay}.`,
+    `WhatsApp link: ${SITE_CONTACT.whatsappUrl}.`,
+    "Do not mention this contact info proactively.",
+    "Share it only when the user explicitly asks for contact details, WhatsApp, phone number, or how to reach sales.",
+].join(" ");
 
 export function buildSystemPrompt(context: ChatContext): string {
     const lang = context.locale === "en" ? "English" : "Spanish";
@@ -75,6 +125,9 @@ export function buildSystemPrompt(context: ChatContext): string {
         "Ground your response in the provided page context.",
         "If context is limited, state assumptions briefly instead of inventing details.",
         "Avoid legal, financial, or medical definitive advice; suggest consulting an expert when needed.",
+        `Most important project facts: ${IMPORTANT_FACTS}`,
+        `Always-on property types reference: ${ALWAYS_ON_PROPERTY_TYPES}`,
+        `Conditional contact reference: ${WHATSAPP_CONTACT_REFERENCE}`,
         `Global Don Diego site context (from es.json): ${SHARED_SITE_CONTEXT}`,
         `Current page context: ${contextText}`,
     ].join(" ");

@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslations } from "next-intl";
 
 interface EmailCaptureDialogProps {
   open: boolean;
@@ -20,6 +21,7 @@ interface EmailCaptureDialogProps {
 }
 
 export function EmailCaptureDialog({ open, onOpenChange, onSubmit }: EmailCaptureDialogProps) {
+  const t = useTranslations("components.virtualStaging.emailCaptureDialog");
   const [email, setEmail] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -31,18 +33,18 @@ export function EmailCaptureDialog({ open, onOpenChange, onSubmit }: EmailCaptur
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Comenzar Staging Virtual</DialogTitle>
-          <DialogDescription>Ingresa tu email para editar la imagen.</DialogDescription>
+          <DialogTitle>{t("title")}</DialogTitle>
+          <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="grid gap-4 py-2">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="virtual-staging-email" className="text-right">
-              Email
+              {t("emailLabel")}
             </Label>
             <Input
               id="virtual-staging-email"
               type="email"
-              placeholder="m@example.com"
+              placeholder={t("emailPlaceholder")}
               className="col-span-3"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -50,7 +52,7 @@ export function EmailCaptureDialog({ open, onOpenChange, onSubmit }: EmailCaptur
             />
           </div>
           <DialogFooter>
-            <Button type="submit">Comenzar</Button>
+            <Button type="submit">{t("submit")}</Button>
           </DialogFooter>
         </form>
       </DialogContent>

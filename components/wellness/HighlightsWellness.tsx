@@ -2,36 +2,38 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { useRef, useState, useEffect } from "react";
-
-const highlights = [
-    {
-        id: 1,
-        title: "Naturaleza y tranquilidad",
-        description: "Un entorno de paz donde los jardines, el agua y el paisaje de la Presa Allende crean el ambiente ideal para la recuperación y el bienestar.",
-        image: "/babylon/wellness-1.webp",
-    },
-    {
-        id: 2,
-        title: "Atención personalizada",
-        description: "Equipos médicos especializados y cuidados certificados que entienden que cada persona tiene necesidades únicas.",
-        image: "/babylon/wellness-2.webp",
-    },
-    {
-        id: 3,
-        title: "Vida en comunidad",
-        description: "Espacios diseñados para la convivencia, actividades compartidas y la construcción de vínculos significativos.",
-        image: "/babylon/wellness-3.webp",
-    },
-    {
-        id: 4,
-        title: "Ubicación privilegiada",
-        description: "A minutos de San Miguel de Allende, con acceso inmediato a servicios médicos, culturales y de ocio de primer nivel.",
-        image: "/babylon/wellness-4.webp",
-    },
-];
+import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function HighlightsWellness() {
+    const t = useTranslations("pages.wellness.highlights");
+    const highlights = [
+        {
+            id: 1,
+            title: t("items.naturaleza.title"),
+            description: t("items.naturaleza.description"),
+            image: "/babylon/wellness-1.webp",
+        },
+        {
+            id: 2,
+            title: t("items.atencion.title"),
+            description: t("items.atencion.description"),
+            image: "/babylon/wellness-2.webp",
+        },
+        {
+            id: 3,
+            title: t("items.comunidad.title"),
+            description: t("items.comunidad.description"),
+            image: "/babylon/wellness-3.webp",
+        },
+        {
+            id: 4,
+            title: t("items.ubicacion.title"),
+            description: t("items.ubicacion.description"),
+            image: "/babylon/wellness-4.webp",
+        },
+    ];
+
     const containerRef = useRef<HTMLDivElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -100,7 +102,7 @@ export default function HighlightsWellness() {
                             className="text-[10px] tracking-[0.3em] text-[#5a6b52]/85 uppercase mb-4"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [Nuestra filosofía]
+                            {t("eyebrow")}
                         </p>
                         <h2
                             className="tracking-tight text-[#1a221f] leading-[1.1] font-medium"
@@ -109,13 +111,13 @@ export default function HighlightsWellness() {
                                 fontSize: "clamp(2.75rem, 4.75vw, 4.25rem)",
                             }}
                         >
-                            Bienestar <span className="italic text-[#5a6b52]">integral</span>
+                            {t("title.base")} <span className="italic text-[#5a6b52]">{t("title.accent")}</span>
                         </h2>
                         <p
                             className="text-[#1a221f]/78 mt-4 max-w-2xl text-lg lg:text-xl"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
-                            La calidad de vida se construye con calma, naturaleza, comunidad y atención real.
+                            {t("intro")}
                         </p>
                     </motion.div>
                 </div>
@@ -189,7 +191,7 @@ export default function HighlightsWellness() {
                                     ? "w-10 bg-[#5a6b52]"
                                     : "w-2.5 bg-[#5a6b52]/30 hover:bg-[#5a6b52]/60 hover:w-6 cursor-pointer"
                                     }`}
-                                aria-label={`Go to slide ${index + 1}`}
+                                aria-label={t("paginationAriaLabel", { index: index + 1 })}
                             />
                         ))}
                     </div>

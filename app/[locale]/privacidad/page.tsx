@@ -10,12 +10,9 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { locale } = await params;
-    const title =
-        locale === "en" ? "Privacy Policy | Don Diego" : "Política de Privacidad | Don Diego";
-    const description =
-        locale === "en"
-            ? "How Don Diego collects, uses, and protects your personal information."
-            : "Cómo Don Diego recopila, utiliza y protege su información personal.";
+    const t = await getTranslations({ locale, namespace: "meta.privacy" });
+    const title = t("title");
+    const description = t("description");
     return { title, description, openGraph: { title, description } };
 }
 
@@ -31,7 +28,7 @@ export default async function PrivacidadPage({ params }: Props) {
             <main className="bg-[#FFF3E1] min-h-screen pt-32 pb-24 px-6 lg:px-12 text-[#222222]">
                 <div className="max-w-4xl mx-auto">
                     <h1 className="font-serif text-5xl md:text-6xl mb-12">{t("privacyTitle")}</h1>
-                    <PrivacyPolicyArticle locale={locale} />
+                    <PrivacyPolicyArticle locale={locale} lastUpdatedLabel={t("lastUpdated")} />
                 </div>
             </main>
 

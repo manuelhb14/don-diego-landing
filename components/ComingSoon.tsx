@@ -2,10 +2,12 @@
 
 import { motion } from "motion/react";
 import Image from "next/image";
-import { ArrowRight, Instagram, Youtube } from "lucide-react";
-import Link from 'next/link';
+import { Instagram } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function ComingSoon() {
+    const t = useTranslations("components.comingSoon");
     return (
         <main className="relative h-[100dvh] w-full flex flex-col items-center justify-center overflow-hidden bg-[#FFF3E1] text-[#222222]">
             {/* Background Image with Overlay */}
@@ -44,19 +46,19 @@ export default function ComingSoon() {
                     className="flex flex-col items-center"
                 >
                     <p className="text-[9px] sm:text-xs tracking-[0.4em] text-[#AA7D69] uppercase mb-4 md:mb-6" style={{ fontFamily: "var(--font-sans)" }}>
-                        [ Próximamente ]
+                        {t("kicker")}
                     </p>
                     <h1
                         className="text-5xl md:text-7xl lg:text-8xl leading-none mb-6 md:mb-8 text-[#222222]"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
-                        Cerca de todo <br /><span className="text-[#AA7D69] italic">lejos de lo común</span>
+                        {t("titleLine1")} <br /><span className="text-[#AA7D69] italic">{t("titleLine2")}</span>
                     </h1>
                     <p
                         className="text-[#222222]/70 text-base md:text-xl max-w-md mx-auto leading-relaxed mb-8 md:mb-12"
                         style={{ fontFamily: "var(--font-serif)", fontWeight: 300 }}
                     >
-                        Descubre un espacio único en San Miguel de Allende, donde la naturaleza y el diseño se encuentran para crear una experiencia inolvidable.
+                        {t("body")}
                     </p>
                 </motion.div>
 

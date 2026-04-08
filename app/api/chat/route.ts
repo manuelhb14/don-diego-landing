@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         const parsed = parseBody(raw);
 
         if (!parsed || parsed.messages.length === 0) {
-            return new Response(JSON.stringify({ error: "Invalid chat payload" }), {
+            return new Response(JSON.stringify({ errorCode: "CHAT_INVALID_PAYLOAD" }), {
                 status: 400,
                 headers: { "Content-Type": "application/json" },
             });
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
 
         const apiKey = process.env.GOOGLE_GEMINI_API_KEY;
         if (!apiKey) {
-            return new Response(JSON.stringify({ error: "Missing GOOGLE_GEMINI_API_KEY" }), {
+            return new Response(JSON.stringify({ errorCode: "CHAT_MISSING_API_KEY" }), {
                 status: 500,
                 headers: { "Content-Type": "application/json" },
             });
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
         return result.toUIMessageStreamResponse();
     } catch (error) {
         console.error("chat route error", error);
-        return new Response(JSON.stringify({ error: "Chat request failed" }), {
+        return new Response(JSON.stringify({ errorCode: "CHAT_REQUEST_FAILED" }), {
             status: 500,
             headers: { "Content-Type": "application/json" },
         });

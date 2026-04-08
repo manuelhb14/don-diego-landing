@@ -4,8 +4,10 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { motion } from "motion/react";
 import { useHasVisited } from "@/hooks/useHasVisited";
+import { useTranslations } from "next-intl";
 
 export default function LocationSummaryProyecto() {
+    const t = useTranslations("pages.proyecto.locationSummary");
     const hasVisited = useHasVisited();
 
     return (
@@ -22,7 +24,7 @@ export default function LocationSummaryProyecto() {
                 >
                     <Image
                         src="/images/location/aerial-2.png"
-                        alt="San Miguel de Allende"
+                        alt={t("imageAlt")}
                         fill
                         className="object-cover transition-transform duration-[2s] group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -42,7 +44,7 @@ export default function LocationSummaryProyecto() {
                         className="text-[10px] sm:text-xs tracking-[0.3em] text-[#AA7D69] uppercase mb-6 sm:mb-8"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Ubicación]
+                        {t("kicker")}
                     </p>
 
                     <h2
@@ -52,14 +54,12 @@ export default function LocationSummaryProyecto() {
                             fontSize: "clamp(3rem, 5vw, 4.5rem)",
                         }}
                     >
-                        El corazón de <br />
-                        <span className="italic text-[#8C7B6C]">México</span>
+                        {t("titleLine1")} <br />
+                        <span className="italic text-[#8C7B6C]">{t("titleLine2")}</span>
                     </h2>
 
                     <p className="text-[#E6E1D6]/70 leading-relaxed text-base lg:text-lg font-sans font-light mb-12 max-w-md">
-                        A solo ocho minutos del vibrante centro histórico de San Miguel de Allende.
-                        Don Diego ofrece un refugio de paz y privacidad, manteniendo una conexión íntima
-                        con una de las ciudades más cautivadoras del mundo.
+                        {t("body")}
                     </p>
 
                     <Link
@@ -70,7 +70,7 @@ export default function LocationSummaryProyecto() {
                             className="text-[11px] tracking-[0.2em] text-[#D7D7AA] uppercase"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            Explorar Entorno
+                            {t("cta")}
                         </span>
                         <span className="w-8 h-[1px] bg-[#D7D7AA]/40 group-hover:w-16 group-hover:bg-[#D7D7AA] transition-all duration-500" />
                     </Link>

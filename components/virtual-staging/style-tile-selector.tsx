@@ -1,17 +1,19 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
-type Style = "Minimalism" | "Modern" | "Industrial" | "Scandinavian" | "Boho";
+type Style = "Minimalism" | "Modern" | "Industrial" | "Scandinavian" | "Boho" | "Hacienda";
 
 export type VirtualStagingStyleValue = Style;
 
-const styles: { value: Style; label: string }[] = [
-  { value: "Minimalism", label: "Minimalista" },
-  { value: "Modern", label: "Moderno" },
-  { value: "Industrial", label: "Industrial" },
-  { value: "Scandinavian", label: "Escandinavo" },
-  { value: "Boho", label: "Bohemio" },
+const styles: { value: Style }[] = [
+  { value: "Minimalism" },
+  { value: "Modern" },
+  { value: "Industrial" },
+  { value: "Scandinavian" },
+  { value: "Boho" },
+  { value: "Hacienda" },
 ];
 
 export const styleButtonClasses: Record<VirtualStagingStyleValue, string> = {
@@ -25,14 +27,17 @@ export const styleButtonClasses: Record<VirtualStagingStyleValue, string> = {
     "border border-[#bfd3c4] bg-gradient-to-r from-[#eef6f1] via-[#e3efe8] to-[#d7e8de] text-[#355747] hover:from-[#e1eee6] hover:to-[#c8dfd2]",
   Boho:
     "border border-[#c9a995] bg-gradient-to-r from-[#f6e8d8] via-[#efcfb7] to-[#e3b392] text-[#6a3f2b] hover:from-[#f0ddc9] hover:to-[#d99f7e]",
+  Hacienda:
+    "border border-[#b98f72] bg-gradient-to-r from-[#f2e0cf] via-[#e6c8ab] to-[#d8ab87] text-[#613a28] hover:from-[#ebd6c2] hover:to-[#cd9975]",
 };
 
-const styleMeta: Record<VirtualStagingStyleValue, { note: string; chip: string }> = {
-  Minimalism: { note: "Limpio, sobrio", chip: "#cbb4a6" },
-  Modern: { note: "Actual, elegante", chip: "#8ba7c6" },
-  Industrial: { note: "Texturas, carácter", chip: "#8f8177" },
-  Scandinavian: { note: "Cálido, luminoso", chip: "#8bb29a" },
-  Boho: { note: "Orgánico, acogedor", chip: "#c08360" },
+const styleMeta: Record<VirtualStagingStyleValue, { chip: string }> = {
+  Minimalism: { chip: "#cbb4a6" },
+  Modern: { chip: "#8ba7c6" },
+  Industrial: { chip: "#8f8177" },
+  Scandinavian: { chip: "#8bb29a" },
+  Boho: { chip: "#c08360" },
+  Hacienda: { chip: "#ad6f4f" },
 };
 
 interface StyleTileSelectorProps {
@@ -42,8 +47,10 @@ interface StyleTileSelectorProps {
 }
 
 export function StyleTileSelector({ value, onChange, className }: StyleTileSelectorProps) {
+  const t = useTranslations("components.virtualStaging.styleSelector");
+
   return (
-    <div role="radiogroup" aria-label="Select style" className={cn("grid grid-cols-2 gap-2.5", className)}>
+    <div role="radiogroup" aria-label={t("ariaLabel")} className={cn("grid grid-cols-2 gap-2.5", className)}>
       {styles.map((style) => {
         const isSelected = value === style.value;
         const meta = styleMeta[style.value];
@@ -64,10 +71,10 @@ export function StyleTileSelector({ value, onChange, className }: StyleTileSelec
             )}
           >
             <span className="flex items-center justify-between gap-2">
-              <span className="text-sm leading-none font-semibold tracking-[0.02em]">{style.label}</span>
+              <span className="text-sm leading-none font-semibold tracking-[0.02em]">{t(`styles.${style.value}.label`)}</span>
               <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: meta.chip }} />
             </span>
-            <span className="mt-1.5 block text-[11px] leading-none text-[#6b564b]/85">{meta.note}</span>
+            <span className="mt-1.5 block text-[11px] leading-none text-[#6b564b]/85">{t(`styles.${style.value}.note`)}</span>
           </button>
         );
       })}

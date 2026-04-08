@@ -27,13 +27,13 @@ function EditorialProjectRow({
 }) {
     return (
         <article
-            className={`grid grid-cols-1 items-start gap-y-8 lg:items-center lg:gap-x-12 xl:gap-x-14 ${
+            className={`grid grid-cols-1 items-start gap-y-6 md:gap-y-8 lg:items-center lg:gap-x-12 xl:gap-x-14 ${
                 reverse
                     ? "lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.8fr)] xl:grid-cols-[minmax(0,1.22fr)_minmax(320px,0.78fr)]"
                     : "lg:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.45fr)] xl:grid-cols-[minmax(320px,0.78fr)_minmax(0,1.22fr)]"
             }`}
         >
-            <div className={`${reverse ? "lg:order-1" : ""} min-w-0`}>
+            <div className={`${reverse ? "order-1 lg:order-1" : "order-1 lg:order-0"} min-w-0`}>
                 <div className="mx-auto flex w-full max-w-md flex-col items-start lg:max-w-lg">
                     {/* <p
                         className="text-[10px] uppercase tracking-[0.28em]"
@@ -42,7 +42,7 @@ function EditorialProjectRow({
                         {project.eyebrow}
                     </p> */}
                     <h3
-                        className="mt-4 text-[#3a3028]"
+                        className="mt-3 text-[#3a3028] md:mt-4"
                         style={{
                             fontFamily: "var(--font-serif)",
                             fontSize: "clamp(2rem, 3vw, 3.4rem)",
@@ -52,18 +52,18 @@ function EditorialProjectRow({
                         {project.title}
                     </h3>
                     <p
-                        className="mt-5 max-w-xs lg:max-w-md text-sm leading-7 text-[#62564a] md:text-[15px]"
+                        className="mt-4 max-w-xs lg:max-w-md text-sm leading-7 text-[#62564a] md:mt-5 md:text-[15px]"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         {project.description}
                     </p>
                     <p
-                        className="mt-4 max-w-sm text-sm leading-7 text-[#7a6d61] md:text-[15px]"
+                        className="mt-3 max-w-sm text-sm leading-7 text-[#7a6d61] md:mt-4 md:text-[15px]"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         {project.supporting}
                     </p>
-                    <div className="mt-7 w-full max-w-sm">
+                    <div className="mt-5 w-full max-w-sm md:mt-7">
                         <div
                             className="mb-4 h-px w-14"
                             style={{ backgroundColor: project.accentSoft }}
@@ -92,7 +92,7 @@ function EditorialProjectRow({
                     </div>
                     <Link
                         href={project.href}
-                        className="group mt-8 -ml-4 inline-flex items-center gap-4 rounded-md px-4 py-3 text-[10px] uppercase tracking-[0.28em] text-[#3a3028] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8f6e5d]/40"
+                        className="group mt-6 -ml-4 inline-flex items-center gap-4 rounded-md px-4 py-3 text-[10px] uppercase tracking-[0.28em] text-[#3a3028] md:mt-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8f6e5d]/40"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         <span>{project.cta}</span>
@@ -101,7 +101,7 @@ function EditorialProjectRow({
                 </div>
             </div>
 
-            <div className={`${reverse ? "lg:order-0" : ""} min-w-0`}>
+            <div className={`${reverse ? "order-0 lg:order-0" : "order-0 lg:order-1"} min-w-0`}>
                 <div
                     className={`relative aspect-[16/10] w-full max-w-[820px] lg:max-w-[740px] xl:max-w-[760px] overflow-hidden bg-[#ebe1d4] shadow-[0_25px_60px_rgba(73,54,39,0.08)] ${
                         reverse ? "mx-auto lg:mr-auto lg:ml-0" : "mx-auto lg:ml-auto lg:mr-0"
@@ -181,7 +181,7 @@ export default function ProjectsEditorial() {
     );
 
     return (
-        <section id="proyectos" className="bg-[#fff8ef] px-6 py-24 md:px-10 md:py-32 lg:px-16 lg:py-20">
+        <section id="proyectos" className="bg-[#fff8ef] px-6 pt-0 pb-20 md:px-10 md:py-32 lg:px-16 lg:py-20">
             <div className="mx-auto max-w-[1280px]">
                 {/* <div className="mb-16 max-w-2xl md:mb-24">
                     <p
@@ -202,7 +202,7 @@ export default function ProjectsEditorial() {
                     </h2>
                 </div> */}
 
-                <div className="space-y-18 md:space-y-20">
+                <div className="space-y-12 md:space-y-20">
                     {editorialProjects.map((project, index) => (
                         <EditorialProjectRow
                             key={project.id}

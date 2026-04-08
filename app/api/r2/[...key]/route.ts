@@ -11,12 +11,12 @@ export async function GET(
   const key = keyParts?.join("/");
 
   if (!key) {
-    return NextResponse.json({ error: "Missing object key" }, { status: 400 });
+    return NextResponse.json({ errorCode: "R2_MISSING_OBJECT_KEY" }, { status: 400 });
   }
 
   const object = await getImage(key);
   if (!object) {
-    return NextResponse.json({ error: "Object not found" }, { status: 404 });
+    return NextResponse.json({ errorCode: "R2_OBJECT_NOT_FOUND" }, { status: 404 });
   }
 
   const contentType = object.httpMetadata?.contentType || "application/octet-stream";

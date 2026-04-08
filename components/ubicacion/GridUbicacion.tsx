@@ -4,41 +4,43 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useHasVisited } from "@/hooks/useHasVisited";
-
-const locations = [
-    {
-        id: "fábrica",
-        title: "Fábrica La Aurora",
-        subtitle: "10 min",
-        description: "Un centro de arte y diseño reconocido internacionalmente, albergado en un hermoso entorno industrial con decenas de galerías y estudios.",
-        image: "/images/gallery/gallery-5.png",
-    },
-    {
-        id: "centro",
-        title: "Centro Histórico",
-        subtitle: "8 min",
-        description: "El corazón vibrante de la ciudad, lleno de restaurantes, galerías, tiendas exclusivas y toda la cultura que hace famoso a San Miguel.",
-        image: "/images/gallery/gallery-2.png",
-    },
-    {
-        id: "mercados",
-        title: "Mercados Orgánicos",
-        subtitle: "5 min",
-        description: "Conexión directa con los productores locales. Ingredientes frescos, pan artesanal y una comunidad unida en torno al bienestar.",
-        image: "/images/gallery/gallery-10.jpg",
-    },
-    {
-        id: "vinedos",
-        title: "Viñedos Circundantes",
-        subtitle: "20 min",
-        description: "Campos majestuosos y bodegas vinícolas de primer nivel. Degustaciones al atardecer en los extraordinarios valles de la región.",
-        image: "/images/gallery/gallery-4.png",
-    }
-];
+import { useTranslations } from "next-intl";
 
 export default function GridUbicacion() {
+    const t = useTranslations("pages.ubicacion.grid");
     const hasVisited = useHasVisited();
     const [activeIndex, setActiveIndex] = useState(0);
+
+    const locations = [
+        {
+            id: "fabrica",
+            title: t("locations.fabrica.title"),
+            subtitle: t("locations.fabrica.time"),
+            description: t("locations.fabrica.description"),
+            image: "/images/gallery/gallery-5.png",
+        },
+        {
+            id: "centro",
+            title: t("locations.centro.title"),
+            subtitle: t("locations.centro.time"),
+            description: t("locations.centro.description"),
+            image: "/images/gallery/gallery-2.png",
+        },
+        {
+            id: "mercados",
+            title: t("locations.mercados.title"),
+            subtitle: t("locations.mercados.time"),
+            description: t("locations.mercados.description"),
+            image: "/images/gallery/gallery-10.jpg",
+        },
+        {
+            id: "vinedos",
+            title: t("locations.vinedos.title"),
+            subtitle: t("locations.vinedos.time"),
+            description: t("locations.vinedos.description"),
+            image: "/images/gallery/gallery-4.png",
+        },
+    ];
 
     return (
         <section id="entorno" className="bg-[#FFF3E1] py-12 md:py-24 px-6 md:px-12 lg:px-24 w-full relative">
@@ -58,8 +60,8 @@ export default function GridUbicacion() {
                                 fontSize: "clamp(3rem, 6vw, 5rem)",
                             }}
                         >
-                            Lo Mejor de SMA <br />
-                            <span className="italic text-[#8C7B6C]">A tu Alcance</span>
+                            {t("titleLine1")} <br />
+                            <span className="italic text-[#8C7B6C]">{t("titleLine2")}</span>
                         </h2>
                     </motion.div>
 
@@ -74,13 +76,12 @@ export default function GridUbicacion() {
                             className="text-[#222222]/80 text-base md:text-lg leading-relaxed"
                             style={{ fontFamily: "var(--font-serif)", letterSpacing: "0.05em" }}
                         >
-                            Con una ubicación privilegiada, estarás rodeado de los principales atractivos de la región, conservando la tranquilidad del campo.
+                            {t("intro")}
                         </p>
                     </motion.div>
                 </div>
 
                 <div className="relative flex flex-col md:flex-row gap-12 lg:gap-16 items-start w-full max-w-5xl mx-auto">
-                    {/* Left: Text sections */}
                     <div className="w-full md:w-[50%] flex flex-col gap-12 md:gap-[30vh] pt-[0vh] md:pt-[40vh] pb-[10vh] md:pb-[50vh]">
                         {locations.map((item, index) => (
                             <motion.div
@@ -88,7 +89,7 @@ export default function GridUbicacion() {
                                 className="flex flex-col gap-4 relative"
                                 animate={{
                                     opacity: activeIndex === index ? 1 : 0.3,
-                                    filter: activeIndex === index ? "blur(0px)" : "blur(4px)"
+                                    filter: activeIndex === index ? "blur(0px)" : "blur(4px)",
                                 }}
                                 onViewportEnter={() => setActiveIndex(index)}
                                 viewport={{ margin: "-40% 0px -40% 0px", amount: 0.3 }}
@@ -109,7 +110,7 @@ export default function GridUbicacion() {
                                         className="text-[#AA7D69] text-sm md:text-md uppercase tracking-[0.2em] font-medium"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
-                                        A {item.subtitle}
+                                        {t("timePrefix")} {item.subtitle}
                                     </h3>
                                 </div>
 
@@ -127,7 +128,6 @@ export default function GridUbicacion() {
                         ))}
                     </div>
 
-                    {/* Right: Sticky Image Gallery (Desktop only) */}
                     <div className="hidden md:block w-[45%] sticky top-[10vh] h-[80vh] rounded-xl overflow-hidden shadow-2xl group border border-[#AA7D69]/20">
                         <AnimatePresence mode="popLayout" initial={false}>
                             <motion.div
@@ -148,7 +148,7 @@ export default function GridUbicacion() {
                                 <div className="absolute bottom-12 left-12 right-12 flex justify-between items-end">
                                     <div>
                                         <p className="text-[#E6E1D6]/80 tracking-[0.25em] text-[10px] uppercase mb-3" style={{ fontFamily: "var(--font-sans)" }}>
-                                            Destino
+                                            {t("destination")}
                                         </p>
                                         <p className="text-white text-4xl leading-none" style={{ fontFamily: "var(--font-serif)" }}>
                                             {locations[activeIndex].title}

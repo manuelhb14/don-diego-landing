@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 import { EXPERIENCIAS_TITLE_PATHS } from "./experienciasTitlePaths";
 
@@ -20,6 +21,7 @@ const pathReveal = {
 };
 
 export default function HeroExperiencias() {
+    const t = useTranslations("pages.experiencias.hero");
     return (
         <section className="relative flex min-h-[40vh] md:min-h-[60vh] w-full py-14 md:py-20 items-center justify-center overflow-hidden bg-[#fff8ed]">
             <div className="relative z-10 flex flex-col items-center justify-center px-4 w-full max-w-7xl text-center mt-12 md:mt-16">
@@ -28,12 +30,12 @@ export default function HeroExperiencias() {
                         className="text-[10px] sm:text-xs tracking-[0.3em] text-[#AA7D69] uppercase mb-6 sm:mb-8"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Actividades para disfrutar]
+                        {t("eyebrow")}
                     </p>
 
                     <motion.svg
                         role="img"
-                        aria-label="Experiencias"
+                        aria-label={t("svgAriaLabel")}
                         variants={{
                             hidden: { opacity: 0 },
                             visible: {
@@ -75,7 +77,7 @@ export default function HeroExperiencias() {
                         className="text-[#222222]/80 text-lg md:text-xl font-medium leading-relaxed mb-4"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
-                        El club ofrece una amplia gama de actividades para disfrutar, desde gimnasios hasta restaurantes y spa.
+                        {t("description")}
                     </p>
                 </motion.div>
             </div>

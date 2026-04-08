@@ -3,14 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 const gallery = [
-    { src: "/babylon/clubhouse.webp", alt: "Clubhouse Don Diego" },
-    { src: "/babylon/spa.webp", alt: "Spa y bienestar" },
-    { src: "/babylon/restaurant.webp", alt: "Restaurante" },
+    { src: "/babylon/clubhouse.webp" },
+    { src: "/babylon/spa.webp" },
+    { src: "/babylon/restaurant.webp" },
 ] as const;
 
 export default function ClubAccessResidencial() {
+    const t = useTranslations("pages.residencial.clubAccess");
+
     return (
         <section
             aria-labelledby="club-access-heading"
@@ -29,7 +32,7 @@ export default function ClubAccessResidencial() {
                             className="text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase mb-4"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [COMUNIDAD]
+                            {t("kicker")}
                         </p>
                         <h2
                             id="club-access-heading"
@@ -39,7 +42,7 @@ export default function ClubAccessResidencial() {
                                 fontSize: "clamp(2rem, 4vw, 3.35rem)",
                             }}
                         >
-                            Ser dueño es formar parte de la <span className="italic text-[#b76d4b]">comunidad</span>
+                            {t("titleLine1")} <span className="italic text-[#b76d4b]">{t("titleAccent")}</span>
                         </h2>
                         <p
                             className="mt-4 text-[#b76d4b]/95 italic"
@@ -48,15 +51,13 @@ export default function ClubAccessResidencial() {
                                 fontSize: "clamp(1.2rem, 2vw, 1.65rem)",
                             }}
                         >
-                            El club como lugar de encuentro y vida compartida
+                            {t("subtitle")}
                         </p>
                         <p
                             className="mt-6 text-[#FFF3E1]/75 text-base lg:text-[17px] leading-relaxed"
                             style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                         >
-                            No solo tienes acceso a los espacios: te integras a una comunidad de vecinos que comparten
-                            el mismo entorno, el mismo cuidado y el mismo ritmo de vida. Participas del club como quien
-                            pertenece—con voz, encuentros y una experiencia que se construye en conjunto.
+                            {t("body")}
                         </p>
                         <motion.div
                             initial={{ opacity: 0, y: 12 }}
@@ -70,7 +71,7 @@ export default function ClubAccessResidencial() {
                                 className="inline-block text-[#FFF3E1] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#b76d4b]/70 pb-1 hover:opacity-70 transition-opacity"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
-                                EXPLORAR LAS EXPERIENCIAS
+                                {t("cta")}
                             </Link>
                         </motion.div>
                     </motion.div>
@@ -86,7 +87,7 @@ export default function ClubAccessResidencial() {
                             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm border border-[#FFF3E1]/[0.12] shadow-[0_24px_48px_rgba(0,0,0,0.35)] lg:aspect-[2.1/1]">
                                 <Image
                                     src={gallery[0].src}
-                                    alt={gallery[0].alt}
+                                    alt={t("alts.clubhouse")}
                                     fill
                                     className="object-cover"
                                     sizes="(min-width: 1024px) 42vw, 100vw"
@@ -97,7 +98,7 @@ export default function ClubAccessResidencial() {
                                 <div className="relative aspect-[4/5] overflow-hidden rounded-sm border border-[#FFF3E1]/[0.12]">
                                     <Image
                                         src={gallery[1].src}
-                                        alt={gallery[1].alt}
+                                        alt={t("alts.spa")}
                                         fill
                                         className="object-cover"
                                         sizes="(min-width: 1024px) 21vw, 50vw"
@@ -106,7 +107,7 @@ export default function ClubAccessResidencial() {
                                 <div className="relative aspect-[4/5] overflow-hidden rounded-sm border border-[#FFF3E1]/[0.12]">
                                     <Image
                                         src={gallery[2].src}
-                                        alt={gallery[2].alt}
+                                        alt={t("alts.restaurant")}
                                         fill
                                         className="object-cover"
                                         sizes="(min-width: 1024px) 21vw, 50vw"

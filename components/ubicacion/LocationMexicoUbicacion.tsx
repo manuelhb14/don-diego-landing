@@ -3,26 +3,28 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Compass, Mountain, MapPinned } from "lucide-react";
-
-const highlights = [
-    {
-        title: "En el corazón del Bajío",
-        body: "San Miguel de Allende se encuentra en el estado de Guanajuato, en una región del centro de México reconocida por su equilibrio entre vida cultural, paisaje y conectividad.",
-        icon: Compass,
-    },
-    {
-        title: "Una ciudad con escala humana",
-        body: "Su dimensión permite vivir la ciudad con calma: arquitectura histórica, calles caminables, barrios residenciales y una relación constante con el entorno natural.",
-        icon: MapPinned,
-    },
-    {
-        title: "México profundo y contemporáneo",
-        body: "San Miguel sintetiza lo mejor del país: patrimonio, diseño, gastronomía, comunidad creativa y una sensibilidad internacional sin perder su identidad local.",
-        icon: Mountain,
-    },
-];
+import { useTranslations } from "next-intl";
 
 export default function LocationMexicoUbicacion() {
+    const t = useTranslations("pages.ubicacion.locationMexico");
+    const highlights = [
+        {
+            title: t("highlights.bajio.title"),
+            body: t("highlights.bajio.body"),
+            icon: Compass,
+        },
+        {
+            title: t("highlights.humanScale.title"),
+            body: t("highlights.humanScale.body"),
+            icon: MapPinned,
+        },
+        {
+            title: t("highlights.mexico.title"),
+            body: t("highlights.mexico.body"),
+            icon: Mountain,
+        },
+    ];
+
     return (
         <section className="relative w-full overflow-hidden bg-[#FFF3E1] text-[#222222]">
             <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-4 lg:gap-12 px-6 py-10 md:px-10 md:py-24">
@@ -37,19 +39,19 @@ export default function LocationMexicoUbicacion() {
                             className="mb-3 text-[10px] uppercase tracking-[0.3em] text-[#AA7D69]/60"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [San Miguel de Allende]
+                            {t("kicker")}
                         </p>
                         <h2
                             className="text-[#222] leading-none"
                             style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(3rem, 6vw, 6rem)" }}
                         >
-                            En el corazón de
+                            {t("titleLine1")}
                         </h2>
                         <h2
                             className="text-[#AA7D69]/90 italic leading-none"
                             style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(3rem, 6vw, 6rem)" }}
                         >
-                            México
+                            {t("titleLine2")}
                         </h2>
                     </motion.div>
 
@@ -61,7 +63,7 @@ export default function LocationMexicoUbicacion() {
                         viewport={{ once: true, amount: 0.4 }}
                         transition={{ duration: 0.8, delay: 0.1 }}
                     >
-                        Mas que un punto en el mapa, San Miguel de Allende ocupa un lugar singular en el imaginario mexicano: histórico, creativo, conectado y profundamente ligado a la vida cotidiana del centro del país.
+                        {t("intro")}
                     </motion.p>
                 </div>
 
@@ -75,7 +77,7 @@ export default function LocationMexicoUbicacion() {
                     <div className="relative aspect-square lg:aspect-[16/9] w-full">
                         <Image
                             src="/babylon/map.webp"
-                            alt="Vista de San Miguel de Allende y su contexto geografico"
+                            alt={t("imageAlt")}
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, 1280px"
@@ -92,7 +94,7 @@ export default function LocationMexicoUbicacion() {
                             className="mt-2 max-w-2xl text-white text-lg md:text-3xl leading-tight"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            San Miguel de Allende ocupa una posición privilegiada entre patrimonio, paisaje y conectividad cultural.
+                            {t("overlay")}
                         </p>
                     </div>
                 </motion.div>

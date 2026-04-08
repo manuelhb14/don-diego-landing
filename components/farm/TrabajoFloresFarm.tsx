@@ -3,31 +3,33 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Flower2, Palette, Sun } from "lucide-react";
-
-const highlights = [
-    {
-        icon: Flower2,
-        title: "Variedades de temporada",
-        text: "Rotación y cuidado de especies elegidas para el clima altoandino y el ritmo del proyecto.",
-    },
-    {
-        icon: Palette,
-        title: "Diseño y composición",
-        text: "El trabajo con flores conecta color, textura y aroma con los espacios comunes y la producción del club.",
-    },
-    {
-        icon: Sun,
-        title: "Ciclo y mantenimiento",
-        text: "Siembra, corte y resembrado en diálogo con el resto de la granja orgánica y el paisaje.",
-    },
-] as const;
-
-const HERO_IMAGE = {
-    src: "/babylon/flowers.webp",
-    alt: "Flores de temporada en Don Diego",
-} as const;
+import { useTranslations } from "next-intl";
 
 export default function TrabajoFloresFarm() {
+    const t = useTranslations("pages.farm.trabajoFlores");
+    const highlights = [
+        {
+            icon: Flower2,
+            title: t("highlights.variedades.title"),
+            text: t("highlights.variedades.text"),
+        },
+        {
+            icon: Palette,
+            title: t("highlights.diseno.title"),
+            text: t("highlights.diseno.text"),
+        },
+        {
+            icon: Sun,
+            title: t("highlights.ciclo.title"),
+            text: t("highlights.ciclo.text"),
+        },
+    ] as const;
+
+    const heroImage = {
+        src: "/babylon/flowers.webp",
+        alt: t("imageAlt"),
+    } as const;
+
     return (
         <section
             id="flores"
@@ -47,7 +49,7 @@ export default function TrabajoFloresFarm() {
                             className="mb-4 text-[10px] tracking-[0.3em] text-[#9B5C6E]/85 uppercase"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [TRABAJO CON FLORES]
+                            {t("eyebrow")}
                         </p>
                         <h2
                             id="trabajo-flores-heading"
@@ -57,16 +59,15 @@ export default function TrabajoFloresFarm() {
                                 fontSize: "clamp(3.125rem, 5.25vw, 4.25rem)",
                             }}
                         >
-                            Color y vida
+                            {t("title.line1")}
                             <br />
-                            <span className="italic text-[#8B4A5E]">en cada ciclo</span>
+                            <span className="italic text-[#8B4A5E]">{t("title.accent")}</span>
                         </h2>
                         <p
                             className="mt-5 max-w-md text-lg leading-relaxed text-[#1a1917]/78"
                             style={{ fontFamily: "var(--font-serif)", fontWeight: 400 }}
                         >
-                            La producción floral forma parte del mismo sistema que abastece al club: cultivos
-                            pensados para ornamentar, perfumar y marcar el ritmo de las estaciones en Don Diego.
+                            {t("intro")}
                         </p>
 
                         <ul className="mt-8 flex flex-col gap-5">
@@ -103,8 +104,8 @@ export default function TrabajoFloresFarm() {
                     >
                         <div className="relative aspect-[4/5] w-full overflow-hidden shadow-[0_28px_60px_rgba(26,25,23,0.15)] ring-1 ring-[#1a1917]/[0.08] sm:aspect-[3/4] lg:aspect-[4/5]">
                             <Image
-                                src={HERO_IMAGE.src}
-                                alt={HERO_IMAGE.alt}
+                                src={heroImage.src}
+                                alt={heroImage.alt}
                                 fill
                                 className="object-cover object-center"
                                 sizes="(min-width: 1024px) 45vw, 100vw"

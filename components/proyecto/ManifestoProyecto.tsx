@@ -3,8 +3,10 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { useHasVisited } from "@/hooks/useHasVisited";
+import { useTranslations } from "next-intl";
 
 export default function ManifestoProyecto() {
+    const t = useTranslations("pages.proyecto.manifesto");
     const hasVisited = useHasVisited();
 
     return (
@@ -24,7 +26,7 @@ export default function ManifestoProyecto() {
                         className="text-[10px] sm:text-xs tracking-[0.3em] text-[#AA7D69] uppercase mb-6 sm:mb-8"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Qué nos define]
+                        {t("kicker")}
                     </motion.p>
 
                     <motion.h2
@@ -38,8 +40,8 @@ export default function ManifestoProyecto() {
                             fontSize: "clamp(3rem, 6vw, 5rem)",
                         }}
                     >
-                        Arraigado en <br />
-                        <span className="italic text-[#8C7B6C]">San Miguel</span>
+                        {t("titleLine1")} <br />
+                        <span className="italic text-[#8C7B6C]">{t("titleLine2")}</span>
                     </motion.h2>
 
                     <motion.div
@@ -57,7 +59,7 @@ export default function ManifestoProyecto() {
                         transition={{ duration: 0.8, delay: 0.5 }}
                         className="text-[#E6E1D6]/70 leading-relaxed text-sm lg:text-base font-sans font-light max-w-sm"
                     >
-                        Un desarrollo diseñado bajo un respeto absoluto al entorno y a la cultura, creando un hábitat equilibrado, privado y de una belleza atemporal.
+                        {t("body")}
                     </motion.p>
                 </div>
 
@@ -67,9 +69,9 @@ export default function ManifestoProyecto() {
                     {/* Philosophical Pillars */}
                     <div className="flex flex-col gap-8 md:gap-12 z-20 w-full md:w-1/2">
                         {[
-                            { title: "Con la Tierra.", delay: 0.3 },
-                            { title: "Con la Comunidad.", delay: 0.5 },
-                            { title: "Con uno Mismo.", delay: 0.7 }
+                            { title: t("pillars.earth"), delay: 0.3 },
+                            { title: t("pillars.community"), delay: 0.5 },
+                            { title: t("pillars.self"), delay: 0.7 },
                         ].map((item, index) => (
                             <motion.div
                                 key={index}
@@ -100,7 +102,7 @@ export default function ManifestoProyecto() {
                     >
                         <Image
                             src="/images/gallery/gallery-9.jpg"
-                            alt="Con la Tierra"
+                            alt={t("imageAlt")}
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, 33vw"

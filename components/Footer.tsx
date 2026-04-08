@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { SITE_CONTACT } from "@/lib/site-contact";
 
 export default function Footer() {
     const t = useTranslations("footer");
@@ -41,9 +42,15 @@ export default function Footer() {
                 }),
             });
 
-            const data = (await res.json()) as { error?: string };
+            const data = (await res.json()) as { error?: string; errorCode?: string };
 
             if (!res.ok) {
+                if (data.errorCode === "CONTACT_REQUIRED_FIELDS") {
+                    throw new Error(t("errRequired"));
+                }
+                if (data.errorCode === "CONTACT_SEND_FAILED") {
+                    throw new Error(t("errSend"));
+                }
                 throw new Error(data.error || t("errSend"));
             }
             setSubmitted(true);
@@ -168,7 +175,7 @@ export default function Footer() {
                             <li><a className="hover:underline underline-offset-4" href="https://www.instagram.com/dondiegosma/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                             <li><a className="hover:underline underline-offset-4" href="https://www.youtube.com/@dondiegosma" target="_blank" rel="noopener noreferrer">Youtube</a></li>
                             <li><a className="hover:underline underline-offset-4" href="https://www.tiktok.com/@dondiegosma" target="_blank" rel="noopener noreferrer">TikTok</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="https://wa.me/5200000000000" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+                            <li><a className="hover:underline underline-offset-4" href={SITE_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
                         </ul>
                     </div>
                 </div>

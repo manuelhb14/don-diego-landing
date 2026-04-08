@@ -12,14 +12,9 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { locale } = await params;
-    const title =
-        locale === "en"
-            ? "Stories & Experiences | Don Diego"
-            : "Historias y Experiencias | Don Diego";
-    const description =
-        locale === "en"
-            ? "A visual notebook of the landscape, walks, and everyday life at Don Diego."
-            : "Un cuaderno visual con momentos del entorno, las caminatas y lo cotidiano en Don Diego.";
+    const t = await getTranslations({ locale, namespace: "meta.blogIndex" });
+    const title = t("title");
+    const description = t("description");
     return {
         title,
         description,

@@ -13,16 +13,23 @@ import { putImage } from "@/lib/storage";
 export const runtime = "nodejs";
 
 function getPublicUrlForKey(key: string) {
-  const base = process.env.R2_PUBLIC_URL;
-  if (!base) return null;
+  const rawBase = process.env.R2_PUBLIC_URL?.trim();
+  if (!rawBase) return null;
+
+  const base = /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(rawBase)
+    ? rawBase
+    : `https://${rawBase.replace(/^\/+/, "")}`;
+
   try {
     const parsed = new URL(base);
     // S3 API endpoint requires auth and cannot be used as a browser-public URL.
     if (parsed.hostname.endsWith(".r2.cloudflarestorage.com")) return null;
+
+    const normalizedBase = parsed.pathname.endsWith("/") ? parsed.toString() : `${parsed.toString()}/`;
+    return new URL(key, normalizedBase).toString();
   } catch {
     return null;
   }
-  return `${base.replace(/\/$/, "")}/${key}`;
 }
 
 function getLocalProxyUrl(req: NextRequest, key: string) {
@@ -89,13 +96,13 @@ export async function POST(req: NextRequest) {
 
     if (!email || (!imageFile && !imageUrl)) {
       console.warn(`${logPrefix} validation failed: missing required fields`);
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+      return NextResponse.json({ errorCode: "VS_MISSING_REQUIRED_FIELDS" }, { status: 400 });
     }
 
     const user = await getOrCreateUser(email);
     if (!user) {
       console.error(`${logPrefix} failed to create/find user`);
-      return NextResponse.json({ error: "Could not create user" }, { status: 500 });
+      return NextResponse.json({ errorCode: "VS_COULD_NOT_CREATE_USER" }, { status: 500 });
     }
 
     console.info(`${logPrefix} user resolved`, {
@@ -107,7 +114,7 @@ export async function POST(req: NextRequest) {
     if (user.Credits <= 0) {
       console.warn(`${logPrefix} request blocked: daily limit reached`, { userId: user.Id });
       return NextResponse.json(
-        { error: "Daily limit reached", credits: 0, dailyLimit: DAILY_CREDIT_LIMIT },
+        { errorCode: "VS_DAILY_LIMIT_REACHED", credits: 0, dailyLimit: DAILY_CREDIT_LIMIT },
         { status: 402 },
       );
     }
@@ -137,7 +144,7 @@ export async function POST(req: NextRequest) {
           status: imageRes.status,
           statusText: imageRes.statusText,
         });
-        return NextResponse.json({ error: "Failed to fetch source image" }, { status: 400 });
+        return NextResponse.json({ errorCode: "VS_FAILED_TO_FETCH_SOURCE_IMAGE" }, { status: 400 });
       }
       const arrayBuffer = await imageRes.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
@@ -146,7 +153,7 @@ export async function POST(req: NextRequest) {
       finalOriginalUrl = imageUrl;
     } else {
       console.warn(`${logPrefix} validation failed: no valid image provided`);
-      return NextResponse.json({ error: "No valid image provided" }, { status: 400 });
+      return NextResponse.json({ errorCode: "VS_NO_VALID_IMAGE_PROVIDED" }, { status: 400 });
     }
 
     console.info(`${logPrefix} creating staging record`, { userId: user.Id, shareId });
@@ -162,7 +169,7 @@ export async function POST(req: NextRequest) {
 
     if (!stagingId) {
       console.error(`${logPrefix} failed to create staging record`, { userId: user.Id, shareId });
-      return NextResponse.json({ error: "Failed to create staging record" }, { status: 500 });
+      return NextResponse.json({ errorCode: "VS_FAILED_TO_CREATE_STAGING_RECORD" }, { status: 500 });
     }
 
     console.info(`${logPrefix} staging record created`, { stagingId });
@@ -177,14 +184,14 @@ export async function POST(req: NextRequest) {
     } catch {
       console.error(`${logPrefix} AI generation failed`, { stagingId });
       await updateVirtualStagingResult(stagingId, "", "failed");
-      return NextResponse.json({ error: "AI Generation failed" }, { status: 500 });
+      return NextResponse.json({ errorCode: "VS_AI_GENERATION_FAILED" }, { status: 500 });
     }
 
     if (!generatedBuffer) {
       console.error(`${logPrefix} AI generation returned empty result`, { stagingId });
       await updateVirtualStagingResult(stagingId, "", "failed");
       return NextResponse.json(
-        { error: "AI Generation returned no result (check API key/model)" },
+        { errorCode: "VS_AI_GENERATION_EMPTY_RESULT" },
         { status: 500 },
       );
     }
@@ -238,7 +245,7 @@ export async function POST(req: NextRequest) {
       stack: err.stack,
     });
     return NextResponse.json(
-      { error: "Internal Server Error", details: err.message },
+      { errorCode: "VS_INTERNAL_SERVER_ERROR", details: err.message },
       { status: 500 },
     );
   }

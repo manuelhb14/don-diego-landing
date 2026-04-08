@@ -43,14 +43,14 @@
   },
   "about": {
     "quote": "\"Best Small City in the World\"",
-    "source": "— Condé Nast Traveler & Travel + Leisure",
+    "source": "- Condé Nast Traveler & Travel + Leisure",
     "p1": "San Miguel de Allende is a UNESCO World Heritage Site, internationally recognized for its colonial architecture, vibrant cultural scene, and year-round spring-like climate.",
     "p2": "Home to one of the largest expat communities in Mexico with sustained real estate appreciation, San Miguel combines historical richness with an exceptional quality of life.",
     "p3": "A destination where Mexican tradition and contemporary sophistication converge in perfect harmony."
   },
   "project": {
     "heading": "The Project",
-    "intro": "Don Diego Club Residencial is a mixed-use development integrating four unique components around Presa La Cantera — built on the land of the former Hacienda de Don Diego, just 8 minutes from the historic center.",
+    "intro": "Don Diego Club Residencial is a mixed-use development integrating four unique components around Presa La Cantera - built on the land of the former Hacienda de Don Diego, just 8 minutes from the historic center.",
     "residencial": {
       "name": "Club Residencial",
       "description": "364 residences in a 100% pedestrian environment with clubhouse, restaurants, spa, sports, and world-class amenities."
@@ -99,12 +99,12 @@
     "barragan": {
       "name": "Barragán Arquitectos",
       "role": "Architectural Design",
-      "description": "Arq. Luis Barragán Rivera — contemporary aesthetics rooted in SMA identity."
+      "description": "Arq. Luis Barragán Rivera - contemporary aesthetics rooted in SMA identity."
     },
     "arredarq": {
       "name": "Espacios Verdes / Arredarq",
       "role": "Landscape & Sustainability",
-      "description": "Arq. Eliseo Arredondo — founder of the Mexican Landscape Architects Society."
+      "description": "Arq. Eliseo Arredondo - founder of the Mexican Landscape Architects Society."
     },
     "artemisa": {
       "name": "Artemisa Branding",
@@ -145,7 +145,11 @@
     "sending": "Sending…",
     "whatsappChat": "Chat on WhatsApp",
     "errSend": "Something went wrong. Please try again.",
-    "internalVisit": "Visit request from home page"
+    "internalVisit": "Visit request from home page",
+    "instantKicker": "Instant response",
+    "instantBody": "Need an immediate answer? Talk to our virtual assistant.",
+    "openAssistant": "Open virtual assistant",
+    "errRequired": "Name, email, and message are required."
   },
   "footer": {
     "rights": "© 2026 Don Diego Club Residencial. All rights reserved.",
@@ -159,7 +163,7 @@
     "consent": "I agree to receive project information and updates",
     "submit": "Submit form",
     "sending": "Sending…",
-    "thanks": "Thank you! You’ve been added to our list.",
+    "thanks": "Thank you! You've been added to our list.",
     "errConsent": "You must accept the privacy policy to continue.",
     "errSend": "Something went wrong. Please try again.",
     "navHome": "Home",
@@ -171,7 +175,8 @@
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
     "brandLine": "® Don Diego 2026",
-    "newsletterInternal": "Newsletter signup from footer"
+    "newsletterInternal": "Newsletter signup from footer",
+    "errRequired": "Name, email, and message are required."
   },
   "manifesto": {
     "kicker": "[What defines us]",
@@ -187,8 +192,8 @@
     "titleName": "Don Diego",
     "body": "A journey through the vision, setting, and components that shape this residential development in San Miguel de Allende.",
     "playAria": "Play presentation",
-    "iframeTitle": "Don Diego — Presentation",
-    "thumbAlt": "Don Diego — Project presentation",
+    "iframeTitle": "Don Diego - Presentation",
+    "thumbAlt": "Don Diego - Project presentation",
     "videoLabel": "Project presentation"
   },
   "servicesPage": {
@@ -218,7 +223,7 @@
     },
     "farm": {
       "title": "Organic Farm & Flowers",
-      "description": "A sustainable component that restores the land’s original farming vocation with organic orchards, fruit trees, and seasonal flowers.",
+      "description": "A sustainable component that restores the land's original farming vocation with organic orchards, fruit trees, and seasonal flowers.",
       "supporting": "A productive landscape that returns agricultural memory and a daily relationship with the soil.",
       "d1": "Organic orchards",
       "d2": "Seasonal fruit",
@@ -248,7 +253,7 @@
     "kicker": "[Experiences]",
     "title1": "Activities to enjoy",
     "title2": "inside Don Diego",
-    "body": "The club offers a wide range of activities—from gyms to restaurants and spa. Most amenities are exclusive to residents and their guests.",
+    "body": "The club offers a wide range of activities-from gyms to restaurants and spa. Most amenities are exclusive to residents and their guests.",
     "cta": "EXPLORE EXPERIENCES",
     "nextAria": "Next",
     "items": {
@@ -273,7 +278,7 @@
     "p1Desc": "Art and design center.",
     "p2Time": "8 Min",
     "p2Name": "Historic Center",
-    "p2Desc": "The heart of the city—dining and culture.",
+    "p2Desc": "The heart of the city-dining and culture.",
     "p3Time": "5 Min",
     "p3Name": "Organic markets",
     "p3Desc": "Local produce and community.",
@@ -301,17 +306,17 @@
         "answer": "Club Residencial and Organic Farm are exclusive and prioritized for owners and residents. Presa de la Cantera is conceived as a destination open to the San Miguel community, blending nature and social life with cultural and recreational activities."
       },
       {
-        "question": "How does the productive side of “Organic Farm & Flowers” work?",
-        "answer": "It restores the land’s farming vocation through organic agriculture and seasonal flower production. Beyond aesthetics, fresh products feed restaurants and daily life on the development, with organic gardens, greenhouses, and production fields linked by paths and bike lanes."
+        "question": "How does the productive side of 'Organic Farm & Flowers' work?",
+        "answer": "It restores the land's farming vocation through organic agriculture and seasonal flower production. Beyond aesthetics, fresh products feed restaurants and daily life on the development, with organic gardens, greenhouses, and production fields linked by paths and bike lanes."
       },
       {
         "question": "What is the pedestrian-focused urban design?",
-        "answer": "The interior of the development is 100% pedestrian, keeping cars out of the inner streets. A peripheral road circuit at grade change handles vehicles, while parking is covered with direct pedestrian access to homes—two spaces per unit."
+        "answer": "The interior of the development is 100% pedestrian, keeping cars out of the inner streets. A peripheral road circuit at grade change handles vehicles, while parking is covered with direct pedestrian access to homes-two spaces per unit."
       }
     ]
   },
   "exclusivity": {
-    "imageAlt": "Don Diego — Exclusivity",
+    "imageAlt": "Don Diego - Exclusivity",
     "title1": "An invitation to belong",
     "title2": "to something",
     "titleEm": "extraordinary.",
@@ -327,52 +332,52 @@
     "slides": [
       {
         "alt": "Club Residencial",
-        "title": "CLUB RESIDENCIAL — ARCHITECTURAL DESIGN",
+        "title": "CLUB RESIDENCIAL - ARCHITECTURAL DESIGN",
         "description": "A space designed for community life, combining interior comfort with privileged views and sophisticated contemporary furnishings."
       },
       {
         "alt": "Home",
-        "title": "HOME — MATERIALS & TEXTURES",
+        "title": "HOME - MATERIALS & TEXTURES",
         "description": "Designed for comfort and gathering, balancing ease, elegance, and function."
       },
       {
         "alt": "Lighting",
-        "title": "NATURAL LIGHT — FINISHES",
+        "title": "NATURAL LIGHT - FINISHES",
         "description": "Warm tones and subtle details that add tactile rhythm and timeless charm to modern interiors."
       },
       {
         "alt": "Presa de la Cantera",
-        "title": "PRESA DE LA CANTERA — NATURAL SETTING",
+        "title": "PRESA DE LA CANTERA - NATURAL SETTING",
         "description": "Seamless integration with the local landscape, with unmatched reservoir views and deep respect for topography."
       },
       {
         "alt": "Landscape",
-        "title": "THE LANDSCAPE — NATIVE PLANTING",
+        "title": "THE LANDSCAPE - NATIVE PLANTING",
         "description": "Expansive areas designed to connect organically with surrounding nature, maximizing serenity outdoors."
       },
       {
         "alt": "Spaces",
-        "title": "FLUID SPACES — SPATIAL HARMONY",
+        "title": "FLUID SPACES - SPATIAL HARMONY",
         "description": "Natural transitions between living areas guided by an earth-tone palette and exceptional craftsmanship."
       },
       {
         "alt": "Entrance",
-        "title": "MAIN ENTRANCE — WELCOME & PRESENCE",
+        "title": "MAIN ENTRANCE - WELCOME & PRESENCE",
         "description": "A majestic entrance that frames the residential experience with structure, character, and rural elegance."
       },
       {
         "alt": "Organic Farm",
-        "title": "ORGANIC GARDEN — SUSTAINABILITY",
+        "title": "ORGANIC GARDEN - SUSTAINABILITY",
         "description": "Cultivable spaces for fresh harvests, promoting a sustainable lifestyle rooted in the land."
       },
       {
         "alt": "Exterior",
-        "title": "OUTDOOR TERRACE — OPEN-AIR LIVING",
+        "title": "OUTDOOR TERRACE - OPEN-AIR LIVING",
         "description": "Outdoor lounges that extend indoor comfort outside, inviting gatherings under open skies."
       },
       {
         "alt": "Aerial view",
-        "title": "AERIAL VIEW — MASTER PLAN",
+        "title": "AERIAL VIEW - MASTER PLAN",
         "description": "A privileged perspective of the whole project, showing thoughtful architecture within the local ecosystem."
       }
     ]
@@ -381,5 +386,916 @@
     "privacyTitle": "Privacy Policy",
     "termsTitle": "Terms of Service",
     "lastUpdated": "Last updated:"
+  },
+  "common": {
+    "buttons": {
+      "send": "Send",
+      "close": "Close",
+      "back": "Back"
+    },
+    "status": {
+      "loading": "Loading",
+      "thinking": "Thinking..."
+    },
+    "errors": {
+      "generic": "Something went wrong while processing the request."
+    }
+  },
+  "meta": {
+    "blogIndex": {
+      "title": "Stories & Experiences | Don Diego",
+      "description": "A visual notebook of the landscape, walks, and everyday life at Don Diego."
+    },
+    "terms": {
+      "title": "Terms of Service | Don Diego",
+      "description": "Terms governing your use of the Don Diego website and services."
+    },
+    "privacy": {
+      "title": "Privacy Policy | Don Diego",
+      "description": "How Don Diego collects, uses, and protects your personal information."
+    }
+  },
+  "pages": {
+    "notFound": {
+      "contact": "Contact",
+      "title": "Page Not Found",
+      "bodyLine1": "Hmm - you have wandered into uncharted territory.",
+      "bodyLine2": "Let us guide you back to something extraordinary.",
+      "backHome": "View Projects"
+    },
+    "proyecto": {
+      "hero": {
+        "kicker": "[Components]",
+        "body": "An environment designed to dialogue with the soul of San Miguel de Allende, reinterpreting it with contemporary sensitivity."
+      },
+      "grid": {
+        "discover": "Discover",
+        "bottomTitleLine1": "Four Environments",
+        "bottomTitleLine2": "One Community",
+        "bottomBody": "Each component is designed as part of an integrated ecosystem, respecting the vocation of the place and offering a unique, harmonious lifestyle experience.",
+        "cards": {
+          "residencial": {
+            "title": "Club Residencial",
+            "description": "364 residences designed with intelligent density to protect views and privacy."
+          },
+          "farm": {
+            "title": "Organic Farm",
+            "description": "A living agrarian space where the land nourishes us and connects us to natural cycles."
+          },
+          "wellness": {
+            "title": "Wellness Center",
+            "description": "A sanctuary for body and mind, designed for inner balance."
+          },
+          "presa": {
+            "title": "Presa de la Cantera",
+            "description": "The blue heart of the project, a body of water that reflects the vast landscape."
+          }
+        }
+      },
+      "locationSummary": {
+        "imageAlt": "San Miguel de Allende",
+        "kicker": "[Location]",
+        "titleLine1": "The heart of",
+        "titleLine2": "Mexico",
+        "body": "Just eight minutes from the vibrant historic center of San Miguel de Allende. Don Diego offers a haven of peace and privacy while keeping an intimate connection with one of the world's most captivating cities.",
+        "cta": "Explore Surroundings"
+      },
+      "manifesto": {
+        "kicker": "[What defines us]",
+        "titleLine1": "Rooted in",
+        "titleLine2": "San Miguel",
+        "body": "A development designed with absolute respect for the environment and culture, creating a balanced, private, and timeless habitat.",
+        "imageAlt": "With the Earth",
+        "pillars": {
+          "earth": "With the Land.",
+          "community": "With the Community.",
+          "self": "With Yourself."
+        }
+      }
+    },
+    "contacto": {
+      "hero": {
+        "kicker": "[Contact]",
+        "body": "We are here to guide you in discovering your next home in San Miguel de Allende."
+      },
+      "form": {
+        "errorSend": "Failed to send",
+        "errorSendRetry": "Failed to send. Please try again.",
+        "titleLine1": "Let's talk about",
+        "titleLine2": "your next home.",
+        "intro": "Discover Don Diego in person. Contact us to schedule a private tour of our land, or send us your questions.",
+        "locationLabel": "Location",
+        "locationLine1": "San Miguel de Allende,",
+        "locationLine2": "Guanajuato, Mexico",
+        "emailLabel": "Email",
+        "phoneLabel": "Phone / WhatsApp",
+        "thanksTitle": "Thank you for your interest",
+        "thanksBody": "We will contact you soon.",
+        "formTitle": "Send us a message",
+        "fullNameLabel": "Full Name",
+        "namePlaceholder": "Your name",
+        "phoneFieldLabel": "Phone",
+        "phonePlaceholder": "Your number",
+        "emailFieldLabel": "Email",
+        "emailPlaceholder": "you@email.com",
+        "messageLabel": "Message",
+        "messagePlaceholder": "How can we help you?",
+        "sending": "Sending...",
+        "submit": "Send Message",
+        "whatsapp": "WhatsApp Chat",
+        "socialTitle": "Follow us on social media",
+        "errorRequired": "Name, email, and message are required."
+      }
+    },
+    "ubicacion": {
+      "hero": {
+        "kicker": "[The Surroundings]",
+        "body": "Connected to the vibrant heart of the city, yet sheltered in the tranquility of a natural sanctuary."
+      },
+      "locationMexico": {
+        "kicker": "[San Miguel de Allende]",
+        "titleLine1": "In the heart of",
+        "titleLine2": "Mexico",
+        "intro": "More than a point on the map, San Miguel de Allende holds a unique place in the Mexican imagination: historic, creative, connected, and deeply linked to everyday life in central Mexico.",
+        "imageAlt": "View of San Miguel de Allende and its geographic context",
+        "overlay": "San Miguel de Allende holds a privileged position between heritage, landscape, and cultural connectivity.",
+        "highlights": {
+          "bajio": {
+            "title": "In the heart of the Bajio",
+            "body": "San Miguel de Allende is located in the state of Guanajuato, in a region of central Mexico known for its balance of cultural life, landscape, and connectivity."
+          },
+          "humanScale": {
+            "title": "A human-scale city",
+            "body": "Its scale makes calm city living possible: historic architecture, walkable streets, residential neighborhoods, and a constant relationship with nature."
+          },
+          "mexico": {
+            "title": "Deep and contemporary Mexico",
+            "body": "San Miguel synthesizes the best of the country: heritage, design, gastronomy, creative community, and international sensitivity without losing local identity."
+          }
+        }
+      },
+      "grid": {
+        "titleLine1": "The Best of SMA",
+        "titleLine2": "Within Reach",
+        "intro": "With a privileged location, you are surrounded by the region's main attractions while preserving countryside tranquility.",
+        "timePrefix": "At",
+        "destination": "Destination",
+        "locations": {
+          "fabrica": {
+            "title": "Fabrica La Aurora",
+            "time": "10 min",
+            "description": "An internationally recognized art and design center, housed in a beautiful industrial setting with dozens of galleries and studios."
+          },
+          "centro": {
+            "title": "Historic Center",
+            "time": "8 min",
+            "description": "The vibrant heart of the city, full of restaurants, galleries, exclusive shops, and all the culture that makes San Miguel famous."
+          },
+          "mercados": {
+            "title": "Organic Markets",
+            "time": "5 min",
+            "description": "Direct connection with local producers. Fresh ingredients, artisan bread, and a community centered on wellbeing."
+          },
+          "vinedos": {
+            "title": "Surrounding Vineyards",
+            "time": "20 min",
+            "description": "Majestic fields and top-tier wineries. Sunset tastings in the extraordinary valleys of the region."
+          }
+        }
+      }
+    },
+    "residencial": {
+      "hero": {
+        "kicker": "[PRIVATE CORE]",
+        "headline": "364 residences between duplexes and apartments",
+        "body": "Intelligent density that protects views and privacy. Living landscape with gardens, fountains, and streams.",
+        "imageAlt": "Club Residencial"
+      },
+      "features": {
+        "kicker": "[TYPOLOGY]",
+        "titleLine1": "Discover the",
+        "titleAccent": "spaces",
+        "titleLine2": "we offer.",
+        "virtualStage": "Visualize this furnished space",
+        "carouselAria": "Carousel of {title}",
+        "carouselGoTo": "Go to image {index} of {total}",
+        "imageAlt": "{title} - {index} / {total}",
+        "labels": {
+          "superficie": "Built area",
+          "recamaras": "Bedrooms",
+          "banos": "Bathrooms",
+          "estacionamientos": "Parking"
+        },
+        "residences": {
+          "departamentos": {
+            "title": "Apartments",
+            "description": "Blocks around the residential complex: covered parking and lower-level storage create a circuit that keeps inner streets free of vehicle traffic. Four apartments per level with terraces and usable rooftops.",
+            "specs": {
+              "superficie": "113-173 m2 (by prototype)",
+              "recamaras": "2-3",
+              "banos": "2-3",
+              "estacionamientos": "2 spots per unit"
+            },
+            "highlights": {
+              "1": "100% pedestrian streets",
+              "2": "Terraces and rooftops",
+              "3": "Lower-level parking"
+            }
+          },
+          "duplex1": {
+            "title": "Duplex Homes Type 1",
+            "description": "One home per level, each with terrace or interior patio and clear connection to the outdoors. Option to rent one bedroom independently.",
+            "specs": {
+              "superficie": "128-155 m2",
+              "recamaras": "2-3",
+              "banos": "2-3",
+              "estacionamientos": "2 spots per unit"
+            },
+            "highlights": {
+              "1": "One home per level",
+              "2": "Terrace or interior patio",
+              "3": "Independent bedroom (optional)"
+            }
+          },
+          "duplex2": {
+            "title": "Duplex Homes Type 2",
+            "description": "Homes around an interior patio, one home per level. Type 2 connects pedestrian streets through the first level. Jacuzzi in selected prototypes.",
+            "specs": {
+              "superficie": "166-185 m2",
+              "recamaras": "2-4",
+              "banos": "3-4",
+              "estacionamientos": "2 spots per unit"
+            },
+            "highlights": {
+              "1": "Interior patio",
+              "2": "Pedestrian streets at ground level",
+              "3": "Jacuzzi in selected units"
+            }
+          },
+          "duplex3": {
+            "title": "Duplex Homes Type 3",
+            "description": "Central patio with one home per level; layouts with multiple terraces and, in type B prototypes, a living lounge. Option to rent one bedroom independently.",
+            "specs": {
+              "superficie": "142-181 m2 (by prototype)",
+              "recamaras": "2-3",
+              "banos": "2-3",
+              "estacionamientos": "2 spots per unit"
+            },
+            "highlights": {
+              "1": "Interior patio",
+              "2": "Multiple terraces",
+              "3": "Living lounge (type B prototype)"
+            }
+          }
+        }
+      },
+      "amenities": {
+        "kicker": "[RESIDENTIAL AMENITIES]",
+        "titleLine1": "Community and",
+        "titleAccent": "life",
+        "socialHeart": {
+          "title": "The Social Heart",
+          "body": "World-class clubhouse with signature restaurant, coffee bars, coworking areas, and expansive terraces immersed in San Miguel's landscape."
+        },
+        "wellness": {
+          "title": "Wellness and Relaxation",
+          "body": "A calm sanctuary with heated pool, yoga studio, spa, and private jacuzzis among streams."
+        },
+        "sports": {
+          "title": "Sports and Recreation",
+          "body": "Padel courts and sports amenities wrapped in lush perimeter vegetation."
+        },
+        "searchPlaceholder": "Book a padel class...",
+        "labels": {
+          "spa": "SPA",
+          "yoga": "YOGA",
+          "jacuzzi": "JACUZZI"
+        },
+        "alts": {
+          "casaClub": "Clubhouse",
+          "restaurante": "Restaurant",
+          "coworking": "Coworking",
+          "terrazas": "Terraces",
+          "piscina": "Pool",
+          "spa": "Spa",
+          "yoga": "Yoga",
+          "relax": "Relax",
+          "activity": "Activity"
+        }
+      },
+      "clubAccess": {
+        "kicker": "[COMMUNITY]",
+        "titleLine1": "Being an owner means being part of the",
+        "titleAccent": "community",
+        "subtitle": "The club as a place for gathering and shared life",
+        "body": "You do not just access spaces: you join a community of neighbors sharing the same environment, care, and pace of life. You participate in the club as someone who belongs-with voice, encounters, and an experience built together.",
+        "cta": "EXPLORE EXPERIENCES",
+        "alts": {
+          "clubhouse": "Don Diego Clubhouse",
+          "spa": "Spa and wellness",
+          "restaurant": "Restaurant"
+        }
+      },
+      "rentals": {
+        "imageAlt": "Don Diego Rentals",
+        "kicker": "[DON DIEGO RENTALS]",
+        "titleLine1": "Short-stay living, managed by",
+        "titleLine2": "Don Diego Rentals",
+        "subtitle": "A rental pool inside Club Residencial",
+        "body": "Select development units available for short stays-bookings, calendar, and service standards coordinated by Don Diego Rentals. Owners delegate operations; guests experience the same club environment with professional support.",
+        "cta": "COMING SOON"
+      },
+      "connectivity": {
+        "sectionAria": "Connectivity, common areas, community, and surroundings",
+        "route": "Route",
+        "routeFrom": "Don Diego Club",
+        "routeTime": "~8 min",
+        "routeTo": "Historic center",
+        "shuttles": {
+          "kicker": "[CONNECTIVITY]",
+          "titleLine1": "Shuttles",
+          "titleLine2": "to San Miguel",
+          "body": "Transfers designed for Club residents: comfortable connection to the historic center and key city points-schedules and routes coordinated so your day moves smoothly.",
+          "cta": "Location and surroundings",
+          "imageAlt": "Don Diego shuttles"
+        },
+        "wifi": {
+          "kicker": "[COMMON AREAS]",
+          "titleLine1": "Wi-Fi in all",
+          "titleLine2": "common areas",
+          "body": "Coverage designed so you can work, connect, and enjoy shared club spaces without interruptions-from the Clubhouse to pools, terraces, and social zones.",
+          "imageAlt": "Club common areas with Wi-Fi"
+        },
+        "community": {
+          "kicker": "[COMMUNITY]",
+          "titleLine1": "A neighborhood",
+          "titleLine2": "with soul",
+          "body": "Don Diego brings together families and diverse profiles in a calm, safe environment: informal gatherings, shared routines, and a team that supports coexistence-so feeling at home goes beyond your residence.",
+          "imageAlt": "Resident community at Don Diego"
+        },
+        "nature": {
+          "kicker": "[SURROUNDINGS]",
+          "titleLine1": "Nature",
+          "titleLine2": "at your pace",
+          "body": "Lakes, vegetation, and paths for walking or biking within the development: a green pause between urban days, designed so each day ends with calm and perspective.",
+          "imageAlt": "Nature and landscapes at Don Diego"
+        }
+      },
+      "sustainability": {
+        "kicker": "[SUSTAINABILITY]",
+        "titleLine1": "A club that respects",
+        "titleLine2": "the territory",
+        "body": "Club Residencial is part of a master plan with environmental vision: common spaces, circulation, and landscape designed to coexist with water, land, and the project's organic production.",
+        "cta": "ORGANIC FARM & FLOWERS",
+        "imageAlt": "Vegetation and landscape at Don Diego",
+        "highlights": {
+          "landscape": {
+            "title": "Landscape and vegetation",
+            "body": "Planting and maintenance criteria aligned with the region's environment and climate."
+          },
+          "water": {
+            "title": "Water and surroundings",
+            "body": "The development dialogues with the reservoir and water landscape as part of the same ecosystem."
+          },
+          "daily": {
+            "title": "Daily life",
+            "body": "Connection with the project's organic production: fresh foods and the cycles of the land."
+          }
+        }
+      }
+    },
+    "farm": {
+      "hero": {
+        "eyebrow": "[THE PRODUCTIVE LANDSCAPE]",
+        "tagline": "A farm built to harvest community.",
+        "description": "Organic orchards, fruit trees, and seasonal flowers. A community connected to the cycles of the land.",
+        "imageAlt": "Organic Farm"
+      },
+      "sustentabilidad": {
+        "eyebrow": "[Cyclic Philosophy]",
+        "title": {
+          "line1": "The",
+          "accent": "productive",
+          "line2": "landscape"
+        },
+        "bodyPrimary": "Organic orchards, fruit trees, and seasonal flowers. Production that sustains the ecosystem and keeps it alive year-round.",
+        "bodySecondary": "A community that consumes what it grows, connected to the cycles of the land.",
+        "images": {
+          "mainAlt": "Don Diego organic farm",
+          "secondaryAlt": "Greenhouse and seasonal crops"
+        }
+      },
+      "paseosHuertos": {
+        "eyebrow": "[ORCHARD WALKS]",
+        "title": {
+          "line1": "The land",
+          "accent": "as a journey"
+        },
+        "intro": "The orchards are explored on foot: a route designed to experience production from within, with open landscape views and stops where each crop tells its own story.",
+        "images": {
+          "oneAlt": "Orchards and paths at Don Diego",
+          "twoAlt": "Landscape and surrounding paths",
+          "threeAlt": "Soil and crop detail"
+        },
+        "highlights": {
+          "rutas": {
+            "title": "Routes through crops",
+            "text": "Walkways cross rows and beds so you can see daily orchard work up close."
+          },
+          "lectura": {
+            "title": "Reading the landscape",
+            "text": "Each route invites you to understand varieties, irrigation, and harvest in the context of the project."
+          },
+          "estaciones": {
+            "title": "Seasons and calendar",
+            "text": "Walks change through the year: buds, bloom, and harvest shape what you see in each visit."
+          }
+        }
+      },
+      "products": {
+        "eyebrow": "[Production]",
+        "title": {
+          "base": "Natural",
+          "accent": "Cycle"
+        },
+        "items": {
+          "invernaderos": {
+            "title": "Greenhouses and growing zones",
+            "description": "Terraced spaces with sustainable agriculture technology that ensure the freshest possible origin."
+          },
+          "andadoresCicloruta": {
+            "title": "Walkways and cycle route",
+            "description": "Exploring the productive extension on foot or by bike lets you connect physically with the natural process."
+          },
+          "experienciaComunitaria": {
+            "title": "Community experience",
+            "description": "Educational programs around what is grown to teach residents the value of harvesting what they plant."
+          },
+          "origenLocal": {
+            "title": "The origin of local",
+            "description": "Pure sustainability: a closed ecosystem where products directly nourish people and the Don Diego environment."
+          }
+        }
+      },
+      "trabajoFlores": {
+        "eyebrow": "[FLOWER WORK]",
+        "title": {
+          "line1": "Color and life",
+          "accent": "in every cycle"
+        },
+        "intro": "Floral production is part of the same system that supports the club: crops designed to decorate, perfume, and mark the rhythm of the seasons at Don Diego.",
+        "imageAlt": "Seasonal flowers at Don Diego",
+        "highlights": {
+          "variedades": {
+            "title": "Seasonal varieties",
+            "text": "Rotation and care of species selected for the highland climate and the project rhythm."
+          },
+          "diseno": {
+            "title": "Design and composition",
+            "text": "Flower work connects color, texture, and aroma with common areas and club production."
+          },
+          "ciclo": {
+            "title": "Cycle and maintenance",
+            "text": "Planting, cutting, and replanting in dialogue with the rest of the organic farm and landscape."
+          }
+        }
+      }
+    },
+    "wellness": {
+      "hero": {
+        "eyebrow": "[WELLNESS CENTER]",
+        "tagline": "Holistic wellbeing and pain management",
+        "description": "Physical activities, therapies, and health-focused care.",
+        "imageAlt": "Wellness Center"
+      },
+      "highlights": {
+        "eyebrow": "[Our philosophy]",
+        "title": {
+          "base": "Holistic",
+          "accent": "wellbeing"
+        },
+        "intro": "Quality of life is built with calm, nature, community, and real care.",
+        "paginationAriaLabel": "Go to slide {index}",
+        "items": {
+          "naturaleza": {
+            "title": "Nature and tranquility",
+            "description": "A peaceful setting where gardens, water, and the Presa Allende landscape create an ideal environment for recovery and wellbeing."
+          },
+          "atencion": {
+            "title": "Personalized care",
+            "description": "Specialized medical teams and certified care that understand each person has unique needs."
+          },
+          "comunidad": {
+            "title": "Life in community",
+            "description": "Spaces designed for coexistence, shared activities, and meaningful bonds."
+          },
+          "ubicacion": {
+            "title": "Privileged location",
+            "description": "Minutes from San Miguel de Allende, with immediate access to top-tier medical, cultural, and leisure services."
+          }
+        }
+      },
+      "services": {
+        "eyebrow": "[Services]",
+        "title": {
+          "base": "A place",
+          "accent": "to heal"
+        },
+        "backgroundAlt": "Service background",
+        "closeAriaLabel": "Close",
+        "items": {
+          "rehabilitacion": {
+            "title": "Rehabilitation center",
+            "description": "Specialized spaces with advanced technology for physical recovery and integral pain management."
+          },
+          "seniorLiving": {
+            "title": "Senior Living",
+            "description": "Residences designed for an active and dignified life, with personalized care and community support at all times."
+          },
+          "departamentosFamiliares": {
+            "title": "Family apartments",
+            "description": "Lodging spaces designed so families stay comfortable and close to their loved ones during recovery."
+          },
+          "amenidades": {
+            "title": "Amenities",
+            "description": "Common areas, therapeutic gardens, pool, and leisure spaces integrated in harmony with nature."
+          }
+        }
+      }
+    },
+    "presa": {
+      "hero": {
+        "eyebrow": "[LIFE BY THE WATER]",
+        "tagline": "Public/private life along the water",
+        "description": "Nature, community, and social life integrated into a unique waterfront edge.",
+        "imageAlt": "Presa de la Cantera"
+      },
+      "concept": {
+        "sectionAriaLabel": "Experience and value proposition by the reservoir",
+        "eyebrow": "[Experience]",
+        "title": {
+          "base": "Four ways to live",
+          "accent": "the Presa"
+        },
+        "features": {
+          "vistas": {
+            "title": "Horizons over water",
+            "shortTitle": "Views",
+            "description": "Orientation and design that turn the reservoir into the daily backdrop: morning light, long sunsets, and visual depth in every path."
+          },
+          "aireLibre": {
+            "title": "Open-air days",
+            "shortTitle": "Outdoors",
+            "description": "A slower rhythm between sky and lake: spaces to move, rest, and share with family without leaving the development."
+          },
+          "identidad": {
+            "title": "A new waterfront",
+            "shortTitle": "Identity",
+            "description": "The reservoir as a pole of life that expands the city offer with its own character."
+          },
+          "encuentro": {
+            "title": "Life in community",
+            "shortTitle": "Gathering",
+            "description": "From calm mornings to nights with lights over the water: an environment designed for coexistence, not just occupation."
+          }
+        }
+      },
+      "areas": {
+        "sectionAriaLabel": "Development areas at Presa de la Cantera",
+        "eyebrow": "[Master plan]",
+        "title": {
+          "base": "Development",
+          "accent": "zones"
+        },
+        "intro": "Frontage organization on the site: location and function of each component.",
+        "rows": {
+          "restaurantes": {
+            "eyebrow": "[GASTRONOMY]",
+            "title": "Restaurant",
+            "titleItalic": "zone",
+            "description": "Terraces and food concepts by the water: the natural place to close the day or host visitors.",
+            "alt": "Waterfront dining zone"
+          },
+          "estacionamiento": {
+            "eyebrow": "[ACCESS]",
+            "title": "Parking",
+            "titleItalic": "",
+            "description": "Parking and circulation designed for visitors and residents, making arrival to restaurants, retail, and amenities frictionless.",
+            "alt": "Access and parking"
+          },
+          "comerciales": {
+            "eyebrow": "[RETAIL]",
+            "title": "Retail",
+            "titleItalic": "spaces",
+            "description": "Retail fronts integrated into the waterfront promenade: services, boutiques, and experiences that activate daily life by the water.",
+            "alt": "Retail spaces in the development"
+          },
+          "departamentos": {
+            "eyebrow": "[RESIDENTIAL]",
+            "title": "Apartments",
+            "titleItalic": "with views",
+            "description": "Vertical living with reservoir panoramas: privacy, light, and permanent connection to the waterfront landscape.",
+            "alt": "Apartments with reservoir view"
+          },
+          "parques": {
+            "eyebrow": "[FAMILY]",
+            "title": "Children",
+            "titleItalic": "parks",
+            "description": "Safe outdoor play areas where children can explore, run, and share the environment with other families.",
+            "alt": "Children parks"
+          },
+          "nautico": {
+            "eyebrow": "[NAUTICAL]",
+            "title": "Nautical",
+            "titleItalic": "club",
+            "description": "Moorings and water activities at Presa La Cantera: the nautical heart of the project for those who live the lake every day.",
+            "alt": "Nautical club and dock"
+          },
+          "anfiteatro": {
+            "eyebrow": "[CULTURE]",
+            "title": "Open-air",
+            "titleItalic": "amphitheater",
+            "description": "An open stage for concerts, cinema, and community gatherings by the water: the cultural pulse of the waterfront.",
+            "alt": "Open-air amphitheater"
+          }
+        }
+      }
+    },
+    "equipo": {
+      "hero": {
+        "eyebrow": "[The Team]",
+        "description": "A group of exceptional minds working in sync to bring an unprecedented residential sanctuary to life in San Miguel de Allende."
+      },
+      "details": {
+        "members": {
+          "grupoCimienta": {
+            "name": "Grupo Cimienta",
+            "role": "Development and General Direction",
+            "description": "With over 30 years of experience, Grupo Cimienta leads the full real estate development cycle. Their approach ensures returns and deep respect for context, from master plan conception to execution and strategic management."
+          },
+          "barraganArquitectos": {
+            "name": "Barragan Arquitectos",
+            "role": "Architectural Design",
+            "description": "Led by Arq. Luis Barragan Rivera, the studio blends contemporary aesthetics rooted in the identity of San Miguel de Allende. Each space interprets subtle luxury woven with historical and natural landscape."
+          },
+          "espaciosVerdesArredarq": {
+            "name": "Espacios Verdes / Arredarq",
+            "role": "Landscape and Sustainability",
+            "description": "Led by Arq. Eliseo Arredondo, founder of the Mexican Society of Landscape Architects, this team places nature at the center. They respect endemic ecosystems by integrating native flora and life into the residential experience."
+          },
+          "artemisaBranding": {
+            "name": "Artemisa Branding",
+            "role": "Identity and Brand Strategy",
+            "description": "Artemisa Branding is a creative studio specialized in visual identities and brand strategies for high-end real estate projects. Their approach builds brands that reflect project essence and connect with the right audience."
+          }
+        }
+      }
+    },
+    "experiencias": {
+      "hero": {
+        "eyebrow": "[Activities to enjoy]",
+        "svgAriaLabel": "Experiences",
+        "description": "The club offers a wide range of activities to enjoy, from gyms to restaurants and spa."
+      },
+      "listing": {
+        "toggle": {
+          "openAriaLabel": "Open description for {title}",
+          "closeAriaLabel": "Close description for {title}"
+        },
+        "footerText": "The club offers a wide range of activities to enjoy, from gyms to restaurants and spa. Most amenities are exclusive to residents and their guests.",
+        "cta": "Schedule your visit",
+        "items": {
+          "clubhouse": {
+            "title": "Clubhouse",
+            "description": "The social heart of the club: spaces to gather, dine, and connect with views over San Miguel surroundings."
+          },
+          "piscina": {
+            "title": "Private pool",
+            "description": "Residential club pool for swimming and relaxing in a controlled environment exclusive to residents and guests."
+          },
+          "gimnasio": {
+            "title": "Outdoor gym",
+            "description": "Outdoor training integrated with the landscape, designed to keep you moving in contact with nature."
+          },
+          "spa": {
+            "title": "Spa",
+            "description": "Wellbeing and relaxation routines in a calm sanctuary within the residential club."
+          },
+          "restaurante": {
+            "title": "Restaurants",
+            "description": "Dining concepts in the clubhouse: from signature experiences to informal moments among neighbors."
+          },
+          "padel": {
+            "title": "Padel",
+            "description": "Padel courts surrounded by greenery to play, train, and organize matches with the community."
+          },
+          "parquesInfantiles": {
+            "title": "Children parks",
+            "description": "Safe outdoor play areas where children can explore, run, and share with other families."
+          },
+          "clubNautico": {
+            "title": "Nautical club",
+            "description": "Moorings and water activities at Presa La Cantera: the nautical heart of the project for those who live the lake every day."
+          },
+          "localesComerciales": {
+            "title": "Retail spaces",
+            "description": "Retail fronts integrated into the waterfront promenade, activating everyday life by the water."
+          },
+          "anfiteatro": {
+            "title": "Open-air amphitheater",
+            "description": "An open stage for concerts, cinema, and community gatherings by the water: the cultural pulse of the waterfront."
+          },
+          "gastronomiaLacustre": {
+            "title": "Waterfront gastronomy",
+            "description": "Terraces and food concepts by the water: the natural place to close the day or host visitors."
+          },
+          "coworking": {
+            "title": "Coworking",
+            "description": "Workspaces in the clubhouse to focus, meet, and blend productivity with the club environment."
+          },
+          "barrasCafe": {
+            "title": "Coffee bars",
+            "description": "Coffee bars in the social heart of the club: pauses, informal meetings, and daily rhythm among neighbors."
+          },
+          "salonYoga": {
+            "title": "Yoga studio",
+            "description": "Dedicated yoga and movement space in a serene residential club setting."
+          },
+          "jacuzzis": {
+            "title": "Private jacuzzis",
+            "description": "Jacuzzis among streams and landscape: moments of relaxation beyond the main pool."
+          },
+          "shuttles": {
+            "title": "Shuttles to historic center",
+            "description": "Coordinated route between the club and downtown San Miguel for effortless mobility."
+          },
+          "paseosHuertos": {
+            "title": "Orchard walks",
+            "description": "Walkways through crop rows and beds to see daily orchard work and seasonal landscape changes up close."
+          },
+          "cicloruta": {
+            "title": "Cycle route",
+            "description": "Ride through the productive extension to connect with the natural process and farm rhythm."
+          },
+          "invernaderos": {
+            "title": "Greenhouses and growing zones",
+            "description": "Terraced greenhouses and organized crops with a sustainable approach and nearby origin."
+          },
+          "programasEducativos": {
+            "title": "Farm education programs",
+            "description": "Workshops and community experiences around what is grown and harvested in the project."
+          },
+          "floresTemporada": {
+            "title": "Seasonal flowers",
+            "description": "Floral production that marks seasons, aroma, and color in Don Diego common spaces."
+          },
+          "rehabilitacion": {
+            "title": "Rehabilitation center",
+            "description": "Specialized spaces for physical recovery and integral pain management with modern equipment."
+          },
+          "seniorLiving": {
+            "title": "Senior Living",
+            "description": "Residences and services for an active supported life, with permanent community care."
+          },
+          "hospedajeFamiliar": {
+            "title": "Family lodging",
+            "description": "Apartments designed so families can stay close during recovery processes or longer stays."
+          },
+          "jardinesTerapeuticos": {
+            "title": "Therapeutic gardens",
+            "description": "Green and leisure areas integrated with nature as part of the wellbeing program."
+          },
+          "beachClub": {
+            "title": "Beach club by the reservoir",
+            "description": "Beach-style amenities at Presa Allende: a leisure and gathering pole by the water."
+          },
+          "wifiAreasComunes": {
+            "title": "Wi-Fi in common areas",
+            "description": "Connectivity across club and shared areas so you can work, meet, or share your day without losing connection."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "chatPanel": {
+      "contextLabel": "Context: {pageType}",
+      "clearAria": "Clear chat",
+      "closeAria": "Close assistant",
+      "emptyState": "Start with one of these suggestions or ask anything about Don Diego.",
+      "thinking": "Thinking...",
+      "hideFollowups": "Hide follow-ups",
+      "showFollowups": "Show follow-ups",
+      "inputPlaceholder": "Ask about this page",
+      "send": "Send",
+      "panelAria": "AI Assistant Panel",
+      "errors": {
+        "chatRequestFailed": "Sorry, I could not process your request right now."
+      }
+    },
+    "featuredBlogUbicacion": {
+      "kicker": "[Blog]",
+      "title": "Explore the city",
+      "titleAccent": "in depth",
+      "readArticle": "Read article"
+    },
+    "comingSoon": {
+      "kicker": "[ Coming soon ]",
+      "titleLine1": "Close to everything",
+      "titleLine2": "far from the ordinary",
+      "body": "Discover a unique place in San Miguel de Allende, where nature and design meet to create an unforgettable experience."
+    },
+    "virtualStaging": {
+      "compareSlider": {
+        "originalAlt": "Original",
+        "generatedAlt": "Virtual staging"
+      },
+      "styleSelector": {
+        "ariaLabel": "Select style",
+        "styles": {
+          "Minimalism": {
+            "label": "Minimalist",
+            "note": "Clean, restrained"
+          },
+          "Modern": {
+            "label": "Modern",
+            "note": "Current, elegant"
+          },
+          "Industrial": {
+            "label": "Industrial",
+            "note": "Texture, character"
+          },
+          "Scandinavian": {
+            "label": "Scandinavian",
+            "note": "Warm, bright"
+          },
+          "Boho": {
+            "label": "Boho",
+            "note": "Organic, cozy"
+          },
+          "Hacienda": {
+            "label": "Hacienda",
+            "note": "Warm, traditional, authentic"
+          }
+        }
+      },
+      "emailCaptureDialog": {
+        "title": "Start Virtual Staging",
+        "description": "Enter your email to edit the image.",
+        "emailLabel": "Email",
+        "emailPlaceholder": "m@example.com",
+        "submit": "Start"
+      },
+      "modal": {
+        "panelAria": "Virtual Staging Panel",
+        "closeAria": "Close virtual staging",
+        "back": "Back",
+        "title": "Virtual Staging",
+        "subtitle": "Generate a furnished image.",
+        "loadingOverlay": "Generating image...",
+        "selectImageAria": "Select image {index}",
+        "thumbnailAlt": "Image {index}",
+        "download": "Download",
+        "creditsToday": "Credits today: {credits}/{dailyLimit}",
+        "emailGate": {
+          "kicker": "Enter your email to create images",
+          "once": "We will only ask once",
+          "placeholder": "name@email.com",
+          "continue": "Continue",
+          "invalid": "Enter a valid email to continue."
+        },
+        "cta": {
+          "generating": "Generating...",
+          "generate": "Generate virtual staging",
+          "unlock": "Unlock to generate"
+        },
+        "errors": {
+          "generic": "Could not generate the image. Please try again.",
+          "dailyLimitReached": "You reached your daily credit limit.",
+          "VS_MISSING_REQUIRED_FIELDS": "Required fields are missing.",
+          "VS_COULD_NOT_CREATE_USER": "Could not create or retrieve your user.",
+          "VS_DAILY_LIMIT_REACHED": "You reached your daily credit limit.",
+          "VS_FAILED_TO_FETCH_SOURCE_IMAGE": "Could not fetch the source image.",
+          "VS_NO_VALID_IMAGE_PROVIDED": "No valid image was provided.",
+          "VS_FAILED_TO_CREATE_STAGING_RECORD": "Could not create staging record.",
+          "VS_AI_GENERATION_FAILED": "AI generation failed.",
+          "VS_AI_GENERATION_EMPTY_RESULT": "AI returned no result.",
+          "VS_INTERNAL_SERVER_ERROR": "Internal server error."
+        }
+      }
+    }
+  },
+  "api": {},
+  "glossary": {
+    "brandTerms": {
+      "organicFarm": "Organic Farm",
+      "wellnessCenter": "Wellness Center",
+      "clubResidencial": "Club Residencial",
+      "presaDeLaCantera": "Presa de la Cantera"
+    },
+    "rules": {
+      "hardcodedSpanishSource": "Current hardcoded UI copy is treated as Spanish source of truth.",
+      "keepExistingEnglishBrandTerms": "Keep existing English brand terms exactly as currently used across locales."
+    }
   }
 }

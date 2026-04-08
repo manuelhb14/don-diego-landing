@@ -7,6 +7,7 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Sparkles } from "lucide-react";
 import { useChat } from "@/components/chat/ChatProvider";
+import { SITE_CONTACT } from "@/lib/site-contact";
 
 type NavbarTheme = "light" | "dark";
 type DropdownPosition = { left: number; top: number };
@@ -155,10 +156,10 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
     const contactCta = useMemo(
         () => ({
             key: "contacto" as const,
-            label: "CONTACTO",
-            href: "https://wa.me/5200000000000" as const,
+            label: t("contacto"),
+            href: SITE_CONTACT.whatsappUrl,
         }),
-        [],
+        [t],
     );
     const router = useRouter();
     const pathname = usePathname();

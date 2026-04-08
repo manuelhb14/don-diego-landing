@@ -10,12 +10,9 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { locale } = await params;
-    const title =
-        locale === "en" ? "Terms of Service | Don Diego" : "Términos de Servicio | Don Diego";
-    const description =
-        locale === "en"
-            ? "Terms governing your use of the Don Diego website and services."
-            : "Términos que rigen el uso del sitio web y los servicios de Don Diego.";
+    const t = await getTranslations({ locale, namespace: "meta.terms" });
+    const title = t("title");
+    const description = t("description");
     return { title, description, openGraph: { title, description } };
 }
 
@@ -31,7 +28,7 @@ export default async function TerminosPage({ params }: Props) {
             <main className="bg-[#FFF3E1] min-h-screen pt-32 pb-24 px-6 lg:px-12 text-[#222222]">
                 <div className="max-w-4xl mx-auto">
                     <h1 className="font-serif text-5xl md:text-6xl mb-12">{t("termsTitle")}</h1>
-                    <TermsOfServiceArticle locale={locale} />
+                    <TermsOfServiceArticle locale={locale} lastUpdatedLabel={t("lastUpdated")} />
                 </div>
             </main>
 

@@ -1,36 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useTranslations } from "next-intl";
 
 export default function SustentabilidadFarm() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"],
-    });
-
-    // Parallax layers for images
-    const imageY1 = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-    const imageY2 = useTransform(scrollYProgress, [0, 1], ["10%", "-20%"]);
-    const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
+    const t = useTranslations("pages.farm.sustentabilidad");
 
     return (
-        <section id="sustentabilidad" ref={containerRef} className="relative w-full py-12 lg:py-12 overflow-hidden bg-[#EFE6DC] text-[#1a1917]">
+        <section id="sustentabilidad" className="relative w-full py-2 lg:py-12 overflow-hidden bg-[#EFE6DC] text-[#1a1917]">
 
             <div className="max-w-[1400px] mx-auto w-full px-6 lg:px-16 flex flex-col lg:flex-row relative">
 
                 {/* Left Side: Editorial Typography */}
-                <motion.div
-                    style={{ y: textY }}
-                    className="w-full lg:w-[45%] flex flex-col justify-start z-20 pt-10 lg:pt-16 pr-0 lg:pr-12"
-                >
+                <div className="w-full lg:w-[45%] flex flex-col justify-start z-20 pt-10 lg:pt-16 pr-0 lg:pr-12">
                     <p
-                        className="text-[10px] tracking-[0.3em] text-[#9B5C6E]/85 uppercase mb-8"
+                        className="text-[10px] tracking-[0.3em] text-[#9B5C6E]/85 uppercase mb-4 lg:mb-8"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Filosofía Cíclica]
+                        {t("eyebrow")}
                     </p>
 
                     <h2
@@ -40,9 +27,9 @@ export default function SustentabilidadFarm() {
                             fontSize: "clamp(3.5rem, 6vw, 5.5rem)",
                         }}
                     >
-                        El paisaje<br />
-                        <span className="italic text-[#8B4A5E]">productivo</span><br />
-                        del proyecto
+                        {t("title.line1")}<br />
+                        <span className="italic text-[#8B4A5E]">{t("title.accent")}</span><br />
+                        {t("title.line2")}
                     </h2>
 
                     <div className="space-y-8 max-w-md">
@@ -50,7 +37,7 @@ export default function SustentabilidadFarm() {
                             className="text-[#1a1917]/82 text-lg lg:text-xl font-medium leading-relaxed"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
-                            Huertos orgánicos, frutales y flores de temporada. Produce para abastecer el ecosistema y mantenerlo vivo todo el año.
+                            {t("bodyPrimary")}
                         </p>
 
                         <div className="h-px w-24 bg-[#1a1917]/15 hidden lg:block" />
@@ -59,39 +46,33 @@ export default function SustentabilidadFarm() {
                             className="text-[#1a1917]/65 text-base lg:text-lg leading-relaxed"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            Una comunidad que consume lo que produce, conectada a los ciclos de la tierra.
+                            {t("bodySecondary")}
                         </p>
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Right Side: Parallax Image Grid */}
                 <div className="w-full lg:w-[55%] relative h-[550px] lg:h-[900px] -mt-12 lg:-mt-0">
 
                     {/* Main Image Layer */}
-                    <motion.div
-                        style={{ y: imageY1 }}
-                        className="absolute right-0 top-0 w-[80%] lg:w-[70%] h-[75%] lg:h-[80%] z-10 overflow-hidden shadow-2xl"
-                    >
+                    <div className="absolute right-0 top-10 lg:top-16 w-[80%] lg:w-[70%] h-[75%] lg:h-[80%] z-10 overflow-hidden shadow-2xl">
                         <Image
                             src="/babylon/farm-1.webp"
-                            alt="La granja orgánica Don Diego"
+                            alt={t("images.mainAlt")}
                             fill
                             className="object-cover hover:scale-105 transition-transform duration-1000"
                         />
-                    </motion.div>
+                    </div>
 
                     {/* Offset Accelerated Image Layer */}
-                    <motion.div
-                        style={{ y: imageY2 }}
-                        className="absolute left-0 bottom-0 lg:bottom-10 w-[60%] lg:w-[50%] h-[50%] lg:h-[55%] z-20 overflow-hidden shadow-2xl border-4 lg:border-8 border-[#EFE6DC]"
-                    >
+                    <div className="absolute left-0 bottom-10 lg:bottom-24 w-[60%] lg:w-[50%] h-[50%] lg:h-[55%] z-20 overflow-hidden shadow-2xl border-4 lg:border-8 border-[#EFE6DC]">
                         <Image
                             src="/babylon/farm-2.webp"
-                            alt="Invernadero y cultivo de temporada"
+                            alt={t("images.secondaryAlt")}
                             fill
                             className="object-cover object-[center_30%] hover:scale-105 transition-transform duration-1000"
                         />
-                    </motion.div>
+                    </div>
 
                     {/* Decorative minimalist shapes */}
                     {/* <div className="absolute top-20 right-[75%] lg:right-[65%] w-32 h-32 border border-[#1a1917]/10 rounded-full hidden md:block" /> */}

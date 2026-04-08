@@ -23,7 +23,7 @@ export default function Team() {
     );
 
     return (
-        <section id="equipo" className="bg-[#EFE6DC] py-24 lg:py-36 overflow-hidden">
+        <section id="equipo" className="bg-[#EFE6DC] pt-12 pb-12 lg:pt-36 lg:pb-28 overflow-hidden">
             <div className="max-w-[1400px] mx-auto px-6 lg:px-14">
                 {/* Header */}
                 <motion.div
@@ -31,7 +31,7 @@ export default function Team() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="mb-16 lg:mb-24"
+                    className="mb-8 lg:mb-24"
                 >
                     <p
                         className="text-[10px] tracking-[0.3em] text-[#AA7D69]/55 uppercase mb-4"

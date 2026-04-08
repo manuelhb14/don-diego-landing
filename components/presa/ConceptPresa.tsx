@@ -3,50 +3,48 @@
 import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-
-const features = [
-    {
-        id: "vistas",
-        title: "Horizontes sobre el agua",
-        shortTitle: "Vistas",
-        description:
-            "Orientación y diseño para que la presa sea el telón de fondo cotidiano: luz matutina, atardeceres largos y profundidad visual en cada recorrido.",
-        image: "/babylon/presa-1.webp",
-    },
-    {
-        id: "aire-libre",
-        title: "El día a cielo abierto",
-        shortTitle: "Aire libre",
-        description:
-            "Un ritmo más lento entre cielo y lago: espacios para moverte, descansar y compartir con la familia sin salir del desarrollo.",
-        image: "/babylon/presa-2.webp",
-    },
-    {
-        id: "identidad",
-        title: "Un nuevo frente",
-        shortTitle: "Identidad",
-        description:
-            "La presa como polo de vida que amplía la oferta de la ciudad con un carácter propio.",
-        image: "/babylon/presa-3.webp",
-    },
-    {
-        id: "encuentro",
-        title: "La vida en comunidad",
-        shortTitle: "Encuentro",
-        description:
-            "Desde la mañana tranquila hasta la noche con luces sobre el agua: un entorno pensado para convivir, no solo para habitar.",
-        image: "/babylon/presa-4.webp",
-    },
-];
+import { useTranslations } from "next-intl";
 
 export default function ConceptPresa() {
+    const t = useTranslations("pages.presa.concept");
+    const features = [
+        {
+            id: "vistas",
+            title: t("features.vistas.title"),
+            shortTitle: t("features.vistas.shortTitle"),
+            description: t("features.vistas.description"),
+            image: "/babylon/presa-1.webp",
+        },
+        {
+            id: "aire-libre",
+            title: t("features.aireLibre.title"),
+            shortTitle: t("features.aireLibre.shortTitle"),
+            description: t("features.aireLibre.description"),
+            image: "/babylon/presa-2.webp",
+        },
+        {
+            id: "identidad",
+            title: t("features.identidad.title"),
+            shortTitle: t("features.identidad.shortTitle"),
+            description: t("features.identidad.description"),
+            image: "/babylon/presa-3.webp",
+        },
+        {
+            id: "encuentro",
+            title: t("features.encuentro.title"),
+            shortTitle: t("features.encuentro.shortTitle"),
+            description: t("features.encuentro.description"),
+            image: "/babylon/presa-4.webp",
+        },
+    ];
+
     const [activeFeature, setActiveFeature] = useState(features[0].id);
 
     return (
         <section
             id="concepto"
             className="bg-[#FFF8ED] py-16 lg:py-24 overflow-hidden min-h-screen flex items-center"
-            aria-label="Experiencia y propuesta de valor frente a la presa"
+            aria-label={t("sectionAriaLabel")}
         >
             <div className="max-w-[1600px] mx-auto w-full px-6 lg:px-16">
 
@@ -61,7 +59,7 @@ export default function ConceptPresa() {
                         className="text-[10px] tracking-[0.3em] text-[#4d6d80]/90 uppercase mb-4"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Experiencia]
+                        {t("eyebrow")}
                     </p>
                     <h2
                         className="tracking-tight text-[#1a221f] leading-[1.1] font-medium"
@@ -70,8 +68,8 @@ export default function ConceptPresa() {
                             fontSize: "clamp(2.75rem, 4.75vw, 4.25rem)",
                         }}
                     >
-                        Cuatro formas de vivir{` `}
-                        <span className="italic text-[#5a7a8a]">la Presa</span>
+                        {t("title.base")}{` `}
+                        <span className="italic text-[#5a7a8a]">{t("title.accent")}</span>
                     </h2>
                 </motion.div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { X, Sparkles, SendHorizontal, Trash2, ChevronUp, ChevronDown } from "lucide-react";
 import { useChat } from "@/components/chat/ChatProvider";
 import { CHAT_PANEL_WIDTH_CSS } from "@/components/chat/constants";
@@ -8,8 +8,10 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useTranslations } from "next-intl";
 
 export default function ChatPanel() {
+    const t = useTranslations("components.chatPanel");
     const {
         closeChat,
         messages,
@@ -18,7 +20,6 @@ export default function ChatPanel() {
         suggestions,
         applySuggestion,
         clearChat,
-        context,
         focusInputSignal,
         isOpen,
     } = useChat();
@@ -43,22 +44,13 @@ export default function ChatPanel() {
         const hasConversation = messages.length > 0;
         if (!hasConversation) {
             hadConversationRef.current = false;
-            setShowFollowups(false);
             return;
         }
 
         if (!hadConversationRef.current) {
             hadConversationRef.current = true;
-            setShowFollowups(false);
         }
     }, [messages.length]);
-
-    const subtitle = useMemo(() => {
-        if (context.locale === "en") {
-            return `Context: ${context.pageType}`;
-        }
-        return `Contexto: ${context.pageType}`;
-    }, [context.locale, context.pageType]);
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -93,7 +85,7 @@ export default function ChatPanel() {
                                 onClick={clearChat}
                                 disabled={isLoading || messages.length === 0}
                                 className="inline-flex size-8 items-center justify-center rounded-full border border-[#222]/15 text-[#222]/70 transition-colors hover:text-[#222] disabled:cursor-not-allowed disabled:opacity-45"
-                                aria-label={context.locale === "en" ? "Clear chat" : "Limpiar chat"}
+                                aria-label={t("clearAria")}
                             >
                                 <Trash2 className="size-4" />
                             </button>
@@ -101,7 +93,7 @@ export default function ChatPanel() {
                                 type="button"
                                 onClick={closeChat}
                                 className="inline-flex size-8 items-center justify-center rounded-full border border-[#222]/15 text-[#222]/70 transition-colors hover:text-[#222]"
-                                aria-label={context.locale === "en" ? "Close assistant" : "Cerrar asistente"}
+                                aria-label={t("closeAria")}
                             >
                                 <X className="size-4" />
                             </button>
@@ -123,9 +115,7 @@ export default function ChatPanel() {
                                     className="mx-auto mt-2 max-w-[36ch] text-center text-[12px] leading-relaxed text-[#222]/75"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
-                                    {context.locale === "en"
-                                        ? "Start with one of these suggestions or ask anything about Don Diego."
-                                        : "Empieza con una sugerencia o pregunta cualquier duda sobre Don Diego."}
+                                    {t("emptyState")}
                                 </p>
 
                                 <div className="mt-4 flex flex-wrap justify-center gap-2">
@@ -203,7 +193,7 @@ export default function ChatPanel() {
                                 className="rounded-md border border-[#222]/10 bg-white px-3 py-2 text-[12px] text-[#222]/60"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
-                                {context.locale === "en" ? "Thinking..." : "Pensando..."}
+                                {t("thinking")}
                             </div>
                         </div>
                     ) : null}
@@ -219,12 +209,8 @@ export default function ChatPanel() {
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 {showFollowups
-                                    ? context.locale === "en"
-                                        ? "Hide follow-ups"
-                                        : "Ocultar sugerencias"
-                                    : context.locale === "en"
-                                        ? "Show follow-ups"
-                                        : "Mostrar sugerencias"}
+                                    ? t("hideFollowups")
+                                    : t("showFollowups")}
                                 {showFollowups ? <ChevronDown className="size-3.5" /> : <ChevronUp className="size-3.5" />}
                             </button>
 
@@ -253,9 +239,7 @@ export default function ChatPanel() {
                             value={value}
                             onChange={(event) => setValue(event.target.value)}
                             placeholder={
-                                context.locale === "en"
-                                    ? "Ask about this page"
-                                    : "Pregunta sobre esta pagina"
+                                t("inputPlaceholder")
                             }
                             className="h-10 w-full rounded-md border border-[#222]/20 bg-white px-3 text-[13px] outline-none transition-colors focus:border-[#AA7D69]"
                             style={{ fontFamily: "var(--font-sans)" }}
@@ -267,7 +251,7 @@ export default function ChatPanel() {
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             <SendHorizontal className="size-3.5" />
-                            {context.locale === "en" ? "Send" : "Enviar"}
+                            {t("send")}
                         </button>
                     </form>
                 </footer>
@@ -288,7 +272,7 @@ export default function ChatPanel() {
                     width: isDesktop ? CHAT_PANEL_WIDTH_CSS : "100vw",
                     maxWidth: isDesktop ? CHAT_PANEL_WIDTH_CSS : "100vw",
                 }}
-                aria-label={context.locale === "en" ? "AI Assistant Panel" : "Panel de Asistente AI"}
+                aria-label={t("panelAria")}
             >
                 {panelContent}
             </DrawerContent>

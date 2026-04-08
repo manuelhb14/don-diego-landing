@@ -3,16 +3,19 @@ function formatLegalDate(locale: string) {
     return new Date().toLocaleDateString(tag, { year: "numeric", month: "long", day: "numeric" });
 }
 
-export default function PrivacyPolicyArticle({ locale }: { locale: string }) {
-    const lastUpdated =
-        locale === "en" ? "Last updated:" : "Última actualización:";
+type Props = {
+    locale: string;
+    lastUpdatedLabel: string;
+};
+
+export default function PrivacyPolicyArticle({ locale, lastUpdatedLabel }: Props) {
 
     if (locale === "en") {
         return (
             <div className="font-sans font-light text-sm md:text-base leading-relaxed space-y-8 opacity-90">
                 <section>
                     <p className="mb-4">
-                        {lastUpdated} {formatLegalDate(locale)}
+                        {lastUpdatedLabel} {formatLegalDate(locale)}
                     </p>
                     <p>
                         Don Diego is committed to protecting your privacy. This Privacy Policy describes how we collect, use, store, and protect your personal information when you use our website and services. We encourage you to read this policy carefully to understand our data practices.
@@ -127,7 +130,7 @@ export default function PrivacyPolicyArticle({ locale }: { locale: string }) {
         <div className="font-sans font-light text-sm md:text-base leading-relaxed space-y-8 opacity-90">
             <section>
                 <p className="mb-4">
-                    {lastUpdated} {formatLegalDate(locale)}
+                    {lastUpdatedLabel} {formatLegalDate(locale)}
                 </p>
                 <p>
                     Don Diego se compromete a proteger su privacidad. Esta Política de Privacidad describe cómo recopilamos, utilizamos, almacenamos y protegemos su información personal cuando utiliza nuestro sitio web y nuestros servicios. Le recomendamos leer atentamente esta política para comprender nuestras prácticas en materia de datos.

@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     const imageIndex = searchParams.get("imageIndex");
 
     if (!email) {
-      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+      return NextResponse.json({ errorCode: "VS_EMAIL_REQUIRED" }, { status: 400 });
     }
 
     const user = await getUser(email);
@@ -34,6 +34,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ data: stagings });
   } catch {
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json({ errorCode: "VS_INTERNAL_SERVER_ERROR" }, { status: 500 });
   }
 }

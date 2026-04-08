@@ -8,16 +8,16 @@ export async function GET(
   try {
     const { shareId } = await params;
     if (!shareId) {
-      return NextResponse.json({ error: "Share ID is required" }, { status: 400 });
+      return NextResponse.json({ errorCode: "VS_SHARE_ID_REQUIRED" }, { status: 400 });
     }
 
     const staging = await getVirtualStagingByShareId(shareId);
     if (!staging) {
-      return NextResponse.json({ error: "Virtual staging not found" }, { status: 404 });
+      return NextResponse.json({ errorCode: "VS_STAGING_NOT_FOUND" }, { status: 404 });
     }
 
     return NextResponse.json({ staging });
   } catch {
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json({ errorCode: "VS_INTERNAL_SERVER_ERROR" }, { status: 500 });
   }
 }

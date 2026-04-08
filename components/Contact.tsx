@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Sparkles } from "lucide-react";
 import { useChat } from "@/components/chat/ChatProvider";
+import { SITE_CONTACT } from "@/lib/site-contact";
 
 export default function Contact() {
     const t = useTranslations("contact");
@@ -33,9 +34,15 @@ export default function Contact() {
                 }),
             });
 
-            const data = (await res.json()) as { error?: string };
+            const data = (await res.json()) as { error?: string; errorCode?: string };
 
             if (!res.ok) {
+                if (data.errorCode === "CONTACT_REQUIRED_FIELDS") {
+                    throw new Error(t("errRequired"));
+                }
+                if (data.errorCode === "CONTACT_SEND_FAILED") {
+                    throw new Error(t("errSend"));
+                }
                 throw new Error(data.error || t("errSend"));
             }
             setSubmitted(true);
@@ -210,7 +217,7 @@ export default function Contact() {
                                         </button>
 
                                         <a
-                                            href="https://wa.me/5200000000000"
+                                            href={SITE_CONTACT.whatsappUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="flex w-full md:flex-1 items-center justify-center gap-3 border border-[#1faa52] hover:border-[#177d3b] bg-[#1faa52] hover:bg-[#177d3b] px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#ffffff] transition-colors duration-300 whitespace-nowrap"
@@ -237,14 +244,14 @@ export default function Contact() {
                                 className="relative z-10 text-[10px] tracking-[0.24em] uppercase text-[#4E6A82]"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
-                                Respuesta inmediata
+                                {t("instantKicker")}
                             </p>
 
                             <p
                                 className="relative z-10 mt-2 text-[#1F2E3B] text-base md:text-lg leading-snug"
                                 style={{ fontFamily: "var(--font-serif)" }}
                             >
-                                ¿Quieres una respuesta inmediata a tus dudas? Habla con nuestro asistente virtual.
+                                {t("instantBody")}
                             </p>
 
                             <button
@@ -254,7 +261,7 @@ export default function Contact() {
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 <Sparkles className="size-3.5" />
-                                Abrir asistente virtual
+                                {t("openAssistant")}
                             </button>
                         </div>
                         </div>

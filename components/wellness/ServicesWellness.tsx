@@ -3,35 +3,37 @@
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
-
-const services = [
-    {
-        id: 1,
-        title: "Centro de rehabilitación",
-        description: "Espacios especializados con tecnología de vanguardia para recuperación física y manejo integral del dolor.",
-        image: "/babylon/wellness-5.webp",
-    },
-    {
-        id: 2,
-        title: "Senior Living",
-        description: "Residencias diseñadas para una vida activa y digna, con atención personalizada y comunidad de apoyo en todo momento.",
-        image: "/babylon/wellness-6.webp",
-    },
-    {
-        id: 3,
-        title: "Departamentos familiares",
-        description: "Espacios de hospedaje pensados para que las familias estén cómodas y cerca de sus seres queridos durante su proceso de recuperación.",
-        image: "/babylon/wellness-7.webp",
-    },
-    {
-        id: 4,
-        title: "Amenidades",
-        description: "Áreas comunes, jardines terapéuticos, alberca y espacios de esparcimiento integrados armoniosamente con la naturaleza.",
-        image: "/babylon/wellness-8.webp",
-    },
-];
+import { useTranslations } from "next-intl";
 
 export default function ServicesWellness() {
+    const t = useTranslations("pages.wellness.services");
+    const services = [
+        {
+            id: 1,
+            title: t("items.rehabilitacion.title"),
+            description: t("items.rehabilitacion.description"),
+            image: "/babylon/wellness-5.webp",
+        },
+        {
+            id: 2,
+            title: t("items.seniorLiving.title"),
+            description: t("items.seniorLiving.description"),
+            image: "/babylon/wellness-6.webp",
+        },
+        {
+            id: 3,
+            title: t("items.departamentosFamiliares.title"),
+            description: t("items.departamentosFamiliares.description"),
+            image: "/babylon/wellness-7.webp",
+        },
+        {
+            id: 4,
+            title: t("items.amenidades.title"),
+            description: t("items.amenidades.description"),
+            image: "/babylon/wellness-8.webp",
+        },
+    ];
+
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
     return (
@@ -50,7 +52,7 @@ export default function ServicesWellness() {
                         className="text-[10px] tracking-[0.3em] text-[#5a6b52]/85 uppercase mb-4"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Servicios]
+                        {t("eyebrow")}
                     </p>
                     <h2
                         className="tracking-tight text-[#1a221f] leading-[1.1] font-medium"
@@ -59,7 +61,7 @@ export default function ServicesWellness() {
                             fontSize: "clamp(2.75rem, 4.75vw, 4.25rem)",
                         }}
                     >
-                        Un espacio <span className="italic text-[#5a6b52]">para sanar</span>
+                        {t("title.base")} <span className="italic text-[#5a6b52]">{t("title.accent")}</span>
                     </h2>
                 </motion.div>
 
@@ -78,7 +80,7 @@ export default function ServicesWellness() {
                         >
                             <Image
                                 src={activeIndex !== null ? services[activeIndex].image : "/images/gallery/gallery-9.jpg"}
-                                alt="Service background"
+                                alt={t("backgroundAlt")}
                                 fill
                                 priority
                                 className="object-cover opacity-80"
@@ -183,7 +185,7 @@ export default function ServicesWellness() {
                                 transition={{ duration: 0.2, ease: [0.165, 0.84, 0.44, 1] }} // ease-out-quart
                                 onClick={() => setActiveIndex(null)}
                                 className="absolute top-6 right-6 md:top-8 md:right-8 w-10 h-10 rounded-full bg-[#2A302C]/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:bg-[#2A302C]/90 hover:text-white transition-colors duration-[150ms] ease-out z-20 shadow-lg"
-                                aria-label="Close"
+                                aria-label={t("closeAriaLabel")}
                             >
                                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />

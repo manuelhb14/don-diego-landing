@@ -11,11 +11,12 @@ import {
     type ReactNode,
 } from "react";
 import { usePathname } from "@/i18n/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useChat as useAiChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import type { ChatContext, ChatMessage } from "@/components/chat/types";
 import { getChatSuggestions, type ChatSuggestion } from "@/components/chat/suggestions";
+import { getDefaultDetailForPageType } from "@/lib/chat-page-context";
 
 type ChatProviderValue = {
     isOpen: boolean;
@@ -47,15 +48,24 @@ function inferPageType(pathname: string): string {
     if (pathname.startsWith("/blog/")) return "blogPost";
     if (pathname === "/blog") return "blog";
     if (pathname.startsWith("/residencial")) return "residencial";
+    if (pathname.startsWith("/farm")) return "farm";
+    if (pathname.startsWith("/wellness")) return "wellness";
+    if (pathname.startsWith("/presa")) return "presa";
     if (pathname.startsWith("/proyecto")) return "proyecto";
+    if (pathname.startsWith("/ubicacion")) return "ubicacion";
     if (pathname.startsWith("/contacto")) return "contacto";
+    if (pathname.startsWith("/experiencias")) return "experiencias";
     if (pathname.startsWith("/equipo")) return "equipo";
+    if (pathname.startsWith("/terminos")) return "terminos";
+    if (pathname.startsWith("/privacidad")) return "privacidad";
+    if (pathname.startsWith("/proximamente")) return "proximamente";
     return "general";
 }
 
 export function ChatProvider({ children }: { children: ReactNode }) {
     const pathname = usePathname();
     const locale = useLocale();
+    const t = useTranslations("components.chatPanel.errors");
     const [isOpen, setIsOpen] = useState(false);
     const [scopedContextDetail, setScopedContextDetail] =
         useState<ScopedContextValue<Record<string, unknown> | undefined> | null>(null);
@@ -63,6 +73,12 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         useState<ScopedContextValue<string | undefined> | null>(null);
     const [focusInputSignal, setFocusInputSignal] = useState(0);
     const triggerRef = useRef<HTMLButtonElement | null>(null);
+    const contextRef = useRef<ChatContext>({
+        pathname,
+        locale,
+        pageType: inferPageType(pathname),
+        detail: undefined,
+    });
     const aiChat = useAiChat({
         transport: new DefaultChatTransport({ api: "/api/chat" }),
     });
@@ -78,13 +94,25 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
     const context = useMemo<ChatContext>(() => {
         const pageType = pageTypeOverride || inferPageType(pathname);
+        const defaultDetail = getDefaultDetailForPageType(pageType);
+        const detail = defaultDetail || contextDetail
+            ? {
+                ...(defaultDetail ?? {}),
+                ...(contextDetail ?? {}),
+            }
+            : undefined;
+
         return {
             pathname,
             locale,
             pageType,
-            detail: contextDetail,
+            detail,
         };
     }, [contextDetail, locale, pageTypeOverride, pathname]);
+
+    useEffect(() => {
+        contextRef.current = context;
+    }, [context]);
 
     const openChat = useCallback(() => {
         setIsOpen(true);
@@ -138,16 +166,41 @@ export function ChatProvider({ children }: { children: ReactNode }) {
             const trimmed = content.trim();
             if (!trimmed || isLoading) return;
 
-            await aiChat.sendMessage(
-                { text: trimmed },
-                {
-                    body: {
-                        context,
+            const requestContext = contextRef.current;
+            const shouldLogChatDebug =
+                process.env.NODE_ENV !== "production" ||
+                (typeof window !== "undefined" && window.localStorage.getItem("chatDebug") === "1");
+
+            if (shouldLogChatDebug) {
+                console.log("[chat] sending message", {
+                    context: requestContext,
+                    preview: trimmed.slice(0, 120),
+                });
+            }
+
+            try {
+                await aiChat.sendMessage(
+                    { text: trimmed },
+                    {
+                        body: {
+                            context: requestContext,
+                        },
                     },
-                },
-            );
+                );
+            } catch {
+                const fallback = t("chatRequestFailed");
+
+                aiChat.setMessages((prev) => [
+                    ...prev,
+                    {
+                        id: `fallback-${Date.now()}`,
+                        role: "assistant",
+                        parts: [{ type: "text", text: fallback }],
+                    },
+                ]);
+            }
         },
-        [aiChat, context, isLoading],
+        [aiChat, isLoading, t],
     );
 
     const suggestions = useMemo(() => getChatSuggestions(context), [context]);

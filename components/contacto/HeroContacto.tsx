@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 export default function HeroContacto() {
+    const t = useTranslations("pages.contacto.hero");
     return (
         <section className="relative flex h-[40vh] md:h-[60vh] min-h-[400px] w-full items-center justify-center overflow-hidden bg-[#fff8ed]">
             {/* Soft pattern overlay */}
@@ -15,7 +17,7 @@ export default function HeroContacto() {
                         className="text-[10px] sm:text-xs tracking-[0.3em] text-[#AA7D69] uppercase mb-6 sm:mb-8"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Contacto]
+                        {t("kicker")}
                     </p>
                     <motion.svg
                         variants={{
@@ -337,7 +339,7 @@ export default function HeroContacto() {
                         className="text-[#222222]/80 text-lg md:text-xl font-medium leading-relaxed mb-4"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
-                        Estamos aquí para guiarte en el descubrimiento de tu próximo hogar en San Miguel de Allende.
+                        {t("body")}
                     </p>
                 </motion.div>
             </div>

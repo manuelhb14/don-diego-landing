@@ -49,14 +49,13 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260226.0",
-    "@react-grab/mcp": "^0.1.29",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
-    "react-grab": "^0.1.29",
+    "react-grab": "^0.1.31",
     "tailwindcss": "^4",
     "typescript": "^5",
     "wrangler": "^4.65.0"

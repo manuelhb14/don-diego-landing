@@ -79,7 +79,7 @@ export default function Services() {
                         >
                             <Link href="/residencial" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
-                                    src="/babylon/club-residencial.webp"
+                                    src="/final/residencial.webp"
                                     alt={tp("residencial.name")}
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-105"
@@ -106,7 +106,7 @@ export default function Services() {
                         >
                             <Link href="/farm" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
-                                    src="/babylon/organic-farm.webp"
+                                    src="/final/organic-farms.webp"
                                     alt={tp("farm.name")}
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-[1.03]"
@@ -133,7 +133,7 @@ export default function Services() {
                         >
                             <Link href="/wellness" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
-                                    src="/babylon/wellness-center.webp"
+                                    src="/final/wellness-2.webp"
                                     alt={tp("wellness.name")}
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-105"
@@ -160,7 +160,7 @@ export default function Services() {
                         >
                             <Link href="/presa" className="block relative w-full aspect-[4/3] md:aspect-[2/3] group cursor-pointer overflow-hidden rounded-sm">
                                 <Image
-                                    src="/babylon/presa-de-la-cantera.webp"
+                                    src="/final/presa.webp"
                                     alt={tp("presa.name")}
                                     fill
                                     className="object-cover transition-transform duration-1000 group-hover:scale-[1.03]"

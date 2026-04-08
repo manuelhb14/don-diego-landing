@@ -3,16 +3,19 @@ function formatLegalDate(locale: string) {
     return new Date().toLocaleDateString(tag, { year: "numeric", month: "long", day: "numeric" });
 }
 
-export default function TermsOfServiceArticle({ locale }: { locale: string }) {
-    const lastUpdated =
-        locale === "en" ? "Last updated:" : "Última actualización:";
+type Props = {
+    locale: string;
+    lastUpdatedLabel: string;
+};
+
+export default function TermsOfServiceArticle({ locale, lastUpdatedLabel }: Props) {
 
     if (locale === "en") {
         return (
             <div className="font-sans font-light text-sm md:text-base leading-relaxed space-y-8 opacity-90">
                 <section>
                     <p className="mb-4">
-                        {lastUpdated} {formatLegalDate(locale)}
+                        {lastUpdatedLabel} {formatLegalDate(locale)}
                     </p>
                     <p>
                         Welcome to Don Diego. These terms of service govern your use of our website and the services we offer. By accessing or using our website, you agree to be bound by these terms in full. If you do not agree with any part of these terms, you must not use our website.
@@ -85,7 +88,7 @@ export default function TermsOfServiceArticle({ locale }: { locale: string }) {
         <div className="font-sans font-light text-sm md:text-base leading-relaxed space-y-8 opacity-90">
             <section>
                 <p className="mb-4">
-                    {lastUpdated} {formatLegalDate(locale)}
+                    {lastUpdatedLabel} {formatLegalDate(locale)}
                 </p>
                 <p>
                     Bienvenido a Don Diego. Estos términos de servicio rigen el uso de nuestro sitio web y los servicios que ofrecemos. Al acceder o utilizar nuestro sitio web, usted acepta estar sujeto a estos términos en su totalidad. Si no está de acuerdo con alguna parte de estos términos, no debe utilizar nuestro sitio web.

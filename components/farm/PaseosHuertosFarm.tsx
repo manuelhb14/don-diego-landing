@@ -3,41 +3,43 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Footprints, BookOpen, Trees } from "lucide-react";
-
-const highlights = [
-    {
-        icon: Footprints,
-        title: "Rutas entre cultivos",
-        text: "Andadores que atraviesan hileras y bancales para ver de cerca el trabajo diario del huerto.",
-    },
-    {
-        icon: BookOpen,
-        title: "Lectura del paisaje",
-        text: "Cada recorrido invita a entender variedades, riego y cosecha en el contexto del proyecto.",
-    },
-    {
-        icon: Trees,
-        title: "Estaciones y calendario",
-        text: "Los paseos cambian con el año: brotes, floración y cosecha marcan qué ver en cada visita.",
-    },
-] as const;
-
-const IMAGES = [
-    {
-        src: "/babylon/huerto.webp",
-        alt: "Huertos y senderos en Don Diego",
-    },
-    {
-        src: "/babylon/tranquilidad.webp",
-        alt: "Paisaje y caminos del entorno",
-    },
-    {
-        src: "/babylon/tierra-2.webp",
-        alt: "Detalle del suelo y los cultivos",
-    },
-] as const;
+import { useTranslations } from "next-intl";
 
 export default function PaseosHuertosFarm() {
+    const t = useTranslations("pages.farm.paseosHuertos");
+    const highlights = [
+        {
+            icon: Footprints,
+            title: t("highlights.rutas.title"),
+            text: t("highlights.rutas.text"),
+        },
+        {
+            icon: BookOpen,
+            title: t("highlights.lectura.title"),
+            text: t("highlights.lectura.text"),
+        },
+        {
+            icon: Trees,
+            title: t("highlights.estaciones.title"),
+            text: t("highlights.estaciones.text"),
+        },
+    ] as const;
+
+    const images = [
+        {
+            src: "/babylon/huerto.webp",
+            alt: t("images.oneAlt"),
+        },
+        {
+            src: "/babylon/tranquilidad.webp",
+            alt: t("images.twoAlt"),
+        },
+        {
+            src: "/babylon/tierra-2.webp",
+            alt: t("images.threeAlt"),
+        },
+    ] as const;
+
     return (
         <section
             id="paseos-huertos"
@@ -58,7 +60,7 @@ export default function PaseosHuertosFarm() {
                                 className="mb-8 text-[10px] tracking-[0.3em] text-[#9B5C6E]/85 uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
-                                [PASEOS POR LOS HUERTOS]
+                                {t("eyebrow")}
                             </p>
                             <h2
                                 id="paseos-huertos-heading"
@@ -68,17 +70,16 @@ export default function PaseosHuertosFarm() {
                                     fontSize: "clamp(2.75rem, 4.75vw, 4.25rem)",
                                 }}
                             >
-                                El terreno
+                                {t("title.line1")}
                                 <br />
-                                <span className="italic text-[#8B4A5E]">como recorrido</span>
+                                <span className="italic text-[#8B4A5E]">{t("title.accent")}</span>
                             </h2>
                         </div>
                         <p
                             className="ml-auto w-full max-w-[350px] text-right font-serif text-base lg:text-lg font-normal leading-[1.8] tracking-[0.01em] text-[#222]/80 lg:pt-3"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
-                            Los huertos se recorren a pie: un circuito pensado para vivir la producción desde adentro,
-                            con vistas abiertas al paisaje y paradas donde el cultivo cuenta su propia historia.
+                            {t("intro")}
                         </p>
                     </div>
                 </motion.div>
@@ -92,8 +93,8 @@ export default function PaseosHuertosFarm() {
                 >
                     <div className="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/11] lg:col-span-7 lg:row-span-2 lg:aspect-auto lg:min-h-[min(56vh,540px)]">
                         <Image
-                            src={IMAGES[0].src}
-                            alt={IMAGES[0].alt}
+                            src={images[0].src}
+                            alt={images[0].alt}
                             fill
                             className="object-cover object-[center_40%]"
                             sizes="(min-width: 1024px) 58vw, 100vw"
@@ -106,8 +107,8 @@ export default function PaseosHuertosFarm() {
 
                     <div className="relative aspect-[4/3] overflow-hidden shadow-[0_16px_40px_rgba(26,25,23,0.1)] ring-1 ring-[#1a1917]/[0.06] sm:aspect-[16/11] lg:col-span-5 lg:row-start-1 lg:aspect-auto lg:min-h-0">
                         <Image
-                            src={IMAGES[1].src}
-                            alt={IMAGES[1].alt}
+                            src={images[1].src}
+                            alt={images[1].alt}
                             fill
                             className="object-cover object-center"
                             sizes="(min-width: 1024px) 38vw, 100vw"
@@ -116,8 +117,8 @@ export default function PaseosHuertosFarm() {
 
                     <div className="relative aspect-[4/3] overflow-hidden shadow-[0_16px_40px_rgba(26,25,23,0.1)] ring-1 ring-[#1a1917]/[0.06] sm:aspect-[16/11] lg:col-span-5 lg:row-start-2 lg:aspect-auto lg:min-h-0">
                         <Image
-                            src={IMAGES[2].src}
-                            alt={IMAGES[2].alt}
+                            src={images[2].src}
+                            alt={images[2].alt}
                             fill
                             className="object-cover object-[center_35%]"
                             sizes="(min-width: 1024px) 38vw, 100vw"

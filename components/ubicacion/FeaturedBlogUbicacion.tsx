@@ -119,21 +119,7 @@ function BlogTeaserCard({
 export default function FeaturedBlogUbicacion({ posts, locale }: Props) {
     const hasVisited = useHasVisited();
     const tb = useTranslations("blogsHome");
-
-    const copy =
-        locale === "en"
-            ? {
-                  kicker: "[Blog]",
-                  title: "Explore the city",
-                  titleAccent: "in depth",
-                  readArticle: "Read article",
-              }
-            : {
-                  kicker: "[Blog]",
-                  title: "Explora la ciudad",
-                  titleAccent: "en profundidad",
-                  readArticle: "Leer artículo",
-              };
+    const t = useTranslations("components.featuredBlogUbicacion");
 
     const [primary, secondary] = posts;
 
@@ -158,7 +144,7 @@ export default function FeaturedBlogUbicacion({ posts, locale }: Props) {
                             className="mb-4 text-[10px] uppercase tracking-[0.3em] text-[#AA7D69]/70"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            {copy.kicker}
+                            {t("kicker")}
                         </p>
                         <h2
                             className="leading-none tracking-tight text-[#222222]"
@@ -167,7 +153,7 @@ export default function FeaturedBlogUbicacion({ posts, locale }: Props) {
                                 fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
                             }}
                         >
-                            {copy.title} <span className="italic text-[#8C7B6C]">{copy.titleAccent}</span>
+                            {t("title")} <span className="italic text-[#8C7B6C]">{t("titleAccent")}</span>
                         </h2>
                     </motion.div>
 
@@ -184,7 +170,7 @@ export default function FeaturedBlogUbicacion({ posts, locale }: Props) {
                                     key={post.slug}
                                     post={post}
                                     locale={locale}
-                                    readLabel={copy.readArticle}
+                                    readLabel={t("readArticle")}
                                     delay={0.06 + index * 0.1}
                                     hasVisited={hasVisited}
                                 />

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import type { LucideIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import {
     Anchor,
     Building2,
@@ -35,15 +36,8 @@ type AreaRow = {
     };
 };
 
-const rows: AreaRow[] = [
-    {
-        id: "restaurantes",
-        eyebrow: "[GASTRONOMÍA]",
-        title: "Zona de",
-        titleItalic: "restaurantes",
-        description:
-            "Terrazas y propuestas gastronómicas frente al agua: el lugar natural para cerrar el día o recibir a quienes visitan el desarrollo.",
-        image: { src: "/babylon/presa-5.webp", alt: "Zona gastronómica junto a la presa" },
+const rowStyleMap = {
+    restaurantes: {
         Icon: UtensilsCrossed,
         imageLeft: false,
         card: {
@@ -52,20 +46,13 @@ const rows: AreaRow[] = [
             shadow: "shadow-[0_24px_48px_rgba(47,39,33,0.12)]",
             eyebrowClass: "text-[#C28E7A]",
             titleAccent: "text-[#C28E7A]",
-            iconRing: ["border-[#C28E7A]/20", "border-[#C28E7A]/25", "border-[#C28E7A]/30"],
+            iconRing: ["border-[#C28E7A]/20", "border-[#C28E7A]/25", "border-[#C28E7A]/30"] as [string, string, string],
             iconBg: "bg-[#FFF3E1]",
             iconBorder: "border-[#C28E7A]/40",
             iconColor: "text-[#2C3D38]",
         },
     },
-    {
-        id: "estacionamiento",
-        eyebrow: "[ACCESO]",
-        title: "Estacionamiento",
-        titleItalic: "",
-        description:
-            "Cajones y circulación pensados para visitantes y residentes, facilitando la llegada a restaurantes, comercios y amenidades sin fricción.",
-        image: { src: "/babylon/presa-6.webp", alt: "Accesos y estacionamiento del desarrollo" },
+    estacionamiento: {
         Icon: CircleParking,
         imageLeft: true,
         card: {
@@ -74,20 +61,13 @@ const rows: AreaRow[] = [
             shadow: "shadow-[0_24px_48px_rgba(26,25,23,0.1)]",
             eyebrowClass: "text-[#2C3D38]/80",
             titleAccent: "text-[#2C3D38]/85",
-            iconRing: ["border-[#2C3D38]/15", "border-[#2C3D38]/18", "border-[#2C3D38]/22"],
+            iconRing: ["border-[#2C3D38]/15", "border-[#2C3D38]/18", "border-[#2C3D38]/22"] as [string, string, string],
             iconBg: "bg-[#E8EEEA]",
             iconBorder: "border-[#2C3D38]/30",
             iconColor: "text-[#1a1917]",
         },
     },
-    {
-        id: "comerciales",
-        eyebrow: "[RETAIL]",
-        title: "Locales",
-        titleItalic: "comerciales",
-        description:
-            "Frentes comerciales integrados al paseo lacustre: servicios, boutique y experiencias que activan el día a día del frente al agua.",
-        image: { src: "/babylon/presa-7.webp", alt: "Locales comerciales en el desarrollo" },
+    comerciales: {
         Icon: Store,
         imageLeft: false,
         card: {
@@ -96,20 +76,13 @@ const rows: AreaRow[] = [
             shadow: "shadow-[0_24px_48px_rgba(44,90,108,0.08)]",
             eyebrowClass: "text-[#5a7a8a]/90",
             titleAccent: "text-[#5a7a8a]",
-            iconRing: ["border-[#5a7a8a]/18", "border-[#5a7a8a]/22", "border-[#5a7a8a]/26"],
+            iconRing: ["border-[#5a7a8a]/18", "border-[#5a7a8a]/22", "border-[#5a7a8a]/26"] as [string, string, string],
             iconBg: "bg-[#E4EEF3]",
             iconBorder: "border-[#5a7a8a]/35",
             iconColor: "text-[#3d5a6b]",
         },
     },
-    {
-        id: "departamentos",
-        eyebrow: "[RESIDENCIAL]",
-        title: "Departamentos",
-        titleItalic: "con vista",
-        description:
-            "Vivienda vertical con panoramas hacia la presa: privacidad, luz y conexión permanente con el paisaje lacustre.",
-        image: { src: "/babylon/presa-8.webp", alt: "Departamentos con vista a la presa" },
+    departamentos: {
         Icon: Building2,
         imageLeft: true,
         card: {
@@ -118,20 +91,13 @@ const rows: AreaRow[] = [
             shadow: "shadow-[0_24px_48px_rgba(47,39,33,0.1)]",
             eyebrowClass: "text-[#6B6358]/90",
             titleAccent: "text-[#6B6358]/95",
-            iconRing: ["border-[#8B8478]/22", "border-[#8B8478]/26", "border-[#8B8478]/30"],
+            iconRing: ["border-[#8B8478]/22", "border-[#8B8478]/26", "border-[#8B8478]/30"] as [string, string, string],
             iconBg: "bg-[#E8E4DB]",
             iconBorder: "border-[#7A7268]/35",
             iconColor: "text-[#4A453E]",
         },
     },
-    {
-        id: "parques",
-        eyebrow: "[FAMILIA]",
-        title: "Parques",
-        titleItalic: "infantiles",
-        description:
-            "Áreas de juego seguras y al aire libre para que los más pequeños exploren, corran y compartan el entorno con otras familias.",
-        image: { src: "/babylon/presa-9.webp", alt: "Parques infantiles" },
+    parques: {
         Icon: PlayCircle,
         imageLeft: false,
         card: {
@@ -140,20 +106,13 @@ const rows: AreaRow[] = [
             shadow: "shadow-[0_24px_48px_rgba(44,90,108,0.08)]",
             eyebrowClass: "text-[#4A7C8C]/85",
             titleAccent: "text-[#4A7C8C]/90",
-            iconRing: ["border-[#5B8FA8]/18", "border-[#5B8FA8]/22", "border-[#5B8FA8]/28"],
+            iconRing: ["border-[#5B8FA8]/18", "border-[#5B8FA8]/22", "border-[#5B8FA8]/28"] as [string, string, string],
             iconBg: "bg-[#DCEEF5]",
             iconBorder: "border-[#5B8FA8]/35",
             iconColor: "text-[#3D6B80]",
         },
     },
-    {
-        id: "nautico",
-        eyebrow: "[NAUTICA]",
-        title: "Club",
-        titleItalic: "náutico",
-        description:
-            "Amarres y actividades acuáticas en la Presa La Cantera: el corazón náutico del proyecto para quienes viven el lago a diario.",
-        image: { src: "/babylon/presa-10.webp", alt: "Club náutico y embarcadero" },
+    nautico: {
         Icon: Anchor,
         imageLeft: true,
         card: {
@@ -162,20 +121,13 @@ const rows: AreaRow[] = [
             shadow: "shadow-[0_24px_48px_rgba(30,55,65,0.08)]",
             eyebrowClass: "text-[#3d5a6b]/88",
             titleAccent: "text-[#3d5a6b]",
-            iconRing: ["border-[#3d5a6b]/16", "border-[#3d5a6b]/20", "border-[#3d5a6b]/24"],
+            iconRing: ["border-[#3d5a6b]/16", "border-[#3d5a6b]/20", "border-[#3d5a6b]/24"] as [string, string, string],
             iconBg: "bg-[#DCE8EE]",
             iconBorder: "border-[#3d5a6b]/32",
             iconColor: "text-[#2a4a58]",
         },
     },
-    {
-        id: "anfiteatro",
-        eyebrow: "[CULTURA]",
-        title: "Anfiteatro",
-        titleItalic: "al aire libre",
-        description:
-            "Un escenario abierto para conciertos, cine y encuentros comunitarios frente al agua — el pulso cultural del frente lacustre.",
-        image: { src: "/babylon/presa-11.webp", alt: "Anfiteatro y eventos al aire libre" },
+    anfiteatro: {
         Icon: Mic2,
         imageLeft: false,
         card: {
@@ -184,13 +136,13 @@ const rows: AreaRow[] = [
             shadow: "shadow-[0_24px_48px_rgba(47,39,33,0.1)]",
             eyebrowClass: "text-[#8B7355]/90",
             titleAccent: "text-[#8B7355]",
-            iconRing: ["border-[#A08060]/20", "border-[#A08060]/24", "border-[#A08060]/28"],
+            iconRing: ["border-[#A08060]/20", "border-[#A08060]/24", "border-[#A08060]/28"] as [string, string, string],
             iconBg: "bg-[#F5EBE0]",
             iconBorder: "border-[#8B7355]/35",
             iconColor: "text-[#5c4a38]",
         },
     },
-];
+} as const;
 
 function ImagePanel({ row }: { row: AreaRow }) {
     return (
@@ -279,11 +231,78 @@ function TextCard({ row }: { row: AreaRow }) {
 }
 
 export default function AreasPresa() {
+    const t = useTranslations("pages.presa.areas");
+    const rows: AreaRow[] = [
+        {
+            id: "restaurantes",
+            eyebrow: t("rows.restaurantes.eyebrow"),
+            title: t("rows.restaurantes.title"),
+            titleItalic: t("rows.restaurantes.titleItalic"),
+            description: t("rows.restaurantes.description"),
+            image: { src: "/babylon/presa-5.webp", alt: t("rows.restaurantes.alt") },
+            ...rowStyleMap.restaurantes,
+        },
+        {
+            id: "estacionamiento",
+            eyebrow: t("rows.estacionamiento.eyebrow"),
+            title: t("rows.estacionamiento.title"),
+            titleItalic: t("rows.estacionamiento.titleItalic"),
+            description: t("rows.estacionamiento.description"),
+            image: { src: "/babylon/presa-6.webp", alt: t("rows.estacionamiento.alt") },
+            ...rowStyleMap.estacionamiento,
+        },
+        {
+            id: "comerciales",
+            eyebrow: t("rows.comerciales.eyebrow"),
+            title: t("rows.comerciales.title"),
+            titleItalic: t("rows.comerciales.titleItalic"),
+            description: t("rows.comerciales.description"),
+            image: { src: "/babylon/presa-7.webp", alt: t("rows.comerciales.alt") },
+            ...rowStyleMap.comerciales,
+        },
+        {
+            id: "departamentos",
+            eyebrow: t("rows.departamentos.eyebrow"),
+            title: t("rows.departamentos.title"),
+            titleItalic: t("rows.departamentos.titleItalic"),
+            description: t("rows.departamentos.description"),
+            image: { src: "/babylon/presa-8.webp", alt: t("rows.departamentos.alt") },
+            ...rowStyleMap.departamentos,
+        },
+        {
+            id: "parques",
+            eyebrow: t("rows.parques.eyebrow"),
+            title: t("rows.parques.title"),
+            titleItalic: t("rows.parques.titleItalic"),
+            description: t("rows.parques.description"),
+            image: { src: "/babylon/presa-9.webp", alt: t("rows.parques.alt") },
+            ...rowStyleMap.parques,
+        },
+        {
+            id: "nautico",
+            eyebrow: t("rows.nautico.eyebrow"),
+            title: t("rows.nautico.title"),
+            titleItalic: t("rows.nautico.titleItalic"),
+            description: t("rows.nautico.description"),
+            image: { src: "/babylon/presa-10.webp", alt: t("rows.nautico.alt") },
+            ...rowStyleMap.nautico,
+        },
+        {
+            id: "anfiteatro",
+            eyebrow: t("rows.anfiteatro.eyebrow"),
+            title: t("rows.anfiteatro.title"),
+            titleItalic: t("rows.anfiteatro.titleItalic"),
+            description: t("rows.anfiteatro.description"),
+            image: { src: "/babylon/presa-11.webp", alt: t("rows.anfiteatro.alt") },
+            ...rowStyleMap.anfiteatro,
+        },
+    ];
+
     return (
         <section
             id="areas"
             className="border-t border-[#1F1D1B]/[0.06] bg-[#EFE6DC] text-[#1F1D1B] py-10 lg:py-14"
-            aria-label="Áreas del desarrollo en la Presa de la Cantera"
+            aria-label={t("sectionAriaLabel")}
         >
             <div className="mx-auto w-full max-w-[1200px] px-6 lg:px-12">
                 <motion.div
@@ -297,7 +316,7 @@ export default function AreasPresa() {
                         className="mb-3 text-[10px] tracking-[0.3em] text-[#5a7a8a]/90 uppercase"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Master plan]
+                        {t("eyebrow")}
                     </p>
                     <h2
                         className="text-[#1a221f] leading-[1.12] font-medium"
@@ -306,14 +325,14 @@ export default function AreasPresa() {
                             fontSize: "clamp(2.35rem, 5vw, 3.75rem)",
                         }}
                     >
-                        Zonas del{" "}
-                        <span className="italic text-[#5a7a8a]">desarrollo</span>
+                        {t("title.base")} {" "}
+                        <span className="italic text-[#5a7a8a]">{t("title.accent")}</span>
                     </h2>
                     <p
                         className="mt-4 text-lg leading-relaxed text-[#1a1917]/72"
                         style={{ fontFamily: "var(--font-serif)", fontWeight: 400 }}
                     >
-                        Organización del frente en el terreno: ubicación y función de cada componente.
+                        {t("intro")}
                     </p>
                 </motion.div>
 

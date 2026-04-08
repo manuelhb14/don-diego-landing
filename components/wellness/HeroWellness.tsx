@@ -3,15 +3,18 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export default function HeroWellness() {
+    const t = useTranslations("pages.wellness.hero");
     const ref = useRef(null);
-    const [isDesktop, setIsDesktop] = useState(true);
+    const [isDesktop, setIsDesktop] = useState(() =>
+        typeof window === "undefined" ? true : window.matchMedia("(min-width: 1024px)").matches,
+    );
 
     useEffect(() => {
         const mq = window.matchMedia("(min-width: 1024px)");
-        setIsDesktop(mq.matches);
-        const handler = () => setIsDesktop(mq.matches);
+        const handler = (event: MediaQueryListEvent) => setIsDesktop(event.matches);
         mq.addEventListener("change", handler);
         return () => mq.removeEventListener("change", handler);
     }, []);
@@ -29,14 +32,14 @@ export default function HeroWellness() {
 
                 {/* Left: Content Panel */}
                 <motion.div
-                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#FFF3E1] py-16"
+                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#FFF3E1] py-8 lg:py-16"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
                 >
 
                     {/* Center: Logo & Title */}
-                    <div className="flex-1 flex flex-col items-center justify-center px-8 lg:px-12 text-center">
+                    <div className="flex-1 flex flex-col items-center justify-center px-4 lg:px-12 text-center">
                         <motion.p
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -44,7 +47,7 @@ export default function HeroWellness() {
                             className="text-xs lg:text-sm tracking-[0.3em] text-[#D7D7AA] uppercase mb-2 lg:mb-8"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [CENTRO DE BIENESTAR]
+                            {t("eyebrow")}
                         </motion.p>
 
                         <motion.svg
@@ -785,13 +788,13 @@ export default function HeroWellness() {
                                 className="text-[#D7D7AA]/90 text-base lg:text-xl leading-relaxed"
                                 style={{ fontFamily: "var(--font-serif)" }}
                             >
-                                Bienestar integral y manejo del dolor
+                                {t("tagline")}
                             </p>
                             <p
                                 className="hidden lg:block text-[#222222]/70 text-sm lg:text-base leading-relaxed max-w-sm"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
-                                Actividades físicas, terapias y cuidados para la salud.
+                                {t("description")}
                             </p>
                         </motion.div>
                     </div>
@@ -799,17 +802,17 @@ export default function HeroWellness() {
                 </motion.div>
 
                 {/* Right: Image */}
-                <div className="lg:relative w-full">
+                <div className="w-full h-[240px] sm:h-[320px] lg:relative lg:h-auto">
                 <motion.div
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1, ease: "easeOut" }}
-                        className="absolute inset-0 w-full h-full lg:h-[120%]"
+                        className="relative w-full h-full lg:absolute lg:inset-0 lg:h-[120%]"
                         style={{ y: isDesktop ? imgY : 0 }}
                     >
                         <Image
                             src="/images/gallery/gallery-3.png"
-                            alt="Wellness Center"
+                            alt={t("imageAlt")}
                             fill
                             priority
                             className="object-cover object-center"

@@ -1,9 +1,13 @@
-import Link from "next/link";
 import Image from "next/image";
+import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
-export default function NotFound() {
+export default async function NotFound() {
+    const locale = await getLocale();
+    const t = await getTranslations({ locale, namespace: "pages.notFound" });
+
     return (
-        <html lang="es">
+        <html lang={locale}>
             <body>
                 <div className="min-h-screen bg-[#C8D7E6] flex flex-col items-center justify-center overflow-hidden relative selection:bg-[#222] selection:text-[#C8D7E6]">
                     {/* Navbar placeholder for 404 - simple and elegant */}
@@ -25,7 +29,7 @@ export default function NotFound() {
                                 className="text-xs font-medium tracking-[0.18em] uppercase text-[#222] hover:opacity-70 transition-opacity"
                                 style={{ fontFamily: 'var(--font-sans)' }}
                             >
-                                Contacto
+                                {t("contact")}
                             </Link>
                         </div>
                     </nav>
@@ -76,15 +80,15 @@ export default function NotFound() {
                                 className="text-4xl md:text-5xl lg:text-6xl text-[#222] tracking-wide"
                                 style={{ fontFamily: 'var(--font-serif)' }}
                             >
-                                Página No Encontrada
+                                {t("title")}
                             </h1>
 
                             <p
                                 className="text-sm md:text-base text-[#222]/80 max-w-md mx-auto"
                                 style={{ fontFamily: 'var(--font-sans)', fontWeight: 500 }}
                             >
-                                Mmm - has vagado por territorio inexplorado.<br className="hidden md:block" />
-                                Déjanos guiarte de vuelta a algo extraordinario.
+                                {t("bodyLine1")}<br className="hidden md:block" />
+                                {t("bodyLine2")}
                             </p>
 
                             <div className="pt-4">
@@ -93,7 +97,7 @@ export default function NotFound() {
                                     className="relative inline-flex items-center px-2 py-2 text-sm font-medium tracking-[0.18em] uppercase transition-all duration-300 group text-[#222] hover:text-[#222]/70"
                                     style={{ fontFamily: 'var(--font-sans)' }}
                                 >
-                                    Ver Proyectos
+                                    {t("backHome")}
                                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[1.5px] w-full transition-all duration-300 bg-[#222] group-hover:w-1/2" />
                                 </Link>
                             </div>

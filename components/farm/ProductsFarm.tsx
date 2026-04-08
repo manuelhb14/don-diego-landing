@@ -2,35 +2,33 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-
-const products = [
-    {
-        title: "Invernaderos y zonas de cultivo",
-        description:
-            "Espacios organizados en terrazas con tecnología de agricultura sostenible que garantizan el origen más fresco posible.",
-        image: "/babylon/farm-5.webp",
-    },
-    {
-        title: "Andadores y cicloruta",
-        description:
-            "Recorrer a pie o en bici la vasta extensión productiva permite integrarse físicamente al proceso natural.",
-        image: "/babylon/farm-3.webp",
-    },
-    {
-        title: "Experiencia comunitaria",
-        description:
-            "Programas educativos alrededor de lo que se cultiva para enseñar a los habitantes la riqueza de cosechar lo que siembras.",
-        image: "/babylon/farm-7.webp",
-    },
-    {
-        title: "El origen de lo local",
-        description:
-            "Sustentabilidad pura; un ecosistema cerrado donde los productos nutren directamente los cuerpos y el entorno de Don Diego.",
-        image: "/babylon/farm-6.webp",
-    },
-];
+import { useTranslations } from "next-intl";
 
 export default function ProductsFarm() {
+    const t = useTranslations("pages.farm.products");
+    const products = [
+        {
+            title: t("items.invernaderos.title"),
+            description: t("items.invernaderos.description"),
+            image: "/babylon/farm-5.webp",
+        },
+        {
+            title: t("items.andadoresCicloruta.title"),
+            description: t("items.andadoresCicloruta.description"),
+            image: "/babylon/farm-3.webp",
+        },
+        {
+            title: t("items.experienciaComunitaria.title"),
+            description: t("items.experienciaComunitaria.description"),
+            image: "/babylon/farm-7.webp",
+        },
+        {
+            title: t("items.origenLocal.title"),
+            description: t("items.origenLocal.description"),
+            image: "/babylon/farm-6.webp",
+        },
+    ];
+
     return (
         <section className="relative bg-[#FFF8ED] py-14 pb-20 lg:py-20 lg:pb-28">
             <div className="mx-auto w-full max-w-[1200px] px-6 lg:px-12">
@@ -39,7 +37,7 @@ export default function ProductsFarm() {
                         className="mb-8 text-[10px] tracking-[0.3em] text-[#9B5C6E]/85 uppercase"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Producción]
+                        {t("eyebrow")}
                     </p>
                     <h2
                         className="tracking-tight text-[#1a1917] leading-[1.1]"
@@ -48,8 +46,8 @@ export default function ProductsFarm() {
                             fontSize: "clamp(3.125rem, 5.25vw, 4.25rem)",
                         }}
                     >
-                        Ciclo{" "}
-                        <span className="italic text-[#8B4A5E]">Natural</span>
+                        {t("title.base")} {" "}
+                        <span className="italic text-[#8B4A5E]">{t("title.accent")}</span>
                     </h2>
                 </div>
 

@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 export default function HeroProyecto() {
+    const t = useTranslations("pages.proyecto.hero");
     return (
         <section className="relative flex min-h-[40vh] md:min-h-[60vh] w-full py-14 md:py-20 items-center justify-center overflow-hidden bg-[#fff8ed]">
             <div className="relative z-10 flex flex-col items-center justify-center px-4 w-full max-w-7xl text-center mt-12 md:mt-16">
@@ -11,7 +13,7 @@ export default function HeroProyecto() {
                         className="text-[10px] sm:text-xs tracking-[0.3em] text-[#AA7D69] uppercase mb-6 sm:mb-8"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [Componentes]
+                        {t("kicker")}
                     </p>
 
                     <motion.svg
@@ -226,7 +228,7 @@ export default function HeroProyecto() {
                         className="text-[#222222]/80 text-lg md:text-xl font-medium leading-relaxed mb-4"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
-                        Un entorno diseñado para dialogar con el alma de San Miguel de Allende, reinterpretándola con sensibilidad contemporánea.
+                        {t("body")}
                     </p>
                 </motion.div>
             </div>

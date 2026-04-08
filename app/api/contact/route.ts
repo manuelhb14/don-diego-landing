@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
     if (!name || !email || !message) {
       return NextResponse.json(
-        { error: "Nombre, correo y mensaje son requeridos" },
+        { errorCode: "CONTACT_REQUIRED_FIELDS" },
         { status: 400 }
       );
     }
@@ -66,7 +66,7 @@ export async function POST(request: Request) {
   } catch (err) {
     console.error("Contact form error:", err);
     return NextResponse.json(
-      { error: "Error al enviar el mensaje. Intenta de nuevo." },
+      { errorCode: "CONTACT_SEND_FAILED" },
       { status: 500 }
     );
   }

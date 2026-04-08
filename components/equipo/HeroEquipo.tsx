@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 export default function HeroEquipo() {
+    const t = useTranslations("pages.equipo.hero");
     return (
         <section className="relative flex h-[40vh] md:h-[60vh] min-h-[500px] w-full items-center justify-center overflow-hidden bg-[#fff8ed]">
             <div className="absolute inset-0 b mix-blend-multiply"></div>
@@ -14,7 +16,7 @@ export default function HeroEquipo() {
                         className="text-[10px] sm:text-xs tracking-[0.3em] text-[#AA7D69] uppercase mb-6 sm:mb-8"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        [El Equipo]
+                        {t("eyebrow")}
                     </p>
                     <motion.svg
                         variants={{
@@ -318,7 +320,7 @@ export default function HeroEquipo() {
                         className="text-[#222222]/80 text-lg md:text-xl font-medium leading-relaxed mb-4"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
-                        Un conjunto de mentes excepcionales trabajando en sintonía para dar vida a un santuario residencial sin precedentes en San Miguel de Allende.
+                        {t("description")}
                     </p>
                 </motion.div>
             </div>

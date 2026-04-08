@@ -42,7 +42,7 @@ const posts: BlogPost[] = [
         comments: 33,
         likes: 412,
         views: 920,
-        imageSrc: "/babylon/sustentabilidad.webp",
+        imageSrc: "/final/sustentabilidad.webp",
         locales: {
             es: {
                 title: "Sustentabilidad como hábitat",
@@ -136,7 +136,7 @@ San Miguel de Allende demuestra que no se necesita el tamaño de una metrópolis
         comments: 45,
         likes: 530,
         views: 1105,
-        imageSrc: "/babylon/greenhouse-2.webp",
+        imageSrc: "/final/huerto.webp",
         locales: {
             es: {
                 title: "Del Huerto a la Mesa",
@@ -185,7 +185,7 @@ En el fondo, **Del Huerto a la Mesa** es una invitación a comer con mapa: menos
         comments: 28,
         likes: 375,
         views: 740,
-        imageSrc: "/babylon/organic-farm.webp",
+        imageSrc: "/final/viñedo.webp",
         locales: {
             es: {
                 title: "La cultura del Viñedo",
@@ -243,7 +243,7 @@ San Miguel de Allende siempre se ha distinguido como un santuario para artistas,
         comments: 22,
         likes: 341,
         views: 680,
-        imageSrc: "/babylon/guia.webp",
+        imageSrc: "/final/sma.webp",
         locales: {
             es: {
                 title: "Guía San Miguel de Allende 2026",

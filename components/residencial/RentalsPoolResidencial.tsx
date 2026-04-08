@@ -3,8 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 export default function RentalsPoolResidencial() {
+    const t = useTranslations("pages.residencial.rentals");
     return (
         <section
             id="rentals"
@@ -23,7 +25,7 @@ export default function RentalsPoolResidencial() {
                         <div className="relative w-full aspect-[4/3] lg:aspect-[5/4] overflow-hidden rounded-sm border border-[#1F1D1B]/[0.08] shadow-[0_20px_50px_rgba(47,39,33,0.12)]">
                             <Image
                                 src="/babylon/rental.webp"
-                                alt="Rentals Don Diego"
+                                alt={t("imageAlt")}
                                 fill
                                 className="object-cover"
                                 sizes="(min-width: 1024px) 42vw, 100vw"
@@ -42,7 +44,7 @@ export default function RentalsPoolResidencial() {
                             className="text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase mb-4"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [DON DIEGO RENTALS]
+                            {t("kicker")}
                         </p>
                         <h2
                             id="rentals-pool-heading"
@@ -52,7 +54,7 @@ export default function RentalsPoolResidencial() {
                                 fontSize: "clamp(2rem, 4vw, 3.25rem)",
                             }}
                         >
-                            Estancias de corto plazo, gestionadas por<br /><span className="italic text-[#b76d4b]">Don Diego Rentals</span>
+                            {t("titleLine1")}<br /><span className="italic text-[#b76d4b]">{t("titleLine2")}</span>
                         </h2>
                         <p
                             className="mt-4 text-[#b76d4b]/95 italic"
@@ -61,16 +63,13 @@ export default function RentalsPoolResidencial() {
                                 fontSize: "clamp(1.15rem, 2vw, 1.65rem)",
                             }}
                         >
-                            Un pool de rentas dentro del Club Residencial
+                            {t("subtitle")}
                         </p>
                         <p
                             className="mt-6 text-[#1F1D1B]/80 text-base lg:text-[17px] leading-relaxed"
                             style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                         >
-                            Selecciona unidades del desarrollo disponibles para hospedaje de corto plazo—reservas,
-                            calendario y estándares de servicio coordinados por Don Diego Rentals. Los propietarios
-                            delegan la operación; los huéspedes viven el mismo entorno del club con respaldo
-                            profesional.
+                            {t("body")}
                         </p>
                         <motion.div
                             initial={{ opacity: 0, y: 12 }}
@@ -84,7 +83,7 @@ export default function RentalsPoolResidencial() {
                                 className="inline-block text-[#1F1D1B] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#1F1D1B] pb-1 hover:opacity-60 transition-opacity"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
-                                PRÓXIMAMENTE
+                                {t("cta")}
                             </Link>
                         </motion.div>
                     </motion.div>

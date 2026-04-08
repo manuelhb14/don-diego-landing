@@ -4,31 +4,33 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Droplets, Leaf, Sun } from "lucide-react";
-
-const highlights = [
-    {
-        icon: Leaf,
-        title: "Paisaje y vegetación",
-        text: "Criterios de plantación y mantenimiento alineados con el entorno y el clima de la región.",
-    },
-    {
-        icon: Droplets,
-        title: "Agua y entorno",
-        text: "El desarrollo dialoga con la presa y el paisaje hídrico como parte del mismo ecosistema.",
-    },
-    {
-        icon: Sun,
-        title: "Vida cotidiana",
-        text: "Conexión con la producción orgánica del proyecto: alimentos frescos y ciclos de la tierra.",
-    },
-] as const;
+import { useTranslations } from "next-intl";
 
 const HERO_IMAGE = {
-    src: "/babylon/sustentabilidad.webp",
-    alt: "Vegetación y paisaje en Don Diego",
+    src: "/final/agua.webp",
 } as const;
 
 export default function SustentabilidadResidencial() {
+    const t = useTranslations("pages.residencial.sustainability");
+
+    const highlights = [
+        {
+            icon: Leaf,
+            title: t("highlights.landscape.title"),
+            text: t("highlights.landscape.body"),
+        },
+        {
+            icon: Droplets,
+            title: t("highlights.water.title"),
+            text: t("highlights.water.body"),
+        },
+        {
+            icon: Sun,
+            title: t("highlights.daily.title"),
+            text: t("highlights.daily.body"),
+        },
+    ] as const;
+
     return (
         <section
             id="sustentabilidad"
@@ -48,7 +50,7 @@ export default function SustentabilidadResidencial() {
                             className="mb-4 text-[10px] tracking-[0.3em] text-[#3d5c4a]/80 uppercase"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            [SUSTENTABILIDAD]
+                            {t("kicker")}
                         </p>
                         <h2
                             id="sustentabilidad-residencial-heading"
@@ -58,17 +60,15 @@ export default function SustentabilidadResidencial() {
                                 fontSize: "clamp(2rem, 4vw, 3rem)",
                             }}
                         >
-                            Un club que respeta
+                            {t("titleLine1")}
                             <br />
-                            <span className="text-[#2d4a3a]/90 italic">el territorio</span>
+                            <span className="text-[#2d4a3a]/90 italic">{t("titleLine2")}</span>
                         </h2>
                         <p
                             className="mt-5 max-w-md text-[#1a1917]/78 text-base leading-relaxed lg:text-[17px]"
                             style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                         >
-                            El Club Residencial forma parte de un máster plan con visión ambiental: espacios comunes,
-                            circulación y paisaje diseñados para convivir con el agua, la tierra y la producción
-                            orgánica que define a Don Diego.
+                            {t("body")}
                         </p>
 
                         <ul className="mt-8 flex flex-col gap-5">
@@ -100,7 +100,7 @@ export default function SustentabilidadResidencial() {
                             className="mt-10 inline-flex w-fit text-[10px] font-bold uppercase tracking-[0.15em] text-[#2d4a3a] underline decoration-[#2d4a3a]/35 underline-offset-4 transition hover:opacity-70"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                            ORGANIC FARM & FLOWERS
+                            {t("cta")}
                         </Link>
                     </motion.div>
 
@@ -114,7 +114,7 @@ export default function SustentabilidadResidencial() {
                         <div className="relative aspect-[4/5] w-full overflow-hidden shadow-[0_28px_60px_rgba(26,25,23,0.15)] ring-1 ring-[#1a1917]/[0.08] sm:aspect-[3/4] lg:aspect-[4/5]">
                             <Image
                                 src={HERO_IMAGE.src}
-                                alt={HERO_IMAGE.alt}
+                                alt={t("imageAlt")}
                                 fill
                                 className="object-cover object-center"
                                 sizes="(min-width: 1024px) 45vw, 100vw"
