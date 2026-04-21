@@ -166,6 +166,15 @@ const PAGE_CONTEXT_ENTRIES: PageContextEntry[] = [
         },
     },
     {
+        pageType: "guiaCompra",
+        detail: {
+            title: getIn(data, ["pages", "purchaseGuide", "title"]),
+            intro: getIn(data, ["pages", "purchaseGuide", "intro"]),
+            meta: getIn(data, ["meta", "purchaseGuide"]),
+            intent: "Step-by-step purchase orientation for foreign buyers evaluating Don Diego; not legal advice.",
+        },
+    },
+    {
         pageType: "proximamente",
         detail: {
             label: getIn(data, ["project", "comingSoon"]),

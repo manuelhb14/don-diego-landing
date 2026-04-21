@@ -44,7 +44,7 @@ export default function PaseosHuertosFarm() {
         <section
             id="paseos-huertos"
             aria-labelledby="paseos-huertos-heading"
-            className="relative overflow-hidden border-t border-[#1F1D1B]/[0.06] bg-[#FFF8ED] text-[#1a1917] py-16 lg:py-24"
+            className="relative overflow-hidden border-t border-[#1F1D1B]/[0.06] bg-[#EFE6DC] text-[#1a1917] py-16 lg:py-24"
         >
             <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-12">
                 <motion.div

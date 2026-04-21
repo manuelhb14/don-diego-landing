@@ -26,12 +26,12 @@ export default function HeroFarm() {
     const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
 
     return (
-        <section ref={ref} className="relative w-full bg-[#DEBEBF] py-16 px-6 md:px-10 lg:px-20">
+        <section ref={ref} className="relative w-full bg-[#EFE6DC] py-16 px-6 md:px-10 lg:px-20">
             <div className="flex flex-col lg:flex-row w-full overflow-hidden">
 
                 {/* Left: Content Panel */}
                 <motion.div
-                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#FFF3E1] py-8 lg:py-16"
+                    className="relative z-10 flex flex-col w-full lg:w-[75%] h-[45%] lg:h-full bg-[#fff8ed] py-8 lg:py-16"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
@@ -39,11 +39,11 @@ export default function HeroFarm() {
 
                     {/* Center: Title & Description */}
                     <div className="flex-1 flex flex-col items-center justify-center px-4 lg:px-12 text-center">
-                        <motion.p
+                        <motion.p   
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.7 }}
-                            className="text-xs lg:text-sm tracking-[0.3em] text-[#DEBEBF] uppercase mb-2 lg:mb-8"
+                            className="text-xs lg:text-sm tracking-[0.3em] text-[#cc9d9e] uppercase mb-2 lg:mb-8"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {t("eyebrow")}
@@ -843,7 +843,7 @@ export default function HeroFarm() {
                             className="mt-6 flex flex-col items-center gap-2"
                         >
                             <p
-                                className="text-[#DEBEBF]/90 text-base lg:text-xl leading-relaxed"
+                                className="text-[#cc9d9e] text-base lg:text-xl leading-relaxed"
                                 style={{ fontFamily: "var(--font-serif)" }}
                             >
                                 {t("tagline")}

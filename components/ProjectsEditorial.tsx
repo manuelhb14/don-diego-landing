@@ -1,9 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { useHasVisited } from "@/hooks/useHasVisited";
+import EditableText from "@/components/editor/EditableText";
+import EditableImage from "@/components/editor/EditableImage";
 
 export type EditorialProject = {
     id: number;
@@ -16,54 +19,85 @@ export type EditorialProject = {
     image: string;
     href: string;
     cta: string;
+    contentPrefix: string;
 };
 
 function EditorialProjectRow({
     project,
     reverse,
+    index,
+    hasVisited,
+    shouldReduceMotion,
 }: {
     project: EditorialProject;
     reverse: boolean;
+    index: number;
+    hasVisited: boolean;
+    shouldReduceMotion: boolean;
 }) {
+    const baseDelay = index * 0.08;
+
     return (
-        <article
+        <motion.article
             className={`grid grid-cols-1 items-start gap-y-6 md:gap-y-8 lg:items-center lg:gap-x-12 xl:gap-x-14 ${
                 reverse
                     ? "lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.8fr)] xl:grid-cols-[minmax(0,1.22fr)_minmax(320px,0.78fr)]"
                     : "lg:grid-cols-[minmax(280px,0.8fr)_minmax(0,1.45fr)] xl:grid-cols-[minmax(320px,0.78fr)_minmax(0,1.22fr)]"
             }`}
+            initial={hasVisited || shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.28 }}
+            transition={{ duration: 0.7, delay: baseDelay, ease: [0.215, 0.61, 0.355, 1] }}
         >
             <div className={`${reverse ? "order-1 lg:order-1" : "order-1 lg:order-0"} min-w-0`}>
-                <div className="mx-auto flex w-full max-w-md flex-col items-start lg:max-w-lg">
+                <div className="mx-auto flex w-full max-w-md flex-col items-start md:max-w-full lg:max-w-lg">
                     {/* <p
                         className="text-[10px] uppercase tracking-[0.28em]"
                         style={{ fontFamily: "var(--font-sans)", color: project.accent }}
                     >
                         {project.eyebrow}
                     </p> */}
-                    <h3
+                    <motion.h3
                         className="mt-3 text-[#3a3028] md:mt-4"
                         style={{
                             fontFamily: "var(--font-serif)",
                             fontSize: "clamp(2rem, 3vw, 3.4rem)",
                             lineHeight: 0.95,
                         }}
+                        initial={hasVisited || shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.5 }}
+                        transition={{ duration: 0.55, delay: baseDelay + 0.08, ease: [0.215, 0.61, 0.355, 1] }}
                     >
-                        {project.title}
-                    </h3>
-                    <p
-                        className="mt-4 max-w-xs lg:max-w-md text-sm leading-7 text-[#62564a] md:mt-5 md:text-[15px]"
+                        <EditableText contentKey={`${project.contentPrefix}.title`} fallback={project.title} />
+                    </motion.h3>
+                    <motion.p
+                        className="mt-4 max-w-xs text-sm leading-7 text-[#62564a] md:mt-5 md:max-w-full md:text-[15px] lg:max-w-md"
                         style={{ fontFamily: "var(--font-sans)" }}
+                        initial={hasVisited || shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.5 }}
+                        transition={{ duration: 0.55, delay: baseDelay + 0.12, ease: [0.215, 0.61, 0.355, 1] }}
                     >
-                        {project.description}
-                    </p>
-                    <p
-                        className="mt-3 max-w-sm text-sm leading-7 text-[#7a6d61] md:mt-4 md:text-[15px]"
+                        <EditableText contentKey={`${project.contentPrefix}.description`} fallback={project.description} />
+                    </motion.p>
+                    <motion.p
+                        className="mt-3 max-w-sm text-sm leading-7 text-[#7a6d61] md:mt-4 md:max-w-full md:text-[15px]"
                         style={{ fontFamily: "var(--font-sans)" }}
+                        initial={hasVisited || shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.5 }}
+                        transition={{ duration: 0.55, delay: baseDelay + 0.16, ease: [0.215, 0.61, 0.355, 1] }}
                     >
-                        {project.supporting}
-                    </p>
-                    <div className="mt-5 w-full max-w-sm md:mt-7">
+                        <EditableText contentKey={`${project.contentPrefix}.supporting`} fallback={project.supporting} />
+                    </motion.p>
+                    <motion.div
+                        className="mt-5 w-full max-w-sm md:mt-7 md:max-w-full lg:max-w-sm"
+                        initial={hasVisited || shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.5 }}
+                        transition={{ duration: 0.55, delay: baseDelay + 0.2, ease: [0.215, 0.61, 0.355, 1] }}
+                    >
                         <div
                             className="mb-4 h-px w-14"
                             style={{ backgroundColor: project.accentSoft }}
@@ -72,11 +106,10 @@ function EditorialProjectRow({
                             className="flex flex-col gap-3"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
-                        {project.details.map((detail) => (
+                        {project.details.map((detail, detailIndex) => (
                             <div
-                                key={detail}
-                                className="flex items-center gap-3 text-[10px] uppercase tracking-[0.24em]"
-                                style={{ color: project.accent }}
+                                key={`${project.id}-${detailIndex}`}
+                                className="flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[#6f6257]"
                             >
                                 <span
                                     className="h-2 w-2 rounded-full border"
@@ -85,46 +118,56 @@ function EditorialProjectRow({
                                         borderColor: project.accent,
                                     }}
                                 />
-                                {detail}
+                                <EditableText contentKey={`${project.contentPrefix}.detail.${detailIndex + 1}`} fallback={detail} />
                             </div>
                         ))}
                         </div>
-                    </div>
+                    </motion.div>
+                    <motion.div
+                        initial={hasVisited || shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.5 }}
+                        transition={{ duration: 0.55, delay: baseDelay + 0.24, ease: [0.215, 0.61, 0.355, 1] }}
+                    >
                     <Link
                         href={project.href}
                         className="group mt-6 -ml-4 inline-flex items-center gap-4 rounded-md px-4 py-3 text-[10px] uppercase tracking-[0.28em] text-[#3a3028] md:mt-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8f6e5d]/40"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        <span>{project.cta}</span>
+                        <span><EditableText contentKey={`${project.contentPrefix}.cta`} fallback={project.cta} /></span>
                         <span className="h-px w-10 bg-[#b8ab9f] transition-all duration-300 group-hover:w-14 group-hover:bg-[#8f6e5d]" />
                     </Link>
+                    </motion.div>
                 </div>
             </div>
 
             <div className={`${reverse ? "order-0 lg:order-0" : "order-0 lg:order-1"} min-w-0`}>
-                <div
+                <motion.div
                     className={`relative aspect-[16/10] w-full max-w-[820px] lg:max-w-[740px] xl:max-w-[760px] overflow-hidden bg-[#ebe1d4] shadow-[0_25px_60px_rgba(73,54,39,0.08)] ${
                         reverse ? "mx-auto lg:mr-auto lg:ml-0" : "mx-auto lg:ml-auto lg:mr-0"
                     }`}
+                    initial={hasVisited || shouldReduceMotion ? false : { opacity: 0, y: 24, scale: 0.985 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true, amount: 0.35 }}
+                    transition={{ duration: 0.7, delay: baseDelay + 0.1, ease: [0.215, 0.61, 0.355, 1] }}
                 >
-                    <div
-                        className="absolute inset-x-0 top-0 z-10 h-1"
-                        style={{ backgroundColor: project.accent }}
-                    />
-                    <Image
-                        src={project.image}
+                    <EditableImage
+                        contentKey={`${project.contentPrefix}.image`}
+                        fallbackSrc={project.image}
                         alt={project.title}
                         fill
                         className="object-cover"
                         sizes="(min-width: 1280px) 680px, (min-width: 1024px) 52vw, 100vw"
                     />
-                </div>
+                </motion.div>
             </div>
-        </article>
+        </motion.article>
     );
 }
 
 export default function ProjectsEditorial() {
+    const hasVisited = useHasVisited();
+    const shouldReduceMotion = useReducedMotion() ?? false;
     const t = useTranslations("projectsEditorial");
     const editorialProjects = useMemo<EditorialProject[]>(
         () => [
@@ -139,6 +182,7 @@ export default function ProjectsEditorial() {
                 image: "/images/renders/render-1.png",
                 href: "/residencial",
                 cta: t("residencial.cta"),
+                contentPrefix: "home.projects.residencial",
             },
             {
                 id: 2,
@@ -151,6 +195,7 @@ export default function ProjectsEditorial() {
                 image: "/babylon/organic-farm.jpeg",
                 href: "/farm",
                 cta: t("farm.cta"),
+                contentPrefix: "home.projects.farm",
             },
             {
                 id: 3,
@@ -163,6 +208,7 @@ export default function ProjectsEditorial() {
                 image: "/images/gallery/gallery-3.png",
                 href: "/wellness",
                 cta: t("wellness.cta"),
+                contentPrefix: "home.projects.wellness",
             },
             {
                 id: 4,
@@ -175,13 +221,14 @@ export default function ProjectsEditorial() {
                 image: "/images/renders/presa-1.png",
                 href: "/presa",
                 cta: t("presa.cta"),
+                contentPrefix: "home.projects.presa",
             },
         ],
         [t],
     );
 
     return (
-        <section id="proyectos" className="bg-[#fff8ef] px-6 pt-0 pb-20 md:px-10 md:py-32 lg:px-16 lg:py-20">
+        <section id="proyectos" className="bg-[#fff8ef] px-6 pt-0 pb-20 md:px-10 md:py-16 lg:px-16 lg:py-20">
             <div className="mx-auto max-w-[1280px]">
                 {/* <div className="mb-16 max-w-2xl md:mb-24">
                     <p
@@ -208,6 +255,9 @@ export default function ProjectsEditorial() {
                             key={project.id}
                             project={project}
                             reverse={index % 2 === 1}
+                            index={index}
+                            hasVisited={hasVisited}
+                            shouldReduceMotion={shouldReduceMotion}
                         />
                     ))}
                 </div>

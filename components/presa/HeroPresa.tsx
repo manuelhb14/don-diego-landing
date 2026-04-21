@@ -29,13 +29,13 @@ export default function HeroPresa() {
     return (
         <section
             ref={ref}
-            className="relative w-full bg-[#C8D7E6] py-16 px-6 md:px-10 lg:px-20"
+            className="relative w-full bg-[#EFE6DC] py-16 px-6 md:px-10 lg:px-20"
         >
             <div className="flex flex-col lg:flex-row w-full overflow-hidden">
 
                 {/* Left: Content Panel */}
                 <motion.div
-                    className="relative z-10 flex flex-col w-full lg:w-1/2 h-[45%] lg:h-full bg-[#FFF3E1] py-8 lg:py-16"
+                    className="relative z-10 flex flex-col w-full lg:w-[75%] h-[45%] lg:h-full bg-[#fff8ed] py-8 lg:py-16"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
@@ -47,7 +47,7 @@ export default function HeroPresa() {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.7 }}
-                            className="text-xs lg:text-sm tracking-[0.3em] text-[#C8D7E6] uppercase mb-2 lg:mb-8"
+                            className="text-xs lg:text-sm tracking-[0.3em] text-[#8eadcc] uppercase mb-2 lg:mb-8"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {t("eyebrow")}
@@ -782,7 +782,7 @@ export default function HeroPresa() {
                             className="mt-6 flex flex-col items-center gap-2"
                         >
                             <p
-                                className="text-[#C8D7E6]/90 text-base lg:text-xl leading-relaxed"
+                                className="text-[#8eadcc] text-base lg:text-xl leading-relaxed"
                                 style={{ fontFamily: "var(--font-serif)" }}
                             >
                                 {t("tagline")}

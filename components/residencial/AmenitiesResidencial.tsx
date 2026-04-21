@@ -19,7 +19,7 @@ export default function AmenitiesResidencial() {
     const padelGridInnerCorners = ["rounded-br-md", "rounded-bl-md", "rounded-tr-md", "rounded-tl-md"] as const;
 
     return (
-        <section id="amenidades" className="bg-[#fff8ed] text-[#1F1D1B] py-10 lg:py-14 overflow-hidden">
+        <section id="amenidades" className="bg-[#EFE6DC] text-[#1F1D1B] py-10 lg:py-14 overflow-hidden">
             <div className="max-w-[1200px] mx-auto w-full px-6 lg:px-12">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -51,14 +51,14 @@ export default function AmenitiesResidencial() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
-                        className="col-span-1 md:col-span-2 bg-[#C28E7A] overflow-hidden relative min-h-[400px] lg:min-h-[450px] flex flex-col md:flex-row"
+                        className="col-span-1 md:col-span-2 bg-[#fff8ed] overflow-hidden relative min-h-[400px] lg:min-h-[450px] flex flex-col md:flex-row"
                     >
                         {/* Left Side: Text */}
                         <div className="w-full md:w-1/2 p-10 lg:p-16 flex flex-col justify-center relative z-10">
-                            <h3 className="text-[#FFF3E1] text-3xl lg:text-5xl font-medium mb-6 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
+                            <h3 className="text-[#1F1D1B] text-3xl lg:text-5xl font-medium mb-6 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
                                 {t("socialHeart.title")}
                             </h3>
-                            <p className="text-[#FFF3E1] text-base lg:text-lg leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}>
+                            <p className="text-[#1F1D1B]/70 text-base lg:text-lg leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}>
                                 {t("socialHeart.body")}
                             </p>
                         </div>
@@ -91,7 +91,7 @@ export default function AmenitiesResidencial() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.1 }}
-                        className="col-span-1 bg-[#EFE6DC] overflow-hidden relative min-h-[450px] p-8 lg:p-12 flex flex-col"
+                        className="col-span-1 bg-[#fff8ed] overflow-hidden relative min-h-[450px] p-8 lg:p-12 flex flex-col"
                     >
                         <div className="relative z-10 max-w-sm">
                             <h3 className="text-[#1F1D1B] text-2xl lg:text-3xl font-medium mb-3 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
@@ -131,13 +131,13 @@ export default function AmenitiesResidencial() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="col-span-1 bg-[#2A2826] overflow-hidden relative min-h-[450px] flex flex-col pt-8 lg:pt-12"
+                        className="col-span-1 bg-[#fff8ed] overflow-hidden relative min-h-[450px] flex flex-col pt-8 lg:pt-12"
                     >
                         <div className="px-8 lg:px-12 mb-8 relative z-10">
-                            <h3 className="text-[#FFF3E1] text-2xl lg:text-3xl font-medium mb-3 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
+                            <h3 className="text-[#1F1D1B] text-2xl lg:text-3xl font-medium mb-3 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
                                 {t("sports.title")}
                             </h3>
-                            <p className="text-[#FFF3E1]/70 text-sm lg:text-base leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-sans)" }}>
+                            <p className="text-[#1F1D1B]/70 text-sm lg:text-base leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-sans)" }}>
                                 {t("sports.body")}
                             </p>
                         </div>

@@ -62,7 +62,7 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-[#C8D7E6] text-[#222222] w-full relative overflow-hidden pt-8 lg:pt-10 transition-colors duration-300" id="contact">
+        <footer className="bg-[#111] text-zinc-100 w-full relative overflow-hidden pt-8 lg:pt-10 transition-colors duration-300" id="contact">
             <div className="container mx-auto px-6 lg:px-12 mb-4 relative z-10">
                 <div className="grid grid-cols-5 lg:grid-cols-12 gap-x-4 gap-y-6 lg:gap-8">
                     {/* Newsletter Section */}
@@ -81,7 +81,7 @@ export default function Footer() {
                                 <p className="text-red-700/90 text-xs font-sans">{error}</p>
                             )}
                             {submitted ? (
-                                <p className="text-[#222222] text-xs font-sans font-medium">
+                                <p className="text-zinc-100/85 text-xs font-sans font-medium">
                                     {t("thanks")}
                                 </p>
                             ) : (
@@ -89,7 +89,7 @@ export default function Footer() {
                                     <div className="flex flex-col md:flex-row gap-4 md:gap-6">
                                         <div className="w-full relative">
                                             <input
-                                                className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors disabled:opacity-60"
+                                                className="w-full bg-transparent border-0 border-b border-zinc-100/35 placeholder:text-zinc-100/50 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-zinc-100/70 transition-colors disabled:opacity-60"
                                                 id="firstName"
                                                 name="firstName"
                                                 placeholder={t("firstNamePh")}
@@ -100,7 +100,7 @@ export default function Footer() {
                                         </div>
                                         <div className="w-full relative">
                                             <input
-                                                className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors disabled:opacity-60"
+                                                className="w-full bg-transparent border-0 border-b border-zinc-100/35 placeholder:text-zinc-100/50 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-zinc-100/70 transition-colors disabled:opacity-60"
                                                 id="lastName"
                                                 name="lastName"
                                                 placeholder={t("lastNamePh")}
@@ -112,7 +112,7 @@ export default function Footer() {
                                     </div>
                                     <div className="w-full relative">
                                         <input
-                                            className="w-full bg-transparent border-0 border-b border-[#222222]/40 placeholder:text-[#222222]/60 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-[#222222] transition-colors disabled:opacity-60"
+                                            className="w-full bg-transparent border-0 border-b border-zinc-100/35 placeholder:text-zinc-100/50 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-zinc-100/70 transition-colors disabled:opacity-60"
                                             id="email"
                                             name="email"
                                             placeholder={t("emailPh")}
@@ -124,7 +124,7 @@ export default function Footer() {
                                     <div className="flex items-center gap-2 mt-2 lg:mt-4">
                                         <div className="flex items-center h-5">
                                             <input
-                                                className="focus:ring-[#222222] h-4 w-4 text-[#222222] border-[#222222] rounded-sm bg-transparent disabled:opacity-60"
+                                                className="focus:ring-zinc-100/70 h-4 w-4 text-zinc-100 border-zinc-100/70 rounded-sm bg-transparent disabled:opacity-60"
                                                 id="consent"
                                                 name="consent"
                                                 type="checkbox"
@@ -133,13 +133,13 @@ export default function Footer() {
                                             />
                                         </div>
                                         <div className="ml-0 text-xs font-sans font-light leading-tight opacity-80">
-                                            <label className="font-medium text-[#222222]" htmlFor="consent">
+                                            <label className="font-medium text-zinc-100" htmlFor="consent">
                                                 {t("consent")}
                                             </label>
                                         </div>
                                     </div>
                                     <button
-                                        className="cursor-pointer inline-block border-b border-[#222222] pb-1 text-xs font-sans tracking-widest uppercase hover:opacity-70 transition-opacity mt-2 lg:mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
+                                        className="cursor-pointer inline-block border-b border-zinc-100/70 pb-1 text-xs font-sans tracking-widest uppercase hover:opacity-70 transition-opacity mt-2 lg:mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
                                         type="submit"
                                         disabled={loading}
                                     >
@@ -161,6 +161,7 @@ export default function Footer() {
                             <li><Link className="hover:underline underline-offset-4" href="/ubicacion">{t("navLocation")}</Link></li>
                             <li><Link className="hover:underline underline-offset-4" href="/equipo">{t("navTeam")}</Link></li>
                             <li><Link className="hover:underline underline-offset-4" href="/contacto">{t("navContact")}</Link></li>
+                            <li><Link className="hover:underline underline-offset-4" href="/calculadora">{t("navCalculator")}</Link></li>
                             <li><p className="text-sm font-serif tracking-widest uppercase font-light pt-2">{t("components")}</p></li>
                             <li><Link className="hover:underline underline-offset-4" href="/residencial">{tn("sub.residencial")}</Link></li>
                             <li><Link className="hover:underline underline-offset-4" href="/farm">{tn("sub.farm")}</Link></li>
@@ -189,10 +190,11 @@ export default function Footer() {
             </div> */}
 
             {/* Bottom Links */}
-            <div className="w-full px-2 sm:px-4 lg:px-8 mt-2 mb-6 flex justify-between sm:justify-end items-end text-[10px] md:text-[11px] font-sans tracking-wider sm:tracking-widest uppercase text-white/60 z-20 mix-blend-difference gap-2 sm:gap-4 md:gap-6 whitespace-nowrap">
+            <div className="w-full px-2 sm:px-4 lg:px-8 mt-2 mb-6 flex flex-wrap justify-between sm:justify-end items-end text-[10px] md:text-[11px] font-sans tracking-wider sm:tracking-widest uppercase text-white/60 z-20 mix-blend-difference gap-x-2 gap-y-2 sm:gap-x-4 md:gap-x-6">
                 <Link className="hover:underline underline-offset-4" href="/terminos">{t("terms")}</Link>
                 <Link className="hover:underline underline-offset-4" href="/privacidad">{t("privacy")}</Link>
-                <span>{t("brandLine")}</span>
+                <Link className="hover:underline underline-offset-4" href="/guia-compra">{t("purchaseGuide")}</Link>
+                <span className="whitespace-nowrap">{t("brandLine")}</span>
             </div>
         </footer>
     );

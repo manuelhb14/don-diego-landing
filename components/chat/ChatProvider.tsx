@@ -58,6 +58,7 @@ function inferPageType(pathname: string): string {
     if (pathname.startsWith("/equipo")) return "equipo";
     if (pathname.startsWith("/terminos")) return "terminos";
     if (pathname.startsWith("/privacidad")) return "privacidad";
+    if (pathname.startsWith("/guia-compra")) return "guiaCompra";
     if (pathname.startsWith("/proximamente")) return "proximamente";
     return "general";
 }

@@ -185,7 +185,7 @@ En el fondo, **Del Huerto a la Mesa** es una invitación a comer con mapa: menos
         comments: 28,
         likes: 375,
         views: 740,
-        imageSrc: "/final/viñedo.webp",
+        imageSrc: "/final/vinedo.webp",
         locales: {
             es: {
                 title: "La cultura del Viñedo",

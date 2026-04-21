@@ -1,14 +1,14 @@
 "use client";
 
-import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
+import EditableText from "@/components/editor/EditableText";
+import EditableImage from "@/components/editor/EditableImage";
 
 export default function Manifesto() {
     const tm = useTranslations("manifesto");
     const containerRef = useRef<HTMLElement>(null);
-    const shouldReduceMotion = useReducedMotion();
     const { scrollYProgress: textScrollProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end end"],
@@ -40,7 +40,6 @@ export default function Manifesto() {
 
     // Global fade out near the end so it transitions cleanly to the next section
     const textGroupOpacity = useTransform(textScrollProgress, [0, 1], [1, 1]);
-    const scrollIndicatorOpacity = useTransform(textScrollProgress, [0, 0.06, 0.42, 0.5], [0, 0.45, 0.45, 0]);
 
     // Image Parallax transforms
     // Mapped over the entire screen visibility range ("start end" to "end start")
@@ -96,41 +95,41 @@ export default function Manifesto() {
                   Option 1: Sized down and pushed partially off-screen on mobile.
                   Desktop has small collisions (around 10-15%).
                 */}
-                <motion.div className="absolute top-[5%] md:top-[10%] left-[6%] md:left-[8%] lg:left-[10.5%] w-40 md:w-52 lg:w-60 xl:w-72 aspect-[4/5] z-0" style={{ y: y1, opacity: imgOp1 }}>
-                    <Image src="/final/tierra1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute top-[3%] sm:top-[8%] md:top-[10%] left-[1%] sm:left-[7%] md:left-[6%] lg:left-[10.5%] w-42 sm:w-52 md:w-56 lg:w-60 xl:w-72 aspect-[4/5] z-0" style={{ y: y1, opacity: imgOp1 }}>
+                    <EditableImage contentKey="home.manifesto.image.1" fallbackSrc="/final/tierra1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute top-[18%] right-[8%] md:right-[5%] lg:right-[10%] w-36 md:w-48 lg:w-56 xl:w-64 aspect-square z-0" style={{ y: y4, opacity: imgOp4 }}>
-                    <Image src="/final/mismo2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute top-[14%] sm:top-[17%] right-[-14%] sm:right-[7%] md:right-[7%] lg:right-[10%] w-48 sm:w-48 md:w-52 lg:w-56 xl:w-64 aspect-square z-0" style={{ y: y4, opacity: imgOp4 }}>
+                    <EditableImage contentKey="home.manifesto.image.2" fallbackSrc="/final/mismo2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute top-[40%] -right-[18%] md:right-[2%] lg:right-[8%] w-40 md:w-64 lg:w-72 xl:w-80 aspect-[3/4] z-0" style={{ y: y2, opacity: imgOp2 }}>
-                    <Image src="/final/comunidad1.webp" alt="Gallery" fill className="object-cover rounded-sm shadow-2xl" />
+                <motion.div className="absolute top-[52%] sm:top-[37%] -right-[20%] sm:-right-[6%] md:-right-[2%] lg:right-[8%] w-44 sm:w-52 md:w-64 lg:w-72 xl:w-80 aspect-[3/4] z-0" style={{ y: y2, opacity: imgOp2 }}>
+                    <EditableImage contentKey="home.manifesto.image.3" fallbackSrc="/final/comunidad1.webp" alt="Gallery" fill className="object-cover rounded-sm shadow-2xl" />
                 </motion.div>
 
-                <motion.div className="absolute top-[60%] left-[-9%] md:left-[1%] lg:left-[8%] w-44 md:w-72 lg:w-80 xl:w-96 aspect-[4/3] z-0" style={{ y: y5, opacity: imgOp5 }}>
-                    <Image src="/final/comunidad2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute top-[60%] sm:top-[59%] left-[-28%] sm:left-[-3%] md:left-[1%] lg:left-[8%] w-52 sm:w-60 md:w-72 lg:w-80 xl:w-96 aspect-[4/3] z-0" style={{ y: y5, opacity: imgOp5 }}>
+                    <EditableImage contentKey="home.manifesto.image.4" fallbackSrc="/final/comunidad2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute bottom-[2%] md:bottom-[-10%] -left-[0%] md:left-[15%] lg:left-[20%] w-56 md:w-64 lg:w-80 xl:w-96 aspect-video z-0 origin-bottom-left" style={{ y: y3, opacity: imgOp3 }}>
-                    <Image src="/final/mismo1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute bottom-[2%] sm:bottom-[0%] md:bottom-[-3%] -left-[20%] sm:left-[4%] md:left-[15%] lg:left-[20%] w-56 sm:w-60 md:w-72 lg:w-80 xl:w-96 aspect-video z-0 origin-bottom-left" style={{ y: y3, opacity: imgOp3 }}>
+                    <EditableImage contentKey="home.manifesto.image.5" fallbackSrc="/final/tierra2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute bottom-[10%] md:bottom-[5%] right-[0%] md:right-[6%] lg:right-[2%] w-52 md:w-56 lg:w-64 xl:w-80 aspect-[4/3] z-0  origin-bottom-right" style={{ y: y6, opacity: imgOp6 }}>
-                    <Image src="/final/tierra2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
+                <motion.div className="absolute bottom-[10%] sm:bottom-[8%] md:bottom-[5%] right-[0%] sm:right-[2%] md:right-[6%] lg:right-[2%] w-52 sm:w-56 md:w-64 lg:w-64 xl:w-80 aspect-[4/3] z-0  origin-bottom-right" style={{ y: y6, opacity: imgOp6 }}>
+                    <EditableImage contentKey="home.manifesto.image.6" fallbackSrc="/final/mismo1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
 
                 {/* Foreground Centered Text (always above images) */}
                 <motion.div
-                    className="relative z-10 flex flex-col items-center justify-center text-center pb-20 md:pb-0 px-6 mix-blend-difference"
+                    className="relative z-10 flex flex-col items-center justify-center text-center pb-20 sm:pb-16 md:pb-0 px-6 mix-blend-difference"
                     style={{ opacity: textGroupOpacity }}
                 >
                     <p
                         className="text-[10px] tracking-[0.3em] text-[#AA7D69] uppercase mb-8"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
-                        {tm("kicker")}
+                        <EditableText contentKey="home.manifesto.kicker" fallback={tm("kicker")} />
                     </p>
 
                     <h2
@@ -140,8 +139,8 @@ export default function Manifesto() {
                             fontSize: "clamp(3.5rem, 8vw, 8rem)",
                         }}
                     >
-                        {tm("titleRooted")} <br />
-                        <span className="italic text-[#6e5947]">{tm("titlePlace")}</span>
+                        <EditableText contentKey="home.manifesto.titleRooted" fallback={tm("titleRooted")} /> <br />
+                        <span className="italic text-[#6e5947]"><EditableText contentKey="home.manifesto.titlePlace" fallback={tm("titlePlace")} /></span>
                     </h2>
 
                     <div
@@ -152,13 +151,13 @@ export default function Manifesto() {
                         }}
                     >
                         <motion.p className="text-[#6F7F52] italic self-start ml-4 md:ml-12" style={{ opacity: tierraOpacity }}>
-                            {tm("lineEarth")}
+                            <EditableText contentKey="home.manifesto.lineEarth" fallback={tm("lineEarth")} />
                         </motion.p>
                         <motion.p className="text-[#6F7F52] italic self-center" style={{ opacity: comunidadOpacity }}>
-                            {tm("lineCommunity")}
+                            <EditableText contentKey="home.manifesto.lineCommunity" fallback={tm("lineCommunity")} />
                         </motion.p>
-                        <motion.p className="text-[#6F7F52] italic self-end mr-4 md:mr-12" style={{ opacity: mismoOpacity }}>
-                            {tm("lineSelf")}
+                        <motion.p className="text-[#6F7F52] italic self-end mr-11 md:mr-12" style={{ opacity: mismoOpacity }}>
+                            <EditableText contentKey="home.manifesto.lineSelf" fallback={tm("lineSelf")} />
                         </motion.p>
                     </div>
                 </motion.div>

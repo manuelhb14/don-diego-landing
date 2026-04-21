@@ -15,6 +15,7 @@ import Faq from "@/components/Faq";
 import Footer from "@/components/Footer";
 import Stats from "@/components/Stats";
 import ThingsToDo from "@/components/ThingsToDo";
+import AppFeaturesShowcase from "@/components/AppFeaturesShowcase";
 import Blogs from "@/components/Blogs";
 type Props = {
     params: Promise<{ locale: string }>;
@@ -35,6 +36,7 @@ export default async function Page({ params }: Props) {
                 <Services />
                 <ProjectsEditorial />
                 <ThingsToDo />
+                <AppFeaturesShowcase />
                 <Location />
                 <Blogs />
                 <Gallery />

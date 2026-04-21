@@ -7,7 +7,7 @@ export default function SustentabilidadFarm() {
     const t = useTranslations("pages.farm.sustentabilidad");
 
     return (
-        <section id="sustentabilidad" className="relative w-full py-2 lg:py-12 overflow-hidden bg-[#EFE6DC] text-[#1a1917]">
+        <section id="sustentabilidad" className="relative w-full py-2 lg:py-12 overflow-hidden bg-[#fff8ed] text-[#1a1917]">
 
             <div className="max-w-[1400px] mx-auto w-full px-6 lg:px-16 flex flex-col lg:flex-row relative">
 

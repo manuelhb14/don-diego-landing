@@ -83,7 +83,7 @@ export default function HighlightsWellness() {
     };
 
     return (
-        <section ref={containerRef} className="relative bg-[#EFE6DC] pt-16 lg:pt-18 overflow-hidden pb-12 lg:pb-16">
+        <section ref={containerRef} className="relative bg-[#fff8ed] pt-16 lg:pt-18 overflow-hidden pb-12 lg:pb-16">
             <style>{`
                 .hide-scrollbar::-webkit-scrollbar {
                     display: none;

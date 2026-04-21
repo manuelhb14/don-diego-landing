@@ -120,80 +120,74 @@ export default function FormContacto() {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="w-full h-full min-h-[500px] flex items-center"
                 >
-                    <div className="w-full bg-[#1A1A1A] px-6 py-6 md:p-12 lg:p-16 rounded-2xl shadow-xl border border-[#AA7D69]/20 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#E1B19B]/5 blur-[100px] rounded-full group-hover:bg-[#E1B19B]/10 transition-colors duration-1000 -translate-y-1/2 translate-x-1/3"></div>
+                    <div className="w-full bg-[#FFF9F2]/95 p-8 rounded-2xl shadow-xl border border-[#AA7D69]/28 relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#E1B19B]/10 blur-[100px] rounded-full group-hover:bg-[#E1B19B]/20 transition-colors duration-1000 -translate-y-1/2 translate-x-1/3"></div>
 
                         {submitted ? (
                             <div className="text-center py-24 relative z-10 flex flex-col items-center justify-center h-full">
                                 <div className="h-px w-16 bg-[#AA7D69]/50 mx-auto mb-4 lg:mb-8" />
-                                <p
-                                    className="text-[#E6E1D6] text-3xl mb-4"
-                                    style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}
-                                >
+                                <p className="text-[#1C1713] text-3xl mb-4" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
                                     {t("thanksTitle")}
                                 </p>
-                                <p
-                                    className="text-[#E6E1D6]/60 text-base max-w-xs mx-auto"
-                                    style={{ fontFamily: "var(--font-sans)" }}
-                                >
+                                <p className="text-[#1C1713]/70 text-base max-w-xs mx-auto" style={{ fontFamily: "var(--font-sans)" }}>
                                     {t("thanksBody")}
                                 </p>
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                                <h3 className="text-[#E6E1D6] font-serif text-2xl mb-6 lg:mb-8">{t("formTitle")}</h3>
+                                <h3 className="text-[#1C1713] font-serif text-2xl mb-6 lg:mb-8">{t("formTitle")}</h3>
 
                                 {error && (
-                                    <p className="text-red-400/90 text-sm" style={{ fontFamily: "var(--font-sans)" }}>
+                                    <p className="text-red-700/95 text-sm" style={{ fontFamily: "var(--font-sans)" }}>
                                         {error}
                                     </p>
                                 )}
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="flex flex-col gap-0 lg:gap-2">
-                                        <label className="text-[#E6E1D6]/60 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>{t("fullNameLabel")}</label>
+                                        <label className="text-[#1C1713]/58 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>{t("fullNameLabel")}</label>
                                         <input
                                             name="name"
                                             type="text"
                                             required
                                             disabled={loading}
-                                            className="w-full bg-transparent border-b border-[#E6E1D6]/20 py-3 text-[#E6E1D6] placeholder-[#E6E1D6]/30 text-base outline-none focus:border-[#AA7D69] transition-colors disabled:opacity-60"
+                                            className="w-full bg-transparent border-b border-[#AA7D69]/30 py-3 text-[#1C1713] placeholder-[#1C1713]/35 text-base outline-none focus:border-[#AA7D69] transition-colors disabled:opacity-60"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                             placeholder={t("namePlaceholder")}
                                         />
                                     </div>
                                     <div className="flex flex-col gap-0 lg:gap-2">
-                                        <label className="text-[#E6E1D6]/60 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>{t("phoneFieldLabel")}</label>
+                                        <label className="text-[#1C1713]/58 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>{t("phoneFieldLabel")}</label>
                                         <input
                                             name="phone"
                                             type="tel"
                                             disabled={loading}
-                                            className="w-full bg-transparent border-b border-[#E6E1D6]/20 py-3 text-[#E6E1D6] placeholder-[#E6E1D6]/30 text-base outline-none focus:border-[#AA7D69] transition-colors disabled:opacity-60"
+                                            className="w-full bg-transparent border-b border-[#AA7D69]/30 py-3 text-[#1C1713] placeholder-[#1C1713]/35 text-base outline-none focus:border-[#AA7D69] transition-colors disabled:opacity-60"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                             placeholder={t("phonePlaceholder")}
                                         />
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-0 lg:gap-2">
-                                    <label className="text-[#E6E1D6]/60 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>{t("emailFieldLabel")}</label>
+                                    <label className="text-[#1C1713]/58 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>{t("emailFieldLabel")}</label>
                                     <input
                                         name="email"
                                         type="email"
                                         required
                                         disabled={loading}
-                                        className="w-full bg-transparent border-b border-[#E6E1D6]/20 py-3 text-[#E6E1D6] placeholder-[#E6E1D6]/30 text-base outline-none focus:border-[#AA7D69] transition-colors disabled:opacity-60"
+                                        className="w-full bg-transparent border-b border-[#AA7D69]/30 py-3 text-[#1C1713] placeholder-[#1C1713]/35 text-base outline-none focus:border-[#AA7D69] transition-colors disabled:opacity-60"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                         placeholder={t("emailPlaceholder")}
                                     />
                                 </div>
                                 <div className="flex flex-col gap-0 lg:gap-2">
-                                    <label className="text-[#E6E1D6]/60 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>{t("messageLabel")}</label>
+                                    <label className="text-[#1C1713]/58 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>{t("messageLabel")}</label>
                                     <textarea
                                         name="message"
                                         rows={4}
                                         required
                                         disabled={loading}
-                                        className="w-full bg-transparent border-b border-[#E6E1D6]/20 py-3 text-[#E6E1D6] placeholder-[#E6E1D6]/30 text-base outline-none focus:border-[#AA7D69] transition-colors resize-none disabled:opacity-60"
+                                        className="w-full bg-transparent border-b border-[#AA7D69]/30 py-3 text-[#1C1713] placeholder-[#1C1713]/35 text-base outline-none focus:border-[#AA7D69] transition-colors resize-none disabled:opacity-60"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                         placeholder={t("messagePlaceholder")}
                                     />
@@ -203,7 +197,7 @@ export default function FormContacto() {
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="cursor-pointer w-full md:flex-1 bg-[#AA7D69] hover:brightness-110 transition-brightness duration-300 disabled:opacity-60 disabled:cursor-not-allowed text-[#FFF3E1] px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 rounded-sm whitespace-nowrap"
+                                        className="cursor-pointer w-full md:flex-1 bg-[#AA7D69] hover:brightness-110 transition-brightness duration-300 disabled:opacity-60 disabled:cursor-not-allowed text-[#FFF9F2] px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 rounded-sm whitespace-nowrap"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
                                         {loading ? t("sending") : t("submit")}
@@ -213,7 +207,7 @@ export default function FormContacto() {
                                         href={SITE_CONTACT.whatsappUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex w-full md:flex-1 items-center justify-center gap-3 border border-[#25D366]/30 hover:border-[#25D366]/60 bg-[#25D366]/5 hover:bg-[#25D366]/10 px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#25D366]/90 transition-all duration-300 rounded-sm whitespace-nowrap"
+                                        className="flex w-full md:flex-1 items-center justify-center gap-3 border border-[#2f8f4f] bg-[#1faa52]/85 px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#ffffff] transition-colors duration-300 hover:border-[#1f7f40] hover:bg-[#1f9a47] rounded-sm whitespace-nowrap"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
                                         <svg className="h-4 w-4 shrink-0 transition-colors" fill="currentColor" viewBox="0 0 24 24">

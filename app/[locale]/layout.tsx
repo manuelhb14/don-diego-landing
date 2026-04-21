@@ -5,6 +5,8 @@ import { routing } from "@/i18n/routing";
 import { ChatProvider } from "@/components/chat/ChatProvider";
 import ChatLayoutShell from "@/components/chat/ChatLayoutShell";
 import Script from "next/script";
+import ViewportIndicator from "@/components/dev/ViewportIndicator";
+import { VisualEditorProvider } from "@/components/editor/VisualEditorProvider";
 
 type Props = {
   children: React.ReactNode;
@@ -33,10 +35,13 @@ export default async function LocaleLayout({ children, params }: Props) {
       </head>
       <body>
         <style dangerouslySetInnerHTML={{ __html: 'html { scroll-behavior: auto !important; }' }} />
+        {process.env.NODE_ENV === "development" && <ViewportIndicator />}
         <NextIntlClientProvider messages={messages}>
-          <ChatProvider>
-            <ChatLayoutShell>{children}</ChatLayoutShell>
-          </ChatProvider>
+          <VisualEditorProvider>
+            <ChatProvider>
+              <ChatLayoutShell>{children}</ChatLayoutShell>
+            </ChatProvider>
+          </VisualEditorProvider>
         </NextIntlClientProvider>
       </body>
     </html>

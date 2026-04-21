@@ -34,7 +34,7 @@ export default function TrabajoFloresFarm() {
         <section
             id="flores"
             aria-labelledby="trabajo-flores-heading"
-            className="border-t border-[#1F1D1B]/[0.06] bg-[#EFE6DC] text-[#1a1917] py-14 lg:py-20"
+            className="border-t border-[#1F1D1B]/[0.06] bg-[#fff8ed] text-[#1a1917] py-14 lg:py-20"
         >
             <div className="mx-auto w-full max-w-[1200px] px-6 lg:px-12">
                 <div className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12 lg:items-center">

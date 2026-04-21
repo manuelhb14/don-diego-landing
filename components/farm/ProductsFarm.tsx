@@ -30,7 +30,7 @@ export default function ProductsFarm() {
     ];
 
     return (
-        <section className="relative bg-[#FFF8ED] py-14 pb-20 lg:py-20 lg:pb-28">
+        <section className="relative bg-[#EFE6DC] py-14 pb-20 lg:py-20 lg:pb-28">
             <div className="mx-auto w-full max-w-[1200px] px-6 lg:px-12">
                 <div className="mb-8 lg:mb-10">
                     <p

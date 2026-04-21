@@ -8,6 +8,7 @@
     "equipo": "Team",
     "blog": "Blog",
     "contacto": "Contact",
+    "guiaCompra": "Purchase guide",
     "conocenos": "About",
     "sub": {
       "residencial": "Club Residencial",
@@ -141,7 +142,7 @@
     "phName": "Your name",
     "phPhone": "Your number",
     "phEmail": "you@email.com",
-    "submitVisit": "Request a private visit",
+    "submitVisit": "Request information",
     "sending": "Sending…",
     "whatsappChat": "Chat on WhatsApp",
     "errSend": "Something went wrong. Please try again.",
@@ -171,9 +172,11 @@
     "navLocation": "Location",
     "navTeam": "Team",
     "navContact": "Contact",
+    "navCalculator": "Calculator",
     "components": "Components",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
+    "purchaseGuide": "Purchase guide",
     "brandLine": "® Don Diego 2026",
     "newsletterInternal": "Newsletter signup from footer",
     "errRequired": "Name, email, and message are required."
@@ -255,6 +258,8 @@
     "title2": "inside Don Diego",
     "body": "The club offers a wide range of activities-from gyms to restaurants and spa. Most amenities are exclusive to residents and their guests.",
     "cta": "EXPLORE EXPERIENCES",
+    "carouselPrevAria": "Previous items",
+    "carouselNextAria": "Next items",
     "nextAria": "Next",
     "items": {
       "clubhouse": "Clubhouse",
@@ -265,6 +270,58 @@
       "padel": "Padel"
     }
   },
+  "appFeatures": {
+    "kicker": "[Resident app]",
+    "title": "Life at your fingertips",
+    "subtitle": "Reserve courts, welcome guests, order from the farm, and manage stays in one refined experience.",
+    "cards": {
+      "paddle": {
+        "title": "Activity bookings",
+        "description": "Tell the app what you want to do. It finds the slot and confirms it in seconds.",
+        "q1": "reserve yoga at 07:30",
+        "q2": "reserve tennis at 09:00",
+        "q3": "reserve padel at 11:00",
+        "q4": "reserve lap swimming at 12:00",
+        "act1": "Yoga",
+        "act2": "Tennis",
+        "act3": "Padel",
+        "act4": "Swimming",
+        "confirm": "Confirmed",
+        "placeholder": "What would you like to book?"
+      },
+      "guest": {
+        "title": "Secure guest access",
+        "description": "Time-limited passes and QR verification protect your privacy at every gate.",
+        "guestName": "María G.",
+        "role": "Guest",
+        "expires": "Until 9:00 PM",
+        "verified": "Verified"
+      },
+      "farm": {
+        "title": "Farm orders",
+        "description": "Harvest baskets and seasonal produce, curated and scheduled for pickup or delivery.",
+        "item1": "Heirloom tomatoes",
+        "item2": "Basil & herbs",
+        "item3": "Seasonal bouquet",
+        "statusOrdering": "Organizing",
+        "statusPreparing": "Preparing",
+        "statusReady": "Your order is ready"
+      },
+      "rentals": {
+        "title": "Rent your property",
+        "description": "List your home on a calendar and rent it when you're not using it.",
+        "stay1": "Casita Jardín",
+        "date1": "Apr 12–19",
+        "stay2": "Terraza Valle",
+        "date2": "Jun 3–10",
+        "stay3": "Atelier Norte",
+        "date3": "Jul 1–5",
+        "badge": "Next",
+        "calendarEyebrow": "Your property",
+        "calendarSelected": "Available to rent"
+      }
+    }
+  },
   "locationSection": {
     "kicker": "[The Place]",
     "title1": "Close to everything",
@@ -273,15 +330,15 @@
     "centroLabel": "Historic Center",
     "centroSub": "Colonial charm",
     "proximityTitle": "Proximity",
-    "p1Time": "10 Min",
-    "p1Name": "Fábrica La Aurora",
-    "p1Desc": "Art and design center.",
-    "p2Time": "8 Min",
-    "p2Name": "Historic Center",
-    "p2Desc": "The heart of the city-dining and culture.",
-    "p3Time": "5 Min",
-    "p3Name": "Organic markets",
-    "p3Desc": "Local produce and community.",
+    "p1Time": "8 Min",
+    "p1Name": "Historic Center",
+    "p1Desc": "The heart of the city-dining and culture.",
+    "p2Time": "10 Min",
+    "p2Name": "Fábrica La Aurora",
+    "p2Desc": "Art and design center.",
+    "p3Time": "20 Min",
+    "p3Name": "Surrounding vineyards",
+    "p3Desc": "Sunset tastings and wine-country experiences.",
     "seeMore": "See more",
     "pinFarm": "Organic Farm & Flowers",
     "pinResidencial": "Club Residencial",
@@ -325,7 +382,7 @@
   "galleryCarousel": {
     "kicker": "(Gallery)",
     "title": "The Place You Want",
-    "hint": "Hover to pause · Click to enlarge",
+    "hint": "Click to enlarge",
     "ariaClose": "Close",
     "ariaPrev": "Previous",
     "ariaNext": "Next",
@@ -413,6 +470,14 @@
     "privacy": {
       "title": "Privacy Policy | Don Diego",
       "description": "How Don Diego collects, uses, and protects your personal information."
+    },
+    "purchaseGuide": {
+      "title": "Purchase Guide for Foreign Buyers | Don Diego",
+      "description": "A step-by-step overview of buying residential real estate in Mexico, with high-level notes for buyers from the United States, Canada, and Europe."
+    },
+    "calculadora": {
+      "title": "Financing calculator | Don Diego",
+      "description": "Estimate down payment and monthly payment with illustrative rates for Mexico and the United States."
     }
   },
   "pages": {
@@ -422,6 +487,27 @@
       "bodyLine1": "Hmm - you have wandered into uncharted territory.",
       "bodyLine2": "Let us guide you back to something extraordinary.",
       "backHome": "View Projects"
+    },
+    "purchaseGuide": {
+      "kicker": "[Purchase guide]",
+      "title": "Purchase guide for international buyers",
+      "intro": "San Miguel de Allende is a magnet for residents of the United States, Canada, and Europe. This guide explains the usual sequence of a residential purchase in Mexico, how foreign ownership is often structured outside coastal and border restricted bands, and what questions to raise with your notary, counsel, and home-country tax advisers.",
+      "disclaimerTitle": "Important notice",
+      "disclaimerLead": "Educational summary only—not legal, tax, or investment advice.",
+      "onThisPage": "On this page",
+      "navDisclaimer": "Notice",
+      "navSteps": "Steps",
+      "navMexico": "Mexico context",
+      "navHomeCountry": "Your region",
+      "navChecklist": "Checklist",
+      "tabUnitedStates": "United States",
+      "tabCanada": "Canada",
+      "tabEurope": "Europe",
+      "checklistProgress": "{prepared} of {total} items marked",
+      "resetChecklist": "Clear progress",
+      "disclaimerDetailsLabel": "Full notice text",
+      "readingProgress": "Reading progress",
+      "stepHint": "Tap a step to expand or collapse the details."
     },
     "proyecto": {
       "hero": {
@@ -507,6 +593,26 @@
         "errorRequired": "Name, email, and message are required."
       }
     },
+    "calculadora": {
+      "hero": {
+        "kicker": "[Financing]",
+        "titleLine1": "Down payment and installment,",
+        "titleLine2": "on your terms.",
+        "body": "Compare scenarios with typical rates and terms in Mexico and the United States. Adjust property value, down payment, and rate to see an estimated monthly payment."
+      },
+      "marketLabel": "Reference market",
+      "marketMx": "Mexico",
+      "marketUs": "United States",
+      "propertyPriceLabel": "Property value",
+      "downPaymentPercentLabel": "Down payment (%)",
+      "annualRateLabel": "Fixed annual rate (%)",
+      "termYearsLabel": "Term (years)",
+      "resultsTitle": "Estimate",
+      "downPaymentAmount": "Down payment",
+      "loanPrincipal": "Loan amount",
+      "monthlyPayment": "Monthly payment",
+      "disclaimer": "Illustrative figures using fixed-rate amortization with monthly payments. This is not a loan offer or bank quote; fees, insurance, APR, and actual terms may differ. Consult your financial advisor or lender."
+    },
     "ubicacion": {
       "hero": {
         "kicker": "[The Surroundings]",
@@ -573,6 +679,7 @@
       },
       "features": {
         "kicker": "[TYPOLOGY]",
+        "propertyNavAria": "Residence types",
         "titleLine1": "Discover the",
         "titleAccent": "spaces",
         "titleLine2": "we offer.",
@@ -1028,25 +1135,25 @@
       },
       "details": {
         "members": {
-          "grupoCimienta": {
+          "cimenta": {
             "name": "Grupo Cimienta",
-            "role": "Development and General Direction",
-            "description": "With over 30 years of experience, Grupo Cimienta leads the full real estate development cycle. Their approach ensures returns and deep respect for context, from master plan conception to execution and strategic management."
+            "role": "Dirección General y Desarrollo",
+            "description": "+30 años de experiencia en ciclo completo inmobiliario. Especialistas en desarrollo urbano y vivienda bajo una filosofía de máxima eficiencia sin comprometer calidad."
           },
-          "barraganArquitectos": {
-            "name": "Barragan Arquitectos",
-            "role": "Architectural Design",
-            "description": "Led by Arq. Luis Barragan Rivera, the studio blends contemporary aesthetics rooted in the identity of San Miguel de Allende. Each space interprets subtle luxury woven with historical and natural landscape."
+          "barragan": {
+            "name": "Barragán Arquitectos",
+            "role": "Diseño Arquitectónico",
+            "description": "Despacho responsable del diseño integral del desarrollo. Su visión traduce la identidad del entorno sanmiguelense en espacios que equilibran estética contemporánea, materialidad y arraigo con el paisaje natural."
           },
-          "espaciosVerdesArredarq": {
+          "arredarq": {
             "name": "Espacios Verdes / Arredarq",
-            "role": "Landscape and Sustainability",
-            "description": "Led by Arq. Eliseo Arredondo, founder of the Mexican Society of Landscape Architects, this team places nature at the center. They respect endemic ecosystems by integrating native flora and life into the residential experience."
+            "role": "Paisajismo y Sustentabilidad",
+            "description": "Despacho fundador de la Sociedad de Arquitectos Paisajistas de México, con formación en Versalles, Francia. Lidera la integración del entorno natural bajo principios de diseño sustentable y arquitectura de paisaje."
           },
-          "artemisaBranding": {
-            "name": "Artemisa Branding",
-            "role": "Identity and Brand Strategy",
-            "description": "Artemisa Branding is a creative studio specialized in visual identities and brand strategies for high-end real estate projects. Their approach builds brands that reflect project essence and connect with the right audience."
+          "artemisa": {
+            "name": "Mesa Directiva Comercial",
+            "role": "Dirección Comercial y Estrategia",
+            "description": "Equipo con trayectoria en mercadotecnia, comercial y innovación a nivel corporativo. Expertise en gobierno corporativo, alianzas estratégicas y mercadotecnia de valor en macro-proyectos inmobiliarios."
           }
         }
       }

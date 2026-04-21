@@ -57,6 +57,7 @@ function buildNavLinks(t: (key: string) => string): NavTopItem[] {
             links: [
                 { key: "equipo", label: t("equipo"), href: "/equipo" },
                 { key: "blog", label: t("blog"), href: "/blog" },
+                { key: "guiaCompra", label: t("guiaCompra"), href: "/guia-compra" },
                 { key: "contacto", label: t("contacto"), href: "/contacto" },
             ],
         },
@@ -530,12 +531,12 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: i * 0.08, duration: 0.5 }}
-                                            className="flex flex-col items-center w-full"
+                                            className="flex w-full flex-col items-start px-6"
                                         >
                                             <Link
                                                 href={href}
                                                 onClick={() => setMobileOpen(false)}
-                                                className={`text-2xl transition-colors tracking-[0.15em] uppercase block ${isActive ? "text-[#E1B19B]" : "text-black/70 hover:text-black"}`}
+                                                className={`block w-full text-left text-[25px] leading-tight tracking-[0.15em] uppercase transition-colors ${isActive ? "text-[#E1B19B]" : "text-black/70 hover:text-black"}`}
                                                 style={{ fontFamily: "var(--font-serif)" }}
                                             >
                                                 {label}

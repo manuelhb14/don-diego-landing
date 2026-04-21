@@ -52,12 +52,12 @@ function FaqItem({ question, answer, isOpen, toggle }: { question: string, answe
 }
 
 export default function Faq() {
-    const [openIndex, setOpenIndex] = useState<number | null>(0);
+    const [openIndices, setOpenIndices] = useState<Set<number>>(() => new Set([0]));
     const t = useTranslations("faq");
     const faqs = useMemo(() => t.raw("items") as FaqEntry[], [t]);
 
     return (
-        <section id="faq" className="bg-[#111] py-16 lg:py-36 overflow-hidden">
+        <section id="faq" className="bg-[#2A2826] py-16 lg:py-36 overflow-hidden">
             <div className="max-w-[1400px] mx-auto px-6 lg:px-14">
                 <div className="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-24">
                     {/* Header */}
@@ -83,7 +83,7 @@ export default function Faq() {
                             {t("title")}
                         </h2>
                         <p
-                            className="text-white/40 text-base leading-relaxed max-w-sm"
+                            className="text-white text-base leading-relaxed max-w-sm"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
                             {t("intro")}
@@ -103,8 +103,15 @@ export default function Faq() {
                                 key={idx}
                                 question={faq.question}
                                 answer={faq.answer}
-                                isOpen={openIndex === idx}
-                                toggle={() => setOpenIndex(openIndex === idx ? null : idx)}
+                                isOpen={openIndices.has(idx)}
+                                toggle={() =>
+                                    setOpenIndices((prev) => {
+                                        const next = new Set(prev);
+                                        if (next.has(idx)) next.delete(idx);
+                                        else next.add(idx);
+                                        return next;
+                                    })
+                                }
                             />
                         ))}
                     </motion.div>

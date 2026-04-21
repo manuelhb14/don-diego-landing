@@ -2,10 +2,10 @@
 
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useHasVisited } from "@/hooks/useHasVisited";
-import { useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 type ExclusivityItem = {
@@ -68,6 +68,77 @@ export default function ThingsToDo() {
     });
 
     const imageParallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "-11%"]);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(false);
+    const [scrollProgress, setScrollProgress] = useState(0);
+
+    const updateScrollState = useCallback(() => {
+        const el = scrollerRef.current;
+        if (!el) return;
+
+        const edgeTolerance = 8;
+        const firstItem = el.firstElementChild as HTMLElement | null;
+        const startOffset = firstItem ? firstItem.offsetLeft : 0;
+
+        const rawMaxScroll = Math.max(el.scrollWidth - el.clientWidth, 0);
+        const maxScroll = Math.max(rawMaxScroll - startOffset, 0);
+        const normalizedScrollLeft = Math.max(el.scrollLeft - startOffset, 0);
+        const safeScrollLeft = Math.min(normalizedScrollLeft, maxScroll);
+
+        const hasOverflow = maxScroll > edgeTolerance;
+        const isAtStart = safeScrollLeft <= edgeTolerance;
+        const isAtEnd = safeScrollLeft >= maxScroll - edgeTolerance;
+        let progress = 0;
+
+        if (maxScroll > edgeTolerance * 2) {
+            if (safeScrollLeft <= edgeTolerance) {
+                progress = 0;
+            } else if (safeScrollLeft >= maxScroll - edgeTolerance) {
+                progress = 1;
+            } else {
+                progress = (safeScrollLeft - edgeTolerance) / (maxScroll - edgeTolerance * 2);
+            }
+        } else if (maxScroll > 0) {
+            progress = safeScrollLeft / maxScroll;
+        }
+
+        setCanScrollLeft(hasOverflow && !isAtStart);
+        setCanScrollRight(hasOverflow && !isAtEnd);
+        setScrollProgress(progress);
+    }, []);
+
+    useEffect(() => {
+        const el = scrollerRef.current;
+        if (!el) return;
+
+        const frame = window.requestAnimationFrame(updateScrollState);
+        el.addEventListener("scroll", updateScrollState, { passive: true });
+        window.addEventListener("resize", updateScrollState);
+
+        const resizeObserver = new ResizeObserver(updateScrollState);
+        resizeObserver.observe(el);
+
+        return () => {
+            window.cancelAnimationFrame(frame);
+            el.removeEventListener("scroll", updateScrollState);
+            window.removeEventListener("resize", updateScrollState);
+            resizeObserver.disconnect();
+        };
+    }, [updateScrollState]);
+
+    const scrollCarousel = useCallback(
+        (direction: "left" | "right") => {
+            const el = scrollerRef.current;
+            if (!el) return;
+
+            const amount = el.clientWidth * 0.72;
+            el.scrollBy({
+                left: direction === "left" ? -amount : amount,
+                behavior: reduceMotion ? "auto" : "smooth",
+            });
+        },
+        [reduceMotion],
+    );
 
     return (
         <section ref={sectionRef} className="overflow-visible bg-[#F6F0E8]">
@@ -104,7 +175,62 @@ export default function ThingsToDo() {
                     </h2>
                 </motion.div>
 
-                <div className="relative mt-8">
+                <div className="relative mt-8 group/carousel">
+                    <div className="absolute -top-5 -right-4 md:-right-6 lg:-right-8 z-[3] h-[3px] w-28 overflow-hidden">
+                        <div className="h-full w-full bg-[#222222]/15" />
+                        <div
+                            className="absolute left-0 top-0 h-full bg-[#222222]/60 transition-[width] duration-200"
+                            style={{ width: `${Math.round(scrollProgress * 100)}%` }}
+                        />
+                    </div>
+
+                    <div
+                        aria-hidden="true"
+                        className={[
+                            "pointer-events-none absolute inset-y-0 left-[-1.5rem] md:left-[-2.5rem] lg:left-[-4rem] z-[2] w-8 bg-gradient-to-r from-[#F6F0E8] to-transparent transition-opacity duration-300",
+                            canScrollLeft ? "opacity-100" : "opacity-0",
+                        ].join(" ")}
+                    />
+                    <div
+                        aria-hidden="true"
+                        className={[
+                            "pointer-events-none absolute inset-y-0 right-[-1.5rem] md:right-[-2.5rem] lg:right-[-4rem] z-[2] w-8 bg-gradient-to-l from-[#F6F0E8] to-transparent transition-opacity duration-300",
+                            canScrollRight ? "opacity-100" : "opacity-0",
+                        ].join(" ")}
+                    />
+
+                    <button
+                        type="button"
+                        aria-label={tt("carouselPrevAria")}
+                        aria-hidden={!canScrollLeft}
+                        onClick={() => scrollCarousel("left")}
+                        disabled={!canScrollLeft}
+                        className={[
+                            "absolute left-0 md:-left-2 lg:-left-4 top-[calc(50%_-_0.75rem)] z-[3] grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-[#222222]/15 bg-[#F6F0E8]/85 text-[#222222]/70 shadow-sm backdrop-blur transition-all duration-200",
+                            canScrollLeft
+                                ? "opacity-100 hover:text-[#222222] lg:opacity-0 lg:group-hover/carousel:opacity-100 lg:focus-visible:opacity-100"
+                                : "pointer-events-none opacity-0 invisible",
+                        ].join(" ")}
+                    >
+                        <ArrowLeftIcon className="h-4 w-4" />
+                    </button>
+
+                    <button
+                        type="button"
+                        aria-label={tt("carouselNextAria")}
+                        aria-hidden={!canScrollRight}
+                        onClick={() => scrollCarousel("right")}
+                        disabled={!canScrollRight}
+                        className={[
+                            "absolute right-0 md:-right-2 lg:-right-4 top-[calc(50%_-_0.75rem)] z-[3] grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-[#222222]/15 bg-[#F6F0E8]/85 text-[#222222]/70 shadow-sm backdrop-blur transition-all duration-200",
+                            canScrollRight
+                                ? "opacity-100 hover:text-[#222222] lg:opacity-0 lg:group-hover/carousel:opacity-100 lg:focus-visible:opacity-100"
+                                : "pointer-events-none opacity-0 invisible",
+                        ].join(" ")}
+                    >
+                        <ArrowRightIcon className="h-4 w-4" />
+                    </button>
+
                     <motion.div
                         initial={hasVisited ? false : { opacity: 0 }}
                         whileInView={{ opacity: 1 }}

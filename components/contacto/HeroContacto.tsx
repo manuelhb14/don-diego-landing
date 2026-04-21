@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 export default function HeroContacto() {
     const t = useTranslations("pages.contacto.hero");
     return (
-        <section className="relative flex h-[40vh] md:h-[60vh] min-h-[400px] w-full items-center justify-center overflow-hidden bg-[#fff8ed]">
+        <section className="relative flex min-h-[40vh] md:min-h-[50vh] w-full items-center justify-center overflow-hidden bg-[#fff8ed]">
             {/* Soft pattern overlay */}
             <div className="absolute inset-0 opacity-[0.03] bg-[url('/images/renders/entrance.jpg')] bg-cover bg-center mix-blend-multiply"></div>
             <div className="absolute inset-0 bg-gradient-to-b from-[#fff8ed] via-transparent to-[#fff8ed] opacity-80" />

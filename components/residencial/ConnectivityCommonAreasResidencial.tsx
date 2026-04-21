@@ -39,7 +39,7 @@ export default function ConnectivityCommonAreasResidencial() {
                         transition={{ duration: 0.7, delay: 0.06 }}
                         className="order-1 flex min-h-0 w-full flex-col lg:order-1 lg:h-full"
                     >
-                        <div className="flex h-full min-h-[240px] w-full flex-col justify-start gap-4 lg:gap-6 overflow-hidden border border-[#1a1917]/[0.08] bg-[#EEF1EE]/95 px-4 lg:px-7 pb-8 pt-8 shadow-[0_24px_48px_rgba(26,25,23,0.1)] backdrop-blur-md sm:px-9 sm:pb-9 sm:pt-9 lg:min-h-[320px]">
+                        <div className="flex h-full min-h-[240px] w-full flex-col justify-start gap-4 lg:gap-6 overflow-hidden border border-[#1F1D1B]/[0.08] bg-[#fff8ed]/95 px-4 lg:px-7 pb-8 pt-8 shadow-[0_24px_48px_rgba(47,39,33,0.12)] backdrop-blur-md sm:px-9 sm:pb-9 sm:pt-9 lg:min-h-[320px]">
                             <motion.div
                                 initial={{ opacity: 0, y: 12 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -47,10 +47,10 @@ export default function ConnectivityCommonAreasResidencial() {
                                 transition={{ duration: 0.65 }}
                                 className="-mx-7 -mt-8 max-w-none self-stretch sm:-mx-9 sm:-mt-9"
                             >
-                                <div className="border-b border-[#1a1917]/[0.1] bg-[#f4f7f5]/90 px-4 py-2.5 shadow-[0_8px_28px_rgba(26,25,23,0.06)] backdrop-blur-sm sm:px-5 sm:py-3">
+                                <div className="border-b border-[#1F1D1B]/[0.1] bg-[#FFF3E1]/90 px-4 py-2.5 shadow-[0_8px_28px_rgba(47,39,33,0.06)] backdrop-blur-sm sm:px-5 sm:py-3">
                                     <div className="flex flex-col gap-3 sm:flex-row items-center sm:justify-between sm:gap-4">
                                         <div
-                                            className="flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#2C3D38]/90 sm:text-[13px]"
+                                            className="flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#b76d4b]/90 sm:text-[13px]"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
                                             <Bus className="h-5 w-5 shrink-0 opacity-70" aria-hidden />
@@ -60,46 +60,46 @@ export default function ConnectivityCommonAreasResidencial() {
                                             className="flex flex-wrap items-center gap-2.5 text-[13px] sm:gap-3 md:text-sm"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
-                                            <span className="flex items-center gap-1.5 text-[#1a1917]/82">
+                                            <span className="flex items-center gap-1.5 text-[#1F1D1B]/82">
                                                 <MapPin className="h-4 w-4 shrink-0 opacity-60" aria-hidden />
                                                 {t("routeFrom")}
                                             </span>
-                                            <div className="hidden h-px min-w-[1.5rem] flex-1 bg-[#1a1917]/20 sm:block" />
-                                            <span className="rounded-full border border-[#1a1917]/15 bg-white/65 px-2.5 py-0.5 text-[12px] font-medium tracking-wide text-[#1a1917]/90">
+                                            <div className="hidden h-px min-w-[1.5rem] flex-1 bg-[#1F1D1B]/20 sm:block" />
+                                            <span className="rounded-full border border-[#C28E7A]/30 bg-[#FFF3E1]/95 px-2.5 py-0.5 text-[12px] font-medium tracking-wide text-[#1F1D1B]/90">
                                                 {t("routeTime")}
                                             </span>
-                                            <div className="hidden h-px min-w-[1.5rem] flex-1 bg-[#1a1917]/20 sm:block" />
-                                            <span className="text-[#1a1917]/82">{t("routeTo")}</span>
+                                            <div className="hidden h-px min-w-[1.5rem] flex-1 bg-[#1F1D1B]/20 sm:block" />
+                                            <span className="text-[#1F1D1B]/82">{t("routeTo")}</span>
                                         </div>
                                     </div>
                                 </div>
                             </motion.div>
 
                             <p
-                                className="mb-3 text-center text-[10px] tracking-[0.3em] text-[#2C3D38]/80 uppercase lg:text-left"
+                                className="mb-3 text-center text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase lg:text-left"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 {t("shuttles.kicker")}
                             </p>
                             <h2
                                 id="shuttles-heading"
-                                className="text-center leading-tight text-[#1a1917] lg:text-left"
+                                className="text-center leading-tight text-[#1F1D1B] lg:text-left"
                                 style={{
                                     fontFamily: "var(--font-serif)",
                                     fontSize: "clamp(1.85rem, 3.5vw, 2.5rem)",
                                 }}
                             >
-                                {t("shuttles.titleLine1")} <span className="text-[#2C3D38]/85 italic">{t("shuttles.titleLine2")}</span>
+                                {t("shuttles.titleLine1")} <span className="text-[#b76d4b] italic">{t("shuttles.titleLine2")}</span>
                             </h2>
                             <p
-                                className="mt-4 text-center text-[15px] leading-relaxed text-[#1a1917]/78 lg:text-left sm:text-[16px]"
+                                className="mt-4 text-center text-[15px] leading-relaxed text-[#1F1D1B]/75 lg:text-left sm:text-[16px]"
                                 style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                             >
                                 {t("shuttles.body")}
                             </p>
                             <Link
                                 href="/ubicacion"
-                                className="mt-8 inline-flex w-fit items-center gap-2 self-center text-[10px] font-bold uppercase tracking-[0.18em] text-[#2C3D38] underline decoration-[#2C3D38]/35 underline-offset-4 transition hover:opacity-70 lg:self-start"
+                                className="mt-8 inline-flex w-fit items-center gap-2 self-center text-[10px] font-bold uppercase tracking-[0.18em] text-[#b76d4b] underline decoration-[#b76d4b]/35 underline-offset-4 transition hover:opacity-70 lg:self-start"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 {t("shuttles.cta")}
@@ -171,18 +171,18 @@ export default function ConnectivityCommonAreasResidencial() {
                             transition={{ duration: 0.7, delay: 0.06 }}
                             className="order-1 flex min-h-0 w-full flex-col lg:order-2 lg:h-full"
                         >
-                            <div className="flex h-full min-h-[240px] w-full flex-col justify-center border border-[#1F1D1B]/[0.08] bg-[#fff8ed]/95 px-4 lg:px-7 py-6 shadow-[0_24px_48px_rgba(47,39,33,0.12)] backdrop-blur-md sm:px-9 sm:py-9 lg:min-h-[320px]">
+                            <div className="flex h-full min-h-[240px] w-full flex-col justify-center border border-[#6B6358]/[0.14] bg-[#F2EFE8]/95 px-4 lg:px-7 py-6 shadow-[0_24px_48px_rgba(47,39,33,0.1)] backdrop-blur-md sm:px-9 sm:py-9 lg:min-h-[320px]">
                                 <div className="relative mx-auto mb-6 flex h-[4.5rem] w-[4.5rem] items-center justify-center lg:mx-0">
-                                    <span className="absolute inset-0 rounded-full border border-[#C28E7A]/20" aria-hidden />
-                                    <span className="absolute inset-2 rounded-full border border-[#C28E7A]/25" aria-hidden />
-                                    <span className="absolute inset-4 rounded-full border border-[#C28E7A]/30" aria-hidden />
-                                    <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-[#C28E7A]/40 bg-[#FFF3E1] text-[#2C3D38]">
+                                    <span className="absolute inset-0 rounded-full border border-[#8B8478]/22" aria-hidden />
+                                    <span className="absolute inset-2 rounded-full border border-[#8B8478]/26" aria-hidden />
+                                    <span className="absolute inset-4 rounded-full border border-[#8B8478]/30" aria-hidden />
+                                    <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-[#7A7268]/35 bg-[#E8E4DB] text-[#4A453E]">
                                         <Wifi className="h-6 w-6 stroke-[1.5]" aria-hidden />
                                     </div>
                                 </div>
 
                                 <p
-                                    className="mb-3 text-center text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase lg:text-left"
+                                    className="mb-3 text-center text-[10px] tracking-[0.3em] text-[#6B6358]/90 uppercase lg:text-left"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
                                     {t("wifi.kicker")}
@@ -195,7 +195,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                         fontSize: "clamp(1.85rem, 3.5vw, 2.5rem)",
                                     }}
                                 >
-                                    {t("wifi.titleLine1")} <span className="text-[#b76d4b] italic">{t("wifi.titleLine2")}</span>
+                                    {t("wifi.titleLine1")} <span className="text-[#6B6358]/95 italic">{t("wifi.titleLine2")}</span>
                                 </h2>
                                 <p
                                     className="mt-4 text-center text-[15px] leading-relaxed text-[#1F1D1B]/75 lg:text-left sm:text-[16px]"
@@ -221,34 +221,34 @@ export default function ConnectivityCommonAreasResidencial() {
                             transition={{ duration: 0.7, delay: 0.06 }}
                             className="order-1 flex min-h-0 w-full flex-col lg:order-1 lg:h-full"
                         >
-                            <div className="flex h-full min-h-[240px] w-full flex-col justify-center border border-[#4A7C8C]/[0.12] bg-[#E8F2F7]/95 px-4 lg:px-7 py-4 lg:py-6 shadow-[0_24px_48px_rgba(44,90,108,0.08)] backdrop-blur-md sm:px-9 sm:py-9 lg:min-h-[320px]">
+                            <div className="flex h-full min-h-[240px] w-full flex-col justify-center border border-[#1F1D1B]/[0.08] bg-[#fff8ed]/95 px-4 lg:px-7 py-4 lg:py-6 shadow-[0_24px_48px_rgba(47,39,33,0.12)] backdrop-blur-md sm:px-9 sm:py-9 lg:min-h-[320px]">
                                 <div className="relative mx-auto mb-4 lg:mb-6 flex h-[4.5rem] w-[4.5rem] items-center justify-center lg:mx-0">
-                                    <span className="absolute inset-0 rounded-full border border-[#5B8FA8]/18" aria-hidden />
-                                    <span className="absolute inset-2 rounded-full border border-[#5B8FA8]/22" aria-hidden />
-                                    <span className="absolute inset-4 rounded-full border border-[#5B8FA8]/28" aria-hidden />
-                                    <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-[#5B8FA8]/35 bg-[#DCEEF5] text-[#3D6B80]">
+                                    <span className="absolute inset-0 rounded-full border border-[#C28E7A]/20" aria-hidden />
+                                    <span className="absolute inset-2 rounded-full border border-[#C28E7A]/25" aria-hidden />
+                                    <span className="absolute inset-4 rounded-full border border-[#C28E7A]/30" aria-hidden />
+                                    <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-[#C28E7A]/40 bg-[#FFF3E1] text-[#2C3D38]">
                                         <Users className="h-6 w-6 stroke-[1.5]" aria-hidden />
                                     </div>
                                 </div>
 
                                 <p
-                                    className="mb-3 text-center text-[10px] tracking-[0.3em] text-[#4A7C8C]/85 uppercase lg:text-left"
+                                    className="mb-3 text-center text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase lg:text-left"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
                                     {t("community.kicker")}
                                 </p>
                                 <h2
                                     id="comunidad-heading"
-                                    className="text-center leading-tight text-[#1a1917] lg:text-left"
+                                    className="text-center leading-tight text-[#1F1D1B] lg:text-left"
                                     style={{
                                         fontFamily: "var(--font-serif)",
                                         fontSize: "clamp(1.85rem, 3.5vw, 2.5rem)",
                                     }}
                                 >
-                                    {t("community.titleLine1")} <span className="text-[#4A7C8C]/90 italic">{t("community.titleLine2")}</span>
+                                    {t("community.titleLine1")} <span className="text-[#b76d4b] italic">{t("community.titleLine2")}</span>
                                 </h2>
                                 <p
-                                    className="mt-4 text-center text-[15px] leading-relaxed text-[#1a1917]/78 lg:text-left sm:text-[16px]"
+                                    className="mt-4 text-center text-[15px] leading-relaxed text-[#1F1D1B]/75 lg:text-left sm:text-[16px]"
                                     style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                                 >
                                     {t("community.body")}

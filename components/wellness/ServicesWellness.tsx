@@ -37,7 +37,7 @@ export default function ServicesWellness() {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
     return (
-        <section id="servicios" className="bg-[#FFF8ED] py-24 lg:py-32 overflow-hidden">
+        <section id="servicios" className="bg-[#EFE6DC] py-24 lg:py-32 overflow-hidden">
             <div className="max-w-[1440px] mx-auto w-full px-6 md:px-10 lg:px-16">
 
                 {/* Header */}

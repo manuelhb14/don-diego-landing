@@ -43,7 +43,7 @@ export default function ConceptPresa() {
     return (
         <section
             id="concepto"
-            className="bg-[#FFF8ED] py-16 lg:py-24 overflow-hidden min-h-screen flex items-center"
+            className="bg-[#fff8ed] py-16 lg:py-24 overflow-hidden min-h-screen flex items-center"
             aria-label={t("sectionAriaLabel")}
         >
             <div className="max-w-[1600px] mx-auto w-full px-6 lg:px-16">

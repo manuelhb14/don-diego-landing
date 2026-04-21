@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 export default function HeroUbicacion() {
     const t = useTranslations("pages.ubicacion.hero");
     return (
-        <section className="relative flex h-[40vh] md:h-[60vh] min-h-[400px] w-full items-center justify-center overflow-hidden bg-[#fff8ed]">
+        <section className="relative flex min-h-[40vh] md:min-h-[40vh] w-full items-center justify-center overflow-hidden bg-[#fff8ed]">
             <div className="relative z-10 flex flex-col items-center justify-center px-4 w-full max-w-7xl text-center mt-12 md:mt-16">
                 <div className="w-full flex flex-col items-center mb-6">
                     <p

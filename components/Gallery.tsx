@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { motion } from "motion/react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useTranslations } from "next-intl";
 
 type GallerySlideText = { alt: string; title: string; description: string };
@@ -18,6 +18,23 @@ const GALLERY_LAYOUT = [
     { src: "/images/renders/farm.jpg", borderColor: "#5C6B45" },
     { src: "/images/gallery/gallery-5.png", borderColor: "#B89C65" },
     { src: "/images/gallery/gallery-10.jpg", borderColor: "#768465" },
+    { src: "/final/presa-2.webp", borderColor: "#7B6A57" },
+    { src: "/final/organic-farms.webp", borderColor: "#6A785F" },
+] as const;
+
+const MOSAIC_PATTERN = [
+    "col-span-2 row-span-2 md:col-span-2 md:row-span-2 lg:col-span-3 lg:row-span-3",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-2",
+    "col-span-1 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1",
+    "col-span-2 row-span-1 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2",
+    "col-span-2 row-span-1 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-2 row-span-1 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
+    "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1",
 ] as const;
 
 export default function Gallery() {
@@ -34,32 +51,58 @@ export default function Gallery() {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [lightbox, setLightbox] = useState<number | null>(null);
-    const [isPaused, setIsPaused] = useState(false);
 
-    const nextSlide = useCallback(() => {
-        setCurrentIndex((prev) => (prev + 1) % galleryItems.length);
+    const closeLightbox = useCallback(() => {
+        setLightbox(null);
+    }, []);
+
+    const goToPrev = useCallback(() => {
+        setLightbox((prev) => {
+            if (prev === null) return prev;
+            const nextIndex = (prev - 1 + galleryItems.length) % galleryItems.length;
+            setCurrentIndex(nextIndex);
+            return nextIndex;
+        });
+    }, [galleryItems.length]);
+
+    const goToNext = useCallback(() => {
+        setLightbox((prev) => {
+            if (prev === null) return prev;
+            const nextIndex = (prev + 1) % galleryItems.length;
+            setCurrentIndex(nextIndex);
+            return nextIndex;
+        });
     }, [galleryItems.length]);
 
     useEffect(() => {
-        if (isPaused || lightbox !== null) return;
+        if (lightbox === null) return;
 
-        const interval = setInterval(nextSlide, 5000); // 5 seconds per image pause
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                closeLightbox();
+            }
 
-        return () => clearInterval(interval);
-    }, [isPaused, lightbox, currentIndex, nextSlide]); // <--- Adding currentIndex resets timer if changed
+            if (event.key === "ArrowLeft") {
+                goToPrev();
+            }
 
-    const handleImageClick = (index: number, isCenter: boolean) => {
-        if (isCenter) {
-            setLightbox(index);
-            setIsPaused(true);
-        } else {
-            setCurrentIndex(index);
-        }
+            if (event.key === "ArrowRight") {
+                goToNext();
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [lightbox, closeLightbox, goToPrev, goToNext]);
+
+    const handleImageClick = (index: number) => {
+        setCurrentIndex(index);
+        setLightbox(index);
     };
 
     return (
         <>
-            <section id="galeria" className="bg-[#fff8ed] pt-12 pb-12 lg:pt-36 lg:pb-28 overflow-hidden">
+            <section id="galeria" className="bg-[#fff8ed] pt-12 pb-12 lg:pt-16 lg:pb-14 overflow-hidden">
                 {/* Header */}
                 <div className="max-w-[1400px] mx-auto px-6 lg:px-14 mb-6 flex items-end justify-between">
                     <motion.div
@@ -92,142 +135,108 @@ export default function Gallery() {
                     </p>
                 </div>
 
-                {/* Carousel */}
-                <div
-                    className="relative w-full h-[45vh] md:h-[60vh] max-h-[500px] md:max-h-[800px] flex items-center justify-center mb-6"
-                    onMouseEnter={() => setIsPaused(true)}
-                    onMouseLeave={() => setIsPaused(false)}
-                >
-                    {galleryItems.map((item, i) => {
-                        let offset = (i - currentIndex + galleryItems.length) % galleryItems.length;
-                        if (offset > galleryItems.length / 2) {
-                            offset -= galleryItems.length;
-                        }
+                {/* Gallery Grid */}
+                <div className="w-full px-2 md:px-4 lg:px-6 mb-12">
+                    <div className="relative">
+                        <div className="pointer-events-none absolute -inset-3 md:-inset-4" />
+                        <div className="relative grid grid-flow-dense grid-cols-2 md:grid-cols-4 lg:grid-cols-6 auto-rows-[130px] md:auto-rows-[180px] lg:auto-rows-[190px] gap-3 md:gap-4 lg:gap-5">
+                            {galleryItems.map((item, i) => {
+                                const isActive = i === currentIndex;
+                                const tileClass = MOSAIC_PATTERN[i] ?? "col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1";
 
-                        const isCenter = offset === 0;
-                        const xOffset = offset * 102;
-
-                        // Optimize rendering: completely hide items too far out of view
-                        const isVisible = Math.abs(offset) <= 2;
-                        if (!isVisible) return null;
-
-                        return (
-                            <motion.div
-                                key={`${item.src}-${i}`}
-                                className="absolute top-0 bottom-0 my-auto cursor-pointer flex items-center justify-center w-[clamp(280px,70vw,420px)] md:w-[clamp(500px,50vw,900px)] h-full md:h-[clamp(400px,55vh,700px)]"
-                                style={{
-                                    zIndex: 10 - Math.abs(offset),
-                                }}
-                                initial={false}
-                                animate={{
-                                    x: `${xOffset}%`,
-                                    scale: isCenter ? 1 : 0.85,
-                                    opacity: isCenter ? 1 : 0.6,
-                                }}
-                                transition={{
-                                    type: "spring",
-                                    stiffness: 200,
-                                    damping: 30,
-                                    mass: 1,
-                                }}
-                                onClick={() => handleImageClick(i, isCenter)}
-                            >
-                                <div
-                                    className="relative w-full h-full overflow-hidden transition-all duration-700 bg-black/5"
+                            return (
+                                <motion.button
+                                    key={`${item.src}-${i}`}
+                                    type="button"
+                                    className={`group relative overflow-hidden text-left ${tileClass}`}
                                     style={{
-                                        border: isCenter ? `clamp(6px, 1vw, 12px) solid ${item.borderColor}` : '0px solid transparent'
+                                        border: isActive
+                                            ? "2px solid rgba(34,34,34,0.28)"
+                                            : "2px solid rgba(34,34,34,0.08)",
+                                        boxShadow: isActive
+                                            ? "0 20px 45px rgba(34, 26, 20, 0.2)"
+                                            : "0 8px 22px rgba(34, 26, 20, 0.1)",
                                     }}
+                                    initial={{ opacity: 0, y: 14 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.25 }}
+                                    transition={{ duration: 0.45, delay: i * 0.03 }}
+                                    animate={{ scale: isActive ? 1.015 : 1 }}
+                                    whileHover={{ scale: 1.02 }}
+                                    onClick={() => handleImageClick(i)}
+                                    aria-label={item.alt}
                                 >
                                     <Image
                                         src={item.src}
                                         alt={item.alt}
                                         fill
-                                        className="object-cover object-center"
-                                        sizes="(max-width: 768px) 80vw, 65vw"
+                                        className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.07]"
+                                        sizes="(max-width: 768px) 48vw, (max-width: 1024px) 38vw, 24vw"
                                     />
-                                    {isCenter && (
-                                        <div className="absolute inset-0 bg-[#AA7D69]/0 hover:bg-[#AA7D69]/10 transition-colors duration-500" />
-                                    )}
-                                </div>
-                            </motion.div>
-                        );
-                    })}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500" />
+                                    <p
+                                        className="absolute left-3 bottom-2 md:left-4 md:bottom-3 text-[10px] md:text-xs tracking-[0.18em] text-white/90 uppercase opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-y-0"
+                                        style={{ fontFamily: "var(--font-sans)" }}
+                                    >
+                                        {item.title}
+                                    </p>
+                                </motion.button>
+                            );
+                            })}
+                        </div>
+                    </div>
                 </div>
 
-                {/* Active Info text */}
-                <div className="max-w-[800px] mx-auto px-6 text-center min-h-[160px]">
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={currentIndex}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.4 }}
-                            className="flex flex-col items-center"
-                        >
-                            <h3
-                                className="text-sm md:text-lg tracking-[0.2em] md:tracking-[0.3em] text-[#222] uppercase mb-6 md:mb-8 font-serif"
-                            >
-                                {galleryItems[currentIndex].title}
-                            </h3>
-                            <p
-                                className="text-[#222]/80 text-[14px] md:text-[15px] leading-[1.8] font-normal tracking-[0.01em] max-w-md"
-                                style={{ fontFamily: "var(--font-sans)" }}
-                            >
-                                {galleryItems[currentIndex].description}
-                            </p>
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
             </section>
 
             {/* Lightbox */}
             {lightbox !== null && (
                 <div
-                    className="fixed inset-0 z-[100] flex items-center justify-center bg-[#111]/97 p-4"
-                    onClick={() => {
-                        setLightbox(null);
-                        setIsPaused(false);
-                    }}
+                    className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#111]/97 p-4 md:p-6"
+                    onClick={closeLightbox}
                 >
                     <button
-                        onClick={() => {
-                            setLightbox(null);
-                            setIsPaused(false);
-                        }}
+                        onClick={closeLightbox}
                         className="absolute right-6 top-6 text-white/50 hover:text-white transition-colors text-3xl font-light"
                         aria-label={t("ariaClose")}
                     >
                         ×
                     </button>
-                    <button
-                        onClick={(e) => { e.stopPropagation(); setLightbox((lightbox - 1 + galleryItems.length) % galleryItems.length); }}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors text-4xl font-light px-2"
-                        aria-label={t("ariaPrev")}
-                    >
-                        ‹
-                    </button>
-                    <Image
-                        src={galleryItems[lightbox].src}
-                        alt={galleryItems[lightbox].alt}
-                        width={1400}
-                        height={900}
-                        className="max-h-[88vh] w-auto max-w-[90vw] object-contain"
-                        onClick={(e) => e.stopPropagation()}
-                    />
-                    <button
-                        onClick={(e) => { e.stopPropagation(); setLightbox((lightbox + 1) % galleryItems.length); }}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white transition-colors text-4xl font-light px-2"
-                        aria-label={t("ariaNext")}
-                    >
-                        ›
-                    </button>
-                    <div className="absolute bottom-10 md:bottom-6 left-1/2 -translate-x-1/2 text-center w-full px-4">
+                    <div className="relative w-full max-w-[1200px] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+                        <button
+                            onClick={goToPrev}
+                            className="absolute left-1 md:left-3 top-1/2 -translate-y-1/2 text-white/35 hover:text-white transition-colors text-4xl font-light px-2 z-10"
+                            aria-label={t("ariaPrev")}
+                        >
+                            ‹
+                        </button>
+                        <Image
+                            src={galleryItems[lightbox].src}
+                            alt={galleryItems[lightbox].alt}
+                            width={1400}
+                            height={900}
+                            className="max-h-[68vh] md:max-h-[72vh] w-auto max-w-[90vw] md:max-w-[86vw] object-contain"
+                        />
+                        <button
+                            onClick={goToNext}
+                            className="absolute right-1 md:right-3 top-1/2 -translate-y-1/2 text-white/35 hover:text-white transition-colors text-4xl font-light px-2 z-10"
+                            aria-label={t("ariaNext")}
+                        >
+                            ›
+                        </button>
+                    </div>
+                    <div className="mt-6 text-center w-full px-4 max-w-3xl" onClick={(e) => e.stopPropagation()}>
                         <p className="text-[10px] tracking-[0.2em] text-white/25 uppercase mb-2" style={{ fontFamily: "var(--font-sans)" }}>
                             {lightbox + 1} / {galleryItems.length}
                         </p>
-                        <p className="text-white/60 text-xs tracking-widest uppercase font-sans">
+                        <p className="text-white/80 text-xs tracking-widest uppercase mb-3" style={{ fontFamily: "var(--font-sans)" }}>
                             {galleryItems[lightbox].title}
+                        </p>
+                        <p
+                            className="text-white/65 text-[13px] md:text-sm leading-relaxed max-w-xl mx-auto"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            {galleryItems[lightbox].description}
                         </p>
                     </div>
                 </div>
