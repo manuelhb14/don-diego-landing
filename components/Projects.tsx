@@ -232,14 +232,14 @@ function ProjectCard({ project, index, totalProjects, scrollYProgress, allProjec
                     <motion.div
                         className="rounded-[1.5rem] px-6 py-3 shadow-2xl relative overflow-hidden group/card border"
                         style={{
-                            "--accent": project.accent,
-                            "--accent-bg": `${project.accent}30`,
+                            ["--accent" as string]: project.accent,
+                            ["--accent-bg" as string]: `${project.accent}30`,
                             background: `linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%)`,
                             borderColor: `${project.accent}40`,
                             boxShadow: `0 25px 50px -12px rgba(0,0,0,0.5), inset 0 0 20px ${project.accent}15`,
                             y: cardY,
                             opacity: cardOpacity,
-                        } as any}
+                        } as unknown as Record<string, unknown>}
                     >
 
                         {/* Glow effect matching project accent color */}

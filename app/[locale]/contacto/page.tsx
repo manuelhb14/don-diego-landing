@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import Navbar from "@/components/Navbar";
 import HeroContacto from "@/components/contacto/HeroContacto";
 import FormContacto from "@/components/contacto/FormContacto";
+import InstagramPostsContacto from "@/components/contacto/InstagramPostsContacto";
 import Footer from "@/components/Footer";
 
 type Props = {
@@ -18,6 +19,7 @@ export default async function ContactoPage({ params }: Props) {
             <main>
                 <HeroContacto />
                 <FormContacto />
+                <InstagramPostsContacto />
             </main>
             <Footer />
         </>

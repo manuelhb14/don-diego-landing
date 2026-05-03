@@ -1,61 +1,79 @@
 "use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
-import { useState } from "react";
+import { motion } from "motion/react";
+import { Activity, HeartPulse, Home, Trees, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+
+type WellnessService = {
+    kicker: string;
+    titleBase: string;
+    titleAccent: string;
+    description: string;
+    image: string;
+    Icon: LucideIcon;
+    tone: "warm" | "earth";
+};
 
 export default function ServicesWellness() {
     const t = useTranslations("pages.wellness.services");
-    const services = [
+    const services: WellnessService[] = [
         {
-            id: 1,
-            title: t("items.rehabilitacion.title"),
+            kicker: t("items.rehabilitacion.kicker"),
+            titleBase: t("items.rehabilitacion.titleBase"),
+            titleAccent: t("items.rehabilitacion.titleAccent"),
             description: t("items.rehabilitacion.description"),
             image: "/babylon/wellness-5.webp",
+            Icon: HeartPulse,
+            tone: "earth",
         },
         {
-            id: 2,
-            title: t("items.seniorLiving.title"),
+            kicker: t("items.seniorLiving.kicker"),
+            titleBase: t("items.seniorLiving.titleBase"),
+            titleAccent: t("items.seniorLiving.titleAccent"),
             description: t("items.seniorLiving.description"),
             image: "/babylon/wellness-6.webp",
+            Icon: Activity,
+            tone: "warm",
         },
         {
-            id: 3,
-            title: t("items.departamentosFamiliares.title"),
+            kicker: t("items.departamentosFamiliares.kicker"),
+            titleBase: t("items.departamentosFamiliares.titleBase"),
+            titleAccent: t("items.departamentosFamiliares.titleAccent"),
             description: t("items.departamentosFamiliares.description"),
             image: "/babylon/wellness-7.webp",
+            Icon: Home,
+            tone: "earth",
         },
         {
-            id: 4,
-            title: t("items.amenidades.title"),
+            kicker: t("items.amenidades.kicker"),
+            titleBase: t("items.amenidades.titleBase"),
+            titleAccent: t("items.amenidades.titleAccent"),
             description: t("items.amenidades.description"),
             image: "/babylon/wellness-8.webp",
+            Icon: Trees,
+            tone: "warm",
         },
     ];
 
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
     return (
-        <section id="servicios" className="bg-[#EFE6DC] py-24 lg:py-32 overflow-hidden">
-            <div className="max-w-[1440px] mx-auto w-full px-6 md:px-10 lg:px-16">
-
-                {/* Header */}
+        <section id="servicios" className="bg-[#F1E8DF] py-8 pb-10 text-[#18201d] lg:py-20 lg:pb-24">
+            <div className="mx-auto w-full max-w-[1200px] px-6 lg:px-12">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="mb-8 lg:mb-12"
+                    className="mb-5 lg:mb-12"
                 >
                     <p
-                        className="text-[10px] tracking-[0.3em] text-[#5a6b52]/85 uppercase mb-4"
+                        className="mb-3 text-[10px] tracking-[0.3em] text-[#5a6b52]/85 uppercase lg:mb-8"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         {t("eyebrow")}
                     </p>
                     <h2
-                        className="tracking-tight text-[#1a221f] leading-[1.1] font-medium"
+                        className="font-medium leading-[1.1] tracking-tight text-[#18201d]"
                         style={{
                             fontFamily: "var(--font-serif)",
                             fontSize: "clamp(2.75rem, 4.75vw, 4.25rem)",
@@ -65,134 +83,89 @@ export default function ServicesWellness() {
                     </h2>
                 </motion.div>
 
-                {/* Interactive Container */}
-                <div className="relative w-full min-h-[600px] md:min-h-0 md:aspect-[4/3] lg:aspect-[2] rounded-sm overflow-hidden bg-[#1F2420] flex items-center border border-white/5">
+                <div className="space-y-6 lg:space-y-14">
+                    {services.map((service, index) => {
+                        const Icon = service.Icon;
+                        const isEarth = service.tone === "earth";
+                        const cardClass = isEarth
+                            ? "border-[#6B735F]/[0.14] bg-[#F2EFE8]/95"
+                            : "border-[#1F1D1B]/[0.08] bg-[#fffaf4]/95";
+                        const accentClass = isEarth ? "text-[#52644f]/90" : "text-[#756e68]/90";
+                        const iconInnerClass = isEarth
+                            ? "border-[#6B735F]/30 bg-[#E9EDE4] text-[#52644f]"
+                            : "border-[#756e68]/24 bg-[#F7F2EB] text-[#5a6b52]";
+                        const titleAccentClass = isEarth ? "text-[#5a6b52]" : "text-[#756e68]";
 
-                    {/* Background Images */}
-                    <AnimatePresence mode="sync">
-                        <motion.div
-                            key={activeIndex !== null ? activeIndex : "default"}
-                            initial={{ opacity: 0, scale: 1.05 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 1 }}
-                            transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="absolute inset-0 z-0 bg-[#1F2420]"
-                        >
-                            <Image
-                                src={activeIndex !== null ? services[activeIndex].image : "/images/gallery/gallery-9.jpg"}
-                                alt={t("backgroundAlt")}
-                                fill
-                                priority
-                                className="object-cover opacity-80"
-                            />
-                            {/* Dark gradient for text readability */}
-                            {/* <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent w-full md:w-3/4" /> */}
-                            {/* Bottom gradient for mobile text */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent md:hidden" />
-                        </motion.div>
-                    </AnimatePresence>
-
-                    {/* Content Column (Pills) */}
-                    <div className="relative z-10 flex flex-col items-start gap-3 md:gap-4 p-6 sm:p-8 md:p-12 lg:p-16 w-full md:w-[65%] lg:w-[50%] justify-end md:justify-center h-full mt-24 md:mt-0">
-                        {services.map((service, index) => {
-                            const isActive = activeIndex === index;
-
-                            // Slower spring for an elegant, deliberate pill expansion
-                            const springTransition = { type: "spring" as const, duration: 0.6, bounce: 0 };
-
-                            return (
-                                <motion.div
-                                    layout
-                                    key={`pill-${service.id}`}
-                                    onClick={() => setActiveIndex(isActive ? null : index)}
-                                    className={`relative z-10 cursor-pointer overflow-hidden backdrop-blur-xl border border-white/10 transition-colors duration-[150ms] ease-out ${isActive
-                                            ? "bg-[#2A302C]/80 rounded-[28px] w-full"
-                                            : "bg-[#2A302C]/50 hover:bg-[#2A302C]/70 rounded-full w-auto"
-                                        }`}
-                                    style={{
-                                        boxShadow: "0 10px 40px rgba(0,0,0,0.2)"
-                                    }}
-                                    transition={springTransition}
+                        return (
+                            <div
+                                key={`${service.titleBase} ${service.titleAccent}`}
+                                className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-10"
+                            >
+                                <motion.article
+                                    initial={{ opacity: 0, y: 16 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-40px" }}
+                                    transition={{ duration: 0.5, delay: index * 0.06 }}
+                                    className={`order-1 flex h-full w-full flex-col justify-start border px-4 py-4 shadow-[0_24px_48px_rgba(47,39,33,0.1)] backdrop-blur-md sm:min-h-[240px] sm:px-9 sm:py-9 lg:min-h-[320px] lg:justify-center lg:px-7 ${index % 2 === 1 ? "lg:order-2" : "lg:order-1"} ${cardClass}`}
                                 >
-                                    <div className={`flex items-start ${isActive ? 'p-5 lg:p-6 gap-4 lg:gap-5' : 'py-2.5 px-4 lg:px-5 gap-3'}`}>
-
-                                        {/* Icon */}
-                                        <div className="relative shrink-0 rounded-full border border-white/20 flex items-center justify-center overflow-hidden transition-all duration-300 w-6 h-6 mt-0.5 bg-white/10">
-                                            <AnimatePresence mode="popLayout" initial={false}>
-                                                {isActive ? (
-                                                    <motion.div
-                                                        key="minus"
-                                                        initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
-                                                        animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                                                        exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
-                                                        transition={{ duration: 0.2, ease: "easeOut" }}
-                                                        className="absolute inset-0 flex items-center justify-center text-white/50"
-                                                    >
-                                                        <svg width="10" height="2" viewBox="0 0 10 2" fill="none">
-                                                            <path d="M1 1H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                                        </svg>
-                                                    </motion.div>
-                                                ) : (
-                                                    <motion.div
-                                                        key="plus"
-                                                        initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
-                                                        animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                                                        exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
-                                                        transition={{ duration: 0.2, ease: "easeOut" }}
-                                                        className="absolute inset-0 flex items-center justify-center text-white/90"
-                                                    >
-                                                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                                                            <path d="M5 1V9M1 5H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                                        </svg>
-                                                    </motion.div>
-                                                )}
-                                            </AnimatePresence>
+                                    <div className="flex items-center gap-3 sm:block">
+                                        <div className="relative flex h-16 w-16 shrink-0 items-center justify-center sm:mx-auto sm:mb-6 sm:h-[4.5rem] sm:w-[4.5rem] lg:mx-0">
+                                            <span className={isEarth ? "absolute inset-0 rounded-full border border-[#6B735F]/18" : "absolute inset-0 rounded-full border border-[#756e68]/14"} aria-hidden />
+                                            <span className={isEarth ? "absolute inset-2 rounded-full border border-[#6B735F]/24" : "absolute inset-2 rounded-full border border-[#756e68]/20"} aria-hidden />
+                                            <span className={isEarth ? "absolute inset-4 rounded-full border border-[#6B735F]/30" : "absolute inset-4 rounded-full border border-[#756e68]/26"} aria-hidden />
+                                            <div className={`relative flex h-12 w-12 items-center justify-center rounded-full border sm:h-14 sm:w-14 ${iconInnerClass}`}>
+                                                <Icon className="h-[1.375rem] w-[1.375rem] stroke-[1.5] sm:h-6 sm:w-6" aria-hidden />
+                                            </div>
                                         </div>
 
-                                        {/* Text Container */}
-                                        <div className="flex flex-col flex-1 overflow-hidden min-h-[28px] justify-start pt-1">
-                                            <span
-                                                className={`whitespace-nowrap transition-all duration-300 ${isActive ? 'text-lg font-serif' : 'text-[14px] sm:text-[15px] font-sans'} text-[#b8c9a8] font-semibold`}
+                                        <div className="min-w-0 flex-1">
+                                            <p
+                                                className={`mb-1 text-left text-[10px] tracking-[0.3em] uppercase sm:mb-3 sm:text-center lg:text-left ${accentClass}`}
+                                                style={{ fontFamily: "var(--font-sans)" }}
                                             >
-                                                {service.title}{isActive ? '.' : ''}
-                                            </span>
-
-                                            {/* Description - only shown when active */}
-                                            {isActive && (
-                                                <motion.div
-                                                    initial={{ opacity: 0, filter: "blur(4px)" }}
-                                                    animate={{ opacity: 1, filter: "blur(0px)" }}
-                                                    transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-                                                    className="pt-2 text-[#E8EDE3]/95 text-[15px] sm:text-base leading-relaxed font-sans font-normal"
-                                                >
-                                                    {service.description}
-                                                </motion.div>
-                                            )}
+                                                {service.kicker}
+                                            </p>
+                                            <h3
+                                                className="text-left leading-tight text-[#18201d] sm:text-center lg:text-left"
+                                                style={{
+                                                    fontFamily: "var(--font-serif)",
+                                                    fontSize: "clamp(1.65rem, 3.5vw, 2.5rem)",
+                                                }}
+                                            >
+                                                {service.titleBase} <span className={`italic ${titleAccentClass}`}>{service.titleAccent}</span>
+                                            </h3>
                                         </div>
                                     </div>
-                                </motion.div>
-                            );
-                        })}
-                    </div>
 
-                    {/* Close Button at top right */}
-                    <AnimatePresence>
-                        {activeIndex !== null && (
-                            <motion.button
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.95 }}
-                                transition={{ duration: 0.2, ease: [0.165, 0.84, 0.44, 1] }} // ease-out-quart
-                                onClick={() => setActiveIndex(null)}
-                                className="absolute top-6 right-6 md:top-8 md:right-8 w-10 h-10 rounded-full bg-[#2A302C]/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:bg-[#2A302C]/90 hover:text-white transition-colors duration-[150ms] ease-out z-20 shadow-lg"
-                                aria-label={t("closeAriaLabel")}
-                            >
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                                </svg>
-                            </motion.button>
-                        )}
-                    </AnimatePresence>
+                                    <p
+                                        className="mt-2 text-left text-[13px] leading-[1.6] text-[#18201d]/75 sm:mt-4 sm:text-[16px] sm:leading-relaxed"
+                                        style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
+                                    >
+                                        {service.description}
+                                    </p>
+                                </motion.article>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 16 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-40px" }}
+                                    transition={{ duration: 0.5, delay: index * 0.06 + 0.04 }}
+                                    className={`order-2 relative flex min-h-0 w-full flex-col lg:h-full ${index % 2 === 1 ? "lg:order-1" : "lg:order-2"}`}
+                                >
+                                    <div className="relative aspect-[16/8] w-full min-h-[180px] flex-1 overflow-hidden shadow-[0_30px_60px_rgba(26,25,23,0.18)] ring-1 ring-[#1a1917]/10 sm:aspect-[16/9] sm:min-h-[230px] lg:aspect-auto lg:min-h-[280px] lg:h-full">
+                                        <Image
+                                            src={service.image}
+                                            alt={`${service.titleBase} ${service.titleAccent}`}
+                                            fill
+                                            className="object-cover object-center"
+                                            sizes="(min-width: 1024px) 50vw, 100vw"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-tr from-[#1a1917]/20 via-transparent to-transparent" />
+                                    </div>
+                                </motion.div>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </section>

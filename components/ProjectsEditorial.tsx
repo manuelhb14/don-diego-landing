@@ -245,7 +245,7 @@ export default function ProjectsEditorial() {
                             lineHeight: 0.94,
                         }}
                     >
-                        Un recorrido mas editorial por las piezas que dan forma a Don Diego.
+                        Un recorrido más editorial por las piezas que dan forma a Don Diego.
                     </h2>
                 </div> */}
 

@@ -61,9 +61,10 @@ export default function Services() {
 
     useEffect(() => {
         if (!mobileCarouselApi) return;
-
-        setTotalSlides(mobileCarouselApi.scrollSnapList().length);
-        setCurrentSlide(mobileCarouselApi.selectedScrollSnap());
+        const t = setTimeout(() => {
+            setTotalSlides(mobileCarouselApi.scrollSnapList().length);
+            setCurrentSlide(mobileCarouselApi.selectedScrollSnap());
+        }, 0);
 
         const onSelect = () => {
             setCurrentSlide(mobileCarouselApi.selectedScrollSnap());
@@ -73,6 +74,7 @@ export default function Services() {
         mobileCarouselApi.on("reInit", onSelect);
 
         return () => {
+            clearTimeout(t);
             mobileCarouselApi.off("select", onSelect);
             mobileCarouselApi.off("reInit", onSelect);
         };

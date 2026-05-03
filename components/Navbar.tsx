@@ -7,7 +7,6 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Sparkles } from "lucide-react";
 import { useChat } from "@/components/chat/ChatProvider";
-import { SITE_CONTACT } from "@/lib/site-contact";
 
 type NavbarTheme = "light" | "dark";
 type DropdownPosition = { left: number; top: number };
@@ -50,6 +49,7 @@ function buildNavLinks(t: (key: string) => string): NavTopItem[] {
                 { key: "ubicacion", label: t("ubicacion"), href: "/ubicacion" },
             ],
         },
+        { type: "link", key: "propiedades", label: t("propiedades"), href: "/propiedades" },
         {
             type: "navGroup",
             key: "equipo",
@@ -158,7 +158,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
         () => ({
             key: "contacto" as const,
             label: t("contacto"),
-            href: SITE_CONTACT.whatsappUrl,
+            href: "/contacto",
         }),
         [t],
     );
@@ -173,6 +173,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
     const [desktopDropdownPosition, setDesktopDropdownPosition] = useState<DropdownPosition | null>(null);
     const desktopDropdownCloseTimeout = useRef<number | null>(null);
     const { hidden, scrolled } = navScroll;
+    const showScrolledBackdrop = scrolled && !hidden;
     const isDarkAtTop = theme === "dark" && !scrolled;
     const isContactActive = pathname === "/contacto";
 
@@ -235,8 +236,12 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
     return (
         <>
             <nav
-                className={`fixed left-0 z-50 transition-[top,right] duration-500 bg-transparent ${scrolled ? "mix-blend-difference text-white" : ""} ${hidden ? "-top-28 pointer-events-none" : "top-0"}`}
-                style={{ right: "0px" }}
+                className={`fixed left-0 z-50 bg-transparent transition-[top,right,backdrop-filter,-webkit-backdrop-filter] duration-500 ${scrolled ? "mix-blend-difference text-white" : ""} ${hidden ? "-top-28 pointer-events-none" : "top-0"}`}
+                style={{
+                    right: "0px",
+                    backdropFilter: showScrolledBackdrop ? "blur(4px)" : "blur(0px)",
+                    WebkitBackdropFilter: showScrolledBackdrop ? "blur(4px)" : "blur(0px)",
+                }}
             >
                 <div className={`mx-auto flex w-full items-center justify-between px-6 py-4 lg:px-4 lg:pt-2.5 ${isDarkAtTop ? "text-black" : "text-white"}`}>
                     {/* Left: Links (Desktop) — flush left */}
@@ -386,10 +391,8 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                         >
                             {locale === "es" ? "EN" : "ES"}
                         </button>
-                        <a
+                        <Link
                             href={contactCta.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className={`inline-flex shrink-0 items-center rounded-sm border px-3 py-1.5 text-[11px] font-light font-[variant:small-caps] uppercase tracking-[0.18em] transition-all duration-300 sm:px-4 sm:text-xs ${
                                 isContactActive
                                     ? isDarkAtTop
@@ -402,7 +405,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {contactCta.label}
-                        </a>
+                        </Link>
 
                         {/* Mobile hamburger */}
                         <button

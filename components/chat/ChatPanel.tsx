@@ -22,6 +22,7 @@ export default function ChatPanel() {
         clearChat,
         focusInputSignal,
         isOpen,
+        chatSessionReady,
     } = useChat();
     const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -55,7 +56,7 @@ export default function ChatPanel() {
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const next = value.trim();
-        if (!next) return;
+        if (!next || !chatSessionReady) return;
         setValue("");
         await sendMessage(next);
     };
@@ -70,7 +71,7 @@ export default function ChatPanel() {
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 <Sparkles className="size-3.5" />
-                                Asistente Don Diego
+                                {t("headerTitle")}
                             </p>
                             {/* <p
                                 className="mt-2 text-[11px] tracking-[0.12em] uppercase text-[#222]/50"
@@ -83,7 +84,7 @@ export default function ChatPanel() {
                             <button
                                 type="button"
                                 onClick={clearChat}
-                                disabled={isLoading || messages.length === 0}
+                                disabled={isLoading || messages.length === 0 || !chatSessionReady}
                                 className="inline-flex size-8 items-center justify-center rounded-full border border-[#222]/15 text-[#222]/70 transition-colors hover:text-[#222] disabled:cursor-not-allowed disabled:opacity-45"
                                 aria-label={t("clearAria")}
                             >
@@ -124,7 +125,7 @@ export default function ChatPanel() {
                                             key={suggestion.id}
                                             type="button"
                                             onClick={() => applySuggestion(suggestion.prompt)}
-                                            disabled={isLoading}
+                                            disabled={isLoading || !chatSessionReady}
                                             className="rounded-full border border-[#AA7D69]/35 bg-white px-3 py-1.5 text-left text-[11px] tracking-[0.08em] uppercase text-[#6F4C3D] transition-colors hover:border-[#AA7D69] hover:text-[#3B261D] disabled:cursor-not-allowed disabled:opacity-50"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
@@ -221,7 +222,7 @@ export default function ChatPanel() {
                                             key={suggestion.id}
                                             type="button"
                                             onClick={() => applySuggestion(suggestion.prompt)}
-                                            disabled={isLoading}
+                                            disabled={isLoading || !chatSessionReady}
                                             className="rounded-full border border-[#AA7D69]/35 bg-white px-3 py-1.5 text-left text-[11px] tracking-[0.08em] uppercase text-[#6F4C3D] transition-colors hover:border-[#AA7D69] hover:text-[#3B261D] disabled:cursor-not-allowed disabled:opacity-50"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
@@ -238,15 +239,16 @@ export default function ChatPanel() {
                             ref={inputRef}
                             value={value}
                             onChange={(event) => setValue(event.target.value)}
+                            disabled={!chatSessionReady}
                             placeholder={
                                 t("inputPlaceholder")
                             }
-                            className="h-10 w-full rounded-md border border-[#222]/20 bg-white px-3 text-[13px] outline-none transition-colors focus:border-[#AA7D69]"
+                            className="h-10 w-full rounded-md border border-[#222]/20 bg-white px-3 text-[13px] outline-none transition-colors focus:border-[#AA7D69] disabled:cursor-not-allowed disabled:opacity-50"
                             style={{ fontFamily: "var(--font-sans)" }}
                         />
                         <button
                             type="submit"
-                            disabled={isLoading || !value.trim()}
+                            disabled={isLoading || !value.trim() || !chatSessionReady}
                             className="inline-flex h-10 shrink-0 items-center gap-1 rounded-md bg-[#AA7D69] px-3 text-[12px] tracking-[0.14em] uppercase text-white transition-colors hover:bg-[#8F6654] disabled:cursor-not-allowed disabled:opacity-50"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >

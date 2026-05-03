@@ -36,6 +36,10 @@ The bucket name `don-diego-images` is already in `wrangler.jsonc`. No config cha
 
 Run migrations after creating the DB and whenever you add new migration files.
 
+### Chat (D1)
+
+Migration `0004_chat_sessions.sql` adds `chat_sessions`, `chat_messages`, and `chat_lead_profile` for the site chat: one row per browser session id, message history, and optional inferred lead fields (name, phone, preferences). Visitor continuity uses **hashed** connection metadata (`visitor_key`, optional `ip_hash` / `user_agent_hash`); set `CHAT_VISITOR_SALT` (Wrangler secret in production) for stable hashing. **Retention:** treat chat rows like other personal data—delete or anonymize on a defined schedule (for example up to 24 months) and document it in the privacy policy.
+
 ## Local vs production
 
 | Environment | Database | Image storage |

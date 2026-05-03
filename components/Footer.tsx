@@ -161,7 +161,7 @@ export default function Footer() {
                             <li><Link className="hover:underline underline-offset-4" href="/ubicacion">{t("navLocation")}</Link></li>
                             <li><Link className="hover:underline underline-offset-4" href="/equipo">{t("navTeam")}</Link></li>
                             <li><Link className="hover:underline underline-offset-4" href="/contacto">{t("navContact")}</Link></li>
-                            <li><Link className="hover:underline underline-offset-4" href="/calculadora">{t("navCalculator")}</Link></li>
+                            <li><Link className="hover:underline underline-offset-4" href="/propiedades">{t("navProperties")}</Link></li>
                             <li><p className="text-sm font-serif tracking-widest uppercase font-light pt-2">{t("components")}</p></li>
                             <li><Link className="hover:underline underline-offset-4" href="/residencial">{tn("sub.residencial")}</Link></li>
                             <li><Link className="hover:underline underline-offset-4" href="/farm">{tn("sub.farm")}</Link></li>

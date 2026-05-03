@@ -1,6 +1,7 @@
 {
   "nav": {
     "inicio": "Home",
+    "propiedades": "Properties",
     "proyecto": "Project",
     "galeria": "Gallery",
     "experiencias": "Experiences",
@@ -30,6 +31,14 @@
     "title": "Stories & Experiences",
     "subtitle": "A visual notebook of the landscape, walks, and everyday life at Don Diego.",
     "backToBlog": "Back to blog"
+  },
+  "propertiesIndex": {
+    "kicker": "[Typology]",
+    "title": "Available residences",
+    "subtitle": "A curated selection of layouts and interiors designed for life in connection."
+  },
+  "propertiesDetail": {
+    "disclaimer": "Images and plans are illustrative. Finishes, furniture, and details may vary by unit and availability."
   },
   "hero": {
     "tagline": "Living in Connection",
@@ -90,27 +99,28 @@
   "team": {
     "heading": "The Team",
     "kicker": "(The Team)",
+    "cta": "View team",
     "headingLine1": "Masters of their",
     "headingEm": "craft.",
     "cimenta": {
       "name": "Grupo Cimienta",
-      "role": "Development & General Direction",
-      "description": "30+ years of experience in the full real estate development cycle."
+      "role": "Development",
+      "description": "30+ years shaping efficient, solid, well-executed real estate projects."
     },
     "barragan": {
       "name": "Barragán Arquitectos",
-      "role": "Architectural Design",
-      "description": "Arq. Luis Barragán Rivera - contemporary aesthetics rooted in SMA identity."
+      "role": "Architecture",
+      "description": "Warm contemporary design rooted in San Miguel’s architectural identity."
     },
     "arredarq": {
       "name": "Espacios Verdes / Arredarq",
-      "role": "Landscape & Sustainability",
-      "description": "Arq. Eliseo Arredondo - founder of the Mexican Landscape Architects Society."
+      "role": "Landscape",
+      "description": "Landscape architecture that connects planting, water, and walkable spaces."
     },
     "artemisa": {
       "name": "Artemisa Branding",
-      "role": "Brand Identity & Strategy",
-      "description": "Visual identity and brand strategy for high-end real estate projects."
+      "role": "Commercial Strategy",
+      "description": "Commercial direction, partnerships, and positioning for high-value real estate."
     }
   },
   "contact": {
@@ -121,7 +131,8 @@
     "phone": "Phone",
     "submit": "Submit",
     "whatsapp": "Message us on WhatsApp",
-    "privacy": "By submitting this form, you agree to our privacy policy.",
+    "privacy": "By submitting, you accept our Terms of Service and Privacy Policy, including (when applicable) identity checks that may use your CURP and reviews through lawful screening or legal information platforms, as described there.",
+    "committeeNotice": "When you send this first message, we place your request in a small internal “committee” (Comité) review for basic security and fit before we share things like exact pricing or other sensitive project details. It’s a standard step to protect the community and the project.",
     "kicker": "[Contact]",
     "joinLine1": "Join the world of",
     "joinEm": "Don Diego",
@@ -142,8 +153,9 @@
     "phName": "Your name",
     "phPhone": "Your number",
     "phEmail": "you@email.com",
-    "submitVisit": "Request information",
+    "submitVisit": "Send email",
     "sending": "Sending…",
+    "sms": "iMessage / SMS",
     "whatsappChat": "Chat on WhatsApp",
     "errSend": "Something went wrong. Please try again.",
     "internalVisit": "Visit request from home page",
@@ -173,6 +185,7 @@
     "navTeam": "Team",
     "navContact": "Contact",
     "navCalculator": "Calculator",
+    "navProperties": "Properties",
     "components": "Components",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
@@ -279,20 +292,24 @@
         "title": "Activity bookings",
         "description": "Tell the app what you want to do. It finds the slot and confirms it in seconds.",
         "q1": "reserve yoga at 07:30",
-        "q2": "reserve tennis at 09:00",
-        "q3": "reserve padel at 11:00",
-        "q4": "reserve lap swimming at 12:00",
+        "q2": "reserve pickleball at 08:30",
+        "q3": "reserve padel at 09:30",
+        "q4": "reserve cooking classes at 10:30",
+        "q5": "reserve spa at 11:30",
+        "q6": "reserve coworking at 12:00",
         "act1": "Yoga",
-        "act2": "Tennis",
+        "act2": "Pickleball",
         "act3": "Padel",
-        "act4": "Swimming",
+        "act4": "Cooking classes",
+        "act5": "Spa",
+        "act6": "Coworking / Business Center",
         "confirm": "Confirmed",
         "placeholder": "What would you like to book?"
       },
       "guest": {
         "title": "Secure guest access",
         "description": "Time-limited passes and QR verification protect your privacy at every gate.",
-        "guestName": "María G.",
+        "guestName": "Sofía Reyes",
         "role": "Guest",
         "expires": "Until 9:00 PM",
         "verified": "Verified"
@@ -301,8 +318,8 @@
         "title": "Farm orders",
         "description": "Harvest baskets and seasonal produce, curated and scheduled for pickup or delivery.",
         "item1": "Heirloom tomatoes",
-        "item2": "Basil & herbs",
-        "item3": "Seasonal bouquet",
+        "item2": "Seasonal jam",
+        "item3": "Flower bouquet",
         "statusOrdering": "Organizing",
         "statusPreparing": "Preparing",
         "statusReady": "Your order is ready"
@@ -319,6 +336,55 @@
         "badge": "Next",
         "calendarEyebrow": "Your property",
         "calendarSelected": "Available to rent"
+      },
+      "sanMiguel": {
+        "title": "Connect with San Miguel",
+        "description": "Upcoming events and curated plans to experience the city.",
+        "concept": {
+          "kicker": "City",
+          "headline": "Weekend rhythm",
+          "subline": "A soft pulse between garden, art, and music.",
+          "pulse": "Local pulse"
+        },
+        "weather": {
+          "kicker": "Weather today",
+          "updated": "Updated",
+          "hiLow": "High / Low",
+          "error": "We couldn’t load the weather right now.",
+          "conditions": {
+            "clear": "Clear",
+            "partlyCloudy": "Partly cloudy",
+            "overcast": "Overcast",
+            "rain": "Rain",
+            "heavyRain": "Heavy rain",
+            "storm": "Storm",
+            "snow": "Snow",
+            "fog": "Fog",
+            "drizzle": "Drizzle",
+            "unknown": "Weather"
+          }
+        },
+        "events": {
+          "title": "Upcoming events",
+          "items": {
+            "market": {
+              "title": "Weekend garden market",
+              "when": "Sat–Sun · Morning"
+            },
+            "artWalk": {
+              "title": "Art walk & galleries",
+              "when": "Afternoons · Historic center"
+            },
+            "liveMusic": {
+              "title": "Live music",
+              "when": "Nights · Bars & patios"
+            },
+            "seasonalFestival": {
+              "title": "Seasonal festival",
+              "when": "Local calendar"
+            }
+          }
+        }
       }
     }
   },
@@ -463,6 +529,14 @@
       "title": "Stories & Experiences | Don Diego",
       "description": "A visual notebook of the landscape, walks, and everyday life at Don Diego."
     },
+    "propertiesIndex": {
+      "title": "Properties | Don Diego",
+      "description": "Explore layouts, floor plans, and interiors designed for life in connection at Don Diego."
+    },
+    "galeria": {
+      "title": "Gallery | Don Diego",
+      "description": "Explore the spaces, architecture, amenities, and natural setting of Don Diego."
+    },
     "terms": {
       "title": "Terms of Service | Don Diego",
       "description": "Terms governing your use of the Don Diego website and services."
@@ -472,8 +546,8 @@
       "description": "How Don Diego collects, uses, and protects your personal information."
     },
     "purchaseGuide": {
-      "title": "Purchase Guide for Foreign Buyers | Don Diego",
-      "description": "A step-by-step overview of buying residential real estate in Mexico, with high-level notes for buyers from the United States, Canada, and Europe."
+      "title": "Buyer’s guide | Don Diego",
+      "description": "A friendly, plain-language overview of buying at Don Diego in San Miguel: paths for international buyers and for buyers in Mexico, plus region notes and checklists."
     },
     "calculadora": {
       "title": "Financing calculator | Don Diego",
@@ -481,6 +555,86 @@
     }
   },
   "pages": {
+    "galeria": {
+      "kicker": "[Gallery]",
+      "title": "The Place You Want",
+      "intro": "Explore the spaces, architecture, amenities, and natural setting that make this place the home you have always imagined.",
+      "hint": "Click to enlarge",
+      "viewAll": "View full gallery",
+      "openImage": "Enlarge image:",
+      "close": "Close gallery",
+      "previous": "Previous image",
+      "next": "Next image",
+      "categories": {
+        "all": "All",
+        "residences": "Residences",
+        "amenities": "Amenities",
+        "surroundings": "Setting",
+        "masterplan": "Masterplan"
+      },
+      "items": {
+        "casa-club": {
+          "title": "Central Clubhouse",
+          "description": "The heart of the development, designed for wellbeing and community life.",
+          "alt": "Don Diego central clubhouse with gardens, fountain, and residences around it"
+        },
+        "residencias-jardin": {
+          "title": "Garden Residences",
+          "description": "Warm architecture set among native planting and quiet walkways.",
+          "alt": "Residence facades with floral gardens and a water feature"
+        },
+        "andadores": {
+          "title": "Pedestrian Walkways",
+          "description": "Interior routes designed for daily life on foot, away from cars.",
+          "alt": "Pedestrian walkway between residences and landscaping"
+        },
+        "presa-cantera": {
+          "title": "Presa de la Cantera",
+          "description": "A privileged natural setting with terraces, water, and greenery.",
+          "alt": "Terrace beside the reservoir with gardens and lakeside architecture"
+        },
+        "residencias": {
+          "title": "Residences",
+          "description": "Warm, timeless architecture designed for a connected way of living.",
+          "alt": "View of Don Diego residences surrounded by landscaping"
+        },
+        "masterplan": {
+          "title": "Masterplan",
+          "description": "A planned environment for your quality of life.",
+          "alt": "Aerial view of the Don Diego master plan"
+        },
+        "malecon": {
+          "title": "Lakeside Promenade",
+          "description": "Open spaces for walking, resting, and looking toward the water.",
+          "alt": "Promenade and terrace facing the water with planting"
+        },
+        "acceso": {
+          "title": "Main Entrance",
+          "description": "A welcome into your new home.",
+          "alt": "Don Diego main entrance with stone wall and fountains"
+        },
+        "wellness": {
+          "title": "Wellness Center",
+          "description": "Spaces for personal care, rest, and active living.",
+          "alt": "Wellness area with contemporary architecture and gardens"
+        },
+        "farm": {
+          "title": "Organic Farm",
+          "description": "Gardens and seasonal flowers integrated into everyday life.",
+          "alt": "Organic crops and flowers in the Don Diego setting"
+        },
+        "pool": {
+          "title": "Pool and Terraces",
+          "description": "Rest areas designed to enjoy San Miguel's climate.",
+          "alt": "Outdoor pool with terraces and landscaping"
+        },
+        "mapa": {
+          "title": "Regional Location",
+          "description": "San Miguel de Allende connected to the Bajio, Queretaro, Mexico City, and central Mexico.",
+          "alt": "Regional map with San Miguel de Allende and nearby states"
+        }
+      }
+    },
     "notFound": {
       "contact": "Contact",
       "title": "Page Not Found",
@@ -490,24 +644,28 @@
     },
     "purchaseGuide": {
       "kicker": "[Purchase guide]",
-      "title": "Purchase guide for international buyers",
-      "intro": "San Miguel de Allende is a magnet for residents of the United States, Canada, and Europe. This guide explains the usual sequence of a residential purchase in Mexico, how foreign ownership is often structured outside coastal and border restricted bands, and what questions to raise with your notary, counsel, and home-country tax advisers.",
+      "title": "Your Don Diego purchase guide",
+      "intro": "This guide is for anyone exploring a home at Don Diego in San Miguel de Allende. At the top, choose “International” (the default) for the usual path for buyers from the U.S., Canada, Europe, and Latin America, plus a short “your region” section—or choose “Local / Mexico” for the same journey described for buyers who already live in Mexico. It’s a helpful overview; your notary and lawyers still give the final word for your case.",
       "disclaimerTitle": "Important notice",
-      "disclaimerLead": "Educational summary only—not legal, tax, or investment advice.",
+      "disclaimerLead": "Informational only. Not legal, tax, or investment advice.",
       "onThisPage": "On this page",
+      "viewToggleLabel": "Choose buyer path",
+      "tabViewInternational": "International (US / Canada / Europe / Latin America)",
+      "tabViewLocalMexico": "Local / Mexico",
       "navDisclaimer": "Notice",
       "navSteps": "Steps",
-      "navMexico": "Mexico context",
+      "navMexico": "Don Diego in Mexico",
+      "navLocalContext": "At Don Diego (Mexico)",
       "navHomeCountry": "Your region",
       "navChecklist": "Checklist",
       "tabUnitedStates": "United States",
       "tabCanada": "Canada",
       "tabEurope": "Europe",
+      "tabLatinAmerica": "Latin America",
       "checklistProgress": "{prepared} of {total} items marked",
       "resetChecklist": "Clear progress",
       "disclaimerDetailsLabel": "Full notice text",
-      "readingProgress": "Reading progress",
-      "stepHint": "Tap a step to expand or collapse the details."
+      "readingProgress": "Reading progress"
     },
     "proyecto": {
       "hero": {
@@ -587,10 +745,42 @@
         "messageLabel": "Message",
         "messagePlaceholder": "How can we help you?",
         "sending": "Sending...",
-        "submit": "Send Message",
+        "submit": "Email",
+        "sms": "iMessage / SMS",
         "whatsapp": "WhatsApp Chat",
         "socialTitle": "Follow us on social media",
-        "errorRequired": "Name, email, and message are required."
+        "errorRequired": "Name, email, and message are required.",
+        "committeeNotice": "When you send this first message, we place your request in a small internal “committee” (Comité) review for basic security and fit before we share things like exact pricing or other sensitive project details. It’s a standard step to protect the community and the project.",
+        "privacySubmit": "By submitting, you accept our Terms of Service and Privacy Policy, including (when applicable) identity checks that may use your CURP and reviews through lawful screening or legal information platforms, as described there."
+      },
+      "instagram": {
+        "kicker": "[Instagram]",
+        "titleLine1": "Don Diego",
+        "titleLine2": "on Instagram.",
+        "cta": "View Instagram",
+        "mockLabel": "Hypothetical",
+        "posts": {
+          "farm": {
+            "label": "Organic farm",
+            "alt": "Harvest table and greenery at the Don Diego organic farm",
+            "caption": "A morning walk through harvests, flowers, and produce that keeps daily life close to the land."
+          },
+          "wellness": {
+            "label": "Wellness",
+            "alt": "Wellness center surrounded by natural landscape at Don Diego",
+            "caption": "Breathe, move, and close the day near the water. Wellness here is shaped as a quiet daily rhythm."
+          },
+          "presa": {
+            "label": "Reservoir",
+            "alt": "View of Presa de la Cantera in San Miguel de Allende",
+            "caption": "Sunsets beside Presa de la Cantera, just minutes from San Miguel's historic center."
+          },
+          "residencial": {
+            "label": "Residential club",
+            "alt": "Don Diego residential club architecture integrated into the landscape",
+            "caption": "Architecture, a walkable community, and shared spaces for living San Miguel at a calmer pace."
+          }
+        }
       }
     },
     "calculadora": {
@@ -683,12 +873,12 @@
         "titleLine1": "Discover the",
         "titleAccent": "spaces",
         "titleLine2": "we offer.",
-        "virtualStage": "Visualize this furnished space",
+        "viewPropertyPage": "View interactive map",
         "carouselAria": "Carousel of {title}",
         "carouselGoTo": "Go to image {index} of {total}",
         "imageAlt": "{title} - {index} / {total}",
         "labels": {
-          "superficie": "Built area",
+          "superficie": "Area",
           "recamaras": "Bedrooms",
           "banos": "Bathrooms",
           "estacionamientos": "Parking"
@@ -698,7 +888,7 @@
             "title": "Apartments",
             "description": "Blocks around the residential complex: covered parking and lower-level storage create a circuit that keeps inner streets free of vehicle traffic. Four apartments per level with terraces and usable rooftops.",
             "specs": {
-              "superficie": "113-173 m2 (by prototype)",
+              "superficie": "113-173 m2",
               "recamaras": "2-3",
               "banos": "2-3",
               "estacionamientos": "2 spots per unit"
@@ -743,7 +933,7 @@
             "title": "Duplex Homes Type 3",
             "description": "Central patio with one home per level; layouts with multiple terraces and, in type B prototypes, a living lounge. Option to rent one bedroom independently.",
             "specs": {
-              "superficie": "142-181 m2 (by prototype)",
+              "superficie": "142-181 m2",
               "recamaras": "2-3",
               "banos": "2-3",
               "estacionamientos": "2 spots per unit"
@@ -760,17 +950,52 @@
         "kicker": "[RESIDENTIAL AMENITIES]",
         "titleLine1": "Community and",
         "titleAccent": "life",
+        "intro": "More than amenities, we create spaces for gathering, caring for yourself, and enjoying every day. Everything is designed for a full, connected, and meaningful way of life.",
         "socialHeart": {
           "title": "The Social Heart",
-          "body": "World-class clubhouse with signature restaurant, coffee bars, coworking areas, and expansive terraces immersed in San Miguel's landscape."
+          "kicker": "The social heart",
+          "headline": "World-class Clubhouse",
+          "body": "A gathering point designed to celebrate everyday life. Signature restaurant, coffee bars, coworking, and terraces invite unforgettable shared moments.",
+          "cta": "Explore Clubhouse",
+          "highlights": {
+            "restaurant": {
+              "title": "Signature restaurant"
+            },
+            "coffee": {
+              "title": "Coffee bars"
+            },
+            "coworking": {
+              "title": "Coworking & terraces"
+            }
+          }
         },
         "wellness": {
           "title": "Wellness and Relaxation",
-          "body": "A calm sanctuary with heated pool, yoga studio, spa, and private jacuzzis among streams."
+          "kicker": "Wellness and relaxation",
+          "intro": "Spaces to reconnect with yourself",
+          "body": "A calm sanctuary with heated pool, yoga studio, spa, and private jacuzzis among streams.",
+          "items": {
+            "yoga": {
+              "title": "Yoga",
+              "body": "Guided sessions in spaces that inspire balance."
+            },
+            "spa": {
+              "title": "Spa",
+              "body": "Personalized treatments for body, mind, and soul."
+            },
+            "jacuzzi": {
+              "title": "Jacuzzi",
+              "body": "Relax and enjoy the landscape in total privacy."
+            }
+          }
         },
         "sports": {
           "title": "Sports and Recreation",
-          "body": "Padel courts and sports amenities wrapped in lush perimeter vegetation."
+          "kicker": "Sports and recreation",
+          "intro": "Get active, compete, and enjoy",
+          "body": "Padel courts and sports amenities wrapped in lush perimeter vegetation.",
+          "cta": "Book a padel court",
+          "availability": "See availability"
         },
         "searchPlaceholder": "Book a padel class...",
         "labels": {
@@ -787,7 +1012,27 @@
           "spa": "Spa",
           "yoga": "Yoga",
           "relax": "Relax",
-          "activity": "Activity"
+          "activity": "Activity",
+          "gym": "Gym",
+          "field": "Sports field"
+        },
+        "featureStrip": {
+          "dailyLife": {
+            "title": "Daily rhythm",
+            "body": "Active spaces from morning through evening."
+          },
+          "mobility": {
+            "title": "Pedestrian routes",
+            "body": "Interior streets designed for walking and gathering."
+          },
+          "homeCare": {
+            "title": "Residential support",
+            "body": "Operational assistance for a simpler way of living."
+          },
+          "landscape": {
+            "title": "Integrated landscape",
+            "body": "Gardens, shade, and water connect every amenity."
+          }
         }
       },
       "clubAccess": {
@@ -927,19 +1172,27 @@
         },
         "items": {
           "invernaderos": {
-            "title": "Greenhouses and growing zones",
+            "kicker": "[GROWING]",
+            "titleBase": "Greenhouses and",
+            "titleAccent": "growing zones",
             "description": "Terraced spaces with sustainable agriculture technology that ensure the freshest possible origin."
           },
           "andadoresCicloruta": {
-            "title": "Walkways and cycle route",
+            "kicker": "[PATHWAYS]",
+            "titleBase": "Walkways and",
+            "titleAccent": "cycle route",
             "description": "Exploring the productive extension on foot or by bike lets you connect physically with the natural process."
           },
           "experienciaComunitaria": {
-            "title": "Community experience",
+            "kicker": "[COMMUNITY]",
+            "titleBase": "Community",
+            "titleAccent": "experience",
             "description": "Educational programs around what is grown to teach residents the value of harvesting what they plant."
           },
           "origenLocal": {
-            "title": "The origin of local",
+            "kicker": "[LOCAL ORIGIN]",
+            "titleBase": "The origin of",
+            "titleAccent": "local",
             "description": "Pure sustainability: a closed ecosystem where products directly nourish people and the Don Diego environment."
           }
         }
@@ -1008,22 +1261,38 @@
           "base": "A place",
           "accent": "to heal"
         },
+        "selector": {
+          "title": "Select a service",
+          "description": "Click a category to explore the services."
+        },
         "backgroundAlt": "Service background",
         "closeAriaLabel": "Close",
         "items": {
           "rehabilitacion": {
+            "kicker": "[REHABILITATION]",
+            "titleBase": "Rehabilitation",
+            "titleAccent": "center",
             "title": "Rehabilitation center",
             "description": "Specialized spaces with advanced technology for physical recovery and integral pain management."
           },
           "seniorLiving": {
+            "kicker": "[SUPPORTED LIVING]",
+            "titleBase": "Senior",
+            "titleAccent": "Living",
             "title": "Senior Living",
             "description": "Residences designed for an active and dignified life, with personalized care and community support at all times."
           },
           "departamentosFamiliares": {
+            "kicker": "[FAMILY]",
+            "titleBase": "Family",
+            "titleAccent": "apartments",
             "title": "Family apartments",
             "description": "Lodging spaces designed so families stay comfortable and close to their loved ones during recovery."
           },
           "amenidades": {
+            "kicker": "[AMENITIES]",
+            "titleBase": "Wellness",
+            "titleAccent": "amenities",
             "title": "Amenities",
             "description": "Common areas, therapeutic gardens, pool, and leisure spaces integrated in harmony with nature."
           }
@@ -1044,6 +1313,8 @@
           "base": "Four ways to live",
           "accent": "the Presa"
         },
+        "previousFeatureAria": "View previous experience",
+        "nextFeatureAria": "View next experience",
         "features": {
           "vistas": {
             "title": "Horizons over water",
@@ -1135,25 +1406,25 @@
       },
       "details": {
         "members": {
-          "cimenta": {
+          "grupoCimienta": {
             "name": "Grupo Cimienta",
-            "role": "Dirección General y Desarrollo",
-            "description": "+30 años de experiencia en ciclo completo inmobiliario. Especialistas en desarrollo urbano y vivienda bajo una filosofía de máxima eficiencia sin comprometer calidad."
+            "role": "Development & General Direction",
+            "description": "30+ years of experience in the full real estate development cycle."
           },
-          "barragan": {
+          "barraganArquitectos": {
             "name": "Barragán Arquitectos",
-            "role": "Diseño Arquitectónico",
-            "description": "Despacho responsable del diseño integral del desarrollo. Su visión traduce la identidad del entorno sanmiguelense en espacios que equilibran estética contemporánea, materialidad y arraigo con el paisaje natural."
+            "role": "Architectural Design",
+            "description": "Arq. Luis Barragán Rivera - contemporary aesthetics rooted in SMA identity."
           },
-          "arredarq": {
+          "espaciosVerdesArredarq": {
             "name": "Espacios Verdes / Arredarq",
-            "role": "Paisajismo y Sustentabilidad",
-            "description": "Despacho fundador de la Sociedad de Arquitectos Paisajistas de México, con formación en Versalles, Francia. Lidera la integración del entorno natural bajo principios de diseño sustentable y arquitectura de paisaje."
+            "role": "Landscape & Sustainability",
+            "description": "Arq. Eliseo Arredondo - founder of the Mexican Landscape Architects Society."
           },
-          "artemisa": {
-            "name": "Mesa Directiva Comercial",
-            "role": "Dirección Comercial y Estrategia",
-            "description": "Equipo con trayectoria en mercadotecnia, comercial y innovación a nivel corporativo. Expertise en gobierno corporativo, alianzas estratégicas y mercadotecnia de valor en macro-proyectos inmobiliarios."
+          "artemisaBranding": {
+            "name": "Artemisa Branding",
+            "role": "Brand Identity & Strategy",
+            "description": "Visual identity and brand strategy for high-end real estate projects."
           }
         }
       }
@@ -1287,15 +1558,16 @@
   "components": {
     "chatPanel": {
       "contextLabel": "Context: {pageType}",
+      "headerTitle": "George · Don Diego",
       "clearAria": "Clear chat",
-      "closeAria": "Close assistant",
+      "closeAria": "Close chat panel",
       "emptyState": "Start with one of these suggestions or ask anything about Don Diego.",
       "thinking": "Thinking...",
       "hideFollowups": "Hide follow-ups",
       "showFollowups": "Show follow-ups",
       "inputPlaceholder": "Ask about this page",
       "send": "Send",
-      "panelAria": "AI Assistant Panel",
+      "panelAria": "Don Diego chat with George",
       "errors": {
         "chatRequestFailed": "Sorry, I could not process your request right now."
       }

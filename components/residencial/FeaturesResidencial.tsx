@@ -11,10 +11,9 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
-import { VirtualStagingModal } from "@/components/virtual-staging/virtual-staging-modal";
-import { Sparkles } from "lucide-react";
+import { ArrowUpRight, Bath, BedDouble, Car, Maximize2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 type ResidenceSpec = {
     superficie: string;
@@ -25,6 +24,7 @@ type ResidenceSpec = {
 
 type Residence = {
     id: number;
+    slug: string;
     title: string;
     accent: string;
     accentSoft: string;
@@ -35,28 +35,36 @@ type Residence = {
 };
 
 const RESIDENCE_IMAGE_SIZES = "(min-width: 1280px) 680px, (min-width: 1024px) 52vw, 100vw";
+const RESIDENCE_THUMB_IMAGE_SIZES = "(min-width: 1280px) 210px, (min-width: 1024px) 16vw, 33vw";
 
-function ResidenceImageCarousel({
+function ResidenceImageShowcase({
     images,
     title,
     accent,
     accentSoft,
-    onVirtualStage,
     t,
 }: {
     images: string[];
     title: string;
     accent: string;
     accentSoft: string;
-    onVirtualStage: (imageUrl: string) => void;
     t: (key: string, values?: Record<string, string | number>) => string;
 }) {
-    const n = images.length;
+    const galleryImages = images.slice(1, 4);
 
-    if (n === 1) {
-        return (
-            <div className="flex h-full min-h-0 w-full flex-col">
-                <div className="relative min-h-0 w-full flex-1">
+    return (
+        <>
+            <div className="lg:hidden">
+                <ResidenceImageCarousel
+                    images={images}
+                    title={title}
+                    accent={accent}
+                    accentSoft={accentSoft}
+                    t={t}
+                />
+            </div>
+            <div className="hidden min-w-0 lg:block">
+                <div className="relative aspect-[2/1] w-full overflow-hidden">
                     <Image
                         src={images[0]}
                         alt={title}
@@ -64,32 +72,59 @@ function ResidenceImageCarousel({
                         className="object-cover"
                         sizes={RESIDENCE_IMAGE_SIZES}
                     />
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/45 to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/35 to-transparent" />
                 </div>
-                <div className="flex justify-end px-1 pt-2">
-                    <Button
-                        type="button"
-                        size="sm"
-                        className="h-auto rounded-none bg-transparent px-0 text-left text-[#222222] text-[10px] font-bold uppercase tracking-[0.15em] border-b border-[#222222] pb-1 shadow-none hover:opacity-60 transition-opacity hover:bg-transparent active:!translate-y-0 lg:text-[11px]"
-                        onClick={() => onVirtualStage(images[0])}
-                    >
-                        {t("virtualStage")}
-                    </Button>
-                </div>
+                {galleryImages.length > 0 && (
+                    <div className="mt-3 grid grid-cols-3 gap-3">
+                        {galleryImages.map((src, i) => (
+                            <div key={`${i}-${src}`} className="relative aspect-[4/3] min-w-0 overflow-hidden">
+                                <Image
+                                    src={src}
+                                    alt={t("imageAlt", { title, index: i + 2, total: images.length })}
+                                    fill
+                                    className="object-cover"
+                                    sizes={RESIDENCE_THUMB_IMAGE_SIZES}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </>
+    );
+}
+
+function ResidenceImageCarousel({
+    images,
+    title,
+    accent,
+    accentSoft,
+    t,
+}: {
+    images: string[];
+    title: string;
+    accent: string;
+    accentSoft: string;
+    t: (key: string, values?: Record<string, string | number>) => string;
+}) {
+    const n = images.length;
+
+    if (n === 1) {
+        return (
+            <div className="relative aspect-[16/10] w-full overflow-hidden">
+                <Image
+                    src={images[0]}
+                    alt={title}
+                    fill
+                    className="object-cover"
+                    sizes={RESIDENCE_IMAGE_SIZES}
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/45 to-transparent" />
             </div>
         );
     }
 
-    return (
-        <ResidenceImageCarouselEmbla
-            images={images}
-            title={title}
-            accent={accent}
-            accentSoft={accentSoft}
-            onVirtualStage={onVirtualStage}
-            t={t}
-        />
-    );
+    return <ResidenceImageCarouselEmbla images={images} title={title} accent={accent} accentSoft={accentSoft} t={t} />;
 }
 
 function ResidenceImageCarouselEmbla({
@@ -97,14 +132,12 @@ function ResidenceImageCarouselEmbla({
     title,
     accent,
     accentSoft,
-    onVirtualStage,
     t,
 }: {
     images: string[];
     title: string;
     accent: string;
     accentSoft: string;
-    onVirtualStage: (imageUrl: string) => void;
     t: (key: string, values?: Record<string, string | number>) => string;
 }) {
     const [api, setApi] = useState<CarouselApi>();
@@ -124,16 +157,16 @@ function ResidenceImageCarouselEmbla({
     }, [api]);
 
     return (
-        <div className="flex h-full min-h-0 w-full flex-col">
+        <div className="w-full overflow-hidden">
             <Carousel
                 setApi={setApi}
                 opts={{ align: "start", loop: true }}
-                className="group/carousel w-full min-h-0 flex-1 [&_[data-slot=carousel-content]]:h-full"
+                className="group/carousel w-full overflow-hidden [&_[data-slot=carousel-content]]:h-full"
             >
-                <CarouselContent className="-ml-0 h-full">
+                <CarouselContent className="-ml-0 aspect-[16/10] h-auto">
                     {images.map((src, i) => (
                         <CarouselItem key={`${i}-${src}`} className="h-full basis-full pl-0">
-                            <div className="relative h-full min-h-[12rem] w-full">
+                            <div className="relative h-full w-full">
                                 <Image
                                     src={src}
                                     alt={t("imageAlt", { title, index: i + 1, total: n })}
@@ -175,17 +208,6 @@ function ResidenceImageCarouselEmbla({
                     ))}
                 </div>
             </Carousel>
-            <div className="flex items-center justify-end pt-2">
-                <Button
-                    type="button"
-                    size="sm"
-                    className="h-auto rounded-none bg-transparent px-0 text-left text-[#222222] text-[10px] font-bold uppercase tracking-[0.15em] border-b-[#222222] pb-1 shadow-none hover:opacity-60 transition-opacity hover:bg-transparent active:!translate-y-0 lg:text-[10px]"
-                    onClick={() => onVirtualStage(images[current] ?? images[0])}
-                >
-                    <Sparkles className="mr-1.5 size-3.5 sm:size-4" />
-                    {t("virtualStage")}
-                </Button>
-            </div>
         </div>
     );
 }
@@ -199,41 +221,60 @@ function ResidenceDetailPanel({
     labels: Record<keyof ResidenceSpec, string>;
     t: (key: string, values?: Record<string, string | number>) => string;
 }) {
+    const specItems: { key: keyof ResidenceSpec; Icon: typeof Maximize2 }[] = [
+        { key: "superficie", Icon: Maximize2 },
+        { key: "recamaras", Icon: BedDouble },
+        { key: "banos", Icon: Bath },
+        { key: "estacionamientos", Icon: Car },
+    ];
+
     return (
-        <div className="flex min-w-0 flex-col" style={{ fontFamily: "var(--font-sans)" }}>
-            <h3
-                className="text-[#2f2721] font-medium tracking-normal"
-                style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: "clamp(1.35rem, 2.2vw, 2rem)",
-                    lineHeight: 1.2,
-                }}
-            >
-                {residence.title}
-            </h3>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-neutral-600 md:text-[15px]">{residence.description}</p>
-            <div className="my-6 h-px w-full bg-neutral-200" />
-            <dl className="space-y-2.5 text-[13px] text-neutral-800">
-                {(Object.keys(labels) as (keyof ResidenceSpec)[]).map((key) => (
-                    <div key={key} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
-                        <dt className="text-[11px] font-normal uppercase tracking-[0.12em] text-neutral-500">{labels[key]}</dt>
-                        <dd className="text-right font-medium tabular-nums text-[#0a0a0a]">{residence.specs[key]}</dd>
-                    </div>
-                ))}
-            </dl>
-            <div className="mt-8 flex flex-col gap-3">
-                {residence.highlights.map((highlight) => (
-                    <div
-                        key={highlight}
-                        className="flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.2em] text-neutral-700"
-                    >
-                        <span
-                            className="h-1.5 w-1.5 shrink-0 rounded-full border border-[#0a0a0a]"
-                            style={{ backgroundColor: residence.accentSoft }}
-                        />
-                        {highlight}
-                    </div>
-                ))}
+        <div className="flex h-full min-h-0 min-w-0 flex-col" style={{ fontFamily: "var(--font-sans)" }}>
+            <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+                <dl className="order-1 grid grid-cols-2 gap-x-4 gap-y-4 border-b border-neutral-200/90 pb-6 text-[#0a0a0a] lg:order-2 lg:mt-0 lg:gap-x-5 lg:gap-y-4 lg:border-b-0 lg:border-t lg:pt-7 lg:pb-0">
+                    {specItems.map(({ key, Icon }) => (
+                        <div key={key} className="min-w-0">
+                            <div className="flex min-w-0 items-start gap-2.5">
+                                <Icon className="mt-0.5 size-4 shrink-0 text-[#b76d4b]" strokeWidth={1.75} aria-hidden />
+                                <div className="min-w-0">
+                                    <dt className="text-[9px] font-medium uppercase leading-snug tracking-[0.16em] text-neutral-500">
+                                        {labels[key]}
+                                    </dt>
+                                    <dd className="mt-0.5 text-pretty text-[13px] font-medium leading-snug tracking-normal text-[#0a0a0a] tabular-nums">
+                                        {residence.specs[key]}
+                                    </dd>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </dl>
+                <p className="order-2 mt-6 max-w-none text-pretty text-[15px] leading-[1.7] text-neutral-600 md:text-[15.5px] md:leading-[1.72] lg:order-1 lg:mt-0">
+                    {residence.description}
+                </p>
+                <div className="order-3 mt-7 flex flex-col gap-3.5">
+                    {residence.highlights.map((highlight) => (
+                        <div
+                            key={highlight}
+                            className="flex items-start gap-3 text-pretty text-[10.5px] font-medium uppercase leading-[1.55] tracking-[0.18em] text-neutral-700 sm:text-[11px]"
+                        >
+                            <span
+                                className="mt-[0.35em] h-1.5 w-1.5 shrink-0 rounded-full border border-[#0a0a0a]"
+                                style={{ backgroundColor: residence.accentSoft }}
+                            />
+                            {highlight}
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="flex w-full shrink-0 justify-end pt-7">
+                <Link
+                    href="/propiedades#mapa-interactivo"
+                    className="inline-flex items-center gap-1.5 border-b border-[#1F1D1B] pb-1 text-[10px] font-bold uppercase tracking-[0.15em] text-[#1F1D1B] transition-opacity hover:opacity-60 lg:text-[11px]"
+                    style={{ fontFamily: "var(--font-sans)" }}
+                >
+                    {t("viewPropertyPage")}
+                    <ArrowUpRight className="size-3.5 shrink-0 translate-y-px lg:size-4" aria-hidden />
+                </Link>
             </div>
         </div>
     );
@@ -241,11 +282,6 @@ function ResidenceDetailPanel({
 
 export default function FeaturesResidencial() {
     const t = useTranslations("pages.residencial.features");
-    const [virtualStagingOpen, setVirtualStagingOpen] = useState(false);
-    const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
-    const [selectedPropertyImages, setSelectedPropertyImages] = useState<string[]>([]);
-    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-    const [selectedResidence, setSelectedResidence] = useState<Residence | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
 
     const labels: Record<keyof ResidenceSpec, string> = {
@@ -258,6 +294,7 @@ export default function FeaturesResidencial() {
     const residences: Residence[] = [
         {
             id: 1,
+            slug: "departamentos",
             title: t("residences.departamentos.title"),
             accent: "#b76d4b",
             accentSoft: "#e7d2c6",
@@ -267,7 +304,7 @@ export default function FeaturesResidencial() {
                 superficie: t("residences.departamentos.specs.superficie"),
                 recamaras: t("residences.departamentos.specs.recamaras"),
                 banos: t("residences.departamentos.specs.banos"),
-                estacionamientos: t("residences.departamentos.specs.estacionamientos"),
+                estacionamientos: "2",
             },
             highlights: [
                 t("residences.departamentos.highlights.1"),
@@ -277,6 +314,7 @@ export default function FeaturesResidencial() {
         },
         {
             id: 2,
+            slug: "duplex-tipo-1",
             title: t("residences.duplex1.title"),
             accent: "#b76d4b",
             accentSoft: "#e7d2c6",
@@ -286,7 +324,7 @@ export default function FeaturesResidencial() {
                 superficie: t("residences.duplex1.specs.superficie"),
                 recamaras: t("residences.duplex1.specs.recamaras"),
                 banos: t("residences.duplex1.specs.banos"),
-                estacionamientos: t("residences.duplex1.specs.estacionamientos"),
+                estacionamientos: "2",
             },
             highlights: [
                 t("residences.duplex1.highlights.1"),
@@ -296,6 +334,7 @@ export default function FeaturesResidencial() {
         },
         {
             id: 3,
+            slug: "duplex-tipo-2",
             title: t("residences.duplex2.title"),
             accent: "#b76d4b",
             accentSoft: "#e7d2c6",
@@ -305,7 +344,7 @@ export default function FeaturesResidencial() {
                 superficie: t("residences.duplex2.specs.superficie"),
                 recamaras: t("residences.duplex2.specs.recamaras"),
                 banos: t("residences.duplex2.specs.banos"),
-                estacionamientos: t("residences.duplex2.specs.estacionamientos"),
+                estacionamientos: "2",
             },
             highlights: [
                 t("residences.duplex2.highlights.1"),
@@ -315,6 +354,7 @@ export default function FeaturesResidencial() {
         },
         {
             id: 4,
+            slug: "duplex-tipo-3",
             title: t("residences.duplex3.title"),
             accent: "#b76d4b",
             accentSoft: "#e7d2c6",
@@ -324,7 +364,7 @@ export default function FeaturesResidencial() {
                 superficie: t("residences.duplex3.specs.superficie"),
                 recamaras: t("residences.duplex3.specs.recamaras"),
                 banos: t("residences.duplex3.specs.banos"),
-                estacionamientos: t("residences.duplex3.specs.estacionamientos"),
+                estacionamientos: "2",
             },
             highlights: [
                 t("residences.duplex3.highlights.1"),
@@ -336,21 +376,13 @@ export default function FeaturesResidencial() {
 
     const active = residences[activeIndex] ?? residences[0];
 
-    const openVirtualStage = (imageUrl: string, residence: Residence) => {
-        setSelectedImageUrl(imageUrl);
-        setSelectedPropertyImages(residence.images);
-        setSelectedResidence(residence);
-        setSelectedImageIndex(Math.max(0, residence.images.findIndex((img) => img === imageUrl)));
-        setVirtualStagingOpen(true);
-    };
-
     return (
         <>
-            <section className="relative bg-[#fff8ed] px-6 pt-10 pb-24 md:px-10 md:py-32 lg:px-16 lg:py-20">
+            <section className="relative bg-[#EFE6DC] px-6 pt-10 pb-24 md:px-10 md:py-32 lg:px-16 lg:py-20">
                 <div className="mx-auto min-w-0 max-w-[1280px]" style={{ fontFamily: "var(--font-sans)" }}>
-                    <div className="grid min-w-0 grid-cols-1 gap-8 md:gap-10 lg:grid-cols-[minmax(0,200px)_minmax(0,1fr)_minmax(0,280px)] lg:grid-rows-[auto_minmax(22rem,auto)] lg:gap-x-0 lg:gap-y-10">
+                    <div className="grid min-w-0 grid-cols-1 gap-8 md:gap-10 lg:grid-cols-[minmax(0,200px)_minmax(0,1fr)_minmax(0,300px)] lg:grid-rows-[auto_minmax(6.5rem,auto)_minmax(30rem,auto)] lg:gap-x-0 lg:gap-y-0">
                         {/* Section title — first on mobile; desktop row above columns */}
-                        <header className="min-w-0 border-b border-[#3a3028]/10 pb-6 text-center lg:col-span-3 lg:row-start-1 lg:border-b lg:pb-10 lg:text-left">
+                        <header className="min-w-0 border-b border-[#3a3028]/10 pb-6 text-center lg:col-span-3 lg:row-start-1 lg:mb-8 lg:border-b lg:pb-10 lg:text-left">
                             <div className="mx-auto h-px w-12 bg-[#3a3028]/20 lg:mx-0" />
                             <p
                                 className="mt-5 text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase"
@@ -362,7 +394,8 @@ export default function FeaturesResidencial() {
                                 className="mt-5 max-w-full text-pretty break-words text-center font-light leading-[1.05] tracking-tight text-[#2f2721] lg:max-w-4xl lg:text-left"
                                 style={{
                                     fontFamily: "var(--font-serif)",
-                                    fontSize: "clamp(2rem, 5.5vw, 5.5rem)",
+                                    fontSize: "clamp(1.5rem, 3.5vw, 3.5rem)",
+                               
                                 }}
                                 initial={{ opacity: 0, y: 12 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -370,8 +403,8 @@ export default function FeaturesResidencial() {
                                 transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
                             >
                                 {t("titleLine1")}{" "}
-                                <span className="italic text-[#b76d4b]">{t("titleAccent")}</span>
-                                <br />
+                                <span className="italic text-[#b76d4b]">{t("titleAccent")} </span>
+                                {/* <br /> */}
                                 {t("titleLine2")}
                             </motion.h2>
                         </header>
@@ -379,7 +412,7 @@ export default function FeaturesResidencial() {
                         {/* Property types — below title on mobile; left column on desktop */}
                         <nav
                             aria-label={t("propertyNavAria")}
-                            className="flex min-w-0 flex-row gap-2.5 overflow-x-auto border-b border-[#3a3028]/10 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] lg:col-start-1 lg:row-start-2 lg:flex-col lg:overflow-visible lg:border-b-0 lg:border-r lg:pr-8 lg:pt-2 [&::-webkit-scrollbar]:hidden"
+                            className="grid min-w-0 grid-cols-2 gap-x-4 gap-y-3 border-b border-[#3a3028]/10 pb-5 lg:col-start-1 lg:row-start-2 lg:row-span-2 lg:flex lg:flex-col lg:gap-2.5 lg:self-start lg:border-b-0 lg:pr-8 lg:pt-0"
                         >
                             {residences.map((residence, index) => {
                                 const isActive = index === activeIndex;
@@ -389,14 +422,14 @@ export default function FeaturesResidencial() {
                                         type="button"
                                         onClick={() => setActiveIndex(index)}
                                         aria-current={isActive ? "true" : undefined}
-                                        className={`shrink-0 whitespace-nowrap border-b-2 px-0 py-2 text-left transition-colors lg:whitespace-normal lg:border-b-0 lg:border-l-2 lg:px-3 lg:py-2.5 lg:pl-4 ${
+                                        className={`min-w-0 border-b-2 px-0 py-2.5 text-left transition-colors lg:border-b-0 lg:border-l-2 lg:px-3 lg:py-2.5 lg:pl-4 ${
                                             isActive
                                                 ? "border-[#2f2721] text-[#2f2721] lg:-ml-px"
                                                 : "border-transparent text-neutral-500 hover:text-neutral-800"
                                         }`}
                                     >
                                         <span
-                                            className={`block text-[0.95rem] leading-snug sm:text-base lg:inline ${
+                                            className={`block text-pretty text-[0.92rem] leading-snug sm:text-base lg:inline ${
                                                 isActive ? "font-medium" : "font-normal"
                                             }`}
                                             style={{ fontFamily: "var(--font-serif)" }}
@@ -411,43 +444,41 @@ export default function FeaturesResidencial() {
                             })}
                         </nav>
 
-                        {/* Image carousel — center */}
-                        <div className="min-w-0 lg:col-start-2 lg:row-start-2 lg:border-r lg:border-[#3a3028]/10 lg:pr-8 lg:pt-2">
+                        {/* Residence title — center row on lg; details align to carousel row */}
+                        <div className="min-w-0 lg:contents">
+                            <div className="mb-4 flex min-h-0 md:mb-5 lg:col-start-2 lg:row-start-2 lg:mb-0 lg:min-h-0 lg:items-end lg:pr-8 lg:pb-6">
+                                <h3
+                                    className="text-pretty text-[#2f2721] font-medium tracking-tight text-balance"
+                                    style={{
+                                        fontFamily: "var(--font-serif)",
+                                        fontSize: "clamp(2rem, 4.85vw, 3.55rem)",
+                                        lineHeight: 1.12,
+                                    }}
+                                >
+                                    {active.title}
+                                </h3>
+                            </div>
                             <div
                                 key={active.id}
-                                className="relative aspect-[4/5] w-full min-w-0 overflow-hidden bg-[#f4ebe0]/60 md:aspect-[16/10] lg:aspect-[5/4] lg:max-h-[min(72vh,640px)]"
+                                className="relative w-full min-w-0 self-stretch lg:col-start-2 lg:row-start-3 lg:pr-8"
                             >
-                                <div className="absolute inset-0 z-0 min-h-0">
-                                    <ResidenceImageCarousel
-                                        images={active.images}
-                                        title={active.title}
-                                        accent={active.accent}
-                                        accentSoft={active.accentSoft}
-                                        onVirtualStage={(url) => openVirtualStage(url, active)}
-                                        t={t}
-                                    />
-                                </div>
+                                <ResidenceImageShowcase
+                                    images={active.images}
+                                    title={active.title}
+                                    accent={active.accent}
+                                    accentSoft={active.accentSoft}
+                                    t={t}
+                                />
                             </div>
                         </div>
 
                         {/* Details — right */}
-                        <div className="min-w-0 lg:col-start-3 lg:row-start-2 lg:pl-2 lg:pt-2">
+                        <div className="flex min-h-[18rem] min-w-0 flex-col self-stretch md:min-h-[20rem] lg:col-start-3 lg:row-start-3 lg:min-h-0 lg:h-full lg:pl-8 lg:pt-0">
                             <ResidenceDetailPanel key={active.id} residence={active} labels={labels} t={t} />
                         </div>
                     </div>
                 </div>
             </section>
-            {selectedImageUrl && (
-                <VirtualStagingModal
-                    open={virtualStagingOpen}
-                    onOpenChange={setVirtualStagingOpen}
-                    preloadedImageUrl={selectedImageUrl}
-                    propertyImages={selectedPropertyImages}
-                    propertyName={selectedResidence?.title}
-                    propertyId={1}
-                    imageIndex={selectedImageIndex}
-                />
-            )}
         </>
     );
 }

@@ -33,10 +33,15 @@ export default function PrivacyPolicyArticle({ locale, lastUpdatedLabel }: Props
                     <h2 className="font-serif text-2xl md:text-3xl mt-12 mb-6">2. Data We Collect</h2>
                     <p className="mb-4">We may collect the following types of information:</p>
                     <ul className="list-disc pl-6 space-y-2 mb-4">
-                        <li><strong>Identification data:</strong> first name, last name, email address, phone number.</li>
+                        <li><strong>Identification data:</strong> first name, last name, email address, phone number, and—when you provide it—identifiers such as your Mexican CURP (Clave Única de Registro de Población) and related official identifiers needed for a transaction or verification.</li>
                         <li><strong>Browsing data:</strong> IP address, browser type, pages visited, time spent on the site.</li>
                         <li><strong>Voluntarily provided data:</strong> information you provide when completing forms, requesting project information, subscribing to newsletters, or communicating with us.</li>
+                        <li><strong>Screening, compliance, and risk review (when applicable):</strong> to protect Don Diego, buyers, and the community, we may process the results and supporting notes from identity verification, background-style checks, and reviews carried out through lawful “legal” or public-records/AML-style platforms, fraud-prevention services, and similar providers, strictly where permitted and proportionate.</li>
+                        <li><strong>Website chat:</strong> if you use the optional chat, we may store your messages, a random session id in your browser, a pseudonymous visitor key derived from hashed connection metadata (such as IP address and browser type), and preferences or contact details you type in the chat.</li>
                     </ul>
+                    <p className="mb-4">
+                        Initial inquiries may be placed in an internal <strong>committee (Comité) review</strong> before certain commercial or sensitive information (for example, detailed pricing) is shared. That process can rely on the data categories above, including the screening items described, to complete a good-faith security and eligibility review.
+                    </p>
                     <p>
                         We do not collect sensitive data (ethnic origin, political opinions, religious beliefs, health, sexual orientation, etc.) unless strictly necessary and with your explicit consent.
                     </p>
@@ -45,7 +50,10 @@ export default function PrivacyPolicyArticle({ locale, lastUpdatedLabel }: Props
                 <section>
                     <h2 className="font-serif text-2xl md:text-3xl mt-12 mb-6">3. Purposes of Processing</h2>
                     <p>
-                        We use your personal data to: respond to inquiries about our real estate projects; send commercial information about developments, promotions, and news (where you have consented); manage newsletter subscriptions; improve our services and user experience on the website; comply with legal obligations; and, where applicable, manage purchase or reservation processes.
+                        We use your personal data to: respond to inquiries about our real estate projects; send commercial information about developments, promotions, and news (where you have consented); manage newsletter subscriptions; improve our services and user experience on the website; comply with legal obligations; conduct committee-based vetting, fraud prevention, and anti–money-laundering-style checks (including, where you provide it, use of your CURP and outputs from legal or compliance platforms); and, where applicable, manage purchase or reservation processes.
+                    </p>
+                    <p>
+                        Information from our website chat (including the content of conversations) is recorded and retained, and we may also use it for direct marketing, newsletters, and mailing lists, in line with any consent you have given and applicable law.
                     </p>
                 </section>
 
@@ -66,7 +74,7 @@ export default function PrivacyPolicyArticle({ locale, lastUpdatedLabel }: Props
                 <section>
                     <h2 className="font-serif text-2xl md:text-3xl mt-12 mb-6">6. Sharing of Data</h2>
                     <p>
-                        We do not sell or rent your personal data. We may share information with service providers who help us operate the site (hosting, web analytics, email delivery) under confidentiality agreements. We may also disclose data when required by law or to protect our legal rights.
+                        We do not sell or rent your personal data. We may share information with service providers who help us operate the site (hosting, web analytics, email delivery) and, where needed for a lawful inquiry, with identity-verification, compliance, or legal research platform providers, under appropriate confidentiality and data-processing terms. We may also disclose data when required by law or to protect our legal rights.
                     </p>
                 </section>
 
@@ -99,6 +107,9 @@ export default function PrivacyPolicyArticle({ locale, lastUpdatedLabel }: Props
                     <h2 className="font-serif text-2xl md:text-3xl mt-12 mb-6">9. Data Retention</h2>
                     <p>
                         We retain your personal data for as long as necessary to fulfill the purposes described in this policy and to meet applicable legal obligations. After those periods, data will be securely deleted or anonymized.
+                    </p>
+                    <p className="mt-4">
+                        Website chat logs and related inferred fields are generally kept for up to twenty-four (24) months unless a shorter period is required by law or we delete them earlier after a valid request.
                     </p>
                 </section>
 
@@ -150,10 +161,15 @@ export default function PrivacyPolicyArticle({ locale, lastUpdatedLabel }: Props
                     Podemos recopilar los siguientes tipos de información:
                 </p>
                 <ul className="list-disc pl-6 space-y-2 mb-4">
-                    <li><strong>Datos de identificación:</strong> nombre, apellidos, correo electrónico, número de teléfono.</li>
+                    <li><strong>Datos de identificación:</strong> nombre, apellidos, correo electrónico, número de teléfono y—cuando usted los proporcione—identificadores como el CURP y demás claves oficiales necesarias para un trámite o verificación.</li>
                     <li><strong>Datos de navegación:</strong> dirección IP, tipo de navegador, páginas visitadas, tiempo de permanencia en el sitio.</li>
                     <li><strong>Datos proporcionados voluntariamente:</strong> información que nos facilita al completar formularios, solicitar información de proyectos, suscribirse a newsletters o comunicarse con nosotros.</li>
+                    <li><strong>Verificación, cumplimiento y análisis de riesgo (cuando aplique):</strong> para proteger a Don Diego, a compradores y a la comunidad, podremos tratar el resultado y notas vinculadas a verificación de identidad, revisiones de antecedentes o similares y consultas a plataformas legales o de consulta pública, proveedores de prevención de fraude y servicios alineados con PLD, siempre de forma lícita y proporcionada.</li>
+                    <li><strong>Chat del sitio web:</strong> si utiliza el chat opcional, podemos almacenar sus mensajes, un identificador de sesión aleatorio en su navegador, una clave de visitante seudónima derivada de metadatos de conexión anonimizados (como dirección IP y tipo de navegador) y preferencias o datos de contacto que escriba en el chat.</li>
                 </ul>
+                <p className="mb-4">
+                    Las consultas iniciales pueden someterse a un <strong>Comité de revisión</strong> interno antes de compartir información comercial o sensible (por ejemplo, precios detallados). Ese proceso puede apoyarse en las categorías de datos anteriores, incluida la verificación y revisiones descritas, para un análisis de seguridad y idoneidad de buena fe.
+                </p>
                 <p>
                     No recopilamos datos sensibles (origen étnico, opiniones políticas, creencias religiosas, salud, orientación sexual, etc.) salvo que sea estrictamente necesario y con su consentimiento explícito.
                 </p>
@@ -162,7 +178,10 @@ export default function PrivacyPolicyArticle({ locale, lastUpdatedLabel }: Props
             <section>
                 <h2 className="font-serif text-2xl md:text-3xl mt-12 mb-6">3. Finalidad del Tratamiento</h2>
                 <p>
-                    Utilizamos sus datos personales para: responder a sus consultas sobre nuestros proyectos inmobiliarios; enviarle información comercial sobre desarrollos, promociones y novedades (si ha dado su consentimiento); gestionar su suscripción a newsletters; mejorar nuestros servicios y la experiencia de usuario en el sitio web; cumplir con obligaciones legales; y, en su caso, gestionar procesos de compra o reserva.
+                    Utilizamos sus datos personales para: responder a sus consultas sobre nuestros proyectos inmobiliarios; enviarle información comercial sobre desarrollos, promociones y novedades (si ha dado su consentimiento); gestionar su suscripción a newsletters; mejorar nuestros servicios y la experiencia de usuario en el sitio web; cumplir con obligaciones legales; llevar a cabo la revisión en Comité, prevención de fraude y análisis alineados con PLD (incluido, cuando usted lo proporcione, el uso de su CURP y el resultado de plataformas legales o de cumplimiento); y, en su caso, gestionar procesos de compra o reserva.
+                </p>
+                <p>
+                    La información del chat de este sitio (incluido el contenido de las conversaciones) queda registrada y conservada, y también podremos utilizarla para marketing directo, newsletters y listas de correo, conforme al consentimiento que nos haya prestado y a la normativa aplicable.
                 </p>
             </section>
 
@@ -183,7 +202,7 @@ export default function PrivacyPolicyArticle({ locale, lastUpdatedLabel }: Props
             <section>
                 <h2 className="font-serif text-2xl md:text-3xl mt-12 mb-6">6. Compartición de Datos</h2>
                 <p>
-                    No vendemos ni alquilamos sus datos personales. Podemos compartir información con proveedores de servicios que nos ayudan a operar el sitio (hosting, análisis web, envío de correos) bajo acuerdos de confidencialidad. También podemos divulgar datos cuando la ley lo exija o para proteger nuestros derechos legales.
+                    No vendemos ni alquilamos sus datos personales. Podemos compartir información con proveedores de servicios que nos ayudan a operar el sitio (hosting, análisis web, envío de correos) y, cuando sea necesario de forma lícita para una verificación, con proveedores de identidad, cumplimiento o plataformas de información legal, bajo acuerdos de confidencialidad y encargos adecuados. También podemos divulgar datos cuando la ley lo exija o para proteger nuestros derechos legales.
                 </p>
             </section>
 
@@ -216,6 +235,9 @@ export default function PrivacyPolicyArticle({ locale, lastUpdatedLabel }: Props
                 <h2 className="font-serif text-2xl md:text-3xl mt-12 mb-6">9. Conservación de Datos</h2>
                 <p>
                     Conservamos sus datos personales durante el tiempo necesario para cumplir con las finalidades descritas en esta política y con las obligaciones legales aplicables. Una vez cumplidos estos plazos, los datos serán eliminados o anonimizados de forma segura.
+                </p>
+                <p className="mt-4">
+                    Los registros del chat del sitio web y los campos inferidos relacionados suelen conservarse hasta veinticuatro (24) meses, salvo que la ley exija un plazo menor o los eliminemos antes tras una solicitud válida.
                 </p>
             </section>
 

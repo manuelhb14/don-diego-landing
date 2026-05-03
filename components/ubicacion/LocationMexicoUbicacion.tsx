@@ -145,10 +145,10 @@ export default function LocationMexicoUbicacion() {
                             className="text-[2.2rem] leading-[0.95] text-[#222]"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
-                            El valor del lugar no solo esta en la distancia, sino en la calidad cultural y geografica de su contexto.
+                            El valor del lugar no solo está en la distancia, sino en la calidad cultural y geográfica de su contexto.
                         </p>
                         <p className="max-w-2xl text-sm leading-relaxed text-[#222]/70 md:text-base">
-                            Para esta pagina, la ubicacion puede leerse como una idea mas amplia: San Miguel de Allende dentro de Mexico, dentro del Bajio y dentro de una forma de vida que combina patrimonio, naturaleza y contemporaneidad.
+                            Para esta página, la ubicación puede leerse como una idea más amplia: San Miguel de Allende dentro de México, dentro del Bajío y dentro de una forma de vida que combina patrimonio, naturaleza y contemporaneidad.
                         </p>
                     </div>
                 </motion.div> */}

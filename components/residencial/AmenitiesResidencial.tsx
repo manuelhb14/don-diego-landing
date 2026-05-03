@@ -2,167 +2,337 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { Search } from "lucide-react";
+import {
+    Clock,
+    Dumbbell,
+    KeyRound,
+    Route,
+    Sparkles,
+    Sprout,
+    Waves,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
+
+const socialHighlights = [
+    {
+        key: "restaurant",
+        image: "/images/renders/restaurants.jpeg",
+    },
+    {
+        key: "coffee",
+        image: "/babylon/coffee-bar.webp",
+    },
+    {
+        key: "coworking",
+        image: "/images/renders/coworking.jpeg",
+    },
+] as const;
+
+const wellnessItems = [
+    {
+        key: "yoga",
+        image: "/images/renders/yoga.png",
+    },
+    {
+        key: "spa",
+        image: "/images/renders/spa.jpeg",
+    },
+    {
+        key: "jacuzzi",
+        image: "/babylon/jacuzzi.webp",
+    },
+] as const;
+
+const featureStrip = [
+    {
+        key: "dailyLife",
+        icon: Clock,
+    },
+    {
+        key: "mobility",
+        icon: Route,
+    },
+    {
+        key: "homeCare",
+        icon: KeyRound,
+    },
+    {
+        key: "landscape",
+        icon: Sprout,
+    },
+] as const;
 
 export default function AmenitiesResidencial() {
     const t = useTranslations("pages.residencial.amenities");
-    const gridImages = [
-        "/images/renders/padel.png",
-        "/images/renders/padel-1.png",
-        "/images/renders/padel-2.png",
-        "/images/renders/render-5.png",
-        "/images/renders/render-1.png",
-        "/images/renders/render-2.png"
-    ];
-
-    const padelGridInnerCorners = ["rounded-br-md", "rounded-bl-md", "rounded-tr-md", "rounded-tl-md"] as const;
 
     return (
-        <section id="amenidades" className="bg-[#EFE6DC] text-[#1F1D1B] py-10 lg:py-14 overflow-hidden">
-            <div className="max-w-[1200px] mx-auto w-full px-6 lg:px-12">
+        <section
+            id="amenidades"
+            className="overflow-hidden bg-[#fff8ed] py-12 text-[#1F1D1B] lg:py-16"
+            aria-labelledby="amenidades-residencial-heading"
+        >
+            <div className="mx-auto w-full max-w-[1500px] px-5 sm:px-8 lg:px-12">
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="mb-8 lg:mb-12 max-w-2xl text-center mx-auto"
+                    transition={{ duration: 0.75 }}
+                    className="mb-7 grid gap-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(340px,0.65fr)] lg:items-end"
                 >
+                    <div>
+                        <p
+                            className="mb-3 text-[10px] uppercase tracking-[0.38em] text-[#b76d4b]/80"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            {t("kicker")}
+                        </p>
+                        <h2
+                            id="amenidades-residencial-heading"
+                            className="leading-[0.95] text-[#242322]"
+                            style={{
+                                fontFamily: "var(--font-serif)",
+                                fontSize: "clamp(2.5rem, 5vw, 4rem)",
+                            }}
+                        >
+                            {t("titleLine1")} <span className="italic text-[#b48572]">{t("titleAccent")}</span>
+                        </h2>
+                    </div>
                     <p
-                        className="text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase mb-4"
-                        style={{ fontFamily: "var(--font-sans)" }}
+                        className="max-w-[470px] text-[15px] leading-[1.8] text-[#1F1D1B]/78 sm:text-base lg:pb-2"
+                        style={{ fontFamily: "var(--font-serif)" }}
                     >
-                        {t("kicker")}
+                        {t("intro")}
                     </p>
-                    <h2
-                        className="text-[#1F1D1B] leading-tight"
-                        style={{
-                            fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(2.5rem, 5vw, 4rem)",
-                        }}
-                    >
-                        {t("titleLine1")} <span className="italic text-[#b76d4b]">{t("titleAccent")}</span>
-                    </h2>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+                    <motion.article
+                        initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="col-span-1 md:col-span-2 bg-[#fff8ed] overflow-hidden relative min-h-[400px] lg:min-h-[450px] flex flex-col md:flex-row"
+                        transition={{ duration: 0.75, delay: 0.05 }}
+                        className="overflow-hidden border border-[#c7a58f]/25 bg-[#fffaf1]/72 p-5 shadow-[0_18px_48px_rgba(67,52,42,0.08)]"
                     >
-                        {/* Left Side: Text */}
-                        <div className="w-full md:w-1/2 p-10 lg:p-16 flex flex-col justify-center relative z-10">
-                            <h3 className="text-[#1F1D1B] text-3xl lg:text-5xl font-medium mb-6 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
-                                {t("socialHeart.title")}
-                            </h3>
-                            <p className="text-[#1F1D1B]/70 text-base lg:text-lg leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}>
-                                {t("socialHeart.body")}
-                            </p>
+                        <div className="relative aspect-[4/3] lg:aspect-[16/9] min-h-[230px] overflow-hidden">
+                            <Image
+                                src="/babylon/club-residencial.webp"
+                                alt={t("alts.casaClub")}
+                                fill
+                                className="object-cover"
+                                sizes="(min-width: 1024px) 50vw, 100vw"
+                            />
                         </div>
 
-                        {/* Right Side: Image Collage */}
-                        <div className="relative w-full md:w-1/2 h-80 md:h-auto overflow-hidden">
-                            <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-0 p-0 h-full w-full">
-                                <div className="relative col-span-2 row-span-2 overflow-hidden">
-                                    <Image src="/images/renders/render-8.png" alt={t("alts.casaClub")} fill className="object-cover hover:scale-105 transition-transform duration-700" />
-                                </div>
-                                <div className="relative col-span-1 row-span-1 overflow-hidden">
-                                    <Image src="/images/renders/restaurants.jpeg" alt={t("alts.restaurante")} fill className="object-cover hover:scale-105 transition-transform duration-700" />
-                                </div>
-                                <div className="relative col-span-1 row-span-2 overflow-hidden">
-                                    <Image src="/images/renders/pool.jpeg" alt={t("alts.coworking")} fill className="object-cover hover:scale-105 transition-transform duration-700" />
-                                </div>
-                                <div className="relative col-span-1 row-span-1 overflow-hidden">
-                                    <Image src="/images/renders/terrace.jpeg" alt={t("alts.terrazas")} fill className="object-cover hover:scale-105 transition-transform duration-700" />
-                                </div>
-                                <div className="relative col-span-1 row-span-1 overflow-hidden">
-                                    <Image src="/images/renders/coworking.jpeg" alt={t("alts.piscina")} fill className="object-cover hover:scale-105 transition-transform duration-700" />
-                                </div>
+                        <div className="grid gap-6 px-1 py-6 sm:grid-cols-[110px_minmax(0,1fr)] lg:px-4">
+                            <div className="hidden lg:flex justify-center sm:justify-start">
+                                <span className="flex h-20 w-20 items-center justify-center border border-[#c9947e]/25 text-[#b76d4b]">
+                                    <Sparkles className="h-9 w-9 stroke-[1.25]" aria-hidden />
+                                </span>
+                            </div>
+                            <div>
+                                <p
+                                    className="mb-3 text-[10px] font-bold uppercase tracking-[0.35em] text-[#b76d4b]/85"
+                                    style={{ fontFamily: "var(--font-sans)" }}
+                                >
+                                    {t("socialHeart.kicker")}
+                                </p>
+                                <h3
+                                    className="text-[1.75rem] leading-tight text-[#242322] lg:text-[2.45rem]"
+                                    style={{ fontFamily: "var(--font-serif)" }}
+                                >
+                                    {t("socialHeart.headline")}
+                                </h3>
+                                <p
+                                    className="mt-4 max-w-[470px] text-[14px] leading-[1.85] text-[#1F1D1B]/68"
+                                    style={{ fontFamily: "var(--font-serif)" }}
+                                >
+                                    {t("socialHeart.body")}
+                                </p>
                             </div>
                         </div>
-                    </motion.div>
 
-                    {/* Card 2 (Bottom Left) */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.1 }}
-                        className="col-span-1 bg-[#fff8ed] overflow-hidden relative min-h-[450px] p-8 lg:p-12 flex flex-col"
-                    >
-                        <div className="relative z-10 max-w-sm">
-                            <h3 className="text-[#1F1D1B] text-2xl lg:text-3xl font-medium mb-3 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
-                                {t("wellness.title")}
-                            </h3>
-                            <p className="text-[#1F1D1B]/80 text-sm lg:text-base leading-relaxed" style={{ fontFamily: "var(--font-sans)" }}>
-                                {t("wellness.body")}
-                            </p>
-                        </div>
-
-                        {/* Image Playground mock */}
-                        <div className="flex-1 w-full relative mt-16 lg:mt-24 flex items-center justify-center">
-                            <div className="absolute w-53 h-53 lg:w-56 lg:h-56 rounded-full shadow-2xl overflow-hidden border-[6px] border-[#FFF3E1] z-20">
-                                <Image src="/images/renders/spa.jpeg" alt={t("alts.spa")} fill className="object-cover" />
-                                <div className="hidden lg:flex absolute inset-0 flex items-center justify-center">
-                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute bottom-2 lg:bottom-3 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">{t("labels.spa")}</span>
-                                </div>
-                            </div>
-                            <div className="absolute w-36 h-36 lg:w-56 lg:h-56 rounded-full shadow-xl overflow-hidden border-4 border-[#FFF3E1] -translate-x-20 -translate-y-24 lg:-translate-x-34 lg:-translate-y-0  z-10">
-                                <Image src="/images/renders/yoga.png" alt={t("alts.yoga")} fill className="object-cover" />
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute top-2 lg:top-46 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">{t("labels.yoga")}</span>
-                                </div>
-                            </div>
-                            <div className="absolute w-32 h-32 lg:w-56 lg:h-56 rounded-full shadow-xl overflow-hidden border-4 border-[#FFF3E1] translate-x-24 translate-y-16 lg:translate-x-34 lg:-translate-y-0  z-30">
-                                <Image src="/images/renders/spa-2.png" alt={t("alts.relax")} fill className="object-cover" />
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-[#1F1D1B] text-[10px] font-bold tracking-widest absolute bottom-2 lg:bottom-3 bg-white/90 px-3 py-1 rounded-full backdrop-blur-md shadow-md">{t("labels.jacuzzi")}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Card 3 (Bottom Right) */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="col-span-1 bg-[#fff8ed] overflow-hidden relative min-h-[450px] flex flex-col pt-8 lg:pt-12"
-                    >
-                        <div className="px-8 lg:px-12 mb-8 relative z-10">
-                            <h3 className="text-[#1F1D1B] text-2xl lg:text-3xl font-medium mb-3 tracking-tight" style={{ fontFamily: "var(--font-serif)" }}>
-                                {t("sports.title")}
-                            </h3>
-                            <p className="text-[#1F1D1B]/70 text-sm lg:text-base leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-sans)" }}>
-                                {t("sports.body")}
-                            </p>
-                        </div>
-
-                        {/* Photos style block */}
-                        <div className="relative flex-1 bg-[#1F1D1B] overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] h-[250px] sm:h-auto">
-                            <div className="grid grid-cols-2 gap-1 absolute inset-0 pb-1 px-1 pt-1">
-                                {gridImages.slice(0, 4).map((src, i) => (
-                                    <div
-                                        key={i}
-                                        className={`relative w-full h-full overflow-hidden ${padelGridInnerCorners[i]}`}
+                        <div className="-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 pl-6 pr-5 scroll-pl-6 [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 sm:scroll-pl-0 [&::-webkit-scrollbar]:hidden">
+                            {socialHighlights.map(({ key, image }) => (
+                                <div key={key} className="min-w-[74vw] snap-start snap-always sm:min-w-0">
+                                    <div className="relative aspect-[16/10] overflow-hidden sm:aspect-[21/9] lg:aspect-[4/3]">
+                                        <Image
+                                            src={image}
+                                            alt={t(`socialHeart.highlights.${key}.title`)}
+                                            fill
+                                            className="object-cover transition duration-500 hover:scale-[1.03]"
+                                            sizes="(min-width: 1024px) 16vw, (min-width: 640px) 30vw, 100vw"
+                                        />
+                                    </div>
+                                    <p
+                                        className="mt-2 lg:mt-4 truncate text-center text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.3em] text-[#1F1D1B]/85"
+                                        style={{ fontFamily: "var(--font-sans)" }}
                                     >
-                                        <Image src={src} alt={t("alts.activity")} fill className="object-cover transition-transform duration-500 hover:scale-[1.03]" />
+                                        {t(`socialHeart.highlights.${key}.title`)}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.article>
+
+                    <div className="grid gap-6">
+                        <motion.article
+                            initial={{ opacity: 0, y: 24 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.75, delay: 0.1 }}
+                            className="border border-[#c7a58f]/25 bg-[#fffaf1]/70 p-4 shadow-[0_18px_48px_rgba(67,52,42,0.07)] sm:p-6"
+                        >
+                            <div className="mb-5 flex items-start gap-5">
+                                <span className="flex h-14 w-14 shrink-0 items-center justify-center border border-[#c9947e]/25 text-[#b76d4b]">
+                                    <Waves className="h-7 w-7 stroke-[1.25]" aria-hidden />
+                                </span>
+                                <div className="min-w-0">
+                                    <p
+                                        className="mb-2 text-[10px] font-bold uppercase tracking-[0.35em] text-[#b76d4b]/85"
+                                        style={{ fontFamily: "var(--font-sans)" }}
+                                    >
+                                        {t("wellness.kicker")}
+                                    </p>
+                                    <h3
+                                        className="text-xl leading-tight text-[#34302c]"
+                                        style={{ fontFamily: "var(--font-serif)" }}
+                                    >
+                                        {t("wellness.intro")}
+                                    </h3>
+                                </div>
+                            </div>
+
+                            <div className="grid gap-3">
+                                {wellnessItems.map(({ key, image }) => (
+                                    <div
+                                        key={key}
+                                        className="group grid min-h-[92px] grid-cols-[minmax(118px,0.48fr)_minmax(0,1fr)] overflow-hidden border border-[#c7a58f]/30 bg-[#fff8ed]/85 sm:grid-cols-[minmax(190px,0.48fr)_minmax(0,1fr)]"
+                                    >
+                                        <div className="relative min-h-0 overflow-hidden">
+                                            <Image
+                                                src={image}
+                                                alt={t(`wellness.items.${key}.title`)}
+                                                fill
+                                                className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                                                sizes="(min-width: 1024px) 19vw, 100vw"
+                                            />
+                                        </div>
+                                        <div className="flex min-w-0 items-center px-4 py-3 sm:px-5 sm:py-4">
+                                            <div className="min-w-0">
+                                                <h4
+                                                    className="text-lg leading-tight text-[#242322] sm:text-xl"
+                                                    style={{ fontFamily: "var(--font-serif)" }}
+                                                >
+                                                    {t(`wellness.items.${key}.title`)}
+                                                </h4>
+                                                <p
+                                                    className="mt-1 text-[13px] leading-relaxed text-[#1F1D1B]/58"
+                                                    style={{ fontFamily: "var(--font-serif)" }}
+                                                >
+                                                    {t(`wellness.items.${key}.body`)}
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
+                        </motion.article>
 
-                            {/* Photos style search bar */}
-                            <div className="absolute bottom-8 lg:bottom-10 left-1/2 -translate-x-1/2 bg-[#FFF3E1]/90 backdrop-blur-xl px-5 py-3 rounded-2xl lg:rounded-full flex items-center gap-3 w-[85%] max-w-[300px] shadow-2xl">
-                                <Search className="w-5 h-5 text-[#1F1D1B]/60" />
-                                <span className="text-[#1F1D1B]/80 text-sm font-medium tracking-tight" style={{ fontFamily: "var(--font-sans)" }}>{t("searchPlaceholder")}</span>
+                        <motion.article
+                            initial={{ opacity: 0, y: 24 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.75, delay: 0.15 }}
+                            className="overflow-hidden border border-[#c7a58f]/25 bg-[#fffaf1]/70 p-3 shadow-[0_18px_48px_rgba(67,52,42,0.07)] sm:p-6"
+                        >
+                            <div className="mb-5 flex items-start gap-4 sm:gap-5">
+                                <span className="flex h-14 w-14 shrink-0 items-center justify-center border border-[#c9947e]/25 text-[#b76d4b]">
+                                    <Dumbbell className="h-7 w-7 stroke-[1.25]" aria-hidden />
+                                </span>
+                                <div className="min-w-0">
+                                    <p
+                                        className="mb-2 text-[10px] font-bold uppercase tracking-[0.35em] text-[#b76d4b]/85"
+                                        style={{ fontFamily: "var(--font-sans)" }}
+                                    >
+                                        {t("sports.kicker")}
+                                    </p>
+                                    <h3
+                                        className="text-xl leading-tight text-[#34302c]"
+                                        style={{ fontFamily: "var(--font-serif)" }}
+                                    >
+                                        {t("sports.intro")}
+                                    </h3>
+                                </div>
+                            </div>
+
+                            <div className="grid min-w-0 grid-cols-1 gap-2 bg-[#fff8ed]/90 p-2 sm:grid-cols-[minmax(0,1.85fr)_minmax(150px,0.75fr)] sm:gap-3 sm:p-3">
+                                <div className="relative aspect-[21/9] min-w-0 overflow-hidden sm:aspect-[16/9] sm:min-h-[245px]">
+                                    <Image
+                                        src="/images/renders/padel.png"
+                                        alt={t("alts.activity")}
+                                        fill
+                                        className="object-cover"
+                                        sizes="(min-width: 1024px) 31vw, (min-width: 640px) 60vw, 100vw"
+                                    />
+                                </div>
+                                <div className="grid min-w-0 grid-cols-2 gap-2 sm:grid-cols-1 sm:gap-3">
+                                    <div className="relative aspect-[4/3] min-w-0 overflow-hidden sm:aspect-auto sm:min-h-[116px]">
+                                        <Image
+                                            src="/babylon/gym.webp"
+                                            alt={t("alts.gym")}
+                                            fill
+                                            className="object-cover"
+                                            sizes="(min-width: 1024px) 13vw, (min-width: 640px) 25vw, 50vw"
+                                        />
+                                    </div>
+                                    <div className="relative aspect-[4/3] min-w-0 overflow-hidden sm:aspect-auto sm:min-h-[116px]">
+                                        <Image
+                                            src="/images/renders/padel-2.png"
+                                            alt={t("alts.field")}
+                                            fill
+                                            className="object-cover"
+                                            sizes="(min-width: 1024px) 13vw, (min-width: 640px) 25vw, 50vw"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </motion.article>
+                    </div>
+                </div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.75, delay: 0.12 }}
+                    className="mt-8 grid overflow-hidden border border-[#c7a58f]/25 bg-[#fffaf1]/72 shadow-[0_18px_48px_rgba(67,52,42,0.06)] sm:grid-cols-2 lg:grid-cols-4"
+                >
+                    {featureStrip.map(({ key, icon: Icon }, index) => (
+                        <div
+                            key={key}
+                            className="grid grid-cols-[72px_minmax(0,1fr)] gap-3 px-4 py-4 sm:px-7 sm:py-6 lg:border-l lg:first:border-l-0 lg:border-[#c7a58f]/25"
+                        >
+                            <span className="flex h-14 w-14 items-center justify-center border border-[#c9947e]/25 text-[#b76d4b]">
+                                <Icon className="h-6 w-6 stroke-[1.35]" aria-hidden />
+                            </span>
+                            <div className={index > 0 ? "lg:pl-2" : undefined}>
+                                <h4
+                                    className="text-[17px] leading-snug text-[#34302c]"
+                                    style={{ fontFamily: "var(--font-serif)" }}
+                                >
+                                    {t(`featureStrip.${key}.title`)}
+                                </h4>
+                                <p
+                                    className="mt-1 text-[13px] leading-relaxed text-[#1F1D1B]/58"
+                                    style={{ fontFamily: "var(--font-serif)" }}
+                                >
+                                    {t(`featureStrip.${key}.body`)}
+                                </p>
                             </div>
                         </div>
-                    </motion.div>
-                </div>
+                    ))}
+                </motion.div>
             </div>
         </section>
     );

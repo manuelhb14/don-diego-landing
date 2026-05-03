@@ -55,7 +55,7 @@ export default function HeroWellness() {
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.3 }}
                             viewBox="0 0 4076 1516"
-                            className="w-full h-auto max-w-[280px] lg:max-w-[488px] pb-2 pt-2 md:pt-6"
+                            className="w-full h-auto max-w-[320px] lg:max-w-[560px] pb-2 pt-2 md:pt-6"
                             preserveAspectRatio="xMidYMid meet"
                             fillRule="evenodd"
                             clipRule="evenodd"

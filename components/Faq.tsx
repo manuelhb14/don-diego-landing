@@ -3,6 +3,8 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useTranslations } from "next-intl";
+import { Sparkles } from "lucide-react";
+import { useChat } from "@/components/chat/ChatProvider";
 
 type FaqEntry = { question: string; answer: string };
 
@@ -54,6 +56,8 @@ function FaqItem({ question, answer, isOpen, toggle }: { question: string, answe
 export default function Faq() {
     const [openIndices, setOpenIndices] = useState<Set<number>>(() => new Set([0]));
     const t = useTranslations("faq");
+    const tContact = useTranslations("contact");
+    const { openChat } = useChat();
     const faqs = useMemo(() => t.raw("items") as FaqEntry[], [t]);
 
     return (
@@ -88,6 +92,33 @@ export default function Faq() {
                         >
                             {t("intro")}
                         </p>
+
+                        <div className="relative mt-8 max-w-sm overflow-hidden rounded-sm border border-[#E8E2DA]/90 bg-[#FCFAF7] p-5 shadow-[0_18px_48px_rgba(0,0,0,0.14)] md:p-6">
+                            <div className="pointer-events-none absolute -right-12 -top-10 h-36 w-36 rounded-full bg-[#F3EEE8]/95 blur-2xl" />
+                            <div className="pointer-events-none absolute -bottom-10 -left-12 h-28 w-28 rounded-full bg-[#EDE8E2]/90 blur-2xl" />
+
+                            <p
+                                className="relative z-10 text-[10px] tracking-[0.24em] uppercase text-[#8A9AAA]"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                {tContact("instantKicker")}
+                            </p>
+                            <p
+                                className="relative z-10 mt-2 text-base leading-snug text-[#2C3640] md:text-lg"
+                                style={{ fontFamily: "var(--font-serif)" }}
+                            >
+                                {tContact("instantBody")}
+                            </p>
+                            <button
+                                type="button"
+                                onClick={openChat}
+                                className="relative z-10 mt-4 inline-flex items-center gap-2 border border-[#3a3733] bg-[#2A2826] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[#F0EDE6] transition-colors duration-300 hover:bg-[#35322e] hover:border-[#45423d] hover:text-[#FFFCF7]"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                <Sparkles className="size-3.5 shrink-0 text-[#E1B19B]" />
+                                {tContact("openAssistant")}
+                            </button>
+                        </div>
                     </motion.div>
 
                     {/* FAQ Items */}

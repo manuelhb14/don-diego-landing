@@ -51,6 +51,9 @@ export default function TermsOfServiceArticle({ locale, lastUpdatedLabel }: Prop
                     <p>
                         Use of this website is also subject to our Privacy Policy. By providing your contact information through our forms (for newsletters, project information, etc.), you consent to Don Diego collecting and processing your data to communicate with you about our developments.
                     </p>
+                    <p className="mt-4">
+                        You expressly acknowledge and agree that, when you submit an initial inquiry, your request may be subject to an internal <strong>committee (Comité) review</strong> before certain sensitive or commercial details (for example, detailed pricing) are released. You consent to us carrying out, where applicable and permitted by law, <strong>identity checks that may use your CURP or equivalent identifiers</strong> you provide, and <strong>reviews through lawful “legal” or public-records/AML-style platforms and other screening or compliance tools</strong>, to complete that vetting, prevent fraud, and meet anti–money-laundering expectations. The scope and retention of that processing are described in the Privacy Policy.
+                    </p>
                 </section>
 
                 <section>
@@ -123,6 +126,9 @@ export default function TermsOfServiceArticle({ locale, lastUpdatedLabel }: Prop
                 <h2 className="font-serif text-2xl md:text-3xl mt-12 mb-6">4. Política de Privacidad y Protección de Datos</h2>
                 <p>
                     El uso de este sitio web también está sujeto a nuestra Política de Privacidad. Al proporcionar su información de contacto a través de nuestros formularios (para newsletters, información de proyectos, etc.), usted consiente que Don Diego recopile y procese sus datos para comunicarnos con usted acerca de nuestros desarrollos.
+                </p>
+                <p className="mt-4">
+                    Usted reconoce y acepta de manera expresa que, al enviar una consulta inicial, su solicitud puede someterse a un <strong>Comité de revisión</strong> interno antes de compartir ciertos detalles comerciales o sensibles (por ejemplo, precios detallados). Usted consiente que llevemos a cabo, cuando aplique y la ley lo permita, <strong>verificaciones de identidad que podrán utilizar su CURP u otros identificadores</strong> que nos proporcione, y <strong>revisiones a través de plataformas legales, de documentación pública, estilo PLD o de verificación lícita</strong>, con el fin de completar dicha validación, prevenir el fraude y atender expectativas de prevención de lavado de dinero. El alcance y la conservación de dicho tratamiento se describen en la Política de Privacidad.
                 </p>
             </section>
 

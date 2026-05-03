@@ -1,0 +1,758 @@
+/* Don Diego hero background — ported from standalone V2 (scoped) */
+
+@property --sky-top {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #6eb9e8;
+}
+
+@property --sky-high {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #89c9ee;
+}
+
+@property --sky-mid {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #addcf4;
+}
+
+@property --sky-low {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #d4eef8;
+}
+
+@property --sky-bottom {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #eef9fc;
+}
+
+.hero-dd-stage-wrap {
+  --anim-speed: 1;
+  --hue-shift: 0deg;
+  --density: 1;
+  --light: 1;
+  --sky-top: #6eb9e8;
+  --sky-high: #89c9ee;
+  --sky-mid: #addcf4;
+  --sky-low: #d4eef8;
+  --sky-bottom: #eef9fc;
+  --scene-filter: saturate(1) brightness(1);
+  --landscape-filter: saturate(1) brightness(1);
+  --building-filter: saturate(1) brightness(1);
+  --cloud-filter: drop-shadow(0 10px 14px rgba(80, 120, 150, 0.08));
+  --cloud-opacity: 0.98;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  transition:
+    --sky-top 1400ms ease,
+    --sky-high 1400ms ease,
+    --sky-mid 1400ms ease,
+    --sky-low 1400ms ease,
+    --sky-bottom 1400ms ease,
+    --light 1000ms ease,
+    --hue-shift 1000ms ease;
+}
+
+.hero-dd-stage-wrap .time-toggle {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  z-index: 60;
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 999px;
+  background: rgba(18, 34, 46, 0.42);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(12px);
+  pointer-events: auto;
+}
+
+.hero-dd-stage-wrap .time-toggle button {
+  min-width: 62px;
+  height: 30px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  font: 600 11px/1 var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.hero-dd-stage-wrap .time-toggle button.active {
+  background: rgba(255, 255, 255, 0.92);
+  color: #16324a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.14);
+}
+
+.hero-dd-stage-wrap .time-toggle button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 2px;
+}
+
+.hero-dd-stage-wrap[data-time-of-day="sunset"] .time-toggle {
+  background: rgba(92, 52, 34, 0.42);
+}
+
+.hero-dd-stage-wrap[data-time-of-day="night"] .time-toggle {
+  background: rgba(6, 14, 28, 0.58);
+}
+
+.hero-dd-stage-wrap[data-time-of-day="sunset"] {
+  --sky-top: #5f93c8;
+  --sky-high: #e9a46d;
+  --sky-mid: #f2c27d;
+  --sky-low: #f1d49f;
+  --sky-bottom: #c7d8d8;
+  --hue-shift: -18deg;
+  --light: 0.88;
+  --scene-filter: saturate(0.96) brightness(0.9) sepia(0.1);
+  --landscape-filter: saturate(0.96) brightness(0.9) sepia(0.1);
+  --building-filter: saturate(0.96) brightness(0.9) sepia(0.1);
+  --cloud-filter: drop-shadow(0 14px 18px rgba(128, 72, 42, 0.18));
+  --cloud-opacity: 0.92;
+}
+
+.hero-dd-stage-wrap[data-time-of-day="night"] {
+  --sky-top: #08182e;
+  --sky-high: #10294b;
+  --sky-mid: #1d3e67;
+  --sky-low: #375f83;
+  --sky-bottom: #6f8997;
+  --hue-shift: 28deg;
+  --light: 0.34;
+  --scene-filter: saturate(0.72) brightness(0.58) contrast(1.08);
+  --landscape-filter: saturate(0.86) brightness(0.78) contrast(1.08) drop-shadow(0 -6px 12px rgba(198, 216, 226, 0.08));
+  --building-filter: saturate(0.84) brightness(0.84) contrast(1.06) drop-shadow(0 -5px 10px rgba(216, 226, 232, 0.12));
+  --cloud-filter: drop-shadow(0 10px 16px rgba(2, 8, 18, 0.32));
+  --cloud-opacity: 0.58;
+}
+
+.scene-dd {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.scene-dd .sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--sky-top) 0%,
+    var(--sky-high) 24%,
+    var(--sky-mid) 48%,
+    var(--sky-low) 72%,
+    var(--sky-bottom) 100%
+  );
+  pointer-events: none;
+  transition: background 1400ms ease;
+}
+
+.scene-dd .stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background-image:
+    radial-gradient(circle at 12% 16%, rgba(255, 255, 255, 0.9) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 28% 8%, rgba(255, 255, 255, 0.7) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 44% 18%, rgba(255, 255, 255, 0.78) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 62% 10%, rgba(255, 255, 255, 0.86) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 82% 19%, rgba(255, 255, 255, 0.68) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 92% 7%, rgba(255, 255, 255, 0.8) 0 1px, transparent 1.5px);
+  z-index: 2;
+  transition: opacity 600ms ease;
+}
+
+.hero-dd-stage-wrap[data-time-of-day="night"] .scene-dd .stars {
+  opacity: 0.78;
+}
+
+.scene-dd .moon {
+  position: absolute;
+  top: 7%;
+  left: 75%;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 42% 42%, #fff9dc 0%, #f1e7b9 58%, #d8c990 100%);
+  box-shadow: 0 0 38px 12px rgba(236, 230, 190, 0.28);
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+  transform: translateY(-96px) scale(0.94);
+  transition:
+    opacity 1200ms ease,
+    transform 1400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.scene-dd .moon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 42px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--sky-high);
+  box-shadow: inset 12px 0 16px rgba(4, 14, 30, 0.18);
+}
+
+.hero-dd-stage-wrap[data-time-of-day="night"] .scene-dd .moon {
+  opacity: 0.86;
+  transform: translateY(0) scale(1);
+}
+
+.scene-dd .sun-bloom {
+  position: absolute;
+  width: 76px;
+  height: 76px;
+  top: 7%;
+  left: 72%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 251, 220, calc(1 * var(--light))) 0%,
+    rgba(255, 235, 150, calc(0.92 * var(--light))) 38%,
+    rgba(255, 218, 105, 0.46) 64%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 36px 14px rgba(255, 235, 145, calc(0.34 * var(--light))),
+    0 0 90px 34px rgba(255, 244, 190, calc(0.22 * var(--light)));
+  animation: ddSunBreathe calc(12s / var(--anim-speed)) ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
+  transition:
+    opacity 1200ms ease,
+    transform 1200ms ease,
+    top 1400ms cubic-bezier(0.45, 0, 0.55, 1),
+    left 1400ms ease;
+}
+
+.hero-dd-stage-wrap[data-time-of-day="sunset"] .scene-dd .sun-bloom {
+  top: 20%;
+  left: 77%;
+  opacity: 0.9;
+  transform: scale(1.12);
+}
+
+.hero-dd-stage-wrap[data-time-of-day="night"] .scene-dd .sun-bloom {
+  animation: none;
+  opacity: 0;
+  top: 46%;
+  left: 78%;
+}
+
+@keyframes ddSunBreathe {
+  0%,
+  100% {
+    opacity: 0.92;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.scene-dd .hills {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  filter: hue-rotate(var(--hue-shift)) var(--landscape-filter);
+}
+
+.scene-dd .village {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 36%;
+  height: 10%;
+  pointer-events: none;
+  filter: hue-rotate(var(--hue-shift)) var(--building-filter);
+}
+
+.scene-dd .presa {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 32%;
+  height: 8%;
+  pointer-events: none;
+  filter: hue-rotate(var(--hue-shift)) var(--landscape-filter);
+  opacity: 0.65;
+}
+
+.scene-dd .clouds {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.scene-dd .cloud {
+  position: absolute;
+  opacity: var(--cloud-opacity);
+  animation: ddCloudDrift linear infinite;
+  filter: var(--cloud-filter);
+  transition:
+    opacity 600ms ease,
+    filter 600ms ease;
+}
+
+@keyframes ddCloudDrift {
+  0% {
+    transform: translateX(var(--cx-start));
+  }
+  100% {
+    transform: translateX(var(--cx-end));
+  }
+}
+
+.scene-dd .acequia {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14%;
+  height: 14%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 6;
+}
+
+.scene-dd .cantera-wall {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 18px;
+  background: repeating-linear-gradient(
+    180deg,
+    #b8a07a 0px,
+    #b8a07a 10px,
+    #a08868 10px,
+    #a08868 11px,
+    #c4aa84 11px,
+    #c4aa84 20px,
+    #a89070 20px,
+    #a89070 21px
+  );
+}
+
+.scene-dd .cantera-wall.left {
+  left: 0;
+  box-shadow: inset -3px 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.scene-dd .cantera-wall.right {
+  right: 0;
+  box-shadow: inset 3px 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.scene-dd .acequia-water {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(192, 210, 220, 0.65) 0%,
+    rgba(155, 180, 200, 0.78) 50%,
+    rgba(110, 145, 170, 0.88) 100%
+  );
+}
+
+.scene-dd .acequia-edge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #c4aa85, #b89a74, #cdb090, #b89a74, #c4aa85);
+}
+
+.scene-dd .acequia-edge.top {
+  top: 0;
+  border-bottom: 1px solid rgba(180, 155, 110, 0.6);
+}
+
+.scene-dd .acequia-edge.bot {
+  bottom: 0;
+  border-top: 1px solid rgba(180, 155, 110, 0.6);
+}
+
+.scene-dd .canal-line {
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  height: 1px;
+  background: rgba(240, 232, 215, 0.5);
+  filter: blur(0.5px);
+  animation: ddCanalFlow calc(7s / var(--anim-speed)) ease-in-out infinite;
+}
+
+@keyframes ddCanalFlow {
+  0%,
+  100% {
+    transform: translateX(0) scaleX(0.9);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateX(12px) scaleX(1.1);
+    opacity: 0.85;
+  }
+}
+
+.scene-dd .canal-spark {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(248, 240, 220, 0.95);
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(248, 240, 220, 0.8);
+  animation: ddSpark calc(2.8s / var(--anim-speed)) ease-in-out infinite;
+}
+
+@keyframes ddSpark {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+.scene-dd .fountain-arc {
+  position: absolute;
+  left: 50%;
+  bottom: 20%;
+  width: 60px;
+  height: 80px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.scene-dd .fountain-arc span {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 2px;
+  height: 2px;
+  background: rgba(210, 225, 235, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(220, 232, 240, 0.7);
+  transform: translateX(-50%);
+  animation: ddArcDrop calc(2.2s / var(--anim-speed)) ease-out infinite;
+}
+
+@keyframes ddArcDrop {
+  0% {
+    transform: translate(-50%, 0) scale(0.4);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  55% {
+    transform: translate(calc(-50% + var(--dx, 0px)), var(--dy, -55px)) scale(1.2);
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx, 0px)), var(--dy2, -8px)) scale(0.2);
+    opacity: 0;
+  }
+}
+
+.scene-dd .fish {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 22;
+}
+
+.scene-dd .fish-item {
+  position: absolute;
+}
+
+@keyframes ddFishSwim {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(22px);
+  }
+  80% {
+    transform: translateX(-8px);
+  }
+}
+
+.scene-dd .plants {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--density);
+  filter: hue-rotate(var(--hue-shift));
+  z-index: 24;
+}
+
+.scene-dd .plant {
+  position: absolute;
+  bottom: -3%;
+  transform-origin: 50% 100%;
+  animation: ddSway calc(7s / var(--anim-speed)) ease-in-out infinite;
+}
+
+.scene-dd .plant.s {
+  animation-duration: calc(10s / var(--anim-speed));
+}
+
+.scene-dd .plant.f {
+  animation-duration: calc(5s / var(--anim-speed));
+}
+
+.scene-dd .plant.r {
+  animation-direction: alternate-reverse;
+}
+
+.scene-dd .plant.r2 {
+  animation-direction: reverse;
+}
+
+.scene-dd .plant.rock {
+  animation: none;
+  bottom: -1%;
+}
+
+@keyframes ddSway {
+  0%,
+  100% {
+    transform: rotate(-1.6deg) translateX(-1px);
+  }
+  50% {
+    transform: rotate(1.6deg) translateX(1px);
+  }
+}
+
+.scene-dd .olives {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 26;
+  filter: hue-rotate(var(--hue-shift));
+}
+
+.scene-dd .olive-tree {
+  position: absolute;
+  transform-origin: 50% 100%;
+  animation: ddOliveSway calc(9s / var(--anim-speed)) ease-in-out infinite;
+}
+
+.scene-dd .olive-tree.r {
+  animation-direction: alternate-reverse;
+}
+
+@keyframes ddOliveSway {
+  0%,
+  100% {
+    transform: rotate(-0.8deg);
+  }
+  50% {
+    transform: rotate(0.8deg);
+  }
+}
+
+.scene-dd .casaclub {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 35%;
+  pointer-events: none;
+  z-index: 14;
+}
+
+.scene-dd .casaclub-inner {
+  position: absolute;
+  left: 28%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+.scene-dd .ground-green {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 20%;
+  background: linear-gradient(
+    180deg,
+    rgba(120, 160, 72, 0) 0%,
+    rgba(100, 148, 60, 0.55) 20%,
+    rgba(88, 132, 50, 0.82) 55%,
+    rgba(72, 112, 40, 0.95) 100%
+  );
+  pointer-events: none;
+  z-index: 5;
+}
+
+.scene-dd .motes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 38;
+}
+
+.scene-dd .mote {
+  position: absolute;
+  width: 2.5px;
+  height: 2.5px;
+  background: rgba(248, 238, 215, calc(0.75 * var(--light)));
+  border-radius: 50%;
+  filter: blur(0.4px);
+  box-shadow: 0 0 5px rgba(248, 238, 215, 0.5);
+  animation: ddMoteFloat calc(15s / var(--anim-speed)) linear infinite;
+}
+
+@keyframes ddMoteFloat {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--fx, 30px), var(--fy, -55px));
+    opacity: 0;
+  }
+}
+
+.scene-dd .bird {
+  position: absolute;
+  z-index: 42;
+  animation: ddFlyBy calc(32s / var(--anim-speed)) linear infinite;
+}
+
+.scene-dd .bird.rev {
+  animation-name: ddFlyByRev;
+}
+
+@keyframes ddFlyBy {
+  0% {
+    transform: translateX(-15vw) translateY(0);
+  }
+  45% {
+    transform: translateX(55vw) translateY(-18px);
+  }
+  100% {
+    transform: translateX(125vw) translateY(5px);
+  }
+}
+
+@keyframes ddFlyByRev {
+  0% {
+    transform: translateX(125vw) translateY(0) scaleX(-1);
+  }
+  45% {
+    transform: translateX(40vw) translateY(-12px) scaleX(-1);
+  }
+  100% {
+    transform: translateX(-15vw) translateY(5px) scaleX(-1);
+  }
+}
+
+.scene-dd .bird svg {
+  animation: ddFlap calc(0.65s / var(--anim-speed)) ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes ddFlap {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.45);
+  }
+}
+
+.scene-dd .butterfly {
+  position: absolute;
+  z-index: 35;
+  animation: ddBtflyWander calc(18s / var(--anim-speed)) ease-in-out infinite;
+}
+
+.scene-dd .butterfly.reverse {
+  animation-direction: reverse;
+}
+
+@keyframes ddBtflyWander {
+  0% {
+    transform: translate(0, 0) rotate(-6deg);
+  }
+  20% {
+    transform: translate(40px, -25px) rotate(8deg);
+  }
+  45% {
+    transform: translate(20px, -50px) rotate(-5deg);
+  }
+  65% {
+    transform: translate(60px, -35px) rotate(10deg);
+  }
+  85% {
+    transform: translate(30px, -15px) rotate(-4deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(-6deg);
+  }
+}
+
+.scene-dd .butterfly svg {
+  animation: ddWingFlap calc(0.32s / var(--anim-speed)) ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes ddWingFlap {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-dd .sun-bloom,
+  .scene-dd .cloud,
+  .scene-dd .canal-line,
+  .scene-dd .canal-spark,
+  .scene-dd .fountain-arc span,
+  .scene-dd .plant,
+  .scene-dd .olive-tree,
+  .scene-dd .mote,
+  .scene-dd .bird,
+  .scene-dd .bird svg,
+  .scene-dd .butterfly,
+  .scene-dd .butterfly svg,
+  .scene-dd .fish-item {
+    animation: none !important;
+  }
+}

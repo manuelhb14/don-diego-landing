@@ -1,0 +1,976 @@
+/* Botanical hero background — ported from Don Diego Hero prototype (variation 1) */
+
+@property --botanical-sky-top {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #6eb9e8;
+}
+
+@property --botanical-sky-high {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #89c9ee;
+}
+
+@property --botanical-sky-mid {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #addcf4;
+}
+
+@property --botanical-sky-low {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #d4eef8;
+}
+
+@property --botanical-sky-bottom {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #eef9fc;
+}
+
+.hero-botanical-stage-wrap {
+  --anim-speed: 1;
+  --light: 1;
+  --density: 1;
+  --hue-shift: 0deg;
+  --botanical-sky-top: #6eb9e8;
+  --botanical-sky-high: #89c9ee;
+  --botanical-sky-mid: #addcf4;
+  --botanical-sky-low: #d4eef8;
+  --botanical-sky-bottom: #eef9fc;
+  --botanical-scene-filter: saturate(1.2) brightness(1.04) contrast(1.08);
+  --botanical-landscape-filter: saturate(1.2) brightness(1.04) contrast(1.08);
+  --botanical-building-filter: saturate(1.2) brightness(1.04) contrast(1.08);
+  --botanical-water-filter: saturate(1.08) brightness(1.02) contrast(1.04);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  background: radial-gradient(
+    ellipse at 50% 35%,
+    #ede4cf 0%,
+    #d9cba8 95%
+  );
+  transition:
+    --botanical-sky-top 1400ms ease,
+    --botanical-sky-high 1400ms ease,
+    --botanical-sky-mid 1400ms ease,
+    --botanical-sky-low 1400ms ease,
+    --botanical-sky-bottom 1400ms ease,
+    --light 1000ms ease,
+    --hue-shift 1000ms ease;
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="sunset"] {
+  --botanical-sky-top: #5f93c8;
+  --botanical-sky-high: #e9a46d;
+  --botanical-sky-mid: #f2c27d;
+  --botanical-sky-low: #f1d49f;
+  --botanical-sky-bottom: #c7d8d8;
+  --hue-shift: -18deg;
+  --light: 0.88;
+  --botanical-scene-filter: saturate(1.12) brightness(0.92) contrast(1.12) sepia(0.08);
+  --botanical-landscape-filter: saturate(1.12) brightness(0.92) contrast(1.12) sepia(0.08);
+  --botanical-building-filter: saturate(1.12) brightness(0.92) contrast(1.12) sepia(0.08);
+  --botanical-water-filter: saturate(0.96) brightness(0.86) contrast(1.08) sepia(0.08);
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="night"] {
+  --botanical-sky-top: #08182e;
+  --botanical-sky-high: #10294b;
+  --botanical-sky-mid: #1d3e67;
+  --botanical-sky-low: #375f83;
+  --botanical-sky-bottom: #6f8997;
+  --hue-shift: 28deg;
+  --light: 0.34;
+  --botanical-scene-filter: saturate(0.82) brightness(0.58) contrast(1.18);
+  --botanical-landscape-filter: saturate(0.9) brightness(0.8) contrast(1.1) drop-shadow(0 -6px 12px rgba(198, 216, 226, 0.08));
+  --botanical-building-filter: saturate(0.88) brightness(0.84) contrast(1.08) drop-shadow(0 -5px 10px rgba(216, 226, 232, 0.12));
+  --botanical-water-filter: saturate(0.82) brightness(0.56) contrast(1.16);
+}
+
+.hero-botanical-stage-wrap .preview-toggle {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  z-index: 70;
+  display: grid;
+  gap: 6px;
+  max-width: min(520px, calc(100vw - 36px));
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 12px;
+  background: rgba(18, 34, 46, 0.42);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(12px);
+  pointer-events: auto;
+}
+
+.hero-botanical-stage-wrap .preview-toggle-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 2px;
+}
+
+.hero-botanical-stage-wrap .preview-toggle button {
+  min-width: 58px;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  font: 600 11px/1 var(--font-sans, ui-sans-serif, system-ui, sans-serif);
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.hero-botanical-stage-wrap .preview-toggle button.active {
+  background: rgba(255, 255, 255, 0.92);
+  color: #16324a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.14);
+}
+
+.hero-botanical-stage-wrap .preview-toggle button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 2px;
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="sunset"] .preview-toggle {
+  background: rgba(92, 52, 34, 0.42);
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="night"] .preview-toggle {
+  background: rgba(6, 14, 28, 0.58);
+}
+
+.scene-botanical {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.scene-botanical .sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120% 70% at 50% 105%, rgba(184, 194, 154, 0.32) 0%, rgba(184, 194, 154, 0) 60%),
+    linear-gradient(
+      180deg,
+      var(--botanical-sky-top) 0%,
+      var(--botanical-sky-high) 24%,
+      var(--botanical-sky-mid) 48%,
+      var(--botanical-sky-low) 72%,
+      var(--botanical-sky-bottom) 100%
+    );
+  pointer-events: none;
+  transition: background 1400ms ease;
+}
+
+.scene-botanical .stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background-image:
+    radial-gradient(circle at 12% 16%, rgba(255, 255, 255, 0.9) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 28% 8%, rgba(255, 255, 255, 0.7) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 44% 18%, rgba(255, 255, 255, 0.78) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 62% 10%, rgba(255, 255, 255, 0.86) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 82% 19%, rgba(255, 255, 255, 0.68) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 92% 7%, rgba(255, 255, 255, 0.8) 0 1px, transparent 1.5px);
+  z-index: 2;
+  transition: opacity 600ms ease;
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="night"] .scene-botanical .stars {
+  opacity: 0.78;
+}
+
+.scene-botanical .moon {
+  position: absolute;
+  top: 7%;
+  left: 75%;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 42% 42%, #fff9dc 0%, #f1e7b9 58%, #d8c990 100%);
+  box-shadow: 0 0 38px 12px rgba(236, 230, 190, 0.28);
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+  transform: translateY(-96px) scale(0.94);
+  transition:
+    opacity 1200ms ease,
+    transform 1400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.scene-botanical .moon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 42px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--botanical-sky-high);
+  box-shadow: inset 12px 0 16px rgba(4, 14, 30, 0.18);
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="night"] .scene-botanical .moon {
+  opacity: 0.86;
+  transform: translateY(0) scale(1);
+}
+
+.scene-botanical .sun-glow {
+  position: absolute;
+  width: 340px;
+  height: 260px;
+  top: calc(7% + 38px);
+  left: calc(72% + 38px);
+  pointer-events: none;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+  transition:
+    opacity 1200ms ease,
+    top 1400ms cubic-bezier(0.45, 0, 0.55, 1),
+    left 1400ms ease;
+}
+
+.scene-botanical .sun-glow-inner {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(247, 240, 220, calc(0.55 * var(--light, 1))) 0%,
+    rgba(247, 240, 220, calc(0.2 * var(--light, 1))) 30%,
+    rgba(247, 240, 220, 0) 70%
+  );
+  animation: heroSunBreathe calc(14s / var(--anim-speed, 1)) ease-in-out infinite;
+  transform-origin: center;
+}
+
+.scene-botanical .sun-disc {
+  position: absolute;
+  top: 7%;
+  left: 72%;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 251, 220, calc(1 * var(--light))) 0%,
+    rgba(255, 235, 150, calc(0.92 * var(--light))) 38%,
+    rgba(255, 218, 105, 0.46) 64%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 36px 14px rgba(255, 235, 145, calc(0.34 * var(--light))),
+    0 0 90px 34px rgba(255, 244, 190, calc(0.22 * var(--light)));
+  pointer-events: none;
+  z-index: 3;
+  animation: heroSunBreathe calc(12s / var(--anim-speed, 1)) ease-in-out infinite;
+  transition:
+    opacity 1200ms ease,
+    transform 1200ms ease,
+    top 1400ms cubic-bezier(0.45, 0, 0.55, 1),
+    left 1400ms ease;
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="sunset"] .scene-botanical .sun-glow {
+  top: calc(20% + 38px);
+  left: calc(77% + 38px);
+  opacity: 0.72;
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="sunset"] .scene-botanical .sun-disc {
+  top: 20%;
+  left: 77%;
+  opacity: 0.9;
+  transform: scale(1.12);
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="night"] .scene-botanical .sun-disc {
+  animation: none;
+  opacity: 0;
+  top: 46%;
+  left: 78%;
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="night"] .scene-botanical .sun-glow {
+  opacity: 0;
+  top: calc(46% + 38px);
+  left: calc(78% + 38px);
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="night"] .scene-botanical .sun-glow-inner {
+  animation: none;
+}
+
+.hero-botanical-stage-wrap[data-weather="drizzle"] .scene-botanical .sun-glow,
+.hero-botanical-stage-wrap[data-weather="drizzle"] .scene-botanical .sun-disc,
+.hero-botanical-stage-wrap[data-weather="drizzle"] .scene-botanical .sun-glow-inner,
+.hero-botanical-stage-wrap[data-weather="rain"] .scene-botanical .sun-glow,
+.hero-botanical-stage-wrap[data-weather="rain"] .scene-botanical .sun-disc,
+.hero-botanical-stage-wrap[data-weather="rain"] .scene-botanical .sun-glow-inner,
+.hero-botanical-stage-wrap[data-weather="thunderstorm"] .scene-botanical .sun-glow,
+.hero-botanical-stage-wrap[data-weather="thunderstorm"] .scene-botanical .sun-disc,
+.hero-botanical-stage-wrap[data-weather="thunderstorm"] .scene-botanical .sun-glow-inner {
+  animation: none;
+  opacity: 0 !important;
+  visibility: hidden;
+}
+
+.scene-botanical .weather-clouds {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms ease, filter 900ms ease;
+}
+
+.scene-botanical .weather-cloud {
+  position: absolute;
+  display: block;
+  filter: drop-shadow(0 12px 18px rgba(62, 98, 122, 0.12));
+  animation: botanicalWeatherCloudDrift linear infinite;
+}
+
+.scene-botanical .weather-cloud.cloud-a {
+  top: 7%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(132s / var(--anim-speed, 1));
+  animation-delay: -58s;
+}
+
+.scene-botanical .weather-cloud.cloud-b {
+  top: 16%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(118s / var(--anim-speed, 1));
+  animation-delay: -18s;
+}
+
+.scene-botanical .weather-cloud.cloud-c {
+  top: 3%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(155s / var(--anim-speed, 1));
+  animation-delay: -104s;
+}
+
+.scene-botanical .weather-cloud.extra {
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.scene-botanical .weather-cloud.cloudy-only {
+  opacity: 0;
+  transition: opacity 900ms ease;
+}
+
+.scene-botanical .weather-cloud.cloud-d {
+  top: 21%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(128s / var(--anim-speed, 1));
+  animation-delay: -76s;
+}
+
+.scene-botanical .weather-cloud.cloud-e {
+  top: 10%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(168s / var(--anim-speed, 1));
+  animation-delay: -132s;
+}
+
+.scene-botanical .weather-cloud.cloud-f {
+  top: 27%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(112s / var(--anim-speed, 1));
+  animation-delay: -41s;
+}
+
+.scene-botanical .weather-cloud.cloud-g {
+  top: 2%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(182s / var(--anim-speed, 1));
+  animation-delay: -28s;
+}
+
+.scene-botanical .weather-cloud.cloud-h {
+  top: 19%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(158s / var(--anim-speed, 1));
+  animation-delay: -122s;
+}
+
+.scene-botanical .weather-cloud.cloud-i {
+  top: 31%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(118s / var(--anim-speed, 1));
+  animation-delay: -67s;
+}
+
+.scene-botanical .weather-cloud.cloud-j {
+  top: 8%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(164s / var(--anim-speed, 1));
+  animation-delay: -152s;
+}
+
+.scene-botanical .weather-cloud.cloud-k {
+  top: 26%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(136s / var(--anim-speed, 1));
+  animation-delay: -13s;
+}
+
+.scene-botanical .weather-cloud.cloud-l {
+  top: 12%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(196s / var(--anim-speed, 1));
+  animation-delay: -84s;
+}
+
+.scene-botanical .weather-cloud.cloud-m {
+  top: 34%;
+  left: 0;
+  --cloud-end: 100vw;
+  animation-duration: calc(104s / var(--anim-speed, 1));
+  animation-delay: -98s;
+}
+
+@keyframes botanicalWeatherCloudDrift {
+  0% {
+    transform: translateX(var(--cloud-start));
+  }
+  100% {
+    transform: translateX(var(--cloud-end));
+  }
+}
+
+.hero-botanical-stage-wrap[data-weather="partly-cloudy"] .scene-botanical .weather-clouds,
+.hero-botanical-stage-wrap[data-weather="windy"] .scene-botanical .weather-clouds {
+  opacity: 0.68;
+}
+
+.hero-botanical-stage-wrap[data-weather="cloudy"] .scene-botanical .weather-clouds,
+.hero-botanical-stage-wrap[data-weather="fog"] .scene-botanical .weather-clouds {
+  opacity: 0.96;
+  filter: saturate(0.8) brightness(0.92);
+}
+
+.hero-botanical-stage-wrap[data-weather="cloudy"] .scene-botanical .weather-cloud.extra,
+.hero-botanical-stage-wrap[data-weather="fog"] .scene-botanical .weather-cloud.extra,
+.hero-botanical-stage-wrap[data-weather="drizzle"] .scene-botanical .weather-cloud.extra,
+.hero-botanical-stage-wrap[data-weather="rain"] .scene-botanical .weather-cloud.extra,
+.hero-botanical-stage-wrap[data-weather="thunderstorm"] .scene-botanical .weather-cloud.extra {
+  opacity: 1;
+}
+
+.hero-botanical-stage-wrap[data-weather="cloudy"] .scene-botanical .weather-cloud.cloudy-only {
+  opacity: 1;
+}
+
+.hero-botanical-stage-wrap[data-weather="drizzle"] .scene-botanical .weather-clouds,
+.hero-botanical-stage-wrap[data-weather="rain"] .scene-botanical .weather-clouds,
+.hero-botanical-stage-wrap[data-weather="thunderstorm"] .scene-botanical .weather-clouds {
+  opacity: 0.96;
+  filter: saturate(0.65) brightness(0.78);
+}
+
+.hero-botanical-stage-wrap[data-weather="windy"] .scene-botanical .weather-cloud {
+  animation-duration: calc(84s / var(--anim-speed, 1));
+}
+
+.scene-botanical .weather-fog {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  top: 34%;
+  height: 34%;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(230, 235, 226, 0.42) 38%, rgba(230, 235, 226, 0.18) 72%, transparent 100%),
+    repeating-linear-gradient(174deg, rgba(255, 255, 255, 0.16) 0 18px, transparent 18px 44px);
+  filter: blur(10px);
+  transform: translateX(-3%);
+  animation: botanicalFogDrift calc(28s / var(--anim-speed, 1)) ease-in-out infinite;
+  transition: opacity 900ms ease;
+}
+
+.hero-botanical-stage-wrap[data-weather="fog"] .scene-botanical .weather-fog {
+  opacity: 0.86;
+}
+
+@keyframes botanicalFogDrift {
+  0%,
+  100% {
+    transform: translateX(-3%);
+  }
+  50% {
+    transform: translateX(3%);
+  }
+}
+
+.scene-botanical .weather-rain {
+  position: absolute;
+  inset: 0;
+  z-index: 44;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 700ms ease;
+  overflow: hidden;
+}
+
+.scene-botanical .weather-rain span {
+  position: absolute;
+  top: -12%;
+  width: 1.8px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(244, 250, 255, 0.08), rgba(224, 239, 248, 0.96));
+  box-shadow: 0 0 7px rgba(214, 231, 240, 0.34);
+  transform: rotate(13deg);
+  animation-name: botanicalRainDrop;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+.scene-botanical .weather-rain span:nth-child(3n) {
+  opacity: 0.86;
+  width: 1.3px;
+}
+
+.scene-botanical .weather-rain span:nth-child(4n) {
+  opacity: 0.72;
+}
+
+.scene-botanical .weather-rain span:nth-child(5n) {
+  transform: rotate(10deg);
+}
+
+.scene-botanical .weather-rain span.heavy-drop,
+.scene-botanical .weather-rain span.storm-drop {
+  display: none;
+}
+
+.hero-botanical-stage-wrap[data-weather="rain"] .scene-botanical .weather-rain span.heavy-drop,
+.hero-botanical-stage-wrap[data-weather="thunderstorm"] .scene-botanical .weather-rain span.heavy-drop,
+.hero-botanical-stage-wrap[data-weather="thunderstorm"] .scene-botanical .weather-rain span.storm-drop {
+  display: block;
+}
+
+.hero-botanical-stage-wrap[data-weather="drizzle"] .scene-botanical .weather-rain {
+  opacity: 0.34;
+}
+
+.hero-botanical-stage-wrap[data-weather="rain"] .scene-botanical .weather-rain {
+  opacity: 0.62;
+}
+
+.hero-botanical-stage-wrap[data-weather="thunderstorm"] .scene-botanical .weather-rain {
+  opacity: 0.76;
+}
+
+@keyframes botanicalRainFall {
+  0%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes botanicalRainDrop {
+  0% {
+    transform: translate3d(0, -16vh, 0) rotate(13deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(-34px, 118vh, 0) rotate(13deg);
+    opacity: 0;
+  }
+}
+
+.scene-botanical .weather-lightning {
+  position: absolute;
+  inset: 0;
+  z-index: 43;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse at 64% 18%, rgba(236, 244, 255, 0.72) 0%, rgba(236, 244, 255, 0.22) 18%, transparent 48%);
+}
+
+.hero-botanical-stage-wrap[data-weather="thunderstorm"] .scene-botanical .weather-lightning {
+  animation: botanicalLightning calc(7s / var(--anim-speed, 1)) steps(1, end) infinite;
+}
+
+@keyframes botanicalLightning {
+  0%,
+  88%,
+  94%,
+  100% {
+    opacity: 0;
+  }
+  89%,
+  92% {
+    opacity: 0.72;
+  }
+}
+
+@keyframes heroSunBreathe {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.scene-botanical .hills {
+  position: absolute;
+  inset: 0;
+  filter: hue-rotate(var(--hue-shift, 0deg)) var(--botanical-landscape-filter);
+}
+
+.scene-botanical .houses {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 36%;
+  height: 15%;
+  filter: hue-rotate(var(--hue-shift, 0deg)) var(--botanical-building-filter);
+}
+
+.scene-botanical .pond {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 18%;
+  height: 16%;
+  border-radius: 50% / 100% 100% 0 0;
+  overflow: hidden;
+}
+
+.scene-botanical .pond-water {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(184, 199, 209, 0.55) 0%,
+    rgba(143, 163, 180, 0.75) 60%,
+    rgba(95, 115, 135, 0.85) 100%
+  );
+  filter: var(--botanical-water-filter);
+  transition: filter 1000ms ease;
+}
+
+.scene-botanical .ripple {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  width: 10px;
+  height: 3px;
+  border-radius: 50%;
+  border: 1px solid rgba(247, 240, 220, 0.5);
+  transform: translate(-50%, -50%) scale(0);
+  animation: heroRipple calc(5s / var(--anim-speed, 1)) ease-out infinite;
+}
+
+.scene-botanical .ripple.r2 {
+  animation-delay: calc(-1.5s / var(--anim-speed, 1));
+  left: 38%;
+  top: 55%;
+}
+
+.scene-botanical .ripple.r3 {
+  animation-delay: calc(-3s / var(--anim-speed, 1));
+  left: 64%;
+  top: 45%;
+}
+
+.scene-botanical .ripple.r4 {
+  animation-delay: calc(-2.3s / var(--anim-speed, 1));
+  left: 52%;
+  top: 70%;
+}
+
+@keyframes heroRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(8);
+    opacity: 0;
+  }
+}
+
+.scene-botanical .sparkle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(247, 240, 220, 0.95);
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(247, 240, 220, 0.9);
+  animation: heroSparkle calc(3s / var(--anim-speed, 1)) ease-in-out infinite;
+}
+
+@keyframes heroSparkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+.scene-botanical .fountain-plume {
+  position: absolute;
+  left: 50%;
+  bottom: 24%;
+  width: 4px;
+  height: 60px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.scene-botanical .fountain-plume span {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 3px;
+  height: 3px;
+  background: rgba(216, 225, 230, 0.85);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: heroPlume calc(2.4s / var(--anim-speed, 1)) ease-out infinite;
+  box-shadow: 0 0 4px rgba(247, 240, 220, 0.6);
+}
+
+@keyframes heroPlume {
+  0% {
+    transform: translate(-50%, 0) scale(0.3);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(calc(-50% + var(--dx, 0px)), -50px) scale(1);
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx, 0px)), -20px) scale(0.2);
+    opacity: 0;
+  }
+}
+
+.scene-botanical .plants {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  filter: hue-rotate(var(--hue-shift, 0deg)) var(--botanical-scene-filter);
+  opacity: var(--density, 1);
+}
+
+.scene-botanical .plant {
+  position: absolute;
+  bottom: -5%;
+  transform-origin: 50% 100%;
+  animation: heroSway calc(6s / var(--anim-speed, 1)) ease-in-out infinite;
+}
+
+.scene-botanical .plant.slow {
+  animation-duration: calc(9s / var(--anim-speed, 1));
+}
+
+.scene-botanical .plant.fast {
+  animation-duration: calc(4.5s / var(--anim-speed, 1));
+}
+
+.scene-botanical .plant.reverse {
+  animation-direction: alternate-reverse;
+}
+
+@keyframes heroSway {
+  0%,
+  100% {
+    transform: rotate(-1.8deg) translateX(-2px);
+  }
+  50% {
+    transform: rotate(1.8deg) translateX(2px);
+  }
+}
+
+.scene-botanical .mote {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(247, 240, 220, calc(0.7 * var(--light, 1)));
+  border-radius: 50%;
+  filter: blur(0.5px);
+  box-shadow: 0 0 6px rgba(247, 240, 220, 0.5);
+  animation: heroFloat calc(14s / var(--anim-speed, 1)) linear infinite;
+}
+
+@keyframes heroFloat {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--fx, 40px), var(--fy, -60px));
+    opacity: 0;
+  }
+}
+
+.scene-botanical .bird {
+  position: absolute;
+  top: 18%;
+  animation: heroFlyAcross calc(30s / var(--anim-speed, 1)) linear infinite;
+}
+
+@keyframes heroFlyAcross {
+  0% {
+    transform: translateX(-10vw) translateY(0);
+  }
+  50% {
+    transform: translateX(60vw) translateY(-20px);
+  }
+  100% {
+    transform: translateX(130vw) translateY(0);
+  }
+}
+
+.scene-botanical .bird svg {
+  animation: heroFlap calc(0.6s / var(--anim-speed, 1)) ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heroFlap {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.5);
+  }
+}
+
+.scene-botanical .butterfly {
+  position: absolute;
+  animation: heroButterfly calc(22s / var(--anim-speed, 1)) ease-in-out infinite;
+}
+
+@keyframes heroButterfly {
+  0% {
+    transform: translate(0, 0) rotate(-8deg);
+  }
+  25% {
+    transform: translate(60px, -30px) rotate(6deg);
+  }
+  50% {
+    transform: translate(30px, -60px) rotate(-4deg);
+  }
+  75% {
+    transform: translate(-20px, -40px) rotate(8deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(-8deg);
+  }
+}
+
+.scene-botanical .butterfly svg {
+  animation: heroWingFlap calc(0.35s / var(--anim-speed, 1)) ease-in-out infinite;
+}
+
+@keyframes heroWingFlap {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.3);
+  }
+}
+
+.scene-botanical .motes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 45;
+}
+
+/* Radial scrim behind hero copy (cream text on light scene) */
+.hero-text-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse 55% 50% at 50% 45%,
+    rgba(26, 24, 21, 0.42) 0%,
+    rgba(26, 24, 21, 0.22) 28%,
+    rgba(26, 24, 21, 0.08) 48%,
+    rgba(26, 24, 21, 0) 62%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-botanical .sun-glow,
+  .scene-botanical .ripple,
+  .scene-botanical .sparkle,
+  .scene-botanical .fountain-plume span,
+  .scene-botanical .plant,
+  .scene-botanical .mote,
+  .scene-botanical .bird,
+  .scene-botanical .bird svg,
+  .scene-botanical .butterfly,
+  .scene-botanical .butterfly svg {
+    animation: none !important;
+  }
+
+  .scene-botanical .sun-glow {
+    opacity: 0.9;
+  }
+}

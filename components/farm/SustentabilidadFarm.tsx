@@ -21,10 +21,9 @@ export default function SustentabilidadFarm() {
                     </p>
 
                     <h2
-                        className="text-[#1a1917] leading-[1.1] mb-10 tracking-tight"
+                        className="text-[2.65rem] leading-[1.05] text-[#1a1917] mb-7 tracking-tight sm:text-[3.25rem] lg:mb-10 lg:text-[clamp(3.5rem,6vw,5.5rem)] lg:leading-[1.1]"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(3.5rem, 6vw, 5.5rem)",
                         }}
                     >
                         {t("title.line1")}<br />
@@ -32,7 +31,7 @@ export default function SustentabilidadFarm() {
                         {t("title.line2")}
                     </h2>
 
-                    <div className="space-y-8 max-w-md">
+                    <div className="space-y-6 max-w-md lg:space-y-8">
                         <p
                             className="text-[#1a1917]/82 text-lg lg:text-xl font-medium leading-relaxed"
                             style={{ fontFamily: "var(--font-serif)" }}
@@ -52,10 +51,10 @@ export default function SustentabilidadFarm() {
                 </div>
 
                 {/* Right Side: Parallax Image Grid */}
-                <div className="w-full lg:w-[55%] relative h-[550px] lg:h-[900px] -mt-12 lg:-mt-0">
+                <div className="w-full lg:w-[55%] relative h-[360px] sm:h-[460px] lg:h-[900px] -mt-4 sm:-mt-8 lg:-mt-0">
 
                     {/* Main Image Layer */}
-                    <div className="absolute right-0 top-10 lg:top-16 w-[80%] lg:w-[70%] h-[75%] lg:h-[80%] z-10 overflow-hidden shadow-2xl">
+                    <div className="absolute right-0 top-5 sm:top-8 lg:top-16 w-[74%] lg:w-[70%] h-[70%] lg:h-[80%] z-10 overflow-hidden shadow-xl lg:shadow-2xl">
                         <Image
                             src="/babylon/farm-1.webp"
                             alt={t("images.mainAlt")}
@@ -65,7 +64,7 @@ export default function SustentabilidadFarm() {
                     </div>
 
                     {/* Offset Accelerated Image Layer */}
-                    <div className="absolute left-0 bottom-10 lg:bottom-24 w-[60%] lg:w-[50%] h-[50%] lg:h-[55%] z-20 overflow-hidden shadow-2xl border-4 lg:border-8 border-[#EFE6DC]">
+                    <div className="absolute left-0 bottom-5 sm:bottom-8 lg:bottom-24 w-[54%] lg:w-[50%] h-[42%] lg:h-[55%] z-20 overflow-hidden shadow-xl lg:shadow-2xl border-4 lg:border-8 border-[#EFE6DC]">
                         <Image
                             src="/babylon/farm-2.webp"
                             alt={t("images.secondaryAlt")}

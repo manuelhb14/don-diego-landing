@@ -13,9 +13,11 @@ import {
 import { usePathname } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useChat as useAiChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
+import { DefaultChatTransport, type UIMessage } from "ai";
+import { nanoid } from "nanoid";
 import type { ChatContext, ChatMessage } from "@/components/chat/types";
 import { getChatSuggestions, type ChatSuggestion } from "@/components/chat/suggestions";
+import { CHAT_SESSION_STORAGE_KEY } from "@/lib/chat-constants";
 import { getDefaultDetailForPageType } from "@/lib/chat-page-context";
 
 type ChatProviderValue = {
@@ -34,6 +36,7 @@ type ChatProviderValue = {
     setContextPageType: (pageType?: string) => void;
     registerTrigger: (node: HTMLButtonElement | null) => void;
     focusInputSignal: number;
+    chatSessionReady: boolean;
 };
 
 type ScopedContextValue<T> = {
@@ -63,25 +66,55 @@ function inferPageType(pathname: string): string {
     return "general";
 }
 
-export function ChatProvider({ children }: { children: ReactNode }) {
-    const pathname = usePathname();
-    const locale = useLocale();
+function readOrCreateSessionId(): string {
+    if (typeof window === "undefined") return "";
+    let id = window.localStorage.getItem(CHAT_SESSION_STORAGE_KEY);
+    if (!id) {
+        id = nanoid();
+        window.localStorage.setItem(CHAT_SESSION_STORAGE_KEY, id);
+    }
+    return id;
+}
+
+function ChatSessionCore({
+    sessionId,
+    initialMessages,
+    children,
+    pathname,
+    locale,
+    scopedContextDetail,
+    scopedPageTypeOverride,
+    isOpen,
+    setIsOpen,
+    focusInputSignal,
+    setFocusInputSignal,
+    triggerRef,
+    onRotateSession,
+    setContextDetailParent,
+    setContextPageTypeParent,
+}: {
+    sessionId: string;
+    initialMessages: UIMessage[];
+    children: ReactNode;
+    pathname: string;
+    locale: string;
+    scopedContextDetail: ScopedContextValue<Record<string, unknown> | undefined> | null;
+    scopedPageTypeOverride: ScopedContextValue<string | undefined> | null;
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    focusInputSignal: number;
+    setFocusInputSignal: React.Dispatch<React.SetStateAction<number>>;
+    triggerRef: React.RefObject<HTMLButtonElement | null>;
+    onRotateSession: () => void;
+    setContextDetailParent: (detail?: Record<string, unknown>) => void;
+    setContextPageTypeParent: (pageType?: string) => void;
+}) {
     const t = useTranslations("components.chatPanel.errors");
-    const [isOpen, setIsOpen] = useState(false);
-    const [scopedContextDetail, setScopedContextDetail] =
-        useState<ScopedContextValue<Record<string, unknown> | undefined> | null>(null);
-    const [scopedPageTypeOverride, setScopedPageTypeOverride] =
-        useState<ScopedContextValue<string | undefined> | null>(null);
-    const [focusInputSignal, setFocusInputSignal] = useState(0);
-    const triggerRef = useRef<HTMLButtonElement | null>(null);
     const contextRef = useRef<ChatContext>({
         pathname,
         locale,
         pageType: inferPageType(pathname),
         detail: undefined,
-    });
-    const aiChat = useAiChat({
-        transport: new DefaultChatTransport({ api: "/api/chat" }),
     });
 
     const contextDetail =
@@ -96,12 +129,13 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     const context = useMemo<ChatContext>(() => {
         const pageType = pageTypeOverride || inferPageType(pathname);
         const defaultDetail = getDefaultDetailForPageType(pageType);
-        const detail = defaultDetail || contextDetail
-            ? {
-                ...(defaultDetail ?? {}),
-                ...(contextDetail ?? {}),
-            }
-            : undefined;
+        const detail =
+            defaultDetail || contextDetail
+                ? {
+                      ...(defaultDetail ?? {}),
+                      ...(contextDetail ?? {}),
+                  }
+                : undefined;
 
         return {
             pathname,
@@ -115,15 +149,21 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         contextRef.current = context;
     }, [context]);
 
+    const aiChat = useAiChat({
+        id: sessionId,
+        messages: initialMessages,
+        transport: new DefaultChatTransport({ api: "/api/chat" }),
+    });
+
     const openChat = useCallback(() => {
         setIsOpen(true);
         setFocusInputSignal((prev) => prev + 1);
-    }, []);
+    }, [setFocusInputSignal, setIsOpen]);
 
     const closeChat = useCallback(() => {
         setIsOpen(false);
         triggerRef.current?.focus();
-    }, []);
+    }, [setIsOpen, triggerRef]);
 
     const toggleChat = useCallback(() => {
         setIsOpen((prev) => {
@@ -137,11 +177,11 @@ export function ChatProvider({ children }: { children: ReactNode }) {
             }
             return next;
         });
-    }, []);
+    }, [setFocusInputSignal, setIsOpen, triggerRef]);
 
     const clearChat = useCallback(() => {
-        aiChat.setMessages([]);
-    }, [aiChat]);
+        onRotateSession();
+    }, [onRotateSession]);
 
     const messages = useMemo<ChatMessage[]>(() => {
         return aiChat.messages
@@ -175,6 +215,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
             if (shouldLogChatDebug) {
                 console.log("[chat] sending message", {
                     context: requestContext,
+                    sessionId,
                     preview: trimmed.slice(0, 120),
                 });
             }
@@ -185,6 +226,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
                     {
                         body: {
                             context: requestContext,
+                            sessionId,
                         },
                     },
                 );
@@ -201,7 +243,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
                 ]);
             }
         },
-        [aiChat, isLoading, t],
+        [aiChat, isLoading, sessionId, t],
     );
 
     const suggestions = useMemo(() => getChatSuggestions(context), [context]);
@@ -212,6 +254,121 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         },
         [sendMessage],
     );
+
+    const setContextDetail = useCallback(
+        (detail?: Record<string, unknown>) => {
+            setContextDetailParent(detail);
+        },
+        [setContextDetailParent],
+    );
+
+    const setContextPageType = useCallback(
+        (pageType?: string) => {
+            setContextPageTypeParent(pageType);
+        },
+        [setContextPageTypeParent],
+    );
+
+    const registerTrigger = useCallback(
+        (node: HTMLButtonElement | null) => {
+            triggerRef.current = node;
+        },
+        [triggerRef],
+    );
+
+    const value = useMemo<ChatProviderValue>(
+        () => ({
+            isOpen,
+            messages,
+            isLoading,
+            context,
+            suggestions,
+            openChat,
+            closeChat,
+            toggleChat,
+            clearChat,
+            sendMessage,
+            applySuggestion,
+            setContextDetail,
+            setContextPageType,
+            registerTrigger,
+            focusInputSignal,
+            chatSessionReady: true,
+        }),
+        [
+            applySuggestion,
+            clearChat,
+            closeChat,
+            context,
+            focusInputSignal,
+            isLoading,
+            isOpen,
+            messages,
+            openChat,
+            registerTrigger,
+            sendMessage,
+            setContextDetail,
+            setContextPageType,
+            suggestions,
+            toggleChat,
+        ],
+    );
+
+    return <ChatContextStore.Provider value={value}>{children}</ChatContextStore.Provider>;
+}
+
+export function ChatProvider({ children }: { children: ReactNode }) {
+    const pathname = usePathname();
+    const locale = useLocale();
+    const [isOpen, setIsOpen] = useState(false);
+    const [scopedContextDetail, setScopedContextDetail] =
+        useState<ScopedContextValue<Record<string, unknown> | undefined> | null>(null);
+    const [scopedPageTypeOverride, setScopedPageTypeOverride] =
+        useState<ScopedContextValue<string | undefined> | null>(null);
+    const [focusInputSignal, setFocusInputSignal] = useState(0);
+    const triggerRef = useRef<HTMLButtonElement | null>(null);
+
+    const [sessionId, setSessionId] = useState<string | null>(null);
+    const [initialMessages, setInitialMessages] = useState<UIMessage[]>([]);
+    const [sessionHydrated, setSessionHydrated] = useState(false);
+
+    useEffect(() => {
+        const id = readOrCreateSessionId();
+        setSessionId(id);
+        let cancelled = false;
+        (async () => {
+            try {
+                const res = await fetch(
+                    `/api/chat/session?id=${encodeURIComponent(id)}`,
+                );
+                const data: unknown = await res.json();
+                const msgs =
+                    data &&
+                    typeof data === "object" &&
+                    !Array.isArray(data) &&
+                    Array.isArray((data as { messages?: unknown }).messages)
+                        ? (data as { messages: UIMessage[] }).messages
+                        : [];
+                if (!cancelled) setInitialMessages(msgs);
+            } catch {
+                if (!cancelled) setInitialMessages([]);
+            } finally {
+                if (!cancelled) setSessionHydrated(true);
+            }
+        })();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    const rotateSession = useCallback(() => {
+        const newId = nanoid();
+        if (typeof window !== "undefined") {
+            window.localStorage.setItem(CHAT_SESSION_STORAGE_KEY, newId);
+        }
+        setSessionId(newId);
+        setInitialMessages([]);
+    }, []);
 
     const setContextDetail = useCallback(
         (detail?: Record<string, unknown>) => {
@@ -226,6 +383,58 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         },
         [pathname],
     );
+
+    const contextDetail =
+        scopedContextDetail && scopedContextDetail.pathname === pathname
+            ? scopedContextDetail.value
+            : undefined;
+    const pageTypeOverride =
+        scopedPageTypeOverride && scopedPageTypeOverride.pathname === pathname
+            ? scopedPageTypeOverride.value
+            : undefined;
+
+    const context = useMemo<ChatContext>(() => {
+        const pageType = pageTypeOverride || inferPageType(pathname);
+        const defaultDetail = getDefaultDetailForPageType(pageType);
+        const detail =
+            defaultDetail || contextDetail
+                ? {
+                      ...(defaultDetail ?? {}),
+                      ...(contextDetail ?? {}),
+                  }
+                : undefined;
+
+        return {
+            pathname,
+            locale,
+            pageType,
+            detail,
+        };
+    }, [contextDetail, locale, pageTypeOverride, pathname]);
+
+    const openChat = useCallback(() => {
+        setIsOpen(true);
+        setFocusInputSignal((prev) => prev + 1);
+    }, []);
+
+    const closeChat = useCallback(() => {
+        setIsOpen(false);
+        triggerRef.current?.focus();
+    }, [triggerRef]);
+
+    const toggleChat = useCallback(() => {
+        setIsOpen((prev) => {
+            const next = !prev;
+            if (next) {
+                setFocusInputSignal((value) => value + 1);
+            } else {
+                requestAnimationFrame(() => {
+                    triggerRef.current?.focus();
+                });
+            }
+            return next;
+        });
+    }, [triggerRef]);
 
     const registerTrigger = useCallback((node: HTMLButtonElement | null) => {
         triggerRef.current = node;
@@ -246,44 +455,67 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         };
     }, []);
 
-    const value = useMemo<ChatProviderValue>(
+    const placeholderValue = useMemo<ChatProviderValue>(
         () => ({
             isOpen,
-            messages,
-            isLoading,
+            messages: [],
+            isLoading: false,
             context,
-            suggestions,
+            suggestions: getChatSuggestions(context),
             openChat,
             closeChat,
             toggleChat,
-            clearChat,
-            sendMessage,
-            applySuggestion,
+            clearChat: () => {},
+            sendMessage: async () => {},
+            applySuggestion: async () => {},
             setContextDetail,
             setContextPageType,
             registerTrigger,
             focusInputSignal,
+            chatSessionReady: false,
         }),
         [
-            applySuggestion,
             closeChat,
             context,
             focusInputSignal,
-            isLoading,
             isOpen,
-            messages,
             openChat,
             registerTrigger,
-            sendMessage,
-            clearChat,
             setContextDetail,
             setContextPageType,
-            suggestions,
             toggleChat,
         ],
     );
 
-    return <ChatContextStore.Provider value={value}>{children}</ChatContextStore.Provider>;
+    if (!sessionHydrated || !sessionId) {
+        return (
+            <ChatContextStore.Provider value={placeholderValue}>
+                {children}
+            </ChatContextStore.Provider>
+        );
+    }
+
+    return (
+        <ChatSessionCore
+            key={sessionId}
+            sessionId={sessionId}
+            initialMessages={initialMessages}
+            pathname={pathname}
+            locale={locale}
+            scopedContextDetail={scopedContextDetail}
+            scopedPageTypeOverride={scopedPageTypeOverride}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            focusInputSignal={focusInputSignal}
+            setFocusInputSignal={setFocusInputSignal}
+            triggerRef={triggerRef}
+            onRotateSession={rotateSession}
+            setContextDetailParent={setContextDetail}
+            setContextPageTypeParent={setContextPageType}
+        >
+            {children}
+        </ChatSessionCore>
+    );
 }
 
 export function useChat() {

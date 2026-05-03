@@ -5,7 +5,6 @@ import Hero from "@/components/Hero";
 import Manifesto from "@/components/Manifesto";
 import Vision from "@/components/Vision";
 import ProjectsEditorial from "@/components/ProjectsEditorial";
-import Gallery from "@/components/Gallery";
 import Location from "@/components/Location";
 import Exclusivity from "@/components/Exclusivity";
 import Services from "@/components/Services";
@@ -17,6 +16,7 @@ import Stats from "@/components/Stats";
 import ThingsToDo from "@/components/ThingsToDo";
 import AppFeaturesShowcase from "@/components/AppFeaturesShowcase";
 import Blogs from "@/components/Blogs";
+import { getSanMiguelWeather } from "@/lib/weather";
 type Props = {
     params: Promise<{ locale: string }>;
 };
@@ -24,13 +24,14 @@ type Props = {
 export default async function Page({ params }: Props) {
     const { locale } = await params;
     setRequestLocale(locale);
+    const weather = await getSanMiguelWeather();
 
     return (
         <>
             {/* <Loading /> */}
             <Navbar locale={locale} hideLogoAtTop={true} />
             <main>
-                <Hero />
+                <Hero initialWeather={weather} />
                 <Manifesto />
                 <Vision />
                 <Services />
@@ -39,7 +40,6 @@ export default async function Page({ params }: Props) {
                 <AppFeaturesShowcase />
                 <Location />
                 <Blogs />
-                <Gallery />
                 <Team />
                 <Exclusivity />
                 <Contact />

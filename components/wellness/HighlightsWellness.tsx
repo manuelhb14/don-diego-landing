@@ -42,20 +42,17 @@ export default function HighlightsWellness() {
         if (!scrollRef.current) return;
         const scrollContainer = scrollRef.current;
         const scrollPosition = scrollContainer.scrollLeft;
-
-        // Find the index of the child that is closest to the center
-        const containerCenter = scrollPosition + scrollContainer.clientWidth / 2;
+        const leadingPadding = parseFloat(getComputedStyle(scrollContainer).paddingLeft) || 0;
+        const alignedEdge = scrollPosition + leadingPadding;
 
         let closestIndex = 0;
         let minDistance = Infinity;
 
         Array.from(scrollContainer.children).forEach((child, index) => {
             const childElement = child as HTMLElement;
-            // Skip non-card elements if any (like empty spacer). Cards have class group.
-            if (!childElement.classList.contains('group')) return;
+            if (!childElement.classList.contains("group")) return;
 
-            const childCenter = childElement.offsetLeft + childElement.clientWidth / 2;
-            const distance = Math.abs(containerCenter - childCenter);
+            const distance = Math.abs(alignedEdge - childElement.offsetLeft);
             if (distance < minDistance) {
                 minDistance = distance;
                 closestIndex = index;
@@ -73,8 +70,8 @@ export default function HighlightsWellness() {
         // The first 4 children are the cards, assuming they are direct children
         const card = scrollContainer.children[index] as HTMLElement;
         if (card) {
-            // Scroll to center the card
-            const scrollLeftPos = card.offsetLeft - (scrollContainer.clientWidth / 2) + (card.clientWidth / 2);
+            const leadingPadding = parseFloat(getComputedStyle(scrollContainer).paddingLeft) || 0;
+            const scrollLeftPos = card.offsetLeft - leadingPadding;
             scrollContainer.scrollTo({
                 left: scrollLeftPos,
                 behavior: "smooth",
@@ -87,6 +84,19 @@ export default function HighlightsWellness() {
             <style>{`
                 .hide-scrollbar::-webkit-scrollbar {
                     display: none;
+                }
+
+                .wellness-highlights-scroll {
+                    --wellness-carousel-gutter: max(1.5rem, calc((100vw - 1600px) / 2 + 1.5rem));
+                    padding-left: var(--wellness-carousel-gutter);
+                    padding-right: var(--wellness-carousel-gutter);
+                    scroll-padding-left: var(--wellness-carousel-gutter);
+                }
+
+                @media (min-width: 1024px) {
+                    .wellness-highlights-scroll {
+                        --wellness-carousel-gutter: max(4rem, calc((100vw - 1600px) / 2 + 4rem));
+                    }
                 }
             `}</style>
 
@@ -128,8 +138,8 @@ export default function HighlightsWellness() {
                 <div
                     ref={scrollRef}
                     onScroll={handleScroll}
-                    className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar px-6 lg:px-16 gap-6 lg:gap-8 pb-4"
-                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                    className="wellness-highlights-scroll flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 lg:gap-8 pb-4"
+                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                     {highlights.map((item, index) => (
                         <motion.div
@@ -139,7 +149,7 @@ export default function HighlightsWellness() {
                             viewport={{ once: true, margin: "0px 1px 0px 1px" }}
                             transition={{ duration: 0.5, delay: index * 0.06, ease: [0.25, 0.46, 0.45, 0.94] }}
                             onClick={() => scrollTo(index)}
-                            className="group relative shrink-0 w-[85vw] sm:w-[75vw] md:w-[60vw] lg:w-[60vw] max-w-[1000px] aspect-[4/5] sm:aspect-[4/3] md:aspect-[1.6] lg:aspect-[1.7] overflow-hidden snap-center bg-[#1F2420] flex flex-col cursor-pointer rounded-sm"
+                            className="group relative shrink-0 w-[85vw] sm:w-[75vw] md:w-[60vw] lg:w-[60vw] max-w-[1000px] aspect-[4/5] sm:aspect-[4/3] md:aspect-[1.6] lg:aspect-[1.7] overflow-hidden snap-start bg-[#1F2420] flex flex-col cursor-pointer rounded-sm"
                         >
                             <div className="absolute inset-0 z-0 overflow-hidden">
                                 {item.image ? (
@@ -174,7 +184,7 @@ export default function HighlightsWellness() {
                             </div>
                         </motion.div>
                     ))}
-                    {/* Spacer to allow full scroll to the end so final card can center easily */}
+                    {/* Spacer to allow the final card to align to the text edge. */}
                     <div className="shrink-0 w-[1px] md:w-[10vw] hidden md:block" />
                 </div>
             </div>

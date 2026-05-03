@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 const TEAM_KEYS = ["cimenta", "barragan", "arredarq", "artemisa"] as const;
 const TEAM_COLORS = ["#AA7D69", "#E1B19B", "#AA7D69", "#E1B19B"] as const;
@@ -130,6 +131,22 @@ export default function Team() {
                         </motion.div>
                     ))}
                 </div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7, delay: 0.2 }}
+                    className="mt-6 flex justify-end"
+                >
+                    <Link
+                        href="/equipo"
+                        className="inline-block text-[#222] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#222] pb-1 hover:opacity-60 transition-opacity"
+                        style={{ fontFamily: "var(--font-sans)" }}
+                    >
+                        {t("cta")}
+                    </Link>
+                </motion.div>
             </div>
         </section>
     );

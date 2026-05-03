@@ -5,8 +5,15 @@ import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import EditableText from "@/components/editor/EditableText";
+import HeroBotanicalBackground from "./hero/HeroBotanicalBackground";
+import HeroWeatherWidget from "./hero/HeroWeatherWidget";
+import type { WeatherResponse } from "@/lib/weather";
 
-export default function Hero() {
+type HeroProps = {
+    initialWeather?: WeatherResponse;
+};
+
+export default function Hero({ initialWeather }: HeroProps) {
     const th = useTranslations("hero");
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -19,33 +26,26 @@ export default function Hero() {
 
     return (
         <section ref={ref} className="relative flex h-[800px] md:h-dvh min-h-[700px] w-full items-center justify-center overflow-hidden bg-[#111]">
-            {/* Full-bleed background video */}
+            {/* Full-bleed animated botanical background */}
             <motion.div
                 className="absolute inset-0 z-0 h-full w-full overflow-hidden"
                 style={{ scale: imgScale }}
             >
-                <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="h-full w-full object-cover object-center"
-                >
-                    <source src="/videos/hero-final.webm" type="video/webm" />
-                    <source src="/videos/hero-final.mp4" type="video/mp4" />
-                </video>
-                {/* Gradient overlay to ensure text is readable */}
-                {/* <div className="absolute inset-0 bg-black/40" /> */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
+                <HeroBotanicalBackground
+                    className="absolute inset-0 h-full w-full min-h-full"
+                    initialWeatherCondition={initialWeather?.condition}
+                />
+                <div className="hero-text-vignette hidden md:block" aria-hidden />
+                <div className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-t from-black/50 via-transparent to-black/30" />
             </motion.div>
 
             {/* Centered content block */}
             <motion.div
-                className="relative z-10 flex flex-col items-center justify-center px-4 md:px-8 text-center w-full max-w-4xl"
+                className="relative z-10 mt-8 flex flex-col items-center justify-center px-4 text-center w-full max-w-4xl [text-shadow:none] md:mt-0 md:px-8 md:[text-shadow:0_1px_2px_rgba(0,0,0,0.42),0_2px_18px_rgba(0,0,0,0.18)]"
                 style={{ y: contentY }}
             >
                 {/* Location tag */}
-                <motion.p
+                {/* <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
@@ -53,7 +53,7 @@ export default function Hero() {
                     style={{ fontFamily: "var(--font-sans)" }}
                 >
                     <EditableText contentKey="home.hero.eyebrow" fallback={th("eyebrow")} />
-                </motion.p>
+                </motion.p> */}
 
                 {/* Title Animation */}
                 <motion.svg
@@ -70,7 +70,7 @@ export default function Hero() {
                     initial="hidden"
                     animate="visible"
                     viewBox="0 0 1327 647"
-                    className="w-full h-auto max-w-[450px] mt-4 mb-4"
+                    className="w-full h-auto max-w-[300px] mt-2 mb-2 sm:max-w-[360px] md:max-w-[450px] md:mt-4 md:mb-4"
                     preserveAspectRatio="xMidYMid meet"
                 >
                     <g transform="matrix(1,0,0,1,-2177.39,-1092.9)">
@@ -239,48 +239,34 @@ export default function Hero() {
                     transition={{ duration: 0.8, delay: 0.8 }}
                     className="mt-6 lg:mt-4 max-w-md"
                 >
-                    <p className="text-[#FFF3E1] text-xl font-medium leading-relaxed mb-4" style={{ fontFamily: "var(--font-serif)" }}>
+                    <p className="text-[#FFF3E1] text-lg md:text-xl font-medium leading-relaxed mb-4 [text-shadow:0_1px_2px_rgba(0,0,0,0.42),0_2px_18px_rgba(0,0,0,0.18)]" style={{ fontFamily: "var(--font-serif)" }}>
                         <EditableText contentKey="home.hero.bodyLine1" fallback={th("bodyLine1")} />
                         <br />
                         <EditableText contentKey="home.hero.bodyLine2" fallback={th("bodyLine2")} />
                     </p>
                     <Link
-                        href="/residencial"
-                        className="inline-flex items-center justify-center min-h-11 px-10 py-4 -mx-10 -my-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFF3E1]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111]"
+                        href="/propiedades"
+                        className="inline-flex items-center justify-center min-h-14 px-12 py-5 -mx-12 -my-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFF3E1]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111]"
                     >
                         <motion.span
-                            className="inline-flex items-center justify-center gap-4 group"
+                            className="inline-flex items-center justify-center gap-5 group"
                             whileHover={{ y: 2 }}
                             transition={{ type: "spring", stiffness: 400 }}
                         >
-                            <span className="h-px w-8 bg-[#FFF3E1]/40 group-hover:w-12 transition-all duration-500" />
+                            <span className="h-px w-10 bg-[#FFF3E1]/40 group-hover:w-14 transition-all duration-500" />
                             <span
-                                className="text-[11px] tracking-[0.2em] text-[#FFF3E1] uppercase"
+                                className="text-sm tracking-[0.22em] text-[#FFF3E1] uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 <EditableText contentKey="home.hero.explore" fallback={th("explore")} />
                             </span>
-                            <span className="h-px w-8 bg-[#FFF3E1]/40 group-hover:w-12 transition-all duration-500" />
+                            <span className="h-px w-10 bg-[#FFF3E1]/40 group-hover:w-14 transition-all duration-500" />
                         </motion.span>
                     </Link>
                 </motion.div>
             </motion.div>
 
-            {/* Bottom-right tag */}
-            {/* <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 1.2 }}
-                className="absolute bottom-6 right-6 lg:bottom-10 lg:right-10 flex items-center gap-2 z-10"
-            >
-                <MapPin className="w-5 h-5 text-[#FFF3E1]" />
-                <p
-                    className="text-base font-normal text-[#FFF3E1]"
-                    style={{ fontFamily: "var(--font-sans)" }}
-                >
-                    San Miguel de Allende
-                </p>
-            </motion.div> */}
+            <HeroWeatherWidget initialWeather={initialWeather} />
         </section>
     );
 }

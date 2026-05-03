@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Don Diego — Hero Animado</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Cormorant:wght@300;400;500&family=Cormorant+SC:wght@400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg-cream: #f1e8d6;
+    --bg-cream-deep: #e8dcc2;
+    --bg-cream-dark: #d8c9a8;
+    --ink: #2a2620;
+    --ink-soft: #4a3f32;
+    --green-deep: #2f3d25;
+    --green-mid: #556b3e;
+    --green-light: #8a9d6a;
+    --green-sage: #b8c29a;
+    --green-mist: #d4d9b8;
+    --blue-soft: #b8c7d1;
+    --blue-dusty: #8fa3b4;
+    --blue-pale: #dde4e8;
+    --white-warm: #f7f0dc;
+    --gold: #b8944a;
+    --stone: #b5a888;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: #1a1815;
+    color: var(--ink);
+    font-family: var(--serif);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Outer shell */
+  .shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 32px 120px;
+    gap: 32px;
+  }
+
+  .intro {
+    max-width: 1280px;
+    width: 100%;
+    color: #d8cfbb;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .intro h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: #f1e8d6;
+  }
+  .intro .meta { text-align: right; opacity: 0.6; line-height: 1.7; }
+
+  /* Variation picker */
+  .picker {
+    max-width: 1280px;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .picker button {
+    background: transparent;
+    border: 1px solid rgba(241, 232, 214, 0.2);
+    color: #d8cfbb;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+  }
+  .picker button:hover {
+    border-color: rgba(241, 232, 214, 0.5);
+    color: #f1e8d6;
+  }
+  .picker button.active {
+    background: #f1e8d6;
+    color: #2a2620;
+    border-color: #f1e8d6;
+  }
+  .picker .sep { flex: 1; height: 1px; background: rgba(241, 232, 214, 0.1); margin: 0 12px; }
+
+  /* Stage — the actual hero canvas */
+  .stage-wrap {
+    max-width: 1280px;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(241,232,214,0.08);
+    background: var(--bg-cream);
+  }
+
+  .scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  .scene.hidden { display: none; }
+
+  /* Text overlay that sits above all scenes */
+  .text-layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    text-align: center;
+    pointer-events: none;
+    z-index: 50;
+    padding: 0 32px;
+  }
+  .text-layer .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    color: var(--ink);
+    opacity: 0.75;
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+  .text-layer h2.title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(64px, 8.5vw, 132px);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    color: var(--white-warm);
+    text-shadow:
+      0 2px 20px rgba(60, 50, 30, 0.35),
+      0 1px 2px rgba(42, 38, 32, 0.25);
+    margin-bottom: 32px;
+  }
+  .text-layer h2.title .don,
+  .text-layer h2.title .diego {
+    display: block;
+  }
+  .text-layer h2.title .diego {
+    letter-spacing: 0.01em;
+  }
+  .text-layer .lede {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(15px, 1.25vw, 19px);
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 480px;
+    margin-bottom: 32px;
+    opacity: 0.9;
+  }
+  .text-layer .cta {
+    pointer-events: auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 14px 0;
+    border-top: 1px solid rgba(42, 38, 32, 0.55);
+    border-bottom: 1px solid rgba(42, 38, 32, 0.55);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: transparent;
+    text-transform: uppercase;
+  }
+  .text-layer .cta:hover {
+    border-color: var(--ink);
+    letter-spacing: 0.32em;
+  }
+
+  /* Scene text-contrast gradient vignette — keeps text legible */
+  .text-vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 40;
+    background: radial-gradient(
+      ellipse at 50% 50%,
+      rgba(30, 40, 25, 0.28) 0%,
+      rgba(30, 40, 25, 0.14) 25%,
+      rgba(30, 40, 25, 0) 55%
+    );
+  }
+
+  /* ------------ TWEAKS PANEL ------------ */
+  .tweaks {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 300px;
+    background: rgba(26, 24, 21, 0.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(241, 232, 214, 0.16);
+    border-radius: 6px;
+    padding: 18px 18px 16px;
+    color: #e8dcc2;
+    font-family: var(--mono);
+    font-size: 10px;
+    z-index: 999;
+    box-shadow: 0 24px 48px -12px rgba(0,0,0,0.7);
+    max-height: 80vh;
+    overflow-y: auto;
+    display: none;
+  }
+  .tweaks.visible { display: block; }
+  .tweaks h3 {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 500;
+    color: #f1e8d6;
+    margin-bottom: 14px;
+    letter-spacing: 0.02em;
+  }
+  .tweak-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 0;
+    border-top: 1px solid rgba(241, 232, 214, 0.08);
+  }
+  .tweak-row:first-of-type { border-top: none; }
+  .tweak-label {
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    font-size: 9px;
+  }
+  .tweak-label span:last-child {
+    color: #f1e8d6;
+    opacity: 1;
+    font-weight: 500;
+  }
+  .tweaks input[type="range"] {
+    width: 100%;
+    accent-color: #d8c9a8;
+    cursor: pointer;
+  }
+  .tweaks input[type="color"] {
+    width: 100%;
+    height: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  .tweak-check {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-top: 1px solid rgba(241, 232, 214, 0.08);
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 9px;
+  }
+  .tweak-check:first-of-type { border-top: none; }
+  .tweak-toggle {
+    width: 28px;
+    height: 16px;
+    background: rgba(241, 232, 214, 0.15);
+    border-radius: 10px;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .tweak-toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #e8dcc2;
+    transition: transform 0.2s;
+  }
+  .tweak-check.on .tweak-toggle { background: #8a9d6a; }
+  .tweak-check.on .tweak-toggle::after { transform: translateX(12px); }
+
+  .tweaks-hint {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(241, 232, 214, 0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 998;
+  }
+
+  /* Animation speed control — applied on stage via CSS var */
+  .stage-wrap { --anim-speed: 1; }
+
+  @media (max-width: 768px) {
+    .shell { padding: 24px 16px 100px; }
+    .intro { flex-direction: column; align-items: flex-start; }
+    .intro .meta { text-align: left; }
+    .tweaks { width: calc(100vw - 32px); right: 16px; bottom: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="intro">
+    <div>
+      <h1>Don Diego — Hero animado</h1>
+      <div style="margin-top:6px; opacity:0.6;">Exploración · 3 variaciones · loop continuo</div>
+    </div>
+    <div class="meta">
+      Desarrollo residencial<br/>
+      San Miguel de Allende<br/>
+      V 01 · abril 2026
+    </div>
+  </div>
+
+  <div class="picker" id="picker">
+    <button data-v="1" class="active">01 · Villa &amp; acequia</button>
+    <button data-v="2">02 · La Presa</button>
+    <button data-v="3">03 · Acuarela</button>
+    <div class="sep"></div>
+    <button id="toggle-tweaks" style="border-color: rgba(216,201,168,0.4);">✶ Tweaks</button>
+  </div>
+
+  <div class="stage-wrap" id="stage">
+    <!-- Scenes are injected by JSX -->
+    <div id="scenes"></div>
+
+    <!-- vignette for text contrast -->
+    <div class="text-vignette" id="text-vignette"></div>
+
+    <!-- Text layer — sits above all scenes -->
+    <div class="text-layer" id="text-layer">
+      <div class="eyebrow" id="txt-eyebrow">[ DESARROLLO RESIDENCIAL ]</div>
+      <h2 class="title">
+        <span class="don">DON</span>
+        <span class="diego">DIEGO</span>
+      </h2>
+      <p class="lede" id="txt-lede">Un santuario donde la arquitectura se encuentra con la naturaleza. Diseñado para una vida en conexión.</p>
+      <button class="cta">Ver propiedades</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tweaks panel -->
+<div class="tweaks" id="tweaks">
+  <h3>Tweaks</h3>
+
+  <div class="tweak-row">
+    <div class="tweak-label"><span>Fondo</span><span id="lbl-bg">crema</span></div>
+    <input type="range" id="tw-bg" min="0" max="100" value="30"/>
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label"><span>Velocidad</span><span id="lbl-speed">1.0×</span></div>
+    <input type="range" id="tw-speed" min="20" max="250" value="100"/>
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label"><span>Densidad plantas</span><span id="lbl-density">100%</span></div>
+    <input type="range" id="tw-density" min="30" max="150" value="100"/>
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label"><span>Intensidad luz</span><span id="lbl-light">100%</span></div>
+    <input type="range" id="tw-light" min="40" max="180" value="100"/>
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label"><span>Tono follaje</span><span id="lbl-hue">0°</span></div>
+    <input type="range" id="tw-hue" min="-30" max="30" value="0"/>
+  </div>
+
+  <div class="tweak-row">
+    <div class="tweak-label"><span>Tamaño "Don Diego"</span><span id="lbl-title">100%</span></div>
+    <input type="range" id="tw-title" min="60" max="150" value="100"/>
+  </div>
+
+  <div class="tweak-check on" data-key="houses">
+    <span>Casitas al fondo</span>
+    <div class="tweak-toggle"></div>
+  </div>
+  <div class="tweak-check on" data-key="fountain">
+    <span>Agua / fuente</span>
+    <div class="tweak-toggle"></div>
+  </div>
+  <div class="tweak-check on" data-key="birds">
+    <span>Pájaros / mariposas</span>
+    <div class="tweak-toggle"></div>
+  </div>
+  <div class="tweak-check on" data-key="hills">
+    <span>Colinas al horizonte</span>
+    <div class="tweak-toggle"></div>
+  </div>
+  <div class="tweak-check on" data-key="vignette">
+    <span>Viñeta detrás del texto</span>
+    <div class="tweak-toggle"></div>
+  </div>
+  <div class="tweak-check on" data-key="eyebrow">
+    <span>Mostrar eyebrow</span>
+    <div class="tweak-toggle"></div>
+  </div>
+  <div class="tweak-check on" data-key="lede">
+    <span>Mostrar descripción</span>
+    <div class="tweak-toggle"></div>
+  </div>
+</div>
+
+<div class="tweaks-hint" id="tweaks-hint">✶ Abrir tweaks con el botón arriba</div>
+
+<!-- Scene stylesheets (one per variation) -->
+<style>
+/* ==========================================================
+   Shared scene primitives
+   ========================================================== */
+.scene { position: absolute; inset: 0; overflow: hidden; }
+
+/* Generic layered sky (warm afternoon) */
+.sky-warm {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg,
+      #e9d7b5 0%,
+      #f0dcb8 30%,
+      #f5e4c3 55%,
+      #efd9b2 100%);
+}
+.sky-blue {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg,
+      #6ea4c8 0%,
+      #9cc2dc 35%,
+      #c8dce8 70%,
+      #e4ead0 100%);
+}
+.sun-disc {
+  position: absolute;
+  width: 55%; height: 55%;
+  top: -8%; left: 22%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(255, 246, 218, calc(0.55 * var(--light, 1))) 0%,
+    rgba(255, 240, 205, calc(0.22 * var(--light, 1))) 32%,
+    rgba(255, 240, 205, 0) 65%);
+  pointer-events: none;
+  animation: sunBreathe calc(16s / var(--anim-speed, 1)) ease-in-out infinite;
+}
+@keyframes sunBreathe {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* dust motes / pollen (shared) */
+.mote {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: rgba(255, 245, 220, calc(0.75 * var(--light, 1)));
+  border-radius: 50%;
+  filter: blur(0.5px);
+  box-shadow: 0 0 6px rgba(255, 240, 210, 0.6);
+  animation: float calc(16s / var(--anim-speed, 1)) linear infinite;
+}
+@keyframes float {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translate(var(--fx, 40px), var(--fy, -80px)); opacity: 0; }
+}
+
+/* bird shared */
+.bird {
+  position: absolute;
+  animation: flyAcross calc(32s / var(--anim-speed, 1)) linear infinite;
+}
+.stage-wrap.no-birds .bird,
+.stage-wrap.no-birds .butterfly { display: none; }
+@keyframes flyAcross {
+  0% { transform: translateX(-10vw) translateY(0); }
+  50% { transform: translateX(60vw) translateY(-18px); }
+  100% { transform: translateX(130vw) translateY(0); }
+}
+.bird svg {
+  animation: flap calc(0.65s / var(--anim-speed, 1)) ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes flap {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.45); }
+}
+
+/* ==========================================================
+   VARIATION 1 — Villa & Acequia (Towi-inspired)
+   Warm adobe buildings, central water channel running forward,
+   olive trees with silvery foliage, lawn, desert florals.
+   ========================================================== */
+
+.scene-villa { position: absolute; inset: 0; overflow: hidden; }
+.stage-wrap.no-houses .scene-villa .houses-row,
+.stage-wrap.no-houses .scene-villa .houses-hero { display: none; }
+.stage-wrap.no-hills .scene-villa .distant-hills { display: none; }
+.stage-wrap.no-fountain .scene-villa .acequia,
+.stage-wrap.no-fountain .scene-villa .acequia-shimmer,
+.stage-wrap.no-fountain .scene-villa .acequia-frame { display: none; }
+
+.scene-villa .layer { position: absolute; inset: 0; pointer-events: none; }
+
+/* Distant cerros — low, hazy */
+.scene-villa .distant-hills {
+  position: absolute;
+  left: 0; right: 0;
+  top: 42%;
+  height: 14%;
+  opacity: 0.55;
+  filter: hue-rotate(var(--hue-shift, 0deg));
+}
+
+/* Houses row — adobes receding diagonally left + right */
+.scene-villa .houses-row {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 34%;
+  height: 28%;
+  filter: hue-rotate(var(--hue-shift, 0deg));
+}
+.scene-villa .houses-hero {
+  position: absolute;
+  right: -2%;
+  bottom: 28%;
+  width: 46%;
+  height: 34%;
+  filter: hue-rotate(var(--hue-shift, 0deg));
+}
+
+/* Lawn / ground band */
+.scene-villa .ground {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 34%;
+  background:
+    linear-gradient(180deg,
+      #b7b06a 0%,
+      #9ea25a 35%,
+      #8d9a58 65%,
+      #7a8c54 100%);
+  filter: hue-rotate(var(--hue-shift, 0deg));
+}
+.scene-villa .ground::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(214, 200, 140, 0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 20% 100%, rgba(90, 110, 58, 0.35) 0%, transparent 60%);
+}
+
+/* Stone path border along acequia */
+.scene-villa .path {
+  position: absolute;
+  left: 30%; right: 30%;
+  bottom: 0;
+  height: 34%;
+  background:
+    linear-gradient(180deg,
+      #c4b48c 0%,
+      #b0a07a 40%,
+      #a09272 100%);
+  clip-path: polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%);
+  opacity: 0.85;
+}
+.scene-villa .path::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(
+      175deg,
+      transparent 0, transparent 12px,
+      rgba(90, 75, 50, 0.18) 12px, rgba(90, 75, 50, 0.18) 13px);
+  mix-blend-mode: multiply;
+}
+
+/* Central acequia — the water channel */
+.scene-villa .acequia {
+  position: absolute;
+  left: 42%; right: 42%;
+  bottom: 0;
+  height: 34%;
+  clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);
+  background:
+    linear-gradient(180deg,
+      #7ba4c4 0%,
+      #9cc2dc 40%,
+      #c7dceb 80%,
+      #dfe9ec 100%);
+  overflow: hidden;
+}
+.scene-villa .acequia-frame {
+  position: absolute;
+  left: 40%; right: 40%;
+  bottom: 0;
+  height: 34%;
+  pointer-events: none;
+  z-index: 2;
+}
+.scene-villa .acequia-shimmer {
+  position: absolute;
+  left: -10%; right: -10%;
+  height: 1px;
+  background: rgba(255, 250, 230, 0.85);
+  filter: blur(0.5px);
+  animation: shimmer calc(5s / var(--anim-speed, 1)) ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%, 100% { transform: translateX(-8px) scaleX(0.85); opacity: 0.35; }
+  50% { transform: translateX(10px) scaleX(1.1); opacity: 0.95; }
+}
+
+/* Olive trees */
+.scene-villa .olive {
+  position: absolute;
+  transform-origin: 50% 100%;
+  animation: oliveSway calc(10s / var(--anim-speed, 1)) ease-in-out infinite;
+  filter: hue-rotate(var(--hue-shift, 0deg));
+}
+.scene-villa .olive.slow { animation-duration: calc(14s / var(--anim-speed, 1)); }
+.scene-villa .olive.reverse { animation-direction: alternate-reverse; }
+@keyframes oliveSway {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+
+/* Wild flowers at the edges */
+.scene-villa .florals {
+  position: absolute; inset: 0; pointer-events: none;
+  opacity: var(--density, 1);
+  filter: hue-rotate(var(--hue-shift, 0deg));
+}
+.scene-villa .floral {
+  position: absolute;
+  bottom: 0;
+  transform-origin: 50% 100%;
+  animation: floralSway calc(6s / var(--anim-speed, 1)) ease-in-out infinite;
+}
+.scene-villa .floral.slow { animation-duration: calc(9s / var(--anim-speed, 1)); }
+.scene-villa .floral.reverse { animation-direction: alternate-reverse; }
+@keyframes floralSway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+/* ==========================================================
+   VARIATION 2 — La Presa (dam + reservoir)
+   Big open reservoir, stone dam wall across middle, distant cerro
+   silhouette, scrubby mezquite foreground, dramatic cloud sky.
+   ========================================================== */
+
+.scene-presa { position: absolute; inset: 0; overflow: hidden; }
+.stage-wrap.no-hills .scene-presa .cerro,
+.stage-wrap.no-hills .scene-presa .cerro-far { display: none; }
+.stage-wrap.no-houses .scene-presa .town { display: none; }
+.stage-wrap.no-fountain .scene-presa .reservoir,
+.stage-wrap.no-fountain .scene-presa .dam,
+.stage-wrap.no-fountain .scene-presa .reflect { display: none; }
+
+/* Clouds drifting */
+.scene-presa .cloud {
+  position: absolute;
+  pointer-events: none;
+  animation: drift calc(90s / var(--anim-speed, 1)) linear infinite;
+  opacity: calc(0.9 * var(--light, 1));
+}
+@keyframes drift {
+  0% { transform: translateX(-20vw); }
+  100% { transform: translateX(120vw); }
+}
+
+/* Distant cerro ridge — hazy silhouette */
+.scene-presa .cerro-far {
+  position: absolute;
+  left: 0; right: 0;
+  top: 32%;
+  height: 10%;
+  opacity: 0.4;
+}
+.scene-presa .cerro {
+  position: absolute;
+  left: 0; right: 0;
+  top: 34%;
+  height: 18%;
+}
+
+/* Small town on left (like in photo) */
+.scene-presa .town {
+  position: absolute;
+  left: 0;
+  top: 46%;
+  width: 24%;
+  height: 6%;
+}
+
+/* Reservoir — flat water plane */
+.scene-presa .reservoir {
+  position: absolute;
+  left: 0; right: 0;
+  top: 48%;
+  height: 14%;
+  background:
+    linear-gradient(180deg,
+      #8bb5cc 0%,
+      #a6c5d6 30%,
+      #b8d0de 65%,
+      #b0c0c6 100%);
+  overflow: hidden;
+}
+.scene-presa .reflect {
+  position: absolute;
+  left: -10%; right: -10%;
+  height: 1px;
+  background: rgba(255, 250, 240, 0.7);
+  filter: blur(0.6px);
+  animation: shimmer calc(7s / var(--anim-speed, 1)) ease-in-out infinite;
+}
+
+/* Dam wall — stone mass across middle */
+.scene-presa .dam {
+  position: absolute;
+  left: 0; right: 0;
+  top: 58%;
+  height: 22%;
+  background:
+    linear-gradient(180deg,
+      #8a8580 0%,
+      #a39c95 18%,
+      #b8b1a8 35%,
+      #a8a098 65%,
+      #7a7268 100%);
+  clip-path: polygon(0 10%, 50% 0%, 100% 10%, 100% 100%, 0% 100%);
+}
+.scene-presa .dam-texture {
+  position: absolute; inset: 0;
+  background:
+    /* horizontal courses */
+    repeating-linear-gradient(
+      0deg,
+      transparent 0, transparent 10px,
+      rgba(60, 55, 48, 0.14) 10px, rgba(60, 55, 48, 0.14) 11px),
+    /* vertical joints offset */
+    repeating-linear-gradient(
+      90deg,
+      transparent 0, transparent 22px,
+      rgba(60, 55, 48, 0.12) 22px, rgba(60, 55, 48, 0.12) 23px);
+  mix-blend-mode: multiply;
+}
+.scene-presa .dam-stain {
+  position: absolute;
+  bottom: 0;
+  width: 14px;
+  background: linear-gradient(180deg, rgba(60, 52, 42, 0) 0%, rgba(60, 52, 42, 0.35) 90%);
+  filter: blur(3px);
+}
+/* Dam arches near base (visible in photo) */
+.scene-presa .arch {
+  position: absolute;
+  bottom: 0;
+  width: 26px;
+  height: 22px;
+  background: #2d2a25;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  opacity: 0.82;
+}
+
+/* Foreground desert scrub */
+.scene-presa .scrub-band {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 22%;
+  background:
+    linear-gradient(180deg,
+      #a69770 0%,
+      #8d8260 45%,
+      #716a52 100%);
+  filter: hue-rotate(var(--hue-shift, 0deg));
+}
+.scene-presa .scrub-band::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 50% 70% at 20% 100%, rgba(60, 70, 40, 0.55) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 60% at 80% 100%, rgba(60, 70, 40, 0.45) 0%, transparent 60%);
+}
+
+.scene-presa .mezquite {
+  position: absolute;
+  bottom: 0;
+  transform-origin: 50% 100%;
+  animation: mezSway calc(12s / var(--anim-speed, 1)) ease-in-out infinite;
+  opacity: var(--density, 1);
+  filter: hue-rotate(var(--hue-shift, 0deg));
+}
+.scene-presa .mezquite.slow { animation-duration: calc(16s / var(--anim-speed, 1)); }
+.scene-presa .mezquite.reverse { animation-direction: alternate-reverse; }
+@keyframes mezSway {
+  0%, 100% { transform: rotate(-0.8deg); }
+  50% { transform: rotate(0.8deg); }
+}
+
+/* ==========================================================
+   VARIATION 3 — Acuarela (painted blend)
+   Soft washy treatment combining village + water + cerros.
+   ========================================================== */
+
+.scene-acuarela { position: absolute; inset: 0; overflow: hidden; }
+.stage-wrap.no-hills .scene-acuarela .wc-cerro { display: none; }
+.stage-wrap.no-houses .scene-acuarela .wc-houses { display: none; }
+.stage-wrap.no-fountain .scene-acuarela .wc-water,
+.stage-wrap.no-fountain .scene-acuarela .wc-drops { display: none; }
+
+.scene-acuarela .paper {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 25% 25%, rgba(210, 190, 150, 0.2) 0%, transparent 45%),
+    radial-gradient(circle at 75% 75%, rgba(180, 160, 120, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 80% 15%, rgba(220, 200, 165, 0.15) 0%, transparent 35%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.scene-acuarela .wc-sky {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg,
+      #e9d6b0 0%,
+      #ecd8ad 25%,
+      #f0dfb8 50%,
+      #e7cfa2 75%,
+      #d6b87e 100%);
+  filter: blur(1px);
+}
+
+.scene-acuarela .wc-cerro {
+  position: absolute; left: 0; right: 0; top: 34%; height: 14%;
+  filter: blur(0.8px);
+  opacity: 0.65;
+}
+
+.scene-acuarela .wc-houses {
+  position: absolute; left: 0; right: 0; bottom: 42%; height: 16%;
+  filter: blur(0.5px) hue-rotate(var(--hue-shift, 0deg));
+}
+
+.scene-acuarela .wc-water {
+  position: absolute;
+  left: 38%; right: 38%;
+  bottom: 0;
+  height: 42%;
+  clip-path: polygon(45% 0%, 55% 0%, 100% 100%, 0% 100%);
+  background:
+    linear-gradient(180deg,
+      rgba(135, 170, 200, 0.75) 0%,
+      rgba(165, 195, 215, 0.8) 45%,
+      rgba(205, 220, 225, 0.9) 100%);
+  filter: blur(0.6px);
+}
+.scene-acuarela .wc-wash-streak {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: rgba(245, 240, 220, 0.55);
+  filter: blur(1px);
+  animation: washSlide calc(8s / var(--anim-speed, 1)) ease-in-out infinite;
+}
+@keyframes washSlide {
+  0%, 100% { transform: translateX(0); opacity: 0.3; }
+  50% { transform: translateX(14px); opacity: 0.85; }
+}
+
+.scene-acuarela .wc-ground {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 38%;
+  background:
+    linear-gradient(180deg,
+      rgba(200, 180, 110, 0.7) 0%,
+      rgba(160, 165, 90, 0.75) 45%,
+      rgba(130, 150, 80, 0.8) 100%);
+  filter: blur(0.6px) hue-rotate(var(--hue-shift, 0deg));
+}
+
+.scene-acuarela .wc-bleed {
+  position: absolute;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(140, 160, 100, calc(0.22 * var(--light, 1))) 0%, transparent 65%);
+  filter: blur(26px);
+  pointer-events: none;
+  animation: bleed calc(18s / var(--anim-speed, 1)) ease-in-out infinite;
+}
+@keyframes bleed {
+  0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.7; }
+  50% { transform: scale(1.2) translate(10px, -5px); opacity: 1; }
+}
+
+.scene-acuarela .wc-olive {
+  position: absolute;
+  transform-origin: 50% 100%;
+  animation: oliveSway calc(12s / var(--anim-speed, 1)) ease-in-out infinite;
+  filter: blur(0.4px) hue-rotate(var(--hue-shift, 0deg));
+  mix-blend-mode: multiply;
+}
+.scene-acuarela .wc-olive.slow { animation-duration: calc(16s / var(--anim-speed, 1)); }
+.scene-acuarela .wc-olive.reverse { animation-direction: alternate-reverse; }
+
+.scene-acuarela .wc-floral {
+  position: absolute;
+  bottom: 0;
+  transform-origin: 50% 100%;
+  animation: floralSway calc(7s / var(--anim-speed, 1)) ease-in-out infinite;
+  filter: blur(0.5px);
+  mix-blend-mode: multiply;
+  opacity: var(--density, 1);
+}
+.scene-acuarela .wc-floral.slow { animation-duration: calc(10s / var(--anim-speed, 1)); }
+.scene-acuarela .wc-floral.reverse { animation-direction: alternate-reverse; }
+
+.scene-acuarela .petal {
+  position: absolute;
+  width: 6px; height: 8px;
+  border-radius: 50% 50% 50% 0;
+  background: rgba(240, 230, 210, 0.85);
+  filter: blur(0.5px);
+  animation: petalFall calc(12s / var(--anim-speed, 1)) linear infinite;
+}
+.stage-wrap.no-birds .scene-acuarela .petal { display: none; }
+@keyframes petalFall {
+  0% { transform: translate(0, -20px) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 0.8; }
+  100% { transform: translate(var(--fx, 40px), 500px) rotate(540deg); opacity: 0; }
+}
+
+.scene-acuarela .wc-drops {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  width: 4px;
+  height: 60px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 5;
+}
+.scene-acuarela .wc-drop {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220, 235, 240, 0.9) 0%, rgba(160, 190, 200, 0.4) 70%, transparent 100%);
+  filter: blur(0.6px);
+  transform: translateX(-50%);
+  animation: drop calc(3.2s / var(--anim-speed, 1)) ease-out infinite;
+}
+@keyframes drop {
+  0% { transform: translate(-50%, 0) scale(0.3); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translate(calc(-50% + var(--dx, 0px)), -60px) scale(1.1); }
+  100% { transform: translate(calc(-50% + var(--dx, 0px)), -10px) scale(0.3); opacity: 0; }
+}
+
+</style>
+
+<!-- Scene builders -->
+<script>
+/* ============================================================
+   Shared SVG components used across scenes
+   ============================================================ */
+(function() {
+  const el = (tag, cls, html) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html != null) n.innerHTML = html;
+    return n;
+  };
+  window._ddEl = el;
+
+  // Olive tree — silvery-green canopy, dark twisty trunk
+  window._ddOliveTree = function(scale = 1, variant = 0) {
+    const w = 260, h = 300;
+    const canopyFill = variant === 0 ? '#9fae82' : '#8fa275';
+    const canopyMid = variant === 0 ? '#b6c29a' : '#a9b68d';
+    const canopyHi  = '#d4dcbe';
+    const trunk = '#5a4a36';
+    const trunkDk = '#3d3020';
+    return `
+      <svg viewBox="0 0 ${w} ${h}" width="${w * scale}" height="${h * scale}" xmlns="http://www.w3.org/2000/svg">
+        <!-- gnarled trunk -->
+        <path d="M130 300 Q 122 260 128 220 Q 134 190 126 160 Q 120 140 130 120 Q 138 100 132 80" stroke="${trunk}" stroke-width="14" fill="none" stroke-linecap="round"/>
+        <path d="M130 300 Q 140 265 134 228 Q 128 200 138 172" stroke="${trunkDk}" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.7"/>
+        <!-- branches -->
+        <path d="M128 180 Q 95 160 70 135" stroke="${trunk}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M132 150 Q 165 130 200 115" stroke="${trunk}" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M130 110 Q 110 85 90 70" stroke="${trunk}" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M132 100 Q 160 78 185 65" stroke="${trunk}" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- canopy — organic cloud clusters -->
+        <g opacity="0.95">
+          <ellipse cx="78"  cy="128" rx="52" ry="32" fill="${canopyFill}"/>
+          <ellipse cx="198" cy="110" rx="56" ry="34" fill="${canopyFill}"/>
+          <ellipse cx="132" cy="78"  rx="60" ry="38" fill="${canopyFill}"/>
+          <ellipse cx="90"  cy="90"  rx="44" ry="28" fill="${canopyMid}"/>
+          <ellipse cx="175" cy="88"  rx="46" ry="30" fill="${canopyMid}"/>
+          <ellipse cx="130" cy="105" rx="50" ry="30" fill="${canopyMid}"/>
+          <!-- highlights -->
+          <ellipse cx="112" cy="70"  rx="28" ry="14" fill="${canopyHi}" opacity="0.6"/>
+          <ellipse cx="170" cy="76"  rx="22" ry="12" fill="${canopyHi}" opacity="0.55"/>
+        </g>
+        <!-- individual silver leaves — scatter at edges -->
+        ${Array.from({length: 26}, (_, i) => {
+          const a = (i / 26) * Math.PI * 2;
+          const rx = 68 + (i % 3) * 8;
+          const ry = 42 + (i % 3) * 6;
+          const cx = 130 + Math.cos(a) * rx;
+          const cy = 95 + Math.sin(a) * ry;
+          const rot = (a * 180 / Math.PI) + 90;
+          return `<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="6" ry="2" fill="${canopyHi}" opacity="0.85" transform="rotate(${rot.toFixed(1)}, ${cx.toFixed(1)}, ${cy.toFixed(1)})"/>`;
+        }).join('')}
+      </svg>
+    `;
+  };
+
+  // Single adobe house block, with flat/dome roof and doorway
+  // Call with color code for walls.
+  window._ddAdobe = function({x, y, w, h, color, shadow = '#a87a54', roof = 'flat', window1 = true, window2 = false, door = false, roofAccent = '#8a5a38'}) {
+    const parts = [];
+    // main cube
+    parts.push(`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${color}"/>`);
+    // shaded side
+    parts.push(`<rect x="${x + w - w * 0.22}" y="${y}" width="${w * 0.22}" height="${h}" fill="${shadow}" opacity="0.35"/>`);
+    // top parapet highlight
+    parts.push(`<rect x="${x}" y="${y}" width="${w}" height="${Math.max(2, h * 0.04)}" fill="#fff" opacity="0.18"/>`);
+    // ground shadow under building
+    parts.push(`<rect x="${x - 2}" y="${y + h - 2}" width="${w + 4}" height="3" fill="#4a3824" opacity="0.35"/>`);
+    // window(s)
+    if (window1) {
+      const ww = w * 0.14, wh = h * 0.28;
+      const wx = x + w * 0.2, wy = y + h * 0.35;
+      parts.push(`<rect x="${wx}" y="${wy}" width="${ww}" height="${wh}" fill="#2c2218"/>`);
+      parts.push(`<rect x="${wx}" y="${wy}" width="${ww}" height="${wh * 0.3}" fill="#d9cfb5" opacity="0.4"/>`);
+    }
+    if (window2) {
+      const ww = w * 0.14, wh = h * 0.28;
+      const wx = x + w * 0.6, wy = y + h * 0.35;
+      parts.push(`<rect x="${wx}" y="${wy}" width="${ww}" height="${wh}" fill="#2c2218"/>`);
+      parts.push(`<rect x="${wx}" y="${wy}" width="${ww}" height="${wh * 0.3}" fill="#d9cfb5" opacity="0.4"/>`);
+    }
+    if (door) {
+      const dw = w * 0.13, dh = h * 0.44;
+      const dx = x + w * 0.43, dy = y + h - dh;
+      parts.push(`<rect x="${dx}" y="${dy}" width="${dw}" height="${dh}" fill="#2a1e14"/>`);
+      parts.push(`<path d="M${dx} ${dy} Q ${dx + dw/2} ${dy - dw * 0.45} ${dx + dw} ${dy}" fill="#2a1e14"/>`);
+    }
+    // roof treatments — most are flat parapets; a few get upper stories
+    if (roof === 'step') {
+      // stepped second story
+      const sw = w * 0.58, sh = h * 0.32;
+      const sx = x + (w - sw) / 2, sy = y - sh;
+      parts.push(`<rect x="${sx}" y="${sy}" width="${sw}" height="${sh}" fill="${color}"/>`);
+      parts.push(`<rect x="${sx + sw - sw * 0.2}" y="${sy}" width="${sw * 0.2}" height="${sh}" fill="${shadow}" opacity="0.35"/>`);
+      parts.push(`<rect x="${sx}" y="${sy}" width="${sw}" height="2" fill="#fff" opacity="0.18"/>`);
+    }
+    return parts.join('');
+  };
+})();
+</script>
+
+<script>
+/* ============================================================
+   VARIATION 1 — Villa & Acequia builder
+   ============================================================ */
+(function() {
+  const el = window._ddEl;
+  const olive = window._ddOliveTree;
+  const adobe = window._ddAdobe;
+
+  // Distant cerros silhouette
+  const CERROS = `
+    <svg viewBox="0 0 1280 120" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <path d="M0 90 Q 160 50 320 65 Q 480 80 640 55 Q 800 30 960 50 Q 1120 70 1280 55 L 1280 120 L 0 120 Z"
+            fill="#b8a878" opacity="0.8"/>
+      <path d="M0 100 Q 180 75 360 85 Q 540 95 720 75 Q 900 55 1080 70 Q 1180 78 1280 72 L 1280 120 L 0 120 Z"
+            fill="#a69568" opacity="0.7"/>
+    </svg>
+  `;
+
+  // Row of adobes receding on the LEFT (village side)
+  const LEFT_ROW = (() => {
+    // Viewbox that matches visual perspective: tallest near left, smaller toward center
+    const W = 900, H = 380;
+    const parts = [];
+    // palette — warm sandstones + terracotta + cream
+    const pal = [
+      { wall: '#d9b47d', shadow: '#b18754' },
+      { wall: '#e8caa0', shadow: '#c69e6f' },
+      { wall: '#c89a6a', shadow: '#a27249' },
+      { wall: '#deb589', shadow: '#b28457' },
+      { wall: '#cfa177', shadow: '#a87656' },
+      { wall: '#e2c394', shadow: '#b79063' },
+    ];
+    // Buildings recede from left to right (the path pulls viewer in)
+    // Each has x, baseline y, width, height
+    const rows = [
+      { x: 0,   y: 180, w: 160, h: 200, i: 0, step: true },
+      { x: 150, y: 210, w: 150, h: 170, i: 1, step: true },
+      { x: 290, y: 230, w: 140, h: 150, i: 2, step: false },
+      { x: 420, y: 250, w: 130, h: 130, i: 3, step: true },
+      { x: 540, y: 265, w: 120, h: 115, i: 4, step: false },
+      { x: 650, y: 278, w: 110, h: 102, i: 5, step: false },
+      { x: 755, y: 290, w: 95,  h: 90,  i: 0, step: false },
+      { x: 840, y: 300, w: 60,  h: 80,  i: 1, step: false },
+    ];
+    rows.forEach((r, idx) => {
+      const p = pal[r.i];
+      parts.push(adobe({
+        x: r.x, y: r.y, w: r.w, h: r.h,
+        color: p.wall, shadow: p.shadow,
+        roof: r.step ? 'step' : 'flat',
+        window1: r.w > 70,
+        window2: r.w > 120,
+        door: idx === 0 || idx === 2,
+      }));
+    });
+    return `
+      <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMinYMax meet" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+        ${parts.join('')}
+      </svg>
+    `;
+  })();
+
+  // Row of adobes on the RIGHT — the "hero" bigger hotel-like building
+  const HERO_BUILDING = (() => {
+    const W = 580, H = 340;
+    const parts = [];
+    // Hero 2-story building (like the photo's main structure)
+    // base
+    parts.push(`<rect x="40" y="120" width="500" height="220" fill="#dbb684"/>`);
+    // shadow side
+    parts.push(`<rect x="460" y="120" width="80" height="220" fill="#b18654" opacity="0.35"/>`);
+    // upper parapet highlight
+    parts.push(`<rect x="40" y="120" width="500" height="4" fill="#fff" opacity="0.22"/>`);
+    // second story (set back slightly)
+    parts.push(`<rect x="70" y="60" width="380" height="70" fill="#d4ab7a"/>`);
+    parts.push(`<rect x="420" y="60" width="30" height="70" fill="#a87b4d" opacity="0.35"/>`);
+    parts.push(`<rect x="70" y="60" width="380" height="3" fill="#fff" opacity="0.2"/>`);
+    // ground porch overhang
+    parts.push(`<rect x="20" y="240" width="540" height="12" fill="#8a5d38" opacity="0.8"/>`);
+    parts.push(`<rect x="20" y="252" width="540" height="3" fill="#5a3824" opacity="0.7"/>`);
+    // porch columns
+    for (let i = 0; i < 9; i++) {
+      const cx = 45 + i * 62;
+      parts.push(`<rect x="${cx}" y="252" width="8" height="88" fill="#8a5d38" opacity="0.85"/>`);
+    }
+    // ground-level windows behind columns
+    for (let i = 0; i < 8; i++) {
+      const wx = 60 + i * 62;
+      parts.push(`<rect x="${wx}" y="260" width="46" height="72" fill="#3a2918" opacity="0.9"/>`);
+      parts.push(`<rect x="${wx}" y="260" width="46" height="18" fill="#d9cfb5" opacity="0.35"/>`);
+    }
+    // 2nd-story windows (row)
+    for (let i = 0; i < 7; i++) {
+      const wx = 90 + i * 50;
+      parts.push(`<rect x="${wx}" y="140" width="22" height="58" fill="#2c1f14"/>`);
+      parts.push(`<rect x="${wx}" y="140" width="22" height="14" fill="#d9cfb5" opacity="0.4"/>`);
+    }
+    // upper-story windows
+    for (let i = 0; i < 6; i++) {
+      const wx = 110 + i * 56;
+      parts.push(`<rect x="${wx}" y="78" width="18" height="40" fill="#2c1f14"/>`);
+      parts.push(`<rect x="${wx}" y="78" width="18" height="10" fill="#d9cfb5" opacity="0.4"/>`);
+    }
+    // rooftop terrace pool + umbrellas
+    parts.push(`<rect x="96" y="54" width="320" height="10" fill="#8ab6c8" opacity="0.85"/>`);
+    parts.push(`<rect x="96" y="54" width="320" height="3" fill="#c7dcec" opacity="0.9"/>`);
+    // umbrellas
+    for (let i = 0; i < 5; i++) {
+      const ux = 130 + i * 60;
+      parts.push(`<ellipse cx="${ux}" cy="46" rx="16" ry="5" fill="#cfa978"/>`);
+      parts.push(`<rect x="${ux - 1}" y="46" width="2" height="10" fill="#8a6b45"/>`);
+    }
+    // shrubs right-side
+    parts.push(`<ellipse cx="550" cy="338" rx="30" ry="10" fill="#6f7f4a" opacity="0.85"/>`);
+    parts.push(`<ellipse cx="540" cy="332" rx="22" ry="8" fill="#8a9a5f" opacity="0.8"/>`);
+
+    return `
+      <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMaxYMax meet" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+        ${parts.join('')}
+      </svg>
+    `;
+  })();
+
+  // Wild flower clusters along the acequia
+  const PLANTS = {
+    // Rock at water's edge
+    rock: (scale = 1) => `
+      <svg viewBox="0 0 80 50" width="${80 * scale}" height="${50 * scale}" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 45 Q 10 22 30 18 Q 55 14 70 28 Q 78 42 70 48 Q 40 50 15 48 Z" fill="#8a7a5a"/>
+        <path d="M10 44 Q 20 26 38 22 Q 56 20 66 30" stroke="#a89878" stroke-width="2" fill="none" opacity="0.6"/>
+        <path d="M10 48 Q 40 50 70 47" stroke="#5a4a30" stroke-width="1" fill="none" opacity="0.5"/>
+      </svg>
+    `,
+
+    // Tall pasto / ornamental grass — fills flower beds
+    grass: (scale = 1) => `
+      <svg viewBox="0 0 100 200" width="${100 * scale}" height="${200 * scale}" xmlns="http://www.w3.org/2000/svg">
+        ${Array.from({length: 11}, (_, i) => {
+          const sx = 10 + i * 8 + (Math.random() - 0.5) * 4;
+          const ex = sx + (Math.random() - 0.5) * 30;
+          const h = 120 + Math.random() * 70;
+          const col = ['#b8a666', '#c9b476', '#9aa058', '#a8a260'][i % 4];
+          return `<path d="M${sx} 200 Q ${(sx + ex)/2} ${200 - h * 0.5} ${ex} ${200 - h}" stroke="${col}" stroke-width="1.8" fill="none" stroke-linecap="round"/>`;
+        }).join('')}
+      </svg>
+    `,
+
+    // White daisy-ish wildflowers
+    daisy: (scale = 1) => `
+      <svg viewBox="0 0 100 180" width="${100 * scale}" height="${180 * scale}" xmlns="http://www.w3.org/2000/svg">
+        <!-- stems -->
+        <path d="M30 180 Q 28 120 32 70" stroke="#5a6b40" stroke-width="1.8" fill="none"/>
+        <path d="M55 180 Q 57 110 50 60" stroke="#5a6b40" stroke-width="1.8" fill="none"/>
+        <path d="M80 180 Q 78 130 82 85" stroke="#5a6b40" stroke-width="1.8" fill="none"/>
+        <!-- leaves -->
+        <ellipse cx="22" cy="140" rx="10" ry="3" fill="#7a8a52" transform="rotate(-25, 22, 140)"/>
+        <ellipse cx="62" cy="130" rx="10" ry="3" fill="#7a8a52" transform="rotate(25, 62, 130)"/>
+        <ellipse cx="88" cy="150" rx="9" ry="3" fill="#7a8a52" transform="rotate(-20, 88, 150)"/>
+        <!-- flower heads -->
+        ${[[32, 65], [50, 55], [82, 78]].map(([cx, cy]) => `
+          <g transform="translate(${cx}, ${cy})">
+            ${Array.from({length: 8}, (_, i) => {
+              const a = (i / 8) * Math.PI * 2;
+              return `<ellipse cx="${(Math.cos(a) * 6).toFixed(1)}" cy="${(Math.sin(a) * 6).toFixed(1)}" rx="3" ry="5" fill="#f2ebd8" opacity="0.95" transform="rotate(${(a * 180 / Math.PI).toFixed(1)}, ${(Math.cos(a) * 6).toFixed(1)}, ${(Math.sin(a) * 6).toFixed(1)})"/>`;
+            }).join('')}
+            <circle r="2.5" fill="#c8a04a"/>
+          </g>
+        `).join('')}
+      </svg>
+    `,
+
+    // Lavender / salvia spikes — purple + silver
+    spike: (scale = 1) => `
+      <svg viewBox="0 0 70 200" width="${70 * scale}" height="${200 * scale}" xmlns="http://www.w3.org/2000/svg">
+        <path d="M35 200 L 35 80" stroke="#6a7648" stroke-width="1.8" fill="none"/>
+        <path d="M20 200 L 20 90" stroke="#6a7648" stroke-width="1.5" fill="none"/>
+        <path d="M50 200 L 50 85" stroke="#6a7648" stroke-width="1.5" fill="none"/>
+        ${Array.from({length: 16}, (_, i) => {
+          const y = 80 - i * 4;
+          const side = i % 2 === 0 ? -1 : 1;
+          const x = 35 + side * 2;
+          return `<circle cx="${x}" cy="${y}" r="2.2" fill="#a494bf" opacity="0.9"/>`;
+        }).join('')}
+        ${Array.from({length: 14}, (_, i) => {
+          const y = 90 - i * 4;
+          const side = i % 2 === 0 ? -1 : 1;
+          return `<circle cx="${20 + side * 2}" cy="${y}" r="1.8" fill="#a494bf" opacity="0.85"/>`;
+        }).join('')}
+        ${Array.from({length: 14}, (_, i) => {
+          const y = 85 - i * 4;
+          const side = i % 2 === 0 ? 1 : -1;
+          return `<circle cx="${50 + side * 2}" cy="${y}" r="1.8" fill="#a494bf" opacity="0.85"/>`;
+        }).join('')}
+      </svg>
+    `,
+
+    // Agave / succulent rosette
+    agave: (scale = 1) => `
+      <svg viewBox="0 0 160 140" width="${160 * scale}" height="${140 * scale}" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(80, 140)">
+          ${Array.from({length: 11}, (_, i) => {
+            const a = (i / 11) * Math.PI - Math.PI / 2;
+            const len = 62 + (i % 2) * 8;
+            const x2 = Math.cos(a) * len;
+            const y2 = Math.sin(a) * len - 10;
+            return `
+              <path d="M0 0 Q ${x2 * 0.5} ${y2 * 0.4} ${x2} ${y2}" stroke="#9aac72" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.92"/>
+              <path d="M0 0 Q ${x2 * 0.5} ${y2 * 0.4} ${x2} ${y2}" stroke="#c2ce9c" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+            `;
+          }).join('')}
+        </g>
+      </svg>
+    `,
+
+    // Pink desert bloom cluster
+    bloom: (scale = 1) => `
+      <svg viewBox="0 0 90 150" width="${90 * scale}" height="${150 * scale}" xmlns="http://www.w3.org/2000/svg">
+        <path d="M45 150 Q 43 100 47 60" stroke="#6a7648" stroke-width="1.8" fill="none"/>
+        <ellipse cx="30" cy="120" rx="10" ry="3" fill="#7a8a52" transform="rotate(-25, 30, 120)"/>
+        <ellipse cx="60" cy="105" rx="10" ry="3" fill="#7a8a52" transform="rotate(25, 60, 105)"/>
+        <g transform="translate(47, 55)">
+          ${[[0, 0], [-9, -4], [8, -6], [-4, -12], [10, -14], [-12, -16]].map(([x, y]) => `
+            <g transform="translate(${x}, ${y})">
+              ${Array.from({length: 5}, (_, i) => {
+                const a = (i / 5) * Math.PI * 2;
+                return `<ellipse cx="${(Math.cos(a) * 3.5).toFixed(1)}" cy="${(Math.sin(a) * 3.5).toFixed(1)}" rx="2.5" ry="3.5" fill="#e9b6a0" opacity="0.95" transform="rotate(${(a * 180 / Math.PI).toFixed(1)}, ${(Math.cos(a) * 3.5).toFixed(1)}, ${(Math.sin(a) * 3.5).toFixed(1)})"/>`;
+              }).join('')}
+              <circle r="1.5" fill="#c87858"/>
+            </g>
+          `).join('')}
+        </g>
+      </svg>
+    `,
+  };
+
+  window.buildVilla = function(tweaks) {
+    const root = el('div', 'scene-villa');
+
+    // Sky
+    root.appendChild(el('div', 'sky-warm'));
+    root.appendChild(el('div', 'sun-disc'));
+
+    // Distant cerros
+    const cerros = el('div', 'distant-hills');
+    cerros.innerHTML = CERROS;
+    root.appendChild(cerros);
+
+    // Houses row (left recede)
+    const leftRow = el('div', 'houses-row');
+    leftRow.innerHTML = LEFT_ROW;
+    root.appendChild(leftRow);
+
+    // Hero building (right)
+    const hero = el('div', 'houses-hero');
+    hero.innerHTML = HERO_BUILDING;
+    root.appendChild(hero);
+
+    // Ground / lawn
+    root.appendChild(el('div', 'ground'));
+
+    // Stone path + acequia
+    root.appendChild(el('div', 'path'));
+    const acequia = el('div', 'acequia');
+    root.appendChild(acequia);
+
+    // Acequia shimmer lines (over the water)
+    const frame = el('div', 'acequia-frame');
+    for (let i = 0; i < 8; i++) {
+      const s = el('div', 'acequia-shimmer');
+      s.style.bottom = (8 + i * 11) + '%';
+      s.style.animationDelay = `-${Math.random() * 5}s`;
+      frame.appendChild(s);
+    }
+    root.appendChild(frame);
+
+    // Olive trees — a couple near the path
+    const olive1 = el('div', 'olive slow');
+    olive1.style.cssText = `left: 4%; bottom: 16%; width: 22%; z-index: 8;`;
+    olive1.innerHTML = olive(0.85, 0);
+    root.appendChild(olive1);
+
+    const olive2 = el('div', 'olive reverse');
+    olive2.style.cssText = `left: 22%; bottom: 10%; width: 15%; z-index: 9;`;
+    olive2.innerHTML = olive(0.62, 1);
+    root.appendChild(olive2);
+
+    const olive3 = el('div', 'olive');
+    olive3.style.cssText = `right: 30%; bottom: 14%; width: 17%; z-index: 8;`;
+    olive3.innerHTML = olive(0.7, 0);
+    root.appendChild(olive3);
+
+    // Wild flowers + rocks + grasses at foreground
+    const florals = el('div', 'florals');
+    const config = [
+      // Left bank of acequia (bottom-left)
+      ['agave',  2, 0.7, 0, 'slow'],
+      ['grass',  6, 0.75, 0, ''],
+      ['daisy',  12, 0.65, 0, 'reverse'],
+      ['spike',  18, 0.6, 0, 'slow'],
+      ['grass',  22, 0.65, 0, ''],
+      ['bloom',  26, 0.55, 0, 'reverse'],
+      ['grass',  30, 0.55, 0, 'slow'],
+      ['daisy',  34, 0.45, 0, ''],
+
+      // Right bank (bottom-right)
+      ['agave',  94, 0.68, 0, 'reverse'],
+      ['grass',  88, 0.7, 0, ''],
+      ['bloom',  82, 0.6, 0, 'slow'],
+      ['spike',  76, 0.58, 0, ''],
+      ['grass',  72, 0.6, 0, 'reverse'],
+      ['daisy',  68, 0.55, 0, 'slow'],
+      ['grass',  64, 0.5, 0, ''],
+
+      // Mid-foreground (small, between cluster & acequia)
+      ['spike',  38, 0.38, 0, 'slow'],
+      ['daisy',  42, 0.35, 0, ''],
+      ['spike',  58, 0.38, 0, 'reverse'],
+      ['daisy',  54, 0.35, 0, 'slow'],
+      ['bloom',  46, 0.32, 0, ''],
+      ['bloom',  52, 0.34, 0, 'reverse'],
+    ];
+    config.forEach(([name, left, scale, _rot, mod]) => {
+      const node = el('div', 'floral' + (mod ? ' ' + mod : ''));
+      node.style.left = left + '%';
+      node.innerHTML = PLANTS[name](scale);
+      node.style.animationDelay = `-${Math.random() * 6}s`;
+      florals.appendChild(node);
+    });
+
+    // Rocks at water's edge
+    [[36, 8], [62, 7], [40, 5], [58, 6], [46, 4]].forEach(([left, bottom]) => {
+      const r = el('div');
+      r.style.cssText = `position: absolute; left: ${left}%; bottom: ${bottom}%; z-index: 7;`;
+      r.innerHTML = PLANTS.rock(0.55 + Math.random() * 0.3);
+      florals.appendChild(r);
+    });
+    root.appendChild(florals);
+
+    // Dust motes
+    const motes = el('div');
+    motes.style.cssText = 'position:absolute;inset:0;pointer-events:none;z-index:45;';
+    for (let i = 0; i < 16; i++) {
+      const m = el('div', 'mote');
+      m.style.left = Math.random() * 100 + '%';
+      m.style.top = 40 + Math.random() * 55 + '%';
+      m.style.setProperty('--fx', ((Math.random() - 0.5) * 100) + 'px');
+      m.style.setProperty('--fy', (-40 - Math.random() * 80) + 'px');
+      m.style.animationDelay = `-${Math.random() * 16}s`;
+      motes.appendChild(m);
+    }
+    root.appendChild(motes);
+
+    // Two birds drifting
+    const bird1 = el('div', 'bird');
+    bird1.style.cssText = 'top:14%;animation-delay:-4s;z-index:42;';
+    bird1.innerHTML = `<svg width="26" height="13" viewBox="0 0 40 20"><path d="M2 12 Q 10 4 18 12 Q 26 4 34 12" stroke="#4a3a26" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
+    root.appendChild(bird1);
+
+    const bird2 = el('div', 'bird');
+    bird2.style.cssText = 'top:22%;animation-delay:-14s;animation-duration:calc(38s / var(--anim-speed, 1));z-index:42;';
+    bird2.innerHTML = `<svg width="18" height="10" viewBox="0 0 40 20"><path d="M2 12 Q 10 4 18 12 Q 26 4 34 12" stroke="#4a3a26" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
+    root.appendChild(bird2);
+
+    return root;
+  };
+})();
+</script>
+
+<script>
+/* ============================================================
+   VARIATION 2 — La Presa builder
+   ============================================================ */
+(function() {
+  const el = window._ddEl;
+
+  // Cerro ridge — mountain silhouette across horizon, like La Presa
+  const CERRO = `
+    <svg viewBox="0 0 1280 180" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <!-- deeper ridge on right side (like the photo's hill) -->
+      <path d="M0 140 Q 120 120 240 125 Q 360 130 480 115 Q 600 100 720 105 Q 820 108 900 95 Q 980 80 1080 70 Q 1160 62 1280 68 L 1280 180 L 0 180 Z"
+            fill="#7e866a" opacity="0.85"/>
+      <!-- textural stipple -->
+      <path d="M720 105 Q 820 108 900 95 Q 980 80 1080 70 Q 1160 62 1280 68 L 1280 180 L 720 180 Z"
+            fill="#6a7356" opacity="0.7"/>
+    </svg>
+  `;
+
+  const CERRO_FAR = `
+    <svg viewBox="0 0 1280 100" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <path d="M0 70 Q 200 40 400 55 Q 600 70 800 45 Q 1000 20 1280 40 L 1280 100 L 0 100 Z"
+            fill="#b0b08c" opacity="0.55"/>
+    </svg>
+  `;
+
+  // Small town on the left — just hints of buildings
+  const TOWN = `
+    <svg viewBox="0 0 400 40" preserveAspectRatio="xMinYMax meet" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      ${(() => {
+        const parts = [];
+        let x = 10;
+        for (let i = 0; i < 20; i++) {
+          const w = 8 + Math.random() * 10;
+          const h = 7 + Math.random() * 10;
+          const y = 40 - h;
+          parts.push(`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#d4b488" opacity="0.9"/>`);
+          parts.push(`<rect x="${x + w - 2}" y="${y}" width="2" height="${h}" fill="#9a7a52" opacity="0.5"/>`);
+          if (Math.random() < 0.3) parts.push(`<rect x="${x + w * 0.3}" y="${y - 2}" width="${w * 0.4}" height="2" fill="#8a5a30" opacity="0.8"/>`);
+          x += w + 1 + Math.random() * 3;
+        }
+        return parts.join('');
+      })()}
+    </svg>
+  `;
+
+  // Cloud (fluffy)
+  function cloudSVG(w, h) {
+    return `
+      <svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="${w * 0.25}" cy="${h * 0.7}" rx="${w * 0.22}" ry="${h * 0.38}" fill="#fff" opacity="0.85"/>
+        <ellipse cx="${w * 0.5}"  cy="${h * 0.55}" rx="${w * 0.3}" ry="${h * 0.48}" fill="#fff" opacity="0.9"/>
+        <ellipse cx="${w * 0.75}" cy="${h * 0.65}" rx="${w * 0.25}" ry="${h * 0.4}" fill="#fff" opacity="0.82"/>
+        <ellipse cx="${w * 0.45}" cy="${h * 0.45}" rx="${w * 0.2}" ry="${h * 0.35}" fill="#fff" opacity="0.78"/>
+        <!-- soft underside shadow -->
+        <ellipse cx="${w * 0.5}" cy="${h * 0.85}" rx="${w * 0.45}" ry="${h * 0.14}" fill="#b8c6cf" opacity="0.4"/>
+      </svg>
+    `;
+  }
+
+  // Mezquite — scrubby thorny desert tree
+  function mezquiteSVG(scale = 1, variant = 0) {
+    const w = 220, h = 160;
+    const leaf = variant === 0 ? '#7a865a' : '#6b7a52';
+    const leafMid = variant === 0 ? '#98a670' : '#8a9764';
+    const trunk = '#4a3a2a';
+    const twigs = [];
+    // many thin branching twigs
+    for (let i = 0; i < 18; i++) {
+      const startX = 80 + (Math.random() - 0.5) * 60;
+      const startY = 160;
+      const midX = startX + (Math.random() - 0.5) * 80;
+      const midY = 120 + Math.random() * 20;
+      const endX = midX + (Math.random() - 0.5) * 60;
+      const endY = 40 + Math.random() * 50;
+      twigs.push(`<path d="M${startX} ${startY} Q ${midX} ${midY} ${endX} ${endY}" stroke="${trunk}" stroke-width="${0.8 + Math.random() * 1.2}" fill="none" stroke-linecap="round" opacity="0.85"/>`);
+    }
+    // leafy clumps on top half
+    const leaves = [];
+    for (let i = 0; i < 14; i++) {
+      const cx = 40 + Math.random() * 140;
+      const cy = 35 + Math.random() * 65;
+      const rx = 12 + Math.random() * 18;
+      const ry = 6 + Math.random() * 10;
+      leaves.push(`<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="${rx.toFixed(1)}" ry="${ry.toFixed(1)}" fill="${leaf}" opacity="0.85"/>`);
+    }
+    for (let i = 0; i < 8; i++) {
+      const cx = 60 + Math.random() * 100;
+      const cy = 30 + Math.random() * 40;
+      const rx = 10 + Math.random() * 12;
+      const ry = 5 + Math.random() * 7;
+      leaves.push(`<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="${rx.toFixed(1)}" ry="${ry.toFixed(1)}" fill="${leafMid}" opacity="0.8"/>`);
+    }
+    return `
+      <svg viewBox="0 0 ${w} ${h}" width="${w * scale}" height="${h * scale}" xmlns="http://www.w3.org/2000/svg">
+        ${twigs.join('')}
+        ${leaves.join('')}
+      </svg>
+    `;
+  }
+
+  // Dry grass clump
+  function dryGrassSVG(scale = 1) {
+    const w = 100, h = 120;
+    const blades = [];
+    for (let i = 0; i < 20; i++) {
+      const sx = 10 + Math.random() * 80;
+      const ex = sx + (Math.random() - 0.5) * 28;
+      const topY = 20 + Math.random() * 50;
+      const col = ['#b8a060', '#ccb56a', '#a89458', '#8f7d48'][i % 4];
+      blades.push(`<path d="M${sx} ${h} Q ${(sx + ex) / 2} ${(h + topY) / 2} ${ex} ${topY}" stroke="${col}" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.9"/>`);
+    }
+    return `
+      <svg viewBox="0 0 ${w} ${h}" width="${w * scale}" height="${h * scale}" xmlns="http://www.w3.org/2000/svg">
+        ${blades.join('')}
+      </svg>
+    `;
+  }
+
+  window.buildPresa = function(tweaks) {
+    const root = el('div', 'scene-presa');
+
+    // Blue sky
+    root.appendChild(el('div', 'sky-blue'));
+
+    // Clouds
+    const cloud1 = el('div', 'cloud');
+    cloud1.style.cssText = 'top: 5%; left: 10%; width: 220px; height: 80px; animation-delay: -40s;';
+    cloud1.innerHTML = cloudSVG(220, 80);
+    root.appendChild(cloud1);
+
+    const cloud2 = el('div', 'cloud');
+    cloud2.style.cssText = 'top: 14%; left: -20%; width: 180px; height: 60px; animation-duration: calc(120s / var(--anim-speed, 1)); animation-delay: -20s;';
+    cloud2.innerHTML = cloudSVG(180, 60);
+    root.appendChild(cloud2);
+
+    const cloud3 = el('div', 'cloud');
+    cloud3.style.cssText = 'top: 8%; left: -40%; width: 280px; height: 90px; animation-duration: calc(140s / var(--anim-speed, 1)); animation-delay: -70s;';
+    cloud3.innerHTML = cloudSVG(280, 90);
+    root.appendChild(cloud3);
+
+    const cloud4 = el('div', 'cloud');
+    cloud4.style.cssText = 'top: 18%; left: -60%; width: 160px; height: 55px; animation-duration: calc(110s / var(--anim-speed, 1)); animation-delay: -95s;';
+    cloud4.innerHTML = cloudSVG(160, 55);
+    root.appendChild(cloud4);
+
+    // Distant cerro (far)
+    const cerroFar = el('div', 'cerro-far');
+    cerroFar.innerHTML = CERRO_FAR;
+    root.appendChild(cerroFar);
+
+    // Main cerro ridge
+    const cerro = el('div', 'cerro');
+    cerro.innerHTML = CERRO;
+    root.appendChild(cerro);
+
+    // Small town on left
+    const town = el('div', 'town');
+    town.innerHTML = TOWN;
+    root.appendChild(town);
+
+    // Reservoir (water)
+    const reservoir = el('div', 'reservoir');
+    for (let i = 0; i < 10; i++) {
+      const s = el('div', 'reflect');
+      s.style.top = (6 + i * 10) + '%';
+      s.style.animationDelay = `-${Math.random() * 7}s`;
+      reservoir.appendChild(s);
+    }
+    root.appendChild(reservoir);
+
+    // Dam wall
+    const dam = el('div', 'dam');
+    dam.innerHTML = `<div class="dam-texture"></div>`;
+    // Vertical stains dripping
+    for (let i = 0; i < 22; i++) {
+      const s = el('div', 'dam-stain');
+      s.style.left = (3 + i * 4.3 + Math.random() * 2) + '%';
+      s.style.height = (30 + Math.random() * 50) + '%';
+      s.style.opacity = 0.5 + Math.random() * 0.45;
+      dam.appendChild(s);
+    }
+    // Arches at base
+    for (let i = 0; i < 4; i++) {
+      const a = el('div', 'arch');
+      a.style.left = (30 + i * 10) + '%';
+      a.style.width = (18 + Math.random() * 14) + 'px';
+      a.style.height = (14 + Math.random() * 10) + 'px';
+      dam.appendChild(a);
+    }
+    root.appendChild(dam);
+
+    // Foreground scrub band
+    root.appendChild(el('div', 'scrub-band'));
+
+    // Mezquite trees — many low scrubby bushes at the bottom
+    const placements = [
+      // front bushes, positioned along the bottom edge
+      { left: -4, bottom: 2, scale: 1.15, variant: 0, mod: 'slow' },
+      { left: 8,  bottom: 4, scale: 0.9,  variant: 1, mod: '' },
+      { left: 18, bottom: 1, scale: 1.05, variant: 0, mod: 'reverse' },
+      { left: 28, bottom: 3, scale: 0.85, variant: 1, mod: 'slow' },
+      { left: 38, bottom: 0, scale: 1.0,  variant: 0, mod: '' },
+      { left: 48, bottom: 2, scale: 0.75, variant: 1, mod: 'reverse' },
+      { left: 58, bottom: 1, scale: 0.95, variant: 0, mod: 'slow' },
+      { left: 68, bottom: 3, scale: 0.85, variant: 1, mod: '' },
+      { left: 78, bottom: 0, scale: 1.05, variant: 0, mod: 'reverse' },
+      { left: 88, bottom: 2, scale: 0.9,  variant: 1, mod: 'slow' },
+      { left: 96, bottom: 4, scale: 1.1,  variant: 0, mod: '' },
+      // back row, smaller
+      { left: 12, bottom: 8, scale: 0.55, variant: 1, mod: '' },
+      { left: 26, bottom: 9, scale: 0.5,  variant: 0, mod: 'slow' },
+      { left: 42, bottom: 10, scale: 0.55, variant: 1, mod: 'reverse' },
+      { left: 56, bottom: 8, scale: 0.5,  variant: 0, mod: '' },
+      { left: 72, bottom: 9, scale: 0.55, variant: 1, mod: 'slow' },
+      { left: 84, bottom: 10, scale: 0.5, variant: 0, mod: 'reverse' },
+    ];
+    placements.forEach((p, i) => {
+      const m = el('div', 'mezquite' + (p.mod ? ' ' + p.mod : ''));
+      m.style.cssText = `left: ${p.left}%; bottom: ${p.bottom}%; z-index: ${p.bottom < 5 ? 9 : 5};`;
+      m.innerHTML = mezquiteSVG(p.scale, p.variant);
+      m.style.animationDelay = `-${Math.random() * 12}s`;
+      root.appendChild(m);
+    });
+
+    // Dry-grass tufts sprinkled in front of mezquites
+    for (let i = 0; i < 18; i++) {
+      const g = el('div');
+      g.style.cssText = `position: absolute; left: ${2 + i * 5.5}%; bottom: ${Math.random() * 6}%; z-index: 10; opacity: ${0.7 + Math.random() * 0.3};`;
+      g.innerHTML = dryGrassSVG(0.35 + Math.random() * 0.25);
+      root.appendChild(g);
+    }
+
+    // Subtle dust haze in low sun
+    const motes = el('div');
+    motes.style.cssText = 'position:absolute;inset:0;pointer-events:none;z-index:45;';
+    for (let i = 0; i < 12; i++) {
+      const m = el('div', 'mote');
+      m.style.left = Math.random() * 100 + '%';
+      m.style.top = 60 + Math.random() * 30 + '%';
+      m.style.setProperty('--fx', ((Math.random() - 0.5) * 120) + 'px');
+      m.style.setProperty('--fy', (-40 - Math.random() * 80) + 'px');
+      m.style.animationDelay = `-${Math.random() * 16}s`;
+      motes.appendChild(m);
+    }
+    root.appendChild(motes);
+
+    // Birds
+    const bird1 = el('div', 'bird');
+    bird1.style.cssText = 'top:20%;animation-delay:-5s;z-index:42;';
+    bird1.innerHTML = `<svg width="28" height="14" viewBox="0 0 40 20"><path d="M2 12 Q 10 4 18 12 Q 26 4 34 12" stroke="#3a3028" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
+    root.appendChild(bird1);
+
+    const bird2 = el('div', 'bird');
+    bird2.style.cssText = 'top:30%;animation-delay:-16s;animation-duration:calc(40s / var(--anim-speed, 1));z-index:42;';
+    bird2.innerHTML = `<svg width="20" height="10" viewBox="0 0 40 20"><path d="M2 12 Q 10 4 18 12 Q 26 4 34 12" stroke="#3a3028" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
+    root.appendChild(bird2);
+
+    return root;
+  };
+})();
+</script>
+
+<script>
+/* ============================================================
+   VARIATION 3 — Acuarela builder
+   Softened, painted version combining village + water + cerros
+   ============================================================ */
+(function() {
+  const el = window._ddEl;
+  const olive = window._ddOliveTree;
+
+  // Hazy painted cerros
+  const WC_CERRO = `
+    <svg viewBox="0 0 1280 140" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <defs><filter id="wc-cerro-blur"><feGaussianBlur stdDeviation="2.5"/></filter></defs>
+      <g filter="url(#wc-cerro-blur)">
+        <path d="M0 100 Q 160 60 320 80 Q 480 100 640 70 Q 800 40 960 60 Q 1120 78 1280 66 L 1280 140 L 0 140 Z"
+              fill="#c2a97a" opacity="0.55"/>
+        <path d="M0 115 Q 200 90 400 100 Q 600 110 800 90 Q 1000 70 1280 85 L 1280 140 L 0 140 Z"
+              fill="#b09466" opacity="0.6"/>
+      </g>
+    </svg>
+  `;
+
+  // Painted village row
+  const WC_VILLAGE = `
+    <svg viewBox="0 0 1280 160" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <defs><filter id="wc-houses"><feGaussianBlur stdDeviation="1.2"/></filter></defs>
+      <g filter="url(#wc-houses)">
+        ${(() => {
+          const parts = [];
+          let x = 60;
+          const pal = ['#d9b47d', '#e8caa0', '#c89a6a', '#deb589', '#cfa177', '#e2c394'];
+          const baseY = 160;
+          const centerX = 640;
+          for (let i = 0; i < 24; i++) {
+            const distFromCenter = Math.abs(x + 50 - centerX) / centerX;
+            // bigger closer to the ends, smaller near center to fake perspective
+            const scale = 0.55 + distFromCenter * 0.65;
+            const w = (50 + Math.random() * 40) * scale;
+            const h = (60 + Math.random() * 50) * scale;
+            const y = baseY - h;
+            const col = pal[i % pal.length];
+            const shd = '#8a5e3a';
+            parts.push(`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${col}" opacity="0.92"/>`);
+            parts.push(`<rect x="${x + w - w * 0.22}" y="${y}" width="${w * 0.22}" height="${h}" fill="${shd}" opacity="0.35"/>`);
+            // window
+            parts.push(`<rect x="${x + w * 0.3}" y="${y + h * 0.4}" width="${w * 0.16}" height="${h * 0.28}" fill="#2c1e12" opacity="0.8"/>`);
+            // second story sometimes
+            if (Math.random() < 0.35) {
+              const sw = w * 0.6, sh = h * 0.35;
+              parts.push(`<rect x="${x + (w - sw) / 2}" y="${y - sh}" width="${sw}" height="${sh}" fill="${col}" opacity="0.9"/>`);
+              parts.push(`<rect x="${x + (w - sw) / 2 + sw - sw * 0.2}" y="${y - sh}" width="${sw * 0.2}" height="${sh}" fill="${shd}" opacity="0.35"/>`);
+            }
+            x += w + 4 + Math.random() * 6;
+            if (x > 1260) break;
+          }
+          return parts.join('');
+        })()}
+      </g>
+    </svg>
+  `;
+
+  // Painted wildflower (soft edges)
+  function wcFlower(scale = 1, color = '#e9b6a0') {
+    return `
+      <svg viewBox="0 0 100 180" width="${100 * scale}" height="${180 * scale}" xmlns="http://www.w3.org/2000/svg">
+        <defs><filter id="wcf${Math.floor(Math.random()*1000)}"><feGaussianBlur stdDeviation="0.8"/></filter></defs>
+        <g>
+          <path d="M50 180 Q 48 120 52 70" stroke="#6a7648" stroke-width="2" fill="none" opacity="0.7"/>
+          <ellipse cx="36" cy="140" rx="12" ry="4" fill="#7a8a52" opacity="0.75" transform="rotate(-25, 36, 140)"/>
+          <ellipse cx="66" cy="120" rx="12" ry="4" fill="#7a8a52" opacity="0.75" transform="rotate(25, 66, 120)"/>
+          <g transform="translate(52, 60)">
+            ${[[0, 0], [-9, -4], [8, -6], [-3, -14], [10, -14], [-10, -18]].map(([x, y]) => `
+              <g transform="translate(${x}, ${y})">
+                <ellipse cx="0" cy="0" rx="7" ry="8" fill="${color}" opacity="0.88"/>
+                <circle r="2" fill="#c8a04a" opacity="0.9"/>
+              </g>
+            `).join('')}
+          </g>
+        </g>
+      </svg>
+    `;
+  }
+
+  // Painted grass
+  function wcGrass(scale = 1) {
+    return `
+      <svg viewBox="0 0 120 200" width="${120 * scale}" height="${200 * scale}" xmlns="http://www.w3.org/2000/svg">
+        ${Array.from({length: 10}, (_, i) => {
+          const sx = 10 + i * 10 + (Math.random() - 0.5) * 5;
+          const ex = sx + (Math.random() - 0.5) * 30;
+          const h = 120 + Math.random() * 70;
+          const col = ['#8aa068', '#9aaa6a', '#7a8d54', '#a6b47c'][i % 4];
+          return `<path d="M${sx} 200 Q ${(sx + ex) / 2} ${200 - h * 0.5} ${ex} ${200 - h}" stroke="${col}" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.75"/>`;
+        }).join('')}
+        <ellipse cx="60" cy="195" rx="50" ry="8" fill="#8aa068" opacity="0.3"/>
+      </svg>
+    `;
+  }
+
+  window.buildAcuarela = function(tweaks) {
+    const root = el('div', 'scene-acuarela');
+
+    // Soft sky
+    root.appendChild(el('div', 'wc-sky'));
+
+    // Cerro (painted)
+    const cerro = el('div', 'wc-cerro');
+    cerro.innerHTML = WC_CERRO;
+    root.appendChild(cerro);
+
+    // Village (painted)
+    const vill = el('div', 'wc-houses');
+    vill.innerHTML = WC_VILLAGE;
+    root.appendChild(vill);
+
+    // Ground wash
+    root.appendChild(el('div', 'wc-ground'));
+
+    // Water channel
+    const water = el('div', 'wc-water');
+    for (let i = 0; i < 7; i++) {
+      const s = el('div', 'wc-wash-streak');
+      s.style.top = (14 + i * 12) + '%';
+      s.style.animationDelay = `-${Math.random() * 8}s`;
+      water.appendChild(s);
+    }
+    root.appendChild(water);
+
+    // Fountain drops (center)
+    const drops = el('div', 'wc-drops');
+    for (let i = 0; i < 18; i++) {
+      const d = el('div', 'wc-drop');
+      d.style.animationDelay = `-${(i / 18) * 3.2}s`;
+      d.style.setProperty('--dx', ((Math.random() - 0.5) * 18) + 'px');
+      drops.appendChild(d);
+    }
+    root.appendChild(drops);
+
+    // Watercolor bleeds
+    const bleeds = [
+      ['10%', '72%'], ['88%', '78%'], ['24%', '55%'], ['72%', '58%'], ['50%', '82%']
+    ];
+    bleeds.forEach(([l, t], i) => {
+      const b = el('div', 'wc-bleed');
+      b.style.left = `calc(${l} - 130px)`;
+      b.style.top = `calc(${t} - 130px)`;
+      b.style.animationDelay = `-${i * 3}s`;
+      root.appendChild(b);
+    });
+
+    // Olive trees (painted blur)
+    const o1 = el('div', 'wc-olive slow');
+    o1.style.cssText = 'left: 4%; bottom: 18%; width: 20%; z-index: 8;';
+    o1.innerHTML = olive(0.8, 0);
+    root.appendChild(o1);
+
+    const o2 = el('div', 'wc-olive reverse');
+    o2.style.cssText = 'right: 6%; bottom: 20%; width: 18%; z-index: 8;';
+    o2.innerHTML = olive(0.72, 1);
+    root.appendChild(o2);
+
+    // Flowers along water
+    const palette = ['#e9b6a0', '#e4c78e', '#c8b4d8', '#f0dcb4', '#d8a0b8'];
+    const layout = [
+      [ 4, 0.7, 'slow'],
+      [10, 0.65, ''],
+      [16, 0.6, 'reverse'],
+      [22, 0.55, 'slow'],
+      [28, 0.5, ''],
+      [34, 0.45, 'reverse'],
+      [94, 0.68, 'reverse'],
+      [88, 0.62, ''],
+      [82, 0.58, 'slow'],
+      [76, 0.55, 'reverse'],
+      [70, 0.5, ''],
+      [64, 0.46, 'slow'],
+      [38, 0.38, ''],
+      [44, 0.35, 'reverse'],
+      [56, 0.35, 'slow'],
+      [62, 0.38, ''],
+    ];
+    layout.forEach(([left, sc, mod], i) => {
+      const f = el('div', 'wc-floral' + (mod ? ' ' + mod : ''));
+      f.style.left = left + '%';
+      f.innerHTML = wcFlower(sc, palette[i % palette.length]);
+      f.style.animationDelay = `-${Math.random() * 7}s`;
+      root.appendChild(f);
+    });
+    // Grass clumps between
+    [7, 19, 31, 67, 79, 91, 41, 59].forEach((l, i) => {
+      const g = el('div', 'wc-floral' + (i % 2 ? ' slow' : ''));
+      g.style.left = l + '%';
+      g.innerHTML = wcGrass(0.55 + Math.random() * 0.2);
+      g.style.animationDelay = `-${Math.random() * 7}s`;
+      root.appendChild(g);
+    });
+
+    // Paper texture
+    root.appendChild(el('div', 'paper'));
+
+    // Petals fluttering
+    for (let i = 0; i < 10; i++) {
+      const p = el('div', 'petal');
+      p.style.left = Math.random() * 100 + '%';
+      p.style.top = '-30px';
+      p.style.zIndex = 44;
+      p.style.setProperty('--fx', ((Math.random() - 0.5) * 120) + 'px');
+      p.style.animationDelay = `-${Math.random() * 12}s`;
+      root.appendChild(p);
+    }
+
+    // Birds
+    const bird1 = el('div', 'bird');
+    bird1.style.cssText = 'top:16%;animation-delay:-8s;z-index:42;';
+    bird1.innerHTML = `<svg width="24" height="12" viewBox="0 0 40 20"><path d="M2 12 Q 10 4 18 12 Q 26 4 34 12" stroke="#4a3a26" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.75"/></svg>`;
+    root.appendChild(bird1);
+
+    const bird2 = el('div', 'bird');
+    bird2.style.cssText = 'top:24%;animation-delay:-18s;animation-duration:calc(42s / var(--anim-speed, 1));z-index:42;';
+    bird2.innerHTML = `<svg width="18" height="10" viewBox="0 0 40 20"><path d="M2 12 Q 10 4 18 12 Q 26 4 34 12" stroke="#4a3a26" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.75"/></svg>`;
+    root.appendChild(bird2);
+
+    return root;
+  };
+})();
+</script>
+
+</content>
+</invoke>
+<script>
+// Back-compat: controller expects buildBotanical, buildSilhouette, buildWatercolor
+window.buildBotanical = window.buildVilla;
+window.buildSilhouette = window.buildPresa;
+window.buildWatercolor = window.buildAcuarela;
+</script>
+<script>
+/* Controller — wires up variation picker, tweaks, and scene lifecycle */
+(function() {
+  const scenesRoot = document.getElementById('scenes');
+  const textLayer = document.getElementById('text-layer');
+  const vignette = document.getElementById('text-vignette');
+  const stage = document.getElementById('stage');
+  const picker = document.getElementById('picker');
+
+  const builders = {
+    1: window.buildBotanical,
+    2: window.buildSilhouette,
+    3: window.buildWatercolor,
+  };
+
+  const state = {
+    variation: parseInt(localStorage.getItem('dd_var') || '1', 10),
+    tweaks: {
+      bg: 30, speed: 100, density: 100, light: 100, hue: 0, title: 100,
+      houses: true, fountain: true, birds: true, hills: true,
+      vignette: true, eyebrow: true, lede: true,
+    }
+  };
+
+  function renderVariation(n) {
+    scenesRoot.innerHTML = '';
+    const build = builders[n];
+    if (!build) return;
+    const node = build(state.tweaks);
+    node.classList.add('scene');
+    node.dataset.variation = n;
+    scenesRoot.appendChild(node);
+    applyTweaks();
+  }
+
+  function applyTweaks() {
+    const t = state.tweaks;
+    // Animation speed
+    stage.style.setProperty('--anim-speed', (t.speed / 100).toFixed(2));
+    // Background tone — interpolate from warm cream (light) to stony olive (dark)
+    const bgT = t.bg / 100;
+    const bg = mixHex('#f7f0dc', '#c9b98e', bgT);
+    const bgDeep = mixHex('#e8dcc2', '#9c8d60', bgT);
+    stage.style.background = `radial-gradient(ellipse at 50% 35%, ${bg} 0%, ${bgDeep} 95%)`;
+    // Foliage hue shift
+    stage.style.setProperty('--hue-shift', t.hue + 'deg');
+    // Light intensity
+    stage.style.setProperty('--light', (t.light / 100).toFixed(2));
+    // Density
+    stage.style.setProperty('--density', (t.density / 100).toFixed(2));
+    // Title size
+    textLayer.style.setProperty('--title-scale', (t.title / 100).toFixed(2));
+    document.querySelector('.text-layer h2.title').style.fontSize = `clamp(64px, ${8.5 * t.title/100}vw, ${132 * t.title/100}px)`;
+
+    // Toggles
+    stage.classList.toggle('no-houses', !t.houses);
+    stage.classList.toggle('no-fountain', !t.fountain);
+    stage.classList.toggle('no-birds', !t.birds);
+    stage.classList.toggle('no-hills', !t.hills);
+    vignette.style.display = t.vignette ? 'block' : 'none';
+    document.getElementById('txt-eyebrow').style.display = t.eyebrow ? 'block' : 'none';
+    document.getElementById('txt-lede').style.display = t.lede ? 'block' : 'none';
+
+    // Labels
+    const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+    set('lbl-bg', t.bg < 20 ? 'muy crema' : t.bg < 50 ? 'crema cálida' : t.bg < 80 ? 'terracota claro' : 'oliva polvo');
+    set('lbl-speed', (t.speed/100).toFixed(2) + '×');
+    set('lbl-density', t.density + '%');
+    set('lbl-light', t.light + '%');
+    set('lbl-hue', (t.hue > 0 ? '+' : '') + t.hue + '°');
+    set('lbl-title', t.title + '%');
+  }
+
+  function mixHex(a, b, t) {
+    const pa = parseInt(a.slice(1), 16);
+    const pb = parseInt(b.slice(1), 16);
+    const ra = (pa >> 16) & 255, ga = (pa >> 8) & 255, ba = pa & 255;
+    const rb = (pb >> 16) & 255, gb = (pb >> 8) & 255, bb = pb & 255;
+    const r = Math.round(ra + (rb - ra) * t);
+    const g = Math.round(ga + (gb - ga) * t);
+    const bl = Math.round(ba + (bb - ba) * t);
+    return '#' + ((r << 16) | (g << 8) | bl).toString(16).padStart(6, '0');
+  }
+
+  // Picker
+  picker.querySelectorAll('button[data-v]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const v = parseInt(btn.dataset.v, 10);
+      state.variation = v;
+      localStorage.setItem('dd_var', String(v));
+      picker.querySelectorAll('button[data-v]').forEach(b => b.classList.toggle('active', b === btn));
+      renderVariation(v);
+    });
+  });
+  picker.querySelectorAll('button[data-v]').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.v, 10) === state.variation);
+  });
+
+  // Tweaks toggle
+  const tweaksEl = document.getElementById('tweaks');
+  const toggleBtn = document.getElementById('toggle-tweaks');
+  const hint = document.getElementById('tweaks-hint');
+  toggleBtn.addEventListener('click', () => {
+    tweaksEl.classList.toggle('visible');
+    hint.style.display = tweaksEl.classList.contains('visible') ? 'none' : 'block';
+  });
+
+  // Sliders
+  const slider = (id, key, transform) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = state.tweaks[key];
+    el.addEventListener('input', () => {
+      state.tweaks[key] = transform ? transform(+el.value) : +el.value;
+      applyTweaks();
+    });
+  };
+  slider('tw-bg', 'bg');
+  slider('tw-speed', 'speed');
+  slider('tw-density', 'density');
+  slider('tw-light', 'light');
+  slider('tw-hue', 'hue');
+  slider('tw-title', 'title');
+
+  // Checks
+  document.querySelectorAll('.tweak-check').forEach(el => {
+    const key = el.dataset.key;
+    el.classList.toggle('on', !!state.tweaks[key]);
+    el.addEventListener('click', () => {
+      state.tweaks[key] = !state.tweaks[key];
+      el.classList.toggle('on', state.tweaks[key]);
+      applyTweaks();
+    });
+  });
+
+  // Initial render
+  renderVariation(state.variation);
+
+  // Edit mode integration
+  window.addEventListener('message', (e) => {
+    if (!e.data) return;
+    if (e.data.type === '__activate_edit_mode') tweaksEl.classList.add('visible');
+    if (e.data.type === '__deactivate_edit_mode') tweaksEl.classList.remove('visible');
+  });
+  try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch(_) {}
+})();
+
+</script>
+
+</body>
+</html>

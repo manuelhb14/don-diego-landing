@@ -44,7 +44,19 @@ function MapCornerVideo({
     );
 }
 
-export default function Location() {
+type LocationProps = {
+    sectionId?: string;
+    backgroundClassName?: string;
+    showIntro?: boolean;
+    showProximity?: boolean;
+};
+
+export default function Location({
+    sectionId = "location",
+    backgroundClassName = "bg-[#fff8ed]",
+    showIntro = true,
+    showProximity = true,
+}: LocationProps = {}) {
     const t = useTranslations("locationSection");
     const [activePin, setActivePin] = useState<string | null>(null);
 
@@ -53,55 +65,57 @@ export default function Location() {
     };
 
     return (
-        <section id="location" className="bg-[#fff8ed] text-[#222222] overflow-x-hidden antialiased w-full relative">
+        <section id={sectionId} className={`${backgroundClassName} text-[#222222] overflow-x-hidden antialiased w-full relative`}>
             <main className="relative w-full flex flex-col items-center pt-12 pb-6 md:py-16 px-6 md:px-10 max-w-[1440px] mx-auto mb-0 md:mb-8">
-                <div className="w-full max-w-6xl mb-8 md:mb-12 z-10 relative flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
-                    <motion.div
-                        className="flex flex-col items-center md:items-start text-center md:text-left"
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <p
-                            className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
-                            style={{ fontFamily: "var(--font-sans)" }}
+                {showIntro ? (
+                    <div className="w-full max-w-6xl mb-8 md:mb-12 z-10 relative flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
+                        <motion.div
+                            className="flex flex-col items-center md:items-start text-center md:text-left"
+                            initial={{ opacity: 0, y: 24 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
                         >
-                            {t("kicker")}
-                        </p>
-                        <h2
-                            className="text-[#222] leading-none"
-                            style={{
-                                fontFamily: "var(--font-serif)",
-                                fontSize: "clamp(3rem, 6vw, 6rem)",
-                            }}
+                            <p
+                                className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                {t("kicker")}
+                            </p>
+                            <h2
+                                className="text-[#222] leading-none"
+                                style={{
+                                    fontFamily: "var(--font-serif)",
+                                    fontSize: "clamp(3rem, 6vw, 6rem)",
+                                }}
+                            >
+                                {t("title1")}
+                            </h2>
+                            <h2
+                                className="text-[#AA7D69]/90 italic"
+                                style={{
+                                    fontFamily: "var(--font-serif)",
+                                    fontSize: "clamp(3rem, 6vw, 6rem)",
+                                }}
+                            >
+                                {t("title2")}
+                            </h2>
+                        </motion.div>
+                        <motion.p
+                            className="text-[#222]/80 text-base md:text-xl font-medium leading-relaxed text-center md:text-right md:max-w-md"
+                            style={{ fontFamily: "var(--font-serif)" }}
+                            initial={{ opacity: 0, y: 24 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.15 }}
                         >
-                            {t("title1")}
-                        </h2>
-                        <h2
-                            className="text-[#AA7D69]/90 italic"
-                            style={{
-                                fontFamily: "var(--font-serif)",
-                                fontSize: "clamp(3rem, 6vw, 6rem)",
-                            }}
-                        >
-                            {t("title2")}
-                        </h2>
-                    </motion.div>
-                    <motion.p
-                        className="text-[#222]/80 text-base md:text-xl font-medium leading-relaxed text-center md:text-right md:max-w-md"
-                        style={{ fontFamily: "var(--font-serif)" }}
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.15 }}
-                    >
-                        {t("body")}
-                    </motion.p>
-                </div>
+                            {t("body")}
+                        </motion.p>
+                    </div>
+                ) : null}
 
                 <motion.div
-                    className="relative w-full max-w-5xl h-auto pb-12"
+                    className={`relative w-full max-w-5xl h-auto ${showProximity ? "pb-12" : "pb-3 md:pb-4"}`}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.3 }}
@@ -232,7 +246,7 @@ export default function Location() {
                                 </g>
 
                                 {/* TEXT BLOCK 2 */}
-                                <g transform="matrix(0.891828,0.017909,-0.017909,0.891828,1286.167096,704.79958)">
+                                {/* <g transform="matrix(0.891828,0.017909,-0.017909,0.891828,1286.167096,704.79958)">
                                     <motion.g
                                         variants={{
                                             hidden: { opacity: 0, y: 20 },
@@ -263,7 +277,7 @@ export default function Location() {
                                             </g>
                                         </g>
                                     </motion.g>
-                                </g>
+                                </g> */}
                             </motion.svg>
                         </div>
 
@@ -356,18 +370,19 @@ export default function Location() {
                                         <Anchor className="w-3 h-3 md:w-5 md:h-5" />
                                     </div>
                                 </div>
-                                <div className={`absolute bottom-full mb-2 md:mb-1 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[200px] lg:max-w-[210px] xl:max-w-[220px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:px-3 md:pt-2 md:pb-1.5 lg:px-3 lg:py-2 xl:px-3 xl:py-2.5 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-bottom-right text-right md:opacity-100 md:translate-y-0 md:scale-100 ${activePin === "presa-cantera" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"}`}>
-                                    <h4 className="text-[#222] font-bold text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs leading-tight mb-0 md:mb-1 uppercase text-center tracking-[0.18em] md:tracking-wider whitespace-normal">{t("pinPresa")}</h4>
+                                <div className={`absolute top-full mt-2 md:mt-1.5 left-1/2 -translate-x-1/2 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[200px] lg:max-w-[210px] xl:max-w-[220px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:px-3 md:pt-2 md:pb-1.5 lg:px-3 lg:py-2 xl:px-3 xl:py-2.5 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-top text-center md:opacity-100 md:translate-y-0 md:scale-100 ${activePin === "presa-cantera" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"}`}>
+                                    <h4 className="text-[#222] font-bold text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs leading-tight mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">{t("pinPresa")}</h4>
                                     {/* <p className="text-[#8FC0DA] text-xs leading-relaxed font-semibold">Cuerpo de Agua / Marina</p> */}
                                 </div>
                             </motion.div>
                         </div>
                     </div>
 
-                    <motion.div
-                        className="relative lg:absolute lg:-left-12 lg:-bottom-6 xl:-left-40 xl:-bottom-8 mt-8 lg:mt-0 z-30 flex flex-col justify-start pointer-events-auto w-full lg:w-auto lg:max-w-[280px]"
-                        variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 1.2 } } }}
-                    >
+                    {showProximity ? (
+                        <motion.div
+                            className="relative lg:absolute lg:-left-12 lg:-bottom-6 xl:-left-40 xl:-bottom-8 mt-8 lg:mt-0 z-30 flex flex-col justify-start pointer-events-auto w-full lg:w-auto lg:max-w-[280px]"
+                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 1.2 } } }}
+                        >
                         <div
                             className="relative z-30 bg-white/80 backdrop-blur-xl border border-[#D7D7AA]/40 p-6 md:p-8 lg:p-6 xl:p-8 shadow-[0_15px_40px_-10px_rgba(225,177,155,0.2)] hover:bg-white transition-all duration-300 group/panel"
                         >
@@ -475,6 +490,7 @@ export default function Location() {
                             </div>
                         </div>
                     </motion.div>
+                    ) : null}
                 </motion.div>
 
             </main>

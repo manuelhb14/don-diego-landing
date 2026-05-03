@@ -24,9 +24,9 @@ export default async function ResidencialPage({ params }: Props) {
             <Navbar theme="dark" locale={locale} />
             <main>
                 <HeroResidencial />
-                <FeaturesResidencial />
                 <AmenitiesResidencial />
                 <ClubAccessResidencial />
+                <FeaturesResidencial />
                 <RentalsPoolResidencial />
                 <ConnectivityCommonAreasResidencial />
                 <SustentabilidadResidencial />

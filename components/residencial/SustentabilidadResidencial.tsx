@@ -111,7 +111,7 @@ export default function SustentabilidadResidencial() {
                         transition={{ duration: 0.75, delay: 0.06 }}
                         className="order-1 lg:order-2"
                     >
-                        <div className="relative aspect-[4/5] w-full overflow-hidden shadow-[0_28px_60px_rgba(26,25,23,0.15)] ring-1 ring-[#1a1917]/[0.08] sm:aspect-[3/4] lg:aspect-[4/5]">
+                        <div className="relative aspect-[6/7] w-full overflow-hidden shadow-[0_28px_60px_rgba(26,25,23,0.15)] ring-1 ring-[#1a1917]/[0.08] sm:aspect-[3/4] lg:aspect-[4/5]">
                             <Image
                                 src={HERO_IMAGE.src}
                                 alt={t("imageAlt")}

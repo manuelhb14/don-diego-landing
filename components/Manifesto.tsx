@@ -95,7 +95,7 @@ export default function Manifesto() {
                   Option 1: Sized down and pushed partially off-screen on mobile.
                   Desktop has small collisions (around 10-15%).
                 */}
-                <motion.div className="absolute top-[3%] sm:top-[8%] md:top-[10%] left-[1%] sm:left-[7%] md:left-[6%] lg:left-[10.5%] w-42 sm:w-52 md:w-56 lg:w-60 xl:w-72 aspect-[4/5] z-0" style={{ y: y1, opacity: imgOp1 }}>
+                <motion.div className="absolute top-[3%] sm:top-[8%] md:top-[10%] left-[1%] sm:left-[7%] md:left-[6%] lg:left-[8%] w-42 sm:w-52 md:w-56 lg:w-60 xl:w-72 aspect-[4/5] z-0" style={{ y: y1, opacity: imgOp1 }}>
                     <EditableImage contentKey="home.manifesto.image.1" fallbackSrc="/final/tierra1.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
@@ -103,7 +103,7 @@ export default function Manifesto() {
                     <EditableImage contentKey="home.manifesto.image.2" fallbackSrc="/final/mismo2.webp" alt="Gallery" fill className="object-cover rounded-sm" />
                 </motion.div>
 
-                <motion.div className="absolute top-[52%] sm:top-[37%] -right-[20%] sm:-right-[6%] md:-right-[2%] lg:right-[8%] w-44 sm:w-52 md:w-64 lg:w-72 xl:w-80 aspect-[3/4] z-0" style={{ y: y2, opacity: imgOp2 }}>
+                <motion.div className="absolute top-[52%] sm:top-[37%] -right-[20%] sm:-right-[6%] md:-right-[2%] lg:right-[4%] w-44 sm:w-52 md:w-64 lg:w-72 xl:w-80 aspect-[3/4] z-0" style={{ y: y2, opacity: imgOp2 }}>
                     <EditableImage contentKey="home.manifesto.image.3" fallbackSrc="/final/comunidad1.webp" alt="Gallery" fill className="object-cover rounded-sm shadow-2xl" />
                 </motion.div>
 
