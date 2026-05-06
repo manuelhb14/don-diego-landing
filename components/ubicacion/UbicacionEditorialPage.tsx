@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight, Church, Compass, Flower2, Heart, Landmark, Leaf, MapPin, Plane, Route, ShieldCheck, TreePine, Wine } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion, type Variants } from "motion/react";
 import Location from "@/components/Location";
 
 const revealEase = [0.25, 0.46, 0.45, 0.94] as const;
@@ -203,27 +203,27 @@ function AnimatedTitleSvg() {
 export default function UbicacionEditorialPage() {
     const bottomBarRef = useRef<HTMLDivElement>(null);
     const shouldReduceMotion = useReducedMotion() ?? false;
-    const transferBarVariants = {
+    const transferBarVariants: Variants = {
         hidden: { opacity: 0, y: 18 },
         visible: {
             opacity: 1,
             y: 0,
             transition: {
                 duration: 0.65,
-                ease: [0.25, 0.46, 0.45, 0.94],
+                ease: revealEase,
                 staggerChildren: 0.045,
                 delayChildren: 0.1,
             },
         },
     };
-    const transferItemVariants = {
+    const transferItemVariants: Variants = {
         hidden: { opacity: 0, y: 10 },
         visible: {
             opacity: 1,
             y: 0,
             transition: {
                 duration: 0.45,
-                ease: [0.25, 0.46, 0.45, 0.94],
+                ease: revealEase,
             },
         },
     };

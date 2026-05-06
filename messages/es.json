@@ -18,7 +18,7 @@
       "presa": "Presa de la Cantera"
     },
     "menuAria": "Menú",
-    "aiAssistant": "Pregúntame tus dudas"
+    "aiAssistant": "Pregúntame"
   },
   "blogsHome": {
     "kicker": "[Blog]",
@@ -47,7 +47,7 @@
     "location": "San Miguel de Allende, Guanajuato",
     "cta": "Conoce más",
     "eyebrow": "[DESARROLLO RESIDENCIAL]",
-    "bodyLine1": "Un santuario donde la arquitectura se encuentra con la naturaleza. Diseñado para una vida en conexión.",
+    "bodyLine1": "Un desarrollo donde la arquitectura se encuentra con la naturaleza. Diseñado para una vida en conexión.",
     "bodyLine2": "",
     "explore": "Ver propiedades"
   },
@@ -167,8 +167,8 @@
   "footer": {
     "rights": "© 2026 Don Diego Club Residencial. Todos los derechos reservados.",
     "location": "San Miguel de Allende, Guanajuato, México",
-    "joinTitleLine1": "ÚNETE a la COMUNIDAD de",
-    "joinTitleLine2": "DON DIEGO",
+    "joinTitleLine1": "Únete a la comunidad de",
+    "joinTitleLine2": "Don Diego",
     "joinSubtitle": "Suscríbete para unirte a nuestra comunidad y mantenerte al día con el desarrollo.",
     "firstNamePh": "NOMBRE *",
     "lastNamePh": "APELLIDO *",
@@ -443,7 +443,8 @@
     "title1": "Una invitación a pertenecer",
     "title2": "a algo",
     "titleEm": "extraordinario.",
-    "subtitle": "Un espacio que se comparte en privado."
+    "subtitle": "Un espacio que se comparte en privado.",
+    "socialTitle": "Síguenos en nuestras redes"
   },
   "galleryCarousel": {
     "kicker": "(Galería)",
@@ -870,6 +871,15 @@
       "features": {
         "kicker": "[TIPOLOGÍA]",
         "propertyNavAria": "Tipos de vivienda",
+        "typeLabel": "Tipo {number}",
+        "groups": {
+          "departamentos": "Departamentos",
+          "duplex": "Casas dúplex"
+        },
+        "unitNames": {
+          "departamento": "Departamento {type}",
+          "duplex": "Casa dúplex {type}"
+        },
         "titleLine1": "Descubre los",
         "titleAccent": "espacios",
         "titleLine2": "que ofrecemos.",
@@ -1427,6 +1437,16 @@
             "description": "Equipo con trayectoria en mercadotecnia, comercial y innovación a nivel corporativo. Expertise en gobierno corporativo, alianzas estratégicas y mercadotecnia de valor en macro-proyectos inmobiliarios."
           }
         }
+      },
+      "navigationBanner": {
+        "imageAlt": "Don Diego - equipo",
+        "eyebrow": "[Continúa el recorrido]",
+        "title1": "Una invitación a conocer",
+        "title2": "la visión de",
+        "titleEm": "Don Diego.",
+        "subtitle": "Explora la visión completa del proyecto.",
+        "back": "Volver",
+        "project": "Ir a proyecto"
       }
     },
     "experiencias": {
@@ -1441,7 +1461,7 @@
           "closeAriaLabel": "Cerrar descripción de {title}"
         },
         "footerText": "El club ofrece una amplia gama de actividades para disfrutar, desde gimnasios hasta restaurantes y spa. La mayoría de las amenidades son exclusivas para los residentes y sus invitados.",
-        "cta": "Agenda tu visita",
+        "cta": "Ver propiedades",
         "items": {
           "clubhouse": {
             "title": "Clubhouse",

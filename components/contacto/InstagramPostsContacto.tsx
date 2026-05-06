@@ -60,9 +60,7 @@ export default function InstagramPostsContacto() {
                                 lineHeight: 0.95,
                             }}
                         >
-                            {t("titleLine1")}
-                            <br />
-                            <span className="italic text-[#AA7D69]">{t("titleLine2")}</span>
+                            {t("titleLine1")} <span className="italic text-[#AA7D69]">{t("titleLine2")}</span>
                         </h2>
                     </div>
 

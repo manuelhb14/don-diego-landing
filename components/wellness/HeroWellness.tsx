@@ -811,7 +811,7 @@ export default function HeroWellness() {
                         style={{ y: isDesktop ? imgY : 0 }}
                     >
                         <Image
-                            src="/images/gallery/gallery-3.png"
+                            src="/final/wellness-center.png"
                             alt={t("imageAlt")}
                             fill
                             priority

@@ -122,12 +122,16 @@ export default function ConnectivityCommonAreasResidencial() {
                             className="relative w-full flex-1"
                         >
                             <div className="relative aspect-[16/8] w-full min-h-[180px] flex-1 overflow-hidden shadow-[0_30px_60px_rgba(26,25,23,0.18)] ring-1 ring-[#1a1917]/10 sm:aspect-[16/9] sm:min-h-[230px] lg:aspect-auto lg:min-h-[280px] lg:h-full">
-                                <Image
-                                    src="/babylon/shuttle-2.webp"
-                                    alt={t("shuttles.imageAlt")}
-                                    fill
-                                    className="object-cover"
-                                    sizes="(min-width: 1024px) 50vw, 100vw"
+                                <video
+                                    className="absolute inset-0 h-full w-full scale-[1.1] object-cover"
+                                    src="/final/shuttle.mp4"
+                                    poster="/babylon/shuttle-2.webp"
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    preload="metadata"
+                                    aria-label={t("shuttles.imageAlt")}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-tr from-[#1a1917]/25 via-transparent to-transparent" />
                             </div>

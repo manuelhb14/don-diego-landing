@@ -56,7 +56,7 @@ export default function SustentabilidadFarm() {
                     {/* Main Image Layer */}
                     <div className="absolute right-0 top-5 sm:top-8 lg:top-16 w-[74%] lg:w-[70%] h-[70%] lg:h-[80%] z-10 overflow-hidden shadow-xl lg:shadow-2xl">
                         <Image
-                            src="/babylon/farm-1.webp"
+                            src="/final/terreno.png"
                             alt={t("images.mainAlt")}
                             fill
                             className="object-cover hover:scale-105 transition-transform duration-1000"
@@ -66,7 +66,7 @@ export default function SustentabilidadFarm() {
                     {/* Offset Accelerated Image Layer */}
                     <div className="absolute left-0 bottom-5 sm:bottom-8 lg:bottom-24 w-[54%] lg:w-[50%] h-[42%] lg:h-[55%] z-20 overflow-hidden shadow-xl lg:shadow-2xl border-4 lg:border-8 border-[#EFE6DC]">
                         <Image
-                            src="/babylon/farm-2.webp"
+                            src="/final/reja.jpg"
                             alt={t("images.secondaryAlt")}
                             fill
                             className="object-cover object-[center_30%] hover:scale-105 transition-transform duration-1000"

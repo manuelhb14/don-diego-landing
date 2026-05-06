@@ -52,9 +52,9 @@ export default function ThingsToDo() {
             { id: "clubhouse", title: tt("items.clubhouse"), imageSrc: "/babylon/clubhouse.webp" },
             { id: "piscina", title: tt("items.pool"), imageSrc: "/babylon/pool.webp" },
             { id: "gimnasio", title: tt("items.gym"), imageSrc: "/babylon/gym.webp" },
-            { id: "spa", title: tt("items.spa"), imageSrc: "/babylon/spa.webp" },
+            { id: "spa", title: tt("items.spa"), imageSrc: "/final/spa.jpg" },
             { id: "restaurante", title: tt("items.restaurant"), imageSrc: "/final/restaurante-3.webp" },
-            { id: "padel", title: tt("items.padel"), imageSrc: "/babylon/padel.webp" },
+            { id: "padel", title: tt("items.padel"), imageSrc: "/final/padel.jpg" },
         ],
         [tt],
     );

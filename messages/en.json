@@ -18,7 +18,7 @@
       "presa": "Presa de la Cantera"
     },
     "menuAria": "Menu",
-    "aiAssistant": "Ask me anything"
+    "aiAssistant": "Let's talk"
   },
   "blogsHome": {
     "kicker": "[Blog]",
@@ -134,7 +134,7 @@
     "privacy": "By submitting, you accept our Terms of Service and Privacy Policy, including (when applicable) identity checks that may use your CURP and reviews through lawful screening or legal information platforms, as described there.",
     "committeeNotice": "When you send this first message, we place your request in a small internal “committee” (Comité) review for basic security and fit before we share things like exact pricing or other sensitive project details. It’s a standard step to protect the community and the project.",
     "kicker": "[Contact]",
-    "joinLine1": "Join the world of",
+    "joinLine1": "Join the community of",
     "joinEm": "Don Diego",
     "bodyHome": "Discover Don Diego in person. Contact us to schedule a private tour of our lands in San Miguel de Allende.",
     "belief1t": "Wellbeing",
@@ -443,7 +443,8 @@
     "title1": "An invitation to belong",
     "title2": "to something",
     "titleEm": "extraordinary.",
-    "subtitle": "A space shared in private."
+    "subtitle": "A space shared in private.",
+    "socialTitle": "Follow us on social media"
   },
   "galleryCarousel": {
     "kicker": "(Gallery)",
@@ -870,6 +871,15 @@
       "features": {
         "kicker": "[TYPOLOGY]",
         "propertyNavAria": "Residence types",
+        "typeLabel": "Type {number}",
+        "groups": {
+          "departamentos": "Apartments",
+          "duplex": "Duplex homes"
+        },
+        "unitNames": {
+          "departamento": "Apartment {type}",
+          "duplex": "Duplex home {type}"
+        },
         "titleLine1": "Discover the",
         "titleAccent": "spaces",
         "titleLine2": "we offer.",
@@ -1427,6 +1437,16 @@
             "description": "Visual identity and brand strategy for high-end real estate projects."
           }
         }
+      },
+      "navigationBanner": {
+        "imageAlt": "Don Diego - team",
+        "eyebrow": "[Continue the tour]",
+        "title1": "An invitation to discover",
+        "title2": "the vision behind",
+        "titleEm": "Don Diego.",
+        "subtitle": "Explore the complete project vision.",
+        "back": "Back",
+        "project": "Go to project"
       }
     },
     "experiencias": {
@@ -1441,7 +1461,7 @@
           "closeAriaLabel": "Close description for {title}"
         },
         "footerText": "The club offers a wide range of activities to enjoy, from gyms to restaurants and spa. Most amenities are exclusive to residents and their guests.",
-        "cta": "Schedule your visit",
+        "cta": "Go to properties",
         "items": {
           "clubhouse": {
             "title": "Clubhouse",

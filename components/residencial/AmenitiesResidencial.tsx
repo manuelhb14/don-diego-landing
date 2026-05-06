@@ -32,14 +32,17 @@ const wellnessItems = [
     {
         key: "yoga",
         image: "/images/renders/yoga.png",
+        position: "object-center",
     },
     {
         key: "spa",
-        image: "/images/renders/spa.jpeg",
+        image: "/final/spa-2.png",
+        position: "object-center",
     },
     {
         key: "jacuzzi",
         image: "/babylon/jacuzzi.webp",
+        position: "object-center",
     },
 ] as const;
 
@@ -114,12 +117,16 @@ export default function AmenitiesResidencial() {
                         className="overflow-hidden border border-[#c7a58f]/25 bg-[#fffaf1]/72 p-5 shadow-[0_18px_48px_rgba(67,52,42,0.08)]"
                     >
                         <div className="relative aspect-[4/3] lg:aspect-[16/9] min-h-[230px] overflow-hidden">
-                            <Image
-                                src="/babylon/club-residencial.webp"
-                                alt={t("alts.casaClub")}
-                                fill
-                                className="object-cover"
-                                sizes="(min-width: 1024px) 50vw, 100vw"
+                            <video
+                                className="absolute inset-0 h-full w-full scale-[1.5] object-cover"
+                                src="/final/casa-club.mp4"
+                                poster="/babylon/club-residencial.webp"
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                preload="metadata"
+                                aria-label={t("alts.casaClub")}
                             />
                         </div>
 
@@ -203,7 +210,7 @@ export default function AmenitiesResidencial() {
                             </div>
 
                             <div className="grid gap-3">
-                                {wellnessItems.map(({ key, image }) => (
+                                {wellnessItems.map(({ key, image, position }) => (
                                     <div
                                         key={key}
                                         className="group grid min-h-[92px] grid-cols-[minmax(118px,0.48fr)_minmax(0,1fr)] overflow-hidden border border-[#c7a58f]/30 bg-[#fff8ed]/85 sm:grid-cols-[minmax(190px,0.48fr)_minmax(0,1fr)]"
@@ -213,7 +220,7 @@ export default function AmenitiesResidencial() {
                                                 src={image}
                                                 alt={t(`wellness.items.${key}.title`)}
                                                 fill
-                                                className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                                                className={`${position} object-cover transition duration-500 group-hover:scale-[1.03]`}
                                                 sizes="(min-width: 1024px) 19vw, 100vw"
                                             />
                                         </div>
@@ -268,7 +275,7 @@ export default function AmenitiesResidencial() {
                             <div className="grid min-w-0 grid-cols-1 gap-2 bg-[#fff8ed]/90 p-2 sm:grid-cols-[minmax(0,1.85fr)_minmax(150px,0.75fr)] sm:gap-3 sm:p-3">
                                 <div className="relative aspect-[21/9] min-w-0 overflow-hidden sm:aspect-[16/9] sm:min-h-[245px]">
                                     <Image
-                                        src="/images/renders/padel.png"
+                                        src="/final/padel.jpg"
                                         alt={t("alts.activity")}
                                         fill
                                         className="object-cover"

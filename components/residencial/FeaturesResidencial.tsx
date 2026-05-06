@@ -25,7 +25,9 @@ type ResidenceSpec = {
 type Residence = {
     id: number;
     slug: string;
+    category: "departamentos" | "duplex";
     title: string;
+    typeLabel: string;
     accent: string;
     accentSoft: string;
     description: string;
@@ -291,19 +293,23 @@ export default function FeaturesResidencial() {
         estacionamientos: t("labels.estacionamientos"),
     };
 
+    const typeLabel = (number: number) => t("typeLabel", { number });
+
     const residences: Residence[] = [
         {
             id: 1,
-            slug: "departamentos",
-            title: t("residences.departamentos.title"),
+            slug: "departamentos-tipo-1",
+            category: "departamentos",
+            title: t("unitNames.departamento", { type: typeLabel(1) }),
+            typeLabel: typeLabel(1),
             accent: "#b76d4b",
             accentSoft: "#e7d2c6",
             description: t("residences.departamentos.description"),
             images: ["/residencias/departamentos.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
             specs: {
-                superficie: t("residences.departamentos.specs.superficie"),
-                recamaras: t("residences.departamentos.specs.recamaras"),
-                banos: t("residences.departamentos.specs.banos"),
+                superficie: "113 m2",
+                recamaras: "2",
+                banos: "2",
                 estacionamientos: "2",
             },
             highlights: [
@@ -314,16 +320,84 @@ export default function FeaturesResidencial() {
         },
         {
             id: 2,
+            slug: "departamentos-tipo-2",
+            category: "departamentos",
+            title: t("unitNames.departamento", { type: typeLabel(2) }),
+            typeLabel: typeLabel(2),
+            accent: "#b76d4b",
+            accentSoft: "#e7d2c6",
+            description: t("residences.departamentos.description"),
+            images: ["/residencias/departamentos.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
+            specs: {
+                superficie: "128 m2",
+                recamaras: "2",
+                banos: "2.5",
+                estacionamientos: "2",
+            },
+            highlights: [
+                t("residences.departamentos.highlights.1"),
+                t("residences.departamentos.highlights.2"),
+                t("residences.departamentos.highlights.3"),
+            ],
+        },
+        {
+            id: 3,
+            slug: "departamentos-tipo-3",
+            category: "departamentos",
+            title: t("unitNames.departamento", { type: typeLabel(3) }),
+            typeLabel: typeLabel(3),
+            accent: "#b76d4b",
+            accentSoft: "#e7d2c6",
+            description: t("residences.departamentos.description"),
+            images: ["/residencias/departamentos.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
+            specs: {
+                superficie: "146 m2",
+                recamaras: "3",
+                banos: "3",
+                estacionamientos: "2",
+            },
+            highlights: [
+                t("residences.departamentos.highlights.1"),
+                t("residences.departamentos.highlights.2"),
+                t("residences.departamentos.highlights.3"),
+            ],
+        },
+        {
+            id: 4,
+            slug: "departamentos-tipo-4",
+            category: "departamentos",
+            title: t("unitNames.departamento", { type: typeLabel(4) }),
+            typeLabel: typeLabel(4),
+            accent: "#b76d4b",
+            accentSoft: "#e7d2c6",
+            description: t("residences.departamentos.description"),
+            images: ["/residencias/departamentos.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
+            specs: {
+                superficie: "173 m2",
+                recamaras: "3",
+                banos: "3.5",
+                estacionamientos: "2",
+            },
+            highlights: [
+                t("residences.departamentos.highlights.1"),
+                t("residences.departamentos.highlights.2"),
+                t("residences.departamentos.highlights.3"),
+            ],
+        },
+        {
+            id: 5,
             slug: "duplex-tipo-1",
-            title: t("residences.duplex1.title"),
+            category: "duplex",
+            title: t("unitNames.duplex", { type: typeLabel(1) }),
+            typeLabel: typeLabel(1),
             accent: "#b76d4b",
             accentSoft: "#e7d2c6",
             description: t("residences.duplex1.description"),
             images: ["/residencias/duplex-1.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
             specs: {
-                superficie: t("residences.duplex1.specs.superficie"),
-                recamaras: t("residences.duplex1.specs.recamaras"),
-                banos: t("residences.duplex1.specs.banos"),
+                superficie: "128 m2",
+                recamaras: "2",
+                banos: "2.5",
                 estacionamientos: "2",
             },
             highlights: [
@@ -333,17 +407,19 @@ export default function FeaturesResidencial() {
             ],
         },
         {
-            id: 3,
+            id: 6,
             slug: "duplex-tipo-2",
-            title: t("residences.duplex2.title"),
+            category: "duplex",
+            title: t("unitNames.duplex", { type: typeLabel(2) }),
+            typeLabel: typeLabel(2),
             accent: "#b76d4b",
             accentSoft: "#e7d2c6",
             description: t("residences.duplex2.description"),
             images: ["/residencias/duplex-2.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
             specs: {
-                superficie: t("residences.duplex2.specs.superficie"),
-                recamaras: t("residences.duplex2.specs.recamaras"),
-                banos: t("residences.duplex2.specs.banos"),
+                superficie: "155 m2",
+                recamaras: "3",
+                banos: "3",
                 estacionamientos: "2",
             },
             highlights: [
@@ -353,17 +429,19 @@ export default function FeaturesResidencial() {
             ],
         },
         {
-            id: 4,
+            id: 7,
             slug: "duplex-tipo-3",
-            title: t("residences.duplex3.title"),
+            category: "duplex",
+            title: t("unitNames.duplex", { type: typeLabel(3) }),
+            typeLabel: typeLabel(3),
             accent: "#b76d4b",
             accentSoft: "#e7d2c6",
             description: t("residences.duplex3.description"),
             images: ["/residencias/duplex-3.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
             specs: {
-                superficie: t("residences.duplex3.specs.superficie"),
-                recamaras: t("residences.duplex3.specs.recamaras"),
-                banos: t("residences.duplex3.specs.banos"),
+                superficie: "166 m2",
+                recamaras: "3",
+                banos: "3.5",
                 estacionamientos: "2",
             },
             highlights: [
@@ -371,6 +449,41 @@ export default function FeaturesResidencial() {
                 t("residences.duplex3.highlights.2"),
                 t("residences.duplex3.highlights.3"),
             ],
+        },
+        {
+            id: 8,
+            slug: "duplex-tipo-4",
+            category: "duplex",
+            title: t("unitNames.duplex", { type: typeLabel(4) }),
+            typeLabel: typeLabel(4),
+            accent: "#b76d4b",
+            accentSoft: "#e7d2c6",
+            description: t("residences.duplex3.description"),
+            images: ["/residencias/duplex-3.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
+            specs: {
+                superficie: "185 m2",
+                recamaras: "4",
+                banos: "4",
+                estacionamientos: "2",
+            },
+            highlights: [
+                t("residences.duplex3.highlights.1"),
+                t("residences.duplex3.highlights.2"),
+                t("residences.duplex3.highlights.3"),
+            ],
+        },
+    ];
+
+    const propertyGroups = [
+        {
+            id: "departamentos",
+            title: t("groups.departamentos"),
+            residences: residences.filter((residence) => residence.category === "departamentos"),
+        },
+        {
+            id: "duplex",
+            title: t("groups.duplex"),
+            residences: residences.filter((residence) => residence.category === "duplex"),
         },
     ];
 
@@ -412,36 +525,55 @@ export default function FeaturesResidencial() {
                         {/* Property types — below title on mobile; left column on desktop */}
                         <nav
                             aria-label={t("propertyNavAria")}
-                            className="grid min-w-0 grid-cols-2 gap-x-4 gap-y-3 border-b border-[#3a3028]/10 pb-5 lg:col-start-1 lg:row-start-2 lg:row-span-2 lg:flex lg:flex-col lg:gap-2.5 lg:self-start lg:border-b-0 lg:pr-8 lg:pt-0"
+                            className="grid min-w-0 gap-5 border-b border-[#3a3028]/10 pb-6 lg:col-start-1 lg:row-start-2 lg:row-span-2 lg:self-start lg:border-b-0 lg:pr-8 lg:pt-0"
                         >
-                            {residences.map((residence, index) => {
-                                const isActive = index === activeIndex;
-                                return (
-                                    <button
-                                        key={residence.id}
-                                        type="button"
-                                        onClick={() => setActiveIndex(index)}
-                                        aria-current={isActive ? "true" : undefined}
-                                        className={`min-w-0 border-b-2 px-0 py-2.5 text-left transition-colors lg:border-b-0 lg:border-l-2 lg:px-3 lg:py-2.5 lg:pl-4 ${
-                                            isActive
-                                                ? "border-[#2f2721] text-[#2f2721] lg:-ml-px"
-                                                : "border-transparent text-neutral-500 hover:text-neutral-800"
-                                        }`}
+                            {propertyGroups.map((group) => (
+                                <div key={group.id} className="min-w-0">
+                                    <h4
+                                        id={`residence-group-${group.id}`}
+                                        className="text-[10px] font-semibold uppercase leading-none tracking-[0.18em] text-[#8d5639]"
                                     >
-                                        <span
-                                            className={`block text-pretty text-[0.92rem] leading-snug sm:text-base lg:inline ${
-                                                isActive ? "font-medium" : "font-normal"
-                                            }`}
-                                            style={{ fontFamily: "var(--font-serif)" }}
-                                        >
-                                            {residence.title}
-                                        </span>
-                                        <span className="mt-0.5 block text-[10px] font-normal normal-case tracking-normal text-neutral-500 lg:mt-1">
-                                            ({residence.specs.superficie})
-                                        </span>
-                                    </button>
-                                );
-                            })}
+                                        {group.title}
+                                    </h4>
+                                    <div
+                                        className="mt-3 grid min-w-0 grid-cols-4 gap-2 sm:gap-2.5 lg:grid-cols-1"
+                                        aria-labelledby={`residence-group-${group.id}`}
+                                    >
+                                        {group.residences.map((residence) => {
+                                            const residenceIndex = residences.findIndex((item) => item.id === residence.id);
+                                            const isActive = residenceIndex === activeIndex;
+                                            return (
+                                                <button
+                                                    key={residence.id}
+                                                    type="button"
+                                                    onClick={() => setActiveIndex(residenceIndex)}
+                                                    aria-current={isActive ? "true" : undefined}
+                                                    aria-label={`${group.title} ${residence.typeLabel}, ${residence.specs.superficie}`}
+                                                    className={`min-w-0 rounded-[6px] border px-1.5 py-2 text-center transition-all duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b76d4b] active:scale-[0.98] sm:px-2.5 lg:px-2 lg:py-2.5 ${
+                                                        isActive
+                                                            ? "border-[#2f2721] bg-[#2f2721] text-[#fff7ef] shadow-[0_12px_24px_rgba(47,39,33,0.16)]"
+                                                            : "border-[#3a3028]/15 bg-[#f7eee5]/60 text-[#2f2721]/75 hover:border-[#b76d4b]/40 hover:bg-[#fff8f1] hover:text-[#2f2721]"
+                                                    }`}
+                                                >
+                                                    <span
+                                                        className="block truncate text-[10px] font-semibold uppercase leading-none tracking-[0.12em] sm:text-[11px]"
+                                                        style={{ fontFamily: "var(--font-sans)" }}
+                                                    >
+                                                        {residence.typeLabel}
+                                                    </span>
+                                                    <span
+                                                        className={`mt-1.5 block truncate text-[10px] font-medium leading-none tabular-nums sm:text-[11px] ${
+                                                            isActive ? "text-[#f1d6c8]" : "text-neutral-500"
+                                                        }`}
+                                                    >
+                                                        {residence.specs.superficie}
+                                                    </span>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            ))}
                         </nav>
 
                         {/* Residence title — center row on lg; details align to carousel row */}

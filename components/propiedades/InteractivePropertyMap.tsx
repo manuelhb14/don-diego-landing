@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import {
-  Compass,
   Maximize2,
   Minimize2,
   Minus,
@@ -14,6 +13,7 @@ import { type PropertyCardData } from "./PropertyCard";
 
 type PropertyMapType = "wellness" | "residencial" | "farm" | "presa";
 type MapFeatureId = "padel-courts";
+type MapBuildStage = "stage1" | "final";
 
 export type PropertyMapItem = PropertyCardData & {
   mapType: PropertyMapType;
@@ -63,8 +63,23 @@ const OVERVIEW_MAP_WIDTH = 2878;
 const OVERVIEW_MAP_HEIGHT = 1858;
 const OVERVIEW_MAP_CENTER_X = OVERVIEW_MAP_WIDTH / 2;
 const OVERVIEW_MAP_CENTER_Y = OVERVIEW_MAP_HEIGHT / 2;
-const OVERVIEW_MAP_IMAGE_SRC = "/images/map.svg";
-const DETAIL_MAP_IMAGE_SRC = "/final/masterplan_v2.png";
+const MAP_STAGE_IMAGES: Record<
+  MapBuildStage,
+  {
+    overviewSrc: string;
+    detailSrc: string;
+  }
+> = {
+  stage1: {
+    overviewSrc: "/propiedades/mapa-etapa-1-overview.svg",
+    detailSrc: "/propiedades/mapa-etapa-1-detail.png",
+  },
+  final: {
+    overviewSrc: "/propiedades/mapa-final-detail.png",
+    detailSrc: "/propiedades/mapa-final-detail.png",
+  },
+};
+const MAP_STAGE_ORDER: MapBuildStage[] = ["stage1", "final"];
 const DEFAULT_DETAIL_MAP_TYPE: PropertyMapType = "residencial";
 const DETAIL_ZOOM_PADDING = 1.22;
 const MAX_DETAIL_ZOOM = 3.4;
@@ -245,8 +260,10 @@ export default function InteractivePropertyMap({
   const [lastMapType, setLastMapType] = useState<PropertyMapType | null>(null);
   const [selectedFeatureId, setSelectedFeatureId] = useState<MapFeatureId | null>(null);
   const [isMapExpanded, setIsMapExpanded] = useState(false);
+  const [activeMapStage, setActiveMapStage] = useState<MapBuildStage>("stage1");
 
   const fallbackMapType = lastMapType ?? DEFAULT_DETAIL_MAP_TYPE;
+  const activeStageImages = MAP_STAGE_IMAGES[activeMapStage];
   const activeProperty = useMemo(
     () => properties.find((property) => property.mapType === activeMapType) ?? null,
     [activeMapType, properties],
@@ -278,8 +295,10 @@ export default function InteractivePropertyMap({
         close: "Close map panel",
         back: "Back to masterplan",
         zoomIn: "Open selected section",
-        reset: "Reset map",
         amenity: "Amenity",
+        mapStage: "Development stage",
+        stage1: "Stage 1",
+        final: "Final",
       }
       : {
         masterplan: "Masterplan",
@@ -290,9 +309,12 @@ export default function InteractivePropertyMap({
         close: "Cerrar panel del mapa",
         back: "Volver al masterplan",
         zoomIn: "Abrir seccion seleccionada",
-        reset: "Reiniciar mapa",
         amenity: "Amenidad",
+        mapStage: "Etapa del desarrollo",
+        stage1: "Etapa 1",
+        final: "Final",
       };
+  const activeMapStageLabel = activeMapStage === "stage1" ? panelLabels.stage1 : panelLabels.final;
 
   const openDetailView = (mapType: PropertyMapType | null) => {
     if (!mapType) return;
@@ -365,11 +387,48 @@ export default function InteractivePropertyMap({
             }`}
         >
           <div className="min-w-0">
+            <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p
+                className="text-[11px] uppercase tracking-[0.28em] text-[#AA7D69]"
+                style={{ fontFamily: "var(--font-sans)" }}
+              >
+                {panelLabels.mapStage}
+              </p>
+              <div
+                role="group"
+                aria-label={panelLabels.mapStage}
+                className="inline-grid w-full grid-cols-2 overflow-hidden border border-[#E6D8C8] bg-[#fff8ed]/80 sm:w-auto"
+              >
+                {MAP_STAGE_ORDER.map((stage) => {
+                  const selected = activeMapStage === stage;
+                  return (
+                    <button
+                      type="button"
+                      key={stage}
+                      aria-pressed={selected}
+                      onClick={() => setActiveMapStage(stage)}
+                      className={`h-11 min-w-0 border-l border-[#E6D8C8] px-5 text-[13px] transition-colors first:border-l-0 active:scale-[0.98] sm:min-w-[8.5rem] ${selected
+                        ? "bg-[#222] text-[#fff8ed]"
+                        : "bg-transparent text-[#222]/68 hover:bg-[#f4eadb] hover:text-[#222]"
+                        }`}
+                      style={{ fontFamily: "var(--font-serif)" }}
+                    >
+                      {stage === "stage1" ? panelLabels.stage1 : panelLabels.final}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
             <div className="relative overflow-hidden border border-[#E6D8C8] bg-[#fff8ed] shadow-[0_24px_80px_-60px_rgba(34,34,34,0.45)]">
               <svg
                 viewBox={`0 0 ${OVERVIEW_MAP_WIDTH} ${OVERVIEW_MAP_HEIGHT}`}
                 role="img"
-                aria-label={activeMapType ? `${title}: ${sectionMeta[activeMapType].label}` : title}
+                aria-label={
+                  activeMapType
+                    ? `${title}: ${activeMapStageLabel}, ${sectionMeta[activeMapType].label}`
+                    : `${title}: ${activeMapStageLabel}`
+                }
                 className="block aspect-[2878/1858] h-auto w-full select-none touch-pan-y"
               >
                 <g
@@ -382,7 +441,7 @@ export default function InteractivePropertyMap({
                   }}
                 >
                   <image
-                    href={OVERVIEW_MAP_IMAGE_SRC}
+                    href={activeStageImages.overviewSrc}
                     width={OVERVIEW_MAP_WIDTH}
                     height={OVERVIEW_MAP_HEIGHT}
                     preserveAspectRatio="xMidYMid meet"
@@ -390,7 +449,7 @@ export default function InteractivePropertyMap({
                     opacity={activeProperty ? 0 : 1}
                   />
                   <image
-                    href={DETAIL_MAP_IMAGE_SRC}
+                    href={activeStageImages.detailSrc}
                     width={OVERVIEW_MAP_WIDTH}
                     height={OVERVIEW_MAP_HEIGHT}
                     preserveAspectRatio="xMidYMid meet"
@@ -471,22 +530,9 @@ export default function InteractivePropertyMap({
                   aria-label={panelLabels.back}
                   onClick={closeDetailView}
                   disabled={!activeProperty}
-                  className="flex h-11 w-11 items-center justify-center border-b border-[#E6D8C8] text-[#222] transition-colors hover:bg-[#f4eadb] disabled:cursor-not-allowed disabled:text-[#222]/25 disabled:hover:bg-transparent"
-                >
-                  <Minus className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  aria-label={panelLabels.reset}
-                  onClick={() => {
-                    setActiveMapType(null);
-                    setLastMapType(null);
-                    setSelectedFeatureId(null);
-                  }}
-                  disabled={!activeProperty && !lastMapType}
                   className="flex h-11 w-11 items-center justify-center text-[#222] transition-colors hover:bg-[#f4eadb] disabled:cursor-not-allowed disabled:text-[#222]/25 disabled:hover:bg-transparent"
                 >
-                  <Compass className="h-5 w-5" />
+                  <Minus className="h-5 w-5" />
                 </button>
               </div>
 
@@ -542,7 +588,7 @@ export default function InteractivePropertyMap({
             ) : null}
           </div>
 
-          <aside className={`min-w-0 ${isMapExpanded ? "hidden" : ""}`}>
+          <aside className={`min-w-0 lg:mt-[4.25rem] ${isMapExpanded ? "hidden" : ""}`}>
             <div className="relative border border-[#E6D8C8] bg-[#fff8ed] p-6 pt-12 shadow-[0_22px_60px_-48px_rgba(34,34,34,0.45)] md:p-8 md:pt-14">
               {selectedFeature ? (
                 <>

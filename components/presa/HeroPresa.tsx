@@ -808,7 +808,7 @@ export default function HeroPresa() {
                         style={{ y: isDesktop ? imgY : 0 }}
                     >
                         <Image
-                            src="/images/renders/presa-1.png"
+                            src="/final/presa.png"
                             alt={t("imageAlt")}
                             fill
                             priority

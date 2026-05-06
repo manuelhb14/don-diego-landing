@@ -23,42 +23,94 @@ type ResidenceSpec = {
 
 type Residence = {
     id: number;
+    category: "departamentos" | "duplex";
     title: string;
+    typeLabel: string;
     accent: string;
     accentSoft: string;
     description: string;
+    mainImages?: string[];
     images: string[];
     specs: ResidenceSpec;
     highlights: string[];
 };
 
 const RESIDENCE_IMAGE_SIZES = "(min-width: 1280px) 680px, (min-width: 1024px) 52vw, 100vw";
+const RESIDENCE_SPLIT_IMAGE_SIZES = "(min-width: 1280px) 340px, (min-width: 1024px) 26vw, 50vw";
 const RESIDENCE_THUMB_IMAGE_SIZES = "(min-width: 1280px) 210px, (min-width: 1024px) 16vw, 33vw";
+const CASA_DUPLEX_MAIN_IMAGES = ["/final/Casa Duplex Tipo 1-A (Planta) Mid-Century.png"];
+const CASA_DUPLEX_RENDER_IMAGES = [
+    "/final/3 Recamara Principal.png",
+    "/final/6 Terraza.png",
+    "/final/1 Sala Comedor y Cocina.png",
+];
 
 function ResidenceImageShowcase({
+    mainImages,
     images,
     title,
     accent,
     accentSoft,
     t,
 }: {
+    mainImages?: string[];
     images: string[];
     title: string;
     accent: string;
     accentSoft: string;
     t: (key: string, values?: Record<string, string | number>) => string;
 }) {
-    const galleryImages = images.slice(1, 4);
+    const hasExplicitMainImages = Boolean(mainImages?.length);
+    const resolvedMainImages = hasExplicitMainImages ? mainImages ?? [] : images.slice(0, 1);
+    const primaryImage = resolvedMainImages[0];
+    const splitMainImages = resolvedMainImages.length === 2 ? resolvedMainImages : null;
+    const galleryImages = hasExplicitMainImages ? images.slice(0, 3) : images.slice(1, 4);
+    const carouselImages = hasExplicitMainImages ? [...resolvedMainImages, ...images] : images;
+    const containCarouselImageCount = hasExplicitMainImages ? resolvedMainImages.length : 0;
+
+    if (!primaryImage) return null;
 
     return (
         <>
             <div className="lg:hidden">
-                <ResidenceImageCarousel images={images} title={title} accent={accent} accentSoft={accentSoft} t={t} />
+                <ResidenceImageCarousel
+                    images={carouselImages}
+                    containImageCount={containCarouselImageCount}
+                    title={title}
+                    accent={accent}
+                    accentSoft={accentSoft}
+                    t={t}
+                />
             </div>
             <div className="hidden min-w-0 lg:block">
-                <div className="relative aspect-[2/1] w-full overflow-hidden">
-                    <Image src={images[0]} alt={title} fill className="object-cover" sizes={RESIDENCE_IMAGE_SIZES} />
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/35 to-transparent" />
+                <div
+                    className={`relative w-full overflow-hidden ${
+                        hasExplicitMainImages ? "aspect-[1344/752] bg-[#f7eee5]" : "aspect-[2/1]"
+                    }`}
+                >
+                    {splitMainImages ? (
+                        <div className="grid h-full w-full grid-cols-2 gap-px bg-[#EFE6DC]">
+                            {splitMainImages.map((src, i) => (
+                                <div key={`${i}-${src}`} className="relative min-w-0 overflow-hidden bg-[#f7eee5]">
+                                    <Image
+                                        src={src}
+                                        alt={t("imageAlt", { title, index: i + 1, total: splitMainImages.length })}
+                                        fill
+                                        className="object-contain"
+                                        sizes={RESIDENCE_SPLIT_IMAGE_SIZES}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <Image
+                            src={primaryImage}
+                            alt={title}
+                            fill
+                            className={hasExplicitMainImages ? "object-contain" : "object-cover"}
+                            sizes={RESIDENCE_IMAGE_SIZES}
+                        />
+                    )}
                 </div>
                 {galleryImages.length > 0 && (
                     <div className="mt-3 grid grid-cols-3 gap-3">
@@ -66,7 +118,7 @@ function ResidenceImageShowcase({
                             <div key={`${i}-${src}`} className="relative aspect-[4/3] min-w-0 overflow-hidden">
                                 <Image
                                     src={src}
-                                    alt={t("imageAlt", { title, index: i + 2, total: images.length })}
+                                    alt={t("imageAlt", { title, index: resolvedMainImages.length + i + 1, total: carouselImages.length })}
                                     fill
                                     className="object-cover"
                                     sizes={RESIDENCE_THUMB_IMAGE_SIZES}
@@ -82,12 +134,14 @@ function ResidenceImageShowcase({
 
 function ResidenceImageCarousel({
     images,
+    containImageCount = 0,
     title,
     accent,
     accentSoft,
     t,
 }: {
     images: string[];
+    containImageCount?: number;
     title: string;
     accent: string;
     accentSoft: string;
@@ -96,25 +150,43 @@ function ResidenceImageCarousel({
     const n = images.length;
 
     if (n === 1) {
+        const shouldContainImage = containImageCount > 0;
         return (
-            <div className="relative aspect-[16/10] w-full overflow-hidden">
-                <Image src={images[0]} alt={title} fill className="object-cover" sizes={RESIDENCE_IMAGE_SIZES} />
+            <div className={`relative aspect-[16/10] w-full overflow-hidden ${shouldContainImage ? "bg-[#f7eee5]" : ""}`}>
+                <Image
+                    src={images[0]}
+                    alt={title}
+                    fill
+                    className={shouldContainImage ? "object-contain" : "object-cover"}
+                    sizes={RESIDENCE_IMAGE_SIZES}
+                />
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/45 to-transparent" />
             </div>
         );
     }
 
-    return <ResidenceImageCarouselEmbla images={images} title={title} accent={accent} accentSoft={accentSoft} t={t} />;
+    return (
+        <ResidenceImageCarouselEmbla
+            images={images}
+            containImageCount={containImageCount}
+            title={title}
+            accent={accent}
+            accentSoft={accentSoft}
+            t={t}
+        />
+    );
 }
 
 function ResidenceImageCarouselEmbla({
     images,
+    containImageCount = 0,
     title,
     accent,
     accentSoft,
     t,
 }: {
     images: string[];
+    containImageCount?: number;
     title: string;
     accent: string;
     accentSoft: string;
@@ -144,20 +216,23 @@ function ResidenceImageCarouselEmbla({
                 className="group/carousel w-full overflow-hidden [&_[data-slot=carousel-content]]:h-full"
             >
                 <CarouselContent className="-ml-0 aspect-[16/10] h-auto">
-                    {images.map((src, i) => (
-                        <CarouselItem key={`${i}-${src}`} className="h-full basis-full pl-0">
-                            <div className="relative h-full w-full">
-                                <Image
-                                    src={src}
-                                    alt={t("imageAlt", { title, index: i + 1, total: n })}
-                                    fill
-                                    className="object-cover"
-                                    sizes={RESIDENCE_IMAGE_SIZES}
-                                />
-                                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/45 to-transparent" />
-                            </div>
-                        </CarouselItem>
-                    ))}
+                    {images.map((src, i) => {
+                        const shouldContainImage = i < containImageCount;
+                        return (
+                            <CarouselItem key={`${i}-${src}`} className="h-full basis-full pl-0">
+                                <div className={`relative h-full w-full ${shouldContainImage ? "bg-[#f7eee5]" : ""}`}>
+                                    <Image
+                                        src={src}
+                                        alt={t("imageAlt", { title, index: i + 1, total: n })}
+                                        fill
+                                        className={shouldContainImage ? "object-contain" : "object-cover"}
+                                        sizes={RESIDENCE_IMAGE_SIZES}
+                                    />
+                                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/45 to-transparent" />
+                                </div>
+                            </CarouselItem>
+                        );
+                    })}
                 </CarouselContent>
                 <CarouselPrevious className="left-1 z-30 h-7 w-7 border border-[#f4e6db]/80 bg-[#f4e6db]/90 text-[#8d5639] opacity-100 shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-[#f4e6db] disabled:bg-[#f4e6db]/70 disabled:text-[#8d5639]/35 active:!-translate-y-1/2 md:left-3 md:h-9 md:w-9 md:pointer-events-none md:opacity-0 md:group-hover/carousel:pointer-events-auto md:group-hover/carousel:opacity-100" />
                 <CarouselNext className="right-1 z-30 h-7 w-7 border border-[#f4e6db]/80 bg-[#f4e6db]/90 text-[#8d5639] opacity-100 shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-[#f4e6db] disabled:bg-[#f4e6db]/70 disabled:text-[#8d5639]/35 active:!-translate-y-1/2 md:right-3 md:h-9 md:w-9 md:pointer-events-none md:opacity-0 md:group-hover/carousel:pointer-events-auto md:group-hover/carousel:opacity-100" />
@@ -267,18 +342,23 @@ export default function ResidencesShowcasePropiedades() {
         estacionamientos: t("labels.estacionamientos"),
     };
 
+    const typeLabel = (number: number) => t("typeLabel", { number });
+
     const residences: Residence[] = [
         {
             id: 1,
-            title: t("residences.departamentos.title"),
+            category: "departamentos",
+            title: t("unitNames.departamento", { type: typeLabel(1) }),
+            typeLabel: typeLabel(1),
             accent: "#b76d4b",
             accentSoft: "#e7d2c6",
             description: t("residences.departamentos.description"),
-            images: ["/residencias/departamentos.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
+            mainImages: CASA_DUPLEX_MAIN_IMAGES,
+            images: CASA_DUPLEX_RENDER_IMAGES,
             specs: {
-                superficie: t("residences.departamentos.specs.superficie"),
-                recamaras: t("residences.departamentos.specs.recamaras"),
-                banos: t("residences.departamentos.specs.banos"),
+                superficie: "113 m2",
+                recamaras: "2",
+                banos: "2",
                 estacionamientos: "2",
             },
             highlights: [
@@ -289,15 +369,84 @@ export default function ResidencesShowcasePropiedades() {
         },
         {
             id: 2,
-            title: t("residences.duplex1.title"),
+            category: "departamentos",
+            title: t("unitNames.departamento", { type: typeLabel(2) }),
+            typeLabel: typeLabel(2),
+            accent: "#b76d4b",
+            accentSoft: "#e7d2c6",
+            description: t("residences.departamentos.description"),
+            mainImages: CASA_DUPLEX_MAIN_IMAGES,
+            images: CASA_DUPLEX_RENDER_IMAGES,
+            specs: {
+                superficie: "128 m2",
+                recamaras: "2",
+                banos: "2.5",
+                estacionamientos: "2",
+            },
+            highlights: [
+                t("residences.departamentos.highlights.1"),
+                t("residences.departamentos.highlights.2"),
+                t("residences.departamentos.highlights.3"),
+            ],
+        },
+        {
+            id: 3,
+            category: "departamentos",
+            title: t("unitNames.departamento", { type: typeLabel(3) }),
+            typeLabel: typeLabel(3),
+            accent: "#b76d4b",
+            accentSoft: "#e7d2c6",
+            description: t("residences.departamentos.description"),
+            mainImages: CASA_DUPLEX_MAIN_IMAGES,
+            images: CASA_DUPLEX_RENDER_IMAGES,
+            specs: {
+                superficie: "146 m2",
+                recamaras: "3",
+                banos: "3",
+                estacionamientos: "2",
+            },
+            highlights: [
+                t("residences.departamentos.highlights.1"),
+                t("residences.departamentos.highlights.2"),
+                t("residences.departamentos.highlights.3"),
+            ],
+        },
+        {
+            id: 4,
+            category: "departamentos",
+            title: t("unitNames.departamento", { type: typeLabel(4) }),
+            typeLabel: typeLabel(4),
+            accent: "#b76d4b",
+            accentSoft: "#e7d2c6",
+            description: t("residences.departamentos.description"),
+            mainImages: CASA_DUPLEX_MAIN_IMAGES,
+            images: CASA_DUPLEX_RENDER_IMAGES,
+            specs: {
+                superficie: "173 m2",
+                recamaras: "3",
+                banos: "3.5",
+                estacionamientos: "2",
+            },
+            highlights: [
+                t("residences.departamentos.highlights.1"),
+                t("residences.departamentos.highlights.2"),
+                t("residences.departamentos.highlights.3"),
+            ],
+        },
+        {
+            id: 5,
+            category: "duplex",
+            title: t("unitNames.duplex", { type: typeLabel(1) }),
+            typeLabel: typeLabel(1),
             accent: "#b76d4b",
             accentSoft: "#e7d2c6",
             description: t("residences.duplex1.description"),
-            images: ["/residencias/duplex-1.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
+            mainImages: CASA_DUPLEX_MAIN_IMAGES,
+            images: CASA_DUPLEX_RENDER_IMAGES,
             specs: {
-                superficie: t("residences.duplex1.specs.superficie"),
-                recamaras: t("residences.duplex1.specs.recamaras"),
-                banos: t("residences.duplex1.specs.banos"),
+                superficie: "128 m2",
+                recamaras: "2",
+                banos: "2.5",
                 estacionamientos: "2",
             },
             highlights: [
@@ -307,16 +456,19 @@ export default function ResidencesShowcasePropiedades() {
             ],
         },
         {
-            id: 3,
-            title: t("residences.duplex2.title"),
+            id: 6,
+            category: "duplex",
+            title: t("unitNames.duplex", { type: typeLabel(2) }),
+            typeLabel: typeLabel(2),
             accent: "#b76d4b",
             accentSoft: "#e7d2c6",
             description: t("residences.duplex2.description"),
-            images: ["/residencias/duplex-2.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
+            mainImages: CASA_DUPLEX_MAIN_IMAGES,
+            images: CASA_DUPLEX_RENDER_IMAGES,
             specs: {
-                superficie: t("residences.duplex2.specs.superficie"),
-                recamaras: t("residences.duplex2.specs.recamaras"),
-                banos: t("residences.duplex2.specs.banos"),
+                superficie: "155 m2",
+                recamaras: "3",
+                banos: "3",
                 estacionamientos: "2",
             },
             highlights: [
@@ -326,16 +478,19 @@ export default function ResidencesShowcasePropiedades() {
             ],
         },
         {
-            id: 4,
-            title: t("residences.duplex3.title"),
+            id: 7,
+            category: "duplex",
+            title: t("unitNames.duplex", { type: typeLabel(3) }),
+            typeLabel: typeLabel(3),
             accent: "#b76d4b",
             accentSoft: "#e7d2c6",
             description: t("residences.duplex3.description"),
-            images: ["/residencias/duplex-3.webp", "/babylon/duplex-1-rear.png", "/babylon/duplex-1-key-interior.png", "/babylon/duplex-1-primary-bedroom.png", "/babylon/duplex-1-primary-bath.png"],
+            mainImages: CASA_DUPLEX_MAIN_IMAGES,
+            images: CASA_DUPLEX_RENDER_IMAGES,
             specs: {
-                superficie: t("residences.duplex3.specs.superficie"),
-                recamaras: t("residences.duplex3.specs.recamaras"),
-                banos: t("residences.duplex3.specs.banos"),
+                superficie: "166 m2",
+                recamaras: "3",
+                banos: "3.5",
                 estacionamientos: "2",
             },
             highlights: [
@@ -343,6 +498,41 @@ export default function ResidencesShowcasePropiedades() {
                 t("residences.duplex3.highlights.2"),
                 t("residences.duplex3.highlights.3"),
             ],
+        },
+        {
+            id: 8,
+            category: "duplex",
+            title: t("unitNames.duplex", { type: typeLabel(4) }),
+            typeLabel: typeLabel(4),
+            accent: "#b76d4b",
+            accentSoft: "#e7d2c6",
+            description: t("residences.duplex3.description"),
+            mainImages: CASA_DUPLEX_MAIN_IMAGES,
+            images: CASA_DUPLEX_RENDER_IMAGES,
+            specs: {
+                superficie: "185 m2",
+                recamaras: "4",
+                banos: "4",
+                estacionamientos: "2",
+            },
+            highlights: [
+                t("residences.duplex3.highlights.1"),
+                t("residences.duplex3.highlights.2"),
+                t("residences.duplex3.highlights.3"),
+            ],
+        },
+    ];
+
+    const propertyGroups = [
+        {
+            id: "departamentos",
+            title: t("groups.departamentos"),
+            residences: residences.filter((residence) => residence.category === "departamentos"),
+        },
+        {
+            id: "duplex",
+            title: t("groups.duplex"),
+            residences: residences.filter((residence) => residence.category === "duplex"),
         },
     ];
 
@@ -354,36 +544,55 @@ export default function ResidencesShowcasePropiedades() {
                 <div className="grid min-w-0 grid-cols-1 gap-8 md:gap-10 lg:grid-cols-[minmax(0,200px)_minmax(0,1fr)_minmax(0,300px)] lg:grid-rows-[minmax(6.5rem,auto)_minmax(30rem,auto)] lg:gap-x-0 lg:gap-y-0">
                     <nav
                         aria-label={t("propertyNavAria")}
-                        className="grid min-w-0 grid-cols-2 gap-x-4 gap-y-3 border-b border-[#3a3028]/10 pb-5 lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:flex lg:flex-col lg:gap-2.5 lg:self-start lg:border-b-0 lg:pr-8 lg:pt-0"
+                        className="grid min-w-0 gap-5 border-b border-[#3a3028]/10 pb-6 lg:col-start-1 lg:row-start-1 lg:row-span-2 lg:self-start lg:border-b-0 lg:pr-8 lg:pt-0"
                     >
-                        {residences.map((residence, index) => {
-                            const isActive = index === activeIndex;
-                            return (
-                                <button
-                                    key={residence.id}
-                                    type="button"
-                                    onClick={() => setActiveIndex(index)}
-                                    aria-current={isActive ? "true" : undefined}
-                                    className={`min-w-0 border-b-2 px-0 py-2.5 text-left transition-colors lg:border-b-0 lg:border-l-2 lg:px-3 lg:py-2.5 lg:pl-4 ${
-                                        isActive
-                                            ? "border-[#2f2721] text-[#2f2721] lg:-ml-px"
-                                            : "border-transparent text-neutral-500 hover:text-neutral-800"
-                                    }`}
+                        {propertyGroups.map((group) => (
+                            <div key={group.id} className="min-w-0">
+                                <h4
+                                    id={`residence-group-propiedades-${group.id}`}
+                                    className="text-[10px] font-semibold uppercase leading-none tracking-[0.18em] text-[#8d5639]"
                                 >
-                                    <span
-                                        className={`block text-pretty text-[0.92rem] leading-snug sm:text-base lg:inline ${
-                                            isActive ? "font-medium" : "font-normal"
-                                        }`}
-                                        style={{ fontFamily: "var(--font-serif)" }}
-                                    >
-                                        {residence.title}
-                                    </span>
-                                    <span className="mt-0.5 block text-[10px] font-normal normal-case tracking-normal text-neutral-500 lg:mt-1">
-                                        ({residence.specs.superficie})
-                                    </span>
-                                </button>
-                            );
-                        })}
+                                    {group.title}
+                                </h4>
+                                <div
+                                    className="mt-3 grid min-w-0 grid-cols-4 gap-2 sm:gap-2.5 lg:grid-cols-1"
+                                    aria-labelledby={`residence-group-propiedades-${group.id}`}
+                                >
+                                    {group.residences.map((residence) => {
+                                        const residenceIndex = residences.findIndex((item) => item.id === residence.id);
+                                        const isActive = residenceIndex === activeIndex;
+                                        return (
+                                            <button
+                                                key={residence.id}
+                                                type="button"
+                                                onClick={() => setActiveIndex(residenceIndex)}
+                                                aria-current={isActive ? "true" : undefined}
+                                                aria-label={`${group.title} ${residence.typeLabel}, ${residence.specs.superficie}`}
+                                                className={`min-w-0 rounded-[6px] border px-1.5 py-2 text-center transition-all duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b76d4b] active:scale-[0.98] sm:px-2.5 lg:px-2 lg:py-2.5 ${
+                                                    isActive
+                                                        ? "border-[#2f2721] bg-[#2f2721] text-[#fff7ef] shadow-[0_12px_24px_rgba(47,39,33,0.16)]"
+                                                        : "border-[#3a3028]/15 bg-[#f7eee5]/60 text-[#2f2721]/75 hover:border-[#b76d4b]/40 hover:bg-[#fff8f1] hover:text-[#2f2721]"
+                                                }`}
+                                            >
+                                                <span
+                                                    className="block truncate text-[10px] font-semibold uppercase leading-none tracking-[0.12em] sm:text-[11px]"
+                                                    style={{ fontFamily: "var(--font-sans)" }}
+                                                >
+                                                    {residence.typeLabel}
+                                                </span>
+                                                <span
+                                                    className={`mt-1.5 block truncate text-[10px] font-medium leading-none tabular-nums sm:text-[11px] ${
+                                                        isActive ? "text-[#f1d6c8]" : "text-neutral-500"
+                                                    }`}
+                                                >
+                                                    {residence.specs.superficie}
+                                                </span>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        ))}
                     </nav>
 
                     <div className="min-w-0 lg:contents">
@@ -404,6 +613,7 @@ export default function ResidencesShowcasePropiedades() {
                             className="relative w-full min-w-0 self-stretch lg:col-start-2 lg:row-start-2 lg:pr-8"
                         >
                             <ResidenceImageShowcase
+                                mainImages={active.mainImages}
                                 images={active.images}
                                 title={active.title}
                                 accent={active.accent}

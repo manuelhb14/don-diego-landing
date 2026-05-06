@@ -19,7 +19,7 @@ export default function Services() {
     const serviceCards = [
         {
             href: "/residencial",
-            src: "/final/residencial.webp",
+            src: "/final/club-residencial.png",
             alt: tp("residencial.name"),
             line1: ts("cardClubL1"),
             line2: ts("cardClubL2"),
@@ -29,7 +29,7 @@ export default function Services() {
         },
         {
             href: "/farm",
-            src: "/final/organic-farms.webp",
+            src: "/final/farm.jpg",
             alt: tp("farm.name"),
             line1: ts("cardFarmL1"),
             line2: ts("cardFarmL2"),
@@ -39,7 +39,7 @@ export default function Services() {
         },
         {
             href: "/wellness",
-            src: "/final/wellness-2.webp",
+            src: "/final/wellness.png",
             alt: tp("wellness.name"),
             line1: ts("cardWellnessL1"),
             line2: ts("cardWellnessL2"),
@@ -49,7 +49,7 @@ export default function Services() {
         },
         {
             href: "/presa",
-            src: "/final/presa.webp",
+            src: "/final/presa-de-la-cantera.png",
             alt: tp("presa.name"),
             line1: ts("cardPresaL1"),
             line2: ts("cardPresaL2"),

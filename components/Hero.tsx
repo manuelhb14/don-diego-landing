@@ -22,7 +22,7 @@ export default function Hero({ initialWeather }: HeroProps) {
     });
 
     const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-    const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+    const contentY = useTransform(scrollYProgress, [0, 1], ["-56px", "24px"]);
 
     return (
         <section ref={ref} className="relative flex h-[800px] md:h-dvh min-h-[700px] w-full items-center justify-center overflow-hidden bg-[#111]">
@@ -41,7 +41,7 @@ export default function Hero({ initialWeather }: HeroProps) {
 
             {/* Centered content block */}
             <motion.div
-                className="relative z-10 mt-8 flex flex-col items-center justify-center px-4 text-center w-full max-w-4xl [text-shadow:none] md:mt-0 md:px-8 md:[text-shadow:0_1px_2px_rgba(0,0,0,0.42),0_2px_18px_rgba(0,0,0,0.18)]"
+                className="relative z-10 flex flex-col items-center justify-center px-4 text-center w-full max-w-4xl [text-shadow:none] md:px-8 md:[text-shadow:0_1px_2px_rgba(0,0,0,0.42),0_2px_18px_rgba(0,0,0,0.18)]"
                 style={{ y: contentY }}
             >
                 {/* Location tag */}
@@ -237,9 +237,9 @@ export default function Hero({ initialWeather }: HeroProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
-                    className="mt-6 lg:mt-4 max-w-md"
+                    className="mt-3 max-w-[19rem] sm:max-w-sm md:mt-6 md:max-w-md lg:mt-4"
                 >
-                    <p className="text-[#FFF3E1] text-lg md:text-xl font-medium leading-relaxed mb-4 [text-shadow:0_1px_2px_rgba(0,0,0,0.42),0_2px_18px_rgba(0,0,0,0.18)]" style={{ fontFamily: "var(--font-serif)" }}>
+                    <p className="text-[#FFF3E1] text-base font-medium leading-snug mb-3 sm:text-lg md:text-xl md:leading-relaxed md:mb-4" style={{ fontFamily: "var(--font-serif)" }}>
                         <EditableText contentKey="home.hero.bodyLine1" fallback={th("bodyLine1")} />
                         <br />
                         <EditableText contentKey="home.hero.bodyLine2" fallback={th("bodyLine2")} />
@@ -249,18 +249,18 @@ export default function Hero({ initialWeather }: HeroProps) {
                         className="inline-flex items-center justify-center min-h-14 px-12 py-5 -mx-12 -my-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFF3E1]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111]"
                     >
                         <motion.span
-                            className="inline-flex items-center justify-center gap-5 group"
+                            className="inline-flex items-center justify-center gap-3 group sm:gap-4 md:gap-5"
                             whileHover={{ y: 2 }}
                             transition={{ type: "spring", stiffness: 400 }}
                         >
-                            <span className="h-px w-10 bg-[#FFF3E1]/40 group-hover:w-14 transition-all duration-500" />
+                            <span className="h-px w-6 bg-[#FFF3E1]/40 group-hover:w-8 transition-all duration-500 sm:w-8 md:w-10 md:group-hover:w-14" />
                             <span
-                                className="text-sm tracking-[0.22em] text-[#FFF3E1] uppercase"
+                                className="text-[11px] tracking-[0.18em] text-[#FFF3E1] uppercase sm:text-xs md:text-sm md:tracking-[0.22em]"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 <EditableText contentKey="home.hero.explore" fallback={th("explore")} />
                             </span>
-                            <span className="h-px w-10 bg-[#FFF3E1]/40 group-hover:w-14 transition-all duration-500" />
+                            <span className="h-px w-6 bg-[#FFF3E1]/40 group-hover:w-8 transition-all duration-500 sm:w-8 md:w-10 md:group-hover:w-14" />
                         </motion.span>
                     </Link>
                 </motion.div>

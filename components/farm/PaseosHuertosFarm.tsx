@@ -89,9 +89,9 @@ export default function PaseosHuertosFarm() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7 }}
-                    className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-12 lg:grid-rows-2 lg:gap-4"
+                    className="grid h-[clamp(330px,96vw,560px)] grid-cols-2 grid-rows-[minmax(0,2fr)_minmax(0,1fr)] gap-3 sm:gap-4 lg:h-auto lg:grid-cols-12 lg:grid-rows-2 lg:gap-4"
                 >
-                    <div className="relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/11] lg:col-span-7 lg:row-span-2 lg:aspect-auto lg:min-h-[min(56vh,540px)]">
+                    <div className="relative col-span-2 row-start-1 w-full overflow-hidden lg:col-span-7 lg:row-span-2 lg:min-h-[min(56vh,540px)]">
                         <Image
                             src={images[0].src}
                             alt={images[0].alt}
@@ -105,23 +105,27 @@ export default function PaseosHuertosFarm() {
                         />
                     </div>
 
-                    <div className="relative aspect-[4/3] overflow-hidden shadow-[0_16px_40px_rgba(26,25,23,0.1)] ring-1 ring-[#1a1917]/[0.06] sm:aspect-[16/11] lg:col-span-5 lg:row-start-1 lg:aspect-auto lg:min-h-0">
-                        <Image
-                            src={images[1].src}
-                            alt={images[1].alt}
-                            fill
-                            className="object-cover object-center"
-                            sizes="(min-width: 1024px) 38vw, 100vw"
+                    <div className="relative col-span-1 col-start-1 row-start-2 overflow-hidden shadow-[0_16px_40px_rgba(26,25,23,0.1)] ring-1 ring-[#1a1917]/[0.06] lg:col-span-5 lg:col-start-auto lg:row-start-1">
+                        <video
+                            className="absolute inset-0 h-full w-full object-cover object-center"
+                            src="/final/gallinas.mp4"
+                            poster={images[1].src}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            preload="metadata"
+                            aria-label={images[1].alt}
                         />
                     </div>
 
-                    <div className="relative aspect-[4/3] overflow-hidden shadow-[0_16px_40px_rgba(26,25,23,0.1)] ring-1 ring-[#1a1917]/[0.06] sm:aspect-[16/11] lg:col-span-5 lg:row-start-2 lg:aspect-auto lg:min-h-0">
+                    <div className="relative col-span-1 col-start-2 row-start-2 overflow-hidden shadow-[0_16px_40px_rgba(26,25,23,0.1)] ring-1 ring-[#1a1917]/[0.06] lg:col-span-5 lg:col-start-auto lg:row-start-2">
                         <Image
                             src={images[2].src}
                             alt={images[2].alt}
                             fill
                             className="object-cover object-[center_35%]"
-                            sizes="(min-width: 1024px) 38vw, 100vw"
+                            sizes="(min-width: 1024px) 38vw, 50vw"
                         />
                     </div>
                 </motion.div>

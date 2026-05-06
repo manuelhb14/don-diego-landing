@@ -23,7 +23,7 @@ export default function GridProyecto() {
         {
             title: t("cards.residencial.title"),
             description: t("cards.residencial.description"),
-            image: "/final/residencial.webp",
+            image: "/final/residencial.png",
             href: "/residencial",
             colSpan: "col-span-1 md:col-span-8",
             aspect: "aspect-[4/3] md:aspect-[21/9]",
@@ -31,7 +31,7 @@ export default function GridProyecto() {
         {
             title: t("cards.farm.title"),
             description: t("cards.farm.description"),
-            image: "/final/organic-farms.webp",
+            image: "/final/organic-farm.png",
             href: "/farm",
             colSpan: "col-span-1 md:col-span-4",
             aspect: "aspect-[4/3] md:aspect-[3/4]",
@@ -39,7 +39,7 @@ export default function GridProyecto() {
         {
             title: t("cards.wellness.title"),
             description: t("cards.wellness.description"),
-            image: "/final/wellness-2.webp",
+            image: "/final/wellness-center.png",
             href: "/wellness",
             colSpan: "col-span-1 md:col-span-5",
             aspect: "aspect-[4/3] md:aspect-square",
@@ -47,7 +47,7 @@ export default function GridProyecto() {
         {
             title: t("cards.presa.title"),
             description: t("cards.presa.description"),
-            image: "/final/presa.webp",
+            image: "/final/presa.png",
             href: "/presa",
             colSpan: "col-span-1 md:col-span-7",
             aspect: "aspect-[4/3] md:aspect-[16/9]",

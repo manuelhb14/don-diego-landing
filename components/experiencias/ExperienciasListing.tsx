@@ -16,7 +16,7 @@ type ExperienciaItem = {
 
 function GridCardMedia({ imageSrc, title }: { imageSrc?: string; title: string }) {
     return (
-        <div className="relative overflow-hidden bg-[#EFE6DC] aspect-[7/8]">
+        <div className="relative overflow-hidden bg-[#EFE6DC] aspect-[1/1] lg:aspect-[12/13]">
             {imageSrc ? (
                 <Image
                     src={imageSrc}
@@ -51,9 +51,9 @@ const ITEM_DEFS = [
     { id: "clubhouse", imageSrc: "/babylon/clubhouse.webp" },
     { id: "piscina", imageSrc: "/babylon/pool.webp" },
     { id: "gimnasio", imageSrc: "/babylon/gym.webp" },
-    { id: "spa", imageSrc: "/babylon/spa.webp" },
+    { id: "spa", imageSrc: "/final/spa.jpg" },
     { id: "restaurante", imageSrc: "/final/restaurante-3.webp" },
-    { id: "padel", imageSrc: "/babylon/padel.webp" },
+    { id: "padel", imageSrc: "/final/padel.jpg" },
     { id: "parquesInfantiles", imageSrc: "/babylon/presa-9.webp" },
     { id: "clubNautico", imageSrc: "/babylon/presa-10.webp" },
     { id: "localesComerciales", imageSrc: "/babylon/presa-7.webp" },
@@ -301,7 +301,7 @@ export default function ExperienciasListing() {
                             {t("footerText")}
                         </p>
                         <Link
-                            href="/contacto"
+                            href="/propiedades"
                             className="inline-block text-[#222] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#222] pb-1 hover:opacity-60 transition-opacity"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >

@@ -869,11 +869,11 @@ export default function HeroFarm() {
                         style={{ y: isDesktop ? imgY : 0 }}
                     >
                         <Image
-                            src="/images/renders/farm.jpg"
+                            src="/final/organic-farm.png"
                             alt={t("imageAlt")}
                             fill
                             priority
-                            className="object-cover object-center"
+                            className="object-cover object-bottom"
                         />
                     </motion.div>
                 </div>

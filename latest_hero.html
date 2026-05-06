@@ -1170,59 +1170,70 @@
   const HERO_BUILDING = (() => {
     const W = 580, H = 340;
     const parts = [];
-    // Hero 2-story building (like the photo's main structure)
-    // base
-    parts.push(`<rect x="40" y="120" width="500" height="220" fill="#dbb684"/>`);
-    // shadow side
-    parts.push(`<rect x="460" y="120" width="80" height="220" fill="#b18654" opacity="0.35"/>`);
-    // upper parapet highlight
-    parts.push(`<rect x="40" y="120" width="500" height="4" fill="#fff" opacity="0.22"/>`);
-    // second story (set back slightly)
-    parts.push(`<rect x="70" y="60" width="380" height="70" fill="#d4ab7a"/>`);
-    parts.push(`<rect x="420" y="60" width="30" height="70" fill="#a87b4d" opacity="0.35"/>`);
-    parts.push(`<rect x="70" y="60" width="380" height="3" fill="#fff" opacity="0.2"/>`);
-    // ground porch overhang
-    parts.push(`<rect x="20" y="240" width="540" height="12" fill="#8a5d38" opacity="0.8"/>`);
-    parts.push(`<rect x="20" y="252" width="540" height="3" fill="#5a3824" opacity="0.7"/>`);
-    // porch columns
+    // Wide clubhouse massing: left service tower, upper terrace, and shaded ground floor.
+    parts.push(`<ellipse cx="330" cy="344" rx="300" ry="14" fill="#6f5837" opacity="0.18"/>`);
+    parts.push(`<rect x="18" y="28" width="112" height="312" fill="#dab485"/>`);
+    parts.push(`<rect x="0" y="64" width="20" height="276" fill="#9b7054" opacity="0.45"/>`);
+    parts.push(`<rect x="96" y="104" width="66" height="112" fill="#b7825e" opacity="0.42"/>`);
+    parts.push(`<rect x="112" y="112" width="28" height="76" fill="#2c1f14" opacity="0.42"/>`);
+    parts.push(`<rect x="120" y="132" width="470" height="208" fill="#dfb885"/>`);
+    parts.push(`<rect x="548" y="132" width="42" height="208" fill="#a87b4d" opacity="0.28"/>`);
+    parts.push(`<rect x="146" y="84" width="398" height="90" fill="#e2bd8b"/>`);
+    parts.push(`<rect x="510" y="84" width="34" height="90" fill="#a87b4d" opacity="0.28"/>`);
+    parts.push(`<rect x="132" y="80" width="424" height="5" fill="#fff2cf" opacity="0.28"/>`);
+    parts.push(`<rect x="160" y="76" width="370" height="54" fill="#8ab6c8" opacity="0.42"/>`);
+    parts.push(`<rect x="160" y="116" width="370" height="14" fill="#63a7bf" opacity="0.34"/>`);
+    parts.push(`<rect x="156" y="74" width="378" height="2" fill="#eaf5f4" opacity="0.88"/>`);
+    parts.push(`<rect x="156" y="74" width="378" height="56" fill="none" stroke="#6e8d95" stroke-width="1.4" opacity="0.54"/>`);
     for (let i = 0; i < 9; i++) {
-      const cx = 45 + i * 62;
-      parts.push(`<rect x="${cx}" y="252" width="8" height="88" fill="#8a5d38" opacity="0.85"/>`);
+      const rx = 164 + i * 45;
+      parts.push(`<line x1="${rx}" y1="74" x2="${rx}" y2="130" stroke="#6e8d95" stroke-width="1" opacity="0.52"/>`);
     }
-    // ground-level windows behind columns
-    for (let i = 0; i < 8; i++) {
-      const wx = 60 + i * 62;
-      parts.push(`<rect x="${wx}" y="260" width="46" height="72" fill="#3a2918" opacity="0.9"/>`);
-      parts.push(`<rect x="${wx}" y="260" width="46" height="18" fill="#d9cfb5" opacity="0.35"/>`);
-    }
-    // 2nd-story windows (row)
-    for (let i = 0; i < 7; i++) {
-      const wx = 90 + i * 50;
-      parts.push(`<rect x="${wx}" y="140" width="22" height="58" fill="#2c1f14"/>`);
-      parts.push(`<rect x="${wx}" y="140" width="22" height="14" fill="#d9cfb5" opacity="0.4"/>`);
-    }
-    // upper-story windows
-    for (let i = 0; i < 6; i++) {
-      const wx = 110 + i * 56;
-      parts.push(`<rect x="${wx}" y="78" width="18" height="40" fill="#2c1f14"/>`);
-      parts.push(`<rect x="${wx}" y="78" width="18" height="10" fill="#d9cfb5" opacity="0.4"/>`);
-    }
-    // rooftop terrace pool + umbrellas
-    parts.push(`<rect x="96" y="54" width="320" height="10" fill="#8ab6c8" opacity="0.85"/>`);
-    parts.push(`<rect x="96" y="54" width="320" height="3" fill="#c7dcec" opacity="0.9"/>`);
-    // umbrellas
     for (let i = 0; i < 5; i++) {
-      const ux = 130 + i * 60;
-      parts.push(`<ellipse cx="${ux}" cy="46" rx="16" ry="5" fill="#cfa978"/>`);
-      parts.push(`<rect x="${ux - 1}" y="46" width="2" height="10" fill="#8a6b45"/>`);
+      const ux = 202 + i * 65;
+      parts.push(`<line x1="${ux}" y1="64" x2="${ux}" y2="79" stroke="#8a6b45" stroke-width="2"/>`);
+      parts.push(`<path d="M${ux - 24} 64 Q ${ux} 50 ${ux + 24} 64 Z" fill="#d8bf96"/>`);
+      parts.push(`<path d="M${ux - 18} 64 Q ${ux} 56 ${ux + 18} 64" fill="none" stroke="#b7976c" stroke-width="1" opacity="0.65"/>`);
+      parts.push(`<rect x="${ux + 18}" y="78" width="28" height="4" fill="#efe0bf" opacity="0.65"/>`);
     }
-    // shrubs right-side
-    parts.push(`<ellipse cx="550" cy="338" rx="30" ry="10" fill="#6f7f4a" opacity="0.85"/>`);
-    parts.push(`<ellipse cx="540" cy="332" rx="22" ry="8" fill="#8a9a5f" opacity="0.8"/>`);
+    for (let i = 0; i < 6; i++) {
+      const wx = 178 + i * 56;
+      parts.push(`<rect x="${wx}" y="158" width="30" height="62" fill="#8d6747" opacity="0.54"/>`);
+      parts.push(`<rect x="${wx + 4}" y="164" width="22" height="50" fill="#b9c8c1" opacity="0.34"/>`);
+      parts.push(`<line x1="${wx + 15}" y1="164" x2="${wx + 15}" y2="214" stroke="#2c1f14" stroke-width="1.2" opacity="0.42"/>`);
+    }
+    parts.push(`<rect x="96" y="242" width="520" height="12" fill="#8a5d38" opacity="0.82"/>`);
+    parts.push(`<rect x="96" y="254" width="520" height="4" fill="#5a3824" opacity="0.62"/>`);
+    for (let i = 0; i < 31; i++) {
+      const sx = 104 + i * 16;
+      parts.push(`<line x1="${sx}" y1="242" x2="${sx + 9}" y2="235" stroke="#6f452d" stroke-width="1.4" opacity="0.38"/>`);
+    }
+    for (let i = 0; i < 11; i++) {
+      const cx = 120 + i * 45;
+      parts.push(`<rect x="${cx}" y="258" width="7" height="82" fill="#8a5d38" opacity="0.78"/>`);
+    }
+    for (let i = 0; i < 10; i++) {
+      const wx = 138 + i * 45;
+      parts.push(`<rect x="${wx}" y="266" width="32" height="66" fill="#2c1f14" opacity="0.84"/>`);
+      parts.push(`<rect x="${wx + 4}" y="270" width="24" height="56" fill="#b8c6bd" opacity="0.22"/>`);
+      parts.push(`<line x1="${wx + 16}" y1="270" x2="${wx + 16}" y2="326" stroke="#d9cfb5" stroke-width="1" opacity="0.22"/>`);
+    }
+    parts.push(`<rect x="590" y="190" width="54" height="150" fill="#c9996f" opacity="0.56"/>`);
+    parts.push(`<rect x="592" y="200" width="50" height="8" fill="#8a5d38" opacity="0.7"/>`);
+    for (let i = 0; i < 3; i++) {
+      const px = 598 + i * 18;
+      parts.push(`<rect x="${px}" y="208" width="4" height="132" fill="#8a5d38" opacity="0.7"/>`);
+      parts.push(`<line x1="${px - 3}" y1="198" x2="${px + 18}" y2="188" stroke="#8a5d38" stroke-width="1.5" opacity="0.55"/>`);
+    }
+    parts.push(`<ellipse cx="64" cy="330" rx="50" ry="12" fill="#6f7f4a" opacity="0.82"/>`);
+    parts.push(`<ellipse cx="606" cy="338" rx="34" ry="10" fill="#6f7f4a" opacity="0.85"/>`);
+    parts.push(`<ellipse cx="594" cy="332" rx="24" ry="8" fill="#8a9a5f" opacity="0.8"/>`);
 
     return `
       <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMaxYMax meet" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
-        ${parts.join('')}
+        <g transform="translate(10 20) scale(0.86)">
+          ${parts.join('')}
+        </g>
       </svg>
     `;
   })();

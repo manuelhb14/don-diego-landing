@@ -879,7 +879,7 @@ export default function HeroResidencial() {
                         style={{ y: isDesktop ? imgY : 0 }}
                     >
                         <Image
-                            src="/images/renders/render-5.png"
+                            src="/final/residencial.png"
                             alt={t("imageAlt")}
                             fill
                             priority

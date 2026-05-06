@@ -26,7 +26,7 @@ export default function TrabajoFloresFarm() {
     ] as const;
 
     const heroImage = {
-        src: "/babylon/flowers.webp",
+        src: "/final/flores.png",
         alt: t("imageAlt"),
     } as const;
 

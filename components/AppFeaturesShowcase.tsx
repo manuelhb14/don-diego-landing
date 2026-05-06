@@ -43,9 +43,9 @@ const EASE_OUT: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 const ACTIVITY_IMAGES = [
   "/babylon/yoga.webp",
   "/final/pickleball.png",
-  "/babylon/padel.webp",
+  "/final/padel.jpg",
   "/final/clases.jpg",
-  "/final/spa.webp",
+  "/final/spa.jpg",
   "/babylon/coworking.webp",
 ] as const;
 /** Farm order row thumbnails — item1 produce, item2 herbs, item3 bouquet */

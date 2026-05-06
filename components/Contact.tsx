@@ -131,7 +131,7 @@ export default function Contact() {
                         <div className="mb-3 grid grid-cols-1 gap-3 lg:grid-cols-2">
                             <a
                                 href={SITE_CONTACT.smsUrl}
-                                className="flex min-w-0 w-full items-center justify-center gap-3 border border-[#4ca3ff] bg-[#007AFF] px-4 py-4 text-center text-[11px] font-bold leading-snug tracking-[0.16em] text-white uppercase transition-colors duration-300 hover:border-[#2d91ff] hover:bg-[#006ee6]"
+                                className="flex min-w-0 w-full items-center justify-center gap-3 border border-[#58949f] bg-[#78aeb8] px-4 py-4 text-center text-[11px] font-bold leading-snug tracking-[0.16em] text-white uppercase transition-colors duration-300 hover:border-[#2d91ff] hover:bg-[#447985]"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 <MessageCircle className="h-4 w-4 shrink-0" />
@@ -142,7 +142,7 @@ export default function Contact() {
                                 href={SITE_CONTACT.whatsappUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex min-w-0 w-full items-center justify-center gap-3 border border-[#2f8f4f] bg-[#1faa52]/85 px-4 py-4 text-center text-[11px] font-bold leading-snug tracking-[0.16em] text-[#ffffff] uppercase transition-colors duration-300 hover:border-[#1f7f40] hover:bg-[#1f9a47]"
+                                className="flex min-w-0 w-full items-center justify-center gap-3 border border-[#95a682] bg-[#95a682] px-4 py-4 text-center text-[11px] font-bold leading-snug tracking-[0.16em] text-[#ffffff] uppercase transition-colors duration-300 hover:border-[#1f7f40] hover:bg-[#758760]"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 <svg className="h-4 w-4 shrink-0" fill="currentColor" viewBox="0 0 24 24">

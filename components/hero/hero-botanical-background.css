@@ -88,8 +88,8 @@
   --light: 0.34;
   --botanical-scene-filter: saturate(0.82) brightness(0.58) contrast(1.18);
   --botanical-landscape-filter: saturate(0.9) brightness(0.8) contrast(1.1) drop-shadow(0 -6px 12px rgba(198, 216, 226, 0.08));
-  --botanical-building-filter: saturate(0.88) brightness(0.84) contrast(1.08) drop-shadow(0 -5px 10px rgba(216, 226, 232, 0.12));
-  --botanical-water-filter: saturate(0.82) brightness(0.56) contrast(1.16);
+  --botanical-building-filter: saturate(0.92) brightness(1.05) contrast(1.02) drop-shadow(0 -5px 10px rgba(216, 226, 232, 0.12));
+  --botanical-water-filter: saturate(0.96) brightness(1) contrast(1.08);
 }
 
 .hero-botanical-stage-wrap .preview-toggle {
@@ -666,8 +666,27 @@
   left: 0;
   right: 0;
   bottom: 36%;
-  height: 15%;
+  height: max(15%, 12.5vw);
   filter: hue-rotate(var(--hue-shift, 0deg)) var(--botanical-building-filter);
+}
+
+.scene-botanical .window-lit {
+  transition:
+    fill 1000ms ease,
+    filter 1000ms ease,
+    opacity 1000ms ease;
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="night"] .scene-botanical .window-lit {
+  fill: #ffd88f;
+  opacity: 0.88;
+  filter:
+    drop-shadow(0 0 2px rgba(255, 224, 160, 0.84))
+    drop-shadow(0 0 7px rgba(235, 174, 86, 0.48));
+}
+
+.hero-botanical-stage-wrap[data-time-of-day="night"] .scene-botanical .window-lit-small {
+  opacity: 0.76;
 }
 
 .scene-botanical .pond {

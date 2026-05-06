@@ -68,17 +68,70 @@ function orchardSvg(x: number, y: number, rows: number, cols: number): string {
 }
 
 function casaClubVillageSvg(x: number, y: number): string {
-    return `<g transform="translate(${x} ${y})">
-      <rect x="0" y="48" width="210" height="80" fill="#d8bd95" opacity="0.96"/>
-      <rect x="24" y="18" width="162" height="44" fill="#e5cfaa" opacity="0.98"/>
-      <rect x="14" y="10" width="182" height="14" fill="#bf8b5f" opacity="0.94"/>
-      <rect x="34" y="28" width="142" height="8" fill="#f0dfc0" opacity="0.86"/>
-      <rect x="-8" y="44" width="226" height="8" fill="#b48661" opacity="0.9"/>
-      <rect x="86" y="78" width="38" height="50" fill="#7a5438" opacity="0.56"/>
-      <path d="M86 78 Q 105 62 124 78 Z" fill="#6b4b34" opacity="0.45"/>
-      ${[18, 50, 142, 174].map((wx) => `<rect x="${wx}" y="68" width="22" height="34" rx="1" fill="rgba(172,215,225,0.48)" stroke="rgba(105,86,60,0.38)" stroke-width="1"/>`).join("")}
-      ${[56, 86, 116, 146].map((wx) => `<rect x="${wx}" y="30" width="18" height="18" rx="1" fill="rgba(172,215,225,0.44)" stroke="rgba(105,86,60,0.34)" stroke-width="0.8"/>`).join("")}
-      <rect x="58" y="112" width="94" height="6" fill="#cda77c" opacity="0.72"/>
+    const terraceUmbrellas = [84, 116, 148, 180].map((ux, i) => {
+        const opacity = i === 0 || i === 3 ? 0.78 : 0.9;
+        return `<g opacity="${opacity}">
+          <line x1="${ux}" y1="23" x2="${ux}" y2="31" stroke="#8a6b4d" stroke-width="0.9"/>
+          <path d="M${ux - 13} 23 Q ${ux} 14 ${ux + 13} 23 Z" fill="#d7bf96" stroke="#b7976c" stroke-width="0.45"/>
+          <path d="M${ux - 9} 23 Q ${ux} 18 ${ux + 9} 23" fill="none" stroke="#b7976c" stroke-width="0.45" opacity="0.68"/>
+        </g>`;
+    }).join("");
+    const upperWindows = [76, 104, 132, 160].map((wx, i) => {
+        const tint = i === 2 ? "#b8d0d4" : "#b7c7bd";
+        return `<g>
+          <rect x="${wx}" y="63" width="16" height="27" rx="1" fill="#8d6747" opacity="0.42"/>
+          <rect class="window-lit" x="${wx + 3}" y="66" width="10" height="21" rx="1" fill="${tint}" opacity="0.5"/>
+          <line x1="${wx + 8}" y1="66" x2="${wx + 8}" y2="87" stroke="#755a3e" stroke-width="0.55" opacity="0.45"/>
+        </g>`;
+    }).join("");
+    const groundBays = Array.from({ length: 6 }, (_, i) => {
+        const bx = 58 + i * 25;
+        return `<g>
+          <rect x="${bx}" y="98" width="17" height="29" fill="#6f5037" opacity="0.78"/>
+          <rect class="window-lit" x="${bx + 2}" y="101" width="13" height="23" fill="#b7c6bd" opacity="0.35"/>
+          <line x1="${bx + 8.5}" y1="101" x2="${bx + 8.5}" y2="124" stroke="#3d2c1d" stroke-width="0.6" opacity="0.46"/>
+        </g>`;
+    }).join("");
+    const porchColumns = Array.from({ length: 8 }, (_, i) => {
+        const cx = 48 + i * 25;
+        return `<rect x="${cx}" y="95" width="3" height="33" fill="#9f7654" opacity="0.82"/>`;
+    }).join("");
+    const roofSlats = Array.from({ length: 15 }, (_, i) => {
+        const sx = 44 + i * 12;
+        return `<line x1="${sx}" y1="93" x2="${sx + 6}" y2="89" stroke="#8a5f3d" stroke-width="0.75" opacity="0.48"/>`;
+    }).join("");
+    const railingPosts = Array.from({ length: 6 }, (_, i) => {
+        const rx = 69 + i * 21;
+        return `<line x1="${rx}" y1="27" x2="${rx}" y2="48" stroke="#6e8d95" stroke-width="0.55" opacity="0.58"/>`;
+    }).join("");
+
+    return `<g transform="translate(${x} ${y}) scale(1.1)">
+      <ellipse cx="112" cy="131" rx="126" ry="7" fill="#6e5a38" opacity="0.16"/>
+      <rect x="0" y="8" width="44" height="120" fill="#d7b487" opacity="0.98"/>
+      <rect x="-8" y="23" width="10" height="105" fill="#a87a5b" opacity="0.42"/>
+      <rect x="36" y="42" width="20" height="44" fill="#8a694f" opacity="0.34"/>
+      <rect x="40" y="48" width="12" height="28" fill="#b9c8c1" opacity="0.42"/>
+      <rect x="42" y="50" width="170" height="78" fill="#dfbd91" opacity="0.98"/>
+      <rect x="58" y="30" width="136" height="47" fill="#e7caa0" opacity="0.98"/>
+      <rect x="185" y="30" width="9" height="47" fill="#b7865f" opacity="0.28"/>
+      <rect x="48" y="27" width="150" height="4" fill="#f4ddb8" opacity="0.64"/>
+      <rect x="64" y="28" width="124" height="20" fill="#83b8c5" opacity="0.36"/>
+      <rect x="64" y="43" width="124" height="6" fill="#63a7bf" opacity="0.34"/>
+      <rect x="62" y="26" width="128" height="2" fill="#eef7f5" opacity="0.78"/>
+      <rect x="62" y="26" width="128" height="23" fill="none" stroke="#6e8d95" stroke-width="0.75" opacity="0.44"/>
+      ${railingPosts}
+      ${terraceUmbrellas}
+      ${upperWindows}
+      <rect x="38" y="89" width="181" height="6" fill="#8b5d38" opacity="0.78"/>
+      <rect x="38" y="95" width="181" height="2" fill="#5d3c28" opacity="0.48"/>
+      ${roofSlats}
+      ${groundBays}
+      ${porchColumns}
+      <rect x="203" y="70" width="23" height="58" fill="#d0a679" opacity="0.82"/>
+      <rect x="204" y="76" width="21" height="4" fill="#8b5d38" opacity="0.66"/>
+      ${[207, 216, 225].map((cx) => `<rect x="${cx}" y="80" width="2" height="48" fill="#8b5d38" opacity="0.7"/>`).join("")}
+      ${[207, 216, 225].map((cx) => `<line x1="${cx - 2}" y1="75" x2="${cx + 7}" y2="68" stroke="#8b5d38" stroke-width="0.8" opacity="0.58"/>`).join("")}
+      <rect x="48" y="124" width="154" height="4" fill="#cda77c" opacity="0.64"/>
     </g>`;
 }
 
@@ -101,11 +154,11 @@ function buildHousesSvg(rng: Rng): string {
         );
         houses.push(`<rect x="${x - 3}" y="${y - 5}" width="${h.w + 6}" height="5" fill="#b98c6a" opacity="0.82"/>`);
         houses.push(
-            `<rect x="${x + h.w * 0.25}" y="${y + h.h * 0.4}" width="${h.w * 0.15}" height="${h.h * 0.25}" fill="#3a2a1a" opacity="0.5"/>`,
+            `<rect class="window-lit window-lit-small" x="${x + h.w * 0.25}" y="${y + h.h * 0.4}" width="${h.w * 0.15}" height="${h.h * 0.25}" fill="#3a2a1a" opacity="0.5"/>`,
         );
         if (h.w > 38) {
             houses.push(
-                `<rect x="${x + h.w * 0.6}" y="${y + h.h * 0.4}" width="${h.w * 0.15}" height="${h.h * 0.25}" fill="#3a2a1a" opacity="0.5"/>`,
+                `<rect class="window-lit window-lit-small" x="${x + h.w * 0.6}" y="${y + h.h * 0.4}" width="${h.w * 0.15}" height="${h.h * 0.25}" fill="#3a2a1a" opacity="0.5"/>`,
             );
         }
         x += h.w + 2 + rng() * 4;
@@ -115,20 +168,20 @@ function buildHousesSvg(rng: Rng): string {
         const y = 152 - h.h - (index % 2) * 3;
         houses.push(`<rect x="${x}" y="${y}" width="${h.w}" height="${h.h}" fill="${h.color}" opacity="0.88"/>`);
         houses.push(`<rect x="${x - 3}" y="${y - 5}" width="${h.w + 6}" height="5" fill="#b98c6a" opacity="0.82"/>`);
-        houses.push(`<rect x="${x + h.w * 0.25}" y="${y + h.h * 0.4}" width="${h.w * 0.15}" height="${h.h * 0.25}" fill="#3a2a1a" opacity="0.5"/>`);
+        houses.push(`<rect class="window-lit window-lit-small" x="${x + h.w * 0.25}" y="${y + h.h * 0.4}" width="${h.w * 0.15}" height="${h.h * 0.25}" fill="#3a2a1a" opacity="0.5"/>`);
         if (h.w > 38) {
-            houses.push(`<rect x="${x + h.w * 0.6}" y="${y + h.h * 0.4}" width="${h.w * 0.15}" height="${h.h * 0.25}" fill="#3a2a1a" opacity="0.5"/>`);
+            houses.push(`<rect class="window-lit window-lit-small" x="${x + h.w * 0.6}" y="${y + h.h * 0.4}" width="${h.w * 0.15}" height="${h.h * 0.25}" fill="#3a2a1a" opacity="0.5"/>`);
         }
         x += h.w + 2 + rng() * 4;
     });
-    const trees = Array.from({ length: 10 }, (_, i) => {
-        const tx = 200 + i * 90 + rng() * 20;
+    const trees = Array.from({ length: 7 }, (_, i) => {
+        const tx = 640 + i * 76 + rng() * 18;
         const ty = 152 - 20 - rng() * 15;
         return `<ellipse cx="${tx}" cy="${ty}" rx="15" ry="19" fill="${i % 2 === 0 ? "#476f38" : "#5f8340"}" opacity="0.92"/>
           <ellipse cx="${tx - 4}" cy="${ty - 5}" rx="9" ry="11" fill="#7f9f55" opacity="0.42"/>`;
     }).join("");
     return `<svg viewBox="0 0 1280 160" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
-      ${casaClubVillageSvg(286, 24)}
+      ${casaClubVillageSvg(270, 14)}
       ${orchardSvg(516, 98, 3, 6)}
       ${houses.join("")}
       ${trees}

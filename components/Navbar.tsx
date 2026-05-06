@@ -83,6 +83,10 @@ const DESKTOP_DROPDOWN_TRANSITION = {
     duration: 0.2,
     ease: [0.215, 0.61, 0.355, 1],
 } as const;
+const SCROLLED_NAV_TEXT_SHADOW = "0 1px 1px rgba(255, 255, 255, 0.28), 0 4px 8px rgba(255, 255, 255, 0.14)";
+const SCROLLED_NAV_ELEMENT_SHADOW = "drop-shadow(0 1px 2px rgba(255, 255, 255, 0.18))";
+const SCROLLED_NAV_TEXT_STROKE = "0.28px rgba(255, 255, 255, 0.42)";
+const DARK_TOP_LOGO_FILTER = "invert(1) brightness(0)";
 
 function isActivePath(pathname: string, href: string) {
     return pathname === href || (href !== "/" && pathname.startsWith(href));
@@ -173,8 +177,10 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
     const [desktopDropdownPosition, setDesktopDropdownPosition] = useState<DropdownPosition | null>(null);
     const desktopDropdownCloseTimeout = useRef<number | null>(null);
     const { hidden, scrolled } = navScroll;
-    const showScrolledBackdrop = scrolled && !hidden;
     const isDarkAtTop = theme === "dark" && !scrolled;
+    const showScrolledTextShadow = scrolled && !hidden;
+    const scrolledElementShadow = showScrolledTextShadow ? SCROLLED_NAV_ELEMENT_SHADOW : "";
+    const logoFilter = isDarkAtTop ? DARK_TOP_LOGO_FILTER : undefined;
     const isContactActive = pathname === "/contacto";
 
     // Lock body scroll when mobile menu open
@@ -236,16 +242,17 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
     return (
         <>
             <nav
-                className={`fixed left-0 z-50 bg-transparent transition-[top,right,backdrop-filter,-webkit-backdrop-filter] duration-500 ${scrolled ? "mix-blend-difference text-white" : ""} ${hidden ? "-top-28 pointer-events-none" : "top-0"}`}
+                className={`fixed left-0 z-50 bg-transparent transition-[top,right,text-shadow,filter] duration-500 ${scrolled ? "mix-blend-difference text-white" : ""} ${hidden ? "-top-28 pointer-events-none" : "top-0"}`}
                 style={{
                     right: "0px",
-                    backdropFilter: showScrolledBackdrop ? "blur(4px)" : "blur(0px)",
-                    WebkitBackdropFilter: showScrolledBackdrop ? "blur(4px)" : "blur(0px)",
+                    textShadow: showScrolledTextShadow ? SCROLLED_NAV_TEXT_SHADOW : "none",
+                    filter: scrolledElementShadow || "none",
+                    WebkitTextStroke: showScrolledTextShadow ? SCROLLED_NAV_TEXT_STROKE : "0px transparent",
                 }}
             >
                 <div className={`mx-auto flex w-full items-center justify-between px-6 py-4 lg:px-4 lg:pt-2.5 ${isDarkAtTop ? "text-black" : "text-white"}`}>
                     {/* Left: Links (Desktop) — flush left */}
-                    <div className="flex-1 hidden lg:flex min-w-0 items-center justify-start gap-4">
+                    <div className="flex-1 hidden lg:flex min-w-0 items-center justify-start gap-2 xl:gap-4">
                         {navLinks.map((item) => {
                             if (item.type === "link") {
                                 const { key, label, href } = item;
@@ -354,7 +361,8 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                             alt="Don Diego Logo"
                             width={160}
                             height={50}
-                            className={`h-3.5 md:h-4.5 w-auto transition-all duration-500 ${isDarkAtTop ? "[filter:invert(1)_brightness(0)]" : ""}`}
+                            className="h-3.5 md:h-4.5 w-auto transition-all duration-500"
+                            style={{ filter: logoFilter }}
                             priority
                         />
                     </Link>

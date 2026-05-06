@@ -11,6 +11,7 @@ type ProductCard = {
     titleAccent: string;
     description: string;
     image: string;
+    video?: string;
     Icon: LucideIcon;
     tone: "warm" | "earth";
 };
@@ -23,7 +24,8 @@ export default function ProductsFarm() {
             titleBase: t("items.invernaderos.titleBase"),
             titleAccent: t("items.invernaderos.titleAccent"),
             description: t("items.invernaderos.description"),
-            image: "/babylon/farm-5.webp",
+            image: "/final/invernadero.webp",
+            video: "/final/invernadero-video.mp4",
             Icon: Sprout,
             tone: "warm",
         },
@@ -32,7 +34,7 @@ export default function ProductsFarm() {
             titleBase: t("items.andadoresCicloruta.titleBase"),
             titleAccent: t("items.andadoresCicloruta.titleAccent"),
             description: t("items.andadoresCicloruta.description"),
-            image: "/babylon/farm-3.webp",
+            image: "/images/renders/farm.jpg",
             Icon: Bike,
             tone: "earth",
         },
@@ -41,7 +43,7 @@ export default function ProductsFarm() {
             titleBase: t("items.experienciaComunitaria.titleBase"),
             titleAccent: t("items.experienciaComunitaria.titleAccent"),
             description: t("items.experienciaComunitaria.description"),
-            image: "/babylon/farm-7.webp",
+            image: "/final/casa-flores.webp",
             Icon: Users,
             tone: "warm",
         },
@@ -50,7 +52,7 @@ export default function ProductsFarm() {
             titleBase: t("items.origenLocal.titleBase"),
             titleAccent: t("items.origenLocal.titleAccent"),
             description: t("items.origenLocal.description"),
-            image: "/babylon/farm-6.webp",
+            image: "/final/caja-verduras.png",
             Icon: Leaf,
             tone: "earth",
         },
@@ -147,13 +149,27 @@ export default function ProductsFarm() {
                                     className={`order-2 relative flex min-h-0 w-full flex-col lg:h-full ${i % 2 === 1 ? "lg:order-1" : "lg:order-2"}`}
                                 >
                                     <div className="relative aspect-[16/8] w-full min-h-[180px] flex-1 overflow-hidden shadow-[0_30px_60px_rgba(26,25,23,0.18)] ring-1 ring-[#1a1917]/10 sm:aspect-[16/9] sm:min-h-[230px] lg:aspect-auto lg:min-h-[280px] lg:h-full">
-                                        <Image
-                                            src={item.image}
-                                            alt={`${item.titleBase} ${item.titleAccent}`}
-                                            fill
-                                            className="object-cover object-center"
-                                            sizes="(min-width: 1024px) 50vw, 100vw"
-                                        />
+                                        {item.video ? (
+                                            <video
+                                                className="absolute inset-0 h-full w-full object-cover object-center"
+                                                src={item.video}
+                                                poster={item.image}
+                                                autoPlay
+                                                muted
+                                                loop
+                                                playsInline
+                                                preload="metadata"
+                                                aria-label={`${item.titleBase} ${item.titleAccent}`}
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={item.image}
+                                                alt={`${item.titleBase} ${item.titleAccent}`}
+                                                fill
+                                                className="object-cover object-center"
+                                                sizes="(min-width: 1024px) 50vw, 100vw"
+                                            />
+                                        )}
                                         <div className="absolute inset-0 bg-gradient-to-tr from-[#1a1917]/20 via-transparent to-transparent" />
                                     </div>
                                 </motion.div>

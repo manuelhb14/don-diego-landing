@@ -17,6 +17,7 @@ import ThingsToDo from "@/components/ThingsToDo";
 import AppFeaturesShowcase from "@/components/AppFeaturesShowcase";
 import Blogs from "@/components/Blogs";
 import { getSanMiguelWeather } from "@/lib/weather";
+import InstagramPostsContacto from "@/components/contacto/InstagramPostsContacto";
 type Props = {
     params: Promise<{ locale: string }>;
 };
@@ -36,11 +37,12 @@ export default async function Page({ params }: Props) {
                 <Vision />
                 <Services />
                 <ProjectsEditorial />
+                <Team />
                 <ThingsToDo />
                 <AppFeaturesShowcase />
                 <Location />
                 <Blogs />
-                <Team />
+                <InstagramPostsContacto />
                 <Exclusivity />
                 <Contact />
                 <Faq />
