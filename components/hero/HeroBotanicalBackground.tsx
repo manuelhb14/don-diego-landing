@@ -380,6 +380,73 @@ const FOREGROUND_ASSETS: BotanicalPngAsset[] = [
     },
 ];
 
+const HERO_08_ASSETS: BotanicalPngAsset[] = [
+    {
+        key: "hero-08-tree",
+        src: "/hero/clean/08_arbol.png",
+        width: 936,
+        height: 1363,
+        className: "hero-08-asset hero-08-tree",
+        sizes: "(min-width: 1280px) 250px, 18vw",
+    },
+    {
+        key: "hero-08-left-rose",
+        src: "/hero/clean/08_left_rose.png",
+        width: 520,
+        height: 1416,
+        className: "hero-08-asset hero-08-left-rose",
+        sizes: "(min-width: 1280px) 110px, 8vw",
+    },
+    {
+        key: "hero-08-flower-1",
+        src: "/hero/clean/08_flower_1.png",
+        width: 1363,
+        height: 777,
+        className: "hero-08-asset hero-08-flower hero-08-flower-1",
+        sizes: "(min-width: 1280px) 300px, 24vw",
+    },
+    {
+        key: "hero-08-flower-2",
+        src: "/hero/clean/08_flower_2.png",
+        width: 1271,
+        height: 893,
+        className: "hero-08-asset hero-08-flower hero-08-flower-2",
+        sizes: "(min-width: 1280px) 280px, 22vw",
+    },
+    {
+        key: "hero-08-flower-3",
+        src: "/hero/clean/08_flower_3.png",
+        width: 1225,
+        height: 1052,
+        className: "hero-08-asset hero-08-flower hero-08-flower-3",
+        sizes: "(min-width: 1280px) 310px, 24vw",
+    },
+    {
+        key: "hero-08-flower-4",
+        src: "/hero/clean/08_flower_4.png",
+        width: 1325,
+        height: 867,
+        className: "hero-08-asset hero-08-flower hero-08-flower-4",
+        sizes: "(min-width: 1280px) 320px, 25vw",
+    },
+    {
+        key: "hero-08-flower-5",
+        src: "/hero/clean/08_flower_5.png",
+        width: 1313,
+        height: 1035,
+        className: "hero-08-asset hero-08-flower hero-08-flower-5",
+        sizes: "(min-width: 1280px) 290px, 23vw",
+    },
+    {
+        key: "hero-08-flower-6",
+        src: "/hero/clean/08_flower_6.png",
+        width: 760,
+        height: 1396,
+        className: "hero-08-asset hero-08-flower hero-08-flower-6",
+        sizes: "(min-width: 1280px) 120px, 9vw",
+    },
+];
+
 type ResolvedTimeOfDay = "morning" | "sunset" | "night";
 
 type WeatherResponse = {
@@ -551,7 +618,25 @@ export default function HeroBotanicalBackground({
                         sizes={asset.sizes}
                     />
                 ))}
-                <span className="distant-bird-line" />
+            </div>
+            <div className="set-two-bird set-two-bird-a" aria-hidden>
+                <span />
+            </div>
+            <div className="set-two-bird set-two-bird-b" aria-hidden>
+                <span />
+            </div>
+            <div className="hero-08-assets" aria-hidden>
+                {HERO_08_ASSETS.map((asset) => (
+                    <Image
+                        key={asset.key}
+                        src={asset.src}
+                        alt=""
+                        className={asset.className}
+                        width={asset.width}
+                        height={asset.height}
+                        sizes={asset.sizes}
+                    />
+                ))}
             </div>
             <div className="weather-fog" aria-hidden />
             <div className="weather-rain" aria-hidden>

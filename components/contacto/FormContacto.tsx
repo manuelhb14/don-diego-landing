@@ -52,8 +52,12 @@ export default function FormContacto() {
     };
 
     return (
-        <section id="contacto-form" className="bg-[#EFE6DC] pt-12 pb-10 md:py-20 px-6 md:px-12 lg:px-24 w-full relative">
-            <div className="max-w-[1440px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24">
+        <section id="contacto-form" className="relative w-full overflow-hidden bg-[#F6EEE4] px-6 py-10 md:px-12 md:py-16 lg:px-24 lg:py-20">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_18%,rgba(183,109,75,0.14),transparent_46%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_82%,rgba(225,177,155,0.18),transparent_52%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(246,238,228,0.86)_0%,rgba(239,230,220,1)_100%)]" />
+
+            <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
                 <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -62,7 +66,7 @@ export default function FormContacto() {
                     className="flex flex-col justify-start pt-1 lg:pt-0"
                 >
                     <h2
-                        className="text-[#222222] leading-none mb-4 lg:mb-8"
+                        className="mb-4 leading-[1.05] text-[#1C1713] lg:mb-8"
                         style={{
                             fontFamily: "var(--font-serif)",
                             fontSize: "clamp(2.5rem, 4vw, 4rem)",
@@ -74,40 +78,40 @@ export default function FormContacto() {
                     </h2>
 
                     <p
-                        className="text-[#222222]/80 text-sm md:text-lg leading-relaxed max-w-lg mb-6 lg:mb-12"
-                        style={{ fontFamily: "var(--font-sans)", letterSpacing: "0.02em" }}
+                        className="mb-6 max-w-lg text-sm leading-relaxed text-[#1C1713]/72 md:text-base lg:mb-12"
+                        style={{ fontFamily: "var(--font-sans)" }}
                     >
                         {t("intro")}
                     </p>
 
-                    <div className="flex flex-col gap-8 w-full max-w-sm">
+                    <div className="flex w-full max-w-sm flex-col gap-7 border-t border-[#AA7D69]/22 pt-7">
                         <div className="flex items-start gap-4 group">
-                            <div className="w-10 h-10 rounded-full border border-[#AA7D69] flex items-center justify-center shrink-0 group-hover:bg-[#AA7D69] transition-colors duration-300">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#AA7D69]/35 bg-[#FFF9F2]/70 transition-colors duration-300 group-hover:border-[#AA7D69] group-hover:bg-[#AA7D69]">
                                 <MapPin className="w-4 h-4 text-[#AA7D69] group-hover:text-white transition-colors duration-300" />
                             </div>
                             <div>
-                                <p className="text-[10px] tracking-[0.2em] text-[#AA7D69] uppercase font-bold mb-1" style={{ fontFamily: "var(--font-sans)" }}>{t("locationLabel")}</p>
-                                <p className="text-[#222222] font-serif text-base lg:text-lg leading-snug">{t("locationLine1")} <br />{t("locationLine2")}</p>
+                                <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#AA7D69]/90" style={{ fontFamily: "var(--font-sans)" }}>{t("locationLabel")}</p>
+                                <p className="font-serif text-base leading-snug text-[#1C1713] lg:text-lg">{t("locationLine1")} <br />{t("locationLine2")}</p>
                             </div>
                         </div>
 
                         <div className="flex items-start gap-4 group cursor-pointer hover:opacity-80 transition-opacity">
-                            <div className="w-10 h-10 rounded-full border border-[#AA7D69] flex items-center justify-center shrink-0 group-hover:bg-[#AA7D69] transition-colors duration-300">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#AA7D69]/35 bg-[#FFF9F2]/70 transition-colors duration-300 group-hover:border-[#AA7D69] group-hover:bg-[#AA7D69]">
                                 <Mail className="w-4 h-4 text-[#AA7D69] group-hover:text-white transition-colors duration-300" />
                             </div>
                             <div>
-                                <p className="text-[10px] tracking-[0.2em] text-[#AA7D69] uppercase font-bold mb-1" style={{ fontFamily: "var(--font-sans)" }}>{t("emailLabel")}</p>
-                                <p className="text-[#222222] font-serif text-base lg:text-lg">info@dondiego.mx</p>
+                                <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#AA7D69]/90" style={{ fontFamily: "var(--font-sans)" }}>{t("emailLabel")}</p>
+                                <p className="font-serif text-base text-[#1C1713] lg:text-lg">info@dondiego.mx</p>
                             </div>
                         </div>
 
                         <div className="flex items-start gap-4 group cursor-pointer hover:opacity-80 transition-opacity">
-                            <div className="w-10 h-10 rounded-full border border-[#AA7D69] flex items-center justify-center shrink-0 group-hover:bg-[#AA7D69] transition-colors duration-300">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#AA7D69]/35 bg-[#FFF9F2]/70 transition-colors duration-300 group-hover:border-[#AA7D69] group-hover:bg-[#AA7D69]">
                                 <Phone className="w-4 h-4 text-[#AA7D69] group-hover:text-white transition-colors duration-300" />
                             </div>
                             <div>
-                                <p className="text-[10px] tracking-[0.2em] text-[#AA7D69] uppercase font-bold mb-1" style={{ fontFamily: "var(--font-sans)" }}>{t("phoneLabel")}</p>
-                                <p className="text-[#222222] font-serif text-base lg:text-lg">{SITE_CONTACT.phoneDisplay}</p>
+                                <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#AA7D69]/90" style={{ fontFamily: "var(--font-sans)" }}>{t("phoneLabel")}</p>
+                                <p className="font-serif text-base text-[#1C1713] lg:text-lg">{SITE_CONTACT.phoneDisplay}</p>
                             </div>
                         </div>
                     </div>
@@ -123,7 +127,7 @@ export default function FormContacto() {
                     <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
                         <a
                             href={SITE_CONTACT.smsUrl}
-                            className="flex min-w-0 w-full items-center justify-center gap-3 border border-[#4ca3ff] bg-[#007AFF] px-4 py-4 text-center text-[11px] font-bold leading-snug tracking-[0.16em] text-white uppercase transition-colors duration-300 hover:border-[#2d91ff] hover:bg-[#006ee6]"
+                            className="flex min-w-0 w-full items-center justify-center gap-3 border border-[#58949f] bg-[#78aeb8] px-4 py-4 text-center text-[11px] font-bold leading-snug tracking-[0.16em] text-white uppercase transition-colors duration-300 hover:border-[#2d91ff] hover:bg-[#447985]"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             <MessageCircle className="h-4 w-4 shrink-0" />
@@ -134,7 +138,7 @@ export default function FormContacto() {
                             href={SITE_CONTACT.whatsappUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex min-w-0 w-full items-center justify-center gap-3 border border-[#2f8f4f] bg-[#1faa52]/85 px-4 py-4 text-center text-[11px] font-bold leading-snug tracking-[0.16em] text-[#ffffff] uppercase transition-colors duration-300 hover:border-[#1f7f40] hover:bg-[#1f9a47]"
+                            className="flex min-w-0 w-full items-center justify-center gap-3 border border-[#95a682] bg-[#95a682] px-4 py-4 text-center text-[11px] font-bold leading-snug tracking-[0.16em] text-[#ffffff] uppercase transition-colors duration-300 hover:border-[#1f7f40] hover:bg-[#758760]"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             <svg className="h-4 w-4 shrink-0 transition-colors" fill="currentColor" viewBox="0 0 24 24">
@@ -144,22 +148,23 @@ export default function FormContacto() {
                         </a>
                     </div>
 
-                    <div className="w-full bg-[#fff8ed]/95 p-8 shadow-[0_22px_65px_rgba(170,125,105,0.12)] border border-[#AA7D69]/28 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#E1B19B]/10 blur-[100px] rounded-full group-hover:bg-[#E1B19B]/20 transition-colors duration-1000 -translate-y-1/2 translate-x-1/3"></div>
+                    <div className="group relative w-full overflow-hidden border border-[#AA7D69]/28 bg-[#FFF9F2]/90 p-4 shadow-[0_22px_65px_rgba(170,125,105,0.16)] md:p-6">
+                        <div className="pointer-events-none absolute -left-16 -top-20 h-52 w-52 rounded-full bg-[#b76d4b]/10 blur-[80px]" />
+                        <div className="pointer-events-none absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-[#E1B19B]/18 blur-[90px] transition-colors duration-1000 group-hover:bg-[#E1B19B]/24" />
 
                         {submitted ? (
-                            <div className="text-center py-24 relative z-10 flex flex-col items-center justify-center h-full">
-                                <div className="h-px w-16 bg-[#AA7D69]/50 mx-auto mb-4 lg:mb-8" />
-                                <p className="text-[#1C1713] text-3xl mb-4" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
+                            <div className="relative z-10 flex h-full flex-col items-center justify-center py-24 text-center">
+                                <div className="mx-auto mb-4 h-px w-16 bg-[#AA7D69]/50 lg:mb-8" />
+                                <p className="mb-4 text-3xl text-[#1C1713]" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
                                     {t("thanksTitle")}
                                 </p>
-                                <p className="text-[#1C1713]/70 text-base max-w-xs mx-auto" style={{ fontFamily: "var(--font-sans)" }}>
+                                <p className="mx-auto max-w-xs text-base text-[#1C1713]/70" style={{ fontFamily: "var(--font-sans)" }}>
                                     {t("thanksBody")}
                                 </p>
                             </div>
                         ) : (
-                            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                                <h3 className="text-[#1C1713] font-serif text-2xl mb-6 lg:mb-8">{t("formTitle")}</h3>
+                            <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+                                <h3 className="mb-6 font-serif text-2xl text-[#1C1713] lg:mb-8">{t("formTitle")}</h3>
 
                                 {error && (
                                     <p className="text-red-700/95 text-sm" style={{ fontFamily: "var(--font-sans)" }}>
@@ -167,51 +172,51 @@ export default function FormContacto() {
                                     </p>
                                 )}
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="flex flex-col gap-0 lg:gap-2">
-                                        <label className="text-[#1C1713]/58 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>{t("fullNameLabel")}</label>
+                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-[10px] uppercase tracking-[0.14em] text-[#1C1713]/58" style={{ fontFamily: "var(--font-sans)" }}>{t("fullNameLabel")}</label>
                                         <input
                                             name="name"
                                             type="text"
                                             required
                                             disabled={loading}
-                                            className="w-full bg-transparent border-b border-[#AA7D69]/30 py-3 text-[#1C1713] placeholder-[#1C1713]/35 text-base outline-none focus:border-[#AA7D69] transition-colors disabled:opacity-60"
+                                            className="w-full border-b border-[#AA7D69]/30 bg-transparent py-3 text-base text-[#1C1713] placeholder-[#1C1713]/35 outline-none transition-colors focus:border-[#AA7D69] disabled:opacity-60"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                             placeholder={t("namePlaceholder")}
                                         />
                                     </div>
-                                    <div className="flex flex-col gap-0 lg:gap-2">
-                                        <label className="text-[#1C1713]/58 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>{t("phoneFieldLabel")}</label>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-[10px] uppercase tracking-[0.14em] text-[#1C1713]/58" style={{ fontFamily: "var(--font-sans)" }}>{t("phoneFieldLabel")}</label>
                                         <input
                                             name="phone"
                                             type="tel"
                                             disabled={loading}
-                                            className="w-full bg-transparent border-b border-[#AA7D69]/30 py-3 text-[#1C1713] placeholder-[#1C1713]/35 text-base outline-none focus:border-[#AA7D69] transition-colors disabled:opacity-60"
+                                            className="w-full border-b border-[#AA7D69]/30 bg-transparent py-3 text-base text-[#1C1713] placeholder-[#1C1713]/35 outline-none transition-colors focus:border-[#AA7D69] disabled:opacity-60"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                             placeholder={t("phonePlaceholder")}
                                         />
                                     </div>
                                 </div>
-                                <div className="flex flex-col gap-0 lg:gap-2">
-                                    <label className="text-[#1C1713]/58 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>{t("emailFieldLabel")}</label>
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-[10px] uppercase tracking-[0.14em] text-[#1C1713]/58" style={{ fontFamily: "var(--font-sans)" }}>{t("emailFieldLabel")}</label>
                                     <input
                                         name="email"
                                         type="email"
                                         required
                                         disabled={loading}
-                                        className="w-full bg-transparent border-b border-[#AA7D69]/30 py-3 text-[#1C1713] placeholder-[#1C1713]/35 text-base outline-none focus:border-[#AA7D69] transition-colors disabled:opacity-60"
+                                        className="w-full border-b border-[#AA7D69]/30 bg-transparent py-3 text-base text-[#1C1713] placeholder-[#1C1713]/35 outline-none transition-colors focus:border-[#AA7D69] disabled:opacity-60"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                         placeholder={t("emailPlaceholder")}
                                     />
                                 </div>
-                                <div className="flex flex-col gap-0 lg:gap-2">
-                                    <label className="text-[#1C1713]/58 text-[10px] uppercase tracking-[0.1em]" style={{ fontFamily: "var(--font-sans)" }}>{t("messageLabel")}</label>
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-[10px] uppercase tracking-[0.14em] text-[#1C1713]/58" style={{ fontFamily: "var(--font-sans)" }}>{t("messageLabel")}</label>
                                     <textarea
                                         name="message"
                                         rows={3}
                                         required
                                         disabled={loading}
-                                        className="w-full bg-transparent border-b border-[#AA7D69]/30 py-3 text-[#1C1713] placeholder-[#1C1713]/35 text-base outline-none focus:border-[#AA7D69] transition-colors resize-none disabled:opacity-60"
+                                        className="w-full resize-none border-b border-[#AA7D69]/30 bg-transparent py-3 text-base text-[#1C1713] placeholder-[#1C1713]/35 outline-none transition-colors focus:border-[#AA7D69] disabled:opacity-60"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                         placeholder={t("messagePlaceholder")}
                                     />
@@ -226,7 +231,7 @@ export default function FormContacto() {
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="cursor-pointer w-full bg-[#AA7D69] hover:bg-[#956955] disabled:opacity-60 disabled:cursor-not-allowed text-[#fff8ed] px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] transition-colors duration-300 whitespace-nowrap"
+                                        className="w-full cursor-pointer whitespace-nowrap bg-[#AA7D69] px-4 py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-[#FFF9F2] transition-colors duration-300 hover:bg-[#956955] disabled:cursor-not-allowed disabled:opacity-60"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
                                         {loading ? t("sending") : t("submit")}
@@ -238,18 +243,18 @@ export default function FormContacto() {
                 </motion.div>
             </div>
 
-            <div className="max-w-[1440px] mx-auto w-full mt-8 lg:mt-24 flex flex-col items-center">
-                <p className="text-[#222222] font-serif text-lg lg:text-xl mb-4 lg:mb-8">{t("socialTitle")}</p>
+            <div className="relative z-10 mx-auto mt-8 flex w-full max-w-[1400px] flex-col items-center lg:mt-20">
+                <p className="mb-4 font-serif text-lg text-[#1C1713] lg:mb-8 lg:text-xl">{t("socialTitle")}</p>
                 <div className="flex items-center gap-4 lg:gap-8">
-                    <a href="https://www.instagram.com/dondiegosma/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 lg:w-14 lg:h-14 rounded-full border border-[#AA7D69]/30 flex items-center justify-center hover:bg-[#AA7D69] hover:text-white text-[#AA7D69] transition-all duration-300">
+                    <a href="https://www.instagram.com/dondiegosma/" target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full border border-[#AA7D69]/30 bg-[#FFF9F2]/70 text-[#AA7D69] transition-all duration-300 hover:bg-[#AA7D69] hover:text-white lg:h-14 lg:w-14">
                         <svg className="w-5 h-5 lg:w-7 lg:h-7 fill-current" viewBox="0 0 24 24">
                             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                         </svg>
                     </a>
-                    <a href="https://www.youtube.com/@dondiegosma" target="_blank" rel="noopener noreferrer" className="w-12 h-12 lg:w-14 lg:h-14 rounded-full border border-[#AA7D69]/30 flex items-center justify-center hover:bg-[#AA7D69] hover:text-white text-[#AA7D69] transition-all duration-300">
+                    <a href="https://www.youtube.com/@dondiegosma" target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full border border-[#AA7D69]/30 bg-[#FFF9F2]/70 text-[#AA7D69] transition-all duration-300 hover:bg-[#AA7D69] hover:text-white lg:h-14 lg:w-14">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="w-7 h-7 lg:w-8 lg:h-8 fill-current"><path d="M581.7 188.1C575.5 164.4 556.9 145.8 533.4 139.5C490.9 128 320.1 128 320.1 128C320.1 128 149.3 128 106.7 139.5C83.2 145.8 64.7 164.4 58.4 188.1C47 231 47 320.4 47 320.4C47 320.4 47 409.8 58.4 452.7C64.7 476.3 83.2 494.2 106.7 500.5C149.3 512 320.1 512 320.1 512C320.1 512 490.9 512 533.5 500.5C557 494.2 575.5 476.3 581.8 452.7C593.2 409.8 593.2 320.4 593.2 320.4C593.2 320.4 593.2 231 581.8 188.1zM264.2 401.6L264.2 239.2L406.9 320.4L264.2 401.6z" /></svg>
                     </a>
-                    <a href="https://www.tiktok.com/@dondiegosma" target="_blank" rel="noopener noreferrer" className="w-12 h-12 lg:w-14 lg:h-14 rounded-full border border-[#AA7D69]/30 flex items-center justify-center hover:bg-[#AA7D69] hover:text-white text-[#AA7D69] transition-all duration-300">
+                    <a href="https://www.tiktok.com/@dondiegosma" target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full border border-[#AA7D69]/30 bg-[#FFF9F2]/70 text-[#AA7D69] transition-all duration-300 hover:bg-[#AA7D69] hover:text-white lg:h-14 lg:w-14">
                         <svg className="w-6 h-6 sm:w-7 sm:h-7 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                             <path d="M544.5 273.9C500.5 274 457.5 260.3 421.7 234.7L421.7 413.4C421.7 446.5 411.6 478.8 392.7 506C373.8 533.2 347.1 554 316.1 565.6C285.1 577.2 251.3 579.1 219.2 570.9C187.1 562.7 158.3 545 136.5 520.1C114.7 495.2 101.2 464.1 97.5 431.2C93.8 398.3 100.4 365.1 116.1 336C131.8 306.9 156.1 283.3 185.7 268.3C215.3 253.3 248.6 247.8 281.4 252.3L281.4 342.2C266.4 337.5 250.3 337.6 235.4 342.6C220.5 347.6 207.5 357.2 198.4 369.9C189.3 382.6 184.4 398 184.5 413.8C184.6 429.6 189.7 444.8 199 457.5C208.3 470.2 221.4 479.6 236.4 484.4C251.4 489.2 267.5 489.2 282.4 484.3C297.3 479.4 310.4 469.9 319.6 457.2C328.8 444.5 333.8 429.1 333.8 413.4L333.8 64L421.8 64C421.7 71.4 422.4 78.9 423.7 86.2C426.8 102.5 433.1 118.1 442.4 131.9C451.7 145.7 463.7 157.5 477.6 166.5C497.5 179.6 520.8 186.6 544.6 186.6L544.6 274z" />
                         </svg>

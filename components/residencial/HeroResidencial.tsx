@@ -1,10 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import ProjectStatusPill from "@/components/ProjectStatusPill";
+import EnvironmentCarousel from "@/components/EnvironmentCarousel";
+import { environmentCarouselSlides } from "@/content/environmentCarousels";
 
 export default function HeroResidencial() {
     const t = useTranslations("pages.residencial.hero");
@@ -33,7 +34,7 @@ export default function HeroResidencial() {
     const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
 
     return (
-        <section ref={ref} className="relative w-full bg-[#EFE6DC] px-4 py-10 sm:px-6 sm:py-14 md:px-10 md:py-16 lg:px-20">
+        <section ref={ref} className="relative w-full bg-[#EFE6DC] py-16 px-6 md:px-10 lg:px-20">
             <div className="flex flex-col lg:flex-row w-full overflow-hidden">
 
                 {/* Left: Content Panel */}
@@ -874,19 +875,21 @@ export default function HeroResidencial() {
 
                 {/* Right: Image */}
                 <div className="w-full h-[240px] sm:h-[320px] lg:relative lg:h-auto">
-                <motion.div
+                    <motion.div
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1, ease: "easeOut" }}
-                        className="relative w-full h-full lg:absolute lg:inset-0 lg:h-[120%]"
-                        style={{ y: isDesktop ? imgY : 0 }}
+                        className="relative w-full h-full lg:absolute lg:inset-0"
                     >
-                        <Image
-                            src="/final/residencial.png"
-                            alt={t("imageAlt")}
-                            fill
+                        <EnvironmentCarousel
+                            slides={environmentCarouselSlides.residencial}
+                            accent="#E1B19B"
+                            className="h-full"
+                            imageLayerClassName="absolute left-0 top-0 h-full w-full lg:h-[120%]"
+                            imageMotionY={isDesktop ? imgY : 0}
                             priority
-                            className="object-cover object-center"
+                            imageClassName="object-center"
+                            sizes="(min-width: 1024px) 50vw, 100vw"
                         />
                     </motion.div>
                 </div>

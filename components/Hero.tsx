@@ -29,7 +29,74 @@ const titlePathVariants: Variants = {
     },
 };
 
-const EXPLORE_SCROLL_DURATION_MS = 3000;
+const EXPLORE_SCROLL_DURATION_MS = 3400;
+const EXPLORE_SCROLL_INTRO_TIME_PROGRESS = 0.28;
+const EXPLORE_SCROLL_MANIFESTO_TIME_PROGRESS = 0.6;
+const EXPLORE_SCROLL_FALLBACK_INTRO_DISTANCE_PROGRESS = 0.4;
+const EXPLORE_SCROLL_FALLBACK_MANIFESTO_DISTANCE_PROGRESS = 0.82;
+
+const easeInOutSine = (progress: number) => -(Math.cos(Math.PI * progress) - 1) / 2;
+const easeOutQuad = (progress: number) => 1 - (1 - progress) ** 2;
+
+type ExploreScrollCurve = {
+    introDistanceProgress: number;
+    manifestoDistanceProgress: number;
+};
+
+const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
+const getExploreScrollCurve = (startY: number, targetY: number): ExploreScrollCurve => {
+    const fallback = {
+        introDistanceProgress: EXPLORE_SCROLL_FALLBACK_INTRO_DISTANCE_PROGRESS,
+        manifestoDistanceProgress: EXPLORE_SCROLL_FALLBACK_MANIFESTO_DISTANCE_PROGRESS,
+    };
+    const manifesto = document.getElementById("proyecto");
+    const distance = targetY - startY;
+
+    if (!manifesto || distance <= 0) return fallback;
+
+    const manifestoRect = manifesto.getBoundingClientRect();
+    const manifestoTop = manifestoRect.top + startY;
+    const introDistanceProgress = clamp(
+        (manifestoTop + manifestoRect.height * 0.04 - startY) / distance,
+        0.32,
+        0.46,
+    );
+    const manifestoDistanceProgress = clamp(
+        (manifestoTop + manifestoRect.height * 0.72 - startY) / distance,
+        introDistanceProgress + 0.24,
+        0.86,
+    );
+
+    return {
+        introDistanceProgress,
+        manifestoDistanceProgress,
+    };
+};
+
+const getExploreScrollProgress = (progress: number, curve: ExploreScrollCurve) => {
+    const { introDistanceProgress, manifestoDistanceProgress } = curve;
+
+    if (progress < EXPLORE_SCROLL_INTRO_TIME_PROGRESS) {
+        const localProgress = progress / EXPLORE_SCROLL_INTRO_TIME_PROGRESS;
+        return introDistanceProgress * easeOutQuad(localProgress);
+    }
+
+    if (progress < EXPLORE_SCROLL_MANIFESTO_TIME_PROGRESS) {
+        const localProgress =
+            (progress - EXPLORE_SCROLL_INTRO_TIME_PROGRESS) /
+            (EXPLORE_SCROLL_MANIFESTO_TIME_PROGRESS - EXPLORE_SCROLL_INTRO_TIME_PROGRESS);
+        return (
+            introDistanceProgress +
+            (manifestoDistanceProgress - introDistanceProgress) * easeInOutSine(localProgress)
+        );
+    }
+
+    const localProgress =
+        (progress - EXPLORE_SCROLL_MANIFESTO_TIME_PROGRESS) /
+        (1 - EXPLORE_SCROLL_MANIFESTO_TIME_PROGRESS);
+    return manifestoDistanceProgress + (1 - manifestoDistanceProgress) * easeOutQuad(localProgress);
+};
 
 export default function Hero({ initialWeather }: HeroProps) {
     const th = useTranslations("hero");
@@ -55,15 +122,15 @@ export default function Hero({ initialWeather }: HeroProps) {
         const startY = window.scrollY;
         const targetY = target.getBoundingClientRect().top + startY;
         const distance = targetY - startY;
-        const duration = EXPLORE_SCROLL_DURATION_MS;
-        const startTime = performance.now();
+        if (Math.abs(distance) < 8) return;
 
-        const easeInOutCubic = (progress: number) =>
-            progress < 0.5 ? 4 * progress ** 3 : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        const duration = EXPLORE_SCROLL_DURATION_MS;
+        const scrollCurve = getExploreScrollCurve(startY, targetY);
+        const startTime = performance.now();
 
         const step = (currentTime: number) => {
             const progress = Math.min((currentTime - startTime) / duration, 1);
-            window.scrollTo(0, startY + distance * easeInOutCubic(progress));
+            window.scrollTo(0, startY + distance * getExploreScrollProgress(progress, scrollCurve));
 
             if (progress < 1) {
                 requestAnimationFrame(step);

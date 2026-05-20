@@ -33,7 +33,7 @@ export default function HeroContacto() {
                         initial="hidden"
                         animate="visible"
                         viewBox="0 0 1716 618"
-                        className="w-full h-auto max-w-[488px] pb-2 px-4 sm:px-8"
+                        className="h-auto w-[78vw] max-w-[300px] px-2 pb-2 sm:w-full sm:max-w-[420px] sm:px-8 md:max-w-[488px]"
                         preserveAspectRatio="xMidYMid meet"
                     >
                         <g transform="matrix(1,0,0,1,-689.247832,-503.264258)">

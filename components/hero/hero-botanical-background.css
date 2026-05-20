@@ -593,17 +593,145 @@
   visibility: hidden;
 }
 
-.scene-botanical .distant-bird-line {
+.scene-botanical .set-two-bird {
   position: absolute;
-  top: 17%;
-  left: 8%;
   display: block;
-  width: clamp(110px, 17vw, 230px);
-  aspect-ratio: 2059 / 141;
-  background: url("/hero/clean/02_bird_set_2.png") center / contain no-repeat;
-  opacity: 0.54;
-  filter: hue-rotate(var(--hue-shift, 0deg)) brightness(calc(0.62 + var(--light, 1) * 0.34));
-  animation: heroDistantBirds calc(48s / var(--anim-speed, 1)) linear infinite;
+  z-index: 41;
+  width: clamp(30px, 3.4vw, 60px);
+  aspect-ratio: 286 / 121;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  filter:
+    hue-rotate(var(--hue-shift, 0deg))
+    brightness(calc(0.58 + var(--light, 1) * 0.38))
+    drop-shadow(0 4px 4px rgba(20, 28, 24, 0.12));
+  will-change: transform, opacity;
+}
+
+.scene-botanical .set-two-bird span {
+  display: block;
+  width: 600%;
+  height: 100%;
+  background: url("/hero/02_bird_set_2_sprite.png") 0 0 / 100% 100% no-repeat;
+  animation: heroBirdSetTwoSprite calc(0.82s / var(--anim-speed, 1)) steps(6, end) infinite;
+  will-change: transform;
+}
+
+.scene-botanical .set-two-bird-a {
+  top: 15%;
+  left: 0;
+  --bird-opacity: 0.56;
+  animation: heroSetTwoBirdFlyA calc(46s / var(--anim-speed, 1)) linear infinite;
+  animation-delay: -19s;
+}
+
+.scene-botanical .set-two-bird-b {
+  top: 29%;
+  left: 0;
+  width: clamp(22px, 2.6vw, 46px);
+  --bird-opacity: 0.42;
+  animation: heroSetTwoBirdFlyB calc(58s / var(--anim-speed, 1)) linear infinite;
+  animation-delay: -41s;
+}
+
+.scene-botanical .hero-08-assets {
+  position: absolute;
+  inset: 0;
+  z-index: 39;
+  pointer-events: none;
+}
+
+.scene-botanical .hero-08-asset {
+  position: absolute;
+  display: block;
+  height: auto;
+  user-select: none;
+  transform-origin: 50% 100%;
+  filter:
+    hue-rotate(var(--hue-shift, 0deg))
+    saturate(calc(0.82 + (var(--light, 1) * 0.14)))
+    brightness(calc(0.84 + (var(--light, 1) * 0.16)))
+    contrast(0.94)
+    sepia(0.05)
+    drop-shadow(0 8px 10px rgba(24, 32, 22, 0.12));
+}
+
+.scene-botanical .hero-08-tree {
+  left: -1.4%;
+  bottom: 8.2%;
+  width: clamp(118px, 13vw, 235px);
+  opacity: 0.72;
+  transform: rotate(-1.5deg);
+}
+
+.scene-botanical .hero-08-left-rose {
+  left: 1.4%;
+  bottom: -6.2%;
+  width: clamp(126px, 13.2vw, 252px);
+  opacity: 0.92;
+  transform: rotate(-5deg);
+}
+
+.scene-botanical .hero-08-flower-1 {
+  left: 3.6%;
+  bottom: -7.4%;
+  width: clamp(210px, 23vw, 390px);
+  opacity: 0.92;
+  transform: rotate(-2deg);
+}
+
+.scene-botanical .hero-08-flower-2 {
+  display: none;
+  left: 43.5%;
+  bottom: -6.2%;
+  width: clamp(145px, 16vw, 280px);
+  opacity: 0.84;
+  transform: translateX(-50%) rotate(1deg);
+}
+
+.scene-botanical .hero-08-flower-3 {
+  display: none;
+  right: -2.8%;
+  bottom: -4.8%;
+  width: clamp(160px, 19vw, 320px);
+  opacity: 0.86;
+  transform: rotate(-4deg);
+}
+
+.scene-botanical .hero-08-flower-4 {
+  display: none;
+  left: 22.5%;
+  bottom: -6.8%;
+  width: clamp(170px, 20vw, 340px);
+  opacity: 0.88;
+  transform: rotate(-1deg);
+}
+
+.scene-botanical .hero-08-flower-5 {
+  right: 7.8%;
+  bottom: -8.2%;
+  width: clamp(215px, 23vw, 405px);
+  opacity: 0.86;
+  transform: rotate(-2deg);
+}
+
+.scene-botanical .hero-08-flower-6 {
+  display: none;
+  right: 36%;
+  bottom: -5.8%;
+  width: clamp(58px, 6vw, 108px);
+  opacity: 0.78;
+  transform: rotate(4deg);
+}
+
+@keyframes heroBirdSetTwoSprite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 @keyframes heroCloudAssetTravel {
@@ -618,19 +746,42 @@
   }
 }
 
-@keyframes heroDistantBirds {
+@keyframes heroSetTwoBirdFlyA {
   0% {
-    transform: translate3d(-20vw, 0, 0);
+    transform: translate3d(-12vw, 6px, 0) scale(0.76);
     opacity: 0;
   }
-  14% {
-    opacity: 0.54;
+  12% {
+    opacity: var(--bird-opacity, 0.54);
+  }
+  42% {
+    transform: translate3d(42vw, -14px, 0) scale(0.84);
   }
   86% {
-    opacity: 0.54;
+    opacity: var(--bird-opacity, 0.54);
   }
   100% {
-    transform: translate3d(112vw, -20px, 0);
+    transform: translate3d(116vw, -24px, 0) scale(0.7);
+    opacity: 0;
+  }
+}
+
+@keyframes heroSetTwoBirdFlyB {
+  0% {
+    transform: translate3d(-10vw, -2px, 0) scale(0.7);
+    opacity: 0;
+  }
+  16% {
+    opacity: var(--bird-opacity, 0.42);
+  }
+  54% {
+    transform: translate3d(58vw, 18px, 0) scale(0.78);
+  }
+  84% {
+    opacity: var(--bird-opacity, 0.42);
+  }
+  100% {
+    transform: translate3d(112vw, 6px, 0) scale(0.66);
     opacity: 0;
   }
 }
@@ -1822,6 +1973,8 @@
   .scene-botanical .fountain-plume span,
   .scene-botanical .plant,
   .scene-botanical .mote,
+  .scene-botanical .set-two-bird,
+  .scene-botanical .set-two-bird span,
   .scene-botanical .sprite-bird,
   .scene-botanical .sprite-bird span,
   .scene-botanical .butterfly,

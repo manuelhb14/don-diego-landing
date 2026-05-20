@@ -1,10 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "motion/react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useHasVisited } from "@/hooks/useHasVisited";
+import EnvironmentCarousel from "@/components/EnvironmentCarousel";
+import { environmentCarouselSlides } from "@/content/environmentCarousels";
 
 export default function ServicesV2() {
     const hasVisited = useHasVisited();
@@ -14,8 +15,7 @@ export default function ServicesV2() {
     const cards = [
         {
             id: "residencial",
-            src: "/final/club-residencial.png",
-            alt: "Club Residencial",
+            slides: environmentCarouselSlides.residencial,
             num: "01",
             title: tProject("residencial.title"),
             description: tProject("residencial.description"),
@@ -30,8 +30,7 @@ export default function ServicesV2() {
         },
         {
             id: "farm",
-            src: "/final/farm.jpg",
-            alt: "Organic Farm & Flowers",
+            slides: environmentCarouselSlides.farm,
             num: "02",
             title: tProject("farm.title"),
             description: tProject("farm.description"),
@@ -46,8 +45,7 @@ export default function ServicesV2() {
         },
         {
             id: "presa",
-            src: "/final/presa-de-la-cantera.png",
-            alt: "Presa de la Cantera",
+            slides: environmentCarouselSlides.presa,
             num: "03",
             title: tProject("presa.title"),
             description: tProject("presa.description"),
@@ -62,8 +60,7 @@ export default function ServicesV2() {
         },
         {
             id: "wellness",
-            src: "/final/wellness.png",
-            alt: "Wellness Center",
+            slides: environmentCarouselSlides.wellness,
             num: "04",
             title: tProject("wellness.title"),
             description: tProject("wellness.description"),
@@ -185,15 +182,13 @@ export default function ServicesV2() {
                                 </div>
                             </div>
 
-                            <div className="relative aspect-[16/9] min-h-[260px] overflow-hidden bg-[#efe2d0] md:min-h-[340px] lg:min-h-[300px] xl:min-h-[340px]">
-                                <Image
-                                    src={card.src}
-                                    alt={card.alt}
-                                    fill
-                                    className={`object-cover ${card.pending ? "saturate-[0.82] brightness-[0.95]" : ""}`}
-                                    sizes="(min-width: 1280px) 760px, (min-width: 1024px) 48vw, 100vw"
-                                />
-                            </div>
+                            <EnvironmentCarousel
+                                slides={card.slides}
+                                accent={card.accent}
+                                className="aspect-[16/9] min-h-[260px] md:min-h-[340px] lg:min-h-[300px] xl:min-h-[340px]"
+                                imageClassName={`object-center ${card.pending ? "saturate-[0.82] brightness-[0.95]" : ""}`}
+                                sizes="(min-width: 1280px) 760px, (min-width: 1024px) 48vw, 100vw"
+                            />
 
                             <div
                                 className="grid grid-cols-1 gap-2 border-t pt-4 sm:grid-cols-[1fr_1fr_1fr_auto]"

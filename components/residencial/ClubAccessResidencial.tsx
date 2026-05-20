@@ -17,10 +17,10 @@ export default function ClubAccessResidencial() {
     return (
         <section
             aria-labelledby="club-access-heading"
-            className="bg-[#2A2826] text-[#FFF3E1] py-14 lg:py-24 overflow-hidden"
+            className="bg-[#2A2826] text-[#FFF3E1] py-10 lg:py-16 overflow-hidden"
         >
             <div className="max-w-[1200px] mx-auto w-full px-6 lg:px-12">
-                <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14 xl:gap-16">
+                <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-12">
                     <motion.div
                         initial={{ opacity: 0, y: 28 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -64,7 +64,7 @@ export default function ClubAccessResidencial() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.1 }}
-                            className="mt-9"
+                            className="mt-7"
                         >
                             <Link
                                 href="/experiencias"
@@ -84,7 +84,7 @@ export default function ClubAccessResidencial() {
                         className="w-full min-w-0"
                     >
                         <div className="flex flex-col gap-3 sm:gap-4">
-                            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm border border-[#FFF3E1]/[0.12] shadow-[0_24px_48px_rgba(0,0,0,0.35)] lg:aspect-[2.1/1]">
+                            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm border border-[#FFF3E1]/[0.12] shadow-[0_24px_48px_rgba(0,0,0,0.35)] lg:aspect-[2.35/1]">
                                 <Image
                                     src={gallery[0].src}
                                     alt={t("alts.clubhouse")}
@@ -95,7 +95,7 @@ export default function ClubAccessResidencial() {
                                 />
                             </div>
                             <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                                <div className="relative aspect-[4/5] overflow-hidden rounded-sm border border-[#FFF3E1]/[0.12]">
+                                <div className="relative aspect-[6/5] overflow-hidden rounded-sm border border-[#FFF3E1]/[0.12]">
                                     <Image
                                         src={gallery[1].src}
                                         alt={t("alts.spa")}
@@ -104,7 +104,7 @@ export default function ClubAccessResidencial() {
                                         sizes="(min-width: 1024px) 21vw, 50vw"
                                     />
                                 </div>
-                                <div className="relative aspect-[4/5] overflow-hidden rounded-sm border border-[#FFF3E1]/[0.12]">
+                                <div className="relative aspect-[6/5] overflow-hidden rounded-sm border border-[#FFF3E1]/[0.12]">
                                     <Image
                                         src={gallery[2].src}
                                         alt={t("alts.restaurant")}

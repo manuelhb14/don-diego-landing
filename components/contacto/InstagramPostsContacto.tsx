@@ -68,18 +68,23 @@ export default function InstagramPostsContacto() {
                         href={INSTAGRAM_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block text-[#222] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#222] pb-1 hover:opacity-60 transition-opacity"
+                        className="inline-block w-fit self-start border-b border-[#222] pb-1 text-[10px] font-bold uppercase tracking-[0.15em] text-[#222] transition-opacity hover:opacity-60 md:self-auto lg:text-[11px]"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         {t("cta")}
                     </a>
                 </motion.div>
 
-                <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+                <div
+                    className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 scroll-px-6 [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 md:scroll-px-0 xl:grid-cols-4 [&::-webkit-scrollbar]:hidden"
+                    role="region"
+                    aria-roledescription="carousel"
+                    aria-label={`${t("titleLine1")} ${t("titleLine2")}`}
+                >
                     {posts.map((post, index) => (
                         <motion.article
                             key={post.key}
-                            className="overflow-hidden border border-[#AA7D69]/20 bg-[#F6F0E8] shadow-sm"
+                            className="w-[82vw] max-w-[380px] shrink-0 snap-start snap-always overflow-hidden border border-[#AA7D69]/20 bg-[#F6F0E8] shadow-sm sm:w-[56vw] sm:max-w-[420px] md:w-auto md:max-w-none md:shrink"
                             initial={shouldReduceMotion ? false : { opacity: 0, y: 24, scale: 0.985 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
                             viewport={{ once: true, margin: "-80px" }}
@@ -113,7 +118,7 @@ export default function InstagramPostsContacto() {
                                     src={post.image}
                                     alt={t(`posts.${post.key}.alt`)}
                                     fill
-                                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
+                                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 82vw"
                                     className="object-cover transition-transform duration-500 hover:scale-105"
                                 />
                             </div>

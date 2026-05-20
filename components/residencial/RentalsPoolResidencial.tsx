@@ -11,10 +11,10 @@ export default function RentalsPoolResidencial() {
         <section
             id="rentals"
             aria-labelledby="rentals-pool-heading"
-            className="bg-[#fff8ed] text-[#1F1D1B] py-14 lg:py-22 overflow-hidden border-t border-[#1F1D1B]/[0.06]"
+            className="bg-[#fff8ed] text-[#1F1D1B] py-10 lg:py-16 overflow-hidden border-t border-[#1F1D1B]/[0.06]"
         >
             <div className="max-w-[1200px] mx-auto w-full px-6 lg:px-12">
-                <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] gap-12 lg:gap-14 xl:gap-16 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] gap-10 lg:gap-12 items-center">
                     <motion.div
                         initial={{ opacity: 0, y: 28 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -22,7 +22,7 @@ export default function RentalsPoolResidencial() {
                         transition={{ duration: 0.8 }}
                         className="order-2 lg:order-1 min-w-0"
                     >
-                        <div className="relative w-full aspect-[4/3] lg:aspect-[5/4] overflow-hidden rounded-sm border border-[#1F1D1B]/[0.08] shadow-[0_20px_50px_rgba(47,39,33,0.12)]">
+                        <div className="relative w-full aspect-[16/10] lg:aspect-[3/2] overflow-hidden rounded-sm border border-[#1F1D1B]/[0.08] shadow-[0_20px_50px_rgba(47,39,33,0.12)]">
                             <Image
                                 src="/babylon/rental.webp"
                                 alt={t("imageAlt")}
@@ -41,7 +41,7 @@ export default function RentalsPoolResidencial() {
                         className="order-1 lg:order-2 max-w-xl lg:max-w-none"
                     >
                         <p
-                            className="text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase mb-4"
+                            className="text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase mb-3"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {t("kicker")}
@@ -66,7 +66,7 @@ export default function RentalsPoolResidencial() {
                             {t("subtitle")}
                         </p>
                         <p
-                            className="mt-6 text-[#1F1D1B]/80 text-base lg:text-[17px] leading-relaxed"
+                            className="mt-5 text-[#1F1D1B]/80 text-base lg:text-[17px] leading-relaxed"
                             style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                         >
                             {t("body")}
@@ -76,7 +76,7 @@ export default function RentalsPoolResidencial() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.1 }}
-                            className="mt-9"
+                            className="mt-7"
                         >
                             <Link
                                 href="/proximamente"

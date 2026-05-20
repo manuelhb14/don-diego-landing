@@ -1,10 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import ProjectStatusPill from "@/components/ProjectStatusPill";
+import EnvironmentCarousel from "@/components/EnvironmentCarousel";
+import { environmentCarouselSlides } from "@/content/environmentCarousels";
 
 export default function HeroWellness() {
     const t = useTranslations("pages.wellness.hero");
@@ -806,19 +807,21 @@ export default function HeroWellness() {
 
                 {/* Right: Image */}
                 <div className="w-full h-[240px] sm:h-[320px] lg:relative lg:h-auto">
-                <motion.div
+                    <motion.div
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1, ease: "easeOut" }}
-                        className="relative w-full h-full lg:absolute lg:inset-0 lg:h-[120%]"
-                        style={{ y: isDesktop ? imgY : 0 }}
+                        className="relative w-full h-full lg:absolute lg:inset-0"
                     >
-                        <Image
-                            src="/final/wellness-center.png"
-                            alt={t("imageAlt")}
-                            fill
+                        <EnvironmentCarousel
+                            slides={environmentCarouselSlides.wellness}
+                            accent="#D7D7AA"
+                            className="h-full"
+                            imageLayerClassName="absolute left-0 top-0 h-full w-full lg:h-[120%]"
+                            imageMotionY={isDesktop ? imgY : 0}
                             priority
-                            className="object-cover object-center"
+                            imageClassName="object-center"
+                            sizes="(min-width: 1024px) 50vw, 100vw"
                         />
                     </motion.div>
                 </div>

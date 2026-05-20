@@ -32,14 +32,14 @@ export default function Exclusivity() {
   const tx = useTranslations("exclusivity");
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden bg-[#F6F0E8]">
       <div className="absolute inset-0">
         <EditableImage
           contentKey="home.exclusivity.image"
-          fallbackSrc="/final/banner-5.png"
+          fallbackSrc="/final/banner-5-wide.png"
           alt={tx("imageAlt")}
           fill
-          className="object-cover"
+          className="object-cover object-right"
           sizes="100vw"
         />
       </div>
@@ -79,7 +79,7 @@ export default function Exclusivity() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="mt-12 flex flex-col items-start gap-2.5"
+            className="mt-12 mb-4 flex flex-col items-start gap-2.5"
           >
             <div className="flex items-center gap-4">
               {socialLinks.map((social) => (

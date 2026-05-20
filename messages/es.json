@@ -1676,7 +1676,7 @@
   "components": {
     "chatPanel": {
       "contextLabel": "Contexto: {pageType}",
-      "headerTitle": "Jorge · Don Diego",
+      "headerTitle": "Jorge Ventas",
       "clearAria": "Limpiar chat",
       "closeAria": "Cerrar panel de chat",
       "emptyState": "Empieza con una sugerencia o pregunta cualquier duda sobre Don Diego.",
@@ -1685,7 +1685,7 @@
       "showFollowups": "Mostrar sugerencias",
       "inputPlaceholder": "Pregunta sobre esta página",
       "send": "Enviar",
-      "panelAria": "Chat de Don Diego con Jorge",
+      "panelAria": "Chat de Don Diego con Jorge Ventas",
       "errors": {
         "chatRequestFailed": "No pude procesar tu solicitud en este momento."
       }

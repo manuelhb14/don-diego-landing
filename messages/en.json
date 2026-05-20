@@ -1676,7 +1676,7 @@
   "components": {
     "chatPanel": {
       "contextLabel": "Context: {pageType}",
-      "headerTitle": "George · Don Diego",
+      "headerTitle": "Jorge Ventas",
       "clearAria": "Clear chat",
       "closeAria": "Close chat panel",
       "emptyState": "Start with one of these suggestions or ask anything about Don Diego.",
@@ -1685,7 +1685,7 @@
       "showFollowups": "Show follow-ups",
       "inputPlaceholder": "Ask about this page",
       "send": "Send",
-      "panelAria": "Don Diego chat with George",
+      "panelAria": "Don Diego chat with Jorge Ventas",
       "errors": {
         "chatRequestFailed": "Sorry, I could not process your request right now."
       }
