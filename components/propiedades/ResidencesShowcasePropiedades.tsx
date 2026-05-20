@@ -38,7 +38,7 @@ type Residence = {
 const RESIDENCE_IMAGE_SIZES = "(min-width: 1280px) 680px, (min-width: 1024px) 52vw, 100vw";
 const RESIDENCE_SPLIT_IMAGE_SIZES = "(min-width: 1280px) 340px, (min-width: 1024px) 26vw, 50vw";
 const RESIDENCE_THUMB_IMAGE_SIZES = "(min-width: 1280px) 210px, (min-width: 1024px) 16vw, 33vw";
-const CASA_DUPLEX_MAIN_IMAGES = ["/final/Casa Duplex Tipo 1-A (Planta) Mid-Century.png"];
+const CASA_DUPLEX_MAIN_IMAGES = ["/final/Casa Duplex Tipo 1-A (Planta) Mid-Century Transparent.png"];
 const CASA_DUPLEX_RENDER_IMAGES = [
     "/final/3 Recamara Principal.png",
     "/final/6 Terraza.png",
@@ -85,13 +85,13 @@ function ResidenceImageShowcase({
             <div className="hidden min-w-0 lg:block">
                 <div
                     className={`relative w-full overflow-hidden ${
-                        hasExplicitMainImages ? "aspect-[1344/752] bg-[#f7eee5]" : "aspect-[2/1]"
+                        hasExplicitMainImages ? "aspect-[1344/752]" : "aspect-[2/1]"
                     }`}
                 >
                     {splitMainImages ? (
                         <div className="grid h-full w-full grid-cols-2 gap-px bg-[#EFE6DC]">
                             {splitMainImages.map((src, i) => (
-                                <div key={`${i}-${src}`} className="relative min-w-0 overflow-hidden bg-[#f7eee5]">
+                                <div key={`${i}-${src}`} className="relative min-w-0 overflow-hidden">
                                     <Image
                                         src={src}
                                         alt={t("imageAlt", { title, index: i + 1, total: splitMainImages.length })}
@@ -152,7 +152,7 @@ function ResidenceImageCarousel({
     if (n === 1) {
         const shouldContainImage = containImageCount > 0;
         return (
-            <div className={`relative aspect-[16/10] w-full overflow-hidden ${shouldContainImage ? "bg-[#f7eee5]" : ""}`}>
+            <div className="relative aspect-[16/10] w-full overflow-hidden">
                 <Image
                     src={images[0]}
                     alt={title}
@@ -220,7 +220,7 @@ function ResidenceImageCarouselEmbla({
                         const shouldContainImage = i < containImageCount;
                         return (
                             <CarouselItem key={`${i}-${src}`} className="h-full basis-full pl-0">
-                                <div className={`relative h-full w-full ${shouldContainImage ? "bg-[#f7eee5]" : ""}`}>
+                                <div className="relative h-full w-full">
                                     <Image
                                         src={src}
                                         alt={t("imageAlt", { title, index: i + 1, total: n })}

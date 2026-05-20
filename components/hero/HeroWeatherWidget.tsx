@@ -97,12 +97,12 @@ export default function HeroWeatherWidget({ initialWeather }: HeroWeatherWidgetP
             className="absolute bottom-5 right-4 z-10 flex items-center gap-3 text-[#FFF3E1] drop-shadow-[0_4px_18px_rgba(0,0,0,0.42)] sm:bottom-6 sm:right-6 lg:bottom-10 lg:right-10"
             aria-label={ariaLabel}
         >
-            <WeatherIcon className="h-10 w-10 sm:h-12 sm:w-12" strokeWidth={1.6} aria-hidden />
+            <WeatherIcon className="h-6 w-6 sm:h-12 sm:w-12" strokeWidth={1.6} aria-hidden />
             <span className="grid gap-0.5 text-right">
-                <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-[#FFF3E1]/75">
+                <span className="text-[9px] sm:text-[11px] font-medium uppercase tracking-[0.18em] text-[#FFF3E1]/75">
                     San Miguel
                 </span>
-                <span className="text-2xl font-medium leading-none sm:text-3xl">{temp}</span>
+                <span className="text-base font-medium leading-none sm:text-3xl">{temp}</span>
             </span>
         </aside>
     );

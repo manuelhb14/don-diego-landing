@@ -36,7 +36,7 @@ export default function Exclusivity() {
       <div className="absolute inset-0">
         <EditableImage
           contentKey="home.exclusivity.image"
-          fallbackSrc="/babylon/banner-4.webp"
+          fallbackSrc="/final/banner-5.png"
           alt={tx("imageAlt")}
           fill
           className="object-cover"

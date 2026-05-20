@@ -13,6 +13,10 @@ type ProyectoCard = {
     href: string;
     colSpan: string;
     aspect: string;
+    ledColor: string;
+    ledActive: boolean;
+    statusLabel: string;
+    pending: boolean;
 };
 
 export default function GridProyecto() {
@@ -27,6 +31,10 @@ export default function GridProyecto() {
             href: "/residencial",
             colSpan: "col-span-1 md:col-span-8",
             aspect: "aspect-[4/3] md:aspect-[21/9]",
+            ledColor: "#E1B19B",
+            ledActive: true,
+            statusLabel: t("status.inDevelopment"),
+            pending: false,
         },
         {
             title: t("cards.farm.title"),
@@ -35,6 +43,10 @@ export default function GridProyecto() {
             href: "/farm",
             colSpan: "col-span-1 md:col-span-4",
             aspect: "aspect-[4/3] md:aspect-[3/4]",
+            ledColor: "#DEBEBF",
+            ledActive: true,
+            statusLabel: t("status.inDevelopment"),
+            pending: false,
         },
         {
             title: t("cards.wellness.title"),
@@ -43,6 +55,10 @@ export default function GridProyecto() {
             href: "/wellness",
             colSpan: "col-span-1 md:col-span-5",
             aspect: "aspect-[4/3] md:aspect-square",
+            ledColor: "#D7D7AA",
+            ledActive: false,
+            statusLabel: t("status.comingSoon"),
+            pending: true,
         },
         {
             title: t("cards.presa.title"),
@@ -51,6 +67,10 @@ export default function GridProyecto() {
             href: "/presa",
             colSpan: "col-span-1 md:col-span-7",
             aspect: "aspect-[4/3] md:aspect-[16/9]",
+            ledColor: "#C8D7E6",
+            ledActive: false,
+            statusLabel: t("status.comingSoon"),
+            pending: true,
         },
     ];
 
@@ -72,11 +92,32 @@ export default function GridProyecto() {
                                     src={item.image}
                                     alt={item.title}
                                     fill
-                                    className="object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-105"
+                                    className={`object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-105 ${item.pending ? "saturate-[0.82] brightness-[0.92]" : ""}`}
                                     sizes="(max-width: 768px) 100vw, 50vw"
                                 />
 
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#1F1D1B]/90 via-[#1F1D1B]/20 to-transparent opacity-95 md:opacity-80 transition-opacity duration-700 group-hover:opacity-95" />
+                                {item.pending && <div className="absolute inset-0 bg-[#FFF3E1]/18 transition-colors duration-700 group-hover:bg-[#FFF3E1]/12" />}
+
+                                <div className="absolute right-4 top-4 z-10 flex items-center gap-2 md:right-5 md:top-5">
+                                    <span
+                                        className="text-[9px] font-black uppercase tracking-[0.18em] text-[#FFF8EC] drop-shadow-[0_1px_2px_rgba(31,29,27,0.38)] md:text-[10px] lg:text-[11px]"
+                                        style={{
+                                            fontFamily: "var(--font-sans)",
+                                            textShadow: "0 1px 2px rgba(31, 29, 27, 0.42), 0 2px 5px rgba(31, 29, 27, 0.22)",
+                                        }}
+                                    >
+                                        {item.statusLabel}
+                                    </span>
+                                    <span
+                                        className={`h-2.5 w-2.5 rounded-full ${item.ledActive ? "animate-pulse" : ""}`}
+                                        style={{
+                                            backgroundColor: item.ledColor,
+                                            opacity: item.ledActive ? 1 : 0.52,
+                                            boxShadow: item.ledActive ? `0 0 5px 1px ${item.ledColor}80, 0 0 10px 2px ${item.ledColor}45` : `inset 0 0 0 1px ${item.ledColor}80`,
+                                        }}
+                                    />
+                                </div>
 
                                 <div className="absolute inset-0 p-5 md:p-12 flex flex-col justify-end">
                                     <div className="transform translate-y-0 md:translate-y-28 transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:translate-y-0">
@@ -134,6 +175,14 @@ export default function GridProyecto() {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="max-w-md md:mb-2 lg:mb-4"
                     >
+                        {/*
+                        <p
+                            className="mb-5 text-right text-[10px] font-medium uppercase leading-[1.7] tracking-[0.18em] text-[#AA7D69]"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            {t("phaseNote")}
+                        </p>
+                        */}
                         <p className="text-[#222] text-lg md:text-xl font-medium leading-relaxed mb-0" style={{ fontFamily: "var(--font-serif)" }}>
                             {t("bottomBody")}
                         </p>

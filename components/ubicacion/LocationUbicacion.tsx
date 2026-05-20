@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { Activity, Anchor, Home, Leaf, type LucideIcon } from "lucide-react";
+import { MAP_SECTION_IMAGE_ALT, MAP_SECTION_IMAGE_SRC } from "@/lib/map-assets";
 
 type PinConfig = {
     title: string;
@@ -212,11 +214,18 @@ function MapSurface({
             }}
         >
             <div className={`relative w-full aspect-[2878/1858] rounded-3xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(170,125,105,0.15)] border border-[#AA7D69]/10 group bg-[#EDE5DA] ${frameClassName}`}>
+                <Image
+                    src={MAP_SECTION_IMAGE_SRC}
+                    alt={MAP_SECTION_IMAGE_ALT}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 1024px"
+                />
                 <motion.svg
                     viewBox="0 0 2878 1858"
                     xmlns="http://www.w3.org/2000/svg"
                     preserveAspectRatio="xMidYMid meet"
-                    className="w-full h-full block"
+                    className="hidden"
                     style={{ fillRule: "evenodd", clipRule: "evenodd", strokeLinecap: "round", strokeLinejoin: "round", strokeMiterlimit: 1.5 }}
                     variants={{ hidden: {}, visible: {} }}
                 >
@@ -287,6 +296,14 @@ function MapSurface({
 
                     <MapPins />
                 </motion.svg>
+                <svg
+                    viewBox="0 0 2878 1858"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="xMidYMid meet"
+                    className="absolute inset-0 h-full w-full"
+                >
+                    <MapPins />
+                </svg>
             </div>
 
             {showMobileImages ? <MobileLocationImages /> : null}

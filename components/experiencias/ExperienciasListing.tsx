@@ -16,7 +16,7 @@ type ExperienciaItem = {
 
 function GridCardMedia({ imageSrc, title }: { imageSrc?: string; title: string }) {
     return (
-        <div className="relative overflow-hidden bg-[#EFE6DC] aspect-[1/1] lg:aspect-[12/13]">
+        <div className="relative overflow-hidden bg-[#EFE6DC] aspect-[9/7] lg:aspect-[9/7]">
             {imageSrc ? (
                 <Image
                     src={imageSrc}

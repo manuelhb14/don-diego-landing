@@ -78,7 +78,7 @@ export default function Contact() {
                                 fontSize: "clamp(2.1rem, 4.6vw, 4.7rem)",
                             }}
                         >
-                            {t("joinLine1")} <em className="text-[#AA7D69]">{t("joinEm")}</em>
+                            {t("joinLine1")} <br /><em className="text-[#AA7D69]">{t("joinEm")}</em>
                         </h2>
 
                         <p

@@ -26,7 +26,7 @@ function ParallaxCardImage({
     reduceMotion: boolean;
 }) {
     return (
-        <div className="relative overflow-hidden bg-[#EFE6DC] aspect-[7/8]">
+        <div className="relative overflow-hidden bg-[#EFE6DC] aspect-[9/7]">
             <motion.div
                 className="absolute left-0 right-0 h-[145%] w-full -top-[22.5%]"
                 style={reduceMotion ? undefined : { y }}

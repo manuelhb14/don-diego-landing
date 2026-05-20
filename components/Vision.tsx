@@ -37,7 +37,7 @@ export default function Vision() {
   const youtubeId = YOUTUBE_IDS[localeKey] ?? YOUTUBE_IDS.es;
 
   return (
-    <section className="bg-[#EDE5DA] overflow-hidden">
+    <section id="home-video" className="bg-[#EDE5DA] overflow-hidden scroll-mt-0">
       <div className="max-w-[1440px] mx-auto w-full px-6 md:px-10 lg:px-16 py-14 md:py-18 lg:py-22">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8 md:mb-10">
           <motion.div

@@ -4,8 +4,10 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import ProjectStatusPill from "@/components/ProjectStatusPill";
 export default function HeroFarm() {
     const t = useTranslations("pages.farm.hero");
+    const tn = useTranslations("nav");
     const ref = useRef(null);
     const [isDesktop, setIsDesktop] = useState(() =>
         typeof window === "undefined" ? true : window.matchMedia("(min-width: 1024px)").matches,
@@ -36,6 +38,7 @@ export default function HeroFarm() {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
                 >
+                    <ProjectStatusPill label={tn("status.inDevelopment")} color="#DEBEBF" active />
 
                     {/* Center: Title & Description */}
                     <div className="flex-1 flex flex-col items-center justify-center px-4 lg:px-12 text-center">

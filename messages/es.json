@@ -17,6 +17,10 @@
       "wellness": "Wellness Center",
       "presa": "Presa de la Cantera"
     },
+    "status": {
+      "inDevelopment": "En desarrollo",
+      "comingSoon": "Próximamente"
+    },
     "menuAria": "Menú",
     "aiAssistant": "Pregúntame"
   },
@@ -49,7 +53,7 @@
     "eyebrow": "[DESARROLLO RESIDENCIAL]",
     "bodyLine1": "Un desarrollo donde la arquitectura se encuentra con la naturaleza. Diseñado para una vida en conexión.",
     "bodyLine2": "",
-    "explore": "Ver propiedades"
+    "explore": "Explorar"
   },
   "about": {
     "quote": "\"La Mejor Ciudad Pequeña del Mundo\"",
@@ -102,6 +106,7 @@
     "cta": "Ver equipo",
     "headingLine1": "Maestros de su",
     "headingEm": "oficio.",
+    "subtitle": "Un equipo multidisciplinario que reúne desarrollo, arquitectura, paisaje y estrategia para dar forma a Don Diego.",
     "cimenta": {
       "name": "Grupo Cimienta",
       "role": "Desarrollo",
@@ -134,7 +139,7 @@
     "privacy": "Al enviar, aceptas nuestros Términos y la Política de Privacidad, incluidas (cuando aplique) verificaciones de identidad con CURP y revisiones en plataformas legales o de verificación, tal como se describen allí.",
     "committeeNotice": "Al enviar este primer formulario, tu solicitud entra a revisión de un comité interno (Comité) para una validación básica de seguridad y adecuación antes de compartir detalles sensibles, como precios puntuales. Es un paso habitual para cuidar a la comunidad y al proyecto.",
     "kicker": "[Contacto]",
-    "joinLine1": "Únete al mundo de",
+    "joinLine1": "Únete a la comunidad de",
     "joinEm": "Don Diego",
     "bodyHome": "Descubre Don Diego en persona. Contáctanos para programar un recorrido privado por nuestras tierras en San Miguel de Allende.",
     "belief1t": "Bienestar",
@@ -167,9 +172,9 @@
   "footer": {
     "rights": "© 2026 Don Diego Club Residencial. Todos los derechos reservados.",
     "location": "San Miguel de Allende, Guanajuato, México",
-    "joinTitleLine1": "Únete a la comunidad de",
+    "joinTitleLine1": "Suscríbete al newsletter",
     "joinTitleLine2": "Don Diego",
-    "joinSubtitle": "Suscríbete para unirte a nuestra comunidad y mantenerte al día con el desarrollo.",
+    "joinSubtitle": "Para mantenerte al día con el desarrollo.",
     "firstNamePh": "NOMBRE *",
     "lastNamePh": "APELLIDO *",
     "emailPh": "CORREO ELECTRÓNICO *",
@@ -216,8 +221,13 @@
     "kicker": "[COMPONENTES]",
     "heading": "El Proyecto",
     "intro": "Don Diego Club Residencial se estructura en torno a cuatro componentes con identidad propia, integrados en una visión coherente de comunidad y territorio.",
+    "phaseNote": "",
     "closing": "Cada componente ha sido diseñado a partir de una premisa clara: crear un entorno residencial que dialogue con el alma de San Miguel de Allende, reinterpretándola con sensibilidad contemporánea.",
     "cta": "EXPLORAR EL DESARROLLO",
+    "status": {
+      "inDevelopment": "En desarrollo",
+      "comingSoon": "Próximamente"
+    },
     "cardClubL1": "CLUB",
     "cardClubL2": "RESIDENCIAL",
     "cardFarmL1": "ORGANIC",
@@ -677,7 +687,12 @@
         "discover": "Descubrir",
         "bottomTitleLine1": "Cuatro Entornos",
         "bottomTitleLine2": "Una Comunidad",
+        "phaseNote": "",
         "bottomBody": "Cada componente ha sido diseñado como parte de un ecosistema integral, respetando la vocación del lugar y ofreciendo una experiencia de vida única y armoniosa.",
+        "status": {
+          "inDevelopment": "En desarrollo",
+          "comingSoon": "Próximamente"
+        },
         "cards": {
           "residencial": {
             "title": "Club Residencial",
@@ -867,6 +882,60 @@
         "headline": "364 residencias entre dúplex y departamentos",
         "body": "Densidad inteligente que protege vistas y privacidad. Paisaje vivo con jardines, fuentes y riachuelos.",
         "imageAlt": "Club Residencial"
+      },
+      "overview": {
+        "kicker": "[LO ESENCIAL]",
+        "titleLine1": "Detalles concretos del",
+        "titleAccent": "Club Residencial",
+        "body": "El Club Residencial concentra la vivienda privada de Don Diego: residencias, amenidades, operación diaria y circulación pensadas para que el interior se viva caminando, con servicios coordinados y una relación directa con terrazas, patios y paisaje.",
+        "imageAlt": "Vista del Club Residencial de Don Diego",
+        "imageNote": "La movilidad se resuelve en el perímetro y a desnivel, liberando el centro residencial para jardines, andadores y vida peatonal.",
+        "summaryLabel": "En resumen",
+        "summary": "La lógica residencial combina propiedad privada, acceso al club, estacionamiento techado, calles interiores peatonales, terrazas y azoteas aprovechables, más opciones de rentabilidad administrada para propietarios que quieran activar su unidad cuando no la usen.",
+        "facts": {
+          "homes": {
+            "label": "Residencias",
+            "value": "364"
+          },
+          "typologies": {
+            "label": "Tipologías",
+            "value": "Dúplex + depas"
+          },
+          "parking": {
+            "label": "Estacionamiento",
+            "value": "2 cajones"
+          },
+          "mobility": {
+            "label": "Interior",
+            "value": "Peatonal"
+          }
+        },
+        "items": {
+          "parkingCircuit": {
+            "title": "Estacionamiento techado y perimetral",
+            "body": "Los cajones se ubican en un circuito a desnivel/periférico para mantener los autos fuera de las calles interiores. Cada unidad contempla dos cajones."
+          },
+          "pedestrianPaths": {
+            "title": "Calles y andadores sin autos",
+            "body": "El centro del desarrollo prioriza recorridos peatonales, jardines, sombra y cruces tranquilos entre residencias, amenidades y áreas comunes."
+          },
+          "rentalModel": {
+            "title": "Rentabilidad administrada",
+            "body": "Don Diego Rentals coordina calendario, reservas y estándares de servicio para propietarios que deseen rentar su unidad cuando no la estén usando."
+          },
+          "partialRental": {
+            "title": "Renta parcial en prototipos seleccionados",
+            "body": "Algunas configuraciones permiten independizar una recámara para rentarla por separado, manteniendo uso flexible de la residencia."
+          },
+          "maintenance": {
+            "title": "Beneficios de mantenimiento",
+            "body": "La operación residencial cuida áreas comunes, paisaje, accesos y estándares del club, reduciendo fricción cotidiana para propietarios y huéspedes."
+          },
+          "outdoorLiving": {
+            "title": "Terrazas, patios y azoteas",
+            "body": "Las viviendas aprovechan espacios exteriores privados o semiprivados: terrazas, patios interiores, azoteas y jacuzzis en prototipos seleccionados."
+          }
+        }
       },
       "features": {
         "kicker": "[TIPOLOGÍA]",
@@ -1145,6 +1214,35 @@
         "images": {
           "mainAlt": "La granja orgánica Don Diego",
           "secondaryAlt": "Invernadero y cultivo de temporada"
+        }
+      },
+      "overview": {
+        "title": "Detalles de Organic Farm",
+        "items": {
+          "organicCrops": {
+            "title": "Huertos orgánicos",
+            "body": "Cultivos, frutales y bancales pensados para producir alimentos frescos dentro del ecosistema de Don Diego."
+          },
+          "seasonalFlowers": {
+            "title": "Flores de temporada",
+            "body": "Producción floral que cambia con el año y alimenta la identidad visual, aromática y cotidiana del club."
+          },
+          "greenhouses": {
+            "title": "Invernaderos y terrazas",
+            "body": "Zonas de cultivo organizadas en terrazas e invernaderos para cuidar origen, calidad y continuidad."
+          },
+          "clubSupply": {
+            "title": "Abasto al ecosistema",
+            "body": "La producción se integra a restaurantes, amenidades y vida diaria: una comunidad que consume lo que cultiva."
+          },
+          "paths": {
+            "title": "Andadores y cicloruta",
+            "body": "Recorridos entre hileras, bancales y paisaje productivo para caminar, pedalear y leer el trabajo del huerto."
+          },
+          "landCycle": {
+            "title": "Ciclos de la tierra",
+            "body": "Brotes, floración y cosecha marcan el ritmo de la granja y mantienen vivo el paisaje durante el año."
+          }
         }
       },
       "paseosHuertos": {

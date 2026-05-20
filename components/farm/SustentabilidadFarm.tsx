@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import FarmDetailsHighlight from "@/components/farm/FarmDetailsHighlight";
 
 export default function SustentabilidadFarm() {
     const t = useTranslations("pages.farm.sustentabilidad");
@@ -79,6 +80,7 @@ export default function SustentabilidadFarm() {
                 </div>
 
             </div>
+            <FarmDetailsHighlight />
         </section>
     );
 }

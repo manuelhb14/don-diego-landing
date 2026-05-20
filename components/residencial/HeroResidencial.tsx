@@ -4,9 +4,11 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import ProjectStatusPill from "@/components/ProjectStatusPill";
 
 export default function HeroResidencial() {
     const t = useTranslations("pages.residencial.hero");
+    const tn = useTranslations("nav");
     const ref = useRef(null);
     const [isDesktop, setIsDesktop] = useState(() => {
         if (typeof window === "undefined") {
@@ -31,7 +33,7 @@ export default function HeroResidencial() {
     const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
 
     return (
-        <section ref={ref} className="relative w-full bg-[#EFE6DC] py-16 px-6 md:px-10 lg:px-20">
+        <section ref={ref} className="relative w-full bg-[#EFE6DC] px-4 py-10 sm:px-6 sm:py-14 md:px-10 md:py-16 lg:px-20">
             <div className="flex flex-col lg:flex-row w-full overflow-hidden">
 
                 {/* Left: Content Panel */}
@@ -41,6 +43,7 @@ export default function HeroResidencial() {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
                 >
+                    <ProjectStatusPill label={tn("status.inDevelopment")} color="#E1B19B" active />
 
                     {/* Center: Title & Description */}
                     <div className="flex-1 flex flex-col items-center justify-center px-4 lg:px-12 text-center">

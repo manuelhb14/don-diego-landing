@@ -70,7 +70,6 @@ export default function Footer() {
                         <div>
                             <h2 className="font-serif text-4xl md:text-4xl leading-tight mb-2">
                                 {t("joinTitleLine1")} <br className="hidden lg:block" />
-                                {t("joinTitleLine2")}
                             </h2>
                             <p className="font-sans text-sm font-light leading-relaxed opacity-80">
                                 {t("joinSubtitle")}

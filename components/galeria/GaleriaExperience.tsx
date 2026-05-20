@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { MAP_SECTION_IMAGE_SRC } from "@/lib/map-assets";
 
 type GalleryCategory = "all" | "residences" | "amenities" | "surroundings" | "masterplan";
 
@@ -112,7 +113,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: "mapa",
-    src: "/babylon/map.webp",
+    src: MAP_SECTION_IMAGE_SRC,
     category: "masterplan",
     size: "",
   },

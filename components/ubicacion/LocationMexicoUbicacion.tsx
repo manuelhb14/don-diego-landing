@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { Compass, Mountain, MapPinned } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { MAP_SECTION_IMAGE_SRC } from "@/lib/map-assets";
 
 export default function LocationMexicoUbicacion() {
     const t = useTranslations("pages.ubicacion.locationMexico");
@@ -76,7 +77,7 @@ export default function LocationMexicoUbicacion() {
                 >
                     <div className="relative aspect-square lg:aspect-[16/9] w-full">
                         <Image
-                            src="/babylon/map.webp"
+                            src={MAP_SECTION_IMAGE_SRC}
                             alt={t("imageAlt")}
                             fill
                             className="object-cover"

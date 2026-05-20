@@ -7,6 +7,7 @@ import ChatLayoutShell from "@/components/chat/ChatLayoutShell";
 import Script from "next/script";
 import ViewportIndicator from "@/components/dev/ViewportIndicator";
 import { VisualEditorProvider } from "@/components/editor/VisualEditorProvider";
+import SiteReviewLoader from "@/components/site-review/SiteReviewLoader";
 
 type Props = {
   children: React.ReactNode;
@@ -43,6 +44,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             </ChatProvider>
           </VisualEditorProvider>
         </NextIntlClientProvider>
+        <SiteReviewLoader />
       </body>
     </html>
   );

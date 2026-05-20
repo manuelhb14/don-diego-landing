@@ -17,6 +17,10 @@
       "wellness": "Wellness Center",
       "presa": "Presa de la Cantera"
     },
+    "status": {
+      "inDevelopment": "In development",
+      "comingSoon": "Coming soon"
+    },
     "menuAria": "Menu",
     "aiAssistant": "Let's talk"
   },
@@ -49,7 +53,7 @@
     "eyebrow": "[RESIDENTIAL DEVELOPMENT]",
     "bodyLine1": "A sanctuary where architecture meets nature. Designed for a life in connection. ",
     "bodyLine2": "",
-    "explore": "Go to properties"
+    "explore": "Explore"
   },
   "about": {
     "quote": "\"Best Small City in the World\"",
@@ -102,6 +106,7 @@
     "cta": "View team",
     "headingLine1": "Masters of their",
     "headingEm": "craft.",
+    "subtitle": "A multidisciplinary team uniting development, architecture, landscape, and strategy to shape Don Diego.",
     "cimenta": {
       "name": "Grupo Cimienta",
       "role": "Development",
@@ -167,9 +172,9 @@
   "footer": {
     "rights": "© 2026 Don Diego Club Residencial. All rights reserved.",
     "location": "San Miguel de Allende, Guanajuato, México",
-    "joinTitleLine1": "JOIN THE WORLD OF",
-    "joinTitleLine2": "DON DIEGO",
-    "joinSubtitle": "Subscribe to join our community and stay up to date with the development.",
+    "joinTitleLine1": "Subscribe to the newsletter",
+    "joinTitleLine2": "Don Diego",
+    "joinSubtitle": "To stay up to date with the development.",
     "firstNamePh": "FIRST NAME *",
     "lastNamePh": "LAST NAME *",
     "emailPh": "EMAIL *",
@@ -216,8 +221,13 @@
     "kicker": "[COMPONENTS]",
     "heading": "The Project",
     "intro": "Don Diego Club Residencial is built around four distinct components, united in a coherent vision of community and territory.",
+    "phaseNote": "Stage 1 includes Club Residencial and Organic Farm & Flowers. Wellness Center and Presa de la Cantera are planned for a later development stage.",
     "closing": "Each component is designed from a clear premise: to create a residential environment that speaks to the soul of San Miguel de Allende, reinterpreted with contemporary sensitivity.",
     "cta": "EXPLORE THE DEVELOPMENT",
+    "status": {
+      "inDevelopment": "In development",
+      "comingSoon": "Coming soon"
+    },
     "cardClubL1": "CLUB",
     "cardClubL2": "RESIDENCIAL",
     "cardFarmL1": "ORGANIC",
@@ -677,7 +687,12 @@
         "discover": "Discover",
         "bottomTitleLine1": "Four Environments",
         "bottomTitleLine2": "One Community",
+        "phaseNote": "Stage 1 includes Club Residencial and Organic Farm & Flowers. Wellness Center and Presa de la Cantera are planned for a later development stage.",
         "bottomBody": "Each component is designed as part of an integrated ecosystem, respecting the vocation of the place and offering a unique, harmonious lifestyle experience.",
+        "status": {
+          "inDevelopment": "In development",
+          "comingSoon": "Coming soon"
+        },
         "cards": {
           "residencial": {
             "title": "Club Residencial",
@@ -867,6 +882,60 @@
         "headline": "364 residences between duplexes and apartments",
         "body": "Intelligent density that protects views and privacy. Living landscape with gardens, fountains, and streams.",
         "imageAlt": "Club Residencial"
+      },
+      "overview": {
+        "kicker": "[THE ESSENTIALS]",
+        "titleLine1": "Concrete details of",
+        "titleAccent": "Club Residencial",
+        "body": "Club Residencial concentrates Don Diego's private residential life: residences, amenities, daily operation, and circulation designed so the interior is lived on foot, with coordinated services and a direct relationship to terraces, patios, and landscape.",
+        "imageAlt": "View of Don Diego Club Residencial",
+        "imageNote": "Mobility is resolved around the perimeter and at a lower level, freeing the residential core for gardens, walkways, and pedestrian life.",
+        "summaryLabel": "In summary",
+        "summary": "The residential logic combines private ownership, club access, covered parking, pedestrian interior streets, usable terraces and rooftops, plus managed rental options for owners who want to activate their unit when they are not using it.",
+        "facts": {
+          "homes": {
+            "label": "Residences",
+            "value": "364"
+          },
+          "typologies": {
+            "label": "Typologies",
+            "value": "Duplex + apts"
+          },
+          "parking": {
+            "label": "Parking",
+            "value": "2 spots"
+          },
+          "mobility": {
+            "label": "Interior",
+            "value": "Pedestrian"
+          }
+        },
+        "items": {
+          "parkingCircuit": {
+            "title": "Covered perimeter parking",
+            "body": "Parking sits in a lower-level/peripheral circuit to keep cars out of the interior streets. Each unit includes two parking spots."
+          },
+          "pedestrianPaths": {
+            "title": "Car-free streets and paths",
+            "body": "The development core prioritizes pedestrian routes, gardens, shade, and calm connections between residences, amenities, and common areas."
+          },
+          "rentalModel": {
+            "title": "Managed rentability",
+            "body": "Don Diego Rentals coordinates calendars, bookings, and service standards for owners who want to rent their unit when they are not using it."
+          },
+          "partialRental": {
+            "title": "Partial rental in selected prototypes",
+            "body": "Some layouts allow one bedroom to operate independently for separate rental, keeping the residence flexible for owners."
+          },
+          "maintenance": {
+            "title": "Maintenance-related benefits",
+            "body": "Residential operation supports common areas, landscape, access points, and club standards, reducing day-to-day friction for owners and guests."
+          },
+          "outdoorLiving": {
+            "title": "Terraces, patios, and rooftops",
+            "body": "Homes use private or semi-private outdoor spaces: terraces, interior patios, rooftops, and jacuzzis in selected prototypes."
+          }
+        }
       },
       "features": {
         "kicker": "[TYPOLOGY]",
@@ -1145,6 +1214,35 @@
         "images": {
           "mainAlt": "Don Diego organic farm",
           "secondaryAlt": "Greenhouse and seasonal crops"
+        }
+      },
+      "overview": {
+        "title": "Organic Farm details",
+        "items": {
+          "organicCrops": {
+            "title": "Organic orchards",
+            "body": "Crops, fruit trees, and growing beds designed to produce fresh food inside Don Diego's ecosystem."
+          },
+          "seasonalFlowers": {
+            "title": "Seasonal flowers",
+            "body": "Flower production that changes through the year and feeds the club's visual, aromatic, and daily identity."
+          },
+          "greenhouses": {
+            "title": "Greenhouses and terraces",
+            "body": "Growing zones organized through terraces and greenhouses to protect origin, quality, and continuity."
+          },
+          "clubSupply": {
+            "title": "Ecosystem supply",
+            "body": "Production connects to restaurants, amenities, and daily life: a community that consumes what it grows."
+          },
+          "paths": {
+            "title": "Walkways and cycle route",
+            "body": "Routes through rows, beds, and productive landscape for walking, cycling, and reading the farm's work."
+          },
+          "landCycle": {
+            "title": "Cycles of the land",
+            "body": "Buds, bloom, and harvest set the farm's rhythm and keep the landscape alive through the year."
+          }
         }
       },
       "paseosHuertos": {

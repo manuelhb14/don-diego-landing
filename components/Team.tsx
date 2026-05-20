@@ -50,6 +50,12 @@ export default function Team() {
                         {t("headingLine1")}{" "}
                         <em className="text-[#E1B19B]">{t("headingEm")}</em>
                     </h2>
+                    <p
+                        className="mt-5 max-w-[820px] text-base font-medium leading-relaxed text-[#111] md:text-xl"
+                        style={{ fontFamily: "var(--font-serif)" }}
+                    >
+                        {t("subtitle")}
+                    </p>
                 </motion.div>
 
                 {/* Team cards */}
@@ -67,16 +73,16 @@ export default function Team() {
                             }}
                         >
                             <div
-                                className="relative bg-[#fffdf9] border border-black/6 px-6 pt-5 pb-2 lg:p-10 transition-all duration-500 group-hover:border-black/12 group-hover:bg-[#f6ecdf] lg:-mr-3 h-full flex flex-col"
+                                className="relative bg-[#fffdf9] border border-black/6 px-5 py-4 lg:px-6 lg:py-6 transition-all duration-500 group-hover:border-black/12 group-hover:bg-[#f6ecdf] lg:-mr-3 h-full flex flex-col"
                             >
                                 {/* Top accent line & Icon */}
-                                <div className="flex justify-between items-start mb-0 lg:mb-4 h-10">
+                                <div className="flex justify-between items-start mb-1 lg:mb-2 h-8">
                                     <div
                                         className="h-0.5 w-10 rounded-full mt-2 transition-all duration-500 group-hover:w-16"
                                         style={{ backgroundColor: member.color }}
                                     />
                                     {member.logo && (
-                                        <div className="relative w-12 h-12 -mt-1 flex-shrink-0">
+                                        <div className="relative w-10 h-10 -mt-1 flex-shrink-0">
                                             <Image
                                                 src={member.logo}
                                                 alt={member.name}
@@ -90,7 +96,7 @@ export default function Team() {
 
                                 {/* Role */}
                                 <p
-                                    className="text-[10px] tracking-[0.2em] uppercase mb-2 lg:mb-4"
+                                    className="text-[10px] tracking-[0.2em] uppercase mb-2"
                                     style={{
                                         fontFamily: "var(--font-sans)",
                                         color: member.color,
@@ -101,7 +107,7 @@ export default function Team() {
 
                                 {/* Name */}
                                 <h3
-                                    className="text-[#111] text-xl lg:text-2xl mb-2 lg:mb-4 leading-snug"
+                                    className="text-[#111] text-xl lg:text-2xl mb-2 leading-snug"
                                     style={{ fontFamily: "var(--font-serif)" }}
                                 >
                                     {member.name}
@@ -109,7 +115,7 @@ export default function Team() {
 
                                 {/* Description */}
                                 <p
-                                    className="text-[#111]/60 text-sm leading-relaxed mb-0 lg:mb-6"
+                                    className="text-[#111]/60 text-sm leading-relaxed mb-3 lg:mb-4"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
                                     {member.description}
@@ -118,7 +124,7 @@ export default function Team() {
                                 {/* Number - aligned bottom right */}
                                 <div className="mt-auto flex justify-end">
                                     <p
-                                        className="text-[#111]/[0.06] text-6xl lg:text-8xl leading-none pointer-events-none select-none transition-colors duration-500 group-hover:text-[#111]/[0.09]"
+                                        className="text-[#111]/[0.06] text-5xl lg:text-6xl leading-none pointer-events-none select-none transition-colors duration-500 group-hover:text-[#111]/[0.09]"
                                         style={{
                                             fontFamily: "var(--font-serif)",
                                             lineHeight: "0.8",

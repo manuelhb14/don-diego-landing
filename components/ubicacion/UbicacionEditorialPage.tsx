@@ -103,14 +103,34 @@ const nearbyCards = [
 
 const bottomBarItems = [
     {
-        label: "León",
-        value: "2 h",
+        label: "CDMX",
+        value: "3 h 30 min",
+        icon: MapPin,
+    },
+    {
+        label: "MEX",
+        value: "3 h 20 min",
+        icon: Plane,
+    },
+    {
+        label: "NLU",
+        value: "3 h 10 min",
+        icon: Plane,
+    },
+    {
+        label: "Querétaro",
+        value: "1 h 05 min",
         icon: MapPin,
     },
     {
         label: "BJX / Aeropuerto del Bajío",
         value: "1 h 55 min",
         icon: Plane,
+    },
+    {
+        label: "León",
+        value: "2 h",
+        icon: MapPin,
     },
     {
         label: "Guanajuato City",
@@ -123,19 +143,9 @@ const bottomBarItems = [
         icon: MapPin,
     },
     {
-        label: "Querétaro",
-        value: "1 h 05 min",
-        icon: MapPin,
-    },
-    {
         label: "QRO",
         value: "1 h 15 min",
         icon: Plane,
-    },
-    {
-        label: "Pachuca",
-        value: "3 h 25 min",
-        icon: MapPin,
     },
     {
         label: "Morelia",
@@ -153,19 +163,9 @@ const bottomBarItems = [
         icon: Plane,
     },
     {
-        label: "CDMX",
-        value: "3 h 30 min",
+        label: "Pachuca",
+        value: "3 h 25 min",
         icon: MapPin,
-    },
-    {
-        label: "NLU",
-        value: "3 h 10 min",
-        icon: Plane,
-    },
-    {
-        label: "MEX",
-        value: "3 h 20 min",
-        icon: Plane,
     },
 ];
 
@@ -302,7 +302,7 @@ export default function UbicacionEditorialPage() {
 
                         <motion.div
                             aria-label="Tiempos de traslado"
-                            className="group/transferbar relative border-x border-t border-[#D9CFC0] bg-[#f5eee4] text-[#202326]"
+                            className="transferbar group/transferbar relative border-x border-t border-[#E7D8CA] bg-[#FFFDF8] text-[#202326]"
                             initial={shouldReduceMotion ? false : "hidden"}
                             whileInView="visible"
                             viewport={{ once: true, amount: 0.35 }}
@@ -312,40 +312,64 @@ export default function UbicacionEditorialPage() {
                                 type="button"
                                 aria-label="Ver destinos anteriores"
                                 onClick={() => scrollBottomBar("left")}
-                                className="absolute left-2 top-1/2 z-10 flex size-7 -translate-y-1/2 items-center justify-center border border-[#D2C5B6] bg-[#f5eee4]/90 text-[#AA7D69] opacity-100 shadow-[0_6px_18px_-14px_rgba(32,35,38,0.55)] transition-[background-color,opacity] hover:bg-[#efe5d8] md:pointer-events-none md:opacity-0 md:group-hover/transferbar:pointer-events-auto md:group-hover/transferbar:opacity-100"
+                                className="absolute left-2 top-1/2 z-10 flex size-7 -translate-y-1/2 items-center justify-center border border-[#D7B6A7]/45 bg-[#FFFDF8]/92 text-[#AA7D69] opacity-100 shadow-[0_6px_18px_-14px_rgba(32,35,38,0.55)] transition-[background-color,opacity] hover:bg-[#FFF9F2] md:pointer-events-none md:opacity-0 md:group-hover/transferbar:pointer-events-auto md:group-hover/transferbar:opacity-100"
                             >
                                 <ChevronLeft className="size-3.5 stroke-[1.45]" />
                             </button>
 
-                            <div ref={bottomBarRef} className="flex min-h-[48px] snap-x snap-mandatory overflow-x-auto px-8 [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                                {bottomBarItems.map((item, index) => (
-                                    <motion.div
-                                        key={item.label}
-                                        className={`flex w-auto min-w-max snap-start items-center justify-center gap-3 px-5 sm:px-6 ${
-                                            index > 0 ? "border-l border-[#D2C5B6]" : ""
-                                        }`}
-                                        variants={transferItemVariants}
-                                    >
-                                        <item.icon className="size-3.5 shrink-0 text-[#AA7D69] stroke-[1.55]" />
-                                        <div className="flex min-w-max items-baseline gap-3">
-                                            <p className="whitespace-nowrap font-serif text-[1.05rem] leading-none text-[#303438]/78">
-                                                {item.label}
-                                            </p>
-                                            {item.value ? (
-                                                <p className="shrink-0 text-xs font-medium leading-none tracking-[0.04em] text-[#303438]/48">
-                                                    {item.value}
+                            <div ref={bottomBarRef} className="overflow-hidden px-8">
+                                <motion.div
+                                    className={`flex min-h-[48px] w-max group-hover/transferbar:[animation-play-state:paused] group-focus-within/transferbar:[animation-play-state:paused] ${
+                                        shouldReduceMotion ? "" : "transfer-marquee-track"
+                                    }`}
+                                >
+                                    {[...bottomBarItems, ...bottomBarItems].map((item, index) => (
+                                        <motion.div
+                                            key={`${item.label}-${index}`}
+                                            className="flex w-auto min-w-max items-center justify-center gap-3 border-l border-[#E7D8CA] px-5 first:border-l-0 sm:px-6"
+                                            variants={transferItemVariants}
+                                            aria-hidden={index >= bottomBarItems.length}
+                                        >
+                                            <item.icon className="size-3.5 shrink-0 text-[#AA7D69] stroke-[1.55]" />
+                                            <div className="flex min-w-max items-baseline gap-3">
+                                                <p className="whitespace-nowrap font-serif text-[1.05rem] leading-none text-[#303438]/78">
+                                                    {item.label}
                                                 </p>
-                                            ) : null}
-                                        </div>
-                                    </motion.div>
-                                ))}
+                                                {item.value ? (
+                                                    <p className="shrink-0 text-xs font-medium leading-none tracking-[0.04em] text-[#303438]/48">
+                                                        {item.value}
+                                                    </p>
+                                                ) : null}
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </motion.div>
                             </div>
+                            <style>{`
+                                .transfer-marquee-track {
+                                    animation: transfer-marquee 58s linear infinite;
+                                }
+
+                                .transferbar:hover .transfer-marquee-track,
+                                .transferbar:focus-within .transfer-marquee-track {
+                                    animation-play-state: paused;
+                                }
+
+                                @keyframes transfer-marquee {
+                                    from {
+                                        transform: translateX(0);
+                                    }
+                                    to {
+                                        transform: translateX(-50%);
+                                    }
+                                }
+                            `}</style>
 
                             <button
                                 type="button"
                                 aria-label="Ver mas destinos"
                                 onClick={() => scrollBottomBar("right")}
-                                className="absolute right-2 top-1/2 z-10 flex size-7 -translate-y-1/2 items-center justify-center border border-[#D2C5B6] bg-[#f5eee4]/90 text-[#AA7D69] opacity-100 shadow-[0_6px_18px_-14px_rgba(32,35,38,0.55)] transition-[background-color,opacity] hover:bg-[#efe5d8] md:pointer-events-none md:opacity-0 md:group-hover/transferbar:pointer-events-auto md:group-hover/transferbar:opacity-100"
+                                className="absolute right-2 top-1/2 z-10 flex size-7 -translate-y-1/2 items-center justify-center border border-[#D7B6A7]/45 bg-[#FFFDF8]/92 text-[#AA7D69] opacity-100 shadow-[0_6px_18px_-14px_rgba(32,35,38,0.55)] transition-[background-color,opacity] hover:bg-[#FFF9F2] md:pointer-events-none md:opacity-0 md:group-hover/transferbar:pointer-events-auto md:group-hover/transferbar:opacity-100"
                             >
                                 <ChevronRight className="size-3.5 stroke-[1.45]" />
                             </button>

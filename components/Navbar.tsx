@@ -11,7 +11,8 @@ import { useChat } from "@/components/chat/ChatProvider";
 type NavbarTheme = "light" | "dark";
 type DropdownPosition = { left: number; top: number };
 type NavScrollState = { hidden: boolean; scrolled: boolean };
-type NavSubLink = { key: string; label: string; href: string; color: string };
+type NavSubLinkStatus = "inDevelopment" | "comingSoon";
+type NavSubLink = { key: string; label: string; href: string; color: string; status: NavSubLinkStatus };
 type NavProyectoPopoverLink = { key: string; label: string; href: string };
 type NavGroupLink = { key: string; label: string; href: string };
 type NavTopItem =
@@ -32,10 +33,10 @@ type NavTopItem =
 
 function buildNavLinks(t: (key: string) => string): NavTopItem[] {
     const proyectoSubLinks: NavSubLink[] = [
-        { key: "residencial", label: t("sub.residencial"), href: "/residencial", color: "#E1B19B" },
-        { key: "farm", label: t("sub.farm"), href: "/farm", color: "#DEBEBF" },
-        { key: "wellness", label: t("sub.wellness"), href: "/wellness", color: "#D7D7AA" },
-        { key: "presa", label: t("sub.presa"), href: "/presa", color: "#C8D7E6" },
+        { key: "residencial", label: t("sub.residencial"), href: "/residencial", color: "#E1B19B", status: "inDevelopment" },
+        { key: "farm", label: t("sub.farm"), href: "/farm", color: "#DEBEBF", status: "inDevelopment" },
+        { key: "presa", label: t("sub.presa"), href: "/presa", color: "#C8D7E6", status: "comingSoon" },
+        { key: "wellness", label: t("sub.wellness"), href: "/wellness", color: "#D7D7AA", status: "comingSoon" },
     ];
     return [
         { type: "link", key: "inicio", label: t("inicio"), href: "/" },
@@ -94,6 +95,56 @@ function isActivePath(pathname: string, href: string) {
 
 function isNavGroupActive(pathname: string, links: NavGroupLink[]) {
     return links.some((l) => isActivePath(pathname, l.href));
+}
+
+function ProjectPhaseLinks({
+    links,
+    status,
+    heading,
+    pathname,
+    onClick,
+}: {
+    links: NavSubLink[];
+    status: NavSubLinkStatus;
+    heading: string;
+    pathname: string;
+    onClick: () => void;
+}) {
+    const isInDevelopment = status === "inDevelopment";
+    const phaseLinks = links.filter((link) => link.status === status);
+
+    return (
+        <div className="flex w-full flex-col items-start gap-2">
+            <p
+                className={`text-[10px] font-bold uppercase tracking-[0.2em] ${isInDevelopment ? "text-black/35" : "text-black/20"}`}
+                style={{ fontFamily: "var(--font-sans)" }}
+            >
+                {heading}
+            </p>
+            {phaseLinks.map((sub) => {
+                const isSubActive = pathname === sub.href;
+                return (
+                    <Link
+                        key={sub.key}
+                        href={sub.href}
+                        className={`flex w-full items-center justify-start gap-3 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "text-black/70 hover:text-black"}`}
+                        style={{ fontFamily: "var(--font-sans)", color: isSubActive ? sub.color : undefined }}
+                        onClick={onClick}
+                    >
+                        <span
+                            className={`h-2.5 w-2.5 flex-none rounded-full transition-all duration-300 ${isInDevelopment ? "animate-pulse" : ""}`}
+                            style={{
+                                backgroundColor: sub.color,
+                                opacity: isInDevelopment ? 1 : 0.38,
+                                boxShadow: isInDevelopment ? `0 0 8px 2px ${sub.color}90, 0 0 16px 4px ${sub.color}55` : `inset 0 0 0 1px ${sub.color}80`,
+                            }}
+                        />
+                        <span>{sub.label}</span>
+                    </Link>
+                );
+            })}
+        </div>
+    );
 }
 
 function useNavbarScrollState() {
@@ -436,7 +487,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                         animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                         exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
                         transition={shouldReduceMotion ? { duration: 0.12 } : DESKTOP_DROPDOWN_TRANSITION}
-                        className="fixed left-0 top-0 z-[60] hidden min-w-[240px] flex-col items-start gap-3 rounded-sm border border-black/10 bg-white/90 px-5 py-5 text-left shadow-lg shadow-black/10 backdrop-blur-md will-change-transform lg:flex"
+                        className="fixed left-0 top-0 z-[60] hidden min-w-[240px] flex-col items-start gap-4 rounded-sm border border-black/10 bg-white/90 px-5 py-5 text-left shadow-lg shadow-black/10 backdrop-blur-md will-change-transform lg:flex"
                         style={{ left: desktopDropdownPosition.left, top: desktopDropdownPosition.top }}
                         onMouseEnter={clearDesktopDropdownClose}
                         onMouseLeave={scheduleDesktopDropdownClose}
@@ -449,29 +500,21 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                         >
                             {proyectoNavItem.label}
                         </Link>
-                        {proyectoNavItem.subLinks.map((sub) => {
-                            const isSubActive = pathname === sub.href;
-                            return (
-                                <Link
-                                    key={sub.key}
-                                    href={sub.href}
-                                    className={`flex w-full items-center justify-start gap-3 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "text-black/70 hover:text-black"}`}
-                                    style={{ fontFamily: "var(--font-sans)", color: isSubActive ? sub.color : undefined }}
-                                    onClick={closeDesktopDropdown}
-                                >
-                                    <span
-                                        className={`w-2.5 h-2.5 flex-none transition-all duration-300 ${isSubActive ? "rounded-full" : "rounded-sm"}`}
-                                        style={{
-                                            backgroundColor: sub.color,
-                                            transform: isSubActive ? "scale(1.4)" : "scale(1)",
-                                            boxShadow: isSubActive ? `0 0 10px 1px ${sub.color}80` : "none",
-                                        }}
-                                    />
-                                    {sub.label}
-                                </Link>
-                            );
-                        })}
-                        <div className="flex w-full flex-col gap-3">
+                        <ProjectPhaseLinks
+                            links={proyectoNavItem.subLinks}
+                            status="inDevelopment"
+                            heading={t("status.inDevelopment")}
+                            pathname={pathname}
+                            onClick={closeDesktopDropdown}
+                        />
+                        <ProjectPhaseLinks
+                            links={proyectoNavItem.subLinks}
+                            status="comingSoon"
+                            heading={t("status.comingSoon")}
+                            pathname={pathname}
+                            onClick={closeDesktopDropdown}
+                        />
+                        <div className="flex w-full flex-col gap-3 border-t border-black/8 pt-3">
                             {proyectoNavItem.popoverLinks.map((pl) => {
                                 const isPlActive = isActivePath(pathname, pl.href);
                                 return (
@@ -601,25 +644,24 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                             >
                                                 {navItem.label}
                                             </span>
-                                            <div className="mt-4 mb-2 flex w-full flex-col items-start gap-3">
-                                                {navItem.subLinks.map((sub) => {
-                                                    const isSubActive = pathname === sub.href;
-                                                    return (
-                                                        <Link
-                                                            key={sub.key}
-                                                            href={sub.href}
-                                                            onClick={() => setMobileOpen(false)}
-                                                            className={`flex w-full items-center justify-start gap-3 text-[13px] uppercase tracking-[0.15em] transition-all duration-300 ${isSubActive ? "font-bold" : "text-black/60 hover:text-black"}`}
-                                                            style={{ fontFamily: "var(--font-sans)", color: isSubActive ? sub.color : undefined }}
-                                                        >
-                                                            <span className={`w-2.5 h-2.5 flex-none transition-all duration-300 ${isSubActive ? "rounded-full" : "rounded-sm"}`} style={{ backgroundColor: sub.color, transform: isSubActive ? "scale(1.4)" : "scale(1)", boxShadow: isSubActive ? `0 0 10px 1px ${sub.color}80` : "none" }} />
-                                                            {sub.label}
-                                                        </Link>
-                                                    );
-                                                })}
+                                            <div className="mt-4 mb-3 flex w-full flex-col items-start gap-5">
+                                                <ProjectPhaseLinks
+                                                    links={navItem.subLinks}
+                                                    status="inDevelopment"
+                                                    heading={t("status.inDevelopment")}
+                                                    pathname={pathname}
+                                                    onClick={() => setMobileOpen(false)}
+                                                />
+                                                <ProjectPhaseLinks
+                                                    links={navItem.subLinks}
+                                                    status="comingSoon"
+                                                    heading={t("status.comingSoon")}
+                                                    pathname={pathname}
+                                                    onClick={() => setMobileOpen(false)}
+                                                />
                                             </div>
                                         </div>
-                                        <div className="flex w-full flex-col items-start gap-4">
+                                        <div className="flex w-full flex-col items-start gap-4 border-t border-black/10 pt-4">
                                             {navItem.popoverLinks.map((pl) => {
                                                 const isActive = isActivePath(pathname, pl.href);
                                                 return (

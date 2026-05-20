@@ -4,10 +4,10 @@ import Loading from "@/components/Loading";
 import Hero from "@/components/Hero";
 import Manifesto from "@/components/Manifesto";
 import Vision from "@/components/Vision";
-import ProjectsEditorial from "@/components/ProjectsEditorial";
 import Location from "@/components/Location";
 import Exclusivity from "@/components/Exclusivity";
 import Services from "@/components/Services";
+import ServicesV2 from "@/components/ServicesV2";
 import Team from "@/components/Team";
 import Contact from "@/components/Contact";
 import Faq from "@/components/Faq";
@@ -35,13 +35,12 @@ export default async function Page({ params }: Props) {
                 <Hero initialWeather={weather} />
                 <Manifesto />
                 <Vision />
-                <Services />
-                <ProjectsEditorial />
+                <ServicesV2 />
                 <Team />
                 <ThingsToDo />
                 <AppFeaturesShowcase />
                 <Location />
-                <Blogs />
+                {/* <Blogs /> */}
                 <InstagramPostsContacto />
                 <Exclusivity />
                 <Contact />

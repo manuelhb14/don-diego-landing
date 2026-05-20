@@ -3,15 +3,11 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import {
-    Clock,
     Dumbbell,
-    KeyRound,
-    Route,
-    Sparkles,
-    Sprout,
     Waves,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import ResidentialDetailsHighlight from "@/components/residencial/ResidentialDetailsHighlight";
 
 const socialHighlights = [
     {
@@ -43,25 +39,6 @@ const wellnessItems = [
         key: "jacuzzi",
         image: "/babylon/jacuzzi.webp",
         position: "object-center",
-    },
-] as const;
-
-const featureStrip = [
-    {
-        key: "dailyLife",
-        icon: Clock,
-    },
-    {
-        key: "mobility",
-        icon: Route,
-    },
-    {
-        key: "homeCare",
-        icon: KeyRound,
-    },
-    {
-        key: "landscape",
-        icon: Sprout,
     },
 ] as const;
 
@@ -130,12 +107,7 @@ export default function AmenitiesResidencial() {
                             />
                         </div>
 
-                        <div className="grid gap-6 px-1 py-6 sm:grid-cols-[110px_minmax(0,1fr)] lg:px-4">
-                            <div className="hidden lg:flex justify-center sm:justify-start">
-                                <span className="flex h-20 w-20 items-center justify-center border border-[#c9947e]/25 text-[#b76d4b]">
-                                    <Sparkles className="h-9 w-9 stroke-[1.25]" aria-hidden />
-                                </span>
-                            </div>
+                        <div className="grid gap-4 px-1 py-6 lg:px-4">
                             <div>
                                 <p
                                     className="mb-3 text-[10px] font-bold uppercase tracking-[0.35em] text-[#b76d4b]/85"
@@ -150,7 +122,7 @@ export default function AmenitiesResidencial() {
                                     {t("socialHeart.headline")}
                                 </h3>
                                 <p
-                                    className="mt-4 max-w-[470px] text-[14px] leading-[1.85] text-[#1F1D1B]/68"
+                                    className="mt-4 w-full text-[16px] leading-[1.8] text-[#1F1D1B]/68 lg:text-[17px]"
                                     style={{ fontFamily: "var(--font-serif)" }}
                                 >
                                     {t("socialHeart.body")}
@@ -308,38 +280,7 @@ export default function AmenitiesResidencial() {
                     </div>
                 </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.75, delay: 0.12 }}
-                    className="mt-8 grid overflow-hidden border border-[#c7a58f]/25 bg-[#fffaf1]/72 shadow-[0_18px_48px_rgba(67,52,42,0.06)] sm:grid-cols-2 lg:grid-cols-4"
-                >
-                    {featureStrip.map(({ key, icon: Icon }, index) => (
-                        <div
-                            key={key}
-                            className="grid grid-cols-[72px_minmax(0,1fr)] gap-3 px-4 py-4 sm:px-7 sm:py-6 lg:border-l lg:first:border-l-0 lg:border-[#c7a58f]/25"
-                        >
-                            <span className="flex h-14 w-14 items-center justify-center border border-[#c9947e]/25 text-[#b76d4b]">
-                                <Icon className="h-6 w-6 stroke-[1.35]" aria-hidden />
-                            </span>
-                            <div className={index > 0 ? "lg:pl-2" : undefined}>
-                                <h4
-                                    className="text-[17px] leading-snug text-[#34302c]"
-                                    style={{ fontFamily: "var(--font-serif)" }}
-                                >
-                                    {t(`featureStrip.${key}.title`)}
-                                </h4>
-                                <p
-                                    className="mt-1 text-[13px] leading-relaxed text-[#1F1D1B]/58"
-                                    style={{ fontFamily: "var(--font-serif)" }}
-                                >
-                                    {t(`featureStrip.${key}.body`)}
-                                </p>
-                            </div>
-                        </div>
-                    ))}
-                </motion.div>
+                <ResidentialDetailsHighlight />
             </div>
         </section>
     );

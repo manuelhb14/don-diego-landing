@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
-import { Home, Anchor, Leaf, Activity } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { MAP_SECTION_IMAGE_ALT, MAP_SECTION_IMAGE_SRC } from "@/lib/map-assets";
 
 const LocationVideo = () => (
     <video
@@ -29,7 +30,7 @@ function MapCornerVideo({
 }) {
     return (
         <motion.div
-            className="absolute -top-2 -right-3 sm:-top-3 sm:-right-4 md:-top-5 md:-right-6 lg:-top-8 lg:-right-14 xl:-top-16 xl:-right-32 w-28 sm:w-36 md:w-56 lg:w-56 xl:w-72 aspect-square lg:aspect-[3/4] z-30 pointer-events-none"
+            className="absolute -top-4 -right-3 sm:-top-5 sm:-right-4 md:-top-7 md:-right-6 lg:-top-10 lg:-right-14 xl:-top-16 xl:-right-24 w-28 sm:w-36 md:w-48 lg:w-52 xl:w-64 aspect-square lg:aspect-[3/4] z-30 pointer-events-none"
             variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.8 } } }}
         >
             <div className="w-full h-full overflow-hidden border-2 border-white shadow-[0_15px_40px_-12px_rgba(0,0,0,0.12)] relative bg-[#222]">
@@ -63,6 +64,17 @@ export default function Location({
     const togglePin = (pinId: string) => {
         setActivePin((currentPin) => (currentPin === pinId ? null : pinId));
     };
+
+    const mapLabelClass =
+        "absolute bottom-full left-1/2 flex w-max max-w-[142px] -translate-x-1/2 flex-col items-center transition-all duration-200 pointer-events-none origin-bottom md:max-w-[168px] md:opacity-100 md:translate-y-0 md:scale-100";
+    const mapLabelBelowClass =
+        "absolute top-full left-1/2 flex w-max max-w-[142px] -translate-x-1/2 flex-col items-center transition-all duration-200 pointer-events-none origin-top md:max-w-[168px] md:opacity-100 md:translate-y-0 md:scale-100";
+    const mapLabelBoxClass =
+        "bg-[#fff8ed]/94 px-2.5 py-1.5 border border-[#AA7D69]/22 shadow-[0_8px_18px_-16px_rgba(34,34,34,0.45)] text-center";
+    const mapLabelTextClass =
+        "text-[#2b2924] font-semibold text-[7px] sm:text-[8px] md:text-[8px] lg:text-[9px] leading-tight uppercase tracking-[0.16em] whitespace-normal";
+    const mapLabelLineClass = "h-2.5 w-px bg-[#2b2924]/35 md:h-3";
+    const mapLogoClass = "h-[18px] w-[18px] object-contain md:h-7 md:w-7";
 
     return (
         <section id={sectionId} className={`${backgroundClassName} text-[#222222] overflow-x-hidden antialiased w-full relative`}>
@@ -134,12 +146,20 @@ export default function Location({
                         data-location="San Miguel de Allende"
                         onClick={() => setActivePin(null)}
                     >
-                        {/* Animated inline SVG map */}
+                        {/* Shared masterplan image; SVG kept hidden as legacy positioning reference. */}
                         <div className="relative z-0 overflow-hidden">
+                            <Image
+                                src={MAP_SECTION_IMAGE_SRC}
+                                alt={MAP_SECTION_IMAGE_ALT}
+                                width={2878}
+                                height={1858}
+                                className="block h-auto w-full"
+                                sizes="(max-width: 1024px) 100vw, 1024px"
+                            />
                             <motion.svg
                                 viewBox="0 0 2878 1858"
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="w-full h-auto block"
+                                className="hidden"
                                 style={{ fillRule: "evenodd", clipRule: "evenodd", strokeLinecap: "round", strokeLinejoin: "round", strokeMiterlimit: 1.5 }}
                                 variants={{
                                     hidden: {},
@@ -287,7 +307,7 @@ export default function Location({
                             {/* Pin 3: Fracción A -> Organic Farm — pink, on the orange marker area top-left */}
                             <motion.div
                                 variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.4 } } }}
-                                className={`absolute top-[65%] right-[46%] flex flex-col items-center cursor-pointer group/pin ${activePin === "organic-farm" ? "z-50" : "z-20"}`}
+                                className={`absolute top-[68%] right-[43%] flex flex-col items-center cursor-pointer group/pin ${activePin === "organic-farm" ? "z-50" : "z-20"}`}
                                 onClick={(event) => {
                                     event.stopPropagation();
                                     togglePin("organic-farm");
@@ -297,12 +317,22 @@ export default function Location({
                             >
                                 <div className="relative flex items-center justify-center size-7 md:size-12">
                                     <div className="absolute inset-0 bg-[#C4A3A4]/50 rounded-full animate-ping opacity-75"></div>
-                                    <div className={`relative z-10 bg-[#C4A3A4] text-white p-1.5 md:p-3 rounded-full shadow-lg transition-transform group-hover/pin:scale-110 ${activePin === "organic-farm" ? "scale-110" : ""}`}>
-                                        <Leaf className="w-3.5 h-3.5 md:w-5 md:h-5" />
+                                    <div className={`relative z-10 flex size-[26px] items-center justify-center rounded-full bg-[#C4A3A4] shadow-lg transition-transform group-hover/pin:scale-110 md:size-11 ${activePin === "organic-farm" ? "scale-110" : ""}`}>
+                                        <Image
+                                            src="/final/farm-logo.svg"
+                                            alt=""
+                                            width={32}
+                                            height={32}
+                                            className={mapLogoClass}
+                                            aria-hidden="true"
+                                        />
                                     </div>
                                 </div>
-                                <div className={`absolute bottom-full mb-2 md:mb-1 left-1/2 -translate-x-1/2 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[200px] lg:max-w-[210px] xl:max-w-[220px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:px-3 md:pt-2 md:pb-1.5 lg:px-3 lg:py-2 xl:px-3 xl:py-2.5 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-bottom text-center md:opacity-100 md:translate-y-0 md:scale-100 ${activePin === "organic-farm" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"}`}>
-                                    <h4 className="text-[#222] font-bold text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs leading-tight mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">{t("pinFarm")}</h4>
+                                <div className={`${mapLabelClass} ${activePin === "organic-farm" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"}`}>
+                                    <div className={mapLabelBoxClass}>
+                                        <h4 className={mapLabelTextClass}>{t("pinFarm")}</h4>
+                                    </div>
+                                    <span className={mapLabelLineClass} aria-hidden="true" />
                                     {/* <p className="text-[#C4A3A4] text-xs leading-relaxed font-semibold">Organic Farm & Flowers</p> */}
                                 </div>
                             </motion.div>
@@ -310,7 +340,7 @@ export default function Location({
                             {/* Pin 2: Fracción B -> Club Residencial — orange, on the pink polygon center */}
                             <motion.div
                                 variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.5 } } }}
-                                className={`absolute top-[40%] left-[30%] flex flex-col items-center cursor-pointer group/pin ${activePin === "club-residencial" ? "z-50" : "z-20"}`}
+                                className={`absolute top-[43%] left-[33%] flex flex-col items-center cursor-pointer group/pin ${activePin === "club-residencial" ? "z-50" : "z-20"}`}
                                 onClick={(event) => {
                                     event.stopPropagation();
                                     togglePin("club-residencial");
@@ -320,12 +350,22 @@ export default function Location({
                             >
                                 <div className="relative flex items-center justify-center size-7 md:size-12">
                                     <div className="absolute inset-0 bg-[#C99580]/50 rounded-full animate-ping opacity-75"></div>
-                                    <div className={`relative z-10 bg-[#C99580] text-white p-1.5 md:p-3 rounded-full shadow-lg transition-transform group-hover/pin:scale-110 ${activePin === "club-residencial" ? "scale-110" : ""}`}>
-                                        <Home className="w-3 h-3 md:w-5 md:h-5" />
+                                    <div className={`relative z-10 flex size-[26px] items-center justify-center rounded-full bg-[#C99580] shadow-lg transition-transform group-hover/pin:scale-110 md:size-11 ${activePin === "club-residencial" ? "scale-110" : ""}`}>
+                                        <Image
+                                            src="/final/residencial-logo.svg"
+                                            alt=""
+                                            width={32}
+                                            height={32}
+                                            className={mapLogoClass}
+                                            aria-hidden="true"
+                                        />
                                     </div>
                                 </div>
-                                <div className={`absolute bottom-full mb-2 md:mb-1 left-1/2 -translate-x-1/2 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[200px] lg:max-w-[210px] xl:max-w-[220px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:px-3 md:pt-2 md:pb-1.5 lg:px-3 lg:py-2 xl:px-3 xl:py-2.5 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-bottom text-center md:opacity-100 md:translate-y-0 md:scale-100 ${activePin === "club-residencial" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"}`}>
-                                    <h4 className="text-[#222] font-bold text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs leading-tight mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">{t("pinResidencial")}</h4>
+                                <div className={`${mapLabelClass} ${activePin === "club-residencial" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"}`}>
+                                    <div className={mapLabelBoxClass}>
+                                        <h4 className={mapLabelTextClass}>{t("pinResidencial")}</h4>
+                                    </div>
+                                    <span className={mapLabelLineClass} aria-hidden="true" />
                                     {/* <p className="text-[#C99580] text-xs leading-relaxed font-semibold">Club Residencial</p> */}
                                 </div>
                             </motion.div>
@@ -333,7 +373,7 @@ export default function Location({
                             {/* Pin 1: Fracción C -> Wellness Center — green, on the blue polygon top-right */}
                             <motion.div
                                 variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.6 } } }}
-                                className={`absolute top-[21%] left-[19%] md:top-[23%] md:left-[21%] flex flex-col items-center cursor-pointer group/pin ${activePin === "wellness-center" ? "z-50" : "z-20"}`}
+                                className={`absolute top-[24%] left-[22%] md:top-[26%] md:left-[24%] flex flex-col items-center cursor-pointer group/pin ${activePin === "wellness-center" ? "z-50" : "z-20"}`}
                                 onClick={(event) => {
                                     event.stopPropagation();
                                     togglePin("wellness-center");
@@ -343,12 +383,22 @@ export default function Location({
                             >
                                 <div className="relative flex items-center justify-center size-7 md:size-12">
                                     <div className="absolute inset-0 bg-[#B5B588]/50 rounded-full animate-ping opacity-75"></div>
-                                    <div className={`relative z-10 bg-[#B5B588] text-white p-1.5 md:p-3 rounded-full shadow-lg transition-transform group-hover/pin:scale-110 ${activePin === "wellness-center" ? "scale-110" : ""}`}>
-                                        <Activity className="w-3 h-3 md:w-5 md:h-5" />
+                                    <div className={`relative z-10 flex size-[26px] items-center justify-center rounded-full bg-[#B5B588] shadow-lg transition-transform group-hover/pin:scale-110 md:size-11 ${activePin === "wellness-center" ? "scale-110" : ""}`}>
+                                        <Image
+                                            src="/final/wellness-logo.svg"
+                                            alt=""
+                                            width={32}
+                                            height={32}
+                                            className={mapLogoClass}
+                                            aria-hidden="true"
+                                        />
                                     </div>
                                 </div>
-                                <div className={`absolute top-full mt-2 md:top-auto md:bottom-full md:mt-0 md:mb-1 left-1/2 -translate-x-1/2 md:-left-10 md:right-0 md:translate-x-0 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[200px] lg:max-w-[210px] xl:max-w-[220px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:px-3 md:pt-2 md:pb-1.5 lg:px-3 lg:py-2 xl:px-3 xl:py-2.5 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-top md:origin-bottom-right text-center md:text-right md:opacity-100 md:translate-y-0 md:scale-100 ${activePin === "wellness-center" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-2 md:translate-y-0 scale-95"}`}>
-                                    <h4 className="text-[#222] font-bold text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs leading-tight mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">{t("pinWellness")}</h4>
+                                <div className={`${mapLabelClass} ${activePin === "wellness-center" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"}`}>
+                                    <div className={mapLabelBoxClass}>
+                                        <h4 className={mapLabelTextClass}>{t("pinWellness")}</h4>
+                                    </div>
+                                    <span className={mapLabelLineClass} aria-hidden="true" />
                                     {/* <p className="text-[#B5B588] text-xs leading-relaxed font-semibold">Wellness Center</p> */}
                                 </div>
                             </motion.div>
@@ -356,7 +406,7 @@ export default function Location({
                             {/* Pin 4: Presa de la Cantera — blue, on the river/water area */}
                             <motion.div
                                 variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.7 } } }}
-                                className={`absolute top-[51%] right-[18%] flex flex-col items-center cursor-pointer group/pin ${activePin === "presa-cantera" ? "z-50" : "z-20"}`}
+                                className={`absolute top-[54%] right-[15%] flex flex-col items-center cursor-pointer group/pin ${activePin === "presa-cantera" ? "z-50" : "z-20"}`}
                                 onClick={(event) => {
                                     event.stopPropagation();
                                     togglePin("presa-cantera");
@@ -366,12 +416,22 @@ export default function Location({
                             >
                                 <div className="relative flex items-center justify-center size-8 md:size-14">
                                     <div className="absolute inset-0 bg-[#8FC0DA]/40 rounded-full animate-ping opacity-75"></div>
-                                    <div className={`relative z-10 bg-[#8FC0DA] text-white p-2 md:p-3.5 rounded-full shadow-lg transition-transform group-hover/pin:scale-110 ${activePin === "presa-cantera" ? "scale-110" : ""}`}>
-                                        <Anchor className="w-3 h-3 md:w-5 md:h-5" />
+                                    <div className={`relative z-10 flex size-[30px] items-center justify-center rounded-full bg-[#8FC0DA] shadow-lg transition-transform group-hover/pin:scale-110 md:size-12 ${activePin === "presa-cantera" ? "scale-110" : ""}`}>
+                                        <Image
+                                            src="/final/presa-logo.svg"
+                                            alt=""
+                                            width={32}
+                                            height={32}
+                                            className={mapLogoClass}
+                                            aria-hidden="true"
+                                        />
                                     </div>
                                 </div>
-                                <div className={`absolute top-full mt-2 md:mt-1.5 left-1/2 -translate-x-1/2 w-max max-w-[132px] sm:max-w-[160px] md:max-w-[200px] lg:max-w-[210px] xl:max-w-[220px] bg-white/95 backdrop-blur-md px-2.5 py-2 md:px-3 md:pt-2 md:pb-1.5 lg:px-3 lg:py-2 xl:px-3 xl:py-2.5 rounded-lg md:rounded-xl border border-[#AA7D69]/20 shadow-xl transition-all duration-200 pointer-events-none origin-top text-center md:opacity-100 md:translate-y-0 md:scale-100 ${activePin === "presa-cantera" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-95"}`}>
-                                    <h4 className="text-[#222] font-bold text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs leading-tight mb-0 md:mb-1 uppercase tracking-[0.18em] md:tracking-wider whitespace-normal">{t("pinPresa")}</h4>
+                                <div className={`${mapLabelBelowClass} ${activePin === "presa-cantera" ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-2 scale-95"}`}>
+                                    <span className={mapLabelLineClass} aria-hidden="true" />
+                                    <div className={mapLabelBoxClass}>
+                                        <h4 className={mapLabelTextClass}>{t("pinPresa")}</h4>
+                                    </div>
                                     {/* <p className="text-[#8FC0DA] text-xs leading-relaxed font-semibold">Cuerpo de Agua / Marina</p> */}
                                 </div>
                             </motion.div>
