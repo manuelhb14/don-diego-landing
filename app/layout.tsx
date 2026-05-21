@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
-import { Geist, Figtree } from "next/font/google";
-
-const figtree = Figtree({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "Don Diego Club Residencial — San Miguel de Allende",
-  description: "Desarrollo residencial de lujo en San Miguel de Allende.",
+  description: "Club residencial en San Miguel de Allende con tierra, agua, bienestar y vida en comunidad.",
 };
 
 export default function RootLayout({

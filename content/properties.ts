@@ -61,7 +61,7 @@ const properties: Property[] = [
     locales: {
       es: {
         title: "Departamentos",
-        subtitle: "",
+        subtitle: "Vivienda práctica dentro del Club Residencial",
         heroAlt: "Vista exterior de departamentos en Club Residencial",
         floorPlansTitle: "Plantas",
         galleryTitle: "Interiores",
@@ -107,9 +107,9 @@ const properties: Property[] = [
     ],
     locales: {
       es: {
-        title: "Casas duplex Tipo 1",
-        subtitle: "",
-        heroAlt: "Vista exterior de casa duplex tipo 1",
+        title: "Casas dúplex Tipo 1",
+        subtitle: "Una casa por nivel con terraza o patio interior",
+        heroAlt: "Vista exterior de casa dúplex tipo 1",
         floorPlansTitle: "Plantas",
         galleryTitle: "Interiores",
         backToIndex: "Volver a propiedades",
@@ -154,9 +154,9 @@ const properties: Property[] = [
     ],
     locales: {
       es: {
-        title: "Casas duplex Tipo 2",
-        subtitle: "",
-        heroAlt: "Vista exterior de casa duplex tipo 2",
+        title: "Casas dúplex Tipo 2",
+        subtitle: "Patio interior y conexión con recorridos peatonales",
+        heroAlt: "Vista exterior de casa dúplex tipo 2",
         floorPlansTitle: "Plantas",
         galleryTitle: "Interiores",
         backToIndex: "Volver a propiedades",
@@ -201,9 +201,9 @@ const properties: Property[] = [
     ],
     locales: {
       es: {
-        title: "Casas duplex Tipo 3",
-        subtitle: "",
-        heroAlt: "Vista exterior de casa duplex tipo 3",
+        title: "Casas dúplex Tipo 3",
+        subtitle: "Distribución flexible con varias terrazas",
+        heroAlt: "Vista exterior de casa dúplex tipo 3",
         floorPlansTitle: "Plantas",
         galleryTitle: "Interiores",
         backToIndex: "Volver a propiedades",
@@ -283,4 +283,3 @@ export function getPropertyBySlug(
     })),
   };
 }
-

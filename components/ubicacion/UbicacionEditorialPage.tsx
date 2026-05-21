@@ -12,22 +12,22 @@ const revealEase = [0.25, 0.46, 0.45, 0.94] as const;
 const infoCards = [
     {
         title: "Posición privilegiada",
-        body: "Entorno natural, conectividad estratégica y riqueza cultural.",
+        body: "Cerca de la ciudad, con la calma del campo y del paisaje.",
         icon: Compass,
     },
     {
         title: "Patrimonio Cultural",
-        body: "Ciudad Patrimonio de la Humanidad por la UNESCO.",
+        body: "Un destino histórico, cultural y profundamente vivo.",
         icon: Landmark,
     },
     {
         title: "Conectividad",
-        body: "Conexión a las principales ciudades del Bajío y del país.",
+        body: "Acceso claro al Bajío, aeropuertos y rutas principales.",
         icon: Route,
     },
     {
         title: "Entorno Único",
-        body: "Naturaleza, arte, gastronomía y bienestar en equilibrio.",
+        body: "Naturaleza, arte, gastronomía y bienestar en un mismo ritmo.",
         icon: ShieldCheck,
     },
 ];
@@ -58,13 +58,13 @@ const lifestyleCards = [
 const guideCards = [
     {
         title: "San Miguel de Allende 2024",
-        body: "Lo mejor de la ciudad: arte, diseño, gastronomía y experiencias que debes vivir.",
+        body: "Arte, diseño, gastronomía y planes para entender mejor la vida alrededor de Don Diego.",
         image: "/final/sma.webp",
         href: "/blog/guia-san-miguel-allende-2026",
     },
     {
         title: "Lo Mejor de Ciudad Pequeña del Mundo",
-        body: "Los imperdibles cerca de Don Diego para una vida plena y auténtica.",
+        body: "Los lugares y recorridos que hacen que vivir cerca de San Miguel tenga otra profundidad.",
         image: "/babylon/sma-1.webp",
         href: "/blog/mejor-ciudad-pequena",
     },
@@ -263,7 +263,7 @@ export default function UbicacionEditorialPage() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
                         >
-                            Don Diego Club Residencial se encuentra en el corazón de San Miguel de Allende, rodeado de naturaleza, cultura y experiencias únicas.
+                            Don Diego está a minutos del centro, pero se vive desde otra calma: tierra, agua, jardines y una conexión práctica con San Miguel.
                         </motion.p>
 
                         <motion.div
@@ -420,7 +420,7 @@ export default function UbicacionEditorialPage() {
                         viewport={revealViewport}
                         transition={{ duration: 0.75, ease: revealEase }}
                     >
-                        <Eyebrow>Lo mejor de SMA</Eyebrow>
+                        <Eyebrow>Lo mejor de San Miguel</Eyebrow>
                         <h2 className="mb-6 font-serif text-[clamp(2.4rem,3.7vw,4rem)] leading-tight text-[#202326]">
                             A pocos minutos de tu hogar
                         </h2>
@@ -474,7 +474,7 @@ export default function UbicacionEditorialPage() {
                             Una vida<br />con sentido
                         </h2>
                         <p className="mt-7 font-serif text-lg leading-relaxed text-[#303438]/78">
-                            Vivir en San Miguel de Allende y en Don Diego significa disfrutar de un ritmo más pausado e intencional, donde la belleza, la cultura, la naturaleza y el bienestar diario se convierten en parte esencial de tu día a día. Aquí, cada recorrido, cada encuentro y cada momento en casa invitan a reconectar con lo importante, rodeado de un entorno que equilibra tranquilidad, inspiración y comunidad.
+                            Vivir en Don Diego significa estar cerca de San Miguel sin quedar dentro de su movimiento diario. La ciudad queda a la mano; el regreso es a un entorno de jardines, caminos, agua y comunidad. Esa distancia justa permite disfrutar cultura, restaurantes y servicios, mientras la vida en casa conserva calma, privacidad y sentido de pertenencia.
                         </p>
                     </motion.div>
 
