@@ -6,7 +6,7 @@ const serif = { fontFamily: "var(--font-serif)" } as const;
 export function BlogMarkdown({ children }: { children: string }) {
     return (
         <div
-            className="blog-md text-[#222]/80 text-base md:text-lg leading-relaxed"
+            className="blog-md text-base leading-relaxed text-[#222]/78 md:text-lg"
             style={serif}
         >
             <ReactMarkdown
@@ -14,14 +14,14 @@ export function BlogMarkdown({ children }: { children: string }) {
                 components={{
                     h2: (props) => (
                         <h2
-                            className="text-[#222] text-xl md:text-2xl mt-12 mb-4 first:mt-0 font-normal leading-snug"
+                            className="mt-12 mb-4 text-2xl font-normal leading-[1.12] text-[#222] first:mt-0 md:text-3xl"
                             style={serif}
                             {...props}
                         />
                     ),
                     h3: (props) => (
                         <h3
-                            className="text-[#222] text-lg md:text-[1.35rem] mt-10 mb-3 first:mt-0 font-normal leading-snug"
+                            className="mt-10 mb-3 text-xl font-normal leading-[1.18] text-[#222] first:mt-0 md:text-[1.45rem]"
                             style={serif}
                             {...props}
                         />
@@ -39,7 +39,7 @@ export function BlogMarkdown({ children }: { children: string }) {
                     li: (props) => <li className="pl-1 [&>p]:mb-0" {...props} />,
                     blockquote: (props) => (
                         <blockquote
-                            className="border-l-2 border-[#AA7D69]/45 pl-5 my-8 py-1 text-[#222]/85 [&>p]:mb-0"
+                            className="my-8 border-y border-[#AA7D69]/28 bg-[#EFE6DC]/58 px-5 py-5 text-[#222]/84 [&>p]:mb-0"
                             {...props}
                         />
                     ),

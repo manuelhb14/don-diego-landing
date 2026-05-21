@@ -25,21 +25,116 @@
     "aiAssistant": "Pregúntame"
   },
   "blogsHome": {
-    "kicker": "[Blog]",
+    "kicker": "Blog",
     "title": "Historias & Experiencias",
     "subtitle": "Un cuaderno visual con momentos del entorno, las caminatas y lo cotidiano en Don Diego.",
     "cta": "EXPLORAR EL BLOG"
   },
   "blogPage": {
-    "kicker": "[Blog]",
+    "kicker": "Blog",
     "title": "Historias & Experiencias",
     "subtitle": "Un cuaderno visual con momentos del entorno, las caminatas y lo cotidiano en Don Diego.",
     "backToBlog": "Volver al blog"
   },
   "propertiesIndex": {
-    "kicker": "[Tipología]",
+    "kicker": "Tipología",
     "title": "Residencias disponibles",
-    "subtitle": "Una selección curada de tipologías e interiores pensados para vivir en conexión."
+    "subtitle": "Una selección curada de tipologías e interiores pensados para vivir en conexión.",
+    "interactiveMap": {
+      "eyebrow": "Propiedades",
+      "title": "Mapa Interactivo",
+      "description": "Explora el desarrollo por zonas. Selecciona una zona del mapa para ver un resumen breve, amenidades y fotos.",
+      "viewLabel": "Ver",
+      "masterplanTitle": "Don Diego Club Residencial",
+      "labels": {
+        "masterplan": "Masterplan",
+        "amenities": "Amenidades",
+        "photos": "Fotos",
+        "close": "Cerrar zona seleccionada",
+        "stage1": "Etapa 1",
+        "finalStage": "Etapa final"
+      },
+      "statusLabels": {
+        "inDevelopment": "En desarrollo",
+        "comingSoon": "Próximamente"
+      },
+      "zones": {
+        "residencial": {
+          "label": "Club Residencial",
+          "summary": "El Club Residencial concentra la vida cotidiana de Don Diego: casa club, jardines, deporte, convivencia y servicios para residentes en un recorrido caminable.",
+          "amenities": [
+            "Casa club",
+            "Canchas de pádel",
+            "Jardines",
+            "Servicios para residentes",
+            "Terrazas comunitarias"
+          ],
+          "photoAlts": [
+            "Casa club residencial en Don Diego",
+            "Residencias rodeadas de paisaje en Don Diego",
+            "Arquitectura residencial con flores y vegetación",
+            "Canchas deportivas del Club Residencial"
+          ]
+        },
+        "farm": {
+          "label": "Organic Farm & Flowers",
+          "summary": "Organic Farm & Flowers articula el paisaje productivo con huertos, flores, invernadero y experiencias de temporada ligadas a la cocina.",
+          "amenities": [
+            "Huertos orgánicos",
+            "Invernadero",
+            "Campos de flores",
+            "Cosecha de temporada",
+            "Programa farm-to-table"
+          ],
+          "photoAlts": [
+            "Huerto orgánico de Don Diego",
+            "Cultivo y vegetación en Organic Farm & Flowers",
+            "Flores cultivadas en Don Diego",
+            "Invernadero de Organic Farm & Flowers"
+          ]
+        },
+        "wellness": {
+          "label": "Wellness Center",
+          "summary": "El Wellness Center reúne la parte restaurativa del proyecto con spa, movimiento, agua y rutinas tranquilas orientadas al paisaje.",
+          "amenities": [
+            "Spa",
+            "Gimnasio",
+            "Yoga",
+            "Alberca",
+            "Áreas de descanso"
+          ],
+          "photoAlts": [
+            "Wellness Center de Don Diego",
+            "Spa y espacios de descanso en Don Diego",
+            "Paisaje del Wellness Center",
+            "Área de spa en el Wellness Center"
+          ]
+        },
+        "presa": {
+          "label": "Presa de la Cantera",
+          "summary": "Presa de la Cantera abre el frente de agua de Don Diego con vistas a la presa, convivencia al aire libre y un programa de hospitalidad junto al agua.",
+          "amenities": [
+            "Vistas al agua",
+            "Marina",
+            "Restaurantes",
+            "Terrazas exteriores",
+            "Eventos"
+          ],
+          "photoAlts": [
+            "Presa de la Cantera en Don Diego",
+            "Vista del agua en Presa de la Cantera",
+            "Agua y paisaje de la presa",
+            "Paisaje abierto de Presa de la Cantera"
+          ]
+        }
+      },
+      "initialPhotoAlts": [
+        "Vista general del masterplan de Don Diego",
+        "Casa club residencial en Don Diego",
+        "Huerto orgánico de Don Diego",
+        "Presa de la Cantera en Don Diego"
+      ]
+    }
   },
   "propertiesDetail": {
     "disclaimer": "Imágenes y planos ilustrativos. Acabados, mobiliario y detalles pueden variar según unidad y disponibilidad."
@@ -102,7 +197,7 @@
   },
   "team": {
     "heading": "El Equipo",
-    "kicker": "(El Equipo)",
+    "kicker": "El Equipo",
     "cta": "Ver equipo",
     "headingLine1": "Maestros de su",
     "headingEm": "oficio.",
@@ -138,7 +233,7 @@
     "whatsapp": "Escríbenos por WhatsApp",
     "privacy": "Al enviar, aceptas nuestros Términos y la Política de Privacidad, incluidas (cuando aplique) verificaciones de identidad con CURP y revisiones en plataformas legales o de verificación, tal como se describen allí.",
     "committeeNotice": "Al enviar este primer formulario, tu solicitud entra a revisión de un comité interno (Comité) para una validación básica de seguridad y adecuación antes de compartir detalles sensibles, como precios puntuales. Es un paso habitual para cuidar a la comunidad y al proyecto.",
-    "kicker": "[Contacto]",
+    "kicker": "Contacto",
     "joinLine1": "Únete a la comunidad de",
     "joinEm": "Don Diego",
     "bodyHome": "Descubre Don Diego en persona. Contáctanos para programar un recorrido privado por el proyecto en San Miguel de Allende.",
@@ -200,7 +295,7 @@
     "errRequired": "Nombre, correo y mensaje son requeridos."
   },
   "manifesto": {
-    "kicker": "[Qué nos define]",
+    "kicker": "Qué nos define",
     "titleRooted": "Arraigado en",
     "titlePlace": "San Miguel",
     "lineEarth": "Con la Tierra.",
@@ -208,7 +303,7 @@
     "lineSelf": "Con uno Mismo."
   },
   "vision": {
-    "kicker": "[Presentación]",
+    "kicker": "Presentación",
     "titleDiscover": "Descubre",
     "titleName": "Don Diego",
     "body": "Una introducción clara a la visión, el territorio y las experiencias que dan forma a Don Diego.",
@@ -218,7 +313,7 @@
     "videoLabel": "Presentación del proyecto"
   },
   "servicesPage": {
-    "kicker": "[COMPONENTES]",
+    "kicker": "Componentes",
     "heading": "El Proyecto",
     "intro": "Don Diego se vive como cuatro partes conectadas: Club Residencial, Organic Farm & Flowers, Wellness Center y Presa de la Cantera.",
     "phaseNote": "",
@@ -276,14 +371,17 @@
     }
   },
   "thingsToDo": {
-    "kicker": "[Experiencias]",
-    "title1": "Actividades para disfrutar",
-    "title2": "dentro de Don Diego",
+    "kicker": "Experiencias",
+    "title": "Un día en el club",
+    "titleLead": "Un día en",
+    "titleAccent": "el club",
+    "title1": "La vida del club",
+    "title2": "en Don Diego",
     "body": "La Casa Club reúne deporte, bienestar, restaurantes, jardines y convivencia para residentes e invitados.",
     "cta": "EXPLORAR LAS EXPERIENCIAS",
     "carouselPrevAria": "Elementos anteriores",
     "carouselNextAria": "Elementos siguientes",
-    "nextAria": "Siguiente",
+    "nextAria": "Ver más",
     "items": {
       "clubhouse": "Clubhouse",
       "pool": "Alberca en jardín",
@@ -294,8 +392,10 @@
     }
   },
   "appFeatures": {
-    "kicker": "[App residentes]",
+    "kicker": "App residentes",
     "title": "La vida, a tu alcance",
+    "titleLead": "La vida,",
+    "titleAccent": "a tu alcance",
     "subtitle": "Reserva actividades, recibe invitados, pide productos de la granja y consulta eventos desde una sola experiencia.",
     "cards": {
       "paddle": {
@@ -399,7 +499,7 @@
     }
   },
   "locationSection": {
-    "kicker": "[El Lugar]",
+    "kicker": "El Lugar",
     "title1": "Cerca de todo",
     "title2": "Lejos de lo común",
     "body": "Una comunidad tranquila, conectada a San Miguel por shuttles y rodeada de naturaleza, agua y tierra.",
@@ -422,7 +522,7 @@
     "pinPresa": "Presa de la Cantera"
   },
   "faq": {
-    "kicker": "[FAQ]",
+    "kicker": "FAQ",
     "title": "Preguntas Frecuentes",
     "intro": "Encuentra respuestas claras sobre el desarrollo, sus componentes, servicios y proceso de integración a la comunidad Don Diego.",
     "items": [
@@ -654,9 +754,10 @@
       "backHome": "Ver Proyectos"
     },
     "purchaseGuide": {
-      "kicker": "[Guía de compra]",
+      "kicker": "Guía de compra",
       "title": "Guía de compra Don Diego",
-      "intro": "Esta guía es para quien explora un hogar en Don Diego, San Miguel de Allende. Arriba elija: “Internacionales” (por omisión) para el recorrido típico si compra desde EE. UU., Canadá, Europa o América Latina, con notas de su región, o “Locales / México” para el mismo recorrido contado para compradores que ya viven en México. Es un panorama claro: el criterio final lo dan su notario y sus asesores según su caso.",
+      "intro": "Una ruta práctica para entender perfiles de compra, documentación y siguientes pasos en Don Diego. El criterio final siempre corresponde a su notario y asesores según su caso.",
+      "heroImageAlt": "Detalle editorial de la guía de compra Don Diego",
       "disclaimerTitle": "Aviso importante",
       "disclaimerLead": "Contenido informativo. No constituye asesoría legal, fiscal ni de inversión.",
       "onThisPage": "En esta página",
@@ -680,7 +781,8 @@
     },
     "proyecto": {
       "hero": {
-        "kicker": "[Componentes]",
+        "kicker": "Componentes",
+        "imageAlt": "Vista aérea del proyecto Don Diego en San Miguel de Allende",
         "body": "Un entorno diseñado para dialogar con el alma de San Miguel de Allende, reinterpretándola con sensibilidad contemporánea."
       },
       "grid": {
@@ -714,14 +816,14 @@
       },
       "locationSummary": {
         "imageAlt": "San Miguel de Allende",
-        "kicker": "[Ubicación]",
+        "kicker": "Ubicación",
         "titleLine1": "El corazón de",
         "titleLine2": "México",
         "body": "A solo ocho minutos del vibrante centro histórico de San Miguel de Allende. Don Diego ofrece un refugio de paz y privacidad, manteniendo una conexión íntima con una de las ciudades más cautivadoras del mundo.",
         "cta": "Explorar Entorno"
       },
       "manifesto": {
-        "kicker": "[Qué nos define]",
+        "kicker": "Qué nos define",
         "titleLine1": "Arraigado en",
         "titleLine2": "San Miguel",
         "body": "Un desarrollo diseñado bajo un respeto absoluto al entorno y a la cultura, creando un hábitat equilibrado, privado y de una belleza atemporal.",
@@ -735,7 +837,7 @@
     },
     "contacto": {
       "hero": {
-        "kicker": "[Contacto]",
+        "kicker": "Contacto",
         "body": "Estamos aquí para guiarte en el descubrimiento de tu próximo hogar en San Miguel de Allende."
       },
       "form": {
@@ -770,11 +872,10 @@
         "privacySubmit": "Al enviar, aceptas nuestros Términos y la Política de Privacidad, incluidas (cuando aplique) verificaciones de identidad con CURP y revisiones en plataformas legales o de verificación, tal como se describen allí."
       },
       "instagram": {
-        "kicker": "[Instagram]",
+        "kicker": "Instagram",
         "titleLine1": "Don Diego",
         "titleLine2": "en Instagram.",
         "cta": "Ver Instagram",
-        "mockLabel": "Hipotético",
         "posts": {
           "farm": {
             "label": "Huerto orgánico",
@@ -878,13 +979,13 @@
     },
     "residencial": {
       "hero": {
-        "kicker": "[EL NÚCLEO PRIVADO]",
+        "kicker": "El núcleo privado",
         "headline": "364 residencias entre dúplex y departamentos",
         "body": "Densidad inteligente que protege vistas y privacidad. Paisaje vivo con jardines, fuentes y riachuelos.",
         "imageAlt": "Club Residencial"
       },
       "overview": {
-        "kicker": "[LO ESENCIAL]",
+        "kicker": "Lo esencial",
         "titleLine1": "Detalles concretos del",
         "titleAccent": "Club Residencial",
         "body": "El Club Residencial concentra la vivienda privada de Don Diego: residencias, amenidades, operación diaria y circulación pensadas para que el interior se viva caminando, con servicios coordinados y una relación directa con terrazas, patios y paisaje.",
@@ -938,7 +1039,7 @@
         }
       },
       "features": {
-        "kicker": "[TIPOLOGÍA]",
+        "kicker": "Tipología",
         "propertyNavAria": "Tipos de vivienda",
         "typeLabel": "Tipo {number}",
         "groups": {
@@ -952,7 +1053,7 @@
         "titleLine1": "Descubre los",
         "titleAccent": "espacios",
         "titleLine2": "que ofrecemos.",
-        "viewPropertyPage": "Ver mapa interactivo",
+        "viewPropertyPage": "Ver mapa",
         "carouselAria": "Carrusel de {title}",
         "carouselGoTo": "Ir a imagen {index} de {total}",
         "imageAlt": "{title} - {index} / {total}",
@@ -1026,7 +1127,7 @@
         }
       },
       "amenities": {
-        "kicker": "[AMENIDADES RESIDENCIALES]",
+        "kicker": "Amenidades residenciales",
         "titleLine1": "Comunidad y",
         "titleAccent": "vida",
         "intro": "Más que amenidades, creamos espacios para compartir, cuidar de ti y disfrutar cada día. Todo diseñado para una vida plena, conectada y con sentido.",
@@ -1115,11 +1216,11 @@
         }
       },
       "clubAccess": {
-        "kicker": "[COMUNIDAD]",
+        "kicker": "Comunidad",
         "titleLine1": "Ser dueño es formar parte de la",
         "titleAccent": "comunidad",
         "subtitle": "El club como lugar de encuentro y vida compartida",
-        "body": "No solo tienes acceso a los espacios: te integras a una comunidad de vecinos que comparten el mismo entorno, el mismo cuidado y el mismo ritmo de vida. Participas del club como quien pertenece-con voz, encuentros y una experiencia que se construye en conjunto.",
+        "body": "No solo tienes acceso a los espacios: te integras a una comunidad de vecinos que comparten el mismo entorno, el mismo cuidado y el mismo ritmo de vida. Participas del club como quien pertenece, con voz, encuentros y una experiencia que se construye en conjunto.",
         "cta": "EXPLORAR LAS EXPERIENCIAS",
         "alts": {
           "clubhouse": "Clubhouse Don Diego",
@@ -1129,11 +1230,11 @@
       },
       "rentals": {
         "imageAlt": "Rentals Don Diego",
-        "kicker": "[DON DIEGO RENTALS]",
-        "titleLine1": "Estancias de corto plazo, gestionadas por",
+        "kicker": "Don Diego Rentals",
+        "titleLine1": "Estancias gestionadas",
         "titleLine2": "Don Diego Rentals",
         "subtitle": "Un pool de rentas dentro del Club Residencial",
-        "body": "Unidades del desarrollo disponibles para hospedaje de corto plazo — reservas, calendario y estándares de servicio coordinados por Don Diego Rentals. Los propietarios delegan la operación; los huéspedes viven el mismo entorno del club con respaldo profesional. Un modelo que cuida la comunidad, eleva la experiencia y mantiene el estándar del desarrollo.",
+        "body": "Unidades del desarrollo disponibles para hospedaje de corto plazo, con reservas, calendario y estándares de servicio coordinados por Don Diego Rentals. Los propietarios delegan la operación; los huéspedes viven el mismo entorno del club con respaldo profesional. Un modelo que cuida la comunidad, eleva la experiencia y mantiene el estándar del desarrollo.",
         "cta": "PRÓXIMAMENTE"
       },
       "connectivity": {
@@ -1143,29 +1244,29 @@
         "routeTime": "~8 min",
         "routeTo": "Centro histórico",
         "shuttles": {
-          "kicker": "[CONECTIVIDAD]",
+          "kicker": "Conectividad",
           "titleLine1": "Shuttles",
           "titleLine2": "a San Miguel",
-          "body": "Traslados pensados para residentes del Club: conexión cómoda con el centro histórico y puntos clave de la ciudad-horarios y rutas coordinados para que muevas tu día sin preocuparte por el trayecto.",
+          "body": "Traslados pensados para residentes del Club: conexión cómoda con el centro histórico y puntos clave de la ciudad, con horarios y rutas coordinados para que muevas tu día sin preocuparte por el trayecto.",
           "cta": "Ubicación y entorno",
           "imageAlt": "Shuttles Don Diego"
         },
         "wifi": {
-          "kicker": "[ÁREAS COMUNES]",
+          "kicker": "Áreas comunes",
           "titleLine1": "Wi-Fi en todas las",
           "titleLine2": "áreas comunes",
-          "body": "Cobertura pensada para que trabajes, te conectes y disfrutes los espacios compartidos del club sin interrupciones-desde la Casa Club hasta albercas, terrazas y zonas de encuentro.",
+          "body": "Cobertura pensada para que trabajes, te conectes y disfrutes los espacios compartidos del club sin interrupciones, desde la Casa Club hasta albercas, terrazas y zonas de encuentro.",
           "imageAlt": "Espacios comunes del club con Wi-Fi"
         },
         "community": {
-          "kicker": "[COMUNIDAD]",
+          "kicker": "Comunidad",
           "titleLine1": "Un vecindario",
           "titleLine2": "con alma",
-          "body": "Don Diego reúne familias y perfiles diversos en un entorno tranquilo y seguro: encuentros informales, rutinas compartidas y el respaldo de un equipo que cuida la convivencia-para que sentirte en casa vaya más allá de tu residencia.",
+          "body": "Don Diego reúne familias y perfiles diversos en un entorno tranquilo y seguro: encuentros informales, rutinas compartidas y el respaldo de un equipo que cuida la convivencia, para que sentirte en casa vaya más allá de tu residencia.",
           "imageAlt": "Comunidad de residentes en Don Diego"
         },
         "nature": {
-          "kicker": "[ENTORNO]",
+          "kicker": "Entorno",
           "titleLine1": "Naturaleza",
           "titleLine2": "a tu ritmo",
           "body": "Lagos, vegetación y caminos para caminar o pedalear sin salir del desarrollo: un respiro verde entre jornadas urbanas, pensado para que el día termine con calma y perspectiva.",
@@ -1173,7 +1274,7 @@
         }
       },
       "sustainability": {
-        "kicker": "[SUSTENTABILIDAD]",
+        "kicker": "Sustentabilidad",
         "titleLine1": "Un club que respeta",
         "titleLine2": "el territorio",
         "body": "El Club Residencial forma parte de un master plan con visión ambiental: espacios comunes, circulación y paisaje diseñados para convivir con el agua, la tierra y la producción orgánica que define a Don Diego.",
@@ -1203,7 +1304,7 @@
         "imageAlt": "Organic Farm"
       },
       "sustentabilidad": {
-        "eyebrow": "[Filosofía Cíclica]",
+        "eyebrow": "Filosofía cíclica",
         "title": {
           "line1": "El paisaje",
           "accent": "productivo",
@@ -1246,7 +1347,7 @@
         }
       },
       "paseosHuertos": {
-        "eyebrow": "[PASEOS POR LOS HUERTOS]",
+        "eyebrow": "Paseos por los huertos",
         "title": {
           "line1": "El terreno",
           "accent": "como recorrido"
@@ -1306,7 +1407,7 @@
         }
       },
       "trabajoFlores": {
-        "eyebrow": "[TRABAJO CON FLORES]",
+        "eyebrow": "Trabajo con flores",
         "title": {
           "line1": "Color y vida",
           "accent": "en cada ciclo"
@@ -1331,13 +1432,13 @@
     },
     "wellness": {
       "hero": {
-        "eyebrow": "[CENTRO DE BIENESTAR]",
+        "eyebrow": "Centro de bienestar",
         "tagline": "Bienestar integral y manejo del dolor",
         "description": "Actividades físicas, terapias y cuidados para la salud.",
         "imageAlt": "Wellness Center"
       },
       "highlights": {
-        "eyebrow": "[Nuestra filosofía]",
+        "eyebrow": "Nuestra filosofía",
         "title": {
           "base": "Bienestar",
           "accent": "integral"
@@ -1364,7 +1465,7 @@
         }
       },
       "services": {
-        "eyebrow": "[Servicios]",
+        "eyebrow": "Servicios",
         "title": {
           "base": "Un espacio",
           "accent": "para sanar"
@@ -1377,28 +1478,28 @@
         "closeAriaLabel": "Cerrar",
         "items": {
           "rehabilitacion": {
-            "kicker": "[REHABILITACIÓN]",
+            "kicker": "Rehabilitación",
             "titleBase": "Centro de",
             "titleAccent": "rehabilitación",
             "title": "Centro de rehabilitación",
             "description": "Espacios especializados con tecnología de vanguardia para recuperación física y manejo integral del dolor."
           },
           "seniorLiving": {
-            "kicker": "[VIDA ASISTIDA]",
+            "kicker": "Vida asistida",
             "titleBase": "Senior",
             "titleAccent": "Living",
             "title": "Senior Living",
             "description": "Residencias diseñadas para una vida activa y digna, con atención personalizada y comunidad de apoyo en todo momento."
           },
           "departamentosFamiliares": {
-            "kicker": "[FAMILIA]",
+            "kicker": "Familia",
             "titleBase": "Departamentos",
             "titleAccent": "familiares",
             "title": "Departamentos familiares",
             "description": "Espacios de hospedaje pensados para que las familias estén cómodas y cerca de sus seres queridos durante su proceso de recuperación."
           },
           "amenidades": {
-            "kicker": "[AMENIDADES]",
+            "kicker": "Amenidades",
             "titleBase": "Amenidades",
             "titleAccent": "wellness",
             "title": "Amenidades",
@@ -1409,14 +1510,14 @@
     },
     "presa": {
       "hero": {
-        "eyebrow": "[VIDA JUNTO AL AGUA]",
+        "eyebrow": "Vida junto al agua",
         "tagline": "Espacio público/privado junto al agua",
         "description": "Naturaleza, comunidad y vida social integradas en un frente lacustre único.",
         "imageAlt": "Presa de la Cantera"
       },
       "concept": {
         "sectionAriaLabel": "Experiencia y propuesta de valor frente a la presa",
-        "eyebrow": "[Experiencia]",
+        "eyebrow": "Experiencia",
         "title": {
           "base": "Cuatro formas de vivir",
           "accent": "la Presa"
@@ -1509,7 +1610,7 @@
     },
     "equipo": {
       "hero": {
-        "eyebrow": "[El Equipo]",
+        "eyebrow": "El Equipo",
         "description": "Un conjunto de mentes excepcionales trabajando en sintonía para dar vida a un santuario residencial sin precedentes en San Miguel de Allende."
       },
       "details": {
@@ -1538,7 +1639,7 @@
       },
       "navigationBanner": {
         "imageAlt": "Don Diego - equipo",
-        "eyebrow": "[Continúa el recorrido]",
+        "eyebrow": "Continúa el recorrido",
         "title1": "Una invitación a conocer",
         "title2": "la visión de",
         "titleEm": "Don Diego.",
@@ -1691,7 +1792,7 @@
       }
     },
     "featuredBlogUbicacion": {
-      "kicker": "[Blog]",
+      "kicker": "Blog",
       "title": "Explora la ciudad",
       "titleAccent": "en profundidad",
       "readArticle": "Leer artículo"

@@ -1,13 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import {
     Dumbbell,
     Waves,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import ResidentialDetailsHighlight from "@/components/residencial/ResidentialDetailsHighlight";
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 const socialHighlights = [
     {
@@ -44,41 +46,49 @@ const wellnessItems = [
 
 export default function AmenitiesResidencial() {
     const t = useTranslations("pages.residencial.amenities");
+    const shouldReduceMotion = useReducedMotion() ?? false;
+    const revealTransition = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.8,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
 
     return (
         <section
             id="amenidades"
-            className="overflow-hidden bg-[#fff8ed] py-12 text-[#1F1D1B] lg:py-16"
+            className="overflow-hidden bg-[#FFF8ED] py-16 text-[#1F1D1B] md:py-24 lg:py-24"
             aria-labelledby="amenidades-residencial-heading"
         >
-            <div className="mx-auto w-full max-w-[1500px] px-5 sm:px-8 lg:px-12">
+            <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16">
                 <motion.div
-                    initial={{ opacity: 0, y: 24 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.75 }}
-                    className="mb-7 grid gap-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(340px,0.65fr)] lg:items-end"
+                    transition={revealTransition()}
+                    className="mb-10 grid gap-8 lg:grid-cols-[minmax(0,1.12fr)_minmax(340px,0.72fr)] lg:items-center"
                 >
                     <div>
                         <p
-                            className="mb-3 text-[10px] uppercase tracking-[0.38em] text-[#b76d4b]/80"
+                            className="mb-5 text-xs uppercase tracking-[0.3em] text-[#B76D4B]"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {t("kicker")}
                         </p>
                         <h2
                             id="amenidades-residencial-heading"
-                            className="leading-[0.95] text-[#242322]"
+                            className="text-[#242322]"
                             style={{
                                 fontFamily: "var(--font-serif)",
-                                fontSize: "clamp(2.5rem, 5vw, 4rem)",
+                                fontSize: "clamp(3rem, 6vw, 6rem)",
+                                lineHeight: 1,
+                                letterSpacing: "0",
                             }}
                         >
                             {t("titleLine1")} <span className="italic text-[#b48572]">{t("titleAccent")}</span>
                         </h2>
                     </div>
                     <p
-                        className="max-w-[470px] text-[15px] leading-[1.8] text-[#1F1D1B]/78 sm:text-base lg:pb-2"
+                        className="max-w-[640px] text-base font-medium leading-relaxed text-[#1F1D1B]/78 md:text-xl"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
                         {t("intro")}
@@ -87,11 +97,11 @@ export default function AmenitiesResidencial() {
 
                 <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
                     <motion.article
-                        initial={{ opacity: 0, y: 24 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.75, delay: 0.05 }}
-                        className="overflow-hidden border border-[#c7a58f]/25 bg-[#fffaf1]/72 p-5 shadow-[0_18px_48px_rgba(67,52,42,0.08)]"
+                        transition={revealTransition(0.08)}
+                        className="overflow-hidden bg-[#FFF9F2] p-5 shadow-[0_18px_48px_rgba(67,52,42,0.07)]"
                     >
                         <div className="relative aspect-[4/3] lg:aspect-[16/9] min-h-[230px] overflow-hidden">
                             <video
@@ -110,7 +120,7 @@ export default function AmenitiesResidencial() {
                         <div className="grid gap-4 px-1 py-6 lg:px-4">
                             <div>
                                 <p
-                                    className="mb-3 text-[10px] font-bold uppercase tracking-[0.35em] text-[#b76d4b]/85"
+                                    className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-[#B76D4B]"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
                                     {t("socialHeart.kicker")}
@@ -155,11 +165,11 @@ export default function AmenitiesResidencial() {
 
                     <div className="grid gap-6">
                         <motion.article
-                            initial={{ opacity: 0, y: 24 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.75, delay: 0.1 }}
-                            className="border border-[#c7a58f]/25 bg-[#fffaf1]/70 p-4 shadow-[0_18px_48px_rgba(67,52,42,0.07)] sm:p-6"
+                            transition={revealTransition(0.16)}
+                            className="bg-[#FFF9F2]/86 p-4 shadow-[0_18px_48px_rgba(67,52,42,0.06)] sm:p-6"
                         >
                             <div className="mb-5 flex items-start gap-5">
                                 <span className="flex h-14 w-14 shrink-0 items-center justify-center border border-[#c9947e]/25 text-[#b76d4b]">
@@ -167,7 +177,7 @@ export default function AmenitiesResidencial() {
                                 </span>
                                 <div className="min-w-0">
                                     <p
-                                        className="mb-2 text-[10px] font-bold uppercase tracking-[0.35em] text-[#b76d4b]/85"
+                                        className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[#B76D4B]"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
                                         {t("wellness.kicker")}
@@ -185,7 +195,7 @@ export default function AmenitiesResidencial() {
                                 {wellnessItems.map(({ key, image, position }) => (
                                     <div
                                         key={key}
-                                        className="group grid min-h-[92px] grid-cols-[minmax(118px,0.48fr)_minmax(0,1fr)] overflow-hidden border border-[#c7a58f]/30 bg-[#fff8ed]/85 sm:grid-cols-[minmax(190px,0.48fr)_minmax(0,1fr)]"
+                                        className="group grid min-h-[92px] grid-cols-[minmax(118px,0.48fr)_minmax(0,1fr)] overflow-hidden bg-[#F8EFE6] sm:grid-cols-[minmax(190px,0.48fr)_minmax(0,1fr)]"
                                     >
                                         <div className="relative min-h-0 overflow-hidden">
                                             <Image
@@ -218,11 +228,11 @@ export default function AmenitiesResidencial() {
                         </motion.article>
 
                         <motion.article
-                            initial={{ opacity: 0, y: 24 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.75, delay: 0.15 }}
-                            className="overflow-hidden border border-[#c7a58f]/25 bg-[#fffaf1]/70 p-3 shadow-[0_18px_48px_rgba(67,52,42,0.07)] sm:p-6"
+                            transition={revealTransition(0.24)}
+                            className="overflow-hidden bg-[#FFF9F2]/86 p-3 shadow-[0_18px_48px_rgba(67,52,42,0.06)] sm:p-6"
                         >
                             <div className="mb-5 flex items-start gap-4 sm:gap-5">
                                 <span className="flex h-14 w-14 shrink-0 items-center justify-center border border-[#c9947e]/25 text-[#b76d4b]">
@@ -230,7 +240,7 @@ export default function AmenitiesResidencial() {
                                 </span>
                                 <div className="min-w-0">
                                     <p
-                                        className="mb-2 text-[10px] font-bold uppercase tracking-[0.35em] text-[#b76d4b]/85"
+                                        className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-[#B76D4B]"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
                                         {t("sports.kicker")}

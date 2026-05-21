@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { getPurchaseGuideBundle, type InternationalPurchaseGuide, type LocalMexicoPurchaseGuide, type PurchaseGuideStep } from "@/content/purchaseGuide";
 import { cn } from "@/lib/utils";
@@ -28,6 +28,8 @@ const SECTION_IDS = {
 type SectionKey = keyof typeof SECTION_IDS;
 
 type ViewMode = "international" | "local";
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 function useReadingProgress() {
     const [p, setP] = useState(0);
@@ -75,13 +77,13 @@ function checklistStorageKey(locale: string, view: ViewMode) {
     return `don-diego-purchase-guide-checklist-${locale}-${view}`;
 }
 
-function useMotionSpring(reduce: boolean | null) {
+function useSmoothTransition(reduce: boolean | null, duration = 0.42) {
     return useMemo(
         () =>
             reduce
-                ? { duration: 0.2, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] }
-                : { type: "spring" as const, stiffness: 420, damping: 34, mass: 0.7 },
-        [reduce],
+                ? { duration: 0.16, ease: EASE_OUT_CUBIC }
+                : { duration, ease: EASE_OUT_CUBIC },
+        [duration, reduce],
     );
 }
 
@@ -91,9 +93,7 @@ function useFadeTrans(reduce: boolean | null) {
             initial: { opacity: 0, y: reduce ? 0 : 10 },
             animate: { opacity: 1, y: 0 },
             exit: { opacity: 0, y: reduce ? 0 : -6 },
-            transition: reduce
-                ? { duration: 0.15 }
-                : { type: "spring" as const, stiffness: 380, damping: 32 },
+            transition: reduce ? { duration: 0.15 } : { duration: 0.78, ease: EASE_OUT_CUBIC },
         }),
         [reduce],
     );
@@ -111,8 +111,8 @@ function StepAccordionList({ items, openSteps, onToggleStep, idPrefix, reduce }:
     const panelTrans = useMemo(
         () =>
             reduce
-                ? { duration: 0.15, ease: "easeOut" as const }
-                : { type: "spring" as const, stiffness: 500, damping: 38, mass: 0.5 },
+                ? { duration: 0.15, ease: EASE_OUT_CUBIC }
+                : { duration: 0.32, ease: EASE_OUT_CUBIC },
         [reduce],
     );
 
@@ -124,66 +124,65 @@ function StepAccordionList({ items, openSteps, onToggleStep, idPrefix, reduce }:
                     <motion.li
                         key={i}
                         className="list-none"
-                        initial={reduce ? false : { opacity: 0, y: 12 }}
+                        initial={reduce ? false : { opacity: 0, y: 24 }}
                         whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-                        transition={reduce ? undefined : { delay: i * 0.05, type: "spring", stiffness: 400, damping: 35 }}
+                        transition={reduce ? undefined : { delay: i * 0.06, duration: 0.7, ease: EASE_OUT_CUBIC }}
                     >
                         <div
                             className={cn(
-                                "overflow-hidden rounded-lg border border-[#222222]/12 bg-white/40 transition-shadow duration-200",
-                                open && "shadow-sm ring-1 ring-[#222222]/10",
+                                "overflow-hidden border border-[#1C1713]/10 bg-[#FFF9F2]/72 transition-colors duration-300",
+                                open && "border-[#AA7D69]/35 bg-[#FFF9F2]",
                             )}
                         >
                             <motion.button
                                 type="button"
                                 id={`${idPrefix}-step-${i}`}
                                 aria-expanded={open}
-                                className="flex w-full items-start gap-3 px-4 py-3 text-left md:px-5 md:py-4"
+                                className="flex w-full items-start gap-4 px-4 py-4 text-left md:px-5 md:py-5"
                                 onClick={() => onToggleStep(i)}
                                 whileTap={reduce ? undefined : { scale: 0.995 }}
                             >
                                 <motion.span
                                     className={cn(
-                                        "mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-medium",
+                                        "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center border text-[11px] font-bold",
                                         open
-                                            ? "border-[#222222] bg-[#222222] text-[#FFF3E1]"
-                                            : "border-[#222222]/25 text-[#222222]/70",
+                                            ? "border-[#AA7D69] bg-[#AA7D69] text-[#FFF9F2]"
+                                            : "border-[#AA7D69]/35 text-[#AA7D69]",
                                     )}
                                     layout={!reduce}
-                                    transition={reduce ? undefined : { type: "spring", stiffness: 500, damping: 32 }}
+                                    transition={panelTrans}
                                 >
                                     {i + 1}
                                 </motion.span>
                                 <span className="min-w-0 flex-1">
-                                    <span className="font-serif text-base md:text-lg text-[#222222]">
+                                    <span className="font-serif text-base text-[#1C1713] md:text-xl">
                                         {step.title.replace(/^\d+\.\s*/, "")}
                                     </span>
                                 </span>
                                 <motion.span
                                     className="mt-1 inline-flex shrink-0"
                                     animate={{ rotate: open ? 180 : 0 }}
-                                    transition={reduce ? { duration: 0.15 } : { type: "spring", stiffness: 400, damping: 28 }}
+                                    transition={panelTrans}
                                 >
-                                    <ChevronDown className="h-4 w-4 text-[#222222]/45" />
+                                    <ChevronDown className="h-4 w-4 text-[#AA7D69]" />
                                 </motion.span>
                             </motion.button>
-                            <AnimatePresence initial={false}>
-                                {open ? (
-                                    <motion.div
-                                        key={`${idPrefix}-panel-${i}`}
-                                        initial={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                                        animate={reduce ? { opacity: 1 } : { height: "auto", opacity: 1 }}
-                                        exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                                        transition={panelTrans}
-                                        className="border-t border-[#222222]/10"
-                                    >
-                                        <p className="px-4 pb-4 pl-[3.25rem] pt-2 text-[#222222]/85 md:px-5 md:pb-5 md:pl-14">
-                                            {step.body}
-                                        </p>
-                                    </motion.div>
-                                ) : null}
-                            </AnimatePresence>
+                            <motion.div
+                                initial={false}
+                                animate={{
+                                    gridTemplateRows: open ? "1fr" : "0fr",
+                                    opacity: open ? 1 : 0,
+                                }}
+                                transition={panelTrans}
+                                className="grid border-t border-[#1C1713]/10"
+                            >
+                                <div className="overflow-hidden">
+                                    <p className="px-4 pb-5 pl-[3.75rem] pt-3 text-[#1C1713]/78 md:px-5 md:pb-6 md:pl-[4.25rem]">
+                                        {step.body}
+                                    </p>
+                                </div>
+                            </motion.div>
                         </div>
                     </motion.li>
                 );
@@ -197,7 +196,7 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
     const bundle = useMemo(() => getPurchaseGuideBundle(locale), [locale]);
     const [viewMode, setViewMode] = useState<ViewMode>("international");
     const shouldReduce = useReducedMotion();
-    const spring = useMotionSpring(shouldReduce);
+    const smooth = useSmoothTransition(shouldReduce);
     const contentFade = useFadeTrans(shouldReduce);
 
     const intl = bundle.international;
@@ -234,7 +233,9 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
     );
 
     useEffect(() => {
-        setOpenSteps(Array.from({ length: stepCount }, (_, i) => i === 0));
+        queueMicrotask(() => {
+            setOpenSteps(Array.from({ length: stepCount }, (_, i) => i === 0));
+        });
     }, [viewMode, stepCount, locale]);
 
     const [regionTab, setRegionTab] = useState<"us" | "ca" | "eu" | "latam">("us");
@@ -244,7 +245,9 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
     const [checklistHydrated, setChecklistHydrated] = useState(false);
 
     useEffect(() => {
-        setRegionTab("us");
+        queueMicrotask(() => {
+            setRegionTab("us");
+        });
     }, [viewMode]);
 
     useEffect(() => {
@@ -325,17 +328,16 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
     return (
         <div className="relative">
             <div className="mb-8 w-full" role="tablist" aria-label={t("viewToggleLabel")}>
-                {/* Mobile: stacked pills with clear active state (no shared slider) */}
                 <div className="flex flex-col gap-2 sm:hidden">
                     <motion.button
                         type="button"
                         role="tab"
                         aria-selected={viewMode === "international"}
                         className={cn(
-                            "rounded-xl border px-3 py-2.5 text-left text-sm font-medium transition-colors",
+                            "border px-4 py-3 text-left text-sm font-bold uppercase tracking-[0.12em] transition-colors",
                             viewMode === "international"
-                                ? "border-[#222222] bg-[#222222] text-[#FFF3E1] shadow-sm"
-                                : "border-[#222222]/15 bg-white/50 text-[#222222]/70",
+                                ? "border-[#AA7D69] bg-[#AA7D69] text-[#FFF9F2]"
+                                : "border-[#AA7D69]/25 bg-[#FFF9F2]/70 text-[#1C1713]/65",
                         )}
                         onClick={() => setViewMode("international")}
                         whileTap={shouldReduce ? undefined : { scale: 0.99 }}
@@ -347,10 +349,10 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                         role="tab"
                         aria-selected={viewMode === "local"}
                         className={cn(
-                            "rounded-xl border px-3 py-2.5 text-left text-sm font-medium transition-colors",
+                            "border px-4 py-3 text-left text-sm font-bold uppercase tracking-[0.12em] transition-colors",
                             viewMode === "local"
-                                ? "border-[#222222] bg-[#222222] text-[#FFF3E1] shadow-sm"
-                                : "border-[#222222]/15 bg-white/50 text-[#222222]/70",
+                                ? "border-[#AA7D69] bg-[#AA7D69] text-[#FFF9F2]"
+                                : "border-[#AA7D69]/25 bg-[#FFF9F2]/70 text-[#1C1713]/65",
                         )}
                         onClick={() => setViewMode("local")}
                         whileTap={shouldReduce ? undefined : { scale: 0.99 }}
@@ -358,23 +360,22 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                         {t("tabViewLocalMexico")}
                     </motion.button>
                 </div>
-                {/* sm+: segmented control with sliding highlight */}
-                <div className="relative hidden min-h-[3.25rem] w-full sm:grid sm:grid-cols-2 sm:items-stretch sm:overflow-hidden sm:rounded-2xl sm:border sm:border-[#222222]/12 sm:bg-[#222222]/[0.05] sm:p-1">
+                <div className="relative hidden min-h-[3.25rem] w-full sm:grid sm:grid-cols-2 sm:items-stretch sm:overflow-hidden sm:border sm:border-[#AA7D69]/22 sm:bg-[#FFF9F2]/70 sm:p-1">
                     <motion.div
-                        className="pointer-events-none absolute top-1 bottom-1 z-0 w-[calc(50%-6px)] rounded-xl bg-[#222222] shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+                        className="pointer-events-none absolute top-1 bottom-1 z-0 w-[calc(50%-4px)] bg-[#AA7D69]"
                         initial={false}
                         animate={{
                             left: viewMode === "international" ? 4 : "calc(50% + 0px)",
                         }}
-                        transition={shouldReduce ? { duration: 0.2, ease: "easeInOut" } : spring}
+                        transition={smooth}
                     />
                     <button
                         type="button"
                         role="tab"
                         aria-selected={viewMode === "international"}
                         className={cn(
-                            "relative z-10 flex items-center justify-center rounded-xl px-3 py-2.5 text-center text-sm font-medium transition-colors",
-                            viewMode === "international" ? "text-[#FFF3E1]" : "text-[#222222]/70 hover:text-[#222222]",
+                            "relative z-10 flex items-center justify-center px-3 py-2.5 text-center text-sm font-bold uppercase tracking-[0.12em] transition-colors",
+                            viewMode === "international" ? "text-[#FFF9F2]" : "text-[#1C1713]/68 hover:text-[#1C1713]",
                         )}
                         onClick={() => setViewMode("international")}
                     >
@@ -385,8 +386,8 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                         role="tab"
                         aria-selected={viewMode === "local"}
                         className={cn(
-                            "relative z-10 flex items-center justify-center rounded-xl px-3 py-2.5 text-center text-sm font-medium transition-colors",
-                            viewMode === "local" ? "text-[#FFF3E1]" : "text-[#222222]/70 hover:text-[#222222]",
+                            "relative z-10 flex items-center justify-center px-3 py-2.5 text-center text-sm font-bold uppercase tracking-[0.12em] transition-colors",
+                            viewMode === "local" ? "text-[#FFF9F2]" : "text-[#1C1713]/68 hover:text-[#1C1713]",
                         )}
                         onClick={() => setViewMode("local")}
                     >
@@ -404,10 +405,10 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                         key={key}
                         type="button"
                         className={cn(
-                            "shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium",
+                            "shrink-0 border px-3 py-2 text-[11px] font-bold uppercase tracking-[0.12em]",
                             activeSection === key
-                                ? "border-[#222222] bg-[#222222] text-[#FFF3E1]"
-                                : "border-[#222222]/15 bg-white/40 text-[#222222]/70",
+                                ? "border-[#AA7D69] bg-[#AA7D69] text-[#FFF9F2]"
+                                : "border-[#AA7D69]/22 bg-[#FFF9F2]/70 text-[#1C1713]/62",
                         )}
                         onClick={() => scrollToId(SECTION_IDS[key])}
                         whileTap={shouldReduce ? undefined : { scale: 0.97 }}
@@ -418,7 +419,7 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
             </nav>
 
             <div
-                className="pointer-events-none sticky top-0 z-[55] -mx-1 mb-8 h-1.5 overflow-hidden rounded-full bg-[#222222]/10"
+                className="pointer-events-none sticky top-0 z-[55] mb-8 h-[2px] overflow-hidden bg-[#1C1713]/10"
                 role="progressbar"
                 aria-valuenow={Math.round(progress)}
                 aria-valuemin={0}
@@ -426,37 +427,37 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                 aria-label={t("readingProgress")}
             >
                 <motion.div
-                    className="h-full w-full origin-left rounded-full bg-gradient-to-r from-[#AA7D69]/80 to-[#222222]/70"
+                    className="h-full w-full origin-left bg-[#AA7D69]"
                     initial={false}
                     animate={{ scaleX: progress / 100 }}
                     style={{ transformOrigin: "0% 50%" }}
-                    transition={shouldReduce ? { duration: 0.1 } : { type: "spring", stiffness: 120, damping: 22 }}
+                    transition={shouldReduce ? { duration: 0.1 } : smooth}
                 />
             </div>
 
             <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_200px] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_220px] xl:gap-14">
-                <div className="min-w-0 space-y-12 font-sans font-light text-sm leading-relaxed opacity-95 md:text-base">
+                <div className="min-w-0 space-y-10 font-sans text-sm font-medium leading-relaxed md:text-base">
                     <aside
                         id={SECTION_IDS.disclaimer}
-                        className="scroll-mt-36 rounded-lg border border-[#222222]/15 bg-black/[0.03] p-6 md:p-8"
+                        className="scroll-mt-36 border-y border-[#AA7D69]/22 bg-[#FFF9F2]/58 px-5 py-5 md:px-6 md:py-6"
                         aria-labelledby="purchase-guide-disclaimer-heading"
                     >
                         <h2
                             id="purchase-guide-disclaimer-heading"
-                            className="font-serif text-xl text-[#222222] md:text-2xl"
+                            className="font-serif text-xl text-[#1C1713] md:text-2xl"
                         >
                             {chrome.disclaimerTitle}
                         </h2>
-                        <p className="mt-3 font-medium text-[#222222]/90">{chrome.disclaimerLead}</p>
+                        <p className="mt-3 text-[#1C1713]/82">{chrome.disclaimerLead}</p>
 
-                        <details className="group mt-5 border-t border-[#222222]/10 pt-5">
+                        <details className="group mt-5 border-t border-[#1C1713]/10 pt-5">
                             <summary
-                                className="flex cursor-pointer list-none items-center justify-between gap-3 font-sans text-sm font-medium text-[#222222]/80 outline-none marker:content-none transition-colors hover:text-[#222222] [&::-webkit-details-marker]:hidden"
+                                className="flex cursor-pointer list-none items-center justify-between gap-3 font-sans text-sm font-bold uppercase tracking-[0.12em] text-[#AA7D69] outline-none marker:content-none transition-colors hover:text-[#956955] [&::-webkit-details-marker]:hidden"
                             >
                                 <span>{t("disclaimerDetailsLabel")}</span>
                                 <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 ease-out group-open:rotate-180" />
                             </summary>
-                            <div className="mt-4 space-y-4 text-[#222222]/90">
+                            <div className="mt-4 space-y-4 text-[#1C1713]/82">
                                 {disclaimerBody.map((p, i) => (
                                     <p key={i}>{p}</p>
                                 ))}
@@ -473,12 +474,12 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                                 aria-labelledby="pg-mexico-heading"
                                 {...contentFade}
                             >
-                                <h2 id="pg-mexico-heading" className="font-serif text-2xl text-[#222222] md:text-3xl">
+                                <h2 id="pg-mexico-heading" className="font-serif text-2xl text-[#1C1713] md:text-3xl">
                                     {(activeContent as LocalMexicoPurchaseGuide).localIntro.title}
                                 </h2>
-                                <div className="mt-6 space-y-4 rounded-lg border border-[#222222]/10 bg-white/30 p-5 md:p-7">
+                                <div className="mt-6 space-y-4 border border-[#AA7D69]/16 bg-[#FFF9F2]/62 p-5 md:p-7">
                                     {(activeContent as LocalMexicoPurchaseGuide).localIntro.paragraphs.map((p, i) => (
-                                        <p key={i} className="text-[#222222]/88">
+                                        <p key={i} className="text-[#1C1713]/82">
                                             {p}
                                         </p>
                                     ))}
@@ -496,7 +497,7 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                                 aria-labelledby="pg-steps-heading"
                                 {...contentFade}
                             >
-                                <h2 id="pg-steps-heading" className="font-serif text-2xl text-[#222222] md:text-3xl">
+                                <h2 id="pg-steps-heading" className="font-serif text-2xl text-[#1C1713] md:text-3xl">
                                     {(activeContent as InternationalPurchaseGuide).steps.title}
                                 </h2>
                                 <StepAccordionList
@@ -519,7 +520,7 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                                 aria-labelledby="pg-steps-heading-local"
                                 {...contentFade}
                             >
-                                <h2 id="pg-steps-heading-local" className="font-serif text-2xl text-[#222222] md:text-3xl">
+                                <h2 id="pg-steps-heading-local" className="font-serif text-2xl text-[#1C1713] md:text-3xl">
                                     {(activeContent as LocalMexicoPurchaseGuide).steps.title}
                                 </h2>
                                 <StepAccordionList
@@ -542,12 +543,12 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                                 aria-labelledby="pg-mexico-heading-intl"
                                 {...contentFade}
                             >
-                                <h2 id="pg-mexico-heading-intl" className="font-serif text-2xl text-[#222222] md:text-3xl">
+                                <h2 id="pg-mexico-heading-intl" className="font-serif text-2xl text-[#1C1713] md:text-3xl">
                                     {intl.mexicoForeignBuyer.title}
                                 </h2>
-                                <div className="mt-6 space-y-4 rounded-lg border border-[#222222]/10 bg-white/30 p-5 md:p-7">
+                                <div className="mt-6 space-y-4 border border-[#AA7D69]/16 bg-[#FFF9F2]/62 p-5 md:p-7">
                                     {intl.mexicoForeignBuyer.paragraphs.map((p, i) => (
-                                        <p key={i} className="text-[#222222]/88">
+                                        <p key={i} className="text-[#1C1713]/82">
                                             {p}
                                         </p>
                                     ))}
@@ -565,46 +566,37 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                                 aria-labelledby="pg-home-heading"
                                 {...contentFade}
                             >
-                                <h2 id="pg-home-heading" className="font-serif text-2xl text-[#222222] md:text-3xl">
+                                <h2 id="pg-home-heading" className="font-serif text-2xl text-[#1C1713] md:text-3xl">
                                     {intl.homeCountryConsiderations.title}
                                 </h2>
-                                <p className="mt-4 text-[#222222]/88">{intl.homeCountryConsiderations.intro}</p>
+                                <p className="mt-4 text-[#1C1713]/82">{intl.homeCountryConsiderations.intro}</p>
 
-                                <LayoutGroup id="pg-region-tabs">
-                                    <div
-                                        className="mt-6 flex flex-wrap gap-1 border-b border-[#222222]/10 pb-0"
-                                        role="tablist"
-                                        aria-label={t("navHomeCountry")}
-                                    >
-                                        {(["us", "ca", "eu", "latam"] as const).map((key) => (
-                                            <motion.button
-                                                key={key}
-                                                type="button"
-                                                role="tab"
-                                                aria-selected={regionTab === key}
-                                                className={cn(
-                                                    "relative rounded-t-md px-3 py-2.5 text-sm font-medium sm:px-4",
-                                                    regionTab === key
-                                                        ? "text-[#FFF3E1]"
-                                                        : "text-[#222222]/55 hover:text-[#222222]",
-                                                )}
-                                                onClick={() => setRegionTab(key)}
-                                                whileTap={shouldReduce ? undefined : { scale: 0.98 }}
-                                            >
-                                                {regionTab === key ? (
-                                                    <motion.span
-                                                        layoutId="pg-region-pill"
-                                                        className="absolute inset-0 -z-10 rounded-t-md bg-[#222222] shadow-sm"
-                                                        transition={shouldReduce ? { duration: 0.2 } : spring}
-                                                    />
-                                                ) : null}
-                                                <span className="relative z-10">{regionConfig[key].label}</span>
-                                            </motion.button>
-                                        ))}
-                                    </div>
-                                </LayoutGroup>
+                                <div
+                                    className="mt-6 flex flex-wrap gap-1 border-b border-[#AA7D69]/18 pb-0"
+                                    role="tablist"
+                                    aria-label={t("navHomeCountry")}
+                                >
+                                    {(["us", "ca", "eu", "latam"] as const).map((key) => (
+                                        <motion.button
+                                            key={key}
+                                            type="button"
+                                            role="tab"
+                                            aria-selected={regionTab === key}
+                                            className={cn(
+                                                "px-3 py-2.5 text-sm font-bold uppercase tracking-[0.1em] transition-colors sm:px-4",
+                                                regionTab === key
+                                                    ? "bg-[#AA7D69] text-[#FFF9F2]"
+                                                    : "text-[#1C1713]/55 hover:text-[#1C1713]",
+                                            )}
+                                            onClick={() => setRegionTab(key)}
+                                            whileTap={shouldReduce ? undefined : { scale: 0.98 }}
+                                        >
+                                            {regionConfig[key].label}
+                                        </motion.button>
+                                    ))}
+                                </div>
 
-                                <div className="relative mt-0 min-h-[12rem] overflow-hidden rounded-b-lg rounded-tr-lg border border-t-0 border-[#222222]/10 bg-white/30 p-5 md:p-7 lg:rounded-tl-none">
+                                <div className="relative mt-0 min-h-[12rem] overflow-hidden border border-t-0 border-[#AA7D69]/18 bg-[#FFF9F2]/62 p-5 md:p-7">
                                     <AnimatePresence mode="wait" initial={false}>
                                         <motion.div
                                             key={regionTab}
@@ -613,11 +605,11 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                                             initial={shouldReduce ? { opacity: 0 } : { opacity: 0, y: 8 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             exit={shouldReduce ? { opacity: 0 } : { opacity: 0, y: -6 }}
-                                            transition={shouldReduce ? { duration: 0.12 } : { type: "spring", stiffness: 400, damping: 34 }}
+                                            transition={shouldReduce ? { duration: 0.12 } : { duration: 0.42, ease: EASE_OUT_CUBIC }}
                                         >
-                                            <h3 className="font-serif text-xl text-[#222222] md:text-2xl">{activeRegion.region.title}</h3>
-                                            <p className="mt-3 text-[#222222]/88">{activeRegion.region.intro}</p>
-                                            <ul className="mt-5 list-disc space-y-2 pl-5 marker:text-[#222222]/50">
+                                            <h3 className="font-serif text-xl text-[#1C1713] md:text-2xl">{activeRegion.region.title}</h3>
+                                            <p className="mt-3 text-[#1C1713]/82">{activeRegion.region.intro}</p>
+                                            <ul className="mt-5 list-disc space-y-2 pl-5 marker:text-[#AA7D69]">
                                                 {activeRegion.region.bullets.map((b, j) => (
                                                     <motion.li
                                                         key={j}
@@ -626,7 +618,7 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                                                         transition={
                                                             shouldReduce
                                                                 ? undefined
-                                                                : { delay: j * 0.04, type: "spring", stiffness: 400, damping: 35 }
+                                                                : { delay: j * 0.04, duration: 0.42, ease: EASE_OUT_CUBIC }
                                                         }
                                                     >
                                                         {b}
@@ -642,27 +634,27 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
 
                     <section id={SECTION_IDS.checklist} className="scroll-mt-36" aria-labelledby="pg-checklist-heading">
                         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                            <h2 id="pg-checklist-heading" className="font-serif text-2xl text-[#222222] md:text-3xl">
+                            <h2 id="pg-checklist-heading" className="font-serif text-2xl text-[#1C1713] md:text-3xl">
                                 {activeContent.checklist.title}
                             </h2>
                             <div className="flex w-full flex-col gap-2 sm:max-w-xs sm:items-end">
-                                <div className="flex w-full flex-wrap items-center justify-between gap-2 text-sm text-[#222222]/65">
+                                <div className="flex w-full flex-wrap items-center justify-between gap-2 text-sm text-[#1C1713]/65">
                                     <span>{t("checklistProgress", { prepared: preparedCount, total: checklistLen })}</span>
                                     <motion.button
                                         type="button"
-                                        className="text-left underline decoration-[#222222]/30 underline-offset-4 hover:decoration-[#222222]/70"
+                                        className="text-left font-bold uppercase tracking-[0.1em] text-[#AA7D69] underline decoration-[#AA7D69]/30 underline-offset-4 hover:decoration-[#AA7D69]/70"
                                         onClick={resetChecklist}
                                         whileTap={shouldReduce ? undefined : { scale: 0.98 }}
                                     >
                                         {t("resetChecklist")}
                                     </motion.button>
                                 </div>
-                                <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#222222]/10" aria-hidden>
+                                <div className="h-[2px] w-full overflow-hidden bg-[#1C1713]/10" aria-hidden>
                                     <motion.div
-                                        className="h-full rounded-full bg-[#AA7D69]/90"
+                                        className="h-full bg-[#AA7D69]"
                                         initial={false}
                                         animate={{ width: `${checklistProgressPct}%` }}
-                                        transition={shouldReduce ? { duration: 0.15 } : spring}
+                                        transition={shouldReduce ? { duration: 0.15 } : smooth}
                                     />
                                 </div>
                             </div>
@@ -675,19 +667,19 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                                     <motion.li
                                         key={i}
                                         className="list-none"
-                                        initial={shouldReduce ? false : { opacity: 0, y: 8 }}
+                                        initial={shouldReduce ? false : { opacity: 0, y: 16 }}
                                         whileInView={shouldReduce ? undefined : { opacity: 1, y: 0 }}
                                         viewport={{ once: true, amount: 0.5 }}
                                         transition={
                                             shouldReduce
                                                 ? undefined
-                                                : { delay: 0.03 * i, type: "spring", stiffness: 380, damping: 34 }
+                                                : { delay: 0.04 * i, duration: 0.62, ease: EASE_OUT_CUBIC }
                                         }
                                     >
-                                        <label className="flex cursor-pointer gap-3 rounded-lg border border-[#222222]/10 bg-white/35 p-4 transition-colors hover:bg-white/55 md:p-5">
+                                        <label className="flex cursor-pointer gap-3 border border-[#AA7D69]/14 bg-[#FFF9F2]/62 p-4 transition-colors hover:border-[#AA7D69]/35 hover:bg-[#FFF9F2] md:p-5">
                                             <input
                                                 type="checkbox"
-                                                className="mt-1 h-4 w-4 shrink-0 cursor-pointer rounded border-[#222222]/35 text-[#222222] focus:ring-[#222222]/30"
+                                                className="mt-1 h-4 w-4 shrink-0 cursor-pointer border-[#AA7D69]/45 text-[#AA7D69] focus:ring-[#AA7D69]/30"
                                                 checked={isOn}
                                                 onChange={() =>
                                                     setChecked((prev) => {
@@ -699,8 +691,8 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                                             />
                                             <motion.span
                                                 className={cn(
-                                                    "text-[#222222]/90",
-                                                    isOn && "text-[#222222]/50 line-through decoration-[#222222]/35",
+                                                    "text-[#1C1713]/86",
+                                                    isOn && "text-[#1C1713]/45 line-through decoration-[#AA7D69]/45",
                                                 )}
                                                 layout={!shouldReduce}
                                             >
@@ -716,10 +708,10 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
 
                 <nav className="mt-10 hidden lg:block" aria-label={t("onThisPage")}>
                     <div className="sticky top-36 space-y-3">
-                        <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-[#222222]/40">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#AA7D69]">
                             {t("onThisPage")}
                         </p>
-                        <ul className="space-y-0.5">
+                        <ul className="space-y-1">
                             {navItems.map(({ key, label }) => {
                                 const isActive = activeSection === key;
                                 return (
@@ -729,8 +721,8 @@ export default function PurchaseGuideArticle({ locale, chrome }: Props) {
                                             className={cn(
                                                 "block border-l-2 py-1.5 pl-3 text-sm transition-colors",
                                                 isActive
-                                                    ? "border-[#222222] font-medium text-[#222222]"
-                                                    : "border-transparent text-[#222222]/45 hover:border-[#222222]/20 hover:text-[#222222]/80",
+                                                    ? "border-[#AA7D69] font-bold text-[#1C1713]"
+                                                    : "border-transparent text-[#1C1713]/45 hover:border-[#AA7D69]/25 hover:text-[#1C1713]/80",
                                             )}
                                             onClick={(e) => {
                                                 e.preventDefault();

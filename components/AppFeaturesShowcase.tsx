@@ -25,7 +25,6 @@ import {
   UsersRound,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useHasVisited } from "@/hooks/useHasVisited";
 import { cn } from "@/lib/utils";
 
 const ACTIVITY_TIMES = ["07:30", "08:30", "09:30", "10:30", "11:30", "12:00"] as const;
@@ -587,14 +586,14 @@ function SanMiguelConnectDemo({
       initial={reduceMotion ? false : { opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.55, ease: EASE_OUT }}
+      transition={{ duration: reduceMotion ? 0 : 0.82, ease: EASE_OUT }}
       className="relative flex h-full flex-col overflow-hidden rounded-[14px] border border-[#E7DED3] bg-[#FFFCF7] shadow-[0_12px_26px_rgba(76,61,43,0.07)]"
     >
       <motion.div
         className="relative min-h-[148px] overflow-hidden bg-[#4B3524] px-5 py-5"
         initial={reduceMotion ? false : { opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: EASE_OUT, delay: reduceMotion ? 0 : 0.45 }}
+        transition={{ duration: reduceMotion ? 0 : 0.82, ease: EASE_OUT, delay: reduceMotion ? 0 : 0.16 }}
       >
         <Image
           src="/final/comunidad1.webp"
@@ -666,7 +665,7 @@ type FeatureCardProps = {
   className?: string;
   contentClassName?: string;
   delay: number;
-  hasVisited: boolean;
+  reduceMotion: boolean;
 };
 
 function FeatureCard({
@@ -677,14 +676,14 @@ function FeatureCard({
   className,
   contentClassName,
   delay,
-  hasVisited,
+  reduceMotion,
 }: FeatureCardProps) {
   return (
     <motion.article
-      initial={hasVisited ? false : { opacity: 0, y: 28 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.75, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      transition={{ duration: reduceMotion ? 0 : 0.82, delay: reduceMotion ? 0 : delay, ease: EASE_OUT }}
       className={cn(
         "group relative flex flex-col overflow-hidden rounded-sm bg-[#FFFCF7] xl:min-h-[520px]",
         className,
@@ -722,36 +721,34 @@ function FeatureCard({
 }
 
 export default function AppFeaturesShowcase() {
-  const hasVisited = useHasVisited();
   const reduceMotion = useReducedMotion() ?? false;
   const t = useTranslations("appFeatures");
   const tc = useTranslations("appFeatures.cards");
 
   return (
     <section className="relative overflow-hidden bg-[#EEE9DB] text-[#222222]" aria-labelledby="app-features-heading">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(170,125,105,0.08),transparent)]" />
-      <div className="relative mx-auto w-full max-w-[1560px] px-6 py-14 md:px-10 md:py-20 lg:px-10 lg:py-24">
+      <div className="relative mx-auto w-full max-w-[1440px] px-6 py-14 md:px-10 md:py-20 lg:px-16 lg:py-24">
         <motion.div
-          initial={hasVisited ? false : { opacity: 0, y: 22 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-10 max-w-3xl md:mb-14"
+          transition={{ duration: reduceMotion ? 0 : 0.82, ease: EASE_OUT }}
+          className="mb-10 max-w-[980px] md:mb-14"
         >
-          <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.3em] text-[#AA7D69]/60" style={{ fontFamily: "var(--font-sans)" }}>
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-[#AA7D69]" style={{ fontFamily: "var(--font-sans)" }}>
             {t("kicker")}
           </p>
           <h2
             id="app-features-heading"
-            className="leading-[1.05] text-[#222]"
+            className="leading-none text-[#222222]"
             style={{
               fontFamily: "var(--font-serif)",
-              fontSize: "clamp(2.1rem, 4vw, 3.5rem)",
+              fontSize: "clamp(3rem, 6vw, 6rem)",
             }}
           >
-            {t("title")}
+            {t("titleLead")} <em className="text-[#AA7D69]">{t("titleAccent")}</em>
           </h2>
-          <p className="mt-5 max-w-xl text-base leading-[1.75] text-[#222]/60" style={{ fontFamily: "var(--font-serif)" }}>
+          <p className="mt-5 max-w-[820px] text-base font-medium leading-relaxed text-[#222222] md:text-xl" style={{ fontFamily: "var(--font-serif)" }}>
             {t("subtitle")}
           </p>
         </motion.div>
@@ -762,7 +759,7 @@ export default function AppFeaturesShowcase() {
             title={tc("paddle.title")}
             description={tc("paddle.description")}
             delay={0}
-            hasVisited={hasVisited}
+            reduceMotion={reduceMotion}
           >
             <ActivityBookingDemo
               reduceMotion={reduceMotion}
@@ -789,7 +786,7 @@ export default function AppFeaturesShowcase() {
             title={tc("guest.title")}
             description={tc("guest.description")}
             delay={0.08}
-            hasVisited={hasVisited}
+            reduceMotion={reduceMotion}
           >
             <GuestAccessDemo
               reduceMotion={reduceMotion}
@@ -807,7 +804,7 @@ export default function AppFeaturesShowcase() {
             title={tc("farm.title")}
             description={tc("farm.description")}
             delay={0.14}
-            hasVisited={hasVisited}
+            reduceMotion={reduceMotion}
           >
             <FarmOrdersDemo
               reduceMotion={reduceMotion}
@@ -827,7 +824,7 @@ export default function AppFeaturesShowcase() {
             title={tc("sanMiguel.title")}
             description={tc("sanMiguel.description")}
             delay={0.2}
-            hasVisited={hasVisited}
+            reduceMotion={reduceMotion}
           >
             <SanMiguelConnectDemo reduceMotion={reduceMotion} />
           </FeatureCard>

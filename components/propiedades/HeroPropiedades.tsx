@@ -1,7 +1,10 @@
 "use client";
 
-import { motion } from "motion/react";
+import Image from "next/image";
+import { motion, useReducedMotion } from "motion/react";
 import type { Variants } from "motion/react";
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 const titlePaths = [
   "M1301.047,1816.178C1297.265,1816.178 1294.771,1817.572 1293.568,1820.36C1292.364,1823.148 1291.648,1829.091 1291.418,1838.189C1291.075,1847.286 1290.903,1862.4 1290.903,1883.53L1290.903,2012.07C1290.903,2032.026 1291.017,2048.46 1291.247,2061.373C1291.476,2072.232 1292.164,2080.082 1293.31,2084.924C1294.456,2089.766 1296.749,2093.948 1300.188,2097.47L1299.672,2108.475C1295.201,2107.595 1290.043,2107.155 1284.197,2107.155C1278.236,2107.155 1273.02,2107.595 1268.55,2108.475L1268.034,2097.47C1271.129,2094.242 1273.278,2090.133 1274.482,2085.144C1275.686,2080.155 1276.402,2072.232 1276.631,2061.373C1276.975,2051.689 1277.147,2035.254 1277.147,2012.07L1277.147,1894.975C1277.147,1871.791 1276.975,1855.357 1276.631,1845.672C1276.402,1834.814 1275.686,1826.89 1274.482,1821.901C1273.278,1816.912 1271.129,1812.803 1268.034,1809.575L1268.55,1798.57C1273.02,1799.451 1278.236,1799.891 1284.197,1799.891C1287.75,1799.891 1291.189,1799.744 1294.513,1799.451C1297.838,1799.157 1302.194,1799.01 1307.581,1799.01C1318.471,1799.01 1327.412,1806.641 1334.405,1821.901C1341.626,1836.868 1345.237,1856.531 1345.237,1880.889C1345.237,1907.008 1341.569,1927.991 1334.233,1943.838C1327.011,1959.686 1317.669,1967.609 1306.206,1967.609C1304.028,1967.609 1301.678,1966.876 1299.156,1965.408L1299.5,1951.762C1309.702,1951.762 1317.468,1945.746 1322.798,1933.713C1328.129,1921.681 1330.794,1904.66 1330.794,1882.649C1330.794,1860.933 1328.186,1844.425 1322.97,1833.126C1317.755,1821.828 1310.447,1816.178 1301.047,1816.178Z",
@@ -17,29 +20,6 @@ const titlePaths = [
   "M2609.545,2095.269C2616.309,2095.269 2621.811,2090.28 2626.052,2080.302C2630.293,2070.324 2632.414,2057.705 2632.414,2042.444C2632.414,2026.303 2630.236,2012.657 2625.88,2001.505C2621.639,1990.94 2616.022,1979.201 2609.03,1966.289C2602.496,1954.843 2597.452,1945.305 2593.898,1937.675C2591.262,1932.099 2588.74,1925.349 2586.333,1917.426C2582.321,1903.926 2580.315,1888.079 2580.315,1869.884C2580.315,1847.873 2583.524,1829.531 2589.944,1814.858C2596.592,1800.184 2604.846,1792.847 2614.704,1792.847C2624.677,1792.847 2634.076,1798.864 2642.903,1810.896C2642.903,1815.004 2642.931,1819.48 2642.989,1824.322C2643.046,1829.164 2643.103,1832.906 2643.161,1835.547C2643.218,1838.189 2643.247,1840.096 2643.247,1841.27C2643.247,1842.737 2643.218,1844.792 2643.161,1847.433C2643.103,1850.074 2643.046,1853.889 2642.989,1858.878C2642.931,1863.867 2642.903,1868.416 2642.903,1872.525L2638.088,1873.405C2636.369,1856.09 2633.962,1842.737 2630.867,1833.346C2626.281,1819.847 2620.435,1813.097 2613.328,1813.097C2607.253,1813.097 2602.324,1817.572 2598.541,1826.523C2594.758,1835.474 2592.867,1847.433 2592.867,1862.4C2592.867,1876.487 2594.873,1888.959 2598.885,1899.818C2601.865,1907.154 2607.367,1918.159 2615.391,1932.833C2622.728,1946.039 2627.714,1955.284 2630.351,1960.566C2633.102,1965.848 2635.624,1971.865 2637.916,1978.614C2643.304,1995.049 2645.998,2013.537 2645.998,2034.08C2645.998,2058.732 2642.559,2078.395 2635.681,2093.068C2628.803,2107.742 2619.69,2115.078 2608.342,2115.078C2597.452,2115.078 2588.052,2110.236 2580.143,2100.552C2579.34,2089.693 2578.194,2065.922 2576.704,2029.238L2582.034,2026.157C2584.098,2042.004 2586.104,2054.183 2588.052,2062.694C2590.803,2074.726 2593.726,2083.163 2596.821,2088.006C2599.916,2092.848 2604.158,2095.269 2609.545,2095.269Z",
 ];
 
-const titleVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.05,
-    },
-  },
-};
-
-const pathVariants: Variants = {
-  hidden: { pathLength: 0, fill: "rgba(34, 34, 34, 0)" },
-  visible: {
-    pathLength: 1,
-    fill: "rgba(34, 34, 34, 1)",
-    transition: {
-      pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-      fill: { duration: 0.6, ease: [0, 0, 0.2, 1] },
-    },
-  },
-};
-
 type HeroPropiedadesProps = {
   kicker: string;
   title: string;
@@ -51,25 +31,68 @@ export default function HeroPropiedades({
   title,
   subtitle,
 }: HeroPropiedadesProps) {
+  const shouldReduceMotion = useReducedMotion() ?? false;
+  const titleVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.035,
+        delayChildren: shouldReduceMotion ? 0 : 0.08,
+      },
+    },
+  };
+  const pathVariants: Variants = {
+    hidden: { pathLength: 0, fill: "rgba(255, 243, 225, 0)" },
+    visible: {
+      pathLength: 1,
+      fill: "rgba(255, 243, 225, 1)",
+      transition: {
+        pathLength: { duration: shouldReduceMotion ? 0 : 0.6, ease: EASE_OUT_CUBIC },
+        fill: { duration: shouldReduceMotion ? 0 : 0.6, ease: EASE_OUT_CUBIC },
+      },
+    },
+  };
+  const revealTransition = (delay = 0) => ({
+    duration: shouldReduceMotion ? 0 : 0.8,
+    ease: EASE_OUT_CUBIC,
+    delay: shouldReduceMotion ? 0 : delay,
+  });
+
   return (
-    <section className="relative flex min-h-[40vh] md:min-h-[40vh] w-full py-14 md:py-20 items-center justify-center overflow-hidden bg-[#F6F0E8]">
-      <div className="relative z-10 flex flex-col items-center justify-center px-4 w-full max-w-7xl text-center mt-12 md:mt-16">
-        <div className="w-full flex flex-col items-center mb-6">
-          <p
-            className="text-[10px] sm:text-xs tracking-[0.3em] text-[#AA7D69] uppercase mb-6 sm:mb-8"
+    <section className="relative flex min-h-[58svh] w-full items-end overflow-hidden bg-[#15120F] pt-24 pb-12 md:min-h-[62svh] md:pt-28 md:pb-16">
+      <Image
+        src="/final/residencial.png"
+        alt={title}
+        fill
+        priority
+        className="object-cover object-center"
+        sizes="100vw"
+      />
+      <div className="absolute inset-0 bg-[#15120F]/16" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#15120F]/68 via-[#15120F]/22 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#F6F0E8]/70 to-transparent" />
+
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col px-6 text-left md:px-10 lg:px-16">
+        <div className="w-full max-w-[980px]">
+          <motion.p
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={revealTransition()}
+            className="mb-5 text-xs tracking-[0.3em] text-[#FFF3E1] uppercase"
             style={{ fontFamily: "var(--font-sans)" }}
           >
             {kicker}
-          </p>
+          </motion.p>
 
-          <h1 aria-label={title} className="w-full flex justify-center">
+          <h1 aria-label={title} className="w-full">
             <motion.svg
               aria-hidden="true"
               variants={titleVariants}
-              initial="hidden"
+              initial={shouldReduceMotion ? false : "hidden"}
               animate="visible"
               viewBox="0 0 2405 221"
-              className="w-full h-auto max-w-[680px] pb-2 px-4 sm:px-8"
+              className="h-auto w-full max-w-[760px] pb-2 drop-shadow-[0_12px_28px_rgba(0,0,0,0.22)]"
               preserveAspectRatio="xMidYMid meet"
             >
               <g transform="matrix(1,0,0,1,-531.3,-2943.2)">
@@ -79,7 +102,7 @@ export default function HeroPropiedades({
                       key={path}
                       d={path}
                       variants={pathVariants}
-                      stroke="#222222"
+                      stroke="#FFF3E1"
                       strokeWidth="2"
                     />
                   ))}
@@ -90,13 +113,13 @@ export default function HeroPropiedades({
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-md"
+          transition={revealTransition(0.16)}
+          className="mt-6 max-w-[38rem]"
         >
           <p
-            className="text-[#222222]/80 text-lg md:text-xl font-medium leading-relaxed mb-4"
+            className="mb-4 text-base font-medium leading-relaxed text-[#FFF3E1]/82 md:text-xl"
             style={{ fontFamily: "var(--font-serif)" }}
           >
             {subtitle}

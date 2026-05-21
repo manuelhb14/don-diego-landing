@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import type { LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import {
@@ -13,6 +13,8 @@ import {
     Store,
     UtensilsCrossed,
 } from "lucide-react";
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 type AreaRow = {
     id: string;
@@ -26,10 +28,8 @@ type AreaRow = {
     card: {
         border: string;
         bg: string;
-        shadow: string;
         eyebrowClass: string;
         titleAccent: string;
-        iconRing: [string, string, string];
         iconBg: string;
         iconBorder: string;
         iconColor: string;
@@ -41,14 +41,12 @@ const rowStyleMap = {
         Icon: UtensilsCrossed,
         imageLeft: false,
         card: {
-            border: "border-[#1F1D1B]/[0.08]",
-            bg: "bg-[#fff8ed]/95",
-            shadow: "shadow-[0_24px_48px_rgba(47,39,33,0.12)]",
-            eyebrowClass: "text-[#5a7a8a]/90",
+            border: "border-[#5a7a8a]/16",
+            bg: "bg-[#EEF4F6]",
+            eyebrowClass: "text-[#5a7a8a]",
             titleAccent: "text-[#5a7a8a]",
-            iconRing: ["border-[#5a7a8a]/16", "border-[#5a7a8a]/20", "border-[#5a7a8a]/24"] as [string, string, string],
-            iconBg: "bg-[#EEF4F6]",
-            iconBorder: "border-[#5a7a8a]/28",
+            iconBg: "bg-[#DDEBF0]",
+            iconBorder: "border-[#5a7a8a]/25",
             iconColor: "text-[#3d5a6b]",
         },
     },
@@ -56,14 +54,12 @@ const rowStyleMap = {
         Icon: CircleParking,
         imageLeft: true,
         card: {
-            border: "border-[#1F1D1B]/[0.08]",
-            bg: "bg-[#F2EFE8]/95",
-            shadow: "shadow-[0_24px_48px_rgba(26,25,23,0.1)]",
-            eyebrowClass: "text-[#6B6358]/90",
+            border: "border-[#6B6358]/18",
+            bg: "bg-[#EEEAE1]",
+            eyebrowClass: "text-[#6B6358]",
             titleAccent: "text-[#6B6358]/95",
-            iconRing: ["border-[#8B8478]/22", "border-[#8B8478]/26", "border-[#8B8478]/30"] as [string, string, string],
-            iconBg: "bg-[#E8E4DB]",
-            iconBorder: "border-[#7A7268]/35",
+            iconBg: "bg-[#E5E0D6]",
+            iconBorder: "border-[#7A7268]/25",
             iconColor: "text-[#4A453E]",
         },
     },
@@ -71,14 +67,12 @@ const rowStyleMap = {
         Icon: Store,
         imageLeft: false,
         card: {
-            border: "border-[#1F1D1B]/[0.08]",
-            bg: "bg-[#fff8ed]/95",
-            shadow: "shadow-[0_24px_48px_rgba(47,39,33,0.1)]",
-            eyebrowClass: "text-[#5a7a8a]/90",
+            border: "border-[#5a7a8a]/16",
+            bg: "bg-[#EEF4F6]",
+            eyebrowClass: "text-[#5a7a8a]",
             titleAccent: "text-[#5a7a8a]",
-            iconRing: ["border-[#5a7a8a]/16", "border-[#5a7a8a]/20", "border-[#5a7a8a]/24"] as [string, string, string],
-            iconBg: "bg-[#EEF4F6]",
-            iconBorder: "border-[#5a7a8a]/28",
+            iconBg: "bg-[#DDEBF0]",
+            iconBorder: "border-[#5a7a8a]/25",
             iconColor: "text-[#3d5a6b]",
         },
     },
@@ -86,14 +80,12 @@ const rowStyleMap = {
         Icon: Building2,
         imageLeft: true,
         card: {
-            border: "border-[#1F1D1B]/[0.08]",
-            bg: "bg-[#F2EFE8]/95",
-            shadow: "shadow-[0_24px_48px_rgba(47,39,33,0.1)]",
-            eyebrowClass: "text-[#6B6358]/90",
+            border: "border-[#6B6358]/18",
+            bg: "bg-[#EEEAE1]",
+            eyebrowClass: "text-[#6B6358]",
             titleAccent: "text-[#6B6358]/95",
-            iconRing: ["border-[#8B8478]/22", "border-[#8B8478]/26", "border-[#8B8478]/30"] as [string, string, string],
-            iconBg: "bg-[#E8E4DB]",
-            iconBorder: "border-[#7A7268]/35",
+            iconBg: "bg-[#E5E0D6]",
+            iconBorder: "border-[#7A7268]/25",
             iconColor: "text-[#4A453E]",
         },
     },
@@ -101,14 +93,12 @@ const rowStyleMap = {
         Icon: PlayCircle,
         imageLeft: true,
         card: {
-            border: "border-[#1F1D1B]/[0.08]",
-            bg: "bg-[#F2EFE8]/95",
-            shadow: "shadow-[0_24px_48px_rgba(47,39,33,0.1)]",
-            eyebrowClass: "text-[#6B6358]/90",
+            border: "border-[#6B6358]/18",
+            bg: "bg-[#EEEAE1]",
+            eyebrowClass: "text-[#6B6358]",
             titleAccent: "text-[#6B6358]/95",
-            iconRing: ["border-[#8B8478]/22", "border-[#8B8478]/26", "border-[#8B8478]/30"] as [string, string, string],
-            iconBg: "bg-[#E8E4DB]",
-            iconBorder: "border-[#7A7268]/35",
+            iconBg: "bg-[#E5E0D6]",
+            iconBorder: "border-[#7A7268]/25",
             iconColor: "text-[#4A453E]",
         },
     },
@@ -116,14 +106,12 @@ const rowStyleMap = {
         Icon: Anchor,
         imageLeft: false,
         card: {
-            border: "border-[#1F1D1B]/[0.08]",
-            bg: "bg-[#F2EFE8]/95",
-            shadow: "shadow-[0_24px_48px_rgba(47,39,33,0.1)]",
-            eyebrowClass: "text-[#5a7a8a]/90",
+            border: "border-[#5a7a8a]/16",
+            bg: "bg-[#EEF4F6]",
+            eyebrowClass: "text-[#5a7a8a]",
             titleAccent: "text-[#5a7a8a]",
-            iconRing: ["border-[#5a7a8a]/16", "border-[#5a7a8a]/20", "border-[#5a7a8a]/24"] as [string, string, string],
-            iconBg: "bg-[#EEF4F6]",
-            iconBorder: "border-[#5a7a8a]/28",
+            iconBg: "bg-[#DDEBF0]",
+            iconBorder: "border-[#5a7a8a]/25",
             iconColor: "text-[#3d5a6b]",
         },
     },
@@ -131,36 +119,39 @@ const rowStyleMap = {
         Icon: Mic2,
         imageLeft: false,
         card: {
-            border: "border-[#1F1D1B]/[0.08]",
-            bg: "bg-[#fff8ed]/95",
-            shadow: "shadow-[0_24px_48px_rgba(47,39,33,0.1)]",
-            eyebrowClass: "text-[#6B6358]/90",
+            border: "border-[#6B6358]/18",
+            bg: "bg-[#EEEAE1]",
+            eyebrowClass: "text-[#6B6358]",
             titleAccent: "text-[#6B6358]/95",
-            iconRing: ["border-[#8B8478]/22", "border-[#8B8478]/26", "border-[#8B8478]/30"] as [string, string, string],
-            iconBg: "bg-[#E8E4DB]",
-            iconBorder: "border-[#7A7268]/35",
+            iconBg: "bg-[#E5E0D6]",
+            iconBorder: "border-[#7A7268]/25",
             iconColor: "text-[#4A453E]",
         },
     },
 } as const;
 
-function ImagePanel({ row }: { row: AreaRow }) {
+function ImagePanel({ row, shouldReduceMotion }: { row: AreaRow; shouldReduceMotion: boolean }) {
+    const revealTransition = {
+        duration: shouldReduceMotion ? 0 : 0.78,
+        ease: EASE_OUT_CUBIC,
+    };
+
     return (
         <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
+            transition={revealTransition}
             className="relative flex min-h-0 w-full flex-col lg:h-full"
         >
             <motion.div
-                initial={{ opacity: 0, scale: 0.98 }}
+                initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.985 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.85, delay: 0.05 }}
+                transition={{ ...revealTransition, delay: shouldReduceMotion ? 0 : 0.04 }}
                 className="relative w-full flex-1"
             >
-                <div className="relative aspect-[16/8] w-full min-h-[180px] flex-1 overflow-hidden shadow-[0_24px_50px_rgba(47,39,33,0.12)] ring-1 ring-[#1F1D1B]/[0.06] sm:aspect-[16/9] sm:min-h-[230px] lg:aspect-auto lg:min-h-[320px] lg:h-full">
+                <div className="relative aspect-[16/9] w-full min-h-[190px] flex-1 overflow-hidden shadow-[0_18px_38px_rgba(26,25,23,0.1)] ring-1 ring-[#1F1D1B]/[0.06] sm:min-h-[238px] lg:aspect-auto lg:h-full lg:min-h-[280px]">
                     <Image
                         src={row.image.src}
                         alt={row.image.alt}
@@ -169,7 +160,7 @@ function ImagePanel({ row }: { row: AreaRow }) {
                         sizes="(min-width: 1024px) 50vw, 100vw"
                     />
                     <div
-                        className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#1a1917]/18 via-transparent to-transparent"
+                        className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#1a1917]/14 via-transparent to-transparent"
                         aria-hidden
                     />
                 </div>
@@ -178,26 +169,28 @@ function ImagePanel({ row }: { row: AreaRow }) {
     );
 }
 
-function TextCard({ row }: { row: AreaRow }) {
+function TextCard({ row, shouldReduceMotion }: { row: AreaRow; shouldReduceMotion: boolean }) {
     const { Icon, card } = row;
+    const revealTransition = {
+        duration: shouldReduceMotion ? 0 : 0.78,
+        ease: EASE_OUT_CUBIC,
+    };
+
     return (
         <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.06 }}
+            transition={{ ...revealTransition, delay: shouldReduceMotion ? 0 : 0.06 }}
             className="flex min-h-0 w-full flex-col lg:h-full"
         >
             <div
-                className={`flex h-full w-full flex-col justify-start border ${card.border} ${card.bg} px-4 py-4 backdrop-blur-md sm:min-h-[240px] sm:px-9 sm:py-9 lg:min-h-[320px] lg:justify-center lg:px-7 ${card.shadow}`}
+                className={`flex h-full w-full flex-col justify-center border ${card.border} ${card.bg} px-5 py-6 shadow-[0_16px_34px_rgba(47,39,33,0.07)] sm:min-h-[236px] sm:px-8 sm:py-8 lg:min-h-[300px] lg:px-8`}
             >
                 <div className="flex items-center gap-3 sm:block">
-                    <div className="relative flex h-16 w-16 shrink-0 items-center justify-center sm:mx-auto sm:mb-6 sm:h-[4.5rem] sm:w-[4.5rem] lg:mx-0">
-                        <span className={`absolute inset-0 rounded-full border ${card.iconRing[0]}`} aria-hidden />
-                        <span className={`absolute inset-2 rounded-full border ${card.iconRing[1]}`} aria-hidden />
-                        <span className={`absolute inset-4 rounded-full border ${card.iconRing[2]}`} aria-hidden />
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center sm:mx-auto sm:mb-6 sm:h-16 sm:w-16 lg:mx-0">
                         <div
-                            className={`relative flex h-12 w-12 items-center justify-center rounded-full border sm:h-14 sm:w-14 ${card.iconBorder} ${card.iconBg} ${card.iconColor}`}
+                            className={`flex h-full w-full items-center justify-center border ${card.iconBorder} ${card.iconBg} ${card.iconColor}`}
                         >
                             <Icon className="h-[1.375rem] w-[1.375rem] stroke-[1.5] sm:h-6 sm:w-6" aria-hidden />
                         </div>
@@ -205,7 +198,7 @@ function TextCard({ row }: { row: AreaRow }) {
 
                     <div className="min-w-0 flex-1">
                         <p
-                            className={`mb-1 text-left text-[10px] tracking-[0.3em] uppercase sm:mb-3 sm:text-center lg:text-left ${card.eyebrowClass}`}
+                            className={`mb-1 text-left text-xs tracking-[0.3em] uppercase sm:mb-3 sm:text-center lg:text-left ${card.eyebrowClass}`}
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {row.eyebrow}
@@ -225,7 +218,7 @@ function TextCard({ row }: { row: AreaRow }) {
                 </div>
 
                 <p
-                    className="mt-2 text-left text-[13px] leading-[1.6] text-[#1F1D1B]/75 sm:mt-4 sm:text-[16px] sm:leading-relaxed"
+                    className="mt-3 text-left text-[13px] leading-[1.65] text-[#1F1D1B]/72 sm:mt-4 sm:text-base sm:leading-relaxed"
                     style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                 >
                     {row.description}
@@ -237,6 +230,11 @@ function TextCard({ row }: { row: AreaRow }) {
 
 export default function AreasPresa() {
     const t = useTranslations("pages.presa.areas");
+    const shouldReduceMotion = useReducedMotion() ?? false;
+    const revealTransition = {
+        duration: shouldReduceMotion ? 0 : 0.78,
+        ease: EASE_OUT_CUBIC,
+    };
     const rows: AreaRow[] = [
         {
             id: "restaurantes",
@@ -306,35 +304,35 @@ export default function AreasPresa() {
     return (
         <section
             id="areas"
-            className="border-t border-[#1F1D1B]/[0.06] bg-[#EFE6DC] text-[#1F1D1B] py-6 lg:py-14"
+            className="border-t border-[#1F1D1B]/[0.06] bg-[#EFE6DC] py-12 text-[#1F1D1B] lg:py-20"
             aria-label={t("sectionAriaLabel")}
         >
             <div className="mx-auto w-full max-w-[1200px] px-6 lg:px-12">
                 <motion.div
-                    initial={{ opacity: 0, y: 14 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="mb-5 max-w-[42rem] lg:mb-10"
+                    transition={revealTransition}
+                    className="mb-8 max-w-[42rem] lg:mb-12"
                 >
                     <p
-                        className="mb-3 text-[10px] tracking-[0.3em] text-[#5a7a8a]/90 uppercase"
+                        className="mb-4 text-xs tracking-[0.3em] text-[#5a7a8a] uppercase lg:mb-7"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         {t("eyebrow")}
                     </p>
                     <h2
-                        className="text-[#1a221f] leading-[1.12] font-medium"
+                        className="font-medium leading-[1.02] tracking-normal text-[#1a221f]"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(2.35rem, 5vw, 3.75rem)",
+                            fontSize: "clamp(2.75rem, 5vw, 4.75rem)",
                         }}
                     >
                         {t("title.base")} {" "}
                         <span className="italic text-[#5a7a8a]">{t("title.accent")}</span>
                     </h2>
                     <p
-                        className="mt-3 text-[15px] leading-relaxed text-[#1a1917]/72 sm:text-lg"
+                        className="mt-5 max-w-[34rem] text-base leading-relaxed text-[#1a1917]/72 md:text-lg"
                         style={{ fontFamily: "var(--font-serif)", fontWeight: 400 }}
                     >
                         {t("intro")}
@@ -344,26 +342,26 @@ export default function AreasPresa() {
                 {rows.map((row, index) => (
                     <div
                         key={row.id}
-                        className={index === 0 ? "" : "pt-6 lg:pt-14"}
+                        className={index === 0 ? "" : "pt-8 lg:pt-12"}
                         aria-labelledby={`${row.id}-heading`}
                     >
-                        <div className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
+                        <div className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-8">
                             {row.imageLeft ? (
                                 <>
                                     <div className="order-2 lg:order-1">
-                                        <ImagePanel row={row} />
+                                        <ImagePanel row={row} shouldReduceMotion={shouldReduceMotion} />
                                     </div>
                                     <div className="order-1 lg:order-2">
-                                        <TextCard row={row} />
+                                        <TextCard row={row} shouldReduceMotion={shouldReduceMotion} />
                                     </div>
                                 </>
                             ) : (
                                 <>
                                     <div className="order-1">
-                                        <TextCard row={row} />
+                                        <TextCard row={row} shouldReduceMotion={shouldReduceMotion} />
                                     </div>
                                     <div className="order-2">
-                                        <ImagePanel row={row} />
+                                        <ImagePanel row={row} shouldReduceMotion={shouldReduceMotion} />
                                     </div>
                                 </>
                             )}

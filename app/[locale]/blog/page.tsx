@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import { Link } from "@/i18n/navigation";
 import { formatPostDate, getAllPosts, isVideoSrc, type BlogPostView } from "@/content/blogPosts";
 
+const BLOG_HERO_IMAGE_SRC = "/final/sma.webp";
+
 type Props = {
     params: Promise<{ locale: string }>;
 };
@@ -64,40 +66,39 @@ function FeaturedCard({ post, locale }: { post: BlogPostView; locale: string }) 
     return (
         <Link
             href={`/blog/${post.slug}`}
-            className="group grid w-full grid-cols-1 lg:grid-cols-2 lg:min-h-[min(28rem,52vh)] xl:min-h-[min(30rem,54vh)] relative overflow-hidden rounded-sm border border-[#222]/[0.06] bg-[#EFE6DC] transition-all duration-300 hover:border-[#AA7D69]/25 hover:shadow-[0_24px_48px_-24px_rgba(34,34,34,0.18)]"
+            className="group relative grid w-full grid-cols-1 overflow-hidden border border-[#1F1D1B]/10 bg-[#EFE6DC] transition-colors duration-300 hover:border-[#AA7D69]/28 lg:min-h-[min(28rem,52vh)] lg:grid-cols-2 xl:min-h-[min(30rem,54vh)]"
         >
-            <div className="absolute inset-x-0 top-0 z-10 h-[3px] bg-gradient-to-r from-[#AA7D69] to-[#E1B19B] pointer-events-none" />
-
-            {/* Text — left on desktop; stacked first on mobile */}
-            <div className="relative z-[1] flex w-full flex-col justify-center px-6 py-8 text-center md:px-10 md:py-10 lg:px-10 lg:py-12 xl:px-12 xl:py-14 lg:text-left lg:items-start items-center min-h-0">
+            <div className="relative z-[1] flex min-h-0 w-full flex-col items-start justify-center px-6 py-8 text-left md:px-10 md:py-10 lg:px-10 lg:py-12 xl:px-12 xl:py-14">
+                <div className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <p
+                        className="text-xs uppercase tracking-[0.26em] text-[#AA7D69]"
+                        style={{ fontFamily: "var(--font-sans)" }}
+                    >
+                        {post.kicker}
+                    </p>
+                    <time
+                        dateTime={post.publishedAt}
+                        className="block text-[11px] tabular-nums text-[#222]/48"
+                        style={{ fontFamily: "var(--font-sans)" }}
+                    >
+                        {formatPostDate(post.publishedAt, locale)}
+                    </time>
+                </div>
                 <h2
-                    className="font-serif text-[#222] leading-[1.1] text-balance group-hover:text-[#AA7D69] transition-colors max-w-xl lg:max-w-none mb-4"
+                    className="mb-5 max-w-xl text-balance font-serif leading-[1.05] text-[#222] transition-colors group-hover:text-[#AA7D69] lg:max-w-none"
                     style={{
-                        fontSize: "clamp(1.75rem, 3.2vw, 2.85rem)",
+                        fontSize: "clamp(2rem, 3.4vw, 3.15rem)",
                     }}
                 >
                     {post.title}
                 </h2>
-                <time
-                    dateTime={post.publishedAt}
-                    className="text-[11px] text-[#222]/45 mb-2 block tabular-nums"
-                    style={{ fontFamily: "var(--font-sans)" }}
-                >
-                    {formatPostDate(post.publishedAt, locale)}
-                </time>
                 <p
-                    className="text-[10px] tracking-[0.35em] text-[#AA7D69]/65 uppercase mb-4"
-                    style={{ fontFamily: "var(--font-sans)" }}
-                >
-                    {post.kicker}
-                </p>
-                <p
-                    className="mb-4 max-w-xl text-[#222]/70 text-sm md:text-[0.95rem] leading-relaxed lg:text-left text-center text-pretty"
+                    className="mb-4 max-w-xl text-pretty text-sm leading-relaxed text-[#222]/70 md:text-[0.98rem]"
                     style={{ fontFamily: "var(--font-serif)" }}
                 >
                     {post.intro}
                 </p>
-                <div className="mt-5 flex flex-wrap justify-center lg:justify-start gap-x-3 gap-y-2">
+                <div className="mt-5 flex flex-wrap gap-x-3 gap-y-2">
                     {post.tags.map((t) => (
                         <span
                             key={t}
@@ -110,7 +111,6 @@ function FeaturedCard({ post, locale }: { post: BlogPostView; locale: string }) 
                 </div>
             </div>
 
-            {/* Media — right on desktop; below text on mobile */}
             <div className="relative w-full min-h-[min(56vw,280px)] sm:min-h-[300px] lg:min-h-0 lg:h-full">
                 <MediaThumb
                     post={post}
@@ -127,9 +127,8 @@ function GridCard({ post, locale }: { post: BlogPostView; locale: string }) {
         <li>
             <Link
                 href={`/blog/${post.slug}`}
-                className="group block relative overflow-hidden rounded-sm border border-[#222]/[0.06] bg-[#EFE6DC] transition-all duration-300 hover:border-[#AA7D69]/20 hover:brightness-[1.02] h-full flex flex-col"
+                className="group relative flex h-full flex-col overflow-hidden border border-[#1F1D1B]/10 bg-[#EFE6DC] transition-colors duration-300 hover:border-[#AA7D69]/25"
             >
-                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#AA7D69] to-[#E1B19B]" />
                 <MediaThumb post={post} className="aspect-[4/3] shrink-0" />
                 <div className="p-4 md:p-5 flex flex-col flex-1">
                     <h2
@@ -185,43 +184,55 @@ export default async function BlogIndexPage({ params }: Props) {
 
     return (
         <>
-            <Navbar locale={locale} theme="dark" />
+            <Navbar locale={locale} />
             <main className="bg-[#F6F0E8] min-h-screen">
-                <div className="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16 pt-28 pb-16 md:pb-24">
-                    <header className="mb-10 lg:mb-14 text-center lg:text-left">
+                <section className="relative flex min-h-[58svh] w-full items-end overflow-hidden bg-[#15120F] px-6 pt-24 pb-12 md:min-h-[62svh] md:px-10 md:pt-28 md:pb-16 lg:px-16">
+                    <Image
+                        src={BLOG_HERO_IMAGE_SRC}
+                        alt=""
+                        fill
+                        priority
+                        className="object-cover object-center"
+                        sizes="100vw"
+                    />
+                    <div className="absolute inset-0 bg-[#15120F]/18" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#15120F]/70 via-[#15120F]/28 to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#F6F0E8]/70 to-transparent" />
+
+                    <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col text-left">
                         <p
-                            className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
+                            className="mb-5 text-xs tracking-[0.3em] text-[#FFF3E1] uppercase"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {t("kicker")}
                         </p>
                         <h1
-                            className="text-[#222] leading-none mb-6"
+                            className="mb-6 max-w-[980px] text-[#FFF3E1] leading-[0.98]"
                             style={{
                                 fontFamily: "var(--font-serif)",
-                                fontSize: "clamp(2.25rem, 4.6vw, 4rem)",
+                                fontSize: "clamp(3.1rem, 7vw, 7rem)",
                             }}
                         >
                             {t("title")}
                         </h1>
                         <p
-                            className="text-[#222]/55 text-sm md:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+                            className="max-w-[42rem] text-base leading-relaxed text-[#FFF3E1]/78 md:text-xl"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
                             {t("subtitle")}
                         </p>
-                    </header>
+                    </div>
+                </section>
 
-                    {/* Mobile & tablet: linear stack — same card weight */}
+                <section className="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20">
                     <ul className="flex flex-col gap-6 lg:hidden">
                         {posts.map((post) => (
                             <li key={post.slug}>
                                 <Link
                                     href={`/blog/${post.slug}`}
-                                    className="group block relative overflow-hidden rounded-sm border border-[#222]/[0.06] bg-[#EFE6DC] transition-all duration-300 hover:border-[#AA7D69]/20 hover:brightness-[1.02]"
+                                    className="group relative block overflow-hidden border border-[#1F1D1B]/10 bg-[#EFE6DC] transition-colors duration-300 hover:border-[#AA7D69]/24"
                                 >
-                                    <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#AA7D69] to-[#E1B19B]" />
-                                    <MediaThumb post={post} className="aspect-[2/1]" />
+                                    <MediaThumb post={post} className="aspect-[16/10]" />
                                     <div className="p-4 md:p-6">
                                         <h2
                                             className="font-serif text-[#222] leading-tight group-hover:text-[#AA7D69] transition-colors mb-2"
@@ -267,7 +278,6 @@ export default async function BlogIndexPage({ params }: Props) {
                         ))}
                     </ul>
 
-                    {/* Desktop: hero (same width as grid) + 3-column grid */}
                     <div className="hidden lg:block">
                         <FeaturedCard post={featured} locale={locale} />
                         <ul className="mt-14 xl:mt-16 grid grid-cols-3 gap-8 xl:gap-10">
@@ -276,7 +286,7 @@ export default async function BlogIndexPage({ params }: Props) {
                             ))}
                         </ul>
                     </div>
-                </div>
+                </section>
             </main>
             <Footer />
         </>

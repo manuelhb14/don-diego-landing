@@ -1,51 +1,67 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Sparkles } from "lucide-react";
 import { useChat } from "@/components/chat/ChatProvider";
 
 type FaqEntry = { question: string; answer: string };
+type FaqItemProps = {
+    question: string;
+    answer: string;
+    isOpen: boolean;
+    toggle: () => void;
+    shouldReduceMotion: boolean;
+};
 
-function FaqItem({ question, answer, isOpen, toggle }: { question: string, answer: string, isOpen: boolean, toggle: () => void }) {
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+const EASE_IN_OUT_QUART: [number, number, number, number] = [0.77, 0, 0.175, 1];
+
+function FaqItem({ question, answer, isOpen, toggle, shouldReduceMotion }: FaqItemProps) {
+    const iconDuration = shouldReduceMotion ? "0ms" : "300ms";
+
     return (
-        <div className="border-b border-white/10">
+        <div className="border-b border-[#FFF3E1]/12">
             <button
                 onClick={toggle}
-                className="w-full flex items-center justify-between py-6 lg:py-8 text-left group"
+                className="group flex w-full items-center justify-between py-5 text-left lg:py-7"
             >
                 <h3
-                    className="text-white text-lg lg:text-2xl pr-8 group-hover:text-[#E1B19B] transition-colors duration-300"
+                    className="pr-8 text-lg leading-snug text-[#FFF3E1] transition-colors duration-300 group-hover:text-[#E1B19B] lg:text-2xl"
                     style={{ fontFamily: "var(--font-serif)" }}
                 >
                     {question}
                 </h3>
-                <span className="relative flex items-center justify-center w-6 h-6 shrink-0">
+                <span className="relative flex h-6 w-6 shrink-0 items-center justify-center">
                     <span
-                        className={`absolute w-full h-[1px] bg-white transition-opacity duration-300 group-hover:bg-[#E1B19B]`}
+                        className="absolute h-px w-full bg-[#FFF3E1] transition-colors group-hover:bg-[#E1B19B]"
+                        style={{ transitionDuration: iconDuration }}
                     />
                     <span
-                        className={`absolute w-[1px] h-full bg-white transition-all duration-300 group-hover:bg-[#E1B19B] ${isOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"
+                        className={`absolute h-full w-px bg-[#FFF3E1] transition-[background-color,opacity,transform] group-hover:bg-[#E1B19B] ${isOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"
                             }`}
+                        style={{ transitionDuration: iconDuration }}
                     />
                 </span>
             </button>
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="overflow-hidden"
+                        initial={{ gridTemplateRows: "0fr", opacity: 0 }}
+                        animate={{ gridTemplateRows: "1fr", opacity: 1 }}
+                        exit={{ gridTemplateRows: "0fr", opacity: 0 }}
+                        transition={{ duration: shouldReduceMotion ? 0 : 0.32, ease: EASE_IN_OUT_QUART }}
+                        className="grid overflow-hidden"
                     >
-                        <p
-                            className="text-white/60 text-sm lg:text-base leading-relaxed pb-8"
-                            style={{ fontFamily: "var(--font-sans)" }}
-                        >
-                            {answer}
-                        </p>
+                        <div className="min-h-0">
+                            <p
+                                className="pb-7 text-sm leading-relaxed text-[#FFF3E1]/62 lg:text-base"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                {answer}
+                            </p>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -58,53 +74,56 @@ export default function Faq() {
     const t = useTranslations("faq");
     const tContact = useTranslations("contact");
     const { openChat } = useChat();
+    const shouldReduceMotion = useReducedMotion() ?? false;
     const faqs = useMemo(() => t.raw("items") as FaqEntry[], [t]);
 
+    const revealTransition = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.78,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
+
     return (
-        <section id="faq" className="bg-[#2A2826] py-16 lg:py-36 overflow-hidden">
-            <div className="max-w-[1400px] mx-auto px-6 lg:px-14">
-                <div className="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-24">
-                    {/* Header */}
+        <section id="faq" className="overflow-hidden bg-[#2A2826] py-16 lg:py-28">
+            <div className="mx-auto max-w-[1400px] px-6 lg:px-14">
+                <div className="grid gap-10 lg:grid-cols-[0.85fr_2.15fr] lg:gap-24">
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+                        transition={revealTransition()}
                     >
                         <p
-                            className="text-[10px] tracking-[0.3em] text-[#E1B19B]/40 uppercase mb-4"
+                            className="mb-5 text-xs tracking-[0.3em] text-[#E1B19B] uppercase"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {t("kicker")}
                         </p>
                         <h2
-                            className="text-white leading-none mb-6"
+                            className="mb-6 text-[#FFF3E1] leading-[0.98]"
                             style={{
                                 fontFamily: "var(--font-serif)",
-                                fontSize: "clamp(2.4rem, 4.5vw, 4.8rem)",
+                                fontSize: "clamp(3rem, 6vw, 6rem)",
                             }}
                         >
                             {t("title")}
                         </h2>
                         <p
-                            className="text-white text-base leading-relaxed max-w-sm"
-                            style={{ fontFamily: "var(--font-serif)" }}
+                            className="max-w-sm text-base leading-relaxed text-[#FFF3E1]/72 md:text-lg"
+                            style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {t("intro")}
                         </p>
 
-                        <div className="relative mt-8 max-w-sm overflow-hidden rounded-sm border border-[#E8E2DA]/90 bg-[#FCFAF7] p-5 shadow-[0_18px_48px_rgba(0,0,0,0.14)] md:p-6">
-                            <div className="pointer-events-none absolute -right-12 -top-10 h-36 w-36 rounded-full bg-[#F3EEE8]/95 blur-2xl" />
-                            <div className="pointer-events-none absolute -bottom-10 -left-12 h-28 w-28 rounded-full bg-[#EDE8E2]/90 blur-2xl" />
-
+                        <div className="mt-8 max-w-sm overflow-hidden rounded-sm border border-[#FFF3E1]/18 bg-[#FFF8ED] p-5 shadow-[0_18px_48px_rgba(0,0,0,0.12)] md:p-6">
                             <p
-                                className="relative z-10 text-[10px] tracking-[0.24em] uppercase text-[#8A9AAA]"
+                                className="text-[10px] tracking-[0.24em] text-[#AA7D69] uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 {tContact("instantKicker")}
                             </p>
                             <p
-                                className="relative z-10 mt-2 text-base leading-snug text-[#2C3640] md:text-lg"
+                                className="mt-2 text-base leading-snug text-[#1C1713] md:text-lg"
                                 style={{ fontFamily: "var(--font-serif)" }}
                             >
                                 {tContact("instantBody")}
@@ -112,7 +131,7 @@ export default function Faq() {
                             <button
                                 type="button"
                                 onClick={openChat}
-                                className="relative z-10 mt-4 inline-flex items-center gap-2 border border-[#3a3733] bg-[#2A2826] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-[#F0EDE6] transition-colors duration-300 hover:bg-[#35322e] hover:border-[#45423d] hover:text-[#FFFCF7]"
+                                className="mt-4 inline-flex items-center gap-2 border border-[#3a3733] bg-[#2A2826] px-4 py-2 text-[11px] font-bold tracking-[0.16em] text-[#F0EDE6] uppercase transition-colors duration-300 hover:border-[#45423d] hover:bg-[#35322e] hover:text-[#FFF8ED]"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 <Sparkles className="size-3.5 shrink-0 text-[#E1B19B]" />
@@ -121,13 +140,12 @@ export default function Faq() {
                         </div>
                     </motion.div>
 
-                    {/* FAQ Items */}
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="border-t border-white/10"
+                        transition={revealTransition(0.16)}
+                        className="border-t border-[#FFF3E1]/12"
                     >
                         {faqs.map((faq, idx) => (
                             <FaqItem
@@ -135,6 +153,7 @@ export default function Faq() {
                                 question={faq.question}
                                 answer={faq.answer}
                                 isOpen={openIndices.has(idx)}
+                                shouldReduceMotion={shouldReduceMotion}
                                 toggle={() =>
                                     setOpenIndices((prev) => {
                                         const next = new Set(prev);

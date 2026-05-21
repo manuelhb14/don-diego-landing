@@ -1,44 +1,53 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { type KeyboardEvent, useMemo, useState } from "react";
 import Image from "next/image";
-import {
-  Maximize2,
-  Minimize2,
-  Minus,
-  Plus,
-  X,
-} from "lucide-react";
-import { MAP_SECTION_IMAGE_SRC } from "@/lib/map-assets";
+import { X } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import { type PropertyCardData } from "./PropertyCard";
 
-type PropertyMapType = "wellness" | "residencial" | "farm" | "presa";
-type MapFeatureId = "padel-courts";
+export type PropertyMapType = "wellness" | "residencial" | "farm" | "presa";
+type PropertyMapStage = "stage1" | "final";
+type PropertyZoneStatus = "inDevelopment" | "comingSoon";
 
 export type PropertyMapItem = PropertyCardData & {
   mapType: PropertyMapType;
-  typeLabel: string;
-  mapColor: string;
-  panel: {
-    kicker: string;
-    description: string;
-    typology: string;
-    price: string;
-    availability: string;
-    amenities: string[];
-    planLabel: string;
-  };
-  marker: {
-    x: number;
-    y: number;
-  };
 };
 
-type InteractivePropertyMapProps = {
+type ZonePhoto = {
+  src: string;
+  alt: string;
+};
+
+export type PropertyMapCopy = {
   eyebrow: string;
   title: string;
   description: string;
   viewLabel: string;
+  masterplanTitle: string;
+  labels: {
+    masterplan: string;
+    amenities: string;
+    photos: string;
+    close: string;
+    stage1: string;
+    finalStage: string;
+  };
+  statusLabels: Record<PropertyZoneStatus, string>;
+  zones: Record<
+    PropertyMapType,
+    {
+      label: string;
+      summary: string;
+      amenities: string[];
+      photoAlts: string[];
+    }
+  >;
+  initialPhotoAlts: string[];
+};
+
+type InteractivePropertyMapProps = {
+  copy: PropertyMapCopy;
   properties: PropertyMapItem[];
 };
 
@@ -57,101 +66,91 @@ type MapShape =
     transform?: string;
   };
 
-const MAP_WIDTH = 1000;
-const MAP_HEIGHT = 646;
 const OVERVIEW_MAP_WIDTH = 2878;
 const OVERVIEW_MAP_HEIGHT = 1858;
-const OVERVIEW_MAP_CENTER_X = OVERVIEW_MAP_WIDTH / 2;
-const OVERVIEW_MAP_CENTER_Y = OVERVIEW_MAP_HEIGHT / 2;
-const DEFAULT_DETAIL_MAP_TYPE: PropertyMapType = "residencial";
-const DETAIL_ZOOM_PADDING = 1.22;
-const MAX_DETAIL_ZOOM = 3.4;
-const MARKER_SCALE_X = OVERVIEW_MAP_WIDTH / MAP_WIDTH;
-const MARKER_SCALE_Y = OVERVIEW_MAP_HEIGHT / MAP_HEIGHT;
+const MAP_VIEWBOX_Y = 119;
+const MAP_VIEWBOX_HEIGHT = 1620;
 
-type MapFeature = {
-  id: MapFeatureId;
-  label: string;
-  color: string;
-  description: string;
-  imageSrc: string;
-  imageAlt: string;
-  details: Array<{
-    label: string;
-    value: string;
-  }>;
-  shape: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    rotation?: number;
-  };
-  marker: {
-    x: number;
-    y: number;
-  };
-};
-
-const padelFeature: MapFeature = {
-  id: "padel-courts",
-  label: "Canchas de padel",
-  color: "#7FB7C9",
-  description:
-    "Espacio deportivo integrado al recorrido residencial, pensado para partidos casuales, entrenamiento y convivencia activa cerca de las amenidades principales.",
-  imageSrc: "/final/pickleball.png",
-  imageAlt: "Cancha deportiva al aire libre en Don Diego",
-  details: [
-    { label: "Uso", value: "Deportivo" },
-    { label: "Ambiente", value: "Exterior" },
-    { label: "Acceso", value: "Residentes" },
-  ],
-  shape: {
-    x: 286 * MARKER_SCALE_X,
-    y: 210.5 * MARKER_SCALE_Y,
-    width: 15 * MARKER_SCALE_X,
-    height: 12 * MARKER_SCALE_Y,
-    rotation: 30,
-  },
-  marker: {
-    x: (286 + 15 / 2) * MARKER_SCALE_X,
-    y: (210.5 + 12 / 2) * MARKER_SCALE_Y,
-  },
-};
-
-const sectionFeaturesByMapType: Record<PropertyMapType, MapFeature[]> = {
-  wellness: [],
-  residencial: [padelFeature],
-  farm: [],
-  presa: [],
+const overviewSectionOrder: PropertyMapType[] = ["residencial", "farm", "presa", "wellness"];
+const mapStageImageSrc: Record<PropertyMapStage, string> = {
+  stage1: "/propiedades/mapa-etapa-1-detail.png",
+  final: "/propiedades/mapa-final-detail.png",
 };
 
 const sectionMeta: Record<
   PropertyMapType,
   {
-    label: string;
+    status: PropertyZoneStatus;
     color: string;
+    iconColor: string;
+    iconSrc: string;
+    marker: {
+      x: number;
+      y: number;
+    };
+    photoSrcs: string[];
   }
 > = {
   residencial: {
-    label: "Club Residencial",
+    status: "inDevelopment",
     color: "#E1B19B",
+    iconColor: "#C99580",
+    iconSrc: "/final/residencial-logo.svg",
+    marker: { x: 863, y: 743 },
+    photoSrcs: [
+      "/final/club-residencial.png",
+      "/final/residencial.jpg",
+      "/final/casa-flores.webp",
+      "/final/padel.jpg",
+    ],
   },
   farm: {
-    label: "Organic Farm & Flowers",
+    status: "inDevelopment",
     color: "#DEBEBF",
+    iconColor: "#C4A3A4",
+    iconSrc: "/final/farm-logo.svg",
+    marker: { x: 1554, y: 1208 },
+    photoSrcs: [
+      "/final/organic-farm.png",
+      "/final/huerto.jpg",
+      "/final/flores.png",
+      "/final/invernadero.webp",
+    ],
   },
   wellness: {
-    label: "Wellness Center",
+    status: "comingSoon",
     color: "#D7D7AA",
+    iconColor: "#B5B588",
+    iconSrc: "/final/wellness-logo.svg",
+    marker: { x: 547, y: 390 },
+    photoSrcs: [
+      "/final/wellness-center.png",
+      "/final/spa.jpg",
+      "/final/wellness.webp",
+      "/final/spa-2.png",
+    ],
   },
   presa: {
-    label: "Presa de la Cantera",
+    status: "comingSoon",
     color: "#C8D7E6",
+    iconColor: "#8FC0DA",
+    iconSrc: "/final/presa-logo.svg",
+    marker: { x: 2360, y: 948 },
+    photoSrcs: [
+      "/final/presa-de-la-cantera.png",
+      "/final/presa.jpg",
+      "/final/agua.jpg",
+      "/final/presa-2.jpg",
+    ],
   },
 };
 
-const overviewSectionOrder: PropertyMapType[] = ["wellness", "residencial", "farm", "presa"];
+const initialMapPhotoSrcs = [
+  "/final/masterplan.jpeg",
+  "/final/club-residencial.png",
+  "/final/organic-farm.png",
+  "/final/presa-de-la-cantera.png",
+];
 
 const overviewZoneShapes: Record<PropertyMapType, MapShape> = {
   farm: {
@@ -177,86 +176,29 @@ const overviewZoneShapes: Record<PropertyMapType, MapShape> = {
   },
 };
 
-const sectionZoomConfig: Record<
-  PropertyMapType,
-  {
-    minX: number;
-    minY: number;
-    maxX: number;
-    maxY: number;
-    padding: number;
-    maxZoom: number;
-    offsetX: number;
-    offsetY: number;
-  }
-> = {
-  farm: {
-    minX: 902,
-    minY: 956,
-    maxX: 1903,
-    maxY: 1767,
-    padding: 1.08,
-    maxZoom: MAX_DETAIL_ZOOM,
-    offsetX: 0,
-    offsetY: 0,
-  },
-  presa: {
-    minX: 1836,
-    minY: 708,
-    maxX: 2878,
-    maxY: 1459,
-    padding: 1.08,
-    maxZoom: MAX_DETAIL_ZOOM,
-    offsetX: 0,
-    offsetY: 0,
-  },
-  residencial: {
-    minX: 630,
-    minY: 392,
-    maxX: 1281,
-    maxY: 1101,
-    padding: 1,
-    maxZoom: 5,
-    offsetX: 0,
-    offsetY: 100,
-  },
-  wellness: {
-    minX: 475,
-    minY: 276,
-    maxX: 850,
-    maxY: 728,
-    padding: DETAIL_ZOOM_PADDING,
-    maxZoom: MAX_DETAIL_ZOOM,
-    offsetX: 0,
-    offsetY: 160,
-  },
-};
+function resolvePhotos(srcs: string[], alts: string[]): ZonePhoto[] {
+  return srcs.map((src, index) => ({
+    src,
+    alt: alts[index] ?? "",
+  }));
+}
 
-export default function InteractivePropertyMap({
-  eyebrow,
-  title,
-  description,
-  viewLabel,
-  properties,
-}: InteractivePropertyMapProps) {
+export default function InteractivePropertyMap({ copy, properties }: InteractivePropertyMapProps) {
   const [activeMapType, setActiveMapType] = useState<PropertyMapType | null>(null);
-  const [lastMapType, setLastMapType] = useState<PropertyMapType | null>(null);
-  const [selectedFeatureId, setSelectedFeatureId] = useState<MapFeatureId | null>(null);
-  const [isMapExpanded, setIsMapExpanded] = useState(false);
+  const [hoveredMapType, setHoveredMapType] = useState<PropertyMapType | null>(null);
+  const [activeMapStage, setActiveMapStage] = useState<PropertyMapStage>("final");
+  const shouldReduceMotion = useReducedMotion() ?? false;
+  const {
+    description,
+    eyebrow,
+    labels: panelLabels,
+    masterplanTitle,
+    statusLabels,
+    title,
+    viewLabel,
+    zones,
+  } = copy;
 
-  const fallbackMapType = lastMapType ?? DEFAULT_DETAIL_MAP_TYPE;
-  const activeProperty = useMemo(
-    () => properties.find((property) => property.mapType === activeMapType) ?? null,
-    [activeMapType, properties],
-  );
-  const activeSectionFeatures = useMemo(
-    () => (activeMapType ? sectionFeaturesByMapType[activeMapType] : []),
-    [activeMapType],
-  );
-  const selectedFeature = useMemo(
-    () => activeSectionFeatures.find((feature) => feature.id === selectedFeatureId) ?? null,
-    [activeSectionFeatures, selectedFeatureId],
-  );
   const zoneProperties = useMemo(
     () =>
       overviewSectionOrder
@@ -264,353 +206,325 @@ export default function InteractivePropertyMap({
         .filter((property): property is PropertyMapItem => Boolean(property)),
     [properties],
   );
+  const mapStageOptions: { id: PropertyMapStage; label: string }[] = [
+    { id: "stage1", label: panelLabels.stage1 },
+    { id: "final", label: panelLabels.finalStage },
+  ];
+  const activeMeta = activeMapType ? sectionMeta[activeMapType] : null;
+  const activeZone = activeMapType ? zones[activeMapType] : null;
+  const initialMapPhotos = resolvePhotos(initialMapPhotoSrcs, copy.initialPhotoAlts);
+  const activePhotos =
+    activeMapType && activeZone
+      ? resolvePhotos(sectionMeta[activeMapType].photoSrcs, activeZone.photoAlts).slice(0, 4)
+      : [];
 
-  const panelLabels =
-    viewLabel === "View"
-      ? {
-        masterplan: "Masterplan",
-        typology: "Typology",
-        price: "Price",
-        availability: "Availability",
-        amenities: "Amenities",
-        close: "Close map panel",
-        back: "Back to masterplan",
-        zoomIn: "Open selected section",
-        amenity: "Amenity",
-      }
-      : {
-        masterplan: "Masterplan",
-        typology: "Tipologia",
-        price: "Precio",
-        availability: "Disponibilidad",
-        amenities: "Amenidades",
-        close: "Cerrar panel del mapa",
-        back: "Volver al masterplan",
-        zoomIn: "Abrir seccion seleccionada",
-        amenity: "Amenidad",
-      };
-
-  const openDetailView = (mapType: PropertyMapType | null) => {
-    if (!mapType) return;
-    setLastMapType(mapType);
+  const selectMapType = (mapType: PropertyMapType) => {
     setActiveMapType(mapType);
-    setSelectedFeatureId(null);
   };
 
-  const closeDetailView = () => {
+  const closeActiveZone = () => {
     setActiveMapType(null);
-    setSelectedFeatureId(null);
+    setHoveredMapType(null);
   };
-
-  const dismissSelectedFeature = () => {
-    setSelectedFeatureId(null);
-  };
-
-  const mapTransform = useMemo(() => {
-    if (!activeMapType) {
-      return "translate(0px, 0px) scale(1)";
+  const panelMotion = shouldReduceMotion
+    ? {
+      initial: false as const,
+      animate: { opacity: 1, x: 0 },
+      transition: { duration: 0 },
     }
-
-    const config = sectionZoomConfig[activeMapType];
-    const boundsWidth = config.maxX - config.minX;
-    const boundsHeight = config.maxY - config.minY;
-    const scale = Math.min(
-      config.maxZoom,
-      OVERVIEW_MAP_WIDTH / (boundsWidth * config.padding),
-      OVERVIEW_MAP_HEIGHT / (boundsHeight * config.padding),
-    );
-    const centerX = config.minX + boundsWidth / 2;
-    const centerY = config.minY + boundsHeight / 2;
-    const translateX = OVERVIEW_MAP_CENTER_X - centerX * scale + config.offsetX;
-    const translateY = OVERVIEW_MAP_CENTER_Y - centerY * scale + config.offsetY;
-
-    return `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-  }, [activeMapType]);
+    : {
+      initial: { opacity: 0, x: -14 },
+      animate: { opacity: 1, x: 0 },
+      transition: {
+        x: { duration: 0.32, ease: [0.23, 1, 0.32, 1] as const },
+        opacity: { duration: 0.42, ease: "easeOut" },
+      },
+    };
 
   return (
-    <section id="mapa-interactivo" className="scroll-mt-24 bg-[#fff8ed] px-6 pt-8 pb-14 md:px-10 md:pt-12 md:pb-20 lg:px-14">
-      <div className={`mx-auto ${isMapExpanded ? "max-w-none" : "max-w-[1500px]"}`}>
-        <header className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-end">
+    <section id="mapa-interactivo" className="scroll-mt-24 bg-[#EFE6DC] px-6 py-12 md:px-10 lg:px-14 lg:py-20">
+      <div className="mx-auto max-w-[1404px]">
+        <header className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-end">
           <div>
             <p
-              className="mb-3 text-[11px] uppercase tracking-[0.32em] text-[#AA7D69]"
+              className="mb-4 text-xs uppercase tracking-[0.3em] text-[#AA7D69] lg:mb-7"
               style={{ fontFamily: "var(--font-sans)" }}
             >
               {eyebrow}
             </p>
             <h2
-              className="max-w-4xl text-[#222] leading-[0.98]"
+              className="max-w-4xl leading-[1.02] tracking-normal text-[#222]"
               style={{
                 fontFamily: "var(--font-serif)",
-                fontSize: "clamp(2.8rem, 7vw, 6.2rem)",
+                fontSize: "clamp(2.75rem, 5vw, 4.75rem)",
               }}
             >
               {title}
             </h2>
           </div>
           <p
-            className="max-w-md text-[15px] leading-[1.75] text-[#222]/65 lg:justify-self-end"
+            className="max-w-[34rem] text-base leading-relaxed text-[#222]/68 md:text-lg lg:justify-self-end"
             style={{ fontFamily: "var(--font-serif)" }}
           >
             {description}
           </p>
         </header>
 
-        <div
-          className={`mt-8 grid gap-6 lg:items-start ${isMapExpanded ? "lg:grid-cols-1" : "lg:grid-cols-[minmax(0,1fr)_420px]"
-            }`}
-        >
+        <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,960px)_400px] lg:items-stretch xl:grid-cols-[minmax(0,960px)_420px]">
           <div className="min-w-0">
-            <div className="relative overflow-hidden border border-[#E6D8C8] bg-[#fff8ed] shadow-[0_24px_80px_-60px_rgba(34,34,34,0.45)]">
+            <div className="relative mx-auto overflow-hidden border border-[#1F1D1B]/10 bg-[#F7EFE6] shadow-[0_18px_38px_rgba(26,25,23,0.1)]">
               <svg
-                viewBox={`0 0 ${OVERVIEW_MAP_WIDTH} ${OVERVIEW_MAP_HEIGHT}`}
-                role="img"
-                aria-label={
-                  activeMapType
-                    ? `${title}: ${sectionMeta[activeMapType].label}`
-                    : title
-                }
-                className="block aspect-[2878/1858] h-auto w-full select-none touch-pan-y"
+                viewBox={`0 ${MAP_VIEWBOX_Y} ${OVERVIEW_MAP_WIDTH} ${MAP_VIEWBOX_HEIGHT}`}
+                role="group"
+                aria-label={activeZone ? `${title}: ${activeZone.label}` : title}
+                className="block aspect-[2878/1620] h-auto w-full select-none touch-pan-y"
               >
-                <g
-                  className="[transition:transform_280ms_cubic-bezier(0.645,0.045,0.355,1)] motion-reduce:transition-none"
-                  style={{
-                    transform: mapTransform,
-                    transformBox: "view-box",
-                    transformOrigin: "0 0",
-                    willChange: "transform",
-                  }}
-                >
-                  <image
-                    href={MAP_SECTION_IMAGE_SRC}
-                    width={OVERVIEW_MAP_WIDTH}
-                    height={OVERVIEW_MAP_HEIGHT}
-                    preserveAspectRatio="xMidYMid meet"
-                  />
-                  {activeProperty ? (
-                    <>
-                      {selectedFeature ? (
-                        <rect
-                          width={OVERVIEW_MAP_WIDTH}
-                          height={OVERVIEW_MAP_HEIGHT}
-                          fill="#111111"
-                          fillOpacity="0.06"
-                          pointerEvents="none"
-                        />
-                      ) : null}
-                      {activeSectionFeatures.map((feature) => {
-                        const selected = feature.id === selectedFeatureId;
-                        const centerX = feature.shape.x + feature.shape.width / 2;
-                        const centerY = feature.shape.y + feature.shape.height / 2;
-                        return (
-                          <rect
-                            key={feature.id}
-                            x={feature.shape.x}
-                            y={feature.shape.y}
-                            width={feature.shape.width}
-                            height={feature.shape.height}
-                            fill={feature.color}
-                            fillOpacity={selected ? 0.6 : 0.38}
-                            stroke={selected ? "#FFF8ED" : undefined}
-                            strokeWidth={selected ? 3 : undefined}
-                            strokeOpacity={selected ? 0.95 : undefined}
-                            vectorEffect="non-scaling-stroke"
-                            transform={
-                              feature.shape.rotation
-                                ? `rotate(${feature.shape.rotation} ${centerX} ${centerY})`
-                                : undefined
-                            }
-                            className="cursor-pointer transition-opacity hover:opacity-90"
-                            focusable="false"
-                            style={
-                              selected
-                                ? { filter: "drop-shadow(0 0 5px rgba(255, 248, 237, 0.9))" }
-                                : undefined
-                            }
-                            aria-label={`${viewLabel} ${feature.label}`}
-                            onClick={() => setSelectedFeatureId(feature.id)}
-                          />
-                        );
-                      })}
-                    </>
-                  ) : (
-                    zoneProperties.map((property) => (
-                      <MapZoneShape
-                        key={property.slug}
-                        shape={overviewZoneShapes[property.mapType]}
-                        label={`${viewLabel} ${sectionMeta[property.mapType].label}`}
-                        onOpen={() => openDetailView(property.mapType)}
-                      />
-                    ))
-                  )}
-                </g>
+                <image
+                  href={mapStageImageSrc[activeMapStage]}
+                  width={OVERVIEW_MAP_WIDTH}
+                  height={OVERVIEW_MAP_HEIGHT}
+                  preserveAspectRatio="xMidYMid meet"
+                />
+                {zoneProperties.map((property) => {
+                  const isActive = activeMapType === property.mapType;
+                  const isHighlighted = isActive || hoveredMapType === property.mapType;
+
+                  return (
+                    <MapZoneShape
+                      key={property.slug}
+                      shape={overviewZoneShapes[property.mapType]}
+                      label={`${viewLabel} ${zones[property.mapType].label}`}
+                      color={sectionMeta[property.mapType].color}
+                      active={isActive}
+                      highlighted={isHighlighted}
+                      onOpen={() => selectMapType(property.mapType)}
+                      onHover={() => setHoveredMapType(property.mapType)}
+                      onLeave={() => setHoveredMapType(null)}
+                    />
+                  );
+                })}
+                {zoneProperties.map((property) => {
+                  const isActive = activeMapType === property.mapType;
+                  const isHighlighted = isActive || hoveredMapType === property.mapType;
+
+                  return (
+                    <MapZoneMarker
+                      key={`${property.slug}-marker`}
+                      mapType={property.mapType}
+                      label={`${viewLabel} ${zones[property.mapType].label}`}
+                      active={isActive}
+                      highlighted={isHighlighted}
+                      onOpen={() => selectMapType(property.mapType)}
+                      onHover={() => setHoveredMapType(property.mapType)}
+                      onLeave={() => setHoveredMapType(null)}
+                    />
+                  );
+                })}
               </svg>
-
-              <div className="absolute right-4 top-4 overflow-hidden border border-[#E6D8C8] bg-[#fff8ed]/95 shadow-[0_14px_28px_-22px_rgba(34,34,34,0.45)]">
-                <button
-                  type="button"
-                  aria-label={panelLabels.zoomIn}
-                  onClick={() => openDetailView(fallbackMapType)}
-                  disabled={!fallbackMapType || Boolean(activeProperty)}
-                  className="flex h-11 w-11 items-center justify-center border-b border-[#E6D8C8] text-[#222] transition-colors hover:bg-[#f4eadb] disabled:cursor-not-allowed disabled:text-[#222]/25 disabled:hover:bg-transparent"
-                >
-                  <Plus className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  aria-label={panelLabels.back}
-                  onClick={closeDetailView}
-                  disabled={!activeProperty}
-                  className="flex h-11 w-11 items-center justify-center text-[#222] transition-colors hover:bg-[#f4eadb] disabled:cursor-not-allowed disabled:text-[#222]/25 disabled:hover:bg-transparent"
-                >
-                  <Minus className="h-5 w-5" />
-                </button>
-              </div>
-
-              <button
-                type="button"
-                className="absolute bottom-4 right-4 hidden h-11 w-11 items-center justify-center border border-[#E6D8C8] bg-[#fff8ed]/95 text-[#222] shadow-[0_14px_28px_-22px_rgba(34,34,34,0.45)] transition-colors hover:bg-[#f4eadb] md:flex"
-                aria-label={isMapExpanded ? "Collapse map" : "Expand map"}
-                aria-pressed={isMapExpanded}
-                onClick={() => setIsMapExpanded((current) => !current)}
-              >
-                {isMapExpanded ? <Minimize2 className="h-5 w-5" /> : <Maximize2 className="h-5 w-5" />}
-              </button>
             </div>
 
-            {!activeMapType || activeSectionFeatures.length > 0 ? (
-              <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                {activeMapType
-                  ? activeSectionFeatures.map((feature) => {
-                    const selected = selectedFeatureId === feature.id;
-                    return (
-                      <button
-                        type="button"
-                        key={feature.id}
-                        onClick={() =>
-                          setSelectedFeatureId((current) => (current === feature.id ? null : feature.id))
-                        }
-                        className={`flex h-14 items-center justify-center gap-3 border px-4 text-sm transition-colors ${selected
-                          ? "border-[#222] bg-[#fff8ed] text-[#222]"
-                          : "border-[#E6D8C8] bg-transparent text-[#222]/70 hover:border-[#AA7D69]/45 hover:bg-[#fff8ed]/70"
-                          }`}
-                        style={{ fontFamily: "var(--font-serif)" }}
-                      >
-                        <span className="h-3 w-3 rounded-full" style={{ backgroundColor: feature.color }} />
-                        {feature.label}
-                      </button>
-                    );
-                  })
-                  : zoneProperties.map((property) => (
-                    <button
-                      type="button"
-                      key={property.slug}
-                      onClick={() => openDetailView(property.mapType)}
-                      onMouseEnter={() => setLastMapType(property.mapType)}
-                      onFocus={() => setLastMapType(property.mapType)}
-                      className="flex h-14 items-center justify-center gap-3 border border-[#E6D8C8] bg-transparent px-4 text-sm text-[#222]/70 transition-colors hover:border-[#AA7D69]/45 hover:bg-[#fff8ed]/70"
-                      style={{ fontFamily: "var(--font-serif)" }}
-                    >
-                      <span className="h-3 w-3 rounded-full" style={{ backgroundColor: sectionMeta[property.mapType].color }} />
-                      {sectionMeta[property.mapType].label}
-                    </button>
-                  ))}
-              </div>
-            ) : null}
-          </div>
+            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {zoneProperties.map((property) => {
+                const meta = sectionMeta[property.mapType];
+                const selected = activeMapType === property.mapType;
+                const mutedInStageOne =
+                  activeMapStage === "stage1" && (property.mapType === "presa" || property.mapType === "wellness");
 
-          <aside className={`min-w-0 ${isMapExpanded ? "hidden" : ""}`}>
-            <div className="relative border border-[#E6D8C8] bg-[#fff8ed] p-6 pt-12 shadow-[0_22px_60px_-48px_rgba(34,34,34,0.45)] md:p-8 md:pt-14">
-              {selectedFeature ? (
-                <>
+                return (
                   <button
                     type="button"
-                    aria-label={panelLabels.close}
-                    onClick={dismissSelectedFeature}
-                    className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center text-[#222]/80 transition-colors hover:text-[#AA7D69] md:right-6 md:top-6"
+                    key={property.slug}
+                    aria-pressed={selected}
+                    onClick={() => selectMapType(property.mapType)}
+                    onMouseEnter={() => setHoveredMapType(property.mapType)}
+                    onMouseLeave={() => setHoveredMapType(null)}
+                    onFocus={() => setHoveredMapType(property.mapType)}
+                    onBlur={() => setHoveredMapType(null)}
+                    className={`flex min-h-14 items-center justify-center gap-3 border px-3 py-3 text-center text-sm transition-[background-color,border-color,box-shadow,opacity] ${mutedInStageOne
+                      ? selected
+                        ? "opacity-70 hover:opacity-[0.85]"
+                        : "opacity-50 hover:opacity-70"
+                      : "opacity-100"
+                      } ${selected
+                      ? "border-[#222]/30 bg-[#F7EFE6] text-[#222] shadow-[0_10px_24px_rgba(47,39,33,0.06)]"
+                      : "border-[#1F1D1B]/10 bg-transparent text-[#222]/70 hover:border-[#AA7D69]/45 hover:bg-[#F7EFE6]/70"
+                      }`}
+                    style={{ fontFamily: "var(--font-serif)" }}
                   >
-                    <X className="h-6 w-6" strokeWidth={1.5} />
+                    <span
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+                      style={{ backgroundColor: meta.iconColor }}
+                      aria-hidden="true"
+                    >
+                      <Image
+                        src={meta.iconSrc}
+                        alt=""
+                        width={18}
+                        height={18}
+                        className="h-[18px] w-[18px] object-contain"
+                      />
+                    </span>
+                    <span className="leading-tight">{zones[property.mapType].label}</span>
                   </button>
+                );
+              })}
+            </div>
 
-                  <p
-                    className="mb-3 text-[11px] uppercase tracking-[0.32em] text-[#AA7D69]"
-                    style={{ fontFamily: "var(--font-sans)" }}
-                  >
-                    {panelLabels.amenity}
-                  </p>
-                  <h3
-                    className="pr-10 text-[#222] leading-none"
+            <div className="mt-4 flex justify-end">
+              <div
+                className="inline-grid w-full grid-cols-2 border border-[#1F1D1B]/10 bg-[#F7EFE6] p-1 sm:w-auto"
+                style={{ fontFamily: "var(--font-sans)" }}
+              >
+                {mapStageOptions.map((option) => {
+                  const selected = activeMapStage === option.id;
+
+                  return (
+                    <button
+                      key={option.id}
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => setActiveMapStage(option.id)}
+                      className={`min-h-10 px-4 text-[11px] font-bold uppercase tracking-[0.16em] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#AA7D69] ${selected
+                        ? "bg-[#222] text-[#FFF8ED]"
+                        : "text-[#222]/58 hover:bg-[#EFE6DC] hover:text-[#222]"
+                        }`}
+                    >
+                      {option.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          <aside className="min-w-0 lg:h-full">
+            <div className="relative flex h-full flex-col overflow-hidden border border-[#1F1D1B]/10 bg-[#F7EFE6] p-6 shadow-[0_16px_34px_rgba(47,39,33,0.07)] md:p-8 lg:min-h-[720px]">
+              {activeMeta ? (
+                <button
+                  type="button"
+                  aria-label={panelLabels.close}
+                  onClick={closeActiveZone}
+                  className="absolute right-5 top-6 z-10 flex h-6 w-6 items-center justify-center text-[#222]/55 transition-colors hover:text-[#AA7D69] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#AA7D69] md:right-7 md:top-8"
+                >
+                  <X className="h-4 w-4" strokeWidth={1.7} />
+                </button>
+              ) : null}
+
+              <motion.div
+                key={activeMapType ?? "masterplan"}
+                className="relative flex min-h-0 flex-1 flex-col"
+                {...panelMotion}
+              >
+                {activeMeta ? (
+                  <div
+                    className="pointer-events-none absolute -right-5 -top-5 z-0 h-28 w-28"
                     style={{
-                      fontFamily: "var(--font-serif)",
-                      fontSize: "clamp(1.9rem, 2.45vw, 2.55rem)",
+                      backgroundColor: activeMeta.iconColor,
+                      opacity: 0.24,
+                      WebkitMaskImage: `url(${activeMeta.iconSrc})`,
+                      WebkitMaskPosition: "center",
+                      WebkitMaskRepeat: "no-repeat",
+                      WebkitMaskSize: "contain",
+                      maskImage: `url(${activeMeta.iconSrc})`,
+                      maskPosition: "center",
+                      maskRepeat: "no-repeat",
+                      maskSize: "contain",
                     }}
-                  >
-                    {selectedFeature.label}
-                  </h3>
-                  <p
-                    className="mt-7 max-w-[34rem] text-[15px] leading-[1.85] text-[#222]/58"
-                    style={{ fontFamily: "var(--font-serif)" }}
-                  >
-                    {selectedFeature.description}
-                  </p>
-
-                  <div className="mt-7 border-y border-[#E6D8C8]">
-                    {selectedFeature.details.map((detail) => (
-                      <div
-                        key={detail.label}
-                        className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] items-center gap-4 border-b border-[#E6D8C8] py-4 last:border-b-0"
+                    aria-hidden="true"
+                  />
+                ) : null}
+                {activeMeta && activeZone ? (
+                  <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+                    <div className="min-w-0 pr-10">
+                      <ZoneStatusIndicator
+                        status={activeMeta.status}
+                        color={activeMeta.color}
+                        labels={statusLabels}
+                        reduceMotion={shouldReduceMotion}
+                      />
+                      <h3
+                        className="mt-3 text-[#222] leading-none"
+                        style={{
+                          fontFamily: "var(--font-serif)",
+                          fontSize: "clamp(1.9rem, 2.45vw, 2.55rem)",
+                        }}
                       >
-                        <p
-                          className="text-[11px] uppercase tracking-[0.24em] text-[#222]/55"
-                          style={{ fontFamily: "var(--font-sans)" }}
-                        >
-                          {detail.label}
-                        </p>
-                        <p
-                          className="text-right text-[14px] leading-snug text-[#222]/78"
-                          style={{ fontFamily: "var(--font-serif)" }}
-                        >
-                          {detail.value}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
+                        {activeZone.label}
+                      </h3>
+                    </div>
 
-                  <div className="relative mt-7 aspect-[2.3/1] overflow-hidden bg-[#fff8ed]">
-                    <Image
-                      src={selectedFeature.imageSrc}
-                      alt={selectedFeature.imageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 420px"
-                    />
+                    <p
+                      className="mt-7 max-w-[34rem] text-base leading-relaxed text-[#222]/64"
+                      style={{ fontFamily: "var(--font-serif)" }}
+                    >
+                      {activeZone.summary}
+                    </p>
+
+                    <div className="mt-7">
+                      <p
+                        className="text-[11px] uppercase tracking-[0.24em] text-[#222]/55"
+                        style={{ fontFamily: "var(--font-sans)" }}
+                      >
+                        {panelLabels.amenities}
+                      </p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {activeZone.amenities.map((amenity) => (
+                          <span
+                            key={amenity}
+                            className="border border-[#1F1D1B]/10 bg-[#FFF8ED]/72 px-3 py-2 text-[12px] leading-none text-[#222]/70"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                          >
+                            {amenity}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-auto pt-8">
+                      <p
+                        className="text-[11px] uppercase tracking-[0.24em] text-[#222]/55"
+                        style={{ fontFamily: "var(--font-sans)" }}
+                      >
+                        {panelLabels.photos}
+                      </p>
+                      <PanelPhotoGrid photos={activePhotos} />
+                    </div>
                   </div>
-                </>
-              ) : (
-                <>
-                  <p
-                    className="mb-3 text-[11px] uppercase tracking-[0.32em] text-[#AA7D69]"
-                    style={{ fontFamily: "var(--font-sans)" }}
-                  >
-                    {panelLabels.masterplan}
-                  </p>
-                  <h3
-                    className="text-[#222] leading-none"
-                    style={{
-                      fontFamily: "var(--font-serif)",
-                      fontSize: "clamp(1.9rem, 2.45vw, 2.55rem)",
-                    }}
-                  >
-                    {activeMapType ? sectionMeta[activeMapType].label : "Don Diego Club Residencial"}
-                  </h3>
-                  <p
-                    className="mt-7 max-w-[34rem] text-[15px] leading-[1.85] text-[#222]/58"
-                    style={{ fontFamily: "var(--font-serif)" }}
-                  >
-                    {description}
-                  </p>
-                </>
-              )}
+                ) : (
+                  <>
+                    <p
+                      className="mb-3 text-xs uppercase tracking-[0.3em] text-[#AA7D69]"
+                      style={{ fontFamily: "var(--font-sans)" }}
+                    >
+                      {panelLabels.masterplan}
+                    </p>
+                    <h3
+                      className="text-[#222] leading-none"
+                      style={{
+                        fontFamily: "var(--font-serif)",
+                        fontSize: "clamp(1.9rem, 2.45vw, 2.55rem)",
+                      }}
+                    >
+                      {masterplanTitle}
+                    </h3>
+                    <p
+                      className="mt-7 max-w-[34rem] text-base leading-relaxed text-[#222]/64"
+                      style={{ fontFamily: "var(--font-serif)" }}
+                    >
+                      {description}
+                    </p>
+                    <div className="mt-auto pt-8">
+                      <p
+                        className="text-[11px] uppercase tracking-[0.24em] text-[#222]/55"
+                        style={{ fontFamily: "var(--font-sans)" }}
+                      >
+                        {panelLabels.photos}
+                      </p>
+                      <PanelPhotoGrid photos={initialMapPhotos} />
+                    </div>
+                  </>
+                )}
+              </motion.div>
             </div>
           </aside>
         </div>
@@ -619,24 +533,88 @@ export default function InteractivePropertyMap({
   );
 }
 
+function ZoneStatusIndicator({
+  status,
+  color,
+  labels,
+  reduceMotion,
+  compact = false,
+}: {
+  status: PropertyZoneStatus;
+  color: string;
+  labels: Record<PropertyZoneStatus, string>;
+  reduceMotion: boolean;
+  compact?: boolean;
+}) {
+  const isActive = status === "inDevelopment";
+
+  return (
+    <span className={`inline-flex items-center ${compact ? "gap-1.5" : "gap-2"}`}>
+      <span
+        className={`${compact ? "text-[9px] tracking-[0.14em]" : "text-[10px] tracking-[0.16em]"} font-bold uppercase text-[#222222]/50`}
+        style={{ fontFamily: "var(--font-sans)" }}
+      >
+        {labels[status]}
+      </span>
+      <span
+        className={`${compact ? "h-1.5 w-1.5" : "h-2 w-2"} rounded-full ${isActive && !reduceMotion ? "animate-pulse" : ""}`}
+        style={{
+          backgroundColor: color,
+          opacity: isActive ? 1 : 0.52,
+          boxShadow: isActive
+            ? `0 0 0 1px ${color}70, 0 0 6px ${color}35`
+            : `inset 0 0 0 1px ${color}80`,
+        }}
+        aria-hidden="true"
+      />
+    </span>
+  );
+}
+
 function MapZoneShape({
   shape,
   label,
+  color,
+  active,
+  highlighted,
   onOpen,
+  onHover,
+  onLeave,
 }: {
   shape: MapShape;
   label: string;
+  color: string;
+  active: boolean;
+  highlighted: boolean;
   onOpen: () => void;
+  onHover: () => void;
+  onLeave: () => void;
 }) {
+  const fillOpacity = active ? 0.42 : highlighted ? 0.18 : 0;
+  const handleKeyDown = (event: KeyboardEvent<SVGElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onOpen();
+    }
+  };
   const commonProps = {
-    fill: "transparent",
+    fill: color,
+    fillOpacity,
     stroke: "none",
     pointerEvents: "all" as const,
-    vectorEffect: "non-scaling-stroke" as const,
-    className: "cursor-pointer",
+    className: "cursor-pointer outline-none transition-opacity hover:opacity-100",
     focusable: false,
+    role: "button",
+    tabIndex: 0,
     "aria-label": label,
+    "aria-pressed": active,
     onClick: onOpen,
+    onMouseEnter: onHover,
+    onMouseLeave: onLeave,
+    onFocus: onHover,
+    onBlur: onLeave,
+    onKeyDown: handleKeyDown,
+    style: active ? { filter: "drop-shadow(0 0 11px rgba(255, 248, 237, 0.85))" } : undefined,
   };
 
   if (shape.type === "rect") {
@@ -653,4 +631,101 @@ function MapZoneShape({
   }
 
   return <path {...commonProps} d={shape.d} transform={shape.transform} />;
+}
+
+function MapZoneMarker({
+  mapType,
+  label,
+  active,
+  highlighted,
+  onOpen,
+  onHover,
+  onLeave,
+}: {
+  mapType: PropertyMapType;
+  label: string;
+  active: boolean;
+  highlighted: boolean;
+  onOpen: () => void;
+  onHover: () => void;
+  onLeave: () => void;
+}) {
+  const meta = sectionMeta[mapType];
+  const haloOpacity = active ? 0.34 : highlighted ? 0.24 : 0.16;
+  const iconSize = active ? 132 : 120;
+  const logoSize = active ? 84 : 76;
+
+  const handleKeyDown = (event: KeyboardEvent<SVGGElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onOpen();
+    }
+  };
+
+  return (
+    <g
+      transform={`translate(${meta.marker.x} ${meta.marker.y})`}
+      className="cursor-pointer outline-none"
+      role="button"
+      tabIndex={0}
+      aria-label={label}
+      aria-pressed={active}
+      onClick={onOpen}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      onFocus={onHover}
+      onBlur={onLeave}
+      onKeyDown={handleKeyDown}
+    >
+      <circle
+        r={active ? 78 : 70}
+        fill={meta.iconColor}
+        opacity={haloOpacity}
+        className="transition-opacity"
+        pointerEvents="none"
+      />
+      <circle
+        r={iconSize / 2}
+        fill={meta.iconColor}
+        pointerEvents="none"
+        style={{
+          filter: active
+            ? "drop-shadow(0 14px 20px rgba(34, 34, 34, 0.22))"
+            : "drop-shadow(0 10px 16px rgba(34, 34, 34, 0.16))",
+        }}
+      />
+      <image
+        href={meta.iconSrc}
+        x={-logoSize / 2}
+        y={-logoSize / 2}
+        width={logoSize}
+        height={logoSize}
+        preserveAspectRatio="xMidYMid meet"
+        pointerEvents="none"
+        aria-hidden="true"
+      />
+    </g>
+  );
+}
+
+function PanelPhotoGrid({ photos }: { photos: ZonePhoto[] }) {
+  return (
+    <div className="mt-3 grid grid-cols-3 gap-2">
+      {photos.map((photo, index) => (
+        <div
+          key={`${photo.src}-${index}`}
+          className={`relative overflow-hidden bg-[#FFF8ED] ${index === 0 ? "col-span-3 aspect-[16/9]" : "aspect-square"
+            }`}
+        >
+          <Image
+            src={photo.src}
+            alt={photo.alt}
+            fill
+            className="object-cover"
+            sizes={index === 0 ? "(max-width: 1024px) 100vw, 420px" : "140px"}
+          />
+        </div>
+      ))}
+    </div>
+  );
 }

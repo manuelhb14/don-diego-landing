@@ -87,22 +87,23 @@ export default function HeroWeatherWidget({ initialWeather }: HeroWeatherWidgetP
     const WeatherIcon = CONDITION_ICONS[condition];
     const temp = typeof weather?.tempC === "number" ? `${Math.round(weather.tempC)}°C` : "--°C";
     const conditionLabel = labels[condition];
+    const ariaPrefix = locale === "es" ? "Clima en San Miguel" : "San Miguel weather";
     const ariaLabel = useMemo(
-        () => `San Miguel weather: ${temp}, ${conditionLabel}`,
-        [conditionLabel, temp],
+        () => `${ariaPrefix}: ${temp}, ${conditionLabel}`,
+        [ariaPrefix, conditionLabel, temp],
     );
 
     return (
         <aside
-            className="absolute bottom-5 right-4 z-10 flex items-center gap-3 text-[#FFF3E1] drop-shadow-[0_4px_18px_rgba(0,0,0,0.42)] sm:bottom-6 sm:right-6 lg:bottom-10 lg:right-10"
+            className="absolute bottom-4 right-4 z-10 flex origin-bottom-right scale-90 items-center gap-2 text-[#FFF3E1] opacity-85 drop-shadow-[0_4px_18px_rgba(0,0,0,0.42)] sm:bottom-6 sm:right-6 sm:scale-100 sm:gap-3 sm:opacity-100 lg:bottom-10 lg:right-10"
             aria-label={ariaLabel}
         >
-            <WeatherIcon className="h-6 w-6 sm:h-12 sm:w-12" strokeWidth={1.6} aria-hidden />
+            <WeatherIcon className="h-5 w-5 sm:h-10 sm:w-10" strokeWidth={1.6} aria-hidden />
             <span className="grid gap-0.5 text-right">
-                <span className="text-[9px] sm:text-[11px] font-medium uppercase tracking-[0.18em] text-[#FFF3E1]/75">
+                <span className="text-[8px] font-medium uppercase tracking-[0.16em] text-[#FFF3E1]/70 sm:text-[10px] sm:tracking-[0.18em]">
                     San Miguel
                 </span>
-                <span className="text-base font-medium leading-none sm:text-3xl">{temp}</span>
+                <span className="text-sm font-medium leading-none sm:text-2xl">{temp}</span>
             </span>
         </aside>
     );

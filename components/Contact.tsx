@@ -1,16 +1,25 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { MessageCircle } from "lucide-react";
 import { SITE_CONTACT } from "@/lib/site-contact";
 
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+
 export default function Contact() {
     const t = useTranslations("contact");
+    const shouldReduceMotion = useReducedMotion() ?? false;
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    const revealTransition = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.82,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -52,80 +61,44 @@ export default function Contact() {
     };
 
     return (
-        <section id="contacto" className="relative overflow-hidden bg-[#F6EEE4] py-10 lg:py-12">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_18%,rgba(183,109,75,0.14),transparent_46%)]" />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_82%,rgba(225,177,155,0.18),transparent_52%)]" />
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(246,238,228,0.86)_0%,rgba(239,230,220,1)_100%)]" />
-
-            <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 py-6 lg:px-14 lg:py-10">
+        <section id="contacto" className="relative overflow-hidden border-t border-[#AA7D69]/14 bg-[#F6F0E8] py-14 md:py-16 lg:py-20">
+            <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 lg:px-14">
                 <p
-                    className="mb-7 text-[10px] tracking-[0.3em] text-[#AA7D69]/85 uppercase"
+                    className="mb-5 text-xs tracking-[0.3em] text-[#AA7D69] uppercase"
                     style={{ fontFamily: "var(--font-sans)" }}
                 >
                     {t("kicker")}
                 </p>
-                <div className="grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+                <div className="grid items-start gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:gap-20">
                     <motion.div
-                        initial={{ opacity: 0, y: 40 }}
+                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 28 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.9 }}
+                        transition={revealTransition()}
                     >
                         <h2
-                            className="mb-6 text-[#1C1713] leading-[1.05]"
+                            className="mb-6 text-[#1C1713] leading-[0.98]"
                             style={{
                                 fontFamily: "var(--font-serif)",
-                                fontSize: "clamp(2.1rem, 4.6vw, 4.7rem)",
+                                fontSize: "clamp(2.4rem, 4.6vw, 4.5rem)",
                             }}
                         >
                             {t("joinLine1")} <br /><em className="text-[#AA7D69]">{t("joinEm")}</em>
                         </h2>
 
                         <p
-                            className="max-w-md text-sm leading-relaxed text-[#1C1713]/72 lg:text-base"
+                            className="max-w-[34rem] text-base leading-relaxed text-[#1C1713]/72 md:text-lg"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {t("bodyHome")}
                         </p>
-
-                        {/* <div className="mt-10 grid grid-cols-1 gap-4 border-t border-[#AA7D69]/22 pt-7 sm:grid-cols-2">
-                            {[
-                                { title: t("belief1t"), desc: t("belief1d") },
-                                { title: t("belief2t"), desc: t("belief2d") },
-                                { title: t("belief3t"), desc: t("belief3d") },
-                                { title: t("belief4t"), desc: t("belief4d") },
-                            ].map((b, i) => (
-                                <motion.div
-                                    key={b.title}
-                                    initial={{ opacity: 0, y: 15 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: 0.2 + i * 0.07 }}
-                                    className="rounded-sm border border-[#AA7D69]/20 bg-[#FFF9F2]/85 px-4 py-4"
-                                >
-                                    <span className="mb-3 block h-px w-10 bg-[#AA7D69]/55" />
-                                    <p
-                                        className="mb-1 text-sm text-[#1C1713]/90"
-                                        style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}
-                                    >
-                                        {b.title}
-                                    </p>
-                                    <p
-                                        className="text-xs tracking-[0.16em] text-[#1C1713]/52 uppercase"
-                                        style={{ fontFamily: "var(--font-sans)" }}
-                                    >
-                                        {b.desc}
-                                    </p>
-                                </motion.div>
-                            ))}
-                        </div> */}
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.9, delay: 0.2 }}
+                        transition={revealTransition(0.16)}
                         className="w-full"
                     >
                         <div className="mb-3 grid grid-cols-1 gap-3 lg:grid-cols-2">
@@ -152,10 +125,7 @@ export default function Contact() {
                             </a>
                         </div>
 
-                        <div className="relative overflow-hidden border border-[#AA7D69]/28 bg-[#FFF9F2]/90 p-4 shadow-[0_22px_65px_rgba(170,125,105,0.16)] md:p-6">
-                            <div className="pointer-events-none absolute -left-16 -top-20 h-52 w-52 rounded-full bg-[#b76d4b]/10 blur-[80px]" />
-                            <div className="pointer-events-none absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-[#E1B19B]/18 blur-[90px]" />
-
+                        <div className="relative overflow-hidden border border-[#AA7D69]/24 bg-[#FFF9F2] p-5 shadow-[0_18px_45px_rgba(47,39,33,0.09)] md:p-7">
                             {submitted ? (
                                 <div className="relative z-10 flex min-h-[460px] flex-col items-center justify-center py-24 text-center">
                                     <div className="mx-auto mb-8 h-px w-16 bg-[#AA7D69]/56" />

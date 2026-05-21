@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { motion } from "motion/react";
-import { useHasVisited } from "@/hooks/useHasVisited";
+import { motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 type ProyectoCard = {
     title: string;
@@ -21,7 +22,13 @@ type ProyectoCard = {
 
 export default function GridProyecto() {
     const t = useTranslations("pages.proyecto.grid");
-    const hasVisited = useHasVisited();
+    const shouldReduceMotion = useReducedMotion() ?? false;
+    const phaseNote = t("phaseNote");
+    const revealTransition = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.8,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
 
     const components: ProyectoCard[] = [
         {
@@ -29,8 +36,8 @@ export default function GridProyecto() {
             description: t("cards.residencial.description"),
             image: "/final/residencial.png",
             href: "/residencial",
-            colSpan: "col-span-1 md:col-span-8",
-            aspect: "aspect-[4/3] md:aspect-[21/9]",
+            colSpan: "md:col-span-7",
+            aspect: "aspect-[16/11] md:aspect-auto md:h-[520px]",
             ledColor: "#E1B19B",
             ledActive: true,
             statusLabel: t("status.inDevelopment"),
@@ -41,8 +48,8 @@ export default function GridProyecto() {
             description: t("cards.farm.description"),
             image: "/final/organic-farm.png",
             href: "/farm",
-            colSpan: "col-span-1 md:col-span-4",
-            aspect: "aspect-[4/3] md:aspect-[3/4]",
+            colSpan: "md:col-span-5",
+            aspect: "aspect-[16/11] md:aspect-auto md:h-[520px]",
             ledColor: "#DEBEBF",
             ledActive: true,
             statusLabel: t("status.inDevelopment"),
@@ -53,8 +60,8 @@ export default function GridProyecto() {
             description: t("cards.wellness.description"),
             image: "/final/wellness-center.png",
             href: "/wellness",
-            colSpan: "col-span-1 md:col-span-5",
-            aspect: "aspect-[4/3] md:aspect-square",
+            colSpan: "md:col-span-5",
+            aspect: "aspect-[16/11] md:aspect-auto md:h-[520px]",
             ledColor: "#D7D7AA",
             ledActive: false,
             statusLabel: t("status.comingSoon"),
@@ -65,8 +72,8 @@ export default function GridProyecto() {
             description: t("cards.presa.description"),
             image: "/final/presa.png",
             href: "/presa",
-            colSpan: "col-span-1 md:col-span-7",
-            aspect: "aspect-[4/3] md:aspect-[16/9]",
+            colSpan: "md:col-span-7",
+            aspect: "aspect-[16/11] md:aspect-auto md:h-[520px]",
             ledColor: "#C8D7E6",
             ledActive: false,
             statusLabel: t("status.comingSoon"),
@@ -75,118 +82,123 @@ export default function GridProyecto() {
     ];
 
     return (
-        <section id="componentes" className="bg-[#FFF3E1] pt-12 pb-12 md:pb-24 px-6 md:px-12 lg:px-24 w-full">
-            <div className="max-w-[1440px] mx-auto w-full">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+        <section id="componentes" className="w-full bg-[#FFF3E1] px-6 py-16 md:px-10 md:py-24 lg:px-16">
+            <div className="mx-auto w-full max-w-[1440px]">
+                <div className="mb-10 grid gap-8 md:mb-14 md:grid-cols-[minmax(0,0.95fr)_minmax(320px,0.55fr)] md:items-center lg:gap-16">
+                    <motion.h2
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={revealTransition()}
+                        className="max-w-[760px] text-[#222222]"
+                        style={{
+                            fontFamily: "var(--font-serif)",
+                            fontSize: "clamp(3rem, 6vw, 6rem)",
+                            lineHeight: 1,
+                            letterSpacing: "0",
+                        }}
+                    >
+                        {t("bottomTitleLine1")} <br />
+                        <span className="italic text-[#AA7D69]">{t("bottomTitleLine2")}</span>
+                    </motion.h2>
+
+                    <motion.div
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={revealTransition(0.16)}
+                        className="max-w-[560px] md:justify-self-end"
+                    >
+                        {phaseNote ? (
+                            <p
+                                className="mb-4 text-xs font-bold uppercase leading-[1.7] tracking-[0.22em] text-[#AA7D69]"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                {phaseNote}
+                            </p>
+                        ) : null}
+                        <p
+                            className="text-base font-medium leading-relaxed text-[#222222]/80 md:text-xl"
+                            style={{ fontFamily: "var(--font-serif)" }}
+                        >
+                            {t("bottomBody")}
+                        </p>
+                    </motion.div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-5 lg:gap-6">
                     {components.map((item, index) => (
                         <motion.div
-                            key={index}
-                            initial={hasVisited ? false : { opacity: 0, y: 30 }}
+                            key={item.title}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.8, delay: index * 0.15 }}
-                            className={`${item.colSpan} relative group overflow-hidden rounded-sm`}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={revealTransition(index * 0.08)}
+                            className={`${item.colSpan} relative overflow-hidden`}
                         >
-                            <Link href={item.href} className={`block w-full h-full relative ${item.aspect} bg-[#1F1D1B]`}>
+                            <Link
+                                href={item.href}
+                                className={`group relative block w-full overflow-hidden rounded-sm bg-[#1F1D1B] shadow-[0_18px_45px_rgba(36,24,18,0.10)] ${item.aspect}`}
+                            >
                                 <Image
                                     src={item.image}
                                     alt={item.title}
                                     fill
-                                    className={`object-cover transition-all duration-[1.5s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-105 ${item.pending ? "saturate-[0.82] brightness-[0.92]" : ""}`}
-                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    className={`object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.215,0.61,0.355,1)] motion-safe:group-hover:scale-[1.035] ${item.pending ? "saturate-[0.88]" : ""}`}
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 58vw"
                                 />
 
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#1F1D1B]/90 via-[#1F1D1B]/20 to-transparent opacity-95 md:opacity-80 transition-opacity duration-700 group-hover:opacity-95" />
-                                {item.pending && <div className="absolute inset-0 bg-[#FFF3E1]/18 transition-colors duration-700 group-hover:bg-[#FFF3E1]/12" />}
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#15120F]/80 via-[#15120F]/20 to-transparent transition-opacity duration-700 group-hover:opacity-95" />
+                                {item.pending ? <div className="absolute inset-0 bg-[#FFF3E1]/10 transition-colors duration-700 group-hover:bg-[#FFF3E1]/5" /> : null}
 
-                                <div className="absolute right-4 top-4 z-10 flex items-center gap-2 md:right-5 md:top-5">
+                                <div className="absolute left-4 top-4 z-10 flex items-center gap-3 md:left-5 md:top-5">
                                     <span
-                                        className="text-[9px] font-black uppercase tracking-[0.18em] text-[#FFF8EC] drop-shadow-[0_1px_2px_rgba(31,29,27,0.38)] md:text-[10px] lg:text-[11px]"
+                                        className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FFF3E1]/85"
+                                        style={{ fontFamily: "var(--font-sans)" }}
+                                    >
+                                        0{index + 1}
+                                    </span>
+                                    <span
+                                        className={`h-2.5 w-2.5 rounded-full ${item.ledActive ? "motion-safe:animate-pulse" : ""}`}
                                         style={{
-                                            fontFamily: "var(--font-sans)",
-                                            textShadow: "0 1px 2px rgba(31, 29, 27, 0.42), 0 2px 5px rgba(31, 29, 27, 0.22)",
+                                            backgroundColor: item.ledColor,
+                                            opacity: item.ledActive ? 1 : 0.56,
+                                            boxShadow: item.ledActive ? `0 0 14px ${item.ledColor}8C` : `inset 0 0 0 1px ${item.ledColor}`,
                                         }}
+                                    />
+                                    <span
+                                        className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#FFF3E1]/90"
+                                        style={{ fontFamily: "var(--font-sans)" }}
                                     >
                                         {item.statusLabel}
                                     </span>
-                                    <span
-                                        className={`h-2.5 w-2.5 rounded-full ${item.ledActive ? "animate-pulse" : ""}`}
-                                        style={{
-                                            backgroundColor: item.ledColor,
-                                            opacity: item.ledActive ? 1 : 0.52,
-                                            boxShadow: item.ledActive ? `0 0 5px 1px ${item.ledColor}80, 0 0 10px 2px ${item.ledColor}45` : `inset 0 0 0 1px ${item.ledColor}80`,
-                                        }}
-                                    />
                                 </div>
 
-                                <div className="absolute inset-0 p-5 md:p-12 flex flex-col justify-end">
-                                    <div className="transform translate-y-0 md:translate-y-28 transition-transform duration-700 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:translate-y-0">
+                                <div className="absolute inset-x-0 bottom-0 z-10 p-5 md:p-8 lg:p-10">
+                                    <div className="max-w-[560px]">
                                         <h3
-                                            className="text-[#E6E1D6] text-2xl md:text-3xl lg:text-4xl leading-tight mb-2 md:mb-4"
-                                            style={{ fontFamily: "var(--font-serif)" }}
+                                            className="max-w-[18ch] text-[2rem] leading-[0.98] text-[#FFF3E1] md:text-[clamp(2.25rem,3.7vw,4.5rem)]"
+                                            style={{ fontFamily: "var(--font-serif)", letterSpacing: "0" }}
                                         >
                                             {item.title}
                                         </h3>
 
-                                        <div className="opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 ease-in-out h-auto overflow-hidden">
-                                            <p className="text-[#E6E1D6]/80 font-sans font-light text-sm md:text-base max-w-md mb-2 md:mb-6 leading-relaxed">
-                                                {item.description}
-                                            </p>
+                                        <p className="mt-3 max-w-[34rem] text-sm font-medium leading-relaxed text-[#FFF3E1]/80 md:mt-4 md:text-base">
+                                            {item.description}
+                                        </p>
 
-                                            <span
-                                                className="inline-flex items-center gap-3 text-[10px] tracking-[0.2em] text-[#E6E1D6] uppercase group/link"
-                                                style={{ fontFamily: "var(--font-sans)" }}
-                                            >
-                                                {t("discover")}
-                                                <span className="w-6 h-[1px] bg-[#E6E1D6]/50 group-hover/link:w-10 transition-all duration-300" />
-                                            </span>
-                                        </div>
+                                        <span
+                                            className="mt-5 inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] text-[#FFF3E1] md:mt-7"
+                                            style={{ fontFamily: "var(--font-sans)" }}
+                                        >
+                                            {t("discover")}
+                                            <span className="h-px w-8 bg-[#FFF3E1]/55 transition-all duration-300 group-hover:w-12 group-hover:bg-[#FFF3E1]" />
+                                        </span>
                                     </div>
                                 </div>
                             </Link>
                         </motion.div>
                     ))}
-                </div>
-
-                <div className="w-full mt-10 md:mt-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 md:gap-8">
-                    <motion.div
-                        initial={hasVisited ? false : { opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8 }}
-                        className="max-w-xl"
-                    >
-                        <h2
-                            className="text-[#222222] leading-none tracking-tight"
-                            style={{
-                                fontFamily: "var(--font-serif)",
-                                fontSize: "clamp(3rem, 6vw, 5rem)",
-                            }}
-                        >
-                            {t("bottomTitleLine1")} <br />
-                            <span className="italic text-[#8C7B6C]">{t("bottomTitleLine2")}</span>
-                        </h2>
-                    </motion.div>
-
-                    <motion.div
-                        initial={hasVisited ? false : { opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="max-w-md md:mb-2 lg:mb-4"
-                    >
-                        {/*
-                        <p
-                            className="mb-5 text-right text-[10px] font-medium uppercase leading-[1.7] tracking-[0.18em] text-[#AA7D69]"
-                            style={{ fontFamily: "var(--font-sans)" }}
-                        >
-                            {t("phaseNote")}
-                        </p>
-                        */}
-                        <p className="text-[#222] text-lg md:text-xl font-medium leading-relaxed mb-0" style={{ fontFamily: "var(--font-serif)" }}>
-                            {t("bottomBody")}
-                        </p>
-                    </motion.div>
                 </div>
             </div>
         </section>

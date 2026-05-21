@@ -1,10 +1,11 @@
 "use client";
 
-import { motion } from "motion/react";
-import { useHasVisited } from "@/hooks/useHasVisited";
+import { motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import EditableText from "@/components/editor/EditableText";
 import EditableImage from "@/components/editor/EditableImage";
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 const socialLinks = [
   {
@@ -28,8 +29,13 @@ const socialLinks = [
 ] as const;
 
 export default function Exclusivity() {
-  const hasVisited = useHasVisited();
+  const shouldReduceMotion = useReducedMotion() ?? false;
   const tx = useTranslations("exclusivity");
+  const revealTransition = (delay = 0) => ({
+    duration: shouldReduceMotion ? 0 : 0.82,
+    ease: EASE_OUT_CUBIC,
+    delay: shouldReduceMotion ? 0 : delay,
+  });
 
   return (
     <section className="relative overflow-hidden bg-[#F6F0E8]">
@@ -39,22 +45,22 @@ export default function Exclusivity() {
           fallbackSrc="/final/banner-5-wide.png"
           alt={tx("imageAlt")}
           fill
-          className="object-cover object-right"
+          className="object-cover object-right lg:scale-[1.15]"
           sizes="100vw"
         />
       </div>
 
-      <div className="relative z-10 max-w-[1440px] mx-auto w-full min-h-[200px] md:min-h-[240px] lg:min-h-[340px] flex items-center">
-        <div className="px-6 pt-8 md:px-10 lg:pl-16 lg:pr-12 max-w-[600px]">
+      <div className="relative z-10 mx-auto flex min-h-[220px] w-full max-w-[1440px] items-center md:min-h-[260px] lg:min-h-[350px]">
+        <div className="max-w-[760px] px-6 py-10 md:px-10 lg:pl-16 lg:pr-12">
           <motion.h2
-            initial={hasVisited ? false : { opacity: 0, y: 20 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-[#222222] leading-[1.1] mb-5"
+            transition={revealTransition()}
+            className="mb-5 leading-[1.04] text-[#222222]"
             style={{
               fontFamily: "var(--font-serif)",
-              fontSize: "clamp(1.85rem, 3.2vw, 2.75rem)",
+              fontSize: "clamp(2rem, 3.4vw, 3.25rem)",
             }}
           >
             <EditableText contentKey="home.exclusivity.title1" fallback={tx("title1")} />
@@ -64,21 +70,21 @@ export default function Exclusivity() {
           </motion.h2>
 
           <motion.p
-            initial={hasVisited ? false : { opacity: 0, y: 14 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.12 }}
-            className="text-[#222222]/55 text-base lg:text-lg leading-[1.85] max-w-sm"
+            transition={revealTransition(0.16)}
+            className="max-w-sm text-base leading-relaxed text-[#222222]/72 lg:text-lg"
             style={{ fontFamily: "var(--font-serif)" }}
           >
             <EditableText contentKey="home.exclusivity.subtitle" fallback={tx("subtitle")} />
           </motion.p>
 
           <motion.div
-            initial={hasVisited ? false : { opacity: 0, y: 14 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+            transition={revealTransition(0.24)}
             className="mt-12 mb-4 flex flex-col items-start gap-2.5"
           >
             <div className="flex items-center gap-4">

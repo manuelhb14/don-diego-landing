@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, type Variants } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react";
 import Image from "next/image";
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
@@ -100,6 +100,7 @@ const getExploreScrollProgress = (progress: number, curve: ExploreScrollCurve) =
 
 export default function Hero({ initialWeather }: HeroProps) {
     const th = useTranslations("hero");
+    const shouldReduceMotion = useReducedMotion();
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -141,11 +142,11 @@ export default function Hero({ initialWeather }: HeroProps) {
     };
 
     return (
-        <section ref={ref} className="relative flex h-[800px] md:h-dvh min-h-[700px] w-full items-center justify-center overflow-hidden bg-[#111]">
+        <section ref={ref} className="relative flex h-[800px] min-h-[700px] w-full items-center justify-center overflow-hidden bg-[#111] md:h-dvh">
             {/* Full-bleed animated botanical background */}
             <motion.div
                 className="absolute inset-0 z-0 h-full w-full overflow-hidden"
-                style={{ scale: imgScale }}
+                style={{ scale: shouldReduceMotion ? 1 : imgScale }}
             >
                 <Image
                     src="/final-hero.png"
@@ -155,11 +156,6 @@ export default function Hero({ initialWeather }: HeroProps) {
                     sizes="100vw"
                     className="object-cover"
                 />
-                {/* Full botanical scene is paused while final.png is the base background.
-                <HeroBotanicalBackground
-                    className="absolute inset-0 h-full w-full min-h-full"
-                    initialWeatherCondition={initialWeather?.condition}
-                /> */}
                 <HeroBotanicalBackground
                     atmosphereOnly
                     className="absolute inset-0 h-full w-full min-h-full"
@@ -171,26 +167,16 @@ export default function Hero({ initialWeather }: HeroProps) {
 
             {/* Centered content block */}
             <motion.div
-                className="relative z-10 flex flex-col items-center justify-center px-4 text-center w-full max-w-4xl [text-shadow:none] md:px-8 md:[text-shadow:0_1px_2px_rgba(0,0,0,0.42),0_2px_18px_rgba(0,0,0,0.18)]"
-                style={{ y: contentY }}
+                className="relative z-10 flex w-full max-w-4xl flex-col items-center justify-center px-4 text-center [text-shadow:none] md:px-8 md:[text-shadow:0_1px_2px_rgba(0,0,0,0.42),0_2px_18px_rgba(0,0,0,0.18)]"
+                style={{ y: shouldReduceMotion ? 0 : contentY }}
             >
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="mb-3 flex flex-col items-center gap-3 text-[11px] uppercase tracking-[0.52em] text-[#FFF3E1]/90 sm:text-xs md:mb-5"
+                    className="mb-3 flex flex-col items-center gap-3 text-xs uppercase tracking-[0.3em] text-[#FFF3E1] md:mb-5"
                     style={{ fontFamily: "var(--font-sans)" }}
                 >
-                    {/* <svg width="78" height="38" viewBox="0 0 78 38" aria-hidden="true" className="opacity-90">
-                        <path d="M39 4 L43 28 L39 24 L35 28 Z" fill="none" stroke="currentColor" strokeWidth="1.25" />
-                        <path d="M39 24 C31 19 25 13 20 5 C30 9 36 15 39 24 Z" fill="none" stroke="currentColor" strokeWidth="1.25" />
-                        <path d="M39 24 C47 19 53 13 58 5 C48 9 42 15 39 24 Z" fill="none" stroke="currentColor" strokeWidth="1.25" />
-                        <path d="M39 24 C33 24 26 24 17 22 C25 29 33 32 39 24 Z" fill="none" stroke="currentColor" strokeWidth="1.25" />
-                        <path d="M39 24 C45 24 52 24 61 22 C53 29 45 32 39 24 Z" fill="none" stroke="currentColor" strokeWidth="1.25" />
-                        <path d="M22 34 H56" stroke="currentColor" strokeWidth="1" />
-                        <rect x="9" y="19" width="3" height="3" transform="rotate(45 10.5 20.5)" fill="none" stroke="currentColor" strokeWidth="1" />
-                        <rect x="66" y="19" width="3" height="3" transform="rotate(45 67.5 20.5)" fill="none" stroke="currentColor" strokeWidth="1" />
-                    </svg> */}
                     <span>San Miguel de Allende</span>
                 </motion.div>
 
@@ -206,10 +192,10 @@ export default function Hero({ initialWeather }: HeroProps) {
                             }
                         }
                     }}
-                    initial="hidden"
+                    initial={shouldReduceMotion ? false : "hidden"}
                     animate="visible"
                     viewBox="0 0 1327 647"
-                    className="w-full h-auto max-w-[280px] mt-0 mb-2 sm:max-w-[420px] md:max-w-[450px] lg:max-w-[470px] md:mb-4"
+                    className="mb-2 mt-0 h-auto w-full max-w-[280px] sm:max-w-[420px] md:mb-4 md:max-w-[450px] lg:max-w-[470px]"
                     preserveAspectRatio="xMidYMid meet"
                 >
                     <g transform="matrix(1,0,0,1,-2177.39,-1092.9)">
@@ -301,12 +287,12 @@ export default function Hero({ initialWeather }: HeroProps) {
 
                 {/* Subtitle */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
-                    className="mt-3 max-w-[17.5rem] sm:max-w-sm md:mt-6 md:max-w-md lg:mt-4"
+                    className="mt-2 max-w-[18rem] sm:max-w-sm md:mt-5 md:max-w-md lg:mt-4"
                 >
-                    <p className="text-[#FFF3E1] text-sm font-medium leading-relaxed mb-3 sm:text-lg md:text-xl md:leading-relaxed md:mb-4" style={{ fontFamily: "var(--font-serif)" }}>
+                    <p className="mb-2 text-sm font-medium leading-relaxed text-[#FFF3E1] sm:text-lg md:mb-3 md:text-xl md:leading-relaxed" style={{ fontFamily: "var(--font-serif)" }}>
                         <EditableText contentKey="home.hero.bodyLine1" fallback={th("bodyLine1")} />
                         <br />
                         <EditableText contentKey="home.hero.bodyLine2" fallback={th("bodyLine2")} />
@@ -315,12 +301,12 @@ export default function Hero({ initialWeather }: HeroProps) {
                         type="button"
                         onClick={scrollToVideo}
                         aria-label={th("explore")}
-                        className="inline-flex items-center justify-center min-h-14 px-12 py-5 -mx-12 -my-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFF3E1]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111]"
+                        className="-mx-10 -my-4 inline-flex min-h-12 items-center justify-center px-10 py-4 transition-opacity duration-300 hover:opacity-90 active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFF3E1]/45 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111] sm:-mx-12 sm:-my-5 sm:min-h-14 sm:px-12 sm:py-5"
                     >
                         <motion.span
-                            className="inline-flex items-center justify-center gap-3 group sm:gap-4 md:gap-5"
-                            whileHover={{ y: 2 }}
-                            transition={{ type: "spring", stiffness: 400 }}
+                            className="group inline-flex items-center justify-center gap-3 sm:gap-4 md:gap-5"
+                            whileHover={shouldReduceMotion ? undefined : { y: 2 }}
+                            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                         >
                             <span className="h-px w-6 bg-[#FFF3E1]/40 group-hover:w-8 transition-all duration-500 sm:w-8 md:w-10 md:group-hover:w-14" />
                             <span
@@ -337,7 +323,7 @@ export default function Hero({ initialWeather }: HeroProps) {
 
             {/* Scroll chevron */}
             <motion.div
-                initial={{ opacity: 0 }}
+                initial={shouldReduceMotion ? false : { opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.6, duration: 0.8 }}
                 className="pointer-events-none absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
@@ -353,7 +339,7 @@ export default function Hero({ initialWeather }: HeroProps) {
                         viewBox="0 0 14 14"
                         fill="none"
                         className="text-[#FFF3E1]/50"
-                        animate={{ y: [0, 4, 0] }}
+                        animate={shouldReduceMotion ? undefined : { y: [0, 4, 0] }}
                         transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
                     >
                         <path d="M2 5L7 10L12 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

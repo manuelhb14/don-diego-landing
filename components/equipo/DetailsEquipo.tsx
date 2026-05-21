@@ -1,11 +1,19 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+
 export default function DetailsEquipo() {
     const t = useTranslations("pages.equipo.details");
+    const shouldReduceMotion = useReducedMotion() ?? false;
+    const revealTransition = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.78,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
     const teamInfo = [
         {
             name: t("members.grupoCimienta.name"),
@@ -39,63 +47,55 @@ export default function DetailsEquipo() {
     ];
 
     return (
-        <section id="equipo-details" className="bg-[#fff8ed] py-16 md:py-32 px-6 md:px-12 lg:px-24 w-full relative overflow-hidden">
-            <div className="pointer-events-none absolute inset-0 bg-[#EFE6DC]" />
-            <div className="max-w-[1440px] mx-auto w-full">
-                {/* Team list - Vertical Stack with large borders */}
-                <div className="relative z-10 flex justify-center items-center flex-col w-full border-t border-[#AA7D69]/25">
-                    {teamInfo.map((member) => (
+        <section id="equipo-details" className="relative w-full overflow-hidden bg-[#EFE6DC] px-6 py-12 md:px-10 md:py-20 lg:px-16 lg:py-24">
+            <div className="mx-auto w-full max-w-[1440px]">
+                <div className="flex w-full flex-col border-t border-[#1F1D1B]/10">
+                    {teamInfo.map((member, index) => (
                         <motion.div
                             key={member.name}
-                            className="group flex flex-col md:flex-row w-full py-8 md:py-16 border-b border-[#AA7D69]/25 bg-[#fff8ed] transition-colors duration-500 hover:bg-[#f8efe1]/80 cursor-default px-6 md:px-12 -mx-6 md:-mx-12"
-                            initial={{ opacity: 0, y: 40 }}
+                            className="group grid w-full grid-cols-1 gap-5 border-b border-[#1F1D1B]/10 py-8 transition-colors duration-500 hover:bg-[#F7EFE6]/55 md:grid-cols-[6rem_minmax(0,0.74fr)_minmax(0,1.26fr)] md:gap-8 md:py-10 lg:grid-cols-[7rem_minmax(0,0.78fr)_minmax(0,1.22fr)] lg:py-12"
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-10%" }}
-                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
+                            transition={revealTransition(index * 0.05)}
                         >
-                            {/* Left Side: Number and Role */}
-                            <div className="w-full md:w-1/3 flex flex-col justify-between mb-2 md:mb-0">
-                                <div className="flex w-full justify-between items-center gap-6">
-                                    <span
-                                        className="text-[#AA7D69]/35 text-5xl lg:text-6xl font-light group-hover:text-[#AA7D69]/85 transition-colors duration-500"
-                                        style={{ fontFamily: "var(--font-serif)" }}
-                                    >
-                                        {member.index}
-                                    </span>
-                                    {/* Right Side: Logo Display */}
-                                    {member.logo && (
-                                        <div className="relative w-16 md:w-24 h-16 opacity-55 group-hover:opacity-100 transition-opacity duration-700 saturate-75 group-hover:saturate-100">
-                                            <Image
-                                                src={member.logo}
-                                                alt={member.name}
-                                                fill
-                                                className="object-contain object-left md:object-right"
-                                            />
-                                        </div>
-                                    )}
-                                    <div className="h-full w-px bg-[#AA7D69]/25 group-hover:bg-[#AA7D69]/60 transition-colors duration-500 hidden md:block" />
-                                </div>
-
-                                <div className="mt-4 lg:mt-8 md:mt-auto">
-                                    <p
-                                        className="text-[10px] sm:text-xs tracking-[0.25em] uppercase mb-2"
-                                        style={{ fontFamily: "var(--font-sans)", color: member.color }}
-                                    >
-                                        {member.role}
-                                    </p>
-                                </div>
+                            <div className="flex items-start justify-between gap-6 md:block">
+                                <span
+                                    className="block text-4xl font-light leading-none text-[#AA7D69]/55 transition-colors duration-500 group-hover:text-[#AA7D69]/80 md:text-5xl lg:text-6xl"
+                                    style={{ fontFamily: "var(--font-serif)" }}
+                                >
+                                    {member.index}
+                                </span>
+                                {member.logo && (
+                                    <div className="relative h-12 w-14 opacity-45 saturate-75 transition-opacity duration-500 group-hover:opacity-75 md:mt-8 md:h-14 md:w-16">
+                                        <Image
+                                            src={member.logo}
+                                            alt={member.name}
+                                            fill
+                                            className="object-contain object-right brightness-0"
+                                        />
+                                    </div>
+                                )}
                             </div>
 
-                            {/* Middle Side: Name and Description */}
-                            <div className="w-full md:w-4/6 flex flex-col justify-center pl-0 md:pl-12">
+                            <div className="md:pt-2">
+                                <p
+                                    className="max-w-[18rem] text-xs uppercase tracking-[0.24em]"
+                                    style={{ fontFamily: "var(--font-sans)", color: member.color }}
+                                >
+                                    {member.role}
+                                </p>
+                            </div>
+
+                            <div className="flex flex-col justify-center">
                                 <h3
-                                    className="text-[#222222]/90 text-3xl md:text-4xl lg:text-5xl leading-tight mb-3 lg:mb-6 group-hover:text-[#222222] transition-colors duration-500"
+                                    className="mb-3 text-[clamp(2rem,4.1vw,3.35rem)] leading-[1.04] text-[#222222]/92 transition-colors duration-500 group-hover:text-[#222222]"
                                     style={{ fontFamily: "var(--font-serif)" }}
                                 >
                                     {member.name}
                                 </h3>
                                 <p
-                                    className="text-[#222222]/65 text-sm md:text-base leading-relaxed max-w-xl group-hover:text-[#222222]/85 transition-colors duration-500"
+                                    className="max-w-[45rem] text-[15px] leading-[1.72] text-[#222222]/66 transition-colors duration-500 group-hover:text-[#222222]/78 md:text-base"
                                     style={{ fontFamily: "var(--font-sans)", fontWeight: 300 }}
                                 >
                                     {member.description}
@@ -104,7 +104,6 @@ export default function DetailsEquipo() {
                         </motion.div>
                     ))}
                 </div>
-
             </div>
         </section>
     );

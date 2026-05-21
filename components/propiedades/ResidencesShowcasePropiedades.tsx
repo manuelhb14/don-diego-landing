@@ -320,7 +320,7 @@ function ResidenceDetailPanel({
             <div className="flex w-full shrink-0 justify-end pt-7">
                 <Link
                     href="/propiedades#mapa-interactivo"
-                    className="inline-flex items-center gap-1.5 border-b border-[#1F1D1B] pb-1 text-[10px] font-bold uppercase tracking-[0.15em] text-[#1F1D1B] transition-opacity hover:opacity-60 lg:text-[11px]"
+                    className="inline-flex items-center gap-1.5 border-b border-[#1F1D1B] pb-1 text-[11px] font-bold uppercase tracking-[0.15em] text-[#1F1D1B] transition-opacity hover:opacity-60 lg:text-xs"
                     style={{ fontFamily: "var(--font-sans)" }}
                 >
                     {t("viewPropertyPage")}
@@ -550,7 +550,7 @@ export default function ResidencesShowcasePropiedades() {
                             <div key={group.id} className="min-w-0">
                                 <h4
                                     id={`residence-group-propiedades-${group.id}`}
-                                    className="text-[10px] font-semibold uppercase leading-none tracking-[0.18em] text-[#8d5639]"
+                                    className="text-[11px] font-semibold uppercase leading-none tracking-[0.18em] text-[#8d5639] sm:text-xs"
                                 >
                                     {group.title}
                                 </h4>
@@ -575,13 +575,13 @@ export default function ResidencesShowcasePropiedades() {
                                                 }`}
                                             >
                                                 <span
-                                                    className="block truncate text-[10px] font-semibold uppercase leading-none tracking-[0.12em] sm:text-[11px]"
+                                                    className="block truncate text-[11px] font-semibold uppercase leading-none tracking-[0.12em] sm:text-xs"
                                                     style={{ fontFamily: "var(--font-sans)" }}
                                                 >
                                                     {residence.typeLabel}
                                                 </span>
                                                 <span
-                                                    className={`mt-1.5 block truncate text-[10px] font-medium leading-none tabular-nums sm:text-[11px] ${
+                                                    className={`mt-1.5 block truncate text-[11px] font-medium leading-none tabular-nums sm:text-xs ${
                                                         isActive ? "text-[#f1d6c8]" : "text-neutral-500"
                                                     }`}
                                                 >

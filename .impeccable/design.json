@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-20T18:31:38Z",
+  "title": "Design System: Don Diego Club Residencial",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Estate Ink",
+        "canonical": "#222222",
+        "tonalRamp": ["#111111", "#1C1713", "#222222", "#2A2826"]
+      },
+      "cream": {
+        "role": "neutral",
+        "displayName": "Hacienda Cream",
+        "canonical": "#FFF3E1",
+        "tonalRamp": ["#FFFDF8", "#FFF9F2", "#FFF8ED", "#FFF3E1", "#EDE5DA"]
+      },
+      "clay": {
+        "role": "primary",
+        "displayName": "Don Diego Clay",
+        "canonical": "#AA7D69",
+        "tonalRamp": ["#E1B19B", "#C99580", "#AA7D69", "#956955", "#6F4C3D"]
+      },
+      "adobe": {
+        "role": "primary",
+        "displayName": "Residencial Adobe",
+        "canonical": "#B76D4B",
+        "tonalRamp": ["#E7D2C6", "#C68B70", "#B76D4B", "#8D5639"]
+      },
+      "blush": {
+        "role": "secondary",
+        "displayName": "Farm Blush",
+        "canonical": "#DEBEBF",
+        "tonalRamp": ["#F4E6DB", "#DEBEBF", "#C4A3A4", "#9B5C6E", "#8B4A5E"]
+      },
+      "sage": {
+        "role": "secondary",
+        "displayName": "Wellness Sage",
+        "canonical": "#D7D7AA",
+        "tonalRamp": ["#E6E1D6", "#D7D7AA", "#B5B588", "#6F7F52", "#5A6B52"]
+      },
+      "sky": {
+        "role": "secondary",
+        "displayName": "Cantera Sky",
+        "canonical": "#C8D7E6",
+        "tonalRamp": ["#EEF4F6", "#D4EEF8", "#C8D7E6", "#8FC0DA", "#5A7A8A"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Louize Display",
+        "purpose": "Large narrative and section headlines, used to make the place feel editorial and rooted."
+      },
+      "body": {
+        "displayName": "Apercu Pro Body",
+        "purpose": "Navigation, labels, forms, paragraphs, and product-like service surfaces."
+      },
+      "label": {
+        "displayName": "Tracked Apercu Label",
+        "purpose": "Short orientation labels only, usually uppercase and between 10px and 11px."
+      }
+    },
+    "shadows": [
+      {
+        "name": "editorial-image-lift",
+        "value": "0 24px 48px rgba(47,39,33,0.1)",
+        "purpose": "Default large media and residential content panel shadow."
+      },
+      {
+        "name": "clay-form-glow",
+        "value": "0 22px 65px rgba(170,125,105,0.16)",
+        "purpose": "Contact and form panels on warm backgrounds."
+      },
+      {
+        "name": "map-image-float",
+        "value": "0 15px 40px -12px rgba(0,0,0,0.12)",
+        "purpose": "Small inset videos, maps, and layered image details."
+      },
+      {
+        "name": "deep-feature-lift",
+        "value": "0 30px 60px rgba(26,25,23,0.18)",
+        "purpose": "Dark or high-emphasis feature surfaces."
+      },
+      {
+        "name": "video-ambient",
+        "value": "0 24px 60px -22px rgba(36,24,18,0.35)",
+        "purpose": "Embedded video and media frames."
+      },
+      {
+        "name": "glass-control-edge",
+        "value": "inset 0 1px 0 rgba(255,255,255,0.16)",
+        "purpose": "Functional carousel controls over imagery."
+      }
+    ],
+    "motion": [
+      {
+        "name": "brand-ease-out",
+        "value": "cubic-bezier(0.215, 0.61, 0.355, 1)",
+        "purpose": "Dropdowns and element entrances."
+      },
+      {
+        "name": "editorial-reveal",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Section reveal motion and card stack entrances."
+      },
+      {
+        "name": "drawn-title",
+        "value": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "purpose": "SVG path drawing and heritage title animations."
+      },
+      {
+        "name": "strong-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Large hero and page title settles."
+      },
+      {
+        "name": "fast-state",
+        "value": "300ms",
+        "purpose": "Hover, color, active, and simple control transitions."
+      },
+      {
+        "name": "slow-section",
+        "value": "800ms to 1000ms",
+        "purpose": "Section-level reveal timing."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ],
+    "rules": [
+      "Reject generic real-estate launch patterns.",
+      "Color maps to project reality before decoration.",
+      "Use imagery as a primary brand carrier.",
+      "Keep product-like tools service-oriented and quiet.",
+      "Respect reduced motion for animated and scroll-linked interactions."
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary CTA",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Rectangular clay call to action for contact and conversion surfaces.",
+      "html": "<button class=\"ds-primary-cta\">Enviar</button>",
+      "css": ".ds-primary-cta { background: #AA7D69; color: #FFF9F2; border: 0; border-radius: 0; padding: 16px; font: 700 11px/1.2 'Apercu Pro', system-ui, sans-serif; letter-spacing: 0.2em; text-transform: uppercase; transition: background-color 300ms ease; } .ds-primary-cta:hover { background: #956955; } .ds-primary-cta:disabled { opacity: 0.6; cursor: not-allowed; }"
+    },
+    {
+      "name": "Underlined Field",
+      "kind": "input",
+      "refersTo": "field-underline",
+      "description": "Quiet transparent field used in contact forms and newsletter forms.",
+      "html": "<label class=\"ds-field\"><span>Correo electronico</span><input placeholder=\"tu@correo.com\" /></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 8px; color: #1C1713; font-family: 'Apercu Pro', system-ui, sans-serif; } .ds-field span { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(28,23,19,0.58); } .ds-field input { background: transparent; border: 0; border-bottom: 1px solid rgba(170,125,105,0.3); padding: 12px 0; color: #1C1713; outline: none; } .ds-field input:focus { border-bottom-color: #AA7D69; }"
+    },
+    {
+      "name": "Environment Carousel Control",
+      "kind": "button",
+      "refersTo": "image-panel",
+      "description": "Square image-overlay controls for project environment carousels.",
+      "html": "<button class=\"ds-carousel-control\" aria-label=\"Next image\">›</button>",
+      "css": ".ds-carousel-control { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.7); background: rgba(22,18,15,0.24); color: white; box-shadow: inset 0 1px 0 rgba(255,255,255,0.16); backdrop-filter: blur(4px); transition: background-color 300ms ease, color 300ms ease, transform 300ms ease; } .ds-carousel-control:hover { background: rgba(255,255,255,0.88); color: #222222; } .ds-carousel-control:active { transform: scale(0.96); }"
+    },
+    {
+      "name": "Status Pill",
+      "kind": "custom",
+      "refersTo": "nav-link",
+      "description": "Small status label with component-colored dot for project phases.",
+      "html": "<div class=\"ds-status\"><span>En desarrollo</span><i></i></div>",
+      "css": ".ds-status { display: inline-flex; align-items: center; gap: 8px; font: 700 8px/1.2 'Apercu Pro', system-ui, sans-serif; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(34,34,34,0.6); } .ds-status i { width: 10px; height: 10px; border-radius: 9999px; background: #E1B19B; box-shadow: 0 0 5px 1px rgba(225,177,155,0.5), 0 0 10px 2px rgba(225,177,155,0.27); }"
+    },
+    {
+      "name": "Editorial Image Panel",
+      "kind": "card",
+      "refersTo": "image-panel",
+      "description": "Near-square media surface for manifesto, gallery, map, and component imagery.",
+      "html": "<figure class=\"ds-image-panel\"><img alt=\"Don Diego landscape\" src=\"/final/tierra1.webp\" /></figure>",
+      "css": ".ds-image-panel { overflow: hidden; border-radius: 2px; background: #EDE5DA; box-shadow: 0 24px 48px rgba(47,39,33,0.1); } .ds-image-panel img { display: block; width: 100%; height: 100%; object-fit: cover; }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Overlay navigation text with a thin active underline.",
+      "html": "<a class=\"ds-nav-link\" href=\"/proyecto\">Proyecto<span></span></a>",
+      "css": ".ds-nav-link { position: relative; display: inline-flex; padding: 6px 8px; color: rgba(255,255,255,0.7); font: 300 12px/1.2 'Apercu Pro', system-ui, sans-serif; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; transition: color 300ms ease; } .ds-nav-link:hover { color: #FFF3E1; } .ds-nav-link span { position: absolute; left: 50%; bottom: -4px; width: 0; height: 1px; transform: translateX(-50%); background: currentColor; transition: width 300ms ease; } .ds-nav-link:hover span { width: 32px; }"
+    }
+  ]
+}

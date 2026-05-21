@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { formatPostDate, isVideoSrc, type BlogPostView } from "@/content/blogPosts";
-import { useHasVisited } from "@/hooks/useHasVisited";
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 type Props = {
     posts: BlogPostView[];
@@ -44,28 +45,30 @@ function BlogTeaserCard({
     locale,
     readLabel,
     delay,
-    hasVisited,
+    reduceMotion,
 }: {
     post: BlogPostView;
     locale: string;
     readLabel: string;
     delay: number;
-    hasVisited: boolean;
+    reduceMotion: boolean;
 }) {
     return (
         <motion.div
-            initial={hasVisited ? false : { opacity: 0, y: 24 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, delay }}
+            transition={{
+                duration: reduceMotion ? 0 : 0.78,
+                ease: EASE_OUT_CUBIC,
+                delay: reduceMotion ? 0 : delay,
+            }}
             className="min-w-0"
         >
             <Link
                 href={`/blog/${post.slug}`}
-                className="group relative flex h-full flex-col overflow-hidden border border-[#AA7D69]/12 bg-[#F6E7D3] shadow-[0_25px_80px_-30px_rgba(170,125,105,0.35)] transition-all duration-300 hover:border-[#AA7D69]/25 hover:shadow-[0_30px_90px_-28px_rgba(170,125,105,0.45)]"
+                className="group relative flex h-full flex-col overflow-hidden border border-[#1F1D1B]/10 bg-[#F6E7D3] shadow-[0_20px_54px_-34px_rgba(47,39,33,0.35)] transition-all duration-300 hover:border-[#AA7D69]/25 hover:shadow-[0_24px_60px_-34px_rgba(47,39,33,0.42)]"
             >
-                <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[3px] bg-gradient-to-r from-[#AA7D69] to-[#E1B19B]" />
-
                 <div className="relative aspect-[2/1] w-full shrink-0 min-h-[140px] sm:min-h-[160px]">
                     <MediaCover post={post} className="absolute inset-0 h-full w-full" />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#222222]/20 via-transparent to-transparent" />
@@ -117,9 +120,14 @@ function BlogTeaserCard({
 }
 
 export default function FeaturedBlogUbicacion({ posts, locale }: Props) {
-    const hasVisited = useHasVisited();
+    const reduceMotion = useReducedMotion() ?? false;
     const tb = useTranslations("blogsHome");
     const t = useTranslations("components.featuredBlogUbicacion");
+    const revealTransition = (delay = 0) => ({
+        duration: reduceMotion ? 0 : 0.78,
+        ease: EASE_OUT_CUBIC,
+        delay: reduceMotion ? 0 : delay,
+    });
 
     const [primary, secondary] = posts;
 
@@ -134,14 +142,14 @@ export default function FeaturedBlogUbicacion({ posts, locale }: Props) {
             <div className="mx-auto w-full max-w-[1440px]">
                 <div className="flex flex-col gap-10 md:gap-12 lg:gap-14">
                     <motion.div
-                        initial={hasVisited ? false : { opacity: 0, y: 20 }}
+                        initial={reduceMotion ? false : { opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8 }}
+                        transition={revealTransition()}
                         className="mx-auto max-w-4xl text-center"
                     >
                         <p
-                            className="mb-4 text-[10px] uppercase tracking-[0.3em] text-[#AA7D69]/70"
+                            className="mb-4 text-xs uppercase tracking-[0.3em] text-[#AA7D69]"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {t("kicker")}
@@ -172,16 +180,16 @@ export default function FeaturedBlogUbicacion({ posts, locale }: Props) {
                                     locale={locale}
                                     readLabel={t("readArticle")}
                                     delay={0.06 + index * 0.1}
-                                    hasVisited={hasVisited}
+                                    reduceMotion={reduceMotion}
                                 />
                             ))}
                         </div>
 
                         <motion.div
-                            initial={hasVisited ? false : { opacity: 0, y: 16 }}
+                            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-60px" }}
-                            transition={{ duration: 0.7, delay: 0.22 }}
+                            transition={revealTransition(0.22)}
                             className={`mx-auto flex w-full justify-end ${list.length > 1 ? "max-w-6xl" : "max-w-xl"}`}
                         >
                             <Link

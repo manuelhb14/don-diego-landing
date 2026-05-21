@@ -15,6 +15,40 @@ type Props = {
     params: Promise<{ locale: string; slug: string }>;
 };
 
+function ArticleHeroMedia({
+    imageSrc,
+    imageAlt,
+}: {
+    imageSrc: string;
+    imageAlt: string;
+}) {
+    if (isVideoSrc(imageSrc)) {
+        return (
+            <video
+                src={imageSrc}
+                aria-label={imageAlt}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                autoPlay
+                className="absolute inset-0 h-full w-full object-cover"
+            />
+        );
+    }
+
+    return (
+        <Image
+            src={imageSrc}
+            alt={imageAlt}
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+            priority
+        />
+    );
+}
+
 export function generateStaticParams() {
     const slugs = getAllSlugs();
     return routing.locales.flatMap((locale) =>
@@ -70,78 +104,68 @@ export default async function BlogPostPage({ params }: Props) {
                     tags: post.tags,
                 }}
             />
-            <Navbar locale={locale} theme="dark" />
+            <Navbar locale={locale} />
             <main className="bg-[#F6F0E8] min-h-screen">
-                <article className="mx-auto max-w-[900px] px-6 md:px-10 lg:px-16 pt-28 pb-16 md:pb-24">
-                    <Link
-                        href="/blog"
-                        className="inline-flex items-center gap-2 text-[12px] tracking-[0.2em] uppercase text-[#AA7D69] hover:text-[#222] transition-colors mb-10"
-                        style={{ fontFamily: "var(--font-sans)" }}
-                    >
-                        <ArrowLeft className="size-4" strokeWidth={1.5} />
-                        {t("backToBlog")}
-                    </Link>
+                <section className="relative flex min-h-[64svh] w-full items-end overflow-hidden bg-[#15120F] px-6 pt-24 pb-12 md:min-h-[70svh] md:px-10 md:pt-28 md:pb-16 lg:px-16">
+                    <ArticleHeroMedia imageSrc={post.imageSrc} imageAlt={post.imageAlt} />
+                    <div className="absolute inset-0 bg-[#15120F]/18" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#15120F]/76 via-[#15120F]/34 to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#F6F0E8]/70 to-transparent" />
 
-                    <header className="mb-8 md:mb-10">
+                    <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-col text-left">
+                        <Link
+                            href="/blog"
+                            className="mb-8 inline-flex w-fit items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-[#FFF3E1]/78 transition-colors hover:text-[#FFF3E1]"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            <ArrowLeft className="size-4" strokeWidth={1.5} />
+                            {t("backToBlog")}
+                        </Link>
+                        <div className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                            <p
+                                className="text-xs tracking-[0.28em] text-[#E1B19B] uppercase"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                {post.kicker}
+                            </p>
+                            <time
+                                dateTime={post.publishedAt}
+                                className="block text-[11px] tabular-nums text-[#FFF3E1]/66"
+                                style={{ fontFamily: "var(--font-sans)" }}
+                            >
+                                {formatPostDate(post.publishedAt, locale)}
+                            </time>
+                        </div>
                         <h1
-                            className="text-[#222] leading-tight mb-4 md:mb-5"
+                            className="mb-6 max-w-[1020px] text-balance text-[#FFF3E1] leading-[1.02]"
                             style={{
                                 fontFamily: "var(--font-serif)",
-                                fontSize: "clamp(2rem, 4vw, 3.25rem)",
+                                fontSize: "clamp(2.6rem, 5.5vw, 5.75rem)",
                             }}
                         >
                             {post.title}
                         </h1>
-                        <time
-                            dateTime={post.publishedAt}
-                            className="text-[12px] text-[#222]/45 mb-2 block tabular-nums"
-                            style={{ fontFamily: "var(--font-sans)" }}
-                        >
-                            {formatPostDate(post.publishedAt, locale)}
-                        </time>
                         <p
-                            className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-4"
-                            style={{ fontFamily: "var(--font-sans)" }}
+                            className="max-w-[46rem] text-base leading-relaxed text-[#FFF3E1]/78 md:text-xl"
+                            style={{ fontFamily: "var(--font-serif)" }}
                         >
-                            {post.kicker}
+                            {post.intro}
                         </p>
-                        <div className="flex flex-wrap gap-x-3 gap-y-2">
+                        <div className="mt-8 flex max-w-[46rem] flex-wrap gap-x-3 gap-y-2">
                             {post.tags.map((t) => (
                                 <span
                                     key={t}
-                                    className="text-[10px] uppercase tracking-[0.22em] text-[#222]/50"
+                                    className="text-[10px] uppercase tracking-[0.22em] text-[#FFF3E1]/64"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
                                     {t}
                                 </span>
                             ))}
                         </div>
-                    </header>
-
-                    <div className="relative mb-10 md:mb-12 aspect-[21/9] w-full overflow-hidden rounded-sm border border-[#222]/[0.06] bg-[#EFE6DC]">
-                        {isVideoSrc(post.imageSrc) ? (
-                            <video
-                                src={post.imageSrc}
-                                aria-label={post.imageAlt}
-                                muted
-                                loop
-                                playsInline
-                                preload="metadata"
-                                autoPlay
-                                className="absolute inset-0 h-full w-full object-cover"
-                            />
-                        ) : (
-                            <Image
-                                src={post.imageSrc}
-                                alt={post.imageAlt}
-                                fill
-                                className="object-cover"
-                                sizes="(max-width: 900px) 100vw, 900px"
-                                priority
-                            />
-                        )}
                     </div>
+                </section>
 
+                <article className="mx-auto max-w-[780px] px-6 md:px-10 lg:px-0 py-12 md:py-16 lg:py-20">
                     <BlogMarkdown>{post.body}</BlogMarkdown>
                 </article>
             </main>

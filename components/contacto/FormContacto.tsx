@@ -1,16 +1,27 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { SITE_CONTACT } from "@/lib/site-contact";
 
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+const CONTACT_EMAIL = "info@dondiego.mx";
+
 export default function FormContacto() {
+    const tHero = useTranslations("pages.contacto.hero");
     const t = useTranslations("pages.contacto.form");
+    const shouldReduceMotion = useReducedMotion() ?? false;
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    const revealTransition = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.78,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -52,77 +63,80 @@ export default function FormContacto() {
     };
 
     return (
-        <section id="contacto-form" className="relative w-full overflow-hidden bg-[#F6EEE4] px-6 py-10 md:px-12 md:py-16 lg:px-24 lg:py-20">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_18%,rgba(183,109,75,0.14),transparent_46%)]" />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_82%,rgba(225,177,155,0.18),transparent_52%)]" />
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(246,238,228,0.86)_0%,rgba(239,230,220,1)_100%)]" />
-
-            <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+        <section id="contacto-form" className="relative w-full overflow-hidden bg-[#F6F0E8] px-6 pt-28 pb-12 md:px-10 md:pt-32 md:pb-16 lg:px-16 lg:pt-36 lg:pb-20">
+            <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 xl:gap-20">
                 <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8 }}
-                    className="flex flex-col justify-start pt-1 lg:pt-0"
+                    transition={revealTransition()}
+                    className="flex flex-col justify-start"
                 >
-                    <h2
-                        className="mb-4 leading-[1.05] text-[#1C1713] lg:mb-8"
+                    <p
+                        className="mb-5 text-xs uppercase tracking-[0.3em] text-[#AA7D69]"
+                        style={{ fontFamily: "var(--font-sans)" }}
+                    >
+                        {tHero("kicker")}
+                    </p>
+                    <h1
+                        className="mb-5 leading-[0.98] text-[#1C1713] lg:mb-6"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(2.5rem, 4vw, 4rem)",
+                            fontSize: "clamp(2.65rem, 5vw, 5.2rem)",
                         }}
                     >
                         {t("titleLine1")}
                         <br />
-                        <span className="text-[#AA7D69] italic">{t("titleLine2")}</span>
-                    </h2>
+                        <em className="text-[#AA7D69]">{t("titleLine2")}</em>
+                    </h1>
 
                     <p
-                        className="mb-6 max-w-lg text-sm leading-relaxed text-[#1C1713]/72 md:text-base lg:mb-12"
+                        className="max-w-[36rem] text-base leading-relaxed text-[#1C1713]/72 md:text-lg"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         {t("intro")}
                     </p>
 
-                    <div className="flex w-full max-w-sm flex-col gap-7 border-t border-[#AA7D69]/22 pt-7">
-                        <div className="flex items-start gap-4 group">
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#AA7D69]/35 bg-[#FFF9F2]/70 transition-colors duration-300 group-hover:border-[#AA7D69] group-hover:bg-[#AA7D69]">
-                                <MapPin className="w-4 h-4 text-[#AA7D69] group-hover:text-white transition-colors duration-300" />
+                    <div className="mt-8 flex w-full max-w-[28rem] flex-col gap-5 border-t border-[#1C1713]/10 pt-7 lg:mt-10">
+                        <div className="flex items-start gap-4">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#AA7D69]/30 bg-[#FFF9F2]/72">
+                                <MapPin className="h-4 w-4 text-[#AA7D69]" />
                             </div>
                             <div>
-                                <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#AA7D69]/90" style={{ fontFamily: "var(--font-sans)" }}>{t("locationLabel")}</p>
+                                <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#AA7D69]" style={{ fontFamily: "var(--font-sans)" }}>{t("locationLabel")}</p>
                                 <p className="font-serif text-base leading-snug text-[#1C1713] lg:text-lg">{t("locationLine1")} <br />{t("locationLine2")}</p>
                             </div>
                         </div>
 
-                        <div className="flex items-start gap-4 group cursor-pointer hover:opacity-80 transition-opacity">
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#AA7D69]/35 bg-[#FFF9F2]/70 transition-colors duration-300 group-hover:border-[#AA7D69] group-hover:bg-[#AA7D69]">
-                                <Mail className="w-4 h-4 text-[#AA7D69] group-hover:text-white transition-colors duration-300" />
+                        <a href={`mailto:${CONTACT_EMAIL}`} className="group flex items-start gap-4 transition-opacity hover:opacity-75">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#AA7D69]/30 bg-[#FFF9F2]/72">
+                                <Mail className="h-4 w-4 text-[#AA7D69]" />
                             </div>
                             <div>
-                                <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#AA7D69]/90" style={{ fontFamily: "var(--font-sans)" }}>{t("emailLabel")}</p>
-                                <p className="font-serif text-base text-[#1C1713] lg:text-lg">info@dondiego.mx</p>
+                                <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#AA7D69]" style={{ fontFamily: "var(--font-sans)" }}>{t("emailLabel")}</p>
+                                <p className="font-serif text-base text-[#1C1713] lg:text-lg">{CONTACT_EMAIL}</p>
                             </div>
-                        </div>
+                        </a>
 
-                        <div className="flex items-start gap-4 group cursor-pointer hover:opacity-80 transition-opacity">
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#AA7D69]/35 bg-[#FFF9F2]/70 transition-colors duration-300 group-hover:border-[#AA7D69] group-hover:bg-[#AA7D69]">
-                                <Phone className="w-4 h-4 text-[#AA7D69] group-hover:text-white transition-colors duration-300" />
+                        <a href={SITE_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="group flex items-start gap-4 transition-opacity hover:opacity-75">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#AA7D69]/30 bg-[#FFF9F2]/72">
+                                <Phone className="h-4 w-4 text-[#AA7D69]" />
                             </div>
                             <div>
-                                <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#AA7D69]/90" style={{ fontFamily: "var(--font-sans)" }}>{t("phoneLabel")}</p>
+                                <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#AA7D69]" style={{ fontFamily: "var(--font-sans)" }}>{t("phoneLabel")}</p>
                                 <p className="font-serif text-base text-[#1C1713] lg:text-lg">{SITE_CONTACT.phoneDisplay}</p>
                             </div>
-                        </div>
+                        </a>
                     </div>
+
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="w-full h-full min-h-[500px] flex flex-col justify-center gap-4 lg:gap-6"
+                    transition={revealTransition(0.14)}
+                    className="flex w-full flex-col justify-start gap-3 lg:pt-1"
                 >
                     <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
                         <a
@@ -148,13 +162,10 @@ export default function FormContacto() {
                         </a>
                     </div>
 
-                    <div className="group relative w-full overflow-hidden border border-[#AA7D69]/28 bg-[#FFF9F2]/90 p-4 shadow-[0_22px_65px_rgba(170,125,105,0.16)] md:p-6">
-                        <div className="pointer-events-none absolute -left-16 -top-20 h-52 w-52 rounded-full bg-[#b76d4b]/10 blur-[80px]" />
-                        <div className="pointer-events-none absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-[#E1B19B]/18 blur-[90px] transition-colors duration-1000 group-hover:bg-[#E1B19B]/24" />
-
+                    <div className="relative w-full overflow-hidden border border-[#AA7D69]/24 bg-[#FFF9F2] p-5 shadow-[0_18px_45px_rgba(47,39,33,0.08)] md:p-7">
                         {submitted ? (
-                            <div className="relative z-10 flex h-full flex-col items-center justify-center py-24 text-center">
-                                <div className="mx-auto mb-4 h-px w-16 bg-[#AA7D69]/50 lg:mb-8" />
+                            <div className="relative z-10 flex min-h-[360px] flex-col items-center justify-center py-16 text-center">
+                                <div className="mx-auto mb-6 h-px w-16 bg-[#AA7D69]/50" />
                                 <p className="mb-4 text-3xl text-[#1C1713]" style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}>
                                     {t("thanksTitle")}
                                 </p>
@@ -163,16 +174,16 @@ export default function FormContacto() {
                                 </p>
                             </div>
                         ) : (
-                            <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
-                                <h3 className="mb-6 font-serif text-2xl text-[#1C1713] lg:mb-8">{t("formTitle")}</h3>
+                            <form onSubmit={handleSubmit} className="relative z-10 space-y-5">
+                                <h2 className="mb-5 font-serif text-2xl text-[#1C1713] lg:mb-6">{t("formTitle")}</h2>
 
                                 {error && (
-                                    <p className="text-red-700/95 text-sm" style={{ fontFamily: "var(--font-sans)" }}>
+                                    <p className="text-sm text-red-700/95" style={{ fontFamily: "var(--font-sans)" }}>
                                         {error}
                                     </p>
                                 )}
 
-                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                                     <div className="flex flex-col gap-2">
                                         <label className="text-[10px] uppercase tracking-[0.14em] text-[#1C1713]/58" style={{ fontFamily: "var(--font-sans)" }}>{t("fullNameLabel")}</label>
                                         <input
@@ -227,7 +238,7 @@ export default function FormContacto() {
                                     <p className="text-[#1C1713]/48">{t("privacySubmit")}</p>
                                 </div>
 
-                                <div className="pt-4">
+                                <div className="pt-2">
                                     <button
                                         type="submit"
                                         disabled={loading}
@@ -243,25 +254,30 @@ export default function FormContacto() {
                 </motion.div>
             </div>
 
-            <div className="relative z-10 mx-auto mt-8 flex w-full max-w-[1400px] flex-col items-center lg:mt-20">
-                <p className="mb-4 font-serif text-lg text-[#1C1713] lg:mb-8 lg:text-xl">{t("socialTitle")}</p>
-                <div className="flex items-center gap-4 lg:gap-8">
-                    <a href="https://www.instagram.com/dondiegosma/" target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full border border-[#AA7D69]/30 bg-[#FFF9F2]/70 text-[#AA7D69] transition-all duration-300 hover:bg-[#AA7D69] hover:text-white lg:h-14 lg:w-14">
-                        <svg className="w-5 h-5 lg:w-7 lg:h-7 fill-current" viewBox="0 0 24 24">
+            <motion.div
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={revealTransition(0.18)}
+                className="mx-auto mt-10 flex w-full max-w-[1400px] flex-col items-center border-t border-[#1C1713]/10 pt-8 text-center md:mt-12 md:pt-10"
+            >
+                <p className="mb-4 font-serif text-lg text-[#1C1713] md:text-xl">{t("socialTitle")}</p>
+                <div className="flex items-center justify-center gap-3">
+                    <a href="https://www.instagram.com/dondiegosma/" target="_blank" rel="noopener noreferrer" className="flex h-11 w-11 items-center justify-center rounded-full border border-[#AA7D69]/30 bg-[#FFF9F2]/72 text-[#AA7D69] transition-all duration-300 hover:bg-[#AA7D69] hover:text-white">
+                        <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
                             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                         </svg>
                     </a>
-                    <a href="https://www.youtube.com/@dondiegosma" target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full border border-[#AA7D69]/30 bg-[#FFF9F2]/70 text-[#AA7D69] transition-all duration-300 hover:bg-[#AA7D69] hover:text-white lg:h-14 lg:w-14">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="w-7 h-7 lg:w-8 lg:h-8 fill-current"><path d="M581.7 188.1C575.5 164.4 556.9 145.8 533.4 139.5C490.9 128 320.1 128 320.1 128C320.1 128 149.3 128 106.7 139.5C83.2 145.8 64.7 164.4 58.4 188.1C47 231 47 320.4 47 320.4C47 320.4 47 409.8 58.4 452.7C64.7 476.3 83.2 494.2 106.7 500.5C149.3 512 320.1 512 320.1 512C320.1 512 490.9 512 533.5 500.5C557 494.2 575.5 476.3 581.8 452.7C593.2 409.8 593.2 320.4 593.2 320.4C593.2 320.4 593.2 231 581.8 188.1zM264.2 401.6L264.2 239.2L406.9 320.4L264.2 401.6z" /></svg>
+                    <a href="https://www.youtube.com/@dondiegosma" target="_blank" rel="noopener noreferrer" className="flex h-11 w-11 items-center justify-center rounded-full border border-[#AA7D69]/30 bg-[#FFF9F2]/72 text-[#AA7D69] transition-all duration-300 hover:bg-[#AA7D69] hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="h-7 w-7 fill-current"><path d="M581.7 188.1C575.5 164.4 556.9 145.8 533.4 139.5C490.9 128 320.1 128 320.1 128C320.1 128 149.3 128 106.7 139.5C83.2 145.8 64.7 164.4 58.4 188.1C47 231 47 320.4 47 320.4C47 320.4 47 409.8 58.4 452.7C64.7 476.3 83.2 494.2 106.7 500.5C149.3 512 320.1 512 320.1 512C320.1 512 490.9 512 533.5 500.5C557 494.2 575.5 476.3 581.8 452.7C593.2 409.8 593.2 320.4 593.2 320.4C593.2 320.4 593.2 231 581.8 188.1zM264.2 401.6L264.2 239.2L406.9 320.4L264.2 401.6z" /></svg>
                     </a>
-                    <a href="https://www.tiktok.com/@dondiegosma" target="_blank" rel="noopener noreferrer" className="flex h-12 w-12 items-center justify-center rounded-full border border-[#AA7D69]/30 bg-[#FFF9F2]/70 text-[#AA7D69] transition-all duration-300 hover:bg-[#AA7D69] hover:text-white lg:h-14 lg:w-14">
-                        <svg className="w-6 h-6 sm:w-7 sm:h-7 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <a href="https://www.tiktok.com/@dondiegosma" target="_blank" rel="noopener noreferrer" className="flex h-11 w-11 items-center justify-center rounded-full border border-[#AA7D69]/30 bg-[#FFF9F2]/72 text-[#AA7D69] transition-all duration-300 hover:bg-[#AA7D69] hover:text-white">
+                        <svg className="h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                             <path d="M544.5 273.9C500.5 274 457.5 260.3 421.7 234.7L421.7 413.4C421.7 446.5 411.6 478.8 392.7 506C373.8 533.2 347.1 554 316.1 565.6C285.1 577.2 251.3 579.1 219.2 570.9C187.1 562.7 158.3 545 136.5 520.1C114.7 495.2 101.2 464.1 97.5 431.2C93.8 398.3 100.4 365.1 116.1 336C131.8 306.9 156.1 283.3 185.7 268.3C215.3 253.3 248.6 247.8 281.4 252.3L281.4 342.2C266.4 337.5 250.3 337.6 235.4 342.6C220.5 347.6 207.5 357.2 198.4 369.9C189.3 382.6 184.4 398 184.5 413.8C184.6 429.6 189.7 444.8 199 457.5C208.3 470.2 221.4 479.6 236.4 484.4C251.4 489.2 267.5 489.2 282.4 484.3C297.3 479.4 310.4 469.9 319.6 457.2C328.8 444.5 333.8 429.1 333.8 413.4L333.8 64L421.8 64C421.7 71.4 422.4 78.9 423.7 86.2C426.8 102.5 433.1 118.1 442.4 131.9C451.7 145.7 463.7 157.5 477.6 166.5C497.5 179.6 520.8 186.6 544.6 186.6L544.6 274z" />
                         </svg>
                     </a>
                 </div>
-            </div>
-
+            </motion.div>
         </section>
     );
 }

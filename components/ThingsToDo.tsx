@@ -1,11 +1,10 @@
 "use client";
 
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { useHasVisited } from "@/hooks/useHasVisited";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 type ExclusivityItem = {
@@ -13,6 +12,8 @@ type ExclusivityItem = {
     title: string;
     imageSrc?: string; // optional for now; you can add later
 };
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 function ParallaxCardImage({
     imageSrc,
@@ -26,9 +27,9 @@ function ParallaxCardImage({
     reduceMotion: boolean;
 }) {
     return (
-        <div className="relative overflow-hidden bg-[#EFE6DC] aspect-[9/7]">
+        <div className="relative aspect-[16/10] overflow-hidden bg-[#EFE6DC]">
             <motion.div
-                className="absolute left-0 right-0 h-[145%] w-full -top-[22.5%]"
+                className="absolute -top-[14%] left-0 right-0 h-[128%] w-full"
                 style={reduceMotion ? undefined : { y }}
             >
                 <Image
@@ -44,8 +45,8 @@ function ParallaxCardImage({
 }
 
 export default function ThingsToDo() {
-    const hasVisited = useHasVisited();
     const reduceMotion = useReducedMotion();
+    const shouldReduceMotion = !!reduceMotion;
     const tt = useTranslations("thingsToDo");
     const items = useMemo<ExclusivityItem[]>(
         () => [
@@ -67,7 +68,7 @@ export default function ThingsToDo() {
         offset: ["start end", "end start"],
     });
 
-    const imageParallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "-11%"]);
+    const imageParallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "-7%"]);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
@@ -134,52 +135,48 @@ export default function ThingsToDo() {
             const amount = el.clientWidth * 0.72;
             el.scrollBy({
                 left: direction === "left" ? -amount : amount,
-                behavior: reduceMotion ? "auto" : "smooth",
+                behavior: shouldReduceMotion ? "auto" : "smooth",
             });
         },
-        [reduceMotion],
+        [shouldReduceMotion],
     );
+    const revealTransition = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.82,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
 
     return (
         <section ref={sectionRef} className="overflow-visible bg-[#F6F0E8]">
             <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16 py-12 lg:py-16">
                 <motion.div
-                    initial={hasVisited ? false : { opacity: 0, y: 24 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
+                    transition={revealTransition()}
                 >
                     <p
-                        className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
+                        className="mb-3 text-xs uppercase tracking-[0.3em] text-[#AA7D69]"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         {tt("kicker")}
                     </p>
                     <h2
-                        className="text-[#222] leading-none"
+                        className="max-w-full whitespace-nowrap leading-[0.95] text-[#222222]"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(2.25rem, 4.2vw, 3.75rem)",
+                            fontSize: "clamp(3rem, 6vw, 6rem)",
                         }}
                     >
-                        {tt("title1")}
-                    </h2>
-                    <h2
-                        className="text-[#AA7D69]/90 italic"
-                        style={{
-                            fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(2.25rem, 4.2vw, 3.75rem)",
-                        }}
-                    >
-                        {tt("title2")}
+                        {tt("titleLead")} <em className="text-[#AA7D69]">{tt("titleAccent")}</em>
                     </h2>
                 </motion.div>
 
-                <div className="relative mt-8 group/carousel">
-                    <div className="absolute -top-5 -right-4 md:-right-6 lg:-right-8 z-[3] h-[3px] w-28 overflow-hidden">
-                        <div className="h-full w-full bg-[#222222]/15" />
+                <div className="group/carousel relative mt-10 lg:mt-12">
+                    <div className="absolute -top-5 right-0 z-[3] h-px w-24 overflow-hidden md:w-28">
+                        <div className="h-full w-full bg-[#AA7D69]/18" />
                         <div
-                            className="absolute left-0 top-0 h-full bg-[#222222]/60 transition-[width] duration-200"
+                            className="absolute left-0 top-0 h-full bg-[#AA7D69]/70 transition-[width] duration-200"
                             style={{ width: `${Math.round(scrollProgress * 100)}%` }}
                         />
                     </div>
@@ -206,13 +203,13 @@ export default function ThingsToDo() {
                         onClick={() => scrollCarousel("left")}
                         disabled={!canScrollLeft}
                         className={[
-                            "absolute left-0 md:-left-2 lg:-left-4 top-[calc(50%_-_0.75rem)] z-[3] grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-[#222222]/15 bg-[#F6F0E8]/85 text-[#222222]/70 shadow-sm backdrop-blur transition-all duration-200",
+                            "absolute left-1 top-[42%] z-[3] flex h-8 w-8 -translate-y-1/2 items-center justify-center border border-white/70 bg-[#16120f]/24 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] transition-all duration-300 hover:bg-[#f4e6db] hover:text-[#222222] active:scale-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:left-0 md:h-9 md:w-9 lg:-left-3",
                             canScrollLeft
-                                ? "opacity-100 hover:text-[#222222] lg:opacity-0 lg:group-hover/carousel:opacity-100 lg:focus-visible:opacity-100"
+                                ? "opacity-100 lg:pointer-events-none lg:opacity-0 lg:group-hover/carousel:pointer-events-auto lg:group-hover/carousel:opacity-100 lg:focus-visible:pointer-events-auto lg:focus-visible:opacity-100"
                                 : "pointer-events-none opacity-0 invisible",
                         ].join(" ")}
                     >
-                        <ArrowLeftIcon className="h-4 w-4" />
+                        <ChevronLeft className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
                     </button>
 
                     <button
@@ -222,25 +219,25 @@ export default function ThingsToDo() {
                         onClick={() => scrollCarousel("right")}
                         disabled={!canScrollRight}
                         className={[
-                            "absolute right-0 md:-right-2 lg:-right-4 top-[calc(50%_-_0.75rem)] z-[3] grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-[#222222]/15 bg-[#F6F0E8]/85 text-[#222222]/70 shadow-sm backdrop-blur transition-all duration-200",
+                            "absolute right-1 top-[42%] z-[3] flex h-8 w-8 -translate-y-1/2 items-center justify-center border border-white/70 bg-[#16120f]/24 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] transition-all duration-300 hover:bg-[#f4e6db] hover:text-[#222222] active:scale-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:right-0 md:h-9 md:w-9 lg:-right-3",
                             canScrollRight
-                                ? "opacity-100 hover:text-[#222222] lg:opacity-0 lg:group-hover/carousel:opacity-100 lg:focus-visible:opacity-100"
+                                ? "opacity-100 lg:pointer-events-none lg:opacity-0 lg:group-hover/carousel:pointer-events-auto lg:group-hover/carousel:opacity-100 lg:focus-visible:pointer-events-auto lg:focus-visible:opacity-100"
                                 : "pointer-events-none opacity-0 invisible",
                         ].join(" ")}
                     >
-                        <ArrowRightIcon className="h-4 w-4" />
+                        <ChevronRight className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
                     </button>
 
                     <motion.div
-                        initial={hasVisited ? false : { opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.05 }}
+                        transition={revealTransition(0.16)}
                         ref={scrollerRef}
                         className={[
-                            "relative flex gap-0 overflow-x-auto pb-5",
+                            "relative flex gap-4 overflow-x-auto pb-5 md:gap-5",
                             "-mx-6 md:-mx-10 lg:-mx-16",
-                            "pl-3 md:pl-5 lg:pl-8 pr-6 md:pr-8",
+                            "px-6 md:px-10 lg:px-16",
                             "scrollbar-none snap-x snap-mandatory",
                             "select-none",
                         ].join(" ")}
@@ -249,20 +246,11 @@ export default function ThingsToDo() {
                             scrollbarWidth: "none",
                         }}
                     >
-                        {/* <div
-                            aria-hidden="true"
-                            className="shrink-0 snap-start border border-[#222222]/[0.08] bg-transparent p-4"
-                            style={{ width: "56px" }}
-                        >
-                            <div className="aspect-[3/4]" />
-                            <div className="h-12" />
-                        </div> */}
-
                         {items.map((item, idx) => (
                             <div
                                 key={item.id}
                                 className={[
-                                    "min-w-[300px] sm:min-w-[360px] lg:min-w-[490px] snap-start border border-[#222222]/[0.08] bg-transparent p-4 -ml-px",
+                                    "min-w-[280px] snap-start border-t border-[#222222]/[0.10] bg-transparent pt-4 sm:min-w-[340px] lg:min-w-[460px]",
                                     idx === 0 ? "z-[1]" : "",
                                 ].join(" ")}
                             >
@@ -271,46 +259,43 @@ export default function ThingsToDo() {
                                         imageSrc={item.imageSrc}
                                         title={item.title}
                                         y={imageParallaxY}
-                                        reduceMotion={!!reduceMotion}
+                                        reduceMotion={shouldReduceMotion}
                                     />
                                 ) : (
-                                    <div className="relative overflow-hidden bg-[#EFE6DC] aspect-[7/8]">
+                                    <div className="relative aspect-[16/10] overflow-hidden bg-[#EFE6DC]">
                                         <div className="absolute inset-0 bg-gradient-to-br from-[#E7DCCE] via-[#EFE6DC] to-[#E1D4C5]" />
                                     </div>
                                 )}
 
-                                <div className="pt-4 flex items-center justify-between gap-4">
+                                <div className="flex items-center justify-between gap-4 pt-4">
                                     <div
-                                        className="text-xl lg:text-2xl text-[#222222]/70"
+                                        className="text-[1.35rem] leading-tight text-[#222222]/72 md:text-[1.5rem] lg:text-[1.65rem]"
                                         style={{ fontFamily: "var(--font-serif)" }}
                                     >
                                         {item.title}
                                     </div>
-
-                                    {/* <button
-                                        type="button"
-                                        aria-label={`Abrir ${item.title}`}
-                                        className="h-8 w-8 rounded-full border border-[#222222]/25 text-[#222222]/60 hover:text-[#222222] hover:border-[#222222]/35 transition-colors grid place-items-center"
-                                    >
-                                        <span className="text-[18px] leading-none">+</span>
-                                    </button> */}
                                 </div>
                             </div>
                         ))}
 
-                        <div className="min-w-[70px] snap-start p-4 -ml-px flex flex-col items-center justify-center">
-                            <div className="aspect-square grid place-items-center bg-[#222222] rounded-full p-2">
+                        <div className="flex min-w-[92px] snap-start flex-col border-t border-[#AA7D69]/35 pt-4 sm:min-w-[104px] lg:min-w-[116px]">
+                            <div className="h-[175px] sm:h-[212px] lg:h-[287px]">
                                 <Link
                                     aria-label={tt("nextAria")}
-                                    className="w-full h-full cursor-pointer flex flex-col items-center justify-center"
                                     href="/experiencias"
+                                    className="group/end flex h-full w-full flex-col items-center justify-center gap-3 text-center text-[#AA7D69] transition-colors duration-300 hover:text-[#8C5F4D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#AA7D69]"
                                 >
-                                    <span className="text-white text-2xl lg:text-3xl leading-none w-full h-full flex items-center justify-center p-2">
-                                        <ArrowRightIcon className="w-5 h-5" />
+                                    <span className="flex h-10 w-10 items-center justify-center border border-current bg-[#F6F0E8] transition-all duration-300 group-hover/end:-translate-y-0.5 group-hover/end:translate-x-0.5 group-hover/end:bg-[#AA7D69] group-hover/end:text-[#F6F0E8]">
+                                        <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.8} aria-hidden="true" />
+                                    </span>
+                                    <span
+                                        className="text-center text-[10px] font-bold uppercase tracking-[0.15em]"
+                                        style={{ fontFamily: "var(--font-sans)" }}
+                                    >
+                                        {tt("nextAria")}
                                     </span>
                                 </Link>
                             </div>
-                            <div className="pt-4 h-8" />
                         </div>
                     </motion.div>
                 </div>
@@ -318,13 +303,13 @@ export default function ThingsToDo() {
                     {/* Bottom Right: Paragraph & Link */}
                     <div className="flex justify-center mt-10 md:mt-12 w-full mb-12 md:mb-0">
                         <motion.div
-                            initial={hasVisited ? false : { opacity: 0, y: 20 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.4 }}
+                            transition={revealTransition(0.16)}
                             className="w-full sm:w-[60%] lg:w-[50%] flex flex-col items-end"
                         >
-                            <p className="text-[#222] text-xl font-medium leading-relaxed mb-4" style={{ fontFamily: "var(--font-serif)" }}>
+                            <p className="mb-4 text-base font-medium leading-relaxed text-[#222222] md:text-xl" style={{ fontFamily: "var(--font-serif)" }}>
                                 {tt("body")}
                             </p>
                             <Link

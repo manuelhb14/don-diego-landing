@@ -39,7 +39,7 @@ type Residence = {
 const RESIDENCE_IMAGE_SIZES = "(min-width: 1280px) 680px, (min-width: 1024px) 52vw, 100vw";
 const RESIDENCE_SPLIT_IMAGE_SIZES = "(min-width: 1280px) 340px, (min-width: 1024px) 26vw, 50vw";
 const RESIDENCE_THUMB_IMAGE_SIZES = "(min-width: 1280px) 210px, (min-width: 1024px) 16vw, 33vw";
-const CASA_DUPLEX_MAIN_IMAGES = ["/final/Casa Duplex Tipo 1-A (Planta) Mid-Century.png"];
+const CASA_DUPLEX_MAIN_IMAGES = ["/final/Casa Duplex Tipo 1-A (Planta) Mid-Century Transparent.png"];
 const CASA_DUPLEX_RENDER_IMAGES = [
     "/final/3 Recamara Principal.png",
     "/final/6 Terraza.png",
@@ -86,13 +86,13 @@ function ResidenceImageShowcase({
             <div className="hidden min-w-0 lg:block">
                 <div
                     className={`relative w-full overflow-hidden ${
-                        hasExplicitMainImages ? "aspect-[1344/752] bg-[#f7eee5]" : "aspect-[2/1]"
+                        hasExplicitMainImages ? "aspect-[1344/752]" : "aspect-[2/1]"
                     }`}
                 >
                     {splitMainImages ? (
                         <div className="grid h-full w-full grid-cols-2 gap-px bg-[#EFE6DC]">
                             {splitMainImages.map((src, i) => (
-                                <div key={`${i}-${src}`} className="relative min-w-0 overflow-hidden bg-[#f7eee5]">
+                                <div key={`${i}-${src}`} className="relative min-w-0 overflow-hidden">
                                     <Image
                                         src={src}
                                         alt={t("imageAlt", { title, index: i + 1, total: splitMainImages.length })}
@@ -153,7 +153,7 @@ function ResidenceImageCarousel({
     if (n === 1) {
         const shouldContainImage = containImageCount > 0;
         return (
-            <div className={`relative aspect-[16/10] w-full overflow-hidden ${shouldContainImage ? "bg-[#f7eee5]" : ""}`}>
+            <div className="relative aspect-[16/10] w-full overflow-hidden">
                 <Image
                     src={images[0]}
                     alt={title}
@@ -221,7 +221,7 @@ function ResidenceImageCarouselEmbla({
                         const shouldContainImage = i < containImageCount;
                         return (
                             <CarouselItem key={`${i}-${src}`} className="h-full basis-full pl-0">
-                                <div className={`relative h-full w-full ${shouldContainImage ? "bg-[#f7eee5]" : ""}`}>
+                                <div className="relative h-full w-full">
                                     <Image
                                         src={src}
                                         alt={t("imageAlt", { title, index: i + 1, total: n })}
@@ -325,7 +325,7 @@ function ResidenceDetailPanel({
             <div className="flex w-full shrink-0 justify-end pt-7">
                 <Link
                     href="/propiedades#mapa-interactivo"
-                    className="inline-flex items-center gap-1.5 border-b border-[#1F1D1B] pb-1 text-[10px] font-bold uppercase tracking-[0.15em] text-[#1F1D1B] transition-opacity hover:opacity-60 lg:text-[11px]"
+                    className="inline-flex items-center gap-1.5 border-b border-[#1F1D1B] pb-1 text-[11px] font-bold uppercase tracking-[0.15em] text-[#1F1D1B] transition-opacity hover:opacity-60 lg:text-xs"
                     style={{ fontFamily: "var(--font-sans)" }}
                 >
                     {t("viewPropertyPage")}
@@ -365,7 +365,7 @@ export default function FeaturesResidencial() {
                 superficie: "113 m2",
                 recamaras: "2",
                 banos: "2",
-                estacionamientos: t("residences.departamentos.specs.estacionamientos"),
+                estacionamientos: "2",
             },
             highlights: [
                 t("residences.departamentos.highlights.1"),
@@ -388,7 +388,7 @@ export default function FeaturesResidencial() {
                 superficie: "128 m2",
                 recamaras: "2",
                 banos: "2.5",
-                estacionamientos: t("residences.departamentos.specs.estacionamientos"),
+                estacionamientos: "2",
             },
             highlights: [
                 t("residences.departamentos.highlights.1"),
@@ -411,7 +411,7 @@ export default function FeaturesResidencial() {
                 superficie: "146 m2",
                 recamaras: "3",
                 banos: "3",
-                estacionamientos: t("residences.departamentos.specs.estacionamientos"),
+                estacionamientos: "2",
             },
             highlights: [
                 t("residences.departamentos.highlights.1"),
@@ -434,7 +434,7 @@ export default function FeaturesResidencial() {
                 superficie: "173 m2",
                 recamaras: "3",
                 banos: "3.5",
-                estacionamientos: t("residences.departamentos.specs.estacionamientos"),
+                estacionamientos: "2",
             },
             highlights: [
                 t("residences.departamentos.highlights.1"),
@@ -457,7 +457,7 @@ export default function FeaturesResidencial() {
                 superficie: "128 m2",
                 recamaras: "2",
                 banos: "2.5",
-                estacionamientos: t("residences.duplex1.specs.estacionamientos"),
+                estacionamientos: "2",
             },
             highlights: [
                 t("residences.duplex1.highlights.1"),
@@ -480,7 +480,7 @@ export default function FeaturesResidencial() {
                 superficie: "155 m2",
                 recamaras: "3",
                 banos: "3",
-                estacionamientos: t("residences.duplex2.specs.estacionamientos"),
+                estacionamientos: "2",
             },
             highlights: [
                 t("residences.duplex2.highlights.1"),
@@ -503,7 +503,7 @@ export default function FeaturesResidencial() {
                 superficie: "166 m2",
                 recamaras: "3",
                 banos: "3.5",
-                estacionamientos: t("residences.duplex3.specs.estacionamientos"),
+                estacionamientos: "2",
             },
             highlights: [
                 t("residences.duplex3.highlights.1"),
@@ -526,7 +526,7 @@ export default function FeaturesResidencial() {
                 superficie: "185 m2",
                 recamaras: "4",
                 banos: "4",
-                estacionamientos: t("residences.duplex3.specs.estacionamientos"),
+                estacionamientos: "2",
             },
             highlights: [
                 t("residences.duplex3.highlights.1"),
@@ -552,8 +552,7 @@ export default function FeaturesResidencial() {
     const active = residences[activeIndex] ?? residences[0];
 
     return (
-        <>
-            <section className="relative bg-[#EFE6DC] px-6 py-16 md:px-10 md:py-24 lg:px-16 lg:py-20">
+        <section className="relative bg-[#EFE6DC] px-6 py-16 md:px-10 md:py-24 lg:px-16 lg:py-20">
                 <div className="mx-auto min-w-0 max-w-[1280px]" style={{ fontFamily: "var(--font-sans)" }}>
                     <div className="grid min-w-0 grid-cols-1 gap-8 md:gap-10 lg:grid-cols-[minmax(0,200px)_minmax(0,1fr)_minmax(0,300px)] lg:grid-rows-[minmax(6.5rem,auto)_minmax(30rem,auto)] lg:gap-x-0 lg:gap-y-0">
                         <nav
@@ -564,7 +563,7 @@ export default function FeaturesResidencial() {
                                 <div key={group.id} className="min-w-0">
                                     <h4
                                         id={`residence-group-${group.id}`}
-                                        className="text-[10px] font-semibold uppercase leading-none tracking-[0.18em] text-[#8d5639]"
+                                        className="text-[11px] font-semibold uppercase leading-none tracking-[0.18em] text-[#8d5639] sm:text-xs"
                                     >
                                         {group.title}
                                     </h4>
@@ -589,13 +588,13 @@ export default function FeaturesResidencial() {
                                                     }`}
                                                 >
                                                     <span
-                                                        className="block truncate text-[10px] font-semibold uppercase leading-none tracking-[0.12em] sm:text-[11px]"
+                                                        className="block truncate text-[11px] font-semibold uppercase leading-none tracking-[0.12em] sm:text-xs"
                                                         style={{ fontFamily: "var(--font-sans)" }}
                                                     >
                                                         {residence.typeLabel}
                                                     </span>
                                                     <span
-                                                        className={`mt-1.5 block truncate text-[10px] font-medium leading-none tabular-nums sm:text-[11px] ${
+                                                        className={`mt-1.5 block truncate text-[11px] font-medium leading-none tabular-nums sm:text-xs ${
                                                             isActive ? "text-[#f1d6c8]" : "text-neutral-500"
                                                         }`}
                                                     >
@@ -642,7 +641,6 @@ export default function FeaturesResidencial() {
                         </div>
                     </div>
                 </div>
-            </section>
-        </>
+        </section>
     );
 }

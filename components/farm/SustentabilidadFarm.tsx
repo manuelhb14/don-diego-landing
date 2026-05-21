@@ -8,21 +8,21 @@ export default function SustentabilidadFarm() {
     const t = useTranslations("pages.farm.sustentabilidad");
 
     return (
-        <section id="sustentabilidad" className="relative w-full py-2 lg:py-12 overflow-hidden bg-[#fff8ed] text-[#1a1917]">
+        <section id="sustentabilidad" className="relative w-full overflow-hidden bg-[#fff8ed] py-12 text-[#1a1917] md:py-14 lg:py-[72px]">
 
-            <div className="max-w-[1400px] mx-auto w-full px-6 lg:px-16 flex flex-col lg:flex-row relative">
+            <div className="relative mx-auto flex w-full max-w-[1400px] flex-col gap-8 px-6 lg:flex-row lg:items-center lg:gap-12 lg:px-16">
 
                 {/* Left Side: Editorial Typography */}
-                <div className="w-full lg:w-[45%] flex flex-col justify-start z-20 pt-10 lg:pt-16 pr-0 lg:pr-12">
+                <div className="z-20 flex w-full flex-col justify-start pr-0 lg:w-[45%] lg:pr-8">
                     <p
-                        className="text-[10px] tracking-[0.3em] text-[#9B5C6E]/85 uppercase mb-4 lg:mb-8"
+                        className="mb-4 text-xs tracking-[0.3em] text-[#9B5C6E] uppercase lg:mb-7"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         {t("eyebrow")}
                     </p>
 
                     <h2
-                        className="text-[2.65rem] leading-[1.05] text-[#1a1917] mb-7 tracking-tight sm:text-[3.25rem] lg:mb-10 lg:text-[clamp(3.5rem,6vw,5.5rem)] lg:leading-[1.1]"
+                        className="mb-6 text-[2.65rem] leading-[1.04] tracking-normal text-[#1a1917] sm:text-[3.25rem] lg:mb-8 lg:text-[clamp(3.35rem,4.8vw,4.75rem)] lg:leading-[1.04]"
                         style={{
                             fontFamily: "var(--font-serif)",
                         }}
@@ -32,9 +32,9 @@ export default function SustentabilidadFarm() {
                         {t("title.line2")}
                     </h2>
 
-                    <div className="space-y-6 max-w-md lg:space-y-8">
+                    <div className="max-w-md space-y-5 lg:space-y-6">
                         <p
-                            className="text-[#1a1917]/82 text-lg lg:text-xl font-medium leading-relaxed"
+                            className="text-lg font-medium leading-relaxed text-[#1a1917]/82 lg:text-xl"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
                             {t("bodyPrimary")}
@@ -43,7 +43,7 @@ export default function SustentabilidadFarm() {
                         <div className="h-px w-24 bg-[#1a1917]/15 hidden lg:block" />
 
                         <p
-                            className="text-[#1a1917]/65 text-base lg:text-lg leading-relaxed"
+                            className="text-base leading-relaxed text-[#1a1917]/65 lg:text-lg"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {t("bodySecondary")}
@@ -52,10 +52,10 @@ export default function SustentabilidadFarm() {
                 </div>
 
                 {/* Right Side: Parallax Image Grid */}
-                <div className="w-full lg:w-[55%] relative h-[360px] sm:h-[460px] lg:h-[900px] -mt-4 sm:-mt-8 lg:-mt-0">
+                <div className="relative h-[320px] w-full sm:h-[400px] lg:h-[640px] lg:w-[55%]">
 
                     {/* Main Image Layer */}
-                    <div className="absolute right-0 top-5 sm:top-8 lg:top-16 w-[74%] lg:w-[70%] h-[70%] lg:h-[80%] z-10 overflow-hidden shadow-xl lg:shadow-2xl">
+                    <div className="absolute top-0 right-0 z-10 h-[72%] w-[74%] overflow-hidden shadow-[0_20px_44px_rgba(26,25,23,0.11)] lg:top-8 lg:h-[76%] lg:w-[70%]">
                         <Image
                             src="/final/terreno.png"
                             alt={t("images.mainAlt")}
@@ -65,12 +65,17 @@ export default function SustentabilidadFarm() {
                     </div>
 
                     {/* Offset Accelerated Image Layer */}
-                    <div className="absolute left-0 bottom-5 sm:bottom-8 lg:bottom-24 w-[54%] lg:w-[50%] h-[42%] lg:h-[55%] z-20 overflow-hidden shadow-xl lg:shadow-2xl border-4 lg:border-8 border-[#EFE6DC]">
-                        <Image
-                            src="/final/reja.jpg"
-                            alt={t("images.secondaryAlt")}
-                            fill
-                            className="object-cover object-[center_30%] hover:scale-105 transition-transform duration-1000"
+                    <div className="absolute bottom-0 left-0 z-20 h-[42%] w-[54%] overflow-hidden border-4 border-[#EFE6DC] shadow-[0_18px_40px_rgba(26,25,23,0.12)] sm:bottom-4 lg:bottom-16 lg:h-[48%] lg:w-[48%] lg:border-[6px]">
+                        <video
+                            className="h-full w-full object-cover object-center transition-transform duration-1000 hover:scale-105"
+                            src="/final/gallinas.mp4"
+                            poster="/final/reja.jpg"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            preload="metadata"
+                            aria-label={t("images.secondaryAlt")}
                         />
                     </div>
 

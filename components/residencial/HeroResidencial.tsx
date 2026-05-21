@@ -1,16 +1,19 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import ProjectStatusPill from "@/components/ProjectStatusPill";
 import EnvironmentCarousel from "@/components/EnvironmentCarousel";
 import { environmentCarouselSlides } from "@/content/environmentCarousels";
 
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+
 export default function HeroResidencial() {
     const t = useTranslations("pages.residencial.hero");
     const tn = useTranslations("nav");
     const ref = useRef(null);
+    const shouldReduceMotion = useReducedMotion() ?? false;
     const [isDesktop, setIsDesktop] = useState(() => {
         if (typeof window === "undefined") {
             return true;
@@ -32,6 +35,11 @@ export default function HeroResidencial() {
     });
 
     const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+    const revealTransition = (duration = 0.8, delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : duration,
+        delay: shouldReduceMotion ? 0 : delay,
+        ease: EASE_OUT_CUBIC,
+    });
 
     return (
         <section ref={ref} className="relative w-full bg-[#EFE6DC] py-16 px-6 md:px-10 lg:px-20">
@@ -40,18 +48,18 @@ export default function HeroResidencial() {
                 {/* Left: Content Panel */}
                 <motion.div
                     className="relative z-10 flex flex-col w-full lg:w-[75%] h-[45%] lg:h-full bg-[#fff8ed] py-8 lg:py-16"
-                    initial={{ opacity: 0 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6 }}
+                    transition={revealTransition(0.6)}
                 >
                     <ProjectStatusPill label={tn("status.inDevelopment")} color="#E1B19B" active />
 
                     {/* Center: Title & Description */}
                     <div className="flex-1 flex flex-col items-center justify-center px-4 lg:px-12 text-center">
                         <motion.p
-                            initial={{ opacity: 0, y: -20 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: -18 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.7 }}
+                            transition={revealTransition(0.8, 0.7)}
                             className="text-xs lg:text-sm tracking-[0.3em] text-[#E1B19B] uppercase mb-2 lg:mb-8"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
@@ -59,9 +67,9 @@ export default function HeroResidencial() {
                         </motion.p>
 
                         <motion.svg
-                            initial={{ opacity: 0 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 0.3 }}
+                            transition={revealTransition(0.3)}
                             viewBox="0 0 4090 1518"
                             className="w-full h-auto max-w-[280px] lg:max-w-[488px] pb-2 pt-2 md:pt-6"
                             preserveAspectRatio="xMidYMid meet"
@@ -82,7 +90,7 @@ export default function HeroResidencial() {
                                             }
                                         }
                                     }}
-                                    initial="hidden"
+                                    initial={shouldReduceMotion ? "visible" : "hidden"}
                                     animate="visible"
                                 >
                                     <g transform="matrix(0.666927,0,0,0.666927,1231.753593,4417.780902)">
@@ -851,9 +859,9 @@ export default function HeroResidencial() {
                         </motion.svg>
 
                         <motion.div
-                            initial={{ opacity: 0, y: 15 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.7 }}
+                            transition={revealTransition(0.8, 0.7)}
                             className="mt-6 flex flex-col items-center gap-2"
                         >
                             <p
@@ -876,9 +884,9 @@ export default function HeroResidencial() {
                 {/* Right: Image */}
                 <div className="w-full h-[240px] sm:h-[320px] lg:relative lg:h-auto">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.98 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 1, ease: "easeOut" }}
+                        transition={revealTransition(0.9)}
                         className="relative w-full h-full lg:absolute lg:inset-0"
                     >
                         <EnvironmentCarousel
@@ -886,7 +894,7 @@ export default function HeroResidencial() {
                             accent="#E1B19B"
                             className="h-full"
                             imageLayerClassName="absolute left-0 top-0 h-full w-full lg:h-[120%]"
-                            imageMotionY={isDesktop ? imgY : 0}
+                            imageMotionY={isDesktop && !shouldReduceMotion ? imgY : 0}
                             priority
                             imageClassName="object-center"
                             sizes="(min-width: 1024px) 50vw, 100vw"

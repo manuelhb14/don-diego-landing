@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import {
     Bike,
     Flower2,
@@ -20,32 +20,35 @@ const detailItems = [
     { key: "landCycle", icon: Leaf },
 ] as const;
 
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+
 export default function FarmDetailsHighlight() {
     const t = useTranslations("pages.farm.overview");
+    const shouldReduceMotion = useReducedMotion() ?? false;
 
     return (
-        <div className="w-full px-4 sm:px-6 lg:px-16">
+        <div className="mx-auto w-full max-w-[1400px] px-6 lg:px-16">
             <h2 id="organic-farm-detalles-heading" className="sr-only">
                 {t("title")}
             </h2>
 
             <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.65 }}
-                className="grid grid-cols-1 gap-px overflow-hidden border border-[#7e4255]/12 bg-[#7e4255]/12 lg:grid-cols-3 xl:grid-cols-6"
+                transition={{ duration: shouldReduceMotion ? 0 : 0.78, ease: EASE_OUT_CUBIC }}
+                className="grid grid-cols-1 gap-px overflow-hidden border border-[#9B5C6E]/18 bg-[#9B5C6E]/16 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
                 aria-labelledby="organic-farm-detalles-heading"
             >
                 {detailItems.map(({ key, icon: Icon }) => (
                     <div
                         key={key}
-                        className="group flex min-h-[154px] min-w-0 flex-col bg-[#f7eadf]/78 p-4 transition-colors duration-300 hover:bg-[#fff4ea] sm:min-h-[176px] sm:p-5 lg:min-h-[224px]"
+                        className="group flex min-h-[138px] min-w-0 flex-col bg-[#fff8ed] p-4 transition-colors duration-300 hover:bg-[#fff4ea] sm:min-h-[158px] sm:p-5 lg:min-h-[188px]"
                     >
-                        <span className="flex h-10 w-10 items-center justify-center border border-[#9B5C6E]/24 bg-[#ead1ce] text-[#8B4A5E] transition-transform duration-300 group-hover:-translate-y-0.5">
+                        <span className="flex h-10 w-10 items-center justify-center border border-[#9B5C6E]/22 bg-[#f4e2e1] text-[#8B4A5E] transition-transform duration-300 group-hover:-translate-y-0.5">
                             <Icon className="h-5 w-5 stroke-[1.45]" aria-hidden />
                         </span>
-                        <div className="min-w-0 pt-4">
+                        <div className="min-w-0 pt-3">
                             <h3
                                 className="text-[17px] leading-tight text-[#6f394b]"
                                 style={{ fontFamily: "var(--font-serif)" }}

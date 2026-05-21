@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { MAP_SECTION_IMAGE_ALT, MAP_SECTION_IMAGE_SRC } from "@/lib/map-assets";
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 const LocationVideo = () => (
     <video
@@ -24,14 +26,27 @@ const LocationVideo = () => (
 function MapCornerVideo({
     centroLabel,
     centroSub,
+    reduceMotion,
 }: {
     centroLabel: string;
     centroSub: string;
+    reduceMotion: boolean;
 }) {
     return (
         <motion.div
             className="absolute -top-4 -right-3 sm:-top-5 sm:-right-4 md:-top-7 md:-right-6 lg:-top-10 lg:-right-14 xl:-top-16 xl:-right-24 w-28 sm:w-36 md:w-48 lg:w-52 xl:w-64 aspect-square lg:aspect-[3/4] z-30 pointer-events-none"
-            variants={{ hidden: { opacity: 0, x: 20 }, visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.8 } } }}
+            variants={{
+                hidden: reduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: 16 },
+                visible: {
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                        duration: reduceMotion ? 0 : 0.5,
+                        ease: EASE_OUT_CUBIC,
+                        delay: reduceMotion ? 0 : 0.22,
+                    },
+                },
+            }}
         >
             <div className="w-full h-full overflow-hidden border-2 border-white shadow-[0_15px_40px_-12px_rgba(0,0,0,0.12)] relative bg-[#222]">
                 <LocationVideo />
@@ -59,6 +74,7 @@ export default function Location({
     showProximity = true,
 }: LocationProps = {}) {
     const t = useTranslations("locationSection");
+    const shouldReduceMotion = useReducedMotion() ?? false;
     const [activePin, setActivePin] = useState<string | null>(null);
 
     const togglePin = (pinId: string) => {
@@ -75,6 +91,28 @@ export default function Location({
         "text-[#2b2924] font-semibold text-[7px] sm:text-[8px] md:text-[8px] lg:text-[9px] leading-tight uppercase tracking-[0.16em] whitespace-normal";
     const mapLabelLineClass = "h-2.5 w-px bg-[#2b2924]/35 md:h-3";
     const mapLogoClass = "h-[18px] w-[18px] object-contain md:h-7 md:w-7";
+    const fastReveal = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.62,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
+    const pinVariants = (delay = 0) => ({
+        hidden: shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 },
+        visible: { opacity: 1, scale: 1, transition: fastReveal(delay) },
+    });
+    const listItemVariants = {
+        hidden: shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 },
+        visible: { opacity: 1, y: 0, transition: fastReveal() },
+    };
+    const mapContainerVariants = {
+        hidden: {},
+        visible: {
+            transition: {
+                staggerChildren: shouldReduceMotion ? 0 : 0.11,
+                delayChildren: shouldReduceMotion ? 0 : 0.18,
+            },
+        },
+    };
 
     return (
         <section id={sectionId} className={`${backgroundClassName} text-[#222222] overflow-x-hidden antialiased w-full relative`}>
@@ -83,43 +121,36 @@ export default function Location({
                     <div className="w-full max-w-6xl mb-8 md:mb-12 z-10 relative flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
                         <motion.div
                             className="flex flex-col items-center md:items-start text-center md:text-left"
-                            initial={{ opacity: 0, y: 24 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
+                            transition={fastReveal()}
                         >
                             <p
-                                className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
+                                className="mb-3 text-xs uppercase tracking-[0.3em] text-[#AA7D69]"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 {t("kicker")}
                             </p>
                             <h2
-                                className="text-[#222] leading-none"
+                                className="leading-none text-[#222222]"
                                 style={{
                                     fontFamily: "var(--font-serif)",
                                     fontSize: "clamp(3rem, 6vw, 6rem)",
                                 }}
                             >
                                 {t("title1")}
-                            </h2>
-                            <h2
-                                className="text-[#AA7D69]/90 italic"
-                                style={{
-                                    fontFamily: "var(--font-serif)",
-                                    fontSize: "clamp(3rem, 6vw, 6rem)",
-                                }}
-                            >
-                                {t("title2")}
+                                <br />
+                                <em className="text-[#AA7D69]">{t("title2")}</em>
                             </h2>
                         </motion.div>
                         <motion.p
-                            className="text-[#222]/80 text-base md:text-xl font-medium leading-relaxed text-center md:text-right md:max-w-md"
+                            className="text-center text-base font-medium leading-relaxed text-[#222222] md:max-w-md md:text-right md:text-xl"
                             style={{ fontFamily: "var(--font-serif)" }}
-                            initial={{ opacity: 0, y: 24 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.15 }}
+                            transition={fastReveal(0.06)}
                         >
                             {t("body")}
                         </motion.p>
@@ -131,15 +162,7 @@ export default function Location({
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.3 }}
-                    variants={{
-                        hidden: {},
-                        visible: {
-                            transition: {
-                                staggerChildren: 0.15,
-                                delayChildren: 0.3
-                            }
-                        }
-                    }}
+                    variants={mapContainerVariants}
                 >
                     <div
                         className="relative w-full overflow-visible shadow-[0_20px_60px_-15px_rgba(170,125,105,0.15)] border border-[#AA7D69]/10 group bg-[#EDE5DA]"
@@ -302,11 +325,15 @@ export default function Location({
                         </div>
 
                         <div className="absolute inset-0 z-20 overflow-visible">
-                            <MapCornerVideo centroLabel={t("centroLabel")} centroSub={t("centroSub")} />
+                            <MapCornerVideo
+                                centroLabel={t("centroLabel")}
+                                centroSub={t("centroSub")}
+                                reduceMotion={shouldReduceMotion}
+                            />
 
                             {/* Pin 3: Fracción A -> Organic Farm — pink, on the orange marker area top-left */}
                             <motion.div
-                                variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.4 } } }}
+                                variants={pinVariants(0.2)}
                                 className={`absolute top-[68%] right-[43%] flex flex-col items-center cursor-pointer group/pin ${activePin === "organic-farm" ? "z-50" : "z-20"}`}
                                 onClick={(event) => {
                                     event.stopPropagation();
@@ -316,8 +343,8 @@ export default function Location({
                                 onMouseLeave={() => setActivePin((currentPin) => (currentPin === "organic-farm" ? null : currentPin))}
                             >
                                 <div className="relative flex items-center justify-center size-7 md:size-12">
-                                    <div className="absolute inset-0 bg-[#C4A3A4]/50 rounded-full animate-ping opacity-75"></div>
-                                    <div className={`relative z-10 flex size-[26px] items-center justify-center rounded-full bg-[#C4A3A4] shadow-lg transition-transform group-hover/pin:scale-110 md:size-11 ${activePin === "organic-farm" ? "scale-110" : ""}`}>
+                                    <div className={`absolute inset-0 rounded-full bg-[#C4A3A4]/35 transition-opacity duration-200 ${activePin === "organic-farm" ? "opacity-100" : "opacity-0 group-hover/pin:opacity-80"}`}></div>
+                                    <div className={`relative z-10 flex size-[26px] items-center justify-center rounded-full bg-[#C4A3A4] shadow-[0_8px_22px_-12px_rgba(34,34,34,0.55)] transition-transform duration-200 group-hover/pin:scale-105 md:size-11 ${activePin === "organic-farm" ? "scale-105" : ""}`}>
                                         <Image
                                             src="/final/farm-logo.svg"
                                             alt=""
@@ -339,7 +366,7 @@ export default function Location({
 
                             {/* Pin 2: Fracción B -> Club Residencial — orange, on the pink polygon center */}
                             <motion.div
-                                variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.5 } } }}
+                                variants={pinVariants(0.32)}
                                 className={`absolute top-[43%] left-[33%] flex flex-col items-center cursor-pointer group/pin ${activePin === "club-residencial" ? "z-50" : "z-20"}`}
                                 onClick={(event) => {
                                     event.stopPropagation();
@@ -349,8 +376,8 @@ export default function Location({
                                 onMouseLeave={() => setActivePin((currentPin) => (currentPin === "club-residencial" ? null : currentPin))}
                             >
                                 <div className="relative flex items-center justify-center size-7 md:size-12">
-                                    <div className="absolute inset-0 bg-[#C99580]/50 rounded-full animate-ping opacity-75"></div>
-                                    <div className={`relative z-10 flex size-[26px] items-center justify-center rounded-full bg-[#C99580] shadow-lg transition-transform group-hover/pin:scale-110 md:size-11 ${activePin === "club-residencial" ? "scale-110" : ""}`}>
+                                    <div className={`absolute inset-0 rounded-full bg-[#C99580]/35 transition-opacity duration-200 ${activePin === "club-residencial" ? "opacity-100" : "opacity-0 group-hover/pin:opacity-80"}`}></div>
+                                    <div className={`relative z-10 flex size-[26px] items-center justify-center rounded-full bg-[#C99580] shadow-[0_8px_22px_-12px_rgba(34,34,34,0.55)] transition-transform duration-200 group-hover/pin:scale-105 md:size-11 ${activePin === "club-residencial" ? "scale-105" : ""}`}>
                                         <Image
                                             src="/final/residencial-logo.svg"
                                             alt=""
@@ -372,7 +399,7 @@ export default function Location({
 
                             {/* Pin 1: Fracción C -> Wellness Center — green, on the blue polygon top-right */}
                             <motion.div
-                                variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.6 } } }}
+                                variants={pinVariants(0.44)}
                                 className={`absolute top-[24%] left-[22%] md:top-[26%] md:left-[24%] flex flex-col items-center cursor-pointer group/pin ${activePin === "wellness-center" ? "z-50" : "z-20"}`}
                                 onClick={(event) => {
                                     event.stopPropagation();
@@ -382,8 +409,8 @@ export default function Location({
                                 onMouseLeave={() => setActivePin((currentPin) => (currentPin === "wellness-center" ? null : currentPin))}
                             >
                                 <div className="relative flex items-center justify-center size-7 md:size-12">
-                                    <div className="absolute inset-0 bg-[#B5B588]/50 rounded-full animate-ping opacity-75"></div>
-                                    <div className={`relative z-10 flex size-[26px] items-center justify-center rounded-full bg-[#B5B588] shadow-lg transition-transform group-hover/pin:scale-110 md:size-11 ${activePin === "wellness-center" ? "scale-110" : ""}`}>
+                                    <div className={`absolute inset-0 rounded-full bg-[#B5B588]/35 transition-opacity duration-200 ${activePin === "wellness-center" ? "opacity-100" : "opacity-0 group-hover/pin:opacity-80"}`}></div>
+                                    <div className={`relative z-10 flex size-[26px] items-center justify-center rounded-full bg-[#B5B588] shadow-[0_8px_22px_-12px_rgba(34,34,34,0.55)] transition-transform duration-200 group-hover/pin:scale-105 md:size-11 ${activePin === "wellness-center" ? "scale-105" : ""}`}>
                                         <Image
                                             src="/final/wellness-logo.svg"
                                             alt=""
@@ -405,7 +432,7 @@ export default function Location({
 
                             {/* Pin 4: Presa de la Cantera — blue, on the river/water area */}
                             <motion.div
-                                variants={{ hidden: { scale: 0, opacity: 0 }, visible: { scale: 1, opacity: 1, transition: { type: "spring", bounce: 0.2, duration: 0.5, delay: 1.7 } } }}
+                                variants={pinVariants(0.56)}
                                 className={`absolute top-[54%] right-[15%] flex flex-col items-center cursor-pointer group/pin ${activePin === "presa-cantera" ? "z-50" : "z-20"}`}
                                 onClick={(event) => {
                                     event.stopPropagation();
@@ -415,8 +442,8 @@ export default function Location({
                                 onMouseLeave={() => setActivePin((currentPin) => (currentPin === "presa-cantera" ? null : currentPin))}
                             >
                                 <div className="relative flex items-center justify-center size-8 md:size-14">
-                                    <div className="absolute inset-0 bg-[#8FC0DA]/40 rounded-full animate-ping opacity-75"></div>
-                                    <div className={`relative z-10 flex size-[30px] items-center justify-center rounded-full bg-[#8FC0DA] shadow-lg transition-transform group-hover/pin:scale-110 md:size-12 ${activePin === "presa-cantera" ? "scale-110" : ""}`}>
+                                    <div className={`absolute inset-0 rounded-full bg-[#8FC0DA]/30 transition-opacity duration-200 ${activePin === "presa-cantera" ? "opacity-100" : "opacity-0 group-hover/pin:opacity-80"}`}></div>
+                                    <div className={`relative z-10 flex size-[30px] items-center justify-center rounded-full bg-[#8FC0DA] shadow-[0_8px_22px_-12px_rgba(34,34,34,0.55)] transition-transform duration-200 group-hover/pin:scale-105 md:size-12 ${activePin === "presa-cantera" ? "scale-105" : ""}`}>
                                         <Image
                                             src="/final/presa-logo.svg"
                                             alt=""
@@ -441,10 +468,13 @@ export default function Location({
                     {showProximity ? (
                         <motion.div
                             className="relative lg:absolute lg:-left-12 lg:-bottom-6 xl:-left-40 xl:-bottom-8 mt-8 lg:mt-0 z-30 flex flex-col justify-start pointer-events-auto w-full lg:w-auto lg:max-w-[280px]"
-                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 1.2 } } }}
+                            variants={{
+                                hidden: shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 },
+                                visible: { opacity: 1, y: 0, transition: fastReveal(0.52) },
+                            }}
                         >
                         <div
-                            className="relative z-30 bg-white/80 backdrop-blur-xl border border-[#D7D7AA]/40 p-6 md:p-8 lg:p-6 xl:p-8 shadow-[0_15px_40px_-10px_rgba(225,177,155,0.2)] hover:bg-white transition-all duration-300 group/panel"
+                            className="group/panel relative z-30 border border-[#AA7D69]/18 bg-[#fffdf9] p-5 shadow-[0_14px_36px_-24px_rgba(34,34,34,0.45)] transition-colors duration-200 hover:bg-[#fbf5ee] md:p-6 lg:p-6 xl:p-7"
                         >
                             <div
                                 className="flex items-center gap-3 mb-8 pb-4 border-b border-[#AA7D69]/10"
@@ -460,7 +490,7 @@ export default function Location({
                                 className="space-y-8 relative"
                                 variants={{
                                     hidden: {},
-                                    visible: { transition: { staggerChildren: 0.15 } }
+                                    visible: { transition: { staggerChildren: shouldReduceMotion ? 0 : 0.12 } }
                                 }}
                             >
                                 <div
@@ -468,7 +498,7 @@ export default function Location({
                                 ></div>
                                 <motion.li
                                     className="flex items-start gap-5 relative"
-                                    variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }}
+                                    variants={listItemVariants}
                                 >
                                     <div
                                         className="relative z-10 bg-white p-1.5 rounded-full border border-[#E1B19B] group-hover/panel:scale-110 transition-transform"
@@ -492,7 +522,7 @@ export default function Location({
                                 </motion.li>
                                 <motion.li
                                     className="flex items-start gap-5 relative"
-                                    variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }}
+                                    variants={listItemVariants}
                                 >
                                     <div
                                         className="relative z-10 bg-white p-1.5 rounded-full border border-[#AA7D69] group-hover/panel:scale-110 transition-transform"
@@ -516,7 +546,7 @@ export default function Location({
                                 </motion.li>
                                 <motion.li
                                     className="flex items-start gap-5 relative"
-                                    variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }}
+                                    variants={listItemVariants}
                                 >
                                     <div
                                         className="relative z-10 bg-white p-1.5 rounded-full border border-[#D7D7AA] group-hover/panel:scale-110 transition-transform"

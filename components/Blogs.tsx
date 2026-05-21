@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { useHasVisited } from "@/hooks/useHasVisited";
 import { useRef } from "react";
 import { Plus } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { formatPostDate, getAllPosts, isVideoSrc, type BlogPostView } from "@/content/blogPosts";
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 function MediaCover({ src, alt }: { src: string; alt: string }) {
     if (isVideoSrc(src)) {
@@ -88,10 +89,8 @@ function PostCard({
         <article className="relative">
             <Link
                 href={`/blog/${post.slug}`}
-                className="block relative overflow-hidden rounded-sm border border-[#222]/[0.06] bg-[#EFE6DC] cursor-pointer hover:brightness-105 transition-all duration-300 hover:border-[#AA7D69]/20 hover:bg-[#EFE6DC]/80"
+                className="relative block cursor-pointer overflow-hidden border border-[#1F1D1B]/10 bg-[#EFE6DC] transition-colors duration-300 hover:border-[#AA7D69]/25 hover:bg-[#F3E7D8]"
             >
-                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#AA7D69] to-[#E1B19B]" />
-
                 <div className="relative aspect-[2/1]">
                     {isVideoSrc(post.imageSrc) ? (
                         <MediaCover src={post.imageSrc} alt={post.imageAlt} />
@@ -148,9 +147,13 @@ export default function Blogs() {
     const locale = useLocale();
     const tb = useTranslations("blogsHome");
     const posts = getAllPosts(locale);
-    const hasVisited = useHasVisited();
-    const reduceMotion = useReducedMotion();
+    const reduceMotion = useReducedMotion() ?? false;
     const sectionRef = useRef<HTMLElement | null>(null);
+    const revealTransition = (delay = 0) => ({
+        duration: reduceMotion ? 0 : 0.78,
+        ease: EASE_OUT_CUBIC,
+        delay: reduceMotion ? 0 : delay,
+    });
 
     const { scrollYProgress } = useScroll({
         target: sectionRef,
@@ -164,13 +167,13 @@ export default function Blogs() {
             <div className="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16 py-16 md:py-20 lg:py-24">
                 <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-14">
                     <motion.div
-                        initial={hasVisited ? false : { opacity: 0, y: 24 }}
+                        initial={reduceMotion ? false : { opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+                        transition={revealTransition()}
                     >
                         <p
-                            className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
+                            className="mb-3 text-xs tracking-[0.3em] text-[#AA7D69] uppercase"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {tb("kicker")}
@@ -187,10 +190,10 @@ export default function Blogs() {
                     </motion.div>
 
                     <motion.p
-                        initial={hasVisited ? false : { opacity: 0, y: 18 }}
+                        initial={reduceMotion ? false : { opacity: 0, y: 18 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.1 }}
+                        transition={revealTransition(0.1)}
                         className="text-[#222]/55 text-sm md:text-lg lg:text-xl leading-relaxed max-w-md"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
@@ -202,29 +205,29 @@ export default function Blogs() {
                     {/* Left column */}
                     <div className="flex flex-col gap-6 md:gap-8">
                         <motion.div
-                            initial={hasVisited ? false : { opacity: 0, y: 24 }}
+                            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
+                            transition={revealTransition()}
                         >
                             <PostCard
                                 post={posts[0]}
                                 locale={locale}
                                 parallaxY={imageParallaxY}
-                                reduceMotion={!!reduceMotion}
+                                reduceMotion={reduceMotion}
                             />
                         </motion.div>
                         <motion.div
-                            initial={hasVisited ? false : { opacity: 0, y: 24 }}
+                            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.05 }}
+                            transition={revealTransition(0.05)}
                         >
                             <PostCard
                                 post={posts[2]}
                                 locale={locale}
                                 parallaxY={imageParallaxY}
-                                reduceMotion={!!reduceMotion}
+                                reduceMotion={reduceMotion}
                             />
                         </motion.div>
                     </div>
@@ -232,29 +235,29 @@ export default function Blogs() {
                     {/* Right column (staggered down) */}
                     <div className="flex flex-col gap-6 md:gap-8 md:pt-12">
                         <motion.div
-                            initial={hasVisited ? false : { opacity: 0, y: 24 }}
+                            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.05 }}
+                            transition={revealTransition(0.05)}
                         >
                             <PostCard
                                 post={posts[1]}
                                 locale={locale}
                                 parallaxY={imageParallaxY}
-                                reduceMotion={!!reduceMotion}
+                                reduceMotion={reduceMotion}
                             />
                         </motion.div>
                         <motion.div
-                            initial={hasVisited ? false : { opacity: 0, y: 24 }}
+                            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.1 }}
+                            transition={revealTransition(0.1)}
                         >
                             <PostCard
                                 post={posts[3]}
                                 locale={locale}
                                 parallaxY={imageParallaxY}
-                                reduceMotion={!!reduceMotion}
+                                reduceMotion={reduceMotion}
                             />
                         </motion.div>
                     </div>
@@ -262,10 +265,10 @@ export default function Blogs() {
 
                 <div className="flex justify-center mt-10 md:mt-12 w-full">
                     <motion.div
-                        initial={hasVisited ? false : { opacity: 0, y: 20 }}
+                        initial={reduceMotion ? false : { opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
+                        transition={revealTransition(0.2)}
                     >
                         <Link
                             href="/blog"
@@ -280,4 +283,3 @@ export default function Blogs() {
         </section>
     );
 }
-

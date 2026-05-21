@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { Bus, Leaf, MapPin, Users, Wifi } from "lucide-react";
 import { useTranslations } from "next-intl";
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 const WIFI_HERO_IMAGE = {
     src: "/babylon/wifi.webp",
@@ -20,34 +22,39 @@ const NATURE_HERO_IMAGE = {
 
 export default function ConnectivityCommonAreasResidencial() {
     const t = useTranslations("pages.residencial.connectivity");
+    const shouldReduceMotion = useReducedMotion() ?? false;
+    const revealTransition = {
+        duration: shouldReduceMotion ? 0 : 0.78,
+        ease: EASE_OUT_CUBIC,
+    };
 
     return (
         <section
-            className="border-t border-[#1F1D1B]/[0.06] bg-[#EFE6DC] text-[#1F1D1B] py-6 lg:py-14"
+            className="border-t border-[#1F1D1B]/[0.06] bg-[#EFE6DC] py-12 text-[#1F1D1B] lg:py-20"
             aria-label={t("sectionAria")}
         >
             <div className="mx-auto w-full max-w-[1200px] px-6 lg:px-12">
                 <div
                     id="shuttles"
-                    className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-10"
+                    className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-8"
                     aria-labelledby="shuttles-heading"
                 >
                     <motion.div
-                        initial={{ opacity: 0, y: 16 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.7, delay: 0.06 }}
+                        transition={{ ...revealTransition, delay: shouldReduceMotion ? 0 : 0.06 }}
                         className="order-1 flex min-h-0 w-full flex-col lg:order-1 lg:h-full"
                     >
-                        <div className="flex h-full w-full flex-col justify-start gap-2 overflow-hidden border border-[#1F1D1B]/[0.08] bg-[#fff8ed]/95 px-4 pb-4 pt-4 shadow-[0_24px_48px_rgba(47,39,33,0.12)] backdrop-blur-md sm:min-h-[240px] sm:px-9 sm:pb-9 sm:pt-9 lg:min-h-[320px] lg:gap-6 lg:px-7">
+                        <div className="flex h-full w-full flex-col justify-center gap-3 overflow-hidden border border-[#b76d4b]/16 bg-[#F7EFE6] px-5 py-6 shadow-[0_16px_34px_rgba(47,39,33,0.07)] sm:min-h-[236px] sm:px-8 sm:py-8 lg:min-h-[300px] lg:gap-5 lg:px-8">
                             <motion.div
-                                initial={{ opacity: 0, y: 12 }}
+                                initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.65 }}
-                                className="-mx-4 -mt-4 max-w-none self-stretch sm:-mx-9 sm:-mt-9"
+                                transition={{ ...revealTransition, delay: shouldReduceMotion ? 0 : 0.08 }}
+                                className="-mx-5 -mt-6 max-w-none self-stretch sm:-mx-8 sm:-mt-8"
                             >
-                                <div className="border-b border-[#1F1D1B]/[0.1] bg-[#FFF3E1]/90 px-3.5 py-2 shadow-[0_8px_28px_rgba(47,39,33,0.06)] backdrop-blur-sm sm:px-5 sm:py-3">
+                                <div className="border-b border-[#b76d4b]/16 bg-[#EFE6DC] px-3.5 py-2 sm:px-5 sm:py-3">
                                     <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 sm:flex-nowrap sm:justify-between sm:gap-4">
                                         <div
                                             className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#b76d4b]/90 sm:gap-2.5 sm:text-[13px] sm:tracking-[0.18em]"
@@ -76,7 +83,7 @@ export default function ConnectivityCommonAreasResidencial() {
                             </motion.div>
 
                             <p
-                                className="mb-1 text-center text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase sm:mb-3 lg:text-left"
+                                className="mb-1 text-center text-xs tracking-[0.3em] text-[#b76d4b] uppercase sm:mb-3 lg:text-left"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 {t("shuttles.kicker")}
@@ -92,7 +99,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                 {t("shuttles.titleLine1")} <span className="text-[#b76d4b] italic">{t("shuttles.titleLine2")}</span>
                             </h2>
                             <p
-                                className="mt-2 text-center text-[13px] leading-[1.6] text-[#1F1D1B]/75 sm:mt-4 sm:text-[16px] sm:leading-relaxed lg:text-left"
+                                className="mt-3 text-center text-[13px] leading-[1.65] text-[#1F1D1B]/72 sm:mt-4 sm:text-base sm:leading-relaxed lg:text-left"
                                 style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                             >
                                 {t("shuttles.body")}
@@ -108,20 +115,20 @@ export default function ConnectivityCommonAreasResidencial() {
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, y: 16 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.7 }}
+                        transition={revealTransition}
                         className="order-2 relative flex min-h-0 w-full flex-col lg:order-2 lg:h-full"
                     >
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.98 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.985 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.85, delay: 0.05 }}
+                            transition={{ ...revealTransition, delay: shouldReduceMotion ? 0 : 0.04 }}
                             className="relative w-full flex-1"
                         >
-                            <div className="relative aspect-[16/8] w-full min-h-[180px] flex-1 overflow-hidden shadow-[0_30px_60px_rgba(26,25,23,0.18)] ring-1 ring-[#1a1917]/10 sm:aspect-[16/9] sm:min-h-[230px] lg:aspect-auto lg:min-h-[280px] lg:h-full">
+                            <div className="relative aspect-[16/9] w-full min-h-[190px] flex-1 overflow-hidden shadow-[0_18px_38px_rgba(26,25,23,0.1)] ring-1 ring-[#1a1917]/10 sm:min-h-[238px] lg:aspect-auto lg:h-full lg:min-h-[280px]">
                                 <video
                                     className="absolute inset-0 h-full w-full scale-[1.1] object-cover"
                                     src="/final/shuttle.mp4"
@@ -133,7 +140,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                     preload="metadata"
                                     aria-label={t("shuttles.imageAlt")}
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-tr from-[#1a1917]/25 via-transparent to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-tr from-[#1a1917]/14 via-transparent to-transparent" />
                             </div>
                         </motion.div>
                     </motion.div>
@@ -141,18 +148,18 @@ export default function ConnectivityCommonAreasResidencial() {
 
                 <div
                     id="wifi"
-                    className="pt-6 lg:pt-14"
+                    className="pt-8 lg:pt-12"
                     aria-labelledby="wifi-common-heading"
                 >
-                    <div className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-10">
+                    <div className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-8">
                         <motion.div
-                            initial={{ opacity: 0, y: 16 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.7 }}
+                            transition={revealTransition}
                             className="order-2 relative flex min-h-0 w-full flex-col lg:order-1 lg:h-full"
                         >
-                            <div className="relative aspect-[16/8] w-full min-h-[180px] flex-1 overflow-hidden shadow-[0_24px_50px_rgba(47,39,33,0.12)] ring-1 ring-[#1F1D1B]/[0.06] sm:aspect-[16/9] sm:min-h-[230px] lg:aspect-auto lg:min-h-[320px] lg:h-full">
+                            <div className="relative aspect-[16/9] w-full min-h-[190px] flex-1 overflow-hidden shadow-[0_18px_38px_rgba(26,25,23,0.1)] ring-1 ring-[#1F1D1B]/[0.06] sm:min-h-[238px] lg:aspect-auto lg:h-full lg:min-h-[280px]">
                                 <Image
                                     src={WIFI_HERO_IMAGE.src}
                                     alt={t("wifi.imageAlt")}
@@ -162,33 +169,30 @@ export default function ConnectivityCommonAreasResidencial() {
                                     priority={false}
                                 />
                                 <div
-                                    className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#1F1D1B]/15 via-transparent to-transparent lg:from-[#1F1D1B]/10"
+                                    className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#1F1D1B]/14 via-transparent to-transparent lg:from-[#1F1D1B]/10"
                                     aria-hidden
                                 />
                             </div>
                         </motion.div>
 
                         <motion.div
-                            initial={{ opacity: 0, y: 16 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.7, delay: 0.06 }}
+                            transition={{ ...revealTransition, delay: shouldReduceMotion ? 0 : 0.06 }}
                             className="order-1 flex min-h-0 w-full flex-col lg:order-2 lg:h-full"
                         >
-                            <div className="flex h-full w-full flex-col justify-start border border-[#6B6358]/[0.14] bg-[#F2EFE8]/95 px-4 py-4 shadow-[0_24px_48px_rgba(47,39,33,0.1)] backdrop-blur-md sm:min-h-[240px] sm:px-9 sm:py-9 lg:min-h-[320px] lg:justify-center lg:px-7">
+                            <div className="flex h-full w-full flex-col justify-center border border-[#6B6358]/18 bg-[#EEEAE1] px-5 py-6 shadow-[0_16px_34px_rgba(47,39,33,0.07)] sm:min-h-[236px] sm:px-8 sm:py-8 lg:min-h-[300px] lg:px-8">
                                 <div className="flex items-center gap-3 sm:block">
-                                    <div className="relative flex h-16 w-16 shrink-0 items-center justify-center sm:mx-auto sm:mb-6 sm:h-[4.5rem] sm:w-[4.5rem] lg:mx-0">
-                                        <span className="absolute inset-0 rounded-full border border-[#8B8478]/22" aria-hidden />
-                                        <span className="absolute inset-2 rounded-full border border-[#8B8478]/26" aria-hidden />
-                                        <span className="absolute inset-4 rounded-full border border-[#8B8478]/30" aria-hidden />
-                                        <div className="relative flex h-12 w-12 items-center justify-center rounded-full border border-[#7A7268]/35 bg-[#E8E4DB] text-[#4A453E] sm:h-14 sm:w-14">
+                                    <div className="flex h-14 w-14 shrink-0 items-center justify-center sm:mx-auto sm:mb-6 sm:h-16 sm:w-16 lg:mx-0">
+                                        <div className="flex h-full w-full items-center justify-center border border-[#7A7268]/25 bg-[#E5E0D6] text-[#4A453E]">
                                             <Wifi className="h-5.5 w-5.5 stroke-[1.5] sm:h-6 sm:w-6" aria-hidden />
                                         </div>
                                     </div>
 
                                     <div className="min-w-0 flex-1">
                                         <p
-                                            className="mb-1 text-left text-[10px] tracking-[0.3em] text-[#6B6358]/90 uppercase sm:mb-3 sm:text-center lg:text-left"
+                                            className="mb-1 text-left text-xs tracking-[0.3em] text-[#6B6358] uppercase sm:mb-3 sm:text-center lg:text-left"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
                                             {t("wifi.kicker")}
@@ -207,7 +211,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                 </div>
 
                                 <p
-                                    className="mt-2 text-left text-[13px] leading-[1.6] text-[#1F1D1B]/75 sm:mt-4 sm:text-[16px] sm:leading-relaxed"
+                                    className="mt-3 text-left text-[13px] leading-[1.65] text-[#1F1D1B]/72 sm:mt-4 sm:text-base sm:leading-relaxed"
                                     style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                                 >
                                     {t("wifi.body")}
@@ -219,31 +223,28 @@ export default function ConnectivityCommonAreasResidencial() {
 
                 <div
                     id="comunidad"
-                    className="pt-6 lg:pt-14"
+                    className="pt-8 lg:pt-12"
                     aria-labelledby="comunidad-heading"
                 >
-                    <div className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-10">
+                    <div className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-8">
                         <motion.div
-                            initial={{ opacity: 0, y: 16 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.7, delay: 0.06 }}
+                            transition={{ ...revealTransition, delay: shouldReduceMotion ? 0 : 0.06 }}
                             className="order-1 flex min-h-0 w-full flex-col lg:order-1 lg:h-full"
                         >
-                            <div className="flex h-full w-full flex-col justify-start border border-[#1F1D1B]/[0.08] bg-[#fff8ed]/95 px-4 py-4 shadow-[0_24px_48px_rgba(47,39,33,0.12)] backdrop-blur-md sm:min-h-[240px] sm:px-9 sm:py-9 lg:min-h-[320px] lg:justify-center lg:px-7">
+                            <div className="flex h-full w-full flex-col justify-center border border-[#b76d4b]/16 bg-[#F7EFE6] px-5 py-6 shadow-[0_16px_34px_rgba(47,39,33,0.07)] sm:min-h-[236px] sm:px-8 sm:py-8 lg:min-h-[300px] lg:px-8">
                                 <div className="flex items-center gap-3 sm:block">
-                                    <div className="relative flex h-16 w-16 shrink-0 items-center justify-center sm:mx-auto sm:mb-6 sm:h-[4.5rem] sm:w-[4.5rem] lg:mx-0">
-                                        <span className="absolute inset-0 rounded-full border border-[#C28E7A]/20" aria-hidden />
-                                        <span className="absolute inset-2 rounded-full border border-[#C28E7A]/25" aria-hidden />
-                                        <span className="absolute inset-4 rounded-full border border-[#C28E7A]/30" aria-hidden />
-                                        <div className="relative flex h-12 w-12 items-center justify-center rounded-full border border-[#C28E7A]/40 bg-[#FFF3E1] text-[#2C3D38] sm:h-14 sm:w-14">
+                                    <div className="flex h-14 w-14 shrink-0 items-center justify-center sm:mx-auto sm:mb-6 sm:h-16 sm:w-16 lg:mx-0">
+                                        <div className="flex h-full w-full items-center justify-center border border-[#C28E7A]/28 bg-[#EFE6DC] text-[#2C3D38]">
                                             <Users className="h-5.5 w-5.5 stroke-[1.5] sm:h-6 sm:w-6" aria-hidden />
                                         </div>
                                     </div>
 
                                     <div className="min-w-0 flex-1">
                                         <p
-                                            className="mb-1 text-left text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase sm:mb-3 sm:text-center lg:text-left"
+                                            className="mb-1 text-left text-xs tracking-[0.3em] text-[#b76d4b] uppercase sm:mb-3 sm:text-center lg:text-left"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
                                             {t("community.kicker")}
@@ -262,7 +263,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                 </div>
 
                                 <p
-                                    className="mt-2 text-left text-[13px] leading-[1.6] text-[#1F1D1B]/75 sm:mt-4 sm:text-[16px] sm:leading-relaxed"
+                                    className="mt-3 text-left text-[13px] leading-[1.65] text-[#1F1D1B]/72 sm:mt-4 sm:text-base sm:leading-relaxed"
                                     style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                                 >
                                     {t("community.body")}
@@ -271,20 +272,20 @@ export default function ConnectivityCommonAreasResidencial() {
                         </motion.div>
 
                         <motion.div
-                            initial={{ opacity: 0, y: 16 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.7 }}
+                            transition={revealTransition}
                             className="order-2 relative flex min-h-0 w-full flex-col lg:order-2 lg:h-full"
                         >
                             <motion.div
-                                initial={{ opacity: 0, scale: 0.98 }}
+                                initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.985 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.85, delay: 0.05 }}
+                                transition={{ ...revealTransition, delay: shouldReduceMotion ? 0 : 0.04 }}
                                 className="relative w-full flex-1"
                             >
-                                <div className="relative aspect-[16/8] w-full min-h-[180px] flex-1 overflow-hidden shadow-[0_30px_60px_rgba(26,25,23,0.18)] ring-1 ring-[#1a1917]/10 sm:aspect-[16/9] sm:min-h-[230px] lg:aspect-auto lg:min-h-[280px] lg:h-full">
+                                <div className="relative aspect-[16/9] w-full min-h-[190px] flex-1 overflow-hidden shadow-[0_18px_38px_rgba(26,25,23,0.1)] ring-1 ring-[#1a1917]/10 sm:min-h-[238px] lg:aspect-auto lg:h-full lg:min-h-[280px]">
                                     <Image
                                         src={COMMUNITY_HERO_IMAGE.src}
                                         alt={t("community.imageAlt")}
@@ -292,7 +293,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                         className="object-cover object-center"
                                         sizes="(min-width: 1024px) 50vw, 100vw"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-[#1a1917]/20 via-transparent to-transparent" />
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-[#1a1917]/14 via-transparent to-transparent" />
                                 </div>
                             </motion.div>
                         </motion.div>
@@ -301,18 +302,18 @@ export default function ConnectivityCommonAreasResidencial() {
 
                 <div
                     id="naturaleza"
-                    className="pt-6 lg:pt-14"
+                    className="pt-8 lg:pt-12"
                     aria-labelledby="naturaleza-heading"
                 >
-                    <div className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-10">
+                    <div className="grid grid-cols-1 items-stretch gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:grid-rows-1 lg:gap-8">
                         <motion.div
-                            initial={{ opacity: 0, y: 16 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.7 }}
+                            transition={revealTransition}
                             className="order-2 relative flex min-h-0 w-full flex-col lg:order-1 lg:h-full"
                         >
-                            <div className="relative aspect-[16/8] w-full min-h-[180px] flex-1 overflow-hidden shadow-[0_24px_50px_rgba(47,39,33,0.12)] ring-1 ring-[#1F1D1B]/[0.06] sm:aspect-[16/9] sm:min-h-[230px] lg:aspect-auto lg:min-h-[320px] lg:h-full">
+                            <div className="relative aspect-[16/9] w-full min-h-[190px] flex-1 overflow-hidden shadow-[0_18px_38px_rgba(26,25,23,0.1)] ring-1 ring-[#1F1D1B]/[0.06] sm:min-h-[238px] lg:aspect-auto lg:h-full lg:min-h-[280px]">
                                 <Image
                                     src={NATURE_HERO_IMAGE.src}
                                     alt={t("nature.imageAlt")}
@@ -322,33 +323,30 @@ export default function ConnectivityCommonAreasResidencial() {
                                     priority={false}
                                 />
                                 <div
-                                    className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#2C3428]/18 via-transparent to-transparent lg:from-[#2C3428]/12"
+                                    className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#2C3428]/14 via-transparent to-transparent lg:from-[#2C3428]/10"
                                     aria-hidden
                                 />
                             </div>
                         </motion.div>
 
                         <motion.div
-                            initial={{ opacity: 0, y: 16 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.7, delay: 0.06 }}
+                            transition={{ ...revealTransition, delay: shouldReduceMotion ? 0 : 0.06 }}
                             className="order-1 flex min-h-0 w-full flex-col lg:order-2 lg:h-full"
                         >
-                            <div className="flex h-full w-full flex-col justify-start border border-[#6B6358]/[0.14] bg-[#F2EFE8]/95 px-4 py-4 shadow-[0_24px_48px_rgba(47,39,33,0.1)] backdrop-blur-md sm:min-h-[240px] sm:px-9 sm:py-9 lg:min-h-[320px] lg:justify-center lg:px-7">
+                            <div className="flex h-full w-full flex-col justify-center border border-[#6B6358]/18 bg-[#EEEAE1] px-5 py-6 shadow-[0_16px_34px_rgba(47,39,33,0.07)] sm:min-h-[236px] sm:px-8 sm:py-8 lg:min-h-[300px] lg:px-8">
                                 <div className="flex items-center gap-3 sm:block">
-                                    <div className="relative flex h-16 w-16 shrink-0 items-center justify-center sm:mx-auto sm:mb-6 sm:h-[4.5rem] sm:w-[4.5rem] lg:mx-0">
-                                        <span className="absolute inset-0 rounded-full border border-[#8B8478]/22" aria-hidden />
-                                        <span className="absolute inset-2 rounded-full border border-[#8B8478]/26" aria-hidden />
-                                        <span className="absolute inset-4 rounded-full border border-[#8B8478]/30" aria-hidden />
-                                        <div className="relative flex h-12 w-12 items-center justify-center rounded-full border border-[#7A7268]/35 bg-[#E8E4DB] text-[#4A453E] sm:h-14 sm:w-14">
+                                    <div className="flex h-14 w-14 shrink-0 items-center justify-center sm:mx-auto sm:mb-6 sm:h-16 sm:w-16 lg:mx-0">
+                                        <div className="flex h-full w-full items-center justify-center border border-[#7A7268]/25 bg-[#E5E0D6] text-[#4A453E]">
                                             <Leaf className="h-5.5 w-5.5 stroke-[1.5] sm:h-6 sm:w-6" aria-hidden />
                                         </div>
                                     </div>
 
                                     <div className="min-w-0 flex-1">
                                         <p
-                                            className="mb-1 text-left text-[10px] tracking-[0.3em] text-[#6B6358]/90 uppercase sm:mb-3 sm:text-center lg:text-left"
+                                            className="mb-1 text-left text-xs tracking-[0.3em] text-[#6B6358] uppercase sm:mb-3 sm:text-center lg:text-left"
                                             style={{ fontFamily: "var(--font-sans)" }}
                                         >
                                             {t("nature.kicker")}
@@ -367,7 +365,7 @@ export default function ConnectivityCommonAreasResidencial() {
                                 </div>
 
                                 <p
-                                    className="mt-2 text-left text-[13px] leading-[1.6] text-[#1F1D1B]/75 sm:mt-4 sm:text-[16px] sm:leading-relaxed"
+                                    className="mt-3 text-left text-[13px] leading-[1.65] text-[#1F1D1B]/72 sm:mt-4 sm:text-base sm:leading-relaxed"
                                     style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
                                 >
                                     {t("nature.body")}

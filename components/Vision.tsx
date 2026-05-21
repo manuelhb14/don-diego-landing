@@ -1,8 +1,7 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
-import { useHasVisited } from "@/hooks/useHasVisited";
 import { useLocale, useTranslations } from "next-intl";
 import EditableText from "@/components/editor/EditableText";
 import EditableImage from "@/components/editor/EditableImage";
@@ -13,50 +12,67 @@ const YOUTUBE_IDS: Record<string, string> = {
   es: "9OIoj5kxG9E",
 };
 
-function PlayButton({ onClick, ariaLabel }: { onClick: () => void; ariaLabel: string }) {
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+
+function PlayButton({
+  onClick,
+  ariaLabel,
+  reduceMotion,
+}: {
+  onClick: () => void;
+  ariaLabel: string;
+  reduceMotion: boolean;
+}) {
   return (
     <button
       onClick={onClick}
       aria-label={ariaLabel}
-      className="group absolute inset-0 z-10 flex items-center justify-center focus-visible:outline-none"
+      className="group absolute inset-0 z-10 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFF3E1]/85 focus-visible:ring-offset-2 focus-visible:ring-offset-[#111]"
     >
-      <span className="absolute size-20 md:size-24 rounded-full border border-white/20 animate-ping opacity-20" />
-      <span className="relative flex items-center justify-center size-16 md:size-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 transition-all duration-500 group-hover:bg-white/20 group-hover:scale-110 group-hover:border-white/30">
-        <PlayIcon className="size-4 md:size-5 text-white group-hover:text-white/80" />
+      {!reduceMotion ? (
+        <span className="absolute size-20 rounded-full border border-[#FFF3E1]/24 opacity-30 animate-ping md:size-24" />
+      ) : null}
+      <span className="relative flex size-16 items-center justify-center rounded-full border border-[#FFF3E1]/40 bg-[#1C1713]/42 text-[#FFF3E1] shadow-[0_10px_24px_rgba(28,23,19,0.24)] transition-all duration-300 group-hover:scale-105 group-hover:border-[#FFF3E1]/64 group-hover:bg-[#1C1713]/58 md:size-20">
+        <PlayIcon className="size-4 translate-x-px md:size-5" />
       </span>
     </button>
   );
 }
 
 export default function Vision() {
-  const hasVisited = useHasVisited();
+  const shouldReduceMotion = useReducedMotion() ?? false;
   const [playing, setPlaying] = useState(false);
   const locale = useLocale();
   const tv = useTranslations("vision");
   const localeKey = locale.split("-")[0];
   const youtubeId = YOUTUBE_IDS[localeKey] ?? YOUTUBE_IDS.es;
+  const revealTransition = (delay = 0) => ({
+    duration: shouldReduceMotion ? 0 : 0.82,
+    ease: EASE_OUT_CUBIC,
+    delay: shouldReduceMotion ? 0 : delay,
+  });
 
   return (
     <section id="home-video" className="bg-[#EDE5DA] overflow-hidden scroll-mt-0">
-      <div className="max-w-[1440px] mx-auto w-full px-6 md:px-10 lg:px-16 py-14 md:py-18 lg:py-22">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8 md:mb-10">
+      <div className="max-w-[1440px] mx-auto w-full px-6 py-12 md:px-10 md:py-16 lg:px-16 lg:py-22">
+        <div className="mb-7 flex flex-col gap-5 md:mb-10 md:flex-row md:items-end md:justify-between">
           <motion.div
-            initial={hasVisited ? false : { opacity: 0, y: 24 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={revealTransition()}
           >
             <p
-              className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-4"
+              className="mb-4 text-xs uppercase tracking-[0.3em] text-[#AA7D69]"
               style={{ fontFamily: "var(--font-sans)" }}
             >
               <EditableText contentKey="home.vision.kicker" fallback={tv("kicker")} />
             </p>
             <h2
-              className="text-[#222222] leading-[0.95]"
+              className="text-[#222222] leading-none"
               style={{
                 fontFamily: "var(--font-serif)",
-                fontSize: "clamp(2.75rem, 5.6vw, 5.5rem)",
+                fontSize: "clamp(3rem, 6vw, 6rem)",
               }}
             >
               <EditableText contentKey="home.vision.titleDiscover" fallback={tv("titleDiscover")} />{" "}
@@ -65,11 +81,11 @@ export default function Vision() {
           </motion.div>
 
           <motion.p
-            initial={hasVisited ? false : { opacity: 0, y: 20 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="text-[#222222]/70 text-[15px] md:text-[17px] lg:text-lg leading-[1.8] max-w-md md:text-right"
+            transition={revealTransition(0.16)}
+            className="max-w-md text-base font-medium leading-relaxed text-[#222222]/72 md:text-right md:text-xl"
             style={{ fontFamily: "var(--font-serif)" }}
           >
             <EditableText contentKey="home.vision.body" fallback={tv("body")} />
@@ -77,10 +93,10 @@ export default function Vision() {
         </div>
 
         <motion.div
-          initial={hasVisited ? false : { opacity: 0, y: 30 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+          transition={revealTransition(0.16)}
           className="relative"
         >
           <div className="relative mx-auto w-full max-w-[1100px] aspect-video overflow-hidden rounded-sm bg-black/20 shadow-[0_24px_60px_-22px_rgba(36,24,18,0.35)]">
@@ -105,7 +121,7 @@ export default function Vision() {
                   />
                 </div>
                 <div className="absolute inset-0 bg-black/25" />
-                <PlayButton onClick={() => setPlaying(true)} ariaLabel={tv("playAria")} />
+                <PlayButton onClick={() => setPlaying(true)} ariaLabel={tv("playAria")} reduceMotion={shouldReduceMotion} />
 
                 <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 z-10 flex items-center gap-3">
                   <div className="h-px w-6 bg-[#E1B19B]/70" />

@@ -1,63 +1,71 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
-import { useHasVisited } from "@/hooks/useHasVisited";
+import { motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 export default function ManifestoProyecto() {
     const t = useTranslations("pages.proyecto.manifesto");
-    const hasVisited = useHasVisited();
+    const shouldReduceMotion = useReducedMotion() ?? false;
+    const revealTransition = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.8,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
 
     return (
         <section
             id="manifiesto"
-            className="relative bg-[#1F1D1B] w-full py-24 md:py-32 lg:py-48 px-6 md:px-12 lg:px-24 flex items-center justify-center overflow-hidden"
+            className="relative flex w-full items-center justify-center overflow-hidden bg-[#1F1D1B] px-6 py-20 md:px-10 md:py-28 lg:px-16 lg:py-32"
         >
-            <div className="max-w-[1440px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
+            <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-20">
 
                 {/* Left Side: Title and Intro */}
                 <div className="lg:col-span-5 flex flex-col items-start z-10">
                     <motion.p
-                        initial={hasVisited ? false : { opacity: 0, y: 20 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8 }}
-                        className="text-[10px] sm:text-xs tracking-[0.3em] text-[#AA7D69] uppercase mb-6 sm:mb-8"
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={revealTransition()}
+                        className="mb-5 text-xs uppercase tracking-[0.3em] text-[#E1B19B]"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         {t("kicker")}
                     </motion.p>
 
                     <motion.h2
-                        initial={hasVisited ? false : { opacity: 0, y: 30 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-[#E6E1D6] leading-[1.1] mb-8"
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={revealTransition(0.16)}
+                        className="mb-8 text-[#FFF3E1]"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(3rem, 6vw, 5rem)",
+                            fontSize: "clamp(3rem, 6vw, 6rem)",
+                            lineHeight: 1,
+                            letterSpacing: "0",
                         }}
                     >
                         {t("titleLine1")} <br />
-                        <span className="italic text-[#8C7B6C]">{t("titleLine2")}</span>
+                        <span className="italic text-[#E1B19B]">{t("titleLine2")}</span>
                     </motion.h2>
 
                     <motion.div
-                        initial={hasVisited ? false : { opacity: 0, y: 20 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="w-full h-[1px] bg-[#8C7B6C]/30 mb-8"
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={revealTransition(0.2)}
+                        className="mb-8 h-px w-full bg-[#E1B19B]/28"
                     />
 
                     <motion.p
-                        initial={hasVisited ? false : { opacity: 0, y: 20 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8, delay: 0.5 }}
-                        className="text-[#E6E1D6]/70 leading-relaxed text-sm lg:text-base font-sans font-light max-w-sm"
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={revealTransition(0.24)}
+                        className="max-w-sm text-base font-medium leading-relaxed text-[#FFF3E1]/75"
                     >
                         {t("body")}
                     </motion.p>
@@ -75,15 +83,15 @@ export default function ManifestoProyecto() {
                         ].map((item, index) => (
                             <motion.div
                                 key={index}
-                                initial={hasVisited ? false : { opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                transition={{ duration: 0.8, delay: item.delay }}
+                                initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-80px" }}
+                                transition={revealTransition(item.delay)}
                                 className="flex items-center gap-6"
                             >
-                                <span className="text-[#8C7B6C] text-sm font-light font-sans tracking-widest">0{index + 1}</span>
+                                <span className="font-sans text-sm font-medium tracking-widest text-[#E1B19B]/70">0{index + 1}</span>
                                 <h3
-                                    className="text-[#D7D7AA] italic text-2xl sm:text-3xl lg:text-4xl leading-none"
+                                    className="text-2xl italic leading-none text-[#D7D7AA] sm:text-3xl lg:text-4xl"
                                     style={{ fontFamily: "var(--font-serif)" }}
                                 >
                                     {item.title}
@@ -94,10 +102,10 @@ export default function ManifestoProyecto() {
 
                     {/* Accent Image */}
                     <motion.div
-                        initial={hasVisited ? false : { opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 1.2, delay: 0.6 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={revealTransition(0.24)}
                         className="relative w-full md:w-1/2 aspect-[3/4] overflow-hidden rounded-sm z-10 hidden md:block"
                     >
                         <Image

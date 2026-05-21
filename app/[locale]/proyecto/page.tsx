@@ -1,7 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import Navbar from "@/components/Navbar";
 import HeroProyecto from "@/components/proyecto/HeroProyecto";
-import ManifestoProyecto from "@/components/proyecto/ManifestoProyecto";
 import GridProyecto from "@/components/proyecto/GridProyecto";
 import LocationSummaryProyecto from "@/components/proyecto/LocationSummaryProyecto";
 import Footer from "@/components/Footer";
@@ -19,10 +18,9 @@ export default async function ProyectoPage({ params }: Props) {
 
     return (
         <>
-            <Navbar locale={locale} theme="dark" />
+            <Navbar locale={locale} />
             <main>
                 <HeroProyecto />
-                {/* <ManifestoProyecto /> */}
                 <GridProyecto />
                 <LocationSummaryProyecto />
                 <ThingsToDo />

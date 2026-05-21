@@ -1,12 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { Footprints, BookOpen, Trees } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+
 export default function PaseosHuertosFarm() {
     const t = useTranslations("pages.farm.paseosHuertos");
+    const shouldReduceMotion = useReducedMotion() ?? false;
     const highlights = [
         {
             icon: Footprints,
@@ -40,24 +43,30 @@ export default function PaseosHuertosFarm() {
         },
     ] as const;
 
+    const revealTransition = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.78,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
+
     return (
         <section
             id="paseos-huertos"
             aria-labelledby="paseos-huertos-heading"
-            className="relative overflow-hidden border-t border-[#1F1D1B]/[0.06] bg-[#EFE6DC] text-[#1a1917] py-16 lg:py-24"
+            className="relative overflow-hidden border-t border-[#AA7D69]/10 bg-[#EFE6DC] py-12 text-[#1a1917] lg:py-20"
         >
             <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-12">
                 <motion.div
-                    initial={{ opacity: 0, y: 16 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.65 }}
-                    className="mb-10 lg:mb-14"
+                    transition={revealTransition()}
+                    className="mb-9 lg:mb-12"
                 >
                     <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-12 xl:gap-16">
                         <div className="min-w-0 max-w-3xl lg:max-w-[min(100%,52%)]">
                             <p
-                                className="mb-8 text-[10px] tracking-[0.3em] text-[#9B5C6E]/85 uppercase"
+                                className="mb-7 text-xs tracking-[0.3em] text-[#9B5C6E] uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 {t("eyebrow")}
@@ -67,7 +76,7 @@ export default function PaseosHuertosFarm() {
                                 className="tracking-tight text-[#1a1917] leading-[1.1]"
                                 style={{
                                     fontFamily: "var(--font-serif)",
-                                    fontSize: "clamp(2.75rem, 4.75vw, 4.25rem)",
+                                    fontSize: "clamp(2.75rem, 4.75vw, 4.5rem)",
                                 }}
                             >
                                 {t("title.line1")}
@@ -76,7 +85,7 @@ export default function PaseosHuertosFarm() {
                             </h2>
                         </div>
                         <p
-                            className="ml-auto w-full max-w-[350px] text-right font-serif text-base lg:text-lg font-normal leading-[1.8] tracking-[0.01em] text-[#222]/80 lg:pt-3"
+                            className="ml-auto w-full max-w-[360px] text-left font-serif text-base font-normal leading-[1.75] tracking-normal text-[#222]/80 lg:pt-3 lg:text-right lg:text-lg"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
                             {t("intro")}
@@ -85,11 +94,11 @@ export default function PaseosHuertosFarm() {
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.7 }}
-                    className="grid h-[clamp(330px,96vw,560px)] grid-cols-2 grid-rows-[minmax(0,2fr)_minmax(0,1fr)] gap-3 sm:gap-4 lg:h-auto lg:grid-cols-12 lg:grid-rows-2 lg:gap-4"
+                    transition={revealTransition(0.08)}
+                    className="grid h-[clamp(320px,82vw,500px)] grid-cols-2 grid-rows-[minmax(0,2fr)_minmax(0,1fr)] gap-3 sm:gap-4 lg:h-auto lg:grid-cols-12 lg:grid-rows-2 lg:gap-4"
                 >
                     <div className="relative col-span-2 row-start-1 w-full overflow-hidden lg:col-span-7 lg:row-span-2 lg:min-h-[min(56vh,540px)]">
                         <Image
@@ -131,16 +140,16 @@ export default function PaseosHuertosFarm() {
                 </motion.div>
 
                 <motion.ul
-                    initial={{ opacity: 0, y: 14 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.05 }}
-                    className="mt-8 grid grid-cols-1 gap-8 border-t border-[#1a1917]/10 pt-4 sm:grid-cols-2 sm:gap-x-10 lg:mt-12 lg:grid-cols-3 lg:gap-x-0 lg:gap-y-8 lg:pt-2"
+                    transition={revealTransition(0.12)}
+                    className="mt-8 grid grid-cols-1 gap-7 border-t border-[#AA7D69]/12 pt-5 sm:grid-cols-2 sm:gap-x-10 lg:mt-10 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-8"
                 >
-                    {highlights.map(({ icon: Icon, title, text }, i) => (
+                    {highlights.map(({ icon: Icon, title, text }) => (
                         <li
                             key={title}
-                            className={`flex flex-col gap-3 lg:pl-4 ${i > 0 ? "lg:border-l lg:border-[#1a1917]/10" : ""}`}
+                            className="flex flex-col gap-3"
                         >
                             <div className="flex flex-row items-center gap-3 pr-3 sm:pr-4">
                                 <p
@@ -149,7 +158,7 @@ export default function PaseosHuertosFarm() {
                                 >
                                     {title}
                                 </p>
-                                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#1a1917]/10 bg-white/80 text-[#9B5C6E] shadow-sm">
+                                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#9B5C6E]/18 bg-[#FFF9F2] text-[#9B5C6E] shadow-sm">
                                     <Icon className="h-[18px] w-[18px]" strokeWidth={1.5} aria-hidden />
                                 </span>
                             </div>

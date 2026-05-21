@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter, usePathname, Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion, type Transition } from "motion/react";
 import { useTranslations } from "next-intl";
 import { Sparkles } from "lucide-react";
 import { useChat } from "@/components/chat/ChatProvider";
@@ -80,14 +80,27 @@ const NAV_SCROLL_CONFIG = {
 
 const DESKTOP_DROPDOWN_OFFSET_PX = 10;
 const DESKTOP_DROPDOWN_CLOSE_DELAY_MS = 120;
-const DESKTOP_DROPDOWN_TRANSITION = {
+const DESKTOP_DROPDOWN_TRANSITION: Transition = {
     duration: 0.2,
     ease: [0.215, 0.61, 0.355, 1],
-} as const;
+};
+const MOBILE_MENU_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const SCROLLED_NAV_TEXT_SHADOW = "0 1px 1px rgba(255, 255, 255, 0.28), 0 4px 8px rgba(255, 255, 255, 0.14)";
 const SCROLLED_NAV_ELEMENT_SHADOW = "drop-shadow(0 1px 2px rgba(255, 255, 255, 0.18))";
 const SCROLLED_NAV_TEXT_STROKE = "0.28px rgba(255, 255, 255, 0.42)";
 const DARK_TOP_LOGO_FILTER = "invert(1) brightness(0)";
+const MOBILE_MENU_LINK_BASE = "block w-full text-left text-[1.65rem] leading-[1.05] tracking-[0.07em] uppercase transition-colors sm:text-[2rem] sm:tracking-[0.1em]";
+const MOBILE_MENU_LINK_ACTIVE = "text-[#AA7D69]";
+const MOBILE_MENU_LINK_INACTIVE = "text-[#222222]/72 hover:text-[#222222]";
+const MOBILE_MENU_SECTION_CLASS = "flex w-full max-w-md flex-col items-start";
+
+const getMobileMenuItemMotion = (index: number, reduceMotion: boolean) => ({
+    initial: reduceMotion ? false : { opacity: 0, y: 18 },
+    animate: { opacity: 1, y: 0 },
+    transition: reduceMotion
+        ? { duration: 0 }
+        : { delay: index * 0.07, duration: 0.45, ease: MOBILE_MENU_EASE },
+});
 
 function isActivePath(pathname: string, href: string) {
     return pathname === href || (href !== "/" && pathname.startsWith(href));
@@ -219,7 +232,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
     );
     const router = useRouter();
     const pathname = usePathname();
-    const shouldReduceMotion = useReducedMotion();
+    const shouldReduceMotion = useReducedMotion() ?? false;
     const { toggleChat, isOpen: isChatOpen, registerTrigger } = useChat();
     const [mobileOpen, setMobileOpen] = useState(false);
     const desktopChatTriggerRef = useRef<HTMLButtonElement | null>(null);
@@ -568,13 +581,13 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
             <AnimatePresence>
                 {mobileOpen && (
                     <motion.div
-                        initial={{ opacity: 0 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl lg:hidden"
+                        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.32, ease: MOBILE_MENU_EASE }}
+                        className="fixed inset-0 z-40 bg-[#FFF8ED]/95 text-[#222222] backdrop-blur-xl lg:hidden"
                     >
-                        <div className="flex h-full flex-col items-center justify-center gap-6 overflow-y-auto py-20">
+                        <div className="flex h-full flex-col items-center justify-center gap-5 overflow-y-auto px-6 py-20 sm:gap-6">
                             {navLinks.map((navItem, i) => {
                                 if (navItem.type === "link") {
                                     const { key, label, href } = navItem;
@@ -582,15 +595,13 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                     return (
                                         <motion.div
                                             key={key}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: i * 0.08, duration: 0.5 }}
-                                            className="flex w-full flex-col items-start px-6"
+                                            {...getMobileMenuItemMotion(i, shouldReduceMotion)}
+                                            className={MOBILE_MENU_SECTION_CLASS}
                                         >
                                             <Link
                                                 href={href}
                                                 onClick={() => setMobileOpen(false)}
-                                                className={`block w-full text-left text-[25px] leading-tight tracking-[0.15em] uppercase transition-colors ${isActive ? "text-[#E1B19B]" : "text-black/70 hover:text-black"}`}
+                                                className={`${MOBILE_MENU_LINK_BASE} ${isActive ? MOBILE_MENU_LINK_ACTIVE : MOBILE_MENU_LINK_INACTIVE}`}
                                                 style={{ fontFamily: "var(--font-serif)" }}
                                             >
                                                 {label}
@@ -603,12 +614,10 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                     return (
                                         <motion.div
                                             key={navItem.key}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: i * 0.08, duration: 0.5 }}
-                                            className="flex w-full flex-col items-start gap-4 px-6"
+                                            {...getMobileMenuItemMotion(i, shouldReduceMotion)}
+                                            className={`${MOBILE_MENU_SECTION_CLASS} gap-3 sm:gap-4`}
                                         >
-                                            <div className="flex w-full flex-col items-start gap-4">
+                                            <div className="flex w-full flex-col items-start gap-3 sm:gap-4">
                                                 {navItem.links.map((l) => {
                                                     const isLActive = isActivePath(pathname, l.href);
                                                     return (
@@ -616,7 +625,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                                             key={l.key}
                                                             href={l.href}
                                                             onClick={() => setMobileOpen(false)}
-                                                            className={`block w-full text-left text-[25px] leading-tight tracking-[0.15em] uppercase transition-colors ${isLActive ? "text-[#E1B19B]" : "text-black/70 hover:text-black"}`}
+                                                            className={`${MOBILE_MENU_LINK_BASE} ${isLActive ? MOBILE_MENU_LINK_ACTIVE : MOBILE_MENU_LINK_INACTIVE}`}
                                                             style={{ fontFamily: "var(--font-serif)" }}
                                                         >
                                                             {l.label}
@@ -632,19 +641,17 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                 return (
                                     <motion.div
                                         key={navItem.key}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: i * 0.08, duration: 0.5 }}
-                                        className="flex w-full flex-col items-start gap-4 px-6"
+                                        {...getMobileMenuItemMotion(i, shouldReduceMotion)}
+                                        className={`${MOBILE_MENU_SECTION_CLASS} gap-4`}
                                     >
                                         <div className="flex w-full flex-col items-start">
                                             <span
-                                                className={`block w-full text-left text-[25px] leading-tight tracking-[0.15em] uppercase ${proyectoActive ? "text-[#E1B19B]" : "text-black/70"}`}
+                                                className={`${MOBILE_MENU_LINK_BASE} ${proyectoActive ? MOBILE_MENU_LINK_ACTIVE : "text-[#222222]/66"}`}
                                                 style={{ fontFamily: "var(--font-serif)" }}
                                             >
                                                 {navItem.label}
                                             </span>
-                                            <div className="mt-4 mb-3 flex w-full flex-col items-start gap-5">
+                                            <div className="mb-2 mt-4 flex w-full flex-col items-start gap-5">
                                                 <ProjectPhaseLinks
                                                     links={navItem.subLinks}
                                                     status="inDevelopment"
@@ -669,7 +676,7 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                                         key={pl.key}
                                                         href={pl.href}
                                                         onClick={() => setMobileOpen(false)}
-                                                        className={`block w-full text-left text-[25px] leading-tight tracking-[0.15em] uppercase transition-colors ${isActive ? "text-[#E1B19B]" : "text-black/70 hover:text-black"}`}
+                                                        className={`${MOBILE_MENU_LINK_BASE} ${isActive ? MOBILE_MENU_LINK_ACTIVE : MOBILE_MENU_LINK_INACTIVE}`}
                                                         style={{ fontFamily: "var(--font-serif)" }}
                                                     >
                                                         {pl.label}
@@ -681,10 +688,8 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                 );
                             })}
                             <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: navLinks.length * 0.08, duration: 0.5 }}
-                                className="flex w-full flex-col items-center px-6"
+                                {...getMobileMenuItemMotion(navLinks.length, shouldReduceMotion)}
+                                className="flex w-full max-w-md flex-col items-center pt-1"
                             >
                                 <button
                                     type="button"
@@ -697,12 +702,12 @@ export default function Navbar({ locale, theme = "light", hideLogoAtTop = false 
                                     }}
                                     className={`inline-flex w-full max-w-sm items-center justify-center gap-2 rounded-sm border px-4 py-3 text-[11px] font-light font-[variant:small-caps] uppercase tracking-[0.18em] transition-all duration-300 ${
                                         isChatOpen
-                                            ? "border-black/25 bg-black/[0.06] font-medium text-black"
-                                            : "border-black/20 text-black/80 hover:border-black/35 hover:bg-black/[0.04]"
+                                            ? "border-[#AA7D69]/30 bg-[#AA7D69]/10 font-medium text-[#222222]"
+                                            : "border-[#AA7D69]/22 text-[#222222]/76 hover:border-[#AA7D69]/36 hover:bg-[#AA7D69]/[0.07]"
                                     }`}
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
-                                    <Sparkles className="size-4 shrink-0 text-black/70" />
+                                    <Sparkles className="size-4 shrink-0 text-[#AA7D69]" />
                                     {t("aiAssistant")}
                                 </button>
                             </motion.div>

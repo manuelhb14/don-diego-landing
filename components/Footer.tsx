@@ -11,6 +11,8 @@ export default function Footer() {
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const footerLinkClassName = "transition-colors duration-300 hover:text-[#E1B19B]";
+    const legalLinkClassName = "transition-colors duration-300 hover:text-[#FFF3E1]";
 
     const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -62,33 +64,32 @@ export default function Footer() {
     };
 
     return (
-        <footer className="bg-[#111] text-zinc-100 w-full relative overflow-hidden pt-8 lg:pt-10 transition-colors duration-300" id="contact">
-            <div className="container mx-auto px-6 lg:px-12 mb-4 relative z-10">
-                <div className="grid grid-cols-5 lg:grid-cols-12 gap-x-4 gap-y-6 lg:gap-8">
-                    {/* Newsletter Section */}
-                    <div className="col-span-5 lg:col-span-6 flex flex-col space-y-4">
+        <footer className="relative w-full overflow-hidden border-t border-[#AA7D69]/18 bg-[#15120F] pt-10 text-[#FFF3E1] transition-colors duration-300 lg:pt-14" id="contact">
+            <div className="relative z-10 mx-auto mb-4 w-full max-w-[1400px] px-6 lg:px-14">
+                <div className="grid gap-x-8 gap-y-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.65fr)_minmax(0,0.35fr)] lg:gap-14">
+                    <div className="flex flex-col space-y-5 lg:pr-12">
                         <div>
-                            <h2 className="font-serif text-4xl md:text-4xl leading-tight mb-2">
+                            <h2 className="mb-3 font-serif text-[clamp(1.65rem,2.5vw,2.85rem)] leading-[1.02] text-[#FFF3E1]">
                                 {t("joinTitleLine1")} <br className="hidden lg:block" />
                             </h2>
-                            <p className="font-sans text-sm font-light leading-relaxed opacity-80">
+                            <p className="max-w-sm font-sans text-sm leading-relaxed text-[#FFF3E1]/70 md:text-base">
                                 {t("joinSubtitle")}
                             </p>
                         </div>
-                        <form onSubmit={handleNewsletterSubmit} className="w-full max-w-md space-y-4 pt-0 lg:space-y-4">
+                        <form onSubmit={handleNewsletterSubmit} className="w-full max-w-[34rem] space-y-4 pt-0 lg:space-y-5">
                             {error && (
-                                <p className="text-red-700/90 text-xs font-sans">{error}</p>
+                                <p className="font-sans text-xs text-red-300/95">{error}</p>
                             )}
                             {submitted ? (
-                                <p className="text-zinc-100/85 text-xs font-sans font-medium">
+                                <p className="font-sans text-xs font-medium text-[#FFF3E1]/85">
                                     {t("thanks")}
                                 </p>
                             ) : (
                                 <>
-                                    <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-                                        <div className="w-full relative">
+                                    <div className="flex flex-col gap-4 md:flex-row md:gap-6">
+                                        <div className="relative w-full">
                                             <input
-                                                className="w-full bg-transparent border-0 border-b border-zinc-100/35 placeholder:text-zinc-100/50 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-zinc-100/70 transition-colors disabled:opacity-60"
+                                                className="w-full border-0 border-b border-[#FFF3E1]/28 bg-transparent px-0 py-3 font-sans text-xs tracking-[0.16em] text-[#FFF3E1] placeholder:text-[#FFF3E1]/44 transition-colors focus:border-[#E1B19B] focus:ring-0 disabled:opacity-60"
                                                 id="firstName"
                                                 name="firstName"
                                                 placeholder={t("firstNamePh")}
@@ -97,9 +98,9 @@ export default function Footer() {
                                                 disabled={loading}
                                             />
                                         </div>
-                                        <div className="w-full relative">
+                                        <div className="relative w-full">
                                             <input
-                                                className="w-full bg-transparent border-0 border-b border-zinc-100/35 placeholder:text-zinc-100/50 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-zinc-100/70 transition-colors disabled:opacity-60"
+                                                className="w-full border-0 border-b border-[#FFF3E1]/28 bg-transparent px-0 py-3 font-sans text-xs tracking-[0.16em] text-[#FFF3E1] placeholder:text-[#FFF3E1]/44 transition-colors focus:border-[#E1B19B] focus:ring-0 disabled:opacity-60"
                                                 id="lastName"
                                                 name="lastName"
                                                 placeholder={t("lastNamePh")}
@@ -109,9 +110,9 @@ export default function Footer() {
                                             />
                                         </div>
                                     </div>
-                                    <div className="w-full relative">
+                                    <div className="relative w-full">
                                         <input
-                                            className="w-full bg-transparent border-0 border-b border-zinc-100/35 placeholder:text-zinc-100/50 text-xs font-sans tracking-wider py-2 lg:py-3 px-0 focus:ring-0 focus:border-zinc-100/70 transition-colors disabled:opacity-60"
+                                            className="w-full border-0 border-b border-[#FFF3E1]/28 bg-transparent px-0 py-3 font-sans text-xs tracking-[0.16em] text-[#FFF3E1] placeholder:text-[#FFF3E1]/44 transition-colors focus:border-[#E1B19B] focus:ring-0 disabled:opacity-60"
                                             id="email"
                                             name="email"
                                             placeholder={t("emailPh")}
@@ -120,10 +121,10 @@ export default function Footer() {
                                             disabled={loading}
                                         />
                                     </div>
-                                    <div className="flex items-center gap-2 mt-2 lg:mt-4">
-                                        <div className="flex items-center h-5">
+                                    <div className="mt-2 flex items-start gap-2 lg:mt-3">
+                                        <div className="flex h-5 items-center">
                                             <input
-                                                className="focus:ring-zinc-100/70 h-4 w-4 text-zinc-100 border-zinc-100/70 rounded-sm bg-transparent disabled:opacity-60"
+                                                className="h-4 w-4 rounded-sm border-[#FFF3E1]/70 bg-transparent text-[#FFF3E1] focus:ring-[#E1B19B] disabled:opacity-60"
                                                 id="consent"
                                                 name="consent"
                                                 type="checkbox"
@@ -131,14 +132,14 @@ export default function Footer() {
                                                 disabled={loading}
                                             />
                                         </div>
-                                        <div className="ml-0 text-xs font-sans font-light leading-tight opacity-80">
-                                            <label className="font-medium text-zinc-100" htmlFor="consent">
+                                        <div className="ml-0 font-sans text-xs leading-snug text-[#FFF3E1]/70">
+                                            <label className="font-medium text-[#FFF3E1]" htmlFor="consent">
                                                 {t("consent")}
                                             </label>
                                         </div>
                                     </div>
                                     <button
-                                        className="cursor-pointer inline-block border-b border-zinc-100/70 pb-1 text-xs font-sans tracking-widest uppercase hover:opacity-70 transition-opacity mt-2 lg:mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
+                                        className="mt-2 inline-block cursor-pointer border-b border-[#E1B19B] pb-1 font-sans text-xs tracking-[0.2em] text-[#FFF3E1] uppercase transition-colors duration-300 hover:text-[#E1B19B] disabled:cursor-not-allowed disabled:opacity-60 lg:mt-3"
                                         type="submit"
                                         disabled={loading}
                                     >
@@ -149,50 +150,37 @@ export default function Footer() {
                         </form>
                     </div>
 
-                    {/* Spacer */}
-                    <div className="hidden lg:block lg:col-span-1"></div>
-
-                    {/* Navigation Links */}
-                    <div className="col-span-3 lg:col-span-3">
-                        <ul className="space-y-3 font-sans text-xs tracking-widest uppercase font-medium">
-                            <li><Link className="hover:underline underline-offset-4" href="/">{t("navHome")}</Link></li>
-                            <li><Link className="hover:underline underline-offset-4" href="/proyecto">{t("navProject")}</Link></li>
-                            <li><Link className="hover:underline underline-offset-4" href="/ubicacion">{t("navLocation")}</Link></li>
-                            <li><Link className="hover:underline underline-offset-4" href="/equipo">{t("navTeam")}</Link></li>
-                            <li><Link className="hover:underline underline-offset-4" href="/contacto">{t("navContact")}</Link></li>
-                            <li><Link className="hover:underline underline-offset-4" href="/propiedades">{t("navProperties")}</Link></li>
-                            <li><p className="text-sm font-serif tracking-widest uppercase font-light pt-2">{t("components")}</p></li>
-                            <li><Link className="hover:underline underline-offset-4" href="/residencial">{tn("sub.residencial")}</Link></li>
-                            <li><Link className="hover:underline underline-offset-4" href="/farm">{tn("sub.farm")}</Link></li>
-                            <li><Link className="hover:underline underline-offset-4" href="/wellness">{tn("sub.wellness")}</Link></li>
-                            <li><Link className="hover:underline underline-offset-4" href="/presa">{tn("sub.presa")}</Link></li>
+                    <div>
+                        <ul className="grid grid-cols-2 gap-x-7 gap-y-3 font-sans text-[11px] font-medium tracking-[0.18em] text-[#FFF3E1]/72 uppercase sm:max-w-md lg:grid-cols-1">
+                            <li><Link className={footerLinkClassName} href="/">{t("navHome")}</Link></li>
+                            <li><Link className={footerLinkClassName} href="/proyecto">{t("navProject")}</Link></li>
+                            <li><Link className={footerLinkClassName} href="/ubicacion">{t("navLocation")}</Link></li>
+                            <li><Link className={footerLinkClassName} href="/equipo">{t("navTeam")}</Link></li>
+                            <li><Link className={footerLinkClassName} href="/contacto">{t("navContact")}</Link></li>
+                            <li><Link className={footerLinkClassName} href="/propiedades">{t("navProperties")}</Link></li>
+                            <li className="col-span-2 pt-3 lg:col-span-1"><p className="font-serif text-sm font-light tracking-[0.18em] text-[#E1B19B] uppercase">{t("components")}</p></li>
+                            <li><Link className={footerLinkClassName} href="/residencial">{tn("sub.residencial")}</Link></li>
+                            <li><Link className={footerLinkClassName} href="/farm">{tn("sub.farm")}</Link></li>
+                            <li><Link className={footerLinkClassName} href="/wellness">{tn("sub.wellness")}</Link></li>
+                            <li><Link className={footerLinkClassName} href="/presa">{tn("sub.presa")}</Link></li>
                         </ul>
                     </div>
 
-                    {/* Social Links */}
-                    <div className="col-span-2 lg:col-span-2 lg:text-right">
-                        <ul className="space-y-3 font-sans text-xs tracking-widest uppercase font-medium">
-                            <li><a className="hover:underline underline-offset-4" href="https://www.instagram.com/dondiegosma/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="https://www.youtube.com/@dondiegosma" target="_blank" rel="noopener noreferrer">Youtube</a></li>
-                            <li><a className="hover:underline underline-offset-4" href="https://www.tiktok.com/@dondiegosma" target="_blank" rel="noopener noreferrer">TikTok</a></li>
-                            <li><a className="hover:underline underline-offset-4" href={SITE_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+                    <div className="lg:text-right">
+                        <ul className="space-y-3 font-sans text-[11px] font-medium tracking-[0.18em] text-[#FFF3E1]/72 uppercase">
+                            <li><a className={footerLinkClassName} href="https://www.instagram.com/dondiegosma/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                            <li><a className={footerLinkClassName} href="https://www.youtube.com/@dondiegosma" target="_blank" rel="noopener noreferrer">Youtube</a></li>
+                            <li><a className={footerLinkClassName} href="https://www.tiktok.com/@dondiegosma" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+                            <li><a className={footerLinkClassName} href={SITE_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            {/* Large DON DIEGO Text */}
-            {/* <div className="w-full overflow-hidden leading-none select-none pointer-events-none mt-4 md:mt-0 mb-4 lg:mb-0">
-                <h1 className="font-serif  lg:text-[12vw] text-[14vw] text-center tracking-[0.12em] text-[#222222] opacity-100 transform translate-y-[15%]">
-                    DON DIEGO
-                </h1>
-            </div> */}
-
-            {/* Bottom Links */}
-            <div className="w-full px-2 sm:px-4 lg:px-8 mt-2 mb-6 flex flex-wrap justify-between sm:justify-end items-end text-[10px] md:text-[11px] font-sans tracking-wider sm:tracking-widest uppercase text-white/60 z-20 mix-blend-difference gap-x-2 gap-y-2 sm:gap-x-4 md:gap-x-6">
-                <Link className="hover:underline underline-offset-4" href="/terminos">{t("terms")}</Link>
-                <Link className="hover:underline underline-offset-4" href="/privacidad">{t("privacy")}</Link>
-                <Link className="hover:underline underline-offset-4" href="/guia-compra">{t("purchaseGuide")}</Link>
+            <div className="relative z-20 mx-auto mt-8 flex w-full max-w-[1400px] flex-wrap items-end justify-between gap-x-4 gap-y-2 px-6 pb-6 font-sans text-[10px] tracking-[0.16em] text-[#FFF3E1]/48 uppercase sm:justify-end md:text-[11px] lg:px-14">
+                <Link className={legalLinkClassName} href="/terminos">{t("terms")}</Link>
+                <Link className={legalLinkClassName} href="/privacidad">{t("privacy")}</Link>
+                <Link className={legalLinkClassName} href="/guia-compra">{t("purchaseGuide")}</Link>
                 <span className="whitespace-nowrap">{t("brandLine")}</span>
             </div>
         </footer>

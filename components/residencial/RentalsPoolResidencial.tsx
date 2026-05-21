@@ -2,27 +2,37 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
+import { residentialSectionHeadingStyle } from "@/components/residencial/residentialTypography";
+
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 export default function RentalsPoolResidencial() {
     const t = useTranslations("pages.residencial.rentals");
+    const shouldReduceMotion = useReducedMotion() ?? false;
+    const revealTransition = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.8,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
+
     return (
         <section
             id="rentals"
             aria-labelledby="rentals-pool-heading"
-            className="bg-[#fff8ed] text-[#1F1D1B] py-10 lg:py-16 overflow-hidden border-t border-[#1F1D1B]/[0.06]"
+            className="overflow-hidden border-t border-[#1F1D1B]/[0.06] bg-[#FFF8ED] py-16 text-[#1F1D1B] md:py-20 lg:py-24"
         >
-            <div className="max-w-[1200px] mx-auto w-full px-6 lg:px-12">
-                <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] gap-10 lg:gap-12 items-center">
+            <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16">
+                <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-16">
                     <motion.div
-                        initial={{ opacity: 0, y: 28 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+                        transition={revealTransition()}
                         className="order-2 lg:order-1 min-w-0"
                     >
-                        <div className="relative w-full aspect-[16/10] lg:aspect-[3/2] overflow-hidden rounded-sm border border-[#1F1D1B]/[0.08] shadow-[0_20px_50px_rgba(47,39,33,0.12)]">
+                        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm shadow-[0_20px_50px_rgba(47,39,33,0.10)] lg:aspect-[3/2]">
                             <Image
                                 src="/babylon/rental.webp"
                                 alt={t("imageAlt")}
@@ -34,30 +44,27 @@ export default function RentalsPoolResidencial() {
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, y: 24 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.05 }}
+                        transition={revealTransition(0.12)}
                         className="order-1 lg:order-2 max-w-xl lg:max-w-none"
                     >
                         <p
-                            className="text-[10px] tracking-[0.3em] text-[#b76d4b]/85 uppercase mb-3"
+                            className="mb-5 text-xs uppercase tracking-[0.3em] text-[#B76D4B]"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {t("kicker")}
                         </p>
                         <h2
                             id="rentals-pool-heading"
-                            className="text-[#1F1D1B] leading-[1.08]"
-                            style={{
-                                fontFamily: "var(--font-serif)",
-                                fontSize: "clamp(2rem, 4vw, 3.25rem)",
-                            }}
+                            className="text-[#1F1D1B]"
+                            style={residentialSectionHeadingStyle}
                         >
-                            {t("titleLine1")}<br /><span className="italic text-[#b76d4b]">{t("titleLine2")}</span>
+                            {t("titleLine1")}<br /><span className="italic text-[#B76D4B]">{t("titleLine2")}</span>
                         </h2>
                         <p
-                            className="mt-4 text-[#b76d4b]/95 italic"
+                            className="mt-5 text-[#B76D4B] italic"
                             style={{
                                 fontFamily: "var(--font-serif)",
                                 fontSize: "clamp(1.15rem, 2vw, 1.65rem)",
@@ -66,21 +73,21 @@ export default function RentalsPoolResidencial() {
                             {t("subtitle")}
                         </p>
                         <p
-                            className="mt-5 text-[#1F1D1B]/80 text-base lg:text-[17px] leading-relaxed"
-                            style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
+                            className="mt-6 max-w-[620px] text-base font-medium leading-relaxed text-[#1F1D1B]/78 md:text-xl"
+                            style={{ fontFamily: "var(--font-serif)" }}
                         >
                             {t("body")}
                         </p>
                         <motion.div
-                            initial={{ opacity: 0, y: 12 }}
+                            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.7, delay: 0.1 }}
+                            transition={revealTransition(0.16)}
                             className="mt-7"
                         >
                             <Link
                                 href="/proximamente"
-                                className="inline-block text-[#1F1D1B] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#1F1D1B] pb-1 hover:opacity-60 transition-opacity"
+                                className="inline-block border-b border-[#1F1D1B] pb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-[#1F1D1B] transition-opacity hover:opacity-60 lg:text-[11px]"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 {t("cta")}

@@ -1,16 +1,22 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { useHasVisited } from "@/hooks/useHasVisited";
 import EnvironmentCarousel from "@/components/EnvironmentCarousel";
 import { environmentCarouselSlides } from "@/content/environmentCarousels";
 
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+
 export default function ServicesV2() {
-    const hasVisited = useHasVisited();
+    const shouldReduceMotion = useReducedMotion() ?? false;
     const ts = useTranslations("servicesPage");
     const tProject = useTranslations("projectsEditorial");
+    const revealTransition = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.82,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
 
     const cards = [
         {
@@ -81,28 +87,28 @@ export default function ServicesV2() {
 
                 {/* Section header */}
                 <motion.div
-                    initial={hasVisited ? false : { opacity: 0, y: 24 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
+                    transition={revealTransition()}
                     className="mb-10 flex max-w-[980px] flex-col gap-5 lg:mb-14"
                 >
                     <div>
                         <p
-                            className="text-[10px] tracking-[0.3em] text-[#AA7D69]/60 uppercase mb-3"
+                            className="mb-3 text-xs uppercase tracking-[0.3em] text-[#AA7D69]"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {ts("kicker")}
                         </p>
                         <h2
-                            className="text-[#222] leading-none"
+                            className="leading-none text-[#222222]"
                             style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(3rem, 6vw, 6rem)" }}
                         >
                             {ts("heading")}
                         </h2>
                     </div>
                     <p
-                        className="max-w-[820px] text-base font-medium leading-relaxed text-[#222] md:text-xl"
+                        className="max-w-[820px] text-base font-medium leading-relaxed text-[#222222] md:text-xl"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
                         {ts("intro")}
@@ -111,11 +117,11 @@ export default function ServicesV2() {
 
                 {/* Services grid */}
                 <motion.div
-                    initial={hasVisited ? false : { opacity: 0, y: 32 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                    className="-mx-5 grid grid-cols-1 border-x border-t px-5 md:-mx-6 md:px-6 lg:-mx-8 lg:grid-cols-2 lg:px-8"
+                    transition={revealTransition(0.16)}
+                    className="-mx-5 grid grid-cols-1 px-5 md:-mx-6 md:border-x md:border-t md:px-6 lg:-mx-8 lg:grid-cols-2 lg:px-8"
                     style={{ borderColor: "#22222218" }}
                 >
                     {cards.map((card, index) => (
@@ -124,9 +130,9 @@ export default function ServicesV2() {
                             className={`flex flex-col gap-5 py-7 lg:py-9 ${index % 2 === 0 ? "lg:pr-9" : "lg:pl-9 lg:border-l"} border-b`}
                             style={{ borderColor: "#22222215" }}
                         >
-                            <div className="flex items-start gap-4 md:gap-5">
+                            <div className="grid grid-cols-[2.25rem_1fr] gap-x-4 gap-y-4 md:gap-x-5">
                                 <span
-                                    className="mt-1 flex h-9 w-9 flex-shrink-0 items-center justify-center border text-[10px] font-bold tracking-[0.1em]"
+                                    className="mt-1 flex h-9 w-9 items-center justify-center border text-[10px] font-bold tracking-[0.1em]"
                                     style={{
                                         color: card.accent,
                                         borderColor: `${card.accent}55`,
@@ -139,18 +145,18 @@ export default function ServicesV2() {
                                     <div className="mb-3 flex items-center justify-between gap-4">
                                         <div className="flex items-center gap-2">
                                             <span
-                                                className="text-[8px] font-bold uppercase tracking-[0.18em] text-[#222]/45"
+                                                className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#222222]/50"
                                                 style={{ fontFamily: "var(--font-sans)" }}
                                             >
                                                 {card.statusLabel}
                                             </span>
                                             <span
-                                                className={`h-2 w-2 rounded-full ${card.ledActive ? "animate-pulse" : ""}`}
+                                                className={`h-2 w-2 rounded-full ${card.ledActive && !shouldReduceMotion ? "animate-pulse" : ""}`}
                                                 style={{
                                                     backgroundColor: card.ledColor,
                                                     opacity: card.ledActive ? 1 : 0.52,
                                                     boxShadow: card.ledActive
-                                                        ? `0 0 5px 1px ${card.ledColor}80, 0 0 10px 2px ${card.ledColor}45`
+                                                        ? `0 0 0 1px ${card.ledColor}70, 0 0 6px ${card.ledColor}35`
                                                         : `inset 0 0 0 1px ${card.ledColor}80`,
                                                 }}
                                             />
@@ -168,24 +174,24 @@ export default function ServicesV2() {
                                         </Link>
                                     </div>
                                     <h3
-                                        className="text-[1.75rem] leading-[1.05] text-[#222] md:text-[2.2rem]"
+                                        className="text-[1.625rem] leading-[1.08] text-[#222222] md:text-[2rem]"
                                         style={{ fontFamily: "var(--font-serif)" }}
                                     >
                                         {card.title}
                                     </h3>
-                                    <p
-                                        className="mt-4 max-w-[34rem] text-[15px] leading-[1.75] text-[#222]/68 md:text-base"
-                                        style={{ fontFamily: "var(--font-sans)" }}
-                                    >
-                                        {card.description}
-                                    </p>
                                 </div>
+                                <p
+                                    className="col-span-2 max-w-[34rem] text-sm leading-[1.75] text-[#222222]/68 md:col-span-1 md:col-start-2 md:text-base"
+                                    style={{ fontFamily: "var(--font-sans)" }}
+                                >
+                                    {card.description}
+                                </p>
                             </div>
 
                             <EnvironmentCarousel
                                 slides={card.slides}
                                 accent={card.accent}
-                                className="aspect-[16/9] min-h-[260px] md:min-h-[340px] lg:min-h-[300px] xl:min-h-[340px]"
+                                className="aspect-[16/9] min-h-[220px] md:min-h-[340px] lg:min-h-[300px] xl:min-h-[340px]"
                                 imageClassName={`object-center ${card.pending ? "saturate-[0.82] brightness-[0.95]" : ""}`}
                                 sizes="(min-width: 1280px) 760px, (min-width: 1024px) 48vw, 100vw"
                             />
@@ -197,7 +203,7 @@ export default function ServicesV2() {
                                 {card.details.map((detail) => (
                                     <span
                                         key={detail}
-                                        className="text-[12px] leading-[1.45] text-[#222]/62"
+                                        className="text-xs leading-[1.45] text-[#222222]/62"
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
                                         {detail}
@@ -227,14 +233,14 @@ export default function ServicesV2() {
                 {/* Closing CTA */}
                 <div className="flex justify-center mt-10 md:mt-12 w-full mb-12 md:mb-0">
                     <motion.div
-                        initial={hasVisited ? false : { opacity: 0, y: 20 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
+                        transition={revealTransition(0.16)}
                         className="w-full sm:w-[60%] lg:w-[50%] flex flex-col items-end"
                     >
                         <p
-                            className="w-full text-left text-[#222] text-base md:text-xl font-medium leading-relaxed mb-4"
+                            className="mb-4 w-full text-left text-base font-medium leading-relaxed text-[#222222] md:text-xl"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
                             {ts("closing")}
