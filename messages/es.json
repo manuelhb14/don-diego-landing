@@ -39,7 +39,7 @@
   "propertiesIndex": {
     "kicker": "Tipología",
     "title": "Residencias disponibles",
-    "subtitle": "Una selección curada de tipologías e interiores pensados para vivir en conexión.",
+    "subtitle": "Tipologías pensadas para vivir el Club Residencial con calma, servicios cerca y una relación directa con jardines, terrazas y comunidad.",
     "interactiveMap": {
       "eyebrow": "Propiedades",
       "title": "Mapa Interactivo",
@@ -78,7 +78,7 @@
         },
         "farm": {
           "label": "Organic Farm & Flowers",
-          "summary": "Organic Farm & Flowers articula el paisaje productivo con huertos, flores, invernadero y experiencias de temporada ligadas a la cocina.",
+          "summary": "Organic Farm & Flowers es paisaje productivo sin residencias: huertos, frutales, flores, restaurante y experiencias de cocina ligadas a lo que se cosecha ahí mismo.",
           "amenities": [
             "Huertos orgánicos",
             "Invernadero",
@@ -95,7 +95,7 @@
         },
         "wellness": {
           "label": "Wellness Center",
-          "summary": "El Wellness Center reúne la parte restaurativa del proyecto con spa, movimiento, agua y rutinas tranquilas orientadas al paisaje.",
+          "summary": "El Wellness Center será la etapa dedicada al bienestar, la rehabilitación y el retiro activo, integrada al paisaje y a la vida general de Don Diego.",
           "amenities": [
             "Spa",
             "Gimnasio",
@@ -112,13 +112,13 @@
         },
         "presa": {
           "label": "Presa de la Cantera",
-          "summary": "Presa de la Cantera abre el frente de agua de Don Diego con vistas a la presa, convivencia al aire libre y un programa de hospitalidad junto al agua.",
+          "summary": "Presa de la Cantera extiende el recorrido hacia el agua con mirador, malecón, café/bar y actividades ligeras como kayak.",
           "amenities": [
             "Vistas al agua",
-            "Marina",
+            "Kayak",
             "Restaurantes",
             "Terrazas exteriores",
-            "Eventos"
+            "Mirador y café/bar"
           ],
           "photoAlts": [
             "Presa de la Cantera en Don Diego",
@@ -185,7 +185,7 @@
     "heading": "Ubicación",
     "address": "Ubicación de referencia en Google Maps",
     "city": "San Miguel de Allende, Guanajuato",
-    "centro": "Centro Histórico SMA",
+    "centro": "Centro Histórico",
     "centroTime": "8 min",
     "queretaro": "Querétaro",
     "queretaroTime": "~2 hrs",
@@ -612,7 +612,7 @@
       {
         "alt": "Vista aérea",
         "title": "VISTA AÉREA - PLAN MAESTRO",
-        "description": "Una perspectiva privilegiada del proyecto integral, donde se aprecia la delicada inserción arquitectónica respetando el fluir del ecosistema local."
+        "description": "Una perspectiva del proyecto integral: vivienda, granja, bienestar y agua conectados por paisaje y recorridos."
       }
     ]
   },
@@ -658,7 +658,7 @@
     },
     "purchaseGuide": {
       "title": "Guía de compra | Don Diego",
-      "description": "Un panorama claro y cercano para comprar en Don Diego, San Miguel: rutas para compradores internacionales y para compradores en México, con notas por región y listas de apoyo."
+      "description": "Un panorama claro y cercano para entender el proceso de compra en Don Diego, con rutas para compradores internacionales y compradores en México."
     },
     "calculadora": {
       "title": "Calculadora de financiamiento | Don Diego",
@@ -669,7 +669,7 @@
     "galeria": {
       "kicker": "[Galería]",
       "title": "El Lugar que Quieres",
-      "intro": "Explora los espacios, la arquitectura, las amenidades y el entorno natural que hacen de este lugar el hogar que siempre soñaste.",
+      "intro": "Explora visualizaciones de arquitectura, jardines, amenidades y paisaje. Las imágenes son ilustrativas y ayudan a entender la intención del proyecto.",
       "hint": "Haz clic para ampliar",
       "viewAll": "Ver galería completa",
       "openImage": "Ampliar imagen:",
@@ -749,8 +749,8 @@
     "notFound": {
       "contact": "Contacto",
       "title": "Página No Encontrada",
-      "bodyLine1": "Mmm - has vagado por territorio inexplorado.",
-      "bodyLine2": "Déjanos guiarte de vuelta a algo extraordinario.",
+      "bodyLine1": "Esta página no está disponible.",
+      "bodyLine2": "Vuelve al recorrido principal para seguir explorando Don Diego.",
       "backHome": "Ver Proyectos"
     },
     "purchaseGuide": {
@@ -783,14 +783,14 @@
       "hero": {
         "kicker": "Componentes",
         "imageAlt": "Vista aérea del proyecto Don Diego en San Miguel de Allende",
-        "body": "Un entorno diseñado para dialogar con el alma de San Miguel de Allende, reinterpretándola con sensibilidad contemporánea."
+        "body": "Don Diego se entiende como un recorrido: vivienda, tierra productiva, bienestar y agua trabajando bajo una misma visión de comunidad."
       },
       "grid": {
         "discover": "Descubrir",
-        "bottomTitleLine1": "Cuatro Entornos",
-        "bottomTitleLine2": "Una Comunidad",
+        "bottomTitleLine1": "Cuatro partes",
+        "bottomTitleLine2": "una comunidad",
         "phaseNote": "",
-        "bottomBody": "Cada componente ha sido diseñado como parte de un ecosistema integral, respetando la vocación del lugar y ofreciendo una experiencia de vida única y armoniosa.",
+        "bottomBody": "El proyecto no se vive como piezas separadas. El Club Residencial, la granja, el Wellness Center y la Presa de la Cantera se conectan para que la vida cotidiana tenga naturaleza, servicios, descanso y sentido de pertenencia.",
         "status": {
           "inDevelopment": "En desarrollo",
           "comingSoon": "Próximamente"
@@ -798,19 +798,19 @@
         "cards": {
           "residencial": {
             "title": "Club Residencial",
-            "description": "364 residencias diseñadas con densidad inteligente para proteger vistas y privacidad."
+            "description": "El núcleo privado: residencias, Casa Club, jardines, alberca en jardín y recorridos pensados para caminar."
           },
           "farm": {
-            "title": "Organic Farm",
-            "description": "Un espacio agrario vivo donde la tierra nos nutre y conecta con los ciclos naturales."
+            "title": "Organic Farm & Flowers",
+            "description": "Una granja viva, sin residencias, con huertos, flores, restaurante y clases de cocina."
           },
           "wellness": {
             "title": "Wellness Center",
-            "description": "Santuario para el cuerpo y la mente, diseñado para el equilibrio interior."
+            "description": "Una etapa para bienestar, rehabilitación y retiro activo, con propiedades integradas todavía en definición."
           },
           "presa": {
             "title": "Presa de la Cantera",
-            "description": "El corazón azul del proyecto, un cuerpo de agua que refleja la inmensidad del paisaje."
+            "description": "La extensión hacia el agua: malecón, mirador, café/bar y actividades ligeras como kayak."
           }
         }
       },
@@ -819,14 +819,14 @@
         "kicker": "Ubicación",
         "titleLine1": "El corazón de",
         "titleLine2": "México",
-        "body": "A solo ocho minutos del vibrante centro histórico de San Miguel de Allende. Don Diego ofrece un refugio de paz y privacidad, manteniendo una conexión íntima con una de las ciudades más cautivadoras del mundo.",
+        "body": "A minutos del centro, Don Diego permite vivir cerca de San Miguel sin estar dentro de su ritmo más intenso: campo, agua, shuttles y una vida diaria más tranquila.",
         "cta": "Explorar Entorno"
       },
       "manifesto": {
         "kicker": "Qué nos define",
         "titleLine1": "Arraigado en",
         "titleLine2": "San Miguel",
-        "body": "Un desarrollo diseñado bajo un respeto absoluto al entorno y a la cultura, creando un hábitat equilibrado, privado y de una belleza atemporal.",
+        "body": "Una comunidad que parte de la tierra y del agua para construir una forma de habitar más cómoda, más natural y más conectada.",
         "imageAlt": "Con la Tierra",
         "pillars": {
           "earth": "Con la Tierra.",
@@ -838,14 +838,14 @@
     "contacto": {
       "hero": {
         "kicker": "Contacto",
-        "body": "Estamos aquí para guiarte en el descubrimiento de tu próximo hogar en San Miguel de Allende."
+        "body": "Te acompañamos a entender Don Diego con calma: el proyecto, sus etapas, sus residencias y la forma de integrarte a la comunidad."
       },
       "form": {
         "errorSend": "Error al enviar",
         "errorSendRetry": "Error al enviar. Intenta de nuevo.",
         "titleLine1": "Conversemos sobre",
-        "titleLine2": "tu próximo hogar.",
-        "intro": "Descubre Don Diego en persona. Contáctanos para programar un recorrido privado por nuestras tierras, o envíanos un mensaje con tus consultas.",
+        "titleLine2": "Don Diego.",
+        "intro": "Agenda un recorrido privado para caminar la tierra, conocer el Club Residencial y resolver tus dudas sobre disponibilidad, etapas y proceso de compra.",
         "locationLabel": "Ubicación",
         "locationLine1": "San Miguel de Allende,",
         "locationLine2": "Guanajuato, México",
@@ -890,12 +890,12 @@
           "presa": {
             "label": "Presa",
             "alt": "Vista de la Presa de la Cantera en San Miguel de Allende",
-            "caption": "Atardeceres junto a la Presa de la Cantera, a pocos minutos del centro histórico de San Miguel."
+            "caption": "Atardeceres junto a la Presa de la Cantera, con mirador, café/bar y actividades ligeras en el agua."
           },
           "residencial": {
             "label": "Club residencial",
             "alt": "Club residencial de Don Diego con arquitectura integrada al paisaje",
-            "caption": "Arquitectura, comunidad peatonal y espacios compartidos para vivir San Miguel con otra cadencia."
+            "caption": "Arquitectura, recorridos peatonales y espacios compartidos para vivir con más calma."
           }
         }
       }
@@ -905,7 +905,7 @@
         "kicker": "[Financiamiento]",
         "titleLine1": "Enganche y mensualidad,",
         "titleLine2": "a tu medida.",
-        "body": "Compara escenarios con tasas y plazos típicos en México y Estados Unidos. Ajusta el valor de la propiedad, el enganche y la tasa para ver un estimado de pago mensual."
+        "body": "Explora escenarios de enganche, plazo y mensualidad para tener una primera referencia antes de hablar con tu asesor. Las cifras son ilustrativas y no sustituyen una cotización formal."
       },
       "marketLabel": "Mercado de referencia",
       "marketMx": "México",
@@ -923,15 +923,15 @@
     "ubicacion": {
       "hero": {
         "kicker": "[El Entorno]",
-        "body": "Conectado al vibrante corazón de la ciudad, pero resguardado en la tranquilidad de un santuario natural."
+        "body": "Cerca del centro, pero con la calma del campo: Don Diego conecta ciudad, paisaje, agua y vida diaria sin perder privacidad."
       },
       "locationMexico": {
         "kicker": "[San Miguel de Allende]",
         "titleLine1": "En el corazón de",
         "titleLine2": "México",
-        "intro": "Más que un punto en el mapa, San Miguel de Allende ocupa un lugar singular en el imaginario mexicano: histórico, creativo, conectado y profundamente ligado a la vida cotidiana del centro del país.",
+        "intro": "San Miguel de Allende es parte esencial del valor de Don Diego: una ciudad histórica, creativa y conectada, con la escala justa para vivirla sin prisa.",
         "imageAlt": "Vista de San Miguel de Allende y su contexto geográfico",
-        "overlay": "San Miguel de Allende ocupa una posición privilegiada entre patrimonio, paisaje y conectividad cultural.",
+        "overlay": "San Miguel de Allende combina patrimonio, paisaje y conectividad cultural en una escala muy humana.",
         "highlights": {
           "bajio": {
             "title": "En el corazón del Bajío",
@@ -948,9 +948,9 @@
         }
       },
       "grid": {
-        "titleLine1": "Lo Mejor de SMA",
+        "titleLine1": "Lo mejor de San Miguel",
         "titleLine2": "A tu Alcance",
-        "intro": "Con una ubicación privilegiada, estarás rodeado de los principales atractivos de la región, conservando la tranquilidad del campo.",
+        "intro": "La ubicación permite entrar y salir de la ciudad con facilidad, mientras la vida diaria se mantiene resguardada entre jardines, caminos y paisaje.",
         "timePrefix": "A",
         "destination": "Destino",
         "locations": {
@@ -980,19 +980,19 @@
     "residencial": {
       "hero": {
         "kicker": "El núcleo privado",
-        "headline": "364 residencias entre dúplex y departamentos",
-        "body": "Densidad inteligente que protege vistas y privacidad. Paisaje vivo con jardines, fuentes y riachuelos.",
+        "headline": "Residencias para vivir el club caminando",
+        "body": "El núcleo privado de Don Diego: Casa Club, jardines, alberca en jardín, amenidades y recorridos pensados para moverse fácil.",
         "imageAlt": "Club Residencial"
       },
       "overview": {
         "kicker": "Lo esencial",
-        "titleLine1": "Detalles concretos del",
+        "titleLine1": "Cómo se vive el",
         "titleAccent": "Club Residencial",
-        "body": "El Club Residencial concentra la vivienda privada de Don Diego: residencias, amenidades, operación diaria y circulación pensadas para que el interior se viva caminando, con servicios coordinados y una relación directa con terrazas, patios y paisaje.",
+        "body": "El Club Residencial concentra la vivienda privada, las amenidades y la operación diaria. Está pensado para que el interior se viva caminando, con servicios cerca y una relación directa con terrazas, patios y paisaje.",
         "imageAlt": "Vista del Club Residencial de Don Diego",
         "imageNote": "La movilidad se resuelve en el perímetro y a desnivel, liberando el centro residencial para jardines, andadores y vida peatonal.",
         "summaryLabel": "En resumen",
-        "summary": "La lógica residencial combina propiedad privada, acceso al club, estacionamiento techado, calles interiores peatonales, terrazas y azoteas aprovechables, más opciones de rentabilidad administrada para propietarios que quieran activar su unidad cuando no la usen.",
+        "summary": "La vida residencial combina propiedad privada, acceso al club, recorridos peatonales, estacionamiento resuelto fuera de la experiencia central y una operación pensada para cuidar la comunidad.",
         "facts": {
           "homes": {
             "label": "Residencias",
@@ -1000,7 +1000,7 @@
           },
           "typologies": {
             "label": "Tipologías",
-            "value": "Dúplex + depas"
+            "value": "Dúplex + departamentos"
           },
           "parking": {
             "label": "Estacionamiento",
@@ -1021,8 +1021,8 @@
             "body": "El centro del desarrollo prioriza recorridos peatonales, jardines, sombra y cruces tranquilos entre residencias, amenidades y áreas comunes."
           },
           "rentalModel": {
-            "title": "Rentabilidad administrada",
-            "body": "Don Diego Rentals coordina calendario, reservas y estándares de servicio para propietarios que deseen rentar su unidad cuando no la estén usando."
+            "title": "Operación administrada",
+            "body": "Cuando el esquema esté disponible, Don Diego Rentals podrá coordinar calendario, reservas y estándares de servicio para propietarios que quieran activar su unidad sin perder control del entorno."
           },
           "partialRental": {
             "title": "Renta parcial en prototipos seleccionados",
@@ -1034,7 +1034,7 @@
           },
           "outdoorLiving": {
             "title": "Terrazas, patios y azoteas",
-            "body": "Las viviendas aprovechan espacios exteriores privados o semiprivados: terrazas, patios interiores, azoteas y jacuzzis en prototipos seleccionados."
+            "body": "Las viviendas aprovechan espacios exteriores privados o semiprivados: terrazas, patios interiores, azoteas y zonas de descanso en prototipos seleccionados."
           }
         }
       },
@@ -1050,9 +1050,9 @@
           "departamento": "Departamento {type}",
           "duplex": "Casa dúplex {type}"
         },
-        "titleLine1": "Descubre los",
+        "titleLine1": "Elige los",
         "titleAccent": "espacios",
-        "titleLine2": "que ofrecemos.",
+        "titleLine2": "para vivir Don Diego.",
         "viewPropertyPage": "Ver mapa",
         "carouselAria": "Carrusel de {title}",
         "carouselGoTo": "Ir a imagen {index} de {total}",
@@ -1135,7 +1135,7 @@
           "title": "El Corazón Social",
           "kicker": "El corazón social",
           "headline": "Casa Club de clase mundial",
-          "body": "Un punto de encuentro pensado para celebrar lo cotidiano. Restaurante de autor, coffee bars, coworking y terrazas que invitan a compartir momentos inolvidables.",
+            "body": "Un punto de encuentro para la vida diaria: restaurante, coffee bars, coworking y terrazas que invitan a convivir sin salir del entorno.",
           "cta": "Explorar Casa Club",
           "highlights": {
             "restaurant": {
@@ -1153,7 +1153,7 @@
           "title": "Bienestar y Relax",
           "kicker": "Bienestar y relax",
           "intro": "Espacios para reconectar contigo",
-          "body": "Santuario de calma con alberca templada, salón de yoga, spa y jacuzzis privados entre riachuelos.",
+          "body": "Espacios de calma con alberca en jardín, salón de yoga, spa y jacuzzis integrados al paisaje.",
           "items": {
             "yoga": {
               "title": "Yoga",
@@ -1188,7 +1188,7 @@
           "restaurante": "Restaurante",
           "coworking": "Coworking",
           "terrazas": "Terrazas",
-          "piscina": "Piscina",
+          "piscina": "Alberca",
           "spa": "Spa",
           "yoga": "Yoga",
           "relax": "Relax",
@@ -1234,7 +1234,7 @@
         "titleLine1": "Estancias gestionadas",
         "titleLine2": "Don Diego Rentals",
         "subtitle": "Un pool de rentas dentro del Club Residencial",
-        "body": "Unidades del desarrollo disponibles para hospedaje de corto plazo, con reservas, calendario y estándares de servicio coordinados por Don Diego Rentals. Los propietarios delegan la operación; los huéspedes viven el mismo entorno del club con respaldo profesional. Un modelo que cuida la comunidad, eleva la experiencia y mantiene el estándar del desarrollo.",
+          "body": "Un esquema contemplado para propietarios que quieran activar su unidad cuando no la usen, con reservas, calendario y estándares de servicio coordinados por Don Diego Rentals. La prioridad es cuidar la comunidad, elevar la experiencia y mantener el estándar del desarrollo.",
         "cta": "PRÓXIMAMENTE"
       },
       "connectivity": {
@@ -1299,8 +1299,8 @@
     "farm": {
       "hero": {
         "eyebrow": "[EL PAISAJE PRODUCTIVO]",
-        "tagline": "Una granja para cosechar comunidad.",
-        "description": "Huertos orgánicos, frutales y flores de temporada. Una comunidad conectada a los ciclos de la tierra.",
+        "tagline": "La tierra como parte de la vida diaria.",
+        "description": "Organic Farm & Flowers no contempla residencias: es una granja viva con huertos, frutales, flores, restaurante y clases de cocina.",
         "imageAlt": "Organic Farm"
       },
       "sustentabilidad": {
@@ -1310,15 +1310,15 @@
           "accent": "productivo",
           "line2": "del proyecto"
         },
-        "bodyPrimary": "Huertos orgánicos, frutales y flores de temporada. Produce para abastecer el ecosistema y mantenerlo vivo todo el año.",
-        "bodySecondary": "Una comunidad que consume lo que produce, conectada a los ciclos de la tierra.",
+        "bodyPrimary": "Huertos orgánicos, frutales y flores de temporada producen para abastecer restaurantes, Casa Club y vida cotidiana dentro de Don Diego.",
+        "bodySecondary": "La granja se recorre, se aprende y se disfruta: clases de cocina, productos locales, flores y una conexión real con los ciclos de la tierra.",
         "images": {
           "mainAlt": "La granja orgánica Don Diego",
           "secondaryAlt": "Invernadero y cultivo de temporada"
         }
       },
       "overview": {
-        "title": "Detalles de Organic Farm",
+        "title": "Cómo funciona Organic Farm & Flowers",
         "items": {
           "organicCrops": {
             "title": "Huertos orgánicos",
@@ -1334,7 +1334,7 @@
           },
           "clubSupply": {
             "title": "Abasto al ecosistema",
-            "body": "La producción se integra a restaurantes, amenidades y vida diaria: una comunidad que consume lo que cultiva."
+            "body": "La producción se integra a restaurantes, Casa Club, amenidades y vida diaria: una comunidad que consume parte de lo que cultiva."
           },
           "paths": {
             "title": "Andadores y cicloruta",
@@ -1396,13 +1396,13 @@
             "kicker": "[COMUNIDAD]",
             "titleBase": "Experiencia",
             "titleAccent": "comunitaria",
-            "description": "Programas educativos alrededor de lo que se cultiva para enseñar a los habitantes la riqueza de cosechar lo que siembras."
+            "description": "Clases de cocina y programas alrededor de lo que se cultiva para que la cosecha se vuelva experiencia, no solo paisaje."
           },
           "origenLocal": {
             "kicker": "[ORIGEN LOCAL]",
             "titleBase": "El origen de",
             "titleAccent": "lo local",
-            "description": "Sustentabilidad pura; un ecosistema cerrado donde los productos nutren directamente los cuerpos y el entorno de Don Diego."
+            "description": "Productos locales, flores de temporada y cosechas que alimentan la operación diaria y mantienen viva la identidad de Don Diego."
           }
         }
       },
@@ -1433,8 +1433,8 @@
     "wellness": {
       "hero": {
         "eyebrow": "Centro de bienestar",
-        "tagline": "Bienestar integral y manejo del dolor",
-        "description": "Actividades físicas, terapias y cuidados para la salud.",
+        "tagline": "Bienestar, cuidado y retiro activo",
+        "description": "Una etapa pensada para integrar rehabilitación, descanso, naturaleza y vida en comunidad. Su configuración final seguirá definiéndose con el desarrollo del proyecto.",
         "imageAlt": "Wellness Center"
       },
       "highlights": {
@@ -1448,11 +1448,11 @@
         "items": {
           "naturaleza": {
             "title": "Naturaleza y tranquilidad",
-            "description": "Un entorno de paz donde los jardines, el agua y el paisaje de la Presa Allende crean el ambiente ideal para la recuperación y el bienestar."
+            "description": "Un entorno de calma donde jardines, agua y paisaje acompañan rutinas de recuperación, descanso y bienestar cotidiano."
           },
           "atencion": {
             "title": "Atención personalizada",
-            "description": "Equipos médicos especializados y cuidados certificados que entienden que cada persona tiene necesidades únicas."
+            "description": "Un modelo de atención y acompañamiento pensado para distintas necesidades, con servicios que se irán definiendo conforme avance la etapa."
           },
           "comunidad": {
             "title": "Vida en comunidad",
@@ -1460,7 +1460,7 @@
           },
           "ubicacion": {
             "title": "Ubicación privilegiada",
-            "description": "A minutos de San Miguel de Allende, con acceso inmediato a servicios médicos, culturales y de ocio de primer nivel."
+            "description": "Cerca de San Miguel y del paisaje de agua, para mantenerse conectado sin perder tranquilidad."
           }
         }
       },
@@ -1468,7 +1468,7 @@
         "eyebrow": "Servicios",
         "title": {
           "base": "Un espacio",
-          "accent": "para sanar"
+          "accent": "para cuidarse"
         },
         "selector": {
           "title": "Selecciona un servicio",
@@ -1482,21 +1482,21 @@
             "titleBase": "Centro de",
             "titleAccent": "rehabilitación",
             "title": "Centro de rehabilitación",
-            "description": "Espacios especializados con tecnología de vanguardia para recuperación física y manejo integral del dolor."
+            "description": "Espacios contemplados para recuperación física, manejo del dolor y acompañamiento integral."
           },
           "seniorLiving": {
             "kicker": "Vida asistida",
             "titleBase": "Senior",
             "titleAccent": "Living",
             "title": "Senior Living",
-            "description": "Residencias diseñadas para una vida activa y digna, con atención personalizada y comunidad de apoyo en todo momento."
+            "description": "Una propuesta para retiro activo y vida acompañada, integrada a jardines, áreas comunes y servicios de bienestar."
           },
           "departamentosFamiliares": {
-            "kicker": "Familia",
-            "titleBase": "Departamentos",
-            "titleAccent": "familiares",
-            "title": "Departamentos familiares",
-            "description": "Espacios de hospedaje pensados para que las familias estén cómodas y cerca de sus seres queridos durante su proceso de recuperación."
+            "kicker": "Propiedades",
+            "titleBase": "Propiedades",
+            "titleAccent": "integradas",
+            "title": "Propiedades integradas",
+            "description": "El Wellness Center podrá integrar propiedades o estancias vinculadas al programa de bienestar; el formato final no está definido y se comunicará conforme avance la etapa."
           },
           "amenidades": {
             "kicker": "Amenidades",
@@ -1511,15 +1511,15 @@
     "presa": {
       "hero": {
         "eyebrow": "Vida junto al agua",
-        "tagline": "Espacio público/privado junto al agua",
-        "description": "Naturaleza, comunidad y vida social integradas en un frente lacustre único.",
+        "tagline": "El recorrido hacia el agua",
+        "description": "Un mirador, un malecón y una zona de café/bar para vivir la Presa de la Cantera desde las primeras etapas, con actividades ligeras como kayak.",
         "imageAlt": "Presa de la Cantera"
       },
       "concept": {
         "sectionAriaLabel": "Experiencia y propuesta de valor frente a la presa",
         "eyebrow": "Experiencia",
         "title": {
-          "base": "Cuatro formas de vivir",
+          "base": "Cuatro formas de llegar a",
           "accent": "la Presa"
         },
         "previousFeatureAria": "Ver experiencia anterior",
@@ -1528,22 +1528,22 @@
           "vistas": {
             "title": "Horizontes sobre el agua",
             "shortTitle": "Vistas",
-            "description": "Orientación y diseño para que la presa sea el telón de fondo cotidiano: luz matutina, atardeceres largos y profundidad visual en cada recorrido."
+            "description": "Un mirador pensado para detenerse, ver la presa y entender la amplitud del terreno."
           },
           "aireLibre": {
             "title": "El día a cielo abierto",
             "shortTitle": "Aire libre",
-            "description": "Un ritmo más lento entre cielo y lago: espacios para moverte, descansar y compartir con la familia sin salir del desarrollo."
+            "description": "Un ritmo más lento entre cielo y agua: caminar, descansar, tomar café o salir a kayak cuando las condiciones lo permitan."
           },
           "identidad": {
             "title": "Un nuevo frente",
             "shortTitle": "Identidad",
-            "description": "La presa como polo de vida que amplía la oferta de la ciudad con un carácter propio."
+            "description": "La presa como una extensión natural del proyecto, conectada desde el Club Residencial a través de Organic Farm & Flowers."
           },
           "encuentro": {
             "title": "La vida en comunidad",
             "shortTitle": "Encuentro",
-            "description": "Desde la mañana tranquila hasta la noche con luces sobre el agua: un entorno pensado para convivir, no solo para habitar."
+            "description": "Un punto de encuentro para residentes e invitados, cercano a la contemplación, al paisaje y a actividades ligeras junto al agua."
           }
         }
       },
@@ -1551,16 +1551,16 @@
         "sectionAriaLabel": "Áreas del desarrollo en la Presa de la Cantera",
         "eyebrow": "[Master plan]",
         "title": {
-          "base": "Zonas del",
-          "accent": "desarrollo"
+          "base": "Zonas de la",
+          "accent": "primera experiencia"
         },
-        "intro": "Organización del frente en el terreno: ubicación y función de cada componente.",
+        "intro": "La Presa de la Cantera inicia como una extensión verde y social del recorrido: mirador, café/bar, malecón, zonas de descanso y actividades ligeras en el agua.",
         "rows": {
           "restaurantes": {
             "eyebrow": "[GASTRONOMÍA]",
             "title": "Zona de",
             "titleItalic": "restaurantes",
-            "description": "Terrazas y propuestas gastronómicas frente al agua: el lugar natural para cerrar el día o recibir a quienes visitan el desarrollo.",
+            "description": "Terrazas y servicio de café/bar frente al agua: el lugar natural para cerrar el recorrido desde el desarrollo.",
             "alt": "Zona gastronómica junto a la presa"
           },
           "estacionamiento": {
@@ -1574,15 +1574,15 @@
             "eyebrow": "[RETAIL]",
             "title": "Locales",
             "titleItalic": "comerciales",
-            "description": "Frentes comerciales integrados al paseo lacustre: servicios, boutique y experiencias que activan el día a día del frente al agua.",
+            "description": "Servicios ligeros integrados al paseo: atención, alimentos sencillos y experiencias de baja intensidad junto al agua.",
             "alt": "Locales comerciales en el desarrollo"
           },
           "departamentos": {
-            "eyebrow": "[RESIDENCIAL]",
-            "title": "Departamentos",
-            "titleItalic": "con vista",
-            "description": "Vivienda vertical con panoramas hacia la presa: privacidad, luz y conexión permanente con el paisaje lacustre.",
-            "alt": "Departamentos con vista a la presa"
+            "eyebrow": "[MIRADOR]",
+            "title": "Mirador",
+            "titleItalic": "a la presa",
+            "description": "Un punto elevado para contemplar el agua, tomar una pausa y reconocer la escala natural de Don Diego.",
+            "alt": "Mirador hacia la Presa de la Cantera"
           },
           "parques": {
             "eyebrow": "[FAMILIA]",
@@ -1592,18 +1592,18 @@
             "alt": "Parques infantiles"
           },
           "nautico": {
-            "eyebrow": "[NÁUTICA]",
-            "title": "Club",
-            "titleItalic": "náutico",
-            "description": "Amarres y actividades acuáticas en la Presa La Cantera: el corazón náutico del proyecto para quienes viven el lago a diario.",
-            "alt": "Club náutico y embarcadero"
+            "eyebrow": "[AGUA]",
+            "title": "Kayak",
+            "titleItalic": "y actividades ligeras",
+            "description": "Actividades de bajo impacto para disfrutar el agua con una operación ligera y fácil de integrar al paisaje.",
+            "alt": "Kayak y actividades ligeras en la presa"
           },
           "anfiteatro": {
-            "eyebrow": "[CULTURA]",
-            "title": "Anfiteatro",
-            "titleItalic": "al aire libre",
-            "description": "Un escenario abierto para conciertos, cine y encuentros comunitarios frente al agua - el pulso cultural del frente lacustre.",
-            "alt": "Anfiteatro y eventos al aire libre"
+            "eyebrow": "[PAUSA]",
+            "title": "Café",
+            "titleItalic": "y bar",
+            "description": "Una zona sencilla para sentarse, conversar y disfrutar las vistas de la presa después de cruzar la granja.",
+            "alt": "Café y bar junto a la Presa de la Cantera"
           }
         }
       }
@@ -1611,14 +1611,14 @@
     "equipo": {
       "hero": {
         "eyebrow": "El Equipo",
-        "description": "Un conjunto de mentes excepcionales trabajando en sintonía para dar vida a un santuario residencial sin precedentes en San Miguel de Allende."
+        "description": "Desarrollo, arquitectura, paisaje y estrategia comercial trabajando bajo una misma visión: construir una comunidad cuidada, clara y bien operada."
       },
       "details": {
         "members": {
           "grupoCimienta": {
             "name": "Grupo Cimienta",
             "role": "Dirección General y Desarrollo",
-            "description": "+30 años de experiencia en ciclo completo inmobiliario. Especialistas en desarrollo urbano y vivienda bajo una filosofía de máxima eficiencia sin comprometer calidad."
+            "description": "+30 años de experiencia en ciclo completo inmobiliario: planeación, desarrollo, operación y ejecución de proyectos habitacionales."
           },
           "barraganArquitectos": {
             "name": "Barragán Arquitectos",
@@ -1633,7 +1633,7 @@
           "artemisaBranding": {
             "name": "Mesa Directiva Comercial",
             "role": "Dirección Comercial y Estrategia",
-            "description": "Equipo con trayectoria en mercadotecnia, comercial y innovación a nivel corporativo. Expertise en gobierno corporativo, alianzas estratégicas y mercadotecnia de valor en macro-proyectos inmobiliarios."
+            "description": "Equipo comercial y de marketing con experiencia en posicionamiento, comunicación, alianzas y venta de proyectos inmobiliarios de alto valor."
           }
         }
       },
@@ -1652,23 +1652,23 @@
       "hero": {
         "eyebrow": "[Actividades para disfrutar]",
         "svgAriaLabel": "Experiencias",
-        "description": "El club ofrece una amplia gama de actividades para disfrutar, desde gimnasios hasta restaurantes y spa."
+        "description": "Actividades pensadas para que la comunidad se use todos los días: deporte, descanso, comida, granja, agua y conexiones prácticas con San Miguel."
       },
       "listing": {
         "toggle": {
           "openAriaLabel": "Abrir descripción de {title}",
           "closeAriaLabel": "Cerrar descripción de {title}"
         },
-        "footerText": "El club ofrece una amplia gama de actividades para disfrutar, desde gimnasios hasta restaurantes y spa. La mayoría de las amenidades son exclusivas para los residentes y sus invitados.",
+        "footerText": "Don Diego combina amenidades residenciales, experiencias de granja, bienestar, shuttles, Wi-Fi en áreas comunes y recorridos hacia la Presa de la Cantera. Cada acceso y uso dependerá de la operación y etapa correspondiente.",
         "cta": "Ver propiedades",
         "items": {
           "clubhouse": {
-            "title": "Clubhouse",
-            "description": "El corazón social del club: espacios para reunirse, comer y convivir con vistas al entorno de San Miguel."
+            "title": "Casa Club",
+            "description": "El corazón social del club: espacios para comer, trabajar, descansar y convivir cerca de casa."
           },
           "piscina": {
-            "title": "Piscina privada",
-            "description": "Alberca del club residencial para nadar y relajarse en un entorno controlado y exclusivo para residentes e invitados."
+            "title": "Alberca en jardín",
+            "description": "Alberca ubicada a nivel jardín para conectar mejor con Casa Club, jacuzzis y zonas exteriores."
           },
           "gimnasio": {
             "title": "Gimnasio exterior",
@@ -1691,20 +1691,20 @@
             "description": "Áreas de juego seguras y al aire libre para que los más pequeños exploren, corran y compartan el entorno con otras familias."
           },
           "clubNautico": {
-            "title": "Club náutico",
-            "description": "Amarres y actividades acuáticas en la Presa La Cantera: el corazón náutico del proyecto para quienes viven el lago a diario."
+            "title": "Kayak en la presa",
+            "description": "Actividades ligeras en el agua para disfrutar la Presa de la Cantera sin lenguaje de marina o embarcaciones grandes."
           },
           "localesComerciales": {
-            "title": "Locales comerciales",
-            "description": "Frentes comerciales integrados al paseo lacustre: servicios, boutique y experiencias que activan el día a día del frente al agua."
+            "title": "Café/bar junto al agua",
+            "description": "Un punto de pausa al final del recorrido: café, bar y vistas hacia la Presa de la Cantera."
           },
           "anfiteatro": {
-            "title": "Anfiteatro al aire libre",
-            "description": "Un escenario abierto para conciertos, cine y encuentros comunitarios frente al agua: el pulso cultural del frente lacustre."
+            "title": "Mirador de la presa",
+            "description": "Un espacio para llegar caminando desde Organic Farm & Flowers, mirar el agua y entender la extensión del terreno."
           },
           "gastronomiaLacustre": {
             "title": "Gastronomía frente al agua",
-            "description": "Terrazas y propuestas gastronómicas frente al agua: el lugar natural para cerrar el día o recibir a quienes visitan el desarrollo."
+            "description": "Terrazas y servicio de café/bar frente al agua: el lugar natural para cerrar el día después de cruzar la granja."
           },
           "coworking": {
             "title": "Coworking",
@@ -1740,7 +1740,7 @@
           },
           "programasEducativos": {
             "title": "Programas educativos en la granja",
-            "description": "Talleres y experiencias comunitarias alrededor de lo que se cultiva y cosecha en el proyecto."
+            "description": "Clases de cocina y experiencias comunitarias alrededor de lo que se cultiva y cosecha en el proyecto."
           },
           "floresTemporada": {
             "title": "Flores de temporada",
@@ -1756,15 +1756,15 @@
           },
           "hospedajeFamiliar": {
             "title": "Hospedaje familiar",
-            "description": "Departamentos pensados para que las familias estén cerca durante procesos de recuperación o estancias largas."
+            "description": "Estancias o propiedades integradas al Wellness Center que se comunicarán conforme se defina la configuración final de esa etapa."
           },
           "jardinesTerapeuticos": {
             "title": "Jardines terapéuticos",
             "description": "Áreas verdes y de esparcimiento integradas con la naturaleza como parte del programa de bienestar."
           },
           "beachClub": {
-            "title": "Beach club frente a la presa",
-            "description": "Amenidades tipo playa frente a la Presa Allende: un polo de descanso y convivencia junto al agua."
+            "title": "Casa Club Wellness",
+            "description": "Áreas comunes ligadas al bienestar, el descanso y la vida cerca del agua, integradas al programa global de Don Diego."
           },
           "wifiAreasComunes": {
             "title": "Wi-Fi en áreas comunes",
@@ -1801,7 +1801,7 @@
       "kicker": "[ Próximamente ]",
       "titleLine1": "Cerca de todo",
       "titleLine2": "lejos de lo común",
-      "body": "Descubre un espacio único en San Miguel de Allende, donde la naturaleza y el diseño se encuentran para crear una experiencia inolvidable."
+      "body": "Estamos preparando esta sección. Mientras tanto, puedes seguir explorando el proyecto, sus componentes y la forma de vivir Don Diego."
     },
     "virtualStaging": {
       "compareSlider": {
