@@ -51,7 +51,7 @@
     "location": "San Miguel de Allende, Guanajuato",
     "cta": "Conoce más",
     "eyebrow": "[DESARROLLO RESIDENCIAL]",
-    "bodyLine1": "Un desarrollo donde la arquitectura se encuentra con la naturaleza. Diseñado para una vida en conexión.",
+    "bodyLine1": "Un club residencial en San Miguel de Allende, creado para vivir entre jardines, agua, bienestar y comunidad.",
     "bodyLine2": "",
     "explore": "Explorar"
   },
@@ -64,22 +64,22 @@
   },
   "project": {
     "heading": "El Proyecto",
-    "intro": "Don Diego Club Residencial es un desarrollo de uso mixto que integra cuatro componentes únicos alrededor de la Presa La Cantera - construido sobre las tierras de la antigua Hacienda de Don Diego, a solo 8 minutos del centro histórico.",
+    "intro": "Don Diego integra cuatro componentes conectados por una misma idea: vivir San Miguel entre comunidad, paisaje, bienestar y vida diaria.",
     "residencial": {
       "name": "Club Residencial",
-      "description": "364 residencias en un entorno 100% peatonal con casa club, restaurantes, spa, deportes y amenidades de primer nivel."
+      "description": "364 residencias en un entorno principalmente peatonal, con Casa Club, jardines, restaurantes, spa y amenidades."
     },
     "farm": {
       "name": "Organic Farm & Flowers",
-      "description": "Agricultura orgánica que recupera la herencia agrícola original. Huertos, flores de temporada e invernaderos en terrazas."
+      "description": "Paisaje productivo con huertos, frutales, flores, restaurante, clases de cocina y recorridos entre vegetación."
     },
     "wellness": {
       "name": "Wellness Center",
-      "description": "Centro de rehabilitación, retiro activo y senior living con beach club frente a la Presa Allende."
+      "description": "Centro de bienestar, rehabilitación y retiro activo, con áreas comunes y estancias aún por definir."
     },
     "presa": {
       "name": "Presa de la Cantera",
-      "description": "Malecón lacustre, parque acuático, club náutico, anfiteatro al aire libre y espacios comerciales junto al agua."
+      "description": "Mirador junto al agua, café/bar y futura zona de actividades ligeras como kayak y recorridos de naturaleza."
     },
     "comingSoon": "Próximamente"
   },
@@ -88,7 +88,7 @@
   },
   "location": {
     "heading": "Ubicación",
-    "address": "Cerrada del Trébol, Carretera Celaya – Dolores Hidalgo",
+    "address": "Ubicación de referencia en Google Maps",
     "city": "San Miguel de Allende, Guanajuato",
     "centro": "Centro Histórico SMA",
     "centroTime": "8 min",
@@ -98,7 +98,7 @@
     "cdmxTime": "~3.5 hrs",
     "celaya": "Celaya",
     "celayaTime": "Directo",
-    "presaNote": "Colinda con la Presa Ignacio Allende y la Presa La Cantera"
+    "presaNote": "Entorno cercano a Presa Allende y Presa de la Cantera"
   },
   "team": {
     "heading": "El Equipo",
@@ -115,7 +115,7 @@
     "barragan": {
       "name": "Barragán Arquitectos",
       "role": "Arquitectura",
-      "description": "Diseño integral con identidad sanmiguelense, materialidad cálida y visión contemporánea."
+      "description": "Diseño integral con identidad sanmiguelense, escala humana y visión contemporánea."
     },
     "arredarq": {
       "name": "Espacios Verdes / Arredarq",
@@ -123,9 +123,9 @@
       "description": "Arquitectura de paisaje que integra vegetación, agua y recorridos al entorno natural."
     },
     "artemisa": {
-      "name": "Mesa Directiva Comercial",
-      "role": "Estrategia comercial",
-      "description": "Dirección comercial, alianzas y posicionamiento para proyectos inmobiliarios de alto valor."
+      "name": "Equipo Comercial y Marketing",
+      "role": "Comercial y Marketing",
+      "description": "Dirección comercial, comunicación, alianzas y posicionamiento para proyectos inmobiliarios de alto valor."
     }
   },
   "contact": {
@@ -141,7 +141,7 @@
     "kicker": "[Contacto]",
     "joinLine1": "Únete a la comunidad de",
     "joinEm": "Don Diego",
-    "bodyHome": "Descubre Don Diego en persona. Contáctanos para programar un recorrido privado por nuestras tierras en San Miguel de Allende.",
+    "bodyHome": "Descubre Don Diego en persona. Contáctanos para programar un recorrido privado por el proyecto en San Miguel de Allende.",
     "belief1t": "Bienestar",
     "belief1d": "Vida integral",
     "belief2t": "Diseño",
@@ -174,7 +174,7 @@
     "location": "San Miguel de Allende, Guanajuato, México",
     "joinTitleLine1": "Suscríbete al newsletter",
     "joinTitleLine2": "Don Diego",
-    "joinSubtitle": "Para mantenerte al día con el desarrollo.",
+    "joinSubtitle": "Recibe avances del proyecto, contenido de San Miguel y noticias de la comunidad Don Diego.",
     "firstNamePh": "NOMBRE *",
     "lastNamePh": "APELLIDO *",
     "emailPh": "CORREO ELECTRÓNICO *",
@@ -211,7 +211,7 @@
     "kicker": "[Presentación]",
     "titleDiscover": "Descubre",
     "titleName": "Don Diego",
-    "body": "Un recorrido por la visión, el entorno y los componentes que dan forma a este proyecto residencial en San Miguel de Allende.",
+    "body": "Una introducción clara a la visión, el territorio y las experiencias que dan forma a Don Diego.",
     "playAria": "Reproducir presentación",
     "iframeTitle": "Don Diego - Presentación",
     "thumbAlt": "Don Diego - Presentación del proyecto",
@@ -220,9 +220,9 @@
   "servicesPage": {
     "kicker": "[COMPONENTES]",
     "heading": "El Proyecto",
-    "intro": "Don Diego Club Residencial se estructura en torno a cuatro componentes con identidad propia, integrados en una visión coherente de comunidad y territorio.",
+    "intro": "Don Diego se vive como cuatro partes conectadas: Club Residencial, Organic Farm & Flowers, Wellness Center y Presa de la Cantera.",
     "phaseNote": "",
-    "closing": "Cada componente ha sido diseñado a partir de una premisa clara: crear un entorno residencial que dialogue con el alma de San Miguel de Allende, reinterpretándola con sensibilidad contemporánea.",
+    "closing": "La idea es que cada etapa se sienta viva desde el principio: áreas verdes, servicios y comunidad funcionando mientras el proyecto crece.",
     "cta": "EXPLORAR EL DESARROLLO",
     "status": {
       "inDevelopment": "En desarrollo",
@@ -240,38 +240,38 @@
   "projectsEditorial": {
     "residencial": {
       "title": "Club Residencial",
-      "description": "364 residencias en un entorno 100% peatonal con casa club, restaurantes, spa, deportes y amenidades de primer nivel.",
-      "supporting": "Una comunidad concebida para caminar, convivir y vivir con mayor calma en contacto con el paisaje.",
+      "description": "364 residencias en un entorno principalmente peatonal, con Casa Club, jardines, restaurantes, spa y amenidades.",
+      "supporting": "Pensado para caminar, convivir y vivir con calma, sin autos visibles en la experiencia diaria.",
       "d1": "364 residencias",
-      "d2": "100% peatonal",
-      "d3": "Casa club, spa y restaurantes",
+      "d2": "Recorridos peatonales",
+      "d3": "Casa Club y jardines",
       "cta": "Conocer más"
     },
     "farm": {
       "title": "Organic Farm & Flowers",
-      "description": "Componente sostenible que recupera la vocación agrícola original con huertos orgánicos, frutales y flores de temporada.",
-      "supporting": "Un paisaje productivo que devuelve al proyecto su memoria agrícola y su relación cotidiana con la tierra.",
+      "description": "Paisaje productivo con huertos, frutales, flores, restaurante y experiencias ligadas a la tierra.",
+      "supporting": "No contempla propiedades: funciona como granja viva, paisaje, recorrido y mesa de productos locales.",
       "d1": "Huertos orgánicos",
-      "d2": "Frutales de temporada",
-      "d3": "Paisaje sostenible",
+      "d2": "Restaurante farm-to-table",
+      "d3": "Flores y paisaje vivo",
       "cta": "Explorar"
     },
     "wellness": {
       "title": "Wellness Center",
-      "description": "Centro especializado para rehabilitación, retiro activo y bienestar integral con acceso directo a la Presa Allende.",
-      "supporting": "Diseñado para una experiencia de retiro activo donde salud, descanso y naturaleza se integran en un mismo destino.",
+      "description": "Centro de bienestar, rehabilitación y retiro activo, con áreas comunes y estancias aún por definir.",
+      "supporting": "Una etapa pensada para cuidado, descanso y vida activa, integrada al proyecto y cercana a Presa Allende.",
       "d1": "Bienestar integral",
       "d2": "Retiro activo",
-      "d3": "Acceso a Presa Allende",
+      "d3": "Cerca de Presa Allende",
       "cta": "Descubrir"
     },
     "presa": {
       "title": "Presa de la Cantera",
-      "description": "Un gran espacio público-privado que integra naturaleza, comunidad y vida social junto al agua.",
-      "supporting": "El borde del agua se convierte en un escenario para actividades recreativas, encuentros y vida comunitaria.",
-      "d1": "Vida junto al agua",
-      "d2": "Naturaleza y comunidad",
-      "d3": "Espacio social activo",
+      "description": "Mirador junto al agua, café/bar y futura zona de actividades ligeras en la Presa de la Cantera.",
+      "supporting": "Primero se activa como destino verde para llegar caminando por la granja y disfrutar el paisaje.",
+      "d1": "Mirador y café/bar",
+      "d2": "Kayak y naturaleza",
+      "d3": "Etapa futura",
       "cta": "Visitar"
     }
   },
@@ -279,14 +279,14 @@
     "kicker": "[Experiencias]",
     "title1": "Actividades para disfrutar",
     "title2": "dentro de Don Diego",
-    "body": "El club ofrece una amplia gama de actividades para disfrutar, desde gimnasios hasta restaurantes y spa. La mayoría de las amenidades son exclusivas para los residentes y sus invitados.",
+    "body": "La Casa Club reúne deporte, bienestar, restaurantes, jardines y convivencia para residentes e invitados.",
     "cta": "EXPLORAR LAS EXPERIENCIAS",
     "carouselPrevAria": "Elementos anteriores",
     "carouselNextAria": "Elementos siguientes",
     "nextAria": "Siguiente",
     "items": {
       "clubhouse": "Clubhouse",
-      "pool": "Piscina privada",
+      "pool": "Alberca en jardín",
       "gym": "Gimnasio exterior",
       "spa": "Spa",
       "restaurant": "Restaurantes",
@@ -296,21 +296,21 @@
   "appFeatures": {
     "kicker": "[App residentes]",
     "title": "La vida, a tu alcance",
-    "subtitle": "Reserva canchas, recibe invitados, pide en la granja y gestiona estancias en una sola experiencia cuidada.",
+    "subtitle": "Reserva actividades, recibe invitados, pide productos de la granja y consulta eventos desde una sola experiencia.",
     "cards": {
       "paddle": {
         "title": "Reserva de actividades",
-        "description": "Elige tu actividad y asegura tu lugar en segundos.",
+        "description": "Elige tu actividad, revisa horarios y confirma tu lugar en segundos.",
         "q1": "reservar yoga a las 07:30",
-        "q2": "reservar pickleball a las 08:30",
-        "q3": "reservar pádel a las 09:30",
-        "q4": "reservar clases de cocina a las 10:30",
+        "q2": "reservar pádel a las 09:00",
+        "q3": "reservar clase de cocina a las 11:00",
+        "q4": "reservar spa a las 12:00",
         "q5": "reservar spa a las 11:30",
         "q6": "reservar coworking a las 12:00",
         "act1": "Yoga",
-        "act2": "Pickleball",
-        "act3": "Pádel",
-        "act4": "Clases de Cocina",
+        "act2": "Pádel",
+        "act3": "Clase de cocina",
+        "act4": "Spa",
         "act5": "Spa",
         "act6": "Coworking / Centro de Negocios",
         "confirm": "Confirmada",
@@ -326,7 +326,7 @@
       },
       "farm": {
         "title": "Pedidos en la granja",
-        "description": "Productos de temporada, frescos y listos para ti.",
+        "description": "Cosechas, flores y productos locales, listos para ti.",
         "item1": "Tomates heirloom",
         "item2": "Mermelada de temporada",
         "item3": "Ramo de flores",
@@ -335,8 +335,8 @@
         "statusReady": "Tu orden está lista"
       },
       "rentals": {
-        "title": "Renta tu propiedad",
-        "description": "Publica tu casa en un calendario para rentarla cuando no la estés utilizando.",
+        "title": "Operación del proyecto",
+        "description": "Consulta avisos, servicios y temas administrativos del proyecto desde un mismo lugar.",
         "stay1": "Casita Jardín",
         "date1": "12–19 abr",
         "stay2": "Terraza Valle",
@@ -402,7 +402,7 @@
     "kicker": "[El Lugar]",
     "title1": "Cerca de todo",
     "title2": "Lejos de lo común",
-    "body": "Un santuario de vida consciente donde el lujo se encuentra con la naturaleza. Conectado al vibrante corazón de la ciudad, pero resguardado en la tranquilidad.",
+    "body": "Una comunidad tranquila, conectada a San Miguel por shuttles y rodeada de naturaleza, agua y tierra.",
     "centroLabel": "Centro Histórico",
     "centroSub": "Encanto Colonial",
     "proximityTitle": "Proximidad",
@@ -424,36 +424,36 @@
   "faq": {
     "kicker": "[FAQ]",
     "title": "Preguntas Frecuentes",
-    "intro": "Encuentra respuestas a las dudas más comunes sobre el desarrollo, inversión y servicios de Don Diego Club Residencial.",
+    "intro": "Encuentra respuestas claras sobre el desarrollo, sus componentes, servicios y proceso de integración a la comunidad Don Diego.",
     "items": [
       {
         "question": "¿Qué es Don Diego Club Residencial y de qué componentes consta?",
-        "answer": "Es un desarrollo inmobiliario de uso mixto estructurado en torno a cuatro componentes con identidad propia: el Club Residencial (núcleo privado de residencias), Organic Farm & Flowers (paisaje productivo), Wellness Center (centro de bienestar integral y senior living) y la Presa de la Cantera (espacio público-privado junto al agua)."
+        "answer": "Es una comunidad organizada en cuatro componentes: Club Residencial, Organic Farm & Flowers, Wellness Center y Presa de la Cantera."
       },
       {
         "question": "¿Dónde se encuentra ubicado el desarrollo?",
-        "answer": "El desarrollo está ubicado de manera estratégica a tan solo 8 minutos del centro histórico de San Miguel de Allende, sobre la Carretera Celaya – Dolores Hidalgo. Colinda con la emblemática Presa Ignacio Allende y la Presa La Cantera."
+        "answer": "Se encuentra en San Miguel de Allende, con ubicación de referencia en Google Maps y conexión programada hacia la ciudad."
       },
       {
         "question": "¿El acceso a todos los componentes es exclusivo para residentes?",
-        "answer": "Mientras que el Club Residencial y el Organic Farm son exclusivos y prioritarios para los dueños y residentes, la Presa de la Cantera está concebida como un destino que se abre a la comunidad de San Miguel de Allende, integrando naturaleza y vida social con actividades culturales y recreativas."
+        "answer": "El Club Residencial cuida la privacidad de residentes e invitados. Otros componentes podrán operar con accesos y reglas específicas según cada etapa."
       },
       {
         "question": "¿Cómo funciona la parte productiva de \"Organic Farm & Flowers\"?",
-        "answer": "Recupera la vocación agrícola original del predio mediante agricultura orgánica y producción floral de temporada. Más allá de lo estético, los productos frescos nutren los restaurantes y la vida cotidiana del desarrollo. Este componente cuenta con huertos orgánicos, invernaderos y granjas de producción rodeados de andadores y ciclorutas."
+        "answer": "Es el paisaje productivo del proyecto: huertos, frutales, flores, restaurante, clases de cocina y actividades ligadas a la tierra. No contempla propiedades residenciales."
       },
       {
         "question": "¿Cuál es el diseño urbanístico enfocado al peatón?",
-        "answer": "El interior del desarrollo es 100% peatonal, liberando el espacio interior de automóviles. El diseño propone un circuito vehicular periférico en desnivel, mientras que el estacionamiento está techado con acceso peatonal directo a las viviendas con dos cajones por unidad."
+        "answer": "El proyecto prioriza recorridos cómodos, principalmente peatonales, sin autos visibles y pensados para moverse con facilidad."
       }
     ]
   },
   "exclusivity": {
     "imageAlt": "Don Diego - Exclusividad",
-    "title1": "Una invitación a pertenecer",
-    "title2": "a algo",
-    "titleEm": "extraordinario.",
-    "subtitle": "Un espacio que se comparte en privado.",
+    "title1": "Una invitación a vivir",
+    "title2": "en",
+    "titleEm": "comunidad.",
+    "subtitle": "Un lugar para compartir con intención.",
     "socialTitle": "Síguenos en nuestras redes"
   },
   "galleryCarousel": {
