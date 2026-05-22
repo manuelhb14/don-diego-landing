@@ -383,7 +383,7 @@
     "carouselNextAria": "Elementos siguientes",
     "nextAria": "Ver más",
     "items": {
-      "clubhouse": "Casas Club",
+      "clubhouse": "Casa Club",
       "pool": "Alberca en jardín",
       "gym": "Gimnasio interior",
       "spa": "Spa",
@@ -550,10 +550,10 @@
   },
   "exclusivity": {
     "imageAlt": "Don Diego - Exclusividad",
-    "title1": "Una invitación a conocer",
+    "title1": "Únete a la comunidad de",
     "title2": "Don",
     "titleEm": "Diego.",
-    "subtitle": "La vida en comunidad se entiende mejor caminándola.",
+    "subtitle": "Un club pensado para vivir con calma, cerca de la tierra y en buena comunidad.",
     "socialTitle": "Síguenos en nuestras redes"
   },
   "galleryCarousel": {
@@ -783,14 +783,14 @@
       "hero": {
         "kicker": "Componentes",
         "imageAlt": "Vista aérea del proyecto Don Diego en San Miguel de Allende",
-        "body": "Don Diego se entiende como un recorrido: vivienda, tierra productiva, bienestar y agua trabajando bajo una misma visión de comunidad."
+        "body": "Don Diego reúne residencias, tierra productiva, bienestar y agua en un recorrido pensado para vivir con calma, con servicios cerca y una comunidad que se construye alrededor del paisaje."
       },
       "grid": {
         "discover": "Descubrir",
         "bottomTitleLine1": "Cuatro partes",
         "bottomTitleLine2": "una comunidad",
         "phaseNote": "",
-        "bottomBody": "El proyecto no se vive como piezas separadas. El Club Residencial, la granja, el Wellness Center y la Presa de la Cantera se conectan para que la vida cotidiana tenga naturaleza, servicios, descanso y sentido de pertenencia.",
+        "bottomBody": "El Club Residencial, Organic Farm & Flowers, el Wellness Center y la Presa de la Cantera forman un mismo recorrido: naturaleza, servicios, descanso y sentido de pertenencia integrados a la vida diaria.",
         "status": {
           "inDevelopment": "En desarrollo",
           "comingSoon": "Próximamente"
@@ -798,19 +798,19 @@
         "cards": {
           "residencial": {
             "title": "Club Residencial",
-            "description": "El núcleo privado: residencias, Casa Club, jardines, alberca en jardín y recorridos pensados para caminar."
+            "description": "El núcleo privado del proyecto: 364 residencias, Casa Club, jardines, alberca en jardín y recorridos principalmente peatonales."
           },
           "farm": {
             "title": "Organic Farm & Flowers",
-            "description": "Un paisaje productivo con huertos, flores, restaurante y clases de cocina."
+            "description": "Un paisaje productivo con huertos, frutales, flores, restaurante y clases de cocina alrededor de la tierra."
           },
           "wellness": {
             "title": "Wellness Center",
-            "description": "Una etapa para bienestar integral, rehabilitación, manejo del dolor y retiro activo, con propiedades integradas todavía en definición."
+            "description": "Bienestar integral, rehabilitación, manejo del dolor y retiro activo en una etapa pensada para cuidado, calma y vida en comunidad."
           },
           "presa": {
             "title": "Presa de la Cantera",
-            "description": "La extensión hacia el agua: malecón, mirador, café/bar y actividades ligeras como kayak."
+            "description": "La extensión junto al agua: malecón, mirador, café/bar, tiendas y actividades ligeras en la Presa de la Cantera."
           }
         }
       },
@@ -819,7 +819,7 @@
         "kicker": "Ubicación",
         "titleLine1": "El corazón de",
         "titleLine2": "México",
-        "body": "A minutos del centro, Don Diego permite vivir cerca de San Miguel sin estar dentro de su ritmo más intenso: campo, agua, shuttles y una vida diaria más tranquila.",
+        "body": "A minutos del centro, Don Diego conecta con San Miguel desde un entorno de campo, agua, shuttles y una vida diaria más tranquila.",
         "cta": "Explorar Entorno"
       },
       "manifesto": {
@@ -1640,10 +1640,10 @@
       "navigationBanner": {
         "imageAlt": "Don Diego - equipo",
         "eyebrow": "Continúa el recorrido",
-        "title1": "Una invitación a conocer",
-        "title2": "la visión de",
-        "titleEm": "Don Diego.",
-        "subtitle": "Explora la visión completa del proyecto.",
+        "title1": "Únete a la comunidad de",
+        "title2": "Don",
+        "titleEm": "Diego.",
+        "subtitle": "Explora la visión completa del proyecto y los siguientes pasos.",
         "back": "Volver",
         "project": "Ir a proyecto"
       }
