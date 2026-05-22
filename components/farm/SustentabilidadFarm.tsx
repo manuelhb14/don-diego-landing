@@ -32,22 +32,24 @@ export default function SustentabilidadFarm() {
                         {t("title.line2")}
                     </h2>
 
-                    <div className="max-w-md space-y-5 lg:space-y-6">
-                        <p
-                            className="text-lg font-medium leading-relaxed text-[#1a1917]/82 lg:text-xl"
-                            style={{ fontFamily: "var(--font-serif)" }}
-                        >
-                            {t("bodyPrimary")}
-                        </p>
+                    <div className="max-w-md">
+                        <div className="space-y-3 lg:space-y-4">
+                            <p
+                                className="text-lg font-medium leading-relaxed text-[#1a1917]/82 lg:text-xl"
+                                style={{ fontFamily: "var(--font-serif)" }}
+                            >
+                                {t("bodyPrimary")}
+                            </p>
 
-                        <div className="h-px w-24 bg-[#1a1917]/15 hidden lg:block" />
+                            <p
+                                className="text-lg font-medium leading-relaxed text-[#1a1917]/82 lg:text-xl"
+                                style={{ fontFamily: "var(--font-serif)" }}
+                            >
+                                {t("bodySecondary")}
+                            </p>
+                        </div>
 
-                        <p
-                            className="text-base leading-relaxed text-[#1a1917]/65 lg:text-lg"
-                            style={{ fontFamily: "var(--font-sans)" }}
-                        >
-                            {t("bodySecondary")}
-                        </p>
+                        <div className="mt-5 hidden h-px w-24 bg-[#1a1917]/15 lg:block" />
                     </div>
                 </div>
 

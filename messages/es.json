@@ -201,26 +201,26 @@
     "cta": "Ver equipo",
     "headingLine1": "Maestros de su",
     "headingEm": "oficio.",
-    "subtitle": "Desarrollo, arquitectura, paisaje, marketing y estrategia trabajando bajo una misma visión.",
+    "subtitle": "Dirección general, desarrollo, arquitectura, paisaje y estrategia comercial trabajando bajo una misma visión.",
     "cimenta": {
       "name": "Grupo Cimienta",
-      "role": "Desarrollo",
-      "description": "+30 años estructurando y ejecutando proyectos inmobiliarios con visión de largo plazo."
+      "role": "Dirección General y Desarrollo",
+      "description": "+30 años de experiencia en ciclo completo inmobiliario: planeación, desarrollo, operación y ejecución de proyectos habitacionales."
     },
     "barragan": {
       "name": "Barragán Arquitectos",
-      "role": "Arquitectura",
-      "description": "Arquitectura de autor con oficio, proporción y una mirada contemporánea para crear espacios memorables."
+      "role": "Diseño Arquitectónico",
+      "description": "Despacho responsable del diseño integral del desarrollo, con una visión que equilibra estética contemporánea, materialidad y arraigo con el paisaje natural."
     },
     "arredarq": {
       "name": "Espacios Verdes / Arredarq",
-      "role": "Paisajismo",
-      "description": "Paisajismo que ordena recorridos, sombra, agua y vegetación para construir una experiencia natural y memorable."
+      "role": "Paisajismo y Sustentabilidad",
+      "description": "Despacho fundador de la Sociedad de Arquitectos Paisajistas de México. Lidera la integración del entorno natural con diseño sustentable y arquitectura de paisaje."
     },
     "artemisa": {
-      "name": "Equipo Comercial y Marketing",
-      "role": "Comercial y Marketing",
-      "description": "Estrategia comercial, comunicación y posicionamiento para conectar el proyecto con el mercado correcto."
+      "name": "Mesa Directiva Comercial",
+      "role": "Dirección Comercial y Estrategia",
+      "description": "Equipo comercial y de marketing con experiencia en posicionamiento, comunicación, alianzas y venta de proyectos inmobiliarios de alto valor."
     }
   },
   "contact": {
@@ -383,7 +383,7 @@
     "carouselNextAria": "Elementos siguientes",
     "nextAria": "Ver más",
     "items": {
-      "clubhouse": "Casas Club",
+      "clubhouse": "Casa Club",
       "pool": "Alberca en jardín",
       "gym": "Gimnasio interior",
       "spa": "Spa",
@@ -502,7 +502,7 @@
     "kicker": "El Lugar",
     "title1": "Cerca de todo",
     "title2": "Lejos de lo común",
-    "body": "Conexión directa con San Miguel y una vida diaria más amplia: shuttles, caminos verdes, agua y paisaje para estar cerca sin vivir encima del ritmo de la ciudad.",
+    "body": "Conexión directa con San Miguel. Shuttles, caminos verdes, agua y paisaje para estar cerca sin vivir encima del ritmo de la ciudad.",
     "centroLabel": "Centro Histórico",
     "centroSub": "Encanto Colonial",
     "proximityTitle": "Proximidad",
@@ -540,7 +540,7 @@
       },
       {
         "question": "¿Cómo funciona la parte productiva de \"Organic Farm & Flowers\"?",
-        "answer": "Es el paisaje productivo de Don Diego: huertos, frutales, flores, restaurante, clases de cocina y actividades ligadas a la tierra. No contempla residencias."
+        "answer": "Es el paisaje productivo de Don Diego: huertos, frutales, flores, restaurante, clases de cocina y actividades ligadas a la tierra."
       },
       {
         "question": "¿Cuál es el diseño urbanístico enfocado al peatón?",
@@ -550,10 +550,9 @@
   },
   "exclusivity": {
     "imageAlt": "Don Diego - Exclusividad",
-    "title1": "Una invitación a conocer",
-    "title2": "Don",
-    "titleEm": "Diego.",
-    "subtitle": "La vida en comunidad se entiende mejor caminándola.",
+    "title1": "Únete a la comunidad de",
+    "titleEm": "Don Diego.",
+    "subtitle": "Un club pensado para vivir con calma, cerca de la tierra y en buena comunidad.",
     "socialTitle": "Síguenos en nuestras redes"
   },
   "galleryCarousel": {
@@ -787,14 +786,14 @@
       "hero": {
         "kicker": "Componentes",
         "imageAlt": "Vista aérea del proyecto Don Diego en San Miguel de Allende",
-        "body": "Don Diego se entiende como un recorrido: vivienda, tierra productiva, bienestar y agua trabajando bajo una misma visión de comunidad."
+        "body": "Don Diego reúne residencias, tierra productiva, bienestar y agua en un recorrido pensado para vivir con calma, con servicios cerca y una comunidad que se construye alrededor del paisaje."
       },
       "grid": {
         "discover": "Descubrir",
         "bottomTitleLine1": "Cuatro partes",
         "bottomTitleLine2": "una comunidad",
         "phaseNote": "",
-        "bottomBody": "El proyecto no se vive como piezas separadas. El Club Residencial, la granja, el Wellness Center y la Presa de la Cantera se conectan para que la vida cotidiana tenga naturaleza, servicios, descanso y sentido de pertenencia.",
+        "bottomBody": "El Club Residencial, Organic Farm & Flowers, el Wellness Center y la Presa de la Cantera forman un mismo recorrido: naturaleza, servicios, descanso y sentido de pertenencia integrados a la vida diaria.",
         "status": {
           "inDevelopment": "En desarrollo",
           "comingSoon": "Próximamente"
@@ -802,19 +801,19 @@
         "cards": {
           "residencial": {
             "title": "Club Residencial",
-            "description": "El núcleo privado: residencias, Casa Club, jardines, alberca en jardín y recorridos pensados para caminar."
+            "description": "El núcleo privado del proyecto: 364 residencias, Casa Club, jardines, alberca en jardín y recorridos principalmente peatonales."
           },
           "farm": {
             "title": "Organic Farm & Flowers",
-            "description": "Un paisaje productivo con huertos, flores, restaurante y clases de cocina."
+            "description": "Un paisaje productivo con huertos, frutales, flores, restaurante y clases de cocina alrededor de la tierra."
           },
           "wellness": {
             "title": "Wellness Center",
-            "description": "Una etapa para bienestar integral, rehabilitación, manejo del dolor y retiro activo, con propiedades integradas todavía en definición."
+            "description": "Bienestar integral, rehabilitación, manejo del dolor y retiro activo en una etapa pensada para cuidado, calma y vida en comunidad."
           },
           "presa": {
             "title": "Presa de la Cantera",
-            "description": "La extensión hacia el agua: malecón, mirador, café/bar y actividades ligeras como kayak."
+            "description": "La extensión junto al agua: malecón, mirador, café/bar, tiendas y actividades ligeras en la Presa de la Cantera."
           }
         }
       },
@@ -823,7 +822,7 @@
         "kicker": "Ubicación",
         "titleLine1": "El corazón de",
         "titleLine2": "México",
-        "body": "A minutos del centro, Don Diego permite vivir cerca de San Miguel sin estar dentro de su ritmo más intenso: campo, agua, shuttles y una vida diaria más tranquila.",
+        "body": "A minutos del centro, Don Diego conecta con San Miguel desde un entorno de campo, agua, shuttles y una vida diaria más tranquila.",
         "cta": "Explorar Entorno"
       },
       "manifesto": {
@@ -1034,7 +1033,7 @@
           },
           "maintenance": {
             "title": "Beneficios de mantenimiento",
-            "body": "La operación residencial cuida áreas comunes, paisaje, accesos y estándares del club, reduciendo fricción cotidiana para propietarios y huéspedes."
+            "body": "La operación cuida áreas comunes, paisaje y accesos, con opción adicional de limpieza para residencias."
           },
           "outdoorLiving": {
             "title": "Terrazas, patios y azoteas",
@@ -1070,7 +1069,7 @@
         "residences": {
           "departamentos": {
             "title": "Departamentos",
-            "description": "Bloques alrededor del complejo habitacional: estacionamiento techado y bodegas a desnivel forman un circuito que mantiene las calles interiores libres de tránsito vehicular. Cuatro departamentos por nivel con terrazas y azoteas aprovechables.",
+            "description": "Tipologías residenciales en revisión, con distribuciones flexibles, terrazas o patios según modelo, dos cajones de estacionamiento y conexión cercana a los recorridos peatonales del Club Residencial.",
             "specs": {
               "superficie": "113-173 m2",
               "recamaras": "2-3",
@@ -1078,14 +1077,14 @@
               "estacionamientos": "2 cajones por unidad"
             },
             "highlights": {
-              "1": "Calles 100 % peatonales",
-              "2": "Terrazas y azoteas",
-              "3": "Estacionamiento a desnivel"
+              "1": "Distribución en revisión",
+              "2": "Terrazas o patios según tipología",
+              "3": "Estacionamiento considerado"
             }
           },
           "duplex1": {
             "title": "Casas dúplex Tipo 1",
-            "description": "Una vivienda por nivel, cada una con terraza o patio interior y vínculo claro con el exterior. Posibilidad de rentar una recámara de forma independiente.",
+            "description": "Tipologías residenciales en revisión, con distribuciones flexibles, terrazas o patios según modelo, dos cajones de estacionamiento y conexión cercana a los recorridos peatonales del Club Residencial.",
             "specs": {
               "superficie": "128-155 m2",
               "recamaras": "2-3",
@@ -1093,14 +1092,14 @@
               "estacionamientos": "2 cajones por unidad"
             },
             "highlights": {
-              "1": "Una casa por nivel",
-              "2": "Terraza o patio interior",
-              "3": "Recámara independiente (opcional)"
+              "1": "Distribución en revisión",
+              "2": "Terrazas o patios según tipología",
+              "3": "Estacionamiento considerado"
             }
           },
           "duplex2": {
             "title": "Casas dúplex Tipo 2",
-            "description": "Viviendas en torno a un patio interior, una casa por nivel. El Tipo 2 conecta las calles peatonales a través del primer nivel. Jacuzzi en prototipos seleccionados.",
+            "description": "Tipologías residenciales en revisión, con distribuciones flexibles, terrazas o patios según modelo, dos cajones de estacionamiento y conexión cercana a los recorridos peatonales del Club Residencial.",
             "specs": {
               "superficie": "166-185 m2",
               "recamaras": "2-4",
@@ -1108,14 +1107,14 @@
               "estacionamientos": "2 cajones por unidad"
             },
             "highlights": {
-              "1": "Patio interior",
-              "2": "Calles peatonales en planta baja",
-              "3": "Jacuzzi en selección"
+              "1": "Distribución en revisión",
+              "2": "Terrazas o patios según tipología",
+              "3": "Estacionamiento considerado"
             }
           },
           "duplex3": {
             "title": "Casas dúplex Tipo 3",
-            "description": "Patio central con una vivienda por nivel; distribuciones con varias terrazas y, en prototipos tipo B, sala de estar. Posibilidad de rentar una recámara de forma independiente.",
+            "description": "Tipologías residenciales en revisión, con distribuciones flexibles, terrazas o patios según modelo, dos cajones de estacionamiento y conexión cercana a los recorridos peatonales del Club Residencial.",
             "specs": {
               "superficie": "142-181 m2",
               "recamaras": "2-3",
@@ -1123,9 +1122,9 @@
               "estacionamientos": "2 cajones por unidad"
             },
             "highlights": {
-              "1": "Patio interior",
-              "2": "Varias terrazas",
-              "3": "Sala de estar (prototipo B)"
+              "1": "Distribución en revisión",
+              "2": "Terrazas o patios según tipología",
+              "3": "Estacionamiento considerado"
             }
           }
         }
@@ -1224,7 +1223,7 @@
         "titleLine1": "Ser dueño es formar parte de la",
         "titleAccent": "comunidad",
         "subtitle": "El club como lugar de encuentro y vida compartida",
-        "body": "No solo tienes acceso a los espacios: te integras a una comunidad de vecinos que comparten el mismo entorno, el mismo cuidado y el mismo ritmo de vida. Participas del club como quien pertenece, con voz, encuentros y una experiencia que se construye en conjunto.",
+        "body": "Ser parte del club es integrarte a una comunidad que comparte una forma de vivir: respeto por el entorno, cuidado por los espacios y una visión similar de convivencia. El resultado es un lugar de encuentro con ritmo propio, cercano y bien cuidado.",
         "cta": "EXPLORAR LAS EXPERIENCIAS",
         "alts": {
           "clubhouse": "Casa Club Don Diego",
@@ -1273,7 +1272,7 @@
           "kicker": "Entorno",
           "titleLine1": "Naturaleza",
           "titleLine2": "a tu ritmo",
-          "body": "Lagos, vegetación y caminos para caminar o pedalear sin salir del desarrollo: un respiro verde entre jornadas urbanas, pensado para que el día termine con calma y perspectiva.",
+          "body": "Conexión entre la Presa de la Cantera y Presa Allende, vegetación y caminos para caminar o pedalear por el desarrollo con calma y perspectiva.",
           "imageAlt": "Naturaleza y paisajes en Don Diego"
         }
       },
@@ -1304,7 +1303,7 @@
       "hero": {
         "eyebrow": "El paisaje productivo",
         "tagline": "La tierra como parte de la vida diaria.",
-        "description": "Organic Farm & Flowers no contempla residencias: es una granja viva con huertos, frutales, flores, restaurante y clases de cocina.",
+        "description": "Organic Farm & Flowers es una granja viva con huertos, frutales, flores, restaurante y clases de cocina alrededor de lo que se cultiva.",
         "imageAlt": "Organic Farm"
       },
       "sustentabilidad": {
@@ -1400,7 +1399,7 @@
             "kicker": "Comunidad",
             "titleBase": "Experiencia",
             "titleAccent": "comunitaria",
-            "description": "Clases de cocina y programas alrededor de lo que se cultiva para que la cosecha se vuelva experiencia, no solo paisaje."
+            "description": "Clases de cocina, programas y recorridos hacia el mirador de la Presa de la Cantera para que la cosecha también se vuelva encuentro."
           },
           "origenLocal": {
             "kicker": "Origen local",
@@ -1516,38 +1515,38 @@
       "hero": {
         "eyebrow": "Vida junto al agua",
         "tagline": "El recorrido hacia el agua",
-        "description": "Un mirador, un malecón y una zona de café/bar para vivir la Presa de la Cantera desde las primeras etapas, con actividades ligeras como kayak.",
+        "description": "La Presa de la Cantera será la extensión junto al agua de Don Diego: mirador, malecón, terrazas, café/bar, restaurantes, tiendas, zonas de descanso y actividades ligeras como kayak. Desde la primera etapa, el recorrido llegará a un mirador con terraza café/bar.",
         "imageAlt": "Presa de la Cantera"
       },
       "concept": {
         "sectionAriaLabel": "Experiencia y propuesta de valor frente a la presa",
         "eyebrow": "Experiencia",
         "title": {
-          "base": "Cuatro formas de llegar a",
+          "base": "Lo esencial de",
           "accent": "la Presa"
         },
         "previousFeatureAria": "Ver experiencia anterior",
         "nextFeatureAria": "Ver siguiente experiencia",
         "features": {
           "vistas": {
-            "title": "Horizontes sobre el agua",
-            "shortTitle": "Vistas",
-            "description": "Un mirador pensado para detenerse, ver la presa y entender la amplitud del terreno."
+            "title": "Mirador de la Cantera",
+            "shortTitle": "Mirador",
+            "description": "El primer gran destino del recorrido: un punto elevado para ver el agua, reconocer la escala del terreno y hacer una pausa con vistas abiertas."
           },
           "aireLibre": {
-            "title": "El día a cielo abierto",
-            "shortTitle": "Aire libre",
-            "description": "Un ritmo más lento entre cielo y agua: caminar, descansar, tomar café o salir a kayak cuando las condiciones lo permitan."
+            "title": "Terraza café/bar",
+            "shortTitle": "Café/bar",
+            "description": "Desde la primera etapa, el recorrido desde Organic Farm & Flowers remata en una terraza para tomar café, descansar o cerrar el día frente al agua."
           },
           "identidad": {
-            "title": "Un nuevo frente",
-            "shortTitle": "Identidad",
-            "description": "La presa como una extensión natural del proyecto, conectada desde el Club Residencial a través de Organic Farm & Flowers."
+            "title": "Malecón, tiendas y paseo",
+            "shortTitle": "Malecón",
+            "description": "En su visión completa, el borde de la presa integrará malecón, tiendas, restaurantes, servicios ligeros y zonas de descanso para activar el frente de agua."
           },
           "encuentro": {
-            "title": "La vida en comunidad",
-            "shortTitle": "Encuentro",
-            "description": "Un punto de encuentro para residentes e invitados, cercano a la contemplación, al paisaje y a actividades ligeras junto al agua."
+            "title": "Kayak y actividades ligeras",
+            "shortTitle": "Actividades",
+            "description": "El agua se vivirá con actividades de bajo impacto, paseos y momentos de encuentro para residentes e invitados, según operación y condiciones."
           }
         }
       },
@@ -1558,13 +1557,13 @@
           "base": "Zonas de la",
           "accent": "primera experiencia"
         },
-        "intro": "La Presa de la Cantera inicia como una extensión verde y social del recorrido: mirador, café/bar, malecón, zonas de descanso y actividades ligeras en el agua.",
+        "intro": "Desde la primera etapa, el recorrido cruzará Organic Farm & Flowers hasta llegar a un mirador con terraza café/bar. Después, esta zona crecerá hacia un frente de agua más completo con malecón, tiendas, restaurantes, zonas de descanso y actividades ligeras.",
         "rows": {
           "restaurantes": {
             "eyebrow": "Gastronomía",
             "title": "Zona de",
             "titleItalic": "restaurantes",
-            "description": "Terrazas y servicio de café/bar frente al agua: el lugar natural para cerrar el recorrido desde el desarrollo.",
+            "description": "En la visión completa, terrazas gastronómicas y restaurantes frente al agua darán vida al malecón y al recorrido de la presa.",
             "alt": "Zona gastronómica junto a la presa"
           },
           "estacionamiento": {
@@ -1576,16 +1575,16 @@
           },
           "comerciales": {
             "eyebrow": "Retail",
-            "title": "Locales",
-            "titleItalic": "comerciales",
-            "description": "Servicios ligeros integrados al paseo: atención, alimentos sencillos y experiencias de baja intensidad junto al agua.",
+            "title": "Tiendas",
+            "titleItalic": "y servicios",
+            "description": "Locales integrados al paseo para café, productos, servicios ligeros y pequeñas experiencias que acompañan la vida junto al agua.",
             "alt": "Locales comerciales en el desarrollo"
           },
           "departamentos": {
             "eyebrow": "Mirador",
             "title": "Mirador",
             "titleItalic": "a la presa",
-            "description": "Un punto elevado para contemplar el agua, tomar una pausa y reconocer la escala natural de Don Diego.",
+            "description": "El primer destino de esta etapa: una pausa elevada para contemplar el agua, tomar algo y reconocer la escala natural de Don Diego.",
             "alt": "Mirador hacia la Presa de la Cantera"
           },
           "parques": {
@@ -1599,14 +1598,14 @@
             "eyebrow": "Agua",
             "title": "Kayak",
             "titleItalic": "y actividades ligeras",
-            "description": "Actividades de bajo impacto para disfrutar el agua con una operación ligera y fácil de integrar al paisaje.",
+            "description": "Kayak, paseos ligeros y actividades de bajo impacto para disfrutar la presa con una operación sencilla e integrada al paisaje.",
             "alt": "Kayak y actividades ligeras en la presa"
           },
           "anfiteatro": {
             "eyebrow": "Pausa",
-            "title": "Café",
-            "titleItalic": "y bar",
-            "description": "Una zona sencilla para sentarse, conversar y disfrutar las vistas de la presa después de cruzar la granja.",
+            "title": "Terraza",
+            "titleItalic": "café/bar",
+            "description": "Desde la primera etapa, una terraza café/bar cerrará el recorrido desde Organic Farm & Flowers con vistas abiertas hacia la presa.",
             "alt": "Café y bar junto a la Presa de la Cantera"
           }
         }
@@ -1615,7 +1614,7 @@
     "equipo": {
       "hero": {
         "eyebrow": "El Equipo",
-        "description": "Desarrollo, arquitectura, paisaje y estrategia comercial trabajando bajo una misma visión: construir una comunidad clara, coherente y bien operada."
+        "description": "Don Diego reúne dirección general, desarrollo, arquitectura, paisaje y estrategia comercial bajo una misma visión: construir una comunidad clara, coherente y bien operada."
       },
       "details": {
         "members": {
@@ -1644,10 +1643,10 @@
       "navigationBanner": {
         "imageAlt": "Don Diego - equipo",
         "eyebrow": "Continúa el recorrido",
-        "title1": "Una invitación a conocer",
-        "title2": "la visión de",
-        "titleEm": "Don Diego.",
-        "subtitle": "Explora la visión completa del proyecto.",
+        "title1": "Únete a la comunidad de",
+        "title2": "Don",
+        "titleEm": "Diego.",
+        "subtitle": "Explora la visión completa del proyecto y los siguientes pasos.",
         "back": "Volver",
         "project": "Ir a proyecto"
       }

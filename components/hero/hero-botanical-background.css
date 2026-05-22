@@ -735,7 +735,7 @@
 .scene-botanical .hero-08-left-rose {
   left: 1.4%;
   bottom: -6.2%;
-  width: clamp(126px, 13.2vw, 252px);
+  width: clamp(88px, 9.2vw, 176px);
   opacity: 0.92;
   transform: rotate(-5deg);
 }

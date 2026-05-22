@@ -107,7 +107,7 @@ export default function AmenitiesResidencial() {
                             <video
                                 className="absolute inset-0 h-full w-full scale-[1.5] object-cover"
                                 src="/final/casa-club.mp4"
-                                poster="/babylon/club-residencial.webp"
+                                poster="/final/casa-club-poster.jpg"
                                 autoPlay
                                 muted
                                 loop

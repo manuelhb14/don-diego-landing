@@ -1,16 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState, type TouchEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
+const MOBILE_SWIPE_MIN_DISTANCE = 48;
+const MOBILE_SWIPE_DIRECTION_LOCK = 1.25;
 
 export default function ConceptPresa() {
     const t = useTranslations("pages.presa.concept");
     const shouldReduceMotion = useReducedMotion() ?? false;
+    const touchGestureRef = useRef<{
+        startX: number;
+        startY: number;
+        currentX: number;
+        currentY: number;
+    } | null>(null);
     const features = useMemo(
         () => [
             {
@@ -55,11 +63,75 @@ export default function ConceptPresa() {
         setActiveFeature(features[nextIndex].id);
     };
 
+    const isMobileViewport = () =>
+        typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches;
+
+    const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+        if (!isMobileViewport()) return;
+
+        const touch = event.touches[0];
+        if (!touch) return;
+
+        touchGestureRef.current = {
+            startX: touch.clientX,
+            startY: touch.clientY,
+            currentX: touch.clientX,
+            currentY: touch.clientY,
+        };
+    };
+
+    const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
+        const touch = event.touches[0];
+        if (!touch || !touchGestureRef.current) return;
+
+        touchGestureRef.current.currentX = touch.clientX;
+        touchGestureRef.current.currentY = touch.clientY;
+    };
+
+    const handleTouchEnd = () => {
+        const gesture = touchGestureRef.current;
+        touchGestureRef.current = null;
+        if (!gesture || !isMobileViewport()) return;
+
+        const deltaX = gesture.currentX - gesture.startX;
+        const deltaY = gesture.currentY - gesture.startY;
+        const absX = Math.abs(deltaX);
+        const absY = Math.abs(deltaY);
+
+        if (absX < MOBILE_SWIPE_MIN_DISTANCE || absX < absY * MOBILE_SWIPE_DIRECTION_LOCK) return;
+
+        selectAdjacentFeature(deltaX < 0 ? 1 : -1);
+    };
+
     const revealTransition = (delay = 0) => ({
         duration: shouldReduceMotion ? 0 : 0.78,
         ease: EASE_OUT_CUBIC,
         delay: shouldReduceMotion ? 0 : delay,
     });
+
+    const arrowButtonClassName =
+        "grid h-10 w-10 place-items-center border border-[#5A7A8A]/24 bg-[#FFF9F2] text-[#3d5a6b] transition-colors duration-200 hover:border-[#5A7A8A]/45 hover:bg-[#edf5f7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A7A8A]/35";
+
+    const renderFeatureControls = (className: string) => (
+        <div className={className}>
+            <button
+                type="button"
+                aria-label={t("previousFeatureAria")}
+                onClick={() => selectAdjacentFeature(-1)}
+                className={arrowButtonClassName}
+            >
+                <ChevronLeft className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
+            </button>
+            <button
+                type="button"
+                aria-label={t("nextFeatureAria")}
+                onClick={() => selectAdjacentFeature(1)}
+                className={arrowButtonClassName}
+            >
+                <ChevronRight className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
+            </button>
+        </div>
+    );
 
     return (
         <section
@@ -67,7 +139,15 @@ export default function ConceptPresa() {
             className="overflow-hidden bg-[#fff8ed] py-12 text-[#1a221f] lg:py-20"
             aria-label={t("sectionAriaLabel")}
         >
-            <div className="mx-auto w-full max-w-[1400px] px-6 lg:px-16">
+            <div
+                className="mx-auto w-full max-w-[1400px] touch-pan-y px-6 lg:touch-auto lg:px-16"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                onTouchCancel={() => {
+                    touchGestureRef.current = null;
+                }}
+            >
                 <motion.div
                     initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -94,13 +174,13 @@ export default function ConceptPresa() {
                     </div>
                 </motion.div>
 
-                <div className="grid gap-x-5 gap-y-5 lg:grid-cols-[minmax(0,0.95fr)_minmax(400px,0.68fr)] lg:gap-x-8 lg:gap-y-3">
+                <div className="grid gap-x-5 gap-y-5 lg:grid-cols-[minmax(0,1fr)_minmax(330px,390px)] lg:gap-x-8 lg:gap-y-3 xl:grid-cols-[minmax(0,1fr)_minmax(360px,420px)]">
                     <motion.div
                         initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={revealTransition(0.04)}
-                        className="relative min-h-[320px] w-full overflow-hidden bg-[#EDE5DA] shadow-[0_24px_54px_rgba(26,25,23,0.12)] ring-1 ring-[#1a1917]/10 sm:min-h-[430px] lg:min-h-[560px]"
+                        className="relative min-h-[280px] w-full overflow-hidden bg-[#EDE5DA] shadow-[0_24px_54px_rgba(26,25,23,0.12)] ring-1 ring-[#1a1917]/10 sm:min-h-[360px] lg:min-h-[500px]"
                     >
                         <motion.div
                             key={activeFeatureData.id}
@@ -115,7 +195,7 @@ export default function ConceptPresa() {
                                 fill
                                 className="object-cover object-center"
                                 priority
-                                sizes="(min-width: 1024px) 58vw, 100vw"
+                                sizes="(min-width: 1024px) 62vw, 100vw"
                             />
                         </motion.div>
                         <div className="absolute inset-0 bg-gradient-to-t from-[#172025]/72 via-[#172025]/10 to-transparent" />
@@ -135,7 +215,7 @@ export default function ConceptPresa() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={revealTransition(0.08)}
-                        className="flex min-h-[280px] flex-col self-start border border-[#5A7A8A]/18 bg-[#F2EFE8] p-1 sm:min-h-[300px] sm:p-7 lg:h-[560px] lg:min-h-0 lg:p-8 lg:pt-2"
+                        className="flex min-h-[280px] flex-col self-start border border-[#5A7A8A]/18 bg-[#F2EFE8] p-1 sm:min-h-[300px] sm:p-7 lg:h-[500px] lg:min-h-0 lg:p-8 lg:pt-2"
                     >
                         <div className="mb-6 grid w-full grid-cols-4 gap-1 overflow-visible p-1 sm:mb-8 sm:p-2 lg:-mx-6 lg:flex lg:w-[calc(100%+3rem)] lg:flex-nowrap lg:justify-center lg:gap-0 lg:p-0">
                             {features.map((feature, index) => {
@@ -194,27 +274,11 @@ export default function ConceptPresa() {
                             >
                                 {activeFeatureData.description}
                             </p>
+                            {renderFeatureControls("hidden items-center gap-2 lg:mt-8 lg:flex")}
                         </div>
                     </motion.div>
 
-                    <div className="flex items-center gap-2 lg:col-start-1 lg:row-start-2">
-                        <button
-                            type="button"
-                            aria-label={t("previousFeatureAria")}
-                            onClick={() => selectAdjacentFeature(-1)}
-                            className="grid h-10 w-10 place-items-center border border-[#5A7A8A]/24 bg-[#FFF9F2] text-[#3d5a6b] transition-colors duration-200 hover:border-[#5A7A8A]/45 hover:bg-[#edf5f7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A7A8A]/35"
-                        >
-                            <ChevronLeft className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
-                        </button>
-                        <button
-                            type="button"
-                            aria-label={t("nextFeatureAria")}
-                            onClick={() => selectAdjacentFeature(1)}
-                            className="grid h-10 w-10 place-items-center border border-[#5A7A8A]/24 bg-[#FFF9F2] text-[#3d5a6b] transition-colors duration-200 hover:border-[#5A7A8A]/45 hover:bg-[#edf5f7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A7A8A]/35"
-                        >
-                            <ChevronRight className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
-                        </button>
-                    </div>
+                    {renderFeatureControls("flex items-center gap-2 lg:hidden")}
                 </div>
             </div>
         </section>
