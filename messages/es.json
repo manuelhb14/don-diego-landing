@@ -540,7 +540,7 @@
       },
       {
         "question": "¿Cómo funciona la parte productiva de \"Organic Farm & Flowers\"?",
-        "answer": "Es el paisaje productivo de Don Diego: huertos, frutales, flores, restaurante, clases de cocina y actividades ligadas a la tierra. No contempla residencias."
+        "answer": "Es el paisaje productivo de Don Diego: huertos, frutales, flores, restaurante, clases de cocina y actividades ligadas a la tierra."
       },
       {
         "question": "¿Cuál es el diseño urbanístico enfocado al peatón?",
@@ -1300,7 +1300,7 @@
       "hero": {
         "eyebrow": "[EL PAISAJE PRODUCTIVO]",
         "tagline": "La tierra como parte de la vida diaria.",
-        "description": "Organic Farm & Flowers no contempla residencias: es una granja viva con huertos, frutales, flores, restaurante y clases de cocina.",
+        "description": "Organic Farm & Flowers es una granja viva con huertos, frutales, flores, restaurante y clases de cocina alrededor de lo que se cultiva.",
         "imageAlt": "Organic Farm"
       },
       "sustentabilidad": {
@@ -1396,7 +1396,7 @@
             "kicker": "[COMUNIDAD]",
             "titleBase": "Experiencia",
             "titleAccent": "comunitaria",
-            "description": "Clases de cocina y programas alrededor de lo que se cultiva para que la cosecha se vuelva experiencia, no solo paisaje."
+            "description": "Clases de cocina, programas y recorridos hacia el mirador de la Presa de la Cantera para que la cosecha también se vuelva encuentro."
           },
           "origenLocal": {
             "kicker": "[ORIGEN LOCAL]",
