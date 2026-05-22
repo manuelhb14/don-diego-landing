@@ -1,7 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import Navbar from "@/components/Navbar";
 import UbicacionEditorialPage from "@/components/ubicacion/UbicacionEditorialPage";
-import Exclusivity from "@/components/Exclusivity";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -17,7 +16,6 @@ export default async function UbicacionPage({ params }: Props) {
         <>
             <Navbar locale={locale} theme="dark" />
             <UbicacionEditorialPage />
-            <Exclusivity />
             <Contact />
             <Footer />
         </>

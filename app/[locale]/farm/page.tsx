@@ -4,7 +4,6 @@ import HeroFarm from "@/components/farm/HeroFarm";
 import SustentabilidadFarm from "@/components/farm/SustentabilidadFarm";
 import TrabajoFloresFarm from "@/components/farm/TrabajoFloresFarm";
 import ProductsFarm from "@/components/farm/ProductsFarm";
-import Exclusivity from "@/components/Exclusivity";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -24,7 +23,6 @@ export default async function FarmPage({ params }: Props) {
                 <SustentabilidadFarm />
                 <ProductsFarm />
                 <TrabajoFloresFarm />
-                <Exclusivity />
                 <Contact />
             </main>
             <Footer />

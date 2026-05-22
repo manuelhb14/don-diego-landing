@@ -3,7 +3,6 @@ import Navbar from "@/components/Navbar";
 import HeroPresa from "@/components/presa/HeroPresa";
 import ConceptPresa from "@/components/presa/ConceptPresa";
 import AreasPresa from "@/components/presa/AreasPresa";
-import Exclusivity from "@/components/Exclusivity";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -22,7 +21,6 @@ export default async function PresaPage({ params }: Props) {
                 <HeroPresa />
                 <ConceptPresa />
                 <AreasPresa />
-                <Exclusivity />
                 <Contact />
             </main>
             <Footer />

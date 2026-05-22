@@ -2,7 +2,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Exclusivity from "@/components/Exclusivity";
 import Contact from "@/components/Contact";
 import HeroPropiedades from "@/components/propiedades/HeroPropiedades";
 import { getAllProperties } from "@/content/properties";
@@ -116,7 +115,6 @@ export default async function PropiedadesPage({ params }: Props) {
           </ul>
         </section> */}
 
-        <Exclusivity />
         <Contact />
       </main>
       <Footer />

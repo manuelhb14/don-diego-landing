@@ -24,6 +24,14 @@
     "menuAria": "Menu",
     "aiAssistant": "Let's talk"
   },
+  "cookieBanner": {
+    "kicker": "Privacy",
+    "title": "We use cookies.",
+    "body": "Necessary cookies keep the site working; optional cookies help us improve the visit journey.",
+    "privacyLink": "Privacy Policy",
+    "necessaryOnly": "Reject optional",
+    "acceptAll": "Accept"
+  },
   "blogsHome": {
     "kicker": "Blog",
     "title": "Stories & Experiences",
@@ -139,8 +147,8 @@
     "privacy": "By submitting, you accept our Terms of Service and Privacy Policy, including (when applicable) identity checks that may use your CURP and reviews through lawful screening or legal information platforms, as described there.",
     "committeeNotice": "When you send this first message, we place your request in a small internal “committee” (Comité) review for basic security and fit before we share things like exact pricing or other sensitive project details. It’s a standard step to protect the community and the project.",
     "kicker": "Contact",
-    "joinLine1": "Join the community of",
-    "joinEm": "Don Diego",
+    "joinLine1": "Let's talk about",
+    "joinEm": "the next step",
     "bodyHome": "Discover Don Diego in person. Contact us to schedule a private tour of our lands in San Miguel de Allende.",
     "belief1t": "Wellbeing",
     "belief1d": "Whole-life living",
@@ -455,10 +463,10 @@
   },
   "exclusivity": {
     "imageAlt": "Don Diego - Exclusivity",
-    "title1": "An invitation to belong",
+    "title1": "Join the community of",
     "title2": "to something",
-    "titleEm": "extraordinary.",
-    "subtitle": "A space shared in private.",
+    "titleEm": "Don Diego.",
+    "subtitle": "A club designed for calm living, close to the land and good community.",
     "socialTitle": "Follow us on social media"
   },
   "galleryCarousel": {

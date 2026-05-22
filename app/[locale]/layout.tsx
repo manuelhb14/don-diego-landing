@@ -8,6 +8,7 @@ import Script from "next/script";
 import ViewportIndicator from "@/components/dev/ViewportIndicator";
 import { VisualEditorProvider } from "@/components/editor/VisualEditorProvider";
 import SiteReviewLoader from "@/components/site-review/SiteReviewLoader";
+import CookieBanner from "@/components/CookieBanner";
 
 type Props = {
   children: React.ReactNode;
@@ -41,6 +42,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <VisualEditorProvider>
             <ChatProvider>
               <ChatLayoutShell>{children}</ChatLayoutShell>
+              <CookieBanner />
             </ChatProvider>
           </VisualEditorProvider>
         </NextIntlClientProvider>

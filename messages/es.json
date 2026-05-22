@@ -24,6 +24,14 @@
     "menuAria": "Menú",
     "aiAssistant": "Pregúntame"
   },
+  "cookieBanner": {
+    "kicker": "Privacidad",
+    "title": "Usamos cookies.",
+    "body": "Las necesarias mantienen el sitio activo; las opcionales nos ayudan a mejorar el recorrido.",
+    "privacyLink": "Política de Privacidad",
+    "necessaryOnly": "Rechazar opcionales",
+    "acceptAll": "Aceptar"
+  },
   "blogsHome": {
     "kicker": "Blog",
     "title": "Historias & Experiencias",
@@ -552,7 +560,7 @@
     "imageAlt": "Don Diego - Exclusividad",
     "title1": "Únete a la comunidad de",
     "titleEm": "Don Diego.",
-    "subtitle": "Un club pensado para vivir con calma, cerca de la tierra y en buena comunidad.",
+    "subtitle": "Si Don Diego resuena contigo, podemos compartirte el proyecto con calma: el club, la tierra, la comunidad y los siguientes pasos.",
     "socialTitle": "Síguenos en nuestras redes"
   },
   "galleryCarousel": {
@@ -1646,7 +1654,7 @@
         "title1": "Únete a la comunidad de",
         "title2": "Don",
         "titleEm": "Diego.",
-        "subtitle": "Explora la visión completa del proyecto y los siguientes pasos.",
+        "subtitle": "Si Don Diego resuena contigo, podemos compartirte el proyecto con calma: el club, la tierra, la comunidad y los siguientes pasos.",
         "back": "Volver",
         "project": "Ir a proyecto"
       }
