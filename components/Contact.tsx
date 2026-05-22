@@ -77,18 +77,18 @@ export default function Contact() {
                         transition={revealTransition()}
                     >
                         <h2
-                            className="mb-6 text-balance text-[#1C1713] leading-[0.98]"
+                            className="mb-6 text-[#1C1713] leading-[0.98] lg:whitespace-nowrap"
                             style={{
                                 fontFamily: "var(--font-serif)",
-                                fontSize: "clamp(2.4rem, 4.6vw, 4.5rem)",
+                                fontSize: "clamp(1.75rem, 2.45vw, 2.75rem)",
                             }}
                         >
-                            {t("joinLine1")} <em className="text-[#AA7D69]">{t("joinEm")}</em>
+                            {t("joinLine1")} <span className="text-[#121212]">{t("joinEm")}</span>
                         </h2>
 
                         <p
-                            className="max-w-[34rem] text-base leading-relaxed text-[#1C1713]/72 md:text-lg"
-                            style={{ fontFamily: "var(--font-sans)" }}
+                            className="max-w-md text-base font-medium leading-relaxed text-[#222222]/72 md:text-xl"
+                            style={{ fontFamily: "var(--font-serif)" }}
                         >
                             {t("bodyHome")}
                         </p>

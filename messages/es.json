@@ -502,7 +502,7 @@
     "kicker": "El Lugar",
     "title1": "Cerca de todo",
     "title2": "Lejos de lo común",
-    "body": "Conexión directa con San Miguel y una vida diaria más amplia: shuttles, caminos verdes, agua y paisaje para estar cerca sin vivir encima del ritmo de la ciudad.",
+    "body": "Conexión directa con San Miguel. Shuttles, caminos verdes, agua y paisaje para estar cerca sin vivir encima del ritmo de la ciudad.",
     "centroLabel": "Centro Histórico",
     "centroSub": "Encanto Colonial",
     "proximityTitle": "Proximidad",
@@ -551,8 +551,7 @@
   "exclusivity": {
     "imageAlt": "Don Diego - Exclusividad",
     "title1": "Únete a la comunidad de",
-    "title2": "Don",
-    "titleEm": "Diego.",
+    "titleEm": "Don Diego.",
     "subtitle": "Un club pensado para vivir con calma, cerca de la tierra y en buena comunidad.",
     "socialTitle": "Síguenos en nuestras redes"
   },

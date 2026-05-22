@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react";
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import EditableText from "@/components/editor/EditableText";
@@ -12,6 +12,27 @@ import type { WeatherResponse } from "@/lib/weather";
 type HeroProps = {
     initialWeather?: WeatherResponse;
 };
+
+const {
+    props: { srcSet: desktopHeroSrcSet, sizes: desktopHeroSizes },
+} = getImageProps({
+    src: "/final-hero-2.png",
+    alt: "",
+    width: 2688,
+    height: 1370,
+    sizes: "100vw",
+});
+
+const { props: mobileHeroImageProps } = getImageProps({
+    src: "/final-hero-mobile.jpg",
+    alt: "",
+    width: 1448,
+    height: 2560,
+    sizes: "100vw",
+    loading: "eager",
+    fetchPriority: "high",
+    className: "block h-full w-full object-cover object-center md:object-[80%_center]",
+});
 
 const titlePathVariants: Variants = {
     hidden: { pathLength: 0, fill: "rgba(255, 243, 225, 0)" },
@@ -108,7 +129,7 @@ export default function Hero({ initialWeather }: HeroProps) {
     });
 
     const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-    const contentY = useTransform(scrollYProgress, [0, 1], ["-48px", "20px"]);
+    const contentY = useTransform(scrollYProgress, [0, 1], ["-60px", "20px"]);
     const chevronOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
 
     const scrollToVideo = () => {
@@ -148,14 +169,14 @@ export default function Hero({ initialWeather }: HeroProps) {
                 className="absolute inset-0 z-0 h-full w-full overflow-hidden"
                 style={{ scale: shouldReduceMotion ? 1 : imgScale }}
             >
-                <Image
-                    src="/final-hero.png"
-                    alt=""
-                    fill
-                    priority
-                    sizes="100vw"
-                    className="object-cover"
-                />
+                <picture className="absolute inset-0 block h-full w-full">
+                    <source
+                        media="(min-width: 768px)"
+                        srcSet={desktopHeroSrcSet ?? "/final-hero-2.png"}
+                        sizes={desktopHeroSizes}
+                    />
+                    <img {...mobileHeroImageProps} alt="" />
+                </picture>
                 <HeroBotanicalBackground
                     atmosphereOnly
                     className="absolute inset-0 h-full w-full min-h-full"

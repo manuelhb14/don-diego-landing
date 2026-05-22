@@ -70,12 +70,12 @@ export default function Exclusivity() {
             className="mb-2 leading-[1.04] text-[#222222] md:mb-5"
             style={{
               fontFamily: "var(--font-serif)",
-              fontSize: "clamp(2rem, 3.4vw, 3.25rem)",
+              fontSize: "clamp(2.4rem, 4.56vw, 4rem)",
             }}
           >
             <EditableText contentKey="home.exclusivity.title1" fallback={tx("title1")} />
             <br />
-            <EditableText contentKey="home.exclusivity.title2" fallback={tx("title2")} />{" "}
+            {/* <EditableText contentKey="home.exclusivity.title2" fallback={tx("title2")} />{" "} */}
             <em className="text-[#AA7D69]"><EditableText contentKey="home.exclusivity.titleEm" fallback={tx("titleEm")} /></em>
           </motion.h2>
 
@@ -84,7 +84,7 @@ export default function Exclusivity() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={revealTransition(0.16)}
-            className="max-w-sm text-base leading-relaxed text-[#222222]/72 lg:text-lg"
+            className="max-w-md text-base font-medium leading-relaxed text-[#222222]/72 md:text-xl"
             style={{ fontFamily: "var(--font-serif)" }}
           >
             <EditableText contentKey="home.exclusivity.subtitle" fallback={tx("subtitle")} />
@@ -138,7 +138,7 @@ export default function Exclusivity() {
               ))}
             </div>
             <p
-              className="text-xs leading-none tracking-[0.04em] text-[#222222]/58 lg:text-sm"
+              className="max-w-md text-base font-medium leading-relaxed text-[#222222]/72 md:text-xl"
               style={{ fontFamily: "var(--font-serif)" }}
             >
               {tx("socialTitle")}
