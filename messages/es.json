@@ -1575,7 +1575,7 @@
             "alt": "Accesos y estacionamiento del desarrollo"
           },
           "comerciales": {
-            "eyebrow": "[RETAIL]",
+            "eyebrow": "Retail",
             "title": "Tiendas",
             "titleItalic": "y servicios",
             "description": "Locales integrados al paseo para café, productos, servicios ligeros y pequeñas experiencias que acompañan la vida junto al agua.",
@@ -1603,7 +1603,7 @@
             "alt": "Kayak y actividades ligeras en la presa"
           },
           "anfiteatro": {
-            "eyebrow": "[PAUSA]",
+            "eyebrow": "Pausa",
             "title": "Terraza",
             "titleItalic": "café/bar",
             "description": "Desde la primera etapa, una terraza café/bar cerrará el recorrido desde Organic Farm & Flowers con vistas abiertas hacia la presa.",
