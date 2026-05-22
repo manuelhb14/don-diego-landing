@@ -1030,7 +1030,7 @@
           },
           "maintenance": {
             "title": "Beneficios de mantenimiento",
-            "body": "La operación residencial cuida áreas comunes, paisaje, accesos y estándares del club, reduciendo fricción cotidiana para propietarios y huéspedes."
+            "body": "La operación cuida áreas comunes, paisaje y accesos, con opción adicional de limpieza para residencias."
           },
           "outdoorLiving": {
             "title": "Terrazas, patios y azoteas",
@@ -1066,7 +1066,7 @@
         "residences": {
           "departamentos": {
             "title": "Departamentos",
-            "description": "Bloques alrededor del complejo habitacional: estacionamiento techado y bodegas a desnivel forman un circuito que mantiene las calles interiores libres de tránsito vehicular. Cuatro departamentos por nivel con terrazas y azoteas aprovechables.",
+            "description": "Tipologías residenciales en revisión, con distribuciones flexibles, terrazas o patios según modelo, dos cajones de estacionamiento y conexión cercana a los recorridos peatonales del Club Residencial.",
             "specs": {
               "superficie": "113-173 m2",
               "recamaras": "2-3",
@@ -1074,14 +1074,14 @@
               "estacionamientos": "2 cajones por unidad"
             },
             "highlights": {
-              "1": "Calles 100 % peatonales",
-              "2": "Terrazas y azoteas",
-              "3": "Estacionamiento a desnivel"
+              "1": "Distribución en revisión",
+              "2": "Terrazas o patios según tipología",
+              "3": "Estacionamiento considerado"
             }
           },
           "duplex1": {
             "title": "Casas dúplex Tipo 1",
-            "description": "Una vivienda por nivel, cada una con terraza o patio interior y vínculo claro con el exterior. Posibilidad de rentar una recámara de forma independiente.",
+            "description": "Tipologías residenciales en revisión, con distribuciones flexibles, terrazas o patios según modelo, dos cajones de estacionamiento y conexión cercana a los recorridos peatonales del Club Residencial.",
             "specs": {
               "superficie": "128-155 m2",
               "recamaras": "2-3",
@@ -1089,14 +1089,14 @@
               "estacionamientos": "2 cajones por unidad"
             },
             "highlights": {
-              "1": "Una casa por nivel",
-              "2": "Terraza o patio interior",
-              "3": "Recámara independiente (opcional)"
+              "1": "Distribución en revisión",
+              "2": "Terrazas o patios según tipología",
+              "3": "Estacionamiento considerado"
             }
           },
           "duplex2": {
             "title": "Casas dúplex Tipo 2",
-            "description": "Viviendas en torno a un patio interior, una casa por nivel. El Tipo 2 conecta las calles peatonales a través del primer nivel. Jacuzzi en prototipos seleccionados.",
+            "description": "Tipologías residenciales en revisión, con distribuciones flexibles, terrazas o patios según modelo, dos cajones de estacionamiento y conexión cercana a los recorridos peatonales del Club Residencial.",
             "specs": {
               "superficie": "166-185 m2",
               "recamaras": "2-4",
@@ -1104,14 +1104,14 @@
               "estacionamientos": "2 cajones por unidad"
             },
             "highlights": {
-              "1": "Patio interior",
-              "2": "Calles peatonales en planta baja",
-              "3": "Jacuzzi en selección"
+              "1": "Distribución en revisión",
+              "2": "Terrazas o patios según tipología",
+              "3": "Estacionamiento considerado"
             }
           },
           "duplex3": {
             "title": "Casas dúplex Tipo 3",
-            "description": "Patio central con una vivienda por nivel; distribuciones con varias terrazas y, en prototipos tipo B, sala de estar. Posibilidad de rentar una recámara de forma independiente.",
+            "description": "Tipologías residenciales en revisión, con distribuciones flexibles, terrazas o patios según modelo, dos cajones de estacionamiento y conexión cercana a los recorridos peatonales del Club Residencial.",
             "specs": {
               "superficie": "142-181 m2",
               "recamaras": "2-3",
@@ -1119,9 +1119,9 @@
               "estacionamientos": "2 cajones por unidad"
             },
             "highlights": {
-              "1": "Patio interior",
-              "2": "Varias terrazas",
-              "3": "Sala de estar (prototipo B)"
+              "1": "Distribución en revisión",
+              "2": "Terrazas o patios según tipología",
+              "3": "Estacionamiento considerado"
             }
           }
         }
@@ -1220,7 +1220,7 @@
         "titleLine1": "Ser dueño es formar parte de la",
         "titleAccent": "comunidad",
         "subtitle": "El club como lugar de encuentro y vida compartida",
-        "body": "No solo tienes acceso a los espacios: te integras a una comunidad de vecinos que comparten el mismo entorno, el mismo cuidado y el mismo ritmo de vida. Participas del club como quien pertenece, con voz, encuentros y una experiencia que se construye en conjunto.",
+        "body": "Ser parte del club es integrarte a una comunidad que comparte una forma de vivir: respeto por el entorno, cuidado por los espacios y una visión similar de convivencia. El resultado es un lugar de encuentro con ritmo propio, cercano y bien cuidado.",
         "cta": "EXPLORAR LAS EXPERIENCIAS",
         "alts": {
           "clubhouse": "Casa Club Don Diego",
