@@ -85,9 +85,7 @@ export default function FormContacto() {
                             fontSize: "clamp(2.65rem, 5vw, 5.2rem)",
                         }}
                     >
-                        {t("titleLine1")}
-                        <br />
-                        <em className="text-[#AA7D69]">{t("titleLine2")}</em>
+                        {t("titleLine1")} <em className="text-[#AA7D69]">{t("titleLine2")}</em>
                     </h1>
 
                     <p

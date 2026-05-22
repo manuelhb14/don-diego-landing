@@ -73,7 +73,7 @@ export default function ConceptPresa() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={revealTransition()}
-                    className="mb-8 grid gap-5 lg:mb-12 lg:grid-cols-[minmax(0,0.72fr)_minmax(300px,0.28fr)] lg:items-end"
+                    className="mb-8 max-w-[980px] lg:mb-12"
                 >
                     <div>
                         <p
@@ -89,48 +89,35 @@ export default function ConceptPresa() {
                                 fontSize: "clamp(2.75rem, 5vw, 4.75rem)",
                             }}
                         >
-                            {t("title.base")}
-                            <br />
-                            <span className="italic text-[#5A7A8A]">{t("title.accent")}</span>
+                            {t("title.base")} <span className="italic text-[#5A7A8A]">{t("title.accent")}</span>
                         </h2>
-                    </div>
-
-                    <div className="flex items-center gap-2 lg:justify-end">
-                        <button
-                            type="button"
-                            aria-label={t("previousFeatureAria")}
-                            onClick={() => selectAdjacentFeature(-1)}
-                            className="grid h-10 w-10 place-items-center border border-[#5A7A8A]/24 bg-[#FFF9F2] text-[#3d5a6b] transition-colors duration-200 hover:border-[#5A7A8A]/45 hover:bg-[#edf5f7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A7A8A]/35"
-                        >
-                            <ChevronLeft className="h-4 w-4" strokeWidth={1.7} />
-                        </button>
-                        <button
-                            type="button"
-                            aria-label={t("nextFeatureAria")}
-                            onClick={() => selectAdjacentFeature(1)}
-                            className="grid h-10 w-10 place-items-center border border-[#5A7A8A]/24 bg-[#FFF9F2] text-[#3d5a6b] transition-colors duration-200 hover:border-[#5A7A8A]/45 hover:bg-[#edf5f7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A7A8A]/35"
-                        >
-                            <ChevronRight className="h-4 w-4" strokeWidth={1.7} />
-                        </button>
                     </div>
                 </motion.div>
 
-                <div className="grid gap-5 lg:grid-cols-[minmax(0,0.95fr)_minmax(400px,0.68fr)] lg:gap-8">
+                <div className="grid gap-x-5 gap-y-5 lg:grid-cols-[minmax(0,0.95fr)_minmax(400px,0.68fr)] lg:gap-x-8 lg:gap-y-3">
                     <motion.div
-                        key={activeFeatureData.id}
                         initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
                         transition={revealTransition(0.04)}
-                        className="relative min-h-[320px] overflow-hidden shadow-[0_24px_54px_rgba(26,25,23,0.12)] ring-1 ring-[#1a1917]/10 sm:min-h-[430px] lg:min-h-[560px]"
+                        className="relative min-h-[320px] w-full overflow-hidden bg-[#EDE5DA] shadow-[0_24px_54px_rgba(26,25,23,0.12)] ring-1 ring-[#1a1917]/10 sm:min-h-[430px] lg:min-h-[560px]"
                     >
-                        <Image
-                            src={activeFeatureData.image}
-                            alt={activeFeatureData.title}
-                            fill
-                            className="object-cover object-center"
-                            priority
-                            sizes="(min-width: 1024px) 58vw, 100vw"
-                        />
+                        <motion.div
+                            key={activeFeatureData.id}
+                            initial={shouldReduceMotion ? false : { opacity: 0, scale: 1.015 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={revealTransition()}
+                            className="absolute inset-0"
+                        >
+                            <Image
+                                src={activeFeatureData.image}
+                                alt={activeFeatureData.title}
+                                fill
+                                className="object-cover object-center"
+                                priority
+                                sizes="(min-width: 1024px) 58vw, 100vw"
+                            />
+                        </motion.div>
                         <div className="absolute inset-0 bg-gradient-to-t from-[#172025]/72 via-[#172025]/10 to-transparent" />
                         <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between gap-4 sm:right-6 sm:bottom-6 sm:left-6">
                             <p
@@ -148,31 +135,43 @@ export default function ConceptPresa() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={revealTransition(0.08)}
-                        className="flex min-h-[320px] flex-col border border-[#5A7A8A]/18 bg-[#F2EFE8] p-5 sm:p-7 lg:min-h-[560px] lg:p-8"
+                        className="flex min-h-[280px] flex-col self-start border border-[#5A7A8A]/18 bg-[#F2EFE8] p-1 sm:min-h-[300px] sm:p-7 lg:h-[560px] lg:min-h-0 lg:p-8 lg:pt-2"
                     >
-                        <div className="mb-8 flex flex-wrap gap-2">
+                        <div className="mb-6 grid w-full grid-cols-4 gap-1 overflow-visible p-1 sm:mb-8 sm:p-2 lg:-mx-6 lg:flex lg:w-[calc(100%+3rem)] lg:flex-nowrap lg:justify-center lg:gap-0 lg:p-0">
                             {features.map((feature, index) => {
                                 const isActive = feature.id === activeFeature;
+                                const featureNumber = String(index + 1).padStart(2, "0");
 
                                 return (
                                     <button
                                         key={feature.id}
                                         type="button"
                                         onClick={() => setActiveFeature(feature.id)}
-                                        className={`border px-3 py-2 text-[10px] tracking-[0.22em] uppercase transition-colors duration-200 ${
+                                        className={`relative flex min-w-0 items-center justify-center overflow-hidden whitespace-nowrap border px-0.5 py-2.5 text-[9px] tracking-[0.06em] uppercase transition-colors duration-200 sm:px-1 sm:text-[10px] sm:tracking-[0.08em] md:px-2 md:text-[10.5px] md:tracking-[0.12em] lg:flex-1 lg:px-1 lg:py-3 lg:text-[8.5px] lg:tracking-[0.14em] xl:px-2 xl:text-[9.5px] xl:tracking-[0.18em] ${
                                             isActive
                                                 ? "border-[#5A7A8A] bg-[#5A7A8A] text-[#FFF9F2]"
                                                 : "border-[#5A7A8A]/18 bg-[#FFF9F2] text-[#3d5a6b] hover:border-[#5A7A8A]/38"
                                         }`}
                                         style={{ fontFamily: "var(--font-sans)" }}
                                     >
-                                        {String(index + 1).padStart(2, "0")} {feature.shortTitle}
+                                        <span
+                                            className={`pointer-events-none absolute left-1 top-0.5 text-[9px] leading-none tracking-normal lg:hidden ${
+                                                isActive ? "text-[#FFF9F2]/30" : "text-[#5A7A8A]/28"
+                                            }`}
+                                            aria-hidden="true"
+                                        >
+                                            {featureNumber}
+                                        </span>
+                                        <span className="relative z-10 lg:hidden">{feature.shortTitle}</span>
+                                        <span className="relative z-10 hidden lg:inline">
+                                            {featureNumber} {feature.shortTitle}
+                                        </span>
                                     </button>
                                 );
                             })}
                         </div>
 
-                        <div className="mt-auto">
+                        <div className="mt-auto px-4 pb-5 sm:px-0 sm:pb-0">
                             <p
                                 className="mb-4 text-xs tracking-[0.3em] text-[#5A7A8A] uppercase"
                                 style={{ fontFamily: "var(--font-sans)" }}
@@ -183,7 +182,7 @@ export default function ConceptPresa() {
                                 className="max-w-[28rem] text-[#1a221f]"
                                 style={{
                                     fontFamily: "var(--font-serif)",
-                                    fontSize: "clamp(2.15rem, 4vw, 3.6rem)",
+                                    fontSize: "clamp(1.75rem, 2.8vw, 2.75rem)",
                                     lineHeight: 1.03,
                                 }}
                             >
@@ -197,6 +196,25 @@ export default function ConceptPresa() {
                             </p>
                         </div>
                     </motion.div>
+
+                    <div className="flex items-center gap-2 lg:col-start-1 lg:row-start-2">
+                        <button
+                            type="button"
+                            aria-label={t("previousFeatureAria")}
+                            onClick={() => selectAdjacentFeature(-1)}
+                            className="grid h-10 w-10 place-items-center border border-[#5A7A8A]/24 bg-[#FFF9F2] text-[#3d5a6b] transition-colors duration-200 hover:border-[#5A7A8A]/45 hover:bg-[#edf5f7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A7A8A]/35"
+                        >
+                            <ChevronLeft className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
+                        </button>
+                        <button
+                            type="button"
+                            aria-label={t("nextFeatureAria")}
+                            onClick={() => selectAdjacentFeature(1)}
+                            className="grid h-10 w-10 place-items-center border border-[#5A7A8A]/24 bg-[#FFF9F2] text-[#3d5a6b] transition-colors duration-200 hover:border-[#5A7A8A]/45 hover:bg-[#edf5f7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A7A8A]/35"
+                        >
+                            <ChevronRight className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>

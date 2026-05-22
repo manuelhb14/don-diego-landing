@@ -78,13 +78,8 @@ export default function ThingsToDo() {
         if (!el) return;
 
         const edgeTolerance = 8;
-        const firstItem = el.firstElementChild as HTMLElement | null;
-        const startOffset = firstItem ? firstItem.offsetLeft : 0;
-
-        const rawMaxScroll = Math.max(el.scrollWidth - el.clientWidth, 0);
-        const maxScroll = Math.max(rawMaxScroll - startOffset, 0);
-        const normalizedScrollLeft = Math.max(el.scrollLeft - startOffset, 0);
-        const safeScrollLeft = Math.min(normalizedScrollLeft, maxScroll);
+        const maxScroll = Math.max(el.scrollWidth - el.clientWidth, 0);
+        const safeScrollLeft = Math.min(Math.max(el.scrollLeft, 0), maxScroll);
 
         const hasOverflow = maxScroll > edgeTolerance;
         const isAtStart = safeScrollLeft <= edgeTolerance;
@@ -132,9 +127,34 @@ export default function ThingsToDo() {
             const el = scrollerRef.current;
             if (!el) return;
 
-            const amount = el.clientWidth * 0.72;
-            el.scrollBy({
-                left: direction === "left" ? -amount : amount,
+            const leadingPadding = parseFloat(getComputedStyle(el).paddingLeft) || 0;
+            const maxScroll = Math.max(el.scrollWidth - el.clientWidth, 0);
+            const scrollTargets = Array.from(el.children)
+                .map((child) => {
+                    if (!(child instanceof HTMLElement)) return null;
+                    return Math.min(Math.max(child.offsetLeft - leadingPadding, 0), maxScroll);
+                })
+                .filter((target): target is number => target !== null);
+
+            const edgeTolerance = 8;
+            const currentScroll = el.scrollLeft;
+            let target: number | undefined;
+
+            if (direction === "right") {
+                target = scrollTargets.find((position) => position > currentScroll + edgeTolerance);
+            } else {
+                for (let i = scrollTargets.length - 1; i >= 0; i -= 1) {
+                    if (scrollTargets[i] < currentScroll - edgeTolerance) {
+                        target = scrollTargets[i];
+                        break;
+                    }
+                }
+            }
+
+            if (target === undefined) return;
+
+            el.scrollTo({
+                left: target,
                 behavior: shouldReduceMotion ? "auto" : "smooth",
             });
         },
@@ -147,7 +167,32 @@ export default function ThingsToDo() {
     });
 
     return (
-        <section ref={sectionRef} className="overflow-visible bg-[#F6F0E8]">
+        <section ref={sectionRef} className="things-to-do-section overflow-x-clip overflow-y-visible bg-[#F6F0E8]">
+            <style>{`
+                .things-to-do-section {
+                    --things-carousel-gutter: max(1.5rem, calc((100vw - 1440px) / 2 + 1.5rem));
+                }
+
+                .things-to-do-title {
+                    font-size: clamp(2.8rem, 11.5vw, 4.5rem);
+                }
+
+                @media (min-width: 768px) {
+                    .things-to-do-section {
+                        --things-carousel-gutter: max(2.5rem, calc((100vw - 1440px) / 2 + 2.5rem));
+                    }
+
+                    .things-to-do-title {
+                        font-size: clamp(3rem, 6vw, 6rem);
+                    }
+                }
+
+                @media (min-width: 1024px) {
+                    .things-to-do-section {
+                        --things-carousel-gutter: max(4rem, calc((100vw - 1440px) / 2 + 4rem));
+                    }
+                }
+            `}</style>
             <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10 lg:px-16 py-12 lg:py-16">
                 <motion.div
                     initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
@@ -162,18 +207,20 @@ export default function ThingsToDo() {
                         {tt("kicker")}
                     </p>
                     <h2
-                        className="max-w-full whitespace-nowrap leading-[0.95] text-[#222222]"
+                        className="things-to-do-title max-w-full leading-[0.95] text-[#222222] md:whitespace-nowrap"
                         style={{
                             fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(3rem, 6vw, 6rem)",
                         }}
                     >
-                        {tt("titleLead")} <em className="text-[#AA7D69]">{tt("titleAccent")}</em>
+                        {tt("titleLead")} <em className="block text-[#AA7D69] md:inline">{tt("titleAccent")}</em>
                     </h2>
                 </motion.div>
 
-                <div className="group/carousel relative mt-10 lg:mt-12">
-                    <div className="absolute -top-5 right-0 z-[3] h-px w-24 overflow-hidden md:w-28">
+                <div className="relative mt-10 ml-[calc(50%_-_50vw)] mr-[calc(50%_-_50vw)] lg:mt-12">
+                    <div
+                        className="absolute -top-5 z-[3] h-px w-24 overflow-hidden md:w-28"
+                        style={{ right: "var(--things-carousel-gutter)" }}
+                    >
                         <div className="h-full w-full bg-[#AA7D69]/18" />
                         <div
                             className="absolute left-0 top-0 h-full bg-[#AA7D69]/70 transition-[width] duration-200"
@@ -184,49 +231,17 @@ export default function ThingsToDo() {
                     <div
                         aria-hidden="true"
                         className={[
-                            "pointer-events-none absolute inset-y-0 left-[-1.5rem] md:left-[-2.5rem] lg:left-[-4rem] z-[2] w-8 bg-gradient-to-r from-[#F6F0E8] to-transparent transition-opacity duration-300",
+                            "pointer-events-none absolute inset-y-0 left-0 z-[2] w-8 bg-gradient-to-r from-[#F6F0E8] to-transparent transition-opacity duration-300",
                             canScrollLeft ? "opacity-100" : "opacity-0",
                         ].join(" ")}
                     />
                     <div
                         aria-hidden="true"
                         className={[
-                            "pointer-events-none absolute inset-y-0 right-[-1.5rem] md:right-[-2.5rem] lg:right-[-4rem] z-[2] w-8 bg-gradient-to-l from-[#F6F0E8] to-transparent transition-opacity duration-300",
+                            "pointer-events-none absolute inset-y-0 right-0 z-[2] w-8 bg-gradient-to-l from-[#F6F0E8] to-transparent transition-opacity duration-300",
                             canScrollRight ? "opacity-100" : "opacity-0",
                         ].join(" ")}
                     />
-
-                    <button
-                        type="button"
-                        aria-label={tt("carouselPrevAria")}
-                        aria-hidden={!canScrollLeft}
-                        onClick={() => scrollCarousel("left")}
-                        disabled={!canScrollLeft}
-                        className={[
-                            "absolute left-1 top-[42%] z-[3] flex h-8 w-8 -translate-y-1/2 items-center justify-center border border-white/70 bg-[#16120f]/24 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] transition-all duration-300 hover:bg-[#f4e6db] hover:text-[#222222] active:scale-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:left-0 md:h-9 md:w-9 lg:-left-3",
-                            canScrollLeft
-                                ? "opacity-100 lg:pointer-events-none lg:opacity-0 lg:group-hover/carousel:pointer-events-auto lg:group-hover/carousel:opacity-100 lg:focus-visible:pointer-events-auto lg:focus-visible:opacity-100"
-                                : "pointer-events-none opacity-0 invisible",
-                        ].join(" ")}
-                    >
-                        <ChevronLeft className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
-                    </button>
-
-                    <button
-                        type="button"
-                        aria-label={tt("carouselNextAria")}
-                        aria-hidden={!canScrollRight}
-                        onClick={() => scrollCarousel("right")}
-                        disabled={!canScrollRight}
-                        className={[
-                            "absolute right-1 top-[42%] z-[3] flex h-8 w-8 -translate-y-1/2 items-center justify-center border border-white/70 bg-[#16120f]/24 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] transition-all duration-300 hover:bg-[#f4e6db] hover:text-[#222222] active:scale-[0.96] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:right-0 md:h-9 md:w-9 lg:-right-3",
-                            canScrollRight
-                                ? "opacity-100 lg:pointer-events-none lg:opacity-0 lg:group-hover/carousel:pointer-events-auto lg:group-hover/carousel:opacity-100 lg:focus-visible:pointer-events-auto lg:focus-visible:opacity-100"
-                                : "pointer-events-none opacity-0 invisible",
-                        ].join(" ")}
-                    >
-                        <ChevronRight className="h-4 w-4" strokeWidth={1.8} aria-hidden="true" />
-                    </button>
 
                     <motion.div
                         initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
@@ -236,13 +251,15 @@ export default function ThingsToDo() {
                         ref={scrollerRef}
                         className={[
                             "relative flex gap-4 overflow-x-auto pb-5 md:gap-5",
-                            "-mx-6 md:-mx-10 lg:-mx-16",
-                            "px-6 md:px-10 lg:px-16",
                             "scrollbar-none snap-x snap-mandatory",
                             "select-none",
                         ].join(" ")}
                         style={{
                             WebkitOverflowScrolling: "touch",
+                            paddingLeft: "var(--things-carousel-gutter)",
+                            paddingRight: "var(--things-carousel-gutter)",
+                            scrollPaddingLeft: "var(--things-carousel-gutter)",
+                            scrollPaddingRight: "var(--things-carousel-gutter)",
                             scrollbarWidth: "none",
                         }}
                     >
@@ -298,6 +315,29 @@ export default function ThingsToDo() {
                             </div>
                         </div>
                     </motion.div>
+                    <div
+                        className="mt-1 flex items-center gap-2"
+                        style={{ paddingLeft: "var(--things-carousel-gutter)" }}
+                    >
+                        <button
+                            type="button"
+                            aria-label={tt("carouselPrevAria")}
+                            onClick={() => scrollCarousel("left")}
+                            disabled={!canScrollLeft}
+                            className="grid h-10 w-10 place-items-center border border-[#AA7D69]/24 bg-[#FFF9F2] text-[#8C5F4D] transition-colors duration-200 hover:border-[#AA7D69]/45 hover:bg-[#F4E6DB] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#AA7D69]/35 disabled:pointer-events-none disabled:opacity-40"
+                        >
+                            <ChevronLeft className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
+                        </button>
+                        <button
+                            type="button"
+                            aria-label={tt("carouselNextAria")}
+                            onClick={() => scrollCarousel("right")}
+                            disabled={!canScrollRight}
+                            className="grid h-10 w-10 place-items-center border border-[#AA7D69]/24 bg-[#FFF9F2] text-[#8C5F4D] transition-colors duration-200 hover:border-[#AA7D69]/45 hover:bg-[#F4E6DB] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#AA7D69]/35 disabled:pointer-events-none disabled:opacity-40"
+                        >
+                            <ChevronRight className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
+                        </button>
+                    </div>
                 </div>
                 
                     {/* Bottom Right: Paragraph & Link */}

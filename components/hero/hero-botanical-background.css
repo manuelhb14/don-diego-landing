@@ -393,12 +393,16 @@
 }
 
 .scene-botanical .cloud-wisp {
-  opacity: 0.48;
+  top: var(--cloud-top, 18%);
+  left: var(--cloud-left, -30vw);
+  width: var(--cloud-width, clamp(170px, 24vw, 320px));
+  opacity: 0.34;
   animation: heroCloudAssetTravel calc(var(--cloud-duration, 86s) / var(--anim-speed, 1)) linear infinite;
+  animation-delay: var(--cloud-delay, 0s);
 }
 
 .scene-botanical .cloud-wisp-left {
-  top: 30%;
+  top: 22%;
   left: -32vw;
   width: clamp(180px, 28vw, 380px);
   --cloud-mid-x: 72vw;
@@ -410,10 +414,9 @@
 }
 
 .scene-botanical .cloud-wisp-mid {
-  top: 20%;
+  top: 13%;
   left: -24vw;
   width: clamp(180px, 22vw, 300px);
-  opacity: 0.25;
   --cloud-mid-x: 68vw;
   --cloud-end-x: 138vw;
   --cloud-mid-y: 4px;
@@ -423,7 +426,7 @@
 }
 
 .scene-botanical .cloud-wisp-right {
-  top: 26%;
+  top: 18%;
   left: -36vw;
   width: clamp(190px, 28vw, 360px);
   --cloud-mid-x: 76vw;
@@ -434,12 +437,52 @@
   animation-delay: -82s;
 }
 
+.scene-botanical .partly-extra-cloud,
 .scene-botanical .cloudy-extra-cloud {
   visibility: hidden;
 }
 
-.scene-botanical .cloudy-wisp-high {
+.scene-botanical .partly-wisp-high {
+  top: 4%;
+  left: -38vw;
+  width: clamp(150px, 20vw, 280px);
+  --cloud-rotate: 1.5deg;
+  --cloud-mid-x: 80vw;
+  --cloud-end-x: 152vw;
+  --cloud-mid-y: -3px;
+  --cloud-end-y: 2px;
+  --cloud-duration: 126s;
+  animation-delay: -66s;
+}
+
+.scene-botanical .partly-wisp-soft {
+  top: 25%;
+  left: -22vw;
+  width: clamp(180px, 24vw, 320px);
+  --cloud-rotate: 2deg;
+  --cloud-mid-x: 62vw;
+  --cloud-end-x: 134vw;
+  --cloud-mid-y: 3px;
+  --cloud-end-y: -3px;
+  --cloud-duration: 104s;
+  animation-delay: -48s;
+}
+
+.scene-botanical .partly-wisp-trailing {
   top: 12%;
+  left: -48vw;
+  width: clamp(170px, 24vw, 310px);
+  --cloud-rotate: 2.5deg;
+  --cloud-mid-x: 92vw;
+  --cloud-end-x: 164vw;
+  --cloud-mid-y: -4px;
+  --cloud-end-y: 1px;
+  --cloud-duration: 132s;
+  animation-delay: -92s;
+}
+
+.scene-botanical .cloudy-wisp-high {
+  top: 5%;
   left: -30vw;
   width: clamp(170px, 23vw, 310px);
   --cloud-rotate: 2deg;
@@ -452,7 +495,7 @@
 }
 
 .scene-botanical .cloudy-wisp-low {
-  top: 34%;
+  top: 25%;
   left: -38vw;
   width: clamp(190px, 27vw, 360px);
   --cloud-rotate: 1.5deg;
@@ -465,7 +508,7 @@
 }
 
 .scene-botanical .cloudy-wisp-far {
-  top: 6%;
+  top: 2%;
   left: -22vw;
   width: clamp(150px, 20vw, 270px);
   --cloud-rotate: 2.5deg;
@@ -478,7 +521,7 @@
 }
 
 .scene-botanical .cloudy-wisp-upper {
-  top: 15%;
+  top: 8%;
   left: -36vw;
   width: clamp(170px, 24vw, 320px);
   --cloud-rotate: 3deg;
@@ -491,7 +534,7 @@
 }
 
 .scene-botanical .cloudy-wisp-middle {
-  top: 24%;
+  top: 16%;
   left: -28vw;
   width: clamp(170px, 22vw, 300px);
   --cloud-rotate: 2deg;
@@ -504,7 +547,7 @@
 }
 
 .scene-botanical .cloudy-wisp-trailing {
-  top: 29%;
+  top: 20%;
   left: -24vw;
   width: clamp(150px, 20vw, 270px);
   --cloud-rotate: 2.5deg;
@@ -514,6 +557,32 @@
   --cloud-end-y: 3px;
   --cloud-duration: 142s;
   animation-delay: -118s;
+}
+
+.scene-botanical .cloudy-wisp-distant {
+  top: 3%;
+  left: -34vw;
+  width: clamp(140px, 19vw, 250px);
+  --cloud-rotate: 1deg;
+  --cloud-mid-x: 76vw;
+  --cloud-end-x: 148vw;
+  --cloud-mid-y: 2px;
+  --cloud-end-y: -3px;
+  --cloud-duration: 150s;
+  animation-delay: -88s;
+}
+
+.scene-botanical .cloudy-wisp-veil {
+  top: 11%;
+  left: -42vw;
+  width: clamp(190px, 25vw, 330px);
+  --cloud-rotate: 2deg;
+  --cloud-mid-x: 84vw;
+  --cloud-end-x: 156vw;
+  --cloud-mid-y: -2px;
+  --cloud-end-y: 2px;
+  --cloud-duration: 128s;
+  animation-delay: -12s;
 }
 
 .scene-botanical .rain-cloud-left {
@@ -552,17 +621,20 @@
   animation-delay: -61s;
 }
 
-.hero-botanical-stage-wrap[data-weather="cloudy"] .scene-botanical .cloud-wisp,
 .hero-botanical-stage-wrap[data-weather="fog"] .scene-botanical .cloud-wisp {
   opacity: 0.76;
+}
+
+.hero-botanical-stage-wrap[data-weather="partly-cloudy"] .scene-botanical .partly-extra-cloud,
+.hero-botanical-stage-wrap[data-weather="cloudy"] .scene-botanical .partly-extra-cloud {
+  visibility: visible;
 }
 
 .hero-botanical-stage-wrap[data-weather="cloudy"] .scene-botanical .cloudy-extra-cloud {
   visibility: visible;
 }
 
-.hero-botanical-stage-wrap[data-weather="clear"] .scene-botanical .cloud-wisp-mid,
-.hero-botanical-stage-wrap[data-weather="clear"] .scene-botanical .cloud-wisp-right,
+.hero-botanical-stage-wrap[data-weather="clear"] .scene-botanical .partly-extra-cloud,
 .hero-botanical-stage-wrap[data-weather="clear"] .scene-botanical .cloudy-extra-cloud {
   visibility: hidden;
 }
@@ -593,19 +665,30 @@
   visibility: hidden;
 }
 
+.scene-botanical .set-two-bird-flocks {
+  position: absolute;
+  inset: 0;
+  z-index: 41;
+  pointer-events: none;
+}
+
 .scene-botanical .set-two-bird {
   position: absolute;
   display: block;
-  z-index: 41;
-  width: clamp(30px, 3.4vw, 60px);
+  top: var(--bird-top, 15%);
+  left: 0;
+  width: var(--bird-width, clamp(14px, 1.45vw, 30px));
   aspect-ratio: 286 / 121;
   overflow: hidden;
   pointer-events: none;
   opacity: 0;
+  transform-origin: 50% 50%;
   filter:
     hue-rotate(var(--hue-shift, 0deg))
     brightness(calc(0.58 + var(--light, 1) * 0.38))
     drop-shadow(0 4px 4px rgba(20, 28, 24, 0.12));
+  animation: heroSetTwoBirdFly calc(var(--bird-duration, 54s) / var(--anim-speed, 1)) linear infinite;
+  animation-delay: var(--bird-delay, 0s);
   will-change: transform, opacity;
 }
 
@@ -614,25 +697,9 @@
   width: 600%;
   height: 100%;
   background: url("/hero/02_bird_set_2_sprite.png") 0 0 / 100% 100% no-repeat;
-  animation: heroBirdSetTwoSprite calc(0.82s / var(--anim-speed, 1)) steps(6, end) infinite;
+  animation: heroBirdSetTwoSprite calc(var(--bird-wing-duration, 0.82s) / var(--anim-speed, 1)) steps(6, end) infinite;
+  animation-delay: var(--bird-wing-delay, 0s);
   will-change: transform;
-}
-
-.scene-botanical .set-two-bird-a {
-  top: 15%;
-  left: 0;
-  --bird-opacity: 0.56;
-  animation: heroSetTwoBirdFlyA calc(46s / var(--anim-speed, 1)) linear infinite;
-  animation-delay: -19s;
-}
-
-.scene-botanical .set-two-bird-b {
-  top: 29%;
-  left: 0;
-  width: clamp(22px, 2.6vw, 46px);
-  --bird-opacity: 0.42;
-  animation: heroSetTwoBirdFlyB calc(58s / var(--anim-speed, 1)) linear infinite;
-  animation-delay: -41s;
 }
 
 .scene-botanical .hero-08-assets {
@@ -746,42 +813,28 @@
   }
 }
 
-@keyframes heroSetTwoBirdFlyA {
+@keyframes heroSetTwoBirdFly {
   0% {
-    transform: translate3d(-12vw, 6px, 0) scale(0.76);
+    transform: translate3d(var(--bird-start-x, -14vw), var(--bird-start-y, 0), 0) scale(var(--bird-start-scale, 0.56)) rotate(var(--bird-start-rotate, 0deg));
     opacity: 0;
   }
   12% {
-    opacity: var(--bird-opacity, 0.54);
+    opacity: var(--bird-opacity, 0.36);
   }
-  42% {
-    transform: translate3d(42vw, -14px, 0) scale(0.84);
-  }
-  86% {
-    opacity: var(--bird-opacity, 0.54);
-  }
-  100% {
-    transform: translate3d(116vw, -24px, 0) scale(0.7);
-    opacity: 0;
-  }
-}
-
-@keyframes heroSetTwoBirdFlyB {
-  0% {
-    transform: translate3d(-10vw, -2px, 0) scale(0.7);
-    opacity: 0;
-  }
-  16% {
-    opacity: var(--bird-opacity, 0.42);
+  28% {
+    transform: translate3d(var(--bird-quarter-x, 24vw), var(--bird-quarter-y, -8px), 0) scale(var(--bird-quarter-scale, 0.58)) rotate(var(--bird-quarter-rotate, 0deg));
   }
   54% {
-    transform: translate3d(58vw, 18px, 0) scale(0.78);
+    transform: translate3d(var(--bird-mid-x, 48vw), var(--bird-mid-y, -12px), 0) scale(var(--bird-mid-scale, 0.62)) rotate(var(--bird-mid-rotate, 0deg));
+  }
+  78% {
+    transform: translate3d(var(--bird-late-x, 88vw), var(--bird-late-y, -8px), 0) scale(var(--bird-late-scale, 0.56)) rotate(var(--bird-late-rotate, 0deg));
   }
   84% {
-    opacity: var(--bird-opacity, 0.42);
+    opacity: var(--bird-opacity, 0.36);
   }
   100% {
-    transform: translate3d(112vw, 6px, 0) scale(0.66);
+    transform: translate3d(var(--bird-end-x, 116vw), var(--bird-end-y, -20px), 0) scale(var(--bird-end-scale, 0.52)) rotate(var(--bird-end-rotate, 0deg));
     opacity: 0;
   }
 }
@@ -1735,82 +1788,6 @@
   }
 }
 
-.scene-botanical .sprite-bird {
-  position: absolute;
-  z-index: 42;
-  width: clamp(36px, 3.8vw, 68px);
-  aspect-ratio: 315 / 410;
-  overflow: hidden;
-  pointer-events: none;
-  filter:
-    hue-rotate(var(--hue-shift, 0deg))
-    saturate(calc(0.92 + (var(--light, 1) * 0.12)))
-    brightness(calc(0.82 + (var(--light, 1) * 0.2)))
-    drop-shadow(0 5px 4px rgba(38, 47, 34, 0.14));
-  will-change: transform;
-}
-
-.scene-botanical .sprite-bird span {
-  display: block;
-  width: 600%;
-  height: 100%;
-  background: url("/hero/02_bird_set_1_sprite.png") 0 0 / 100% 100% no-repeat;
-  animation: heroBirdSprite calc(0.72s / var(--anim-speed, 1)) steps(6, end) infinite;
-  will-change: transform;
-}
-
-.scene-botanical .sprite-bird-a {
-  top: 9%;
-  left: 0;
-  animation: heroSpriteBirdFlyA calc(28s / var(--anim-speed, 1)) linear infinite;
-  animation-delay: -10s;
-}
-
-.scene-botanical .sprite-bird-b {
-  top: 22%;
-  left: 0;
-  width: clamp(32px, 3.2vw, 58px);
-  opacity: 0.62;
-  animation: heroSpriteBirdFlyB calc(38s / var(--anim-speed, 1)) linear infinite;
-  animation-delay: -24s;
-}
-
-@keyframes heroBirdSprite {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-@keyframes heroSpriteBirdFlyA {
-  0% {
-    transform: translate3d(-16vw, 10px, 0) scale(0.9);
-  }
-  28% {
-    transform: translate3d(28vw, -14px, 0) scale(1);
-  }
-  62% {
-    transform: translate3d(72vw, -32px, 0) scale(0.96);
-  }
-  100% {
-    transform: translate3d(122vw, -4px, 0) scale(0.9);
-  }
-}
-
-@keyframes heroSpriteBirdFlyB {
-  0% {
-    transform: translate3d(-14vw, 0, 0) scale(0.86);
-  }
-  45% {
-    transform: translate3d(54vw, -26px, 0) scale(0.94);
-  }
-  100% {
-    transform: translate3d(118vw, 4px, 0) scale(0.86);
-  }
-}
-
 .scene-botanical .butterfly {
   position: absolute;
   animation: heroButterfly calc(22s / var(--anim-speed, 1)) ease-in-out infinite;
@@ -1975,8 +1952,6 @@
   .scene-botanical .mote,
   .scene-botanical .set-two-bird,
   .scene-botanical .set-two-bird span,
-  .scene-botanical .sprite-bird,
-  .scene-botanical .sprite-bird span,
   .scene-botanical .butterfly,
   .scene-botanical .butterfly svg {
     animation: none !important;

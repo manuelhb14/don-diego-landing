@@ -313,26 +313,28 @@ export default function AreasPresa() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={revealTransition}
-                    className="mb-8 max-w-[42rem] lg:mb-12"
+                    className="mb-8 grid gap-5 lg:mb-12 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.72fr)] lg:items-end lg:gap-14"
                 >
+                    <div className="max-w-[42rem]">
+                        <p
+                            className="mb-4 text-xs tracking-[0.3em] text-[#5a7a8a] uppercase lg:mb-7"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            {t("eyebrow")}
+                        </p>
+                        <h2
+                            className="font-medium leading-[1.02] tracking-normal text-[#1a221f]"
+                            style={{
+                                fontFamily: "var(--font-serif)",
+                                fontSize: "clamp(2.75rem, 5vw, 4.75rem)",
+                            }}
+                        >
+                            {t("title.base")} {" "}
+                            <span className="italic text-[#5a7a8a]">{t("title.accent")}</span>
+                        </h2>
+                    </div>
                     <p
-                        className="mb-4 text-xs tracking-[0.3em] text-[#5a7a8a] uppercase lg:mb-7"
-                        style={{ fontFamily: "var(--font-sans)" }}
-                    >
-                        {t("eyebrow")}
-                    </p>
-                    <h2
-                        className="font-medium leading-[1.02] tracking-normal text-[#1a221f]"
-                        style={{
-                            fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(2.75rem, 5vw, 4.75rem)",
-                        }}
-                    >
-                        {t("title.base")} {" "}
-                        <span className="italic text-[#5a7a8a]">{t("title.accent")}</span>
-                    </h2>
-                    <p
-                        className="mt-5 max-w-[34rem] text-base leading-relaxed text-[#1a1917]/72 md:text-lg"
+                        className="max-w-[34rem] text-base leading-relaxed text-[#1a1917]/72 md:text-lg lg:pb-2"
                         style={{ fontFamily: "var(--font-serif)", fontWeight: 400 }}
                     >
                         {t("intro")}

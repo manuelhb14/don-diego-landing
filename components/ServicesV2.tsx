@@ -91,7 +91,7 @@ export default function ServicesV2() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={revealTransition()}
-                    className="mb-10 flex max-w-[980px] flex-col gap-5 lg:mb-14"
+                    className="mb-10 flex flex-col gap-5 md:items-end md:justify-between md:flex-row lg:mb-14"
                 >
                     <div>
                         <p
@@ -108,7 +108,7 @@ export default function ServicesV2() {
                         </h2>
                     </div>
                     <p
-                        className="max-w-[820px] text-base font-medium leading-relaxed text-[#222222] md:text-xl"
+                        className="max-w-md text-base font-medium leading-relaxed text-[#222222]/72 md:text-right md:text-xl"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
                         {ts("intro")}
@@ -127,9 +127,21 @@ export default function ServicesV2() {
                     {cards.map((card, index) => (
                         <article
                             key={card.id}
-                            className={`flex flex-col gap-5 py-7 lg:py-9 ${index % 2 === 0 ? "lg:pr-9" : "lg:pl-9 lg:border-l"} border-b`}
+                            className={`relative flex flex-col gap-5 py-7 lg:py-9 ${index % 2 === 0 ? "lg:pr-9" : "lg:pl-9 lg:border-l"} border-b`}
                             style={{ borderColor: "#22222215" }}
                         >
+                            <Link
+                                href={card.href}
+                                className={`absolute top-7 hidden shrink-0 text-[10px] font-bold uppercase tracking-[0.16em] border-b pb-0.5 transition-opacity hover:opacity-60 active:translate-y-[1px] sm:inline-flex lg:top-9 ${index % 2 === 0 ? "right-0 lg:right-9" : "right-0"}`}
+                                style={{
+                                    color: card.accent,
+                                    borderColor: card.accent,
+                                    fontFamily: "var(--font-sans)",
+                                }}
+                            >
+                                {card.cta}
+                            </Link>
+
                             <div className="grid grid-cols-[2.25rem_1fr] gap-x-4 gap-y-4 md:gap-x-5">
                                 <span
                                     className="mt-1 flex h-9 w-9 items-center justify-center border text-[10px] font-bold tracking-[0.1em]"
@@ -142,43 +154,30 @@ export default function ServicesV2() {
                                     {card.num}
                                 </span>
                                 <div className="min-w-0 flex-1">
-                                    <div className="mb-3 flex items-center justify-between gap-4">
-                                        <div className="flex items-center gap-2">
-                                            <span
-                                                className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#222222]/50"
-                                                style={{ fontFamily: "var(--font-sans)" }}
-                                            >
-                                                {card.statusLabel}
-                                            </span>
-                                            <span
-                                                className={`h-2 w-2 rounded-full ${card.ledActive && !shouldReduceMotion ? "animate-pulse" : ""}`}
-                                                style={{
-                                                    backgroundColor: card.ledColor,
-                                                    opacity: card.ledActive ? 1 : 0.52,
-                                                    boxShadow: card.ledActive
-                                                        ? `0 0 0 1px ${card.ledColor}70, 0 0 6px ${card.ledColor}35`
-                                                        : `inset 0 0 0 1px ${card.ledColor}80`,
-                                                }}
-                                            />
-                                        </div>
-                                        <Link
-                                            href={card.href}
-                                            className="hidden shrink-0 text-[10px] font-bold uppercase tracking-[0.16em] border-b pb-0.5 transition-opacity hover:opacity-60 active:translate-y-[1px] sm:inline-flex"
-                                            style={{
-                                                color: card.accent,
-                                                borderColor: card.accent,
-                                                fontFamily: "var(--font-sans)",
-                                            }}
-                                        >
-                                            {card.cta}
-                                        </Link>
-                                    </div>
                                     <h3
                                         className="text-[1.625rem] leading-[1.08] text-[#222222] md:text-[2rem]"
                                         style={{ fontFamily: "var(--font-serif)" }}
                                     >
                                         {card.title}
                                     </h3>
+                                    <span
+                                        className="mt-2.5 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.14em]"
+                                        style={{
+                                            fontFamily: "var(--font-sans)",
+                                            backgroundColor: card.pending ? "#EFE6DC" : "#eeeadb",
+                                            color: card.pending ? "#6B6358" : "#6b6230",
+                                            borderColor: card.pending ? "#d4ccc5" : "#ccc99a",
+                                            opacity: card.pending ? 0.8 : 1,
+                                        }}
+                                    >
+                                        <span
+                                            className={`h-1.5 w-1.5 flex-shrink-0 rounded-full ${!card.pending && !shouldReduceMotion ? "animate-pulse" : ""}`}
+                                            style={{
+                                                backgroundColor: card.pending ? "#8C7B6C" : "#b8b267",
+                                            }}
+                                        />
+                                        {card.statusLabel}
+                                    </span>
                                 </div>
                                 <p
                                     className="col-span-2 max-w-[34rem] text-sm leading-[1.75] text-[#222222]/68 md:col-span-1 md:col-start-2 md:text-base"
