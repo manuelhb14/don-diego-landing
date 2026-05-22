@@ -1512,38 +1512,38 @@
       "hero": {
         "eyebrow": "Vida junto al agua",
         "tagline": "El recorrido hacia el agua",
-        "description": "Un mirador, un malecón y una zona de café/bar para vivir la Presa de la Cantera desde las primeras etapas, con actividades ligeras como kayak.",
+        "description": "La Presa de la Cantera será la extensión junto al agua de Don Diego: mirador, malecón, terrazas, café/bar, restaurantes, tiendas, zonas de descanso y actividades ligeras como kayak. Desde la primera etapa, el recorrido llegará a un mirador con terraza café/bar.",
         "imageAlt": "Presa de la Cantera"
       },
       "concept": {
         "sectionAriaLabel": "Experiencia y propuesta de valor frente a la presa",
         "eyebrow": "Experiencia",
         "title": {
-          "base": "Cuatro formas de llegar a",
+          "base": "Lo esencial de",
           "accent": "la Presa"
         },
         "previousFeatureAria": "Ver experiencia anterior",
         "nextFeatureAria": "Ver siguiente experiencia",
         "features": {
           "vistas": {
-            "title": "Horizontes sobre el agua",
-            "shortTitle": "Vistas",
-            "description": "Un mirador pensado para detenerse, ver la presa y entender la amplitud del terreno."
+            "title": "Mirador de la Cantera",
+            "shortTitle": "Mirador",
+            "description": "El primer gran destino del recorrido: un punto elevado para ver el agua, reconocer la escala del terreno y hacer una pausa con vistas abiertas."
           },
           "aireLibre": {
-            "title": "El día a cielo abierto",
-            "shortTitle": "Aire libre",
-            "description": "Un ritmo más lento entre cielo y agua: caminar, descansar, tomar café o salir a kayak cuando las condiciones lo permitan."
+            "title": "Terraza café/bar",
+            "shortTitle": "Café/bar",
+            "description": "Desde la primera etapa, el recorrido desde Organic Farm & Flowers remata en una terraza para tomar café, descansar o cerrar el día frente al agua."
           },
           "identidad": {
-            "title": "Un nuevo frente",
-            "shortTitle": "Identidad",
-            "description": "La presa como una extensión natural del proyecto, conectada desde el Club Residencial a través de Organic Farm & Flowers."
+            "title": "Malecón, tiendas y paseo",
+            "shortTitle": "Malecón",
+            "description": "En su visión completa, el borde de la presa integrará malecón, tiendas, restaurantes, servicios ligeros y zonas de descanso para activar el frente de agua."
           },
           "encuentro": {
-            "title": "La vida en comunidad",
-            "shortTitle": "Encuentro",
-            "description": "Un punto de encuentro para residentes e invitados, cercano a la contemplación, al paisaje y a actividades ligeras junto al agua."
+            "title": "Kayak y actividades ligeras",
+            "shortTitle": "Actividades",
+            "description": "El agua se vivirá con actividades de bajo impacto, paseos y momentos de encuentro para residentes e invitados, según operación y condiciones."
           }
         }
       },
@@ -1554,13 +1554,13 @@
           "base": "Zonas de la",
           "accent": "primera experiencia"
         },
-        "intro": "La Presa de la Cantera inicia como una extensión verde y social del recorrido: mirador, café/bar, malecón, zonas de descanso y actividades ligeras en el agua.",
+        "intro": "Desde la primera etapa, el recorrido cruzará Organic Farm & Flowers hasta llegar a un mirador con terraza café/bar. Después, esta zona crecerá hacia un frente de agua más completo con malecón, tiendas, restaurantes, zonas de descanso y actividades ligeras.",
         "rows": {
           "restaurantes": {
             "eyebrow": "[GASTRONOMÍA]",
             "title": "Zona de",
             "titleItalic": "restaurantes",
-            "description": "Terrazas y servicio de café/bar frente al agua: el lugar natural para cerrar el recorrido desde el desarrollo.",
+            "description": "En la visión completa, terrazas gastronómicas y restaurantes frente al agua darán vida al malecón y al recorrido de la presa.",
             "alt": "Zona gastronómica junto a la presa"
           },
           "estacionamiento": {
@@ -1572,16 +1572,16 @@
           },
           "comerciales": {
             "eyebrow": "[RETAIL]",
-            "title": "Locales",
-            "titleItalic": "comerciales",
-            "description": "Servicios ligeros integrados al paseo: atención, alimentos sencillos y experiencias de baja intensidad junto al agua.",
+            "title": "Tiendas",
+            "titleItalic": "y servicios",
+            "description": "Locales integrados al paseo para café, productos, servicios ligeros y pequeñas experiencias que acompañan la vida junto al agua.",
             "alt": "Locales comerciales en el desarrollo"
           },
           "departamentos": {
             "eyebrow": "[MIRADOR]",
             "title": "Mirador",
             "titleItalic": "a la presa",
-            "description": "Un punto elevado para contemplar el agua, tomar una pausa y reconocer la escala natural de Don Diego.",
+            "description": "El primer destino de esta etapa: una pausa elevada para contemplar el agua, tomar algo y reconocer la escala natural de Don Diego.",
             "alt": "Mirador hacia la Presa de la Cantera"
           },
           "parques": {
@@ -1595,14 +1595,14 @@
             "eyebrow": "[AGUA]",
             "title": "Kayak",
             "titleItalic": "y actividades ligeras",
-            "description": "Actividades de bajo impacto para disfrutar el agua con una operación ligera y fácil de integrar al paisaje.",
+            "description": "Kayak, paseos ligeros y actividades de bajo impacto para disfrutar la presa con una operación sencilla e integrada al paisaje.",
             "alt": "Kayak y actividades ligeras en la presa"
           },
           "anfiteatro": {
             "eyebrow": "[PAUSA]",
-            "title": "Café",
-            "titleItalic": "y bar",
-            "description": "Una zona sencilla para sentarse, conversar y disfrutar las vistas de la presa después de cruzar la granja.",
+            "title": "Terraza",
+            "titleItalic": "café/bar",
+            "description": "Desde la primera etapa, una terraza café/bar cerrará el recorrido desde Organic Farm & Flowers con vistas abiertas hacia la presa.",
             "alt": "Café y bar junto a la Presa de la Cantera"
           }
         }
