@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
-import { useHasVisited } from "@/hooks/useHasVisited";
+import { motion, useReducedMotion } from "motion/react";
 import { useMemo, useState, useId, useLayoutEffect, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
@@ -37,15 +36,10 @@ function GridCardMedia({ imageSrc, title }: { imageSrc?: string; title: string }
     );
 }
 
-/**
- * Vertical band in the viewport (as % of viewport height, measured from the top edge).
- * Slightly above center so panels open when the image sits a bit higher on screen.
- */
 const VIEWPORT_TRIGGER_BAND_TOP_PCT = 22;
 const VIEWPORT_TRIGGER_BAND_BOTTOM_PCT = 56;
-
-/** Tailwind `sm` breakpoint: mobile = below 640px */
 const MOBILE_MQ = "(max-width: 639px)";
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 const ITEM_DEFS = [
     { id: "clubhouse", imageSrc: "/babylon/clubhouse.webp" },
@@ -79,11 +73,10 @@ const ITEM_DEFS = [
 
 export default function ExperienciasListing() {
     const t = useTranslations("pages.experiencias.listing");
-    const hasVisited = useHasVisited();
+    const shouldReduceMotion = useReducedMotion() ?? false;
     const baseId = useId();
     const [isMobile, setIsMobile] = useState(false);
     const [activeId, setActiveId] = useState<string | null>(null);
-    /** Mobile: how “centered” the active card is in the viewport band (0–1), drives border/shadow strength while scrolling. */
     const [mobileFocusStrength, setMobileFocusStrength] = useState(0);
     const anchorRefs = useRef<Map<string, HTMLDivElement | null>>(new Map());
     const scrollTickingRef = useRef(false);
@@ -189,18 +182,20 @@ export default function ExperienciasListing() {
         };
     }, [updateActiveCardFromScroll]);
 
+    const revealTransition = (delay = 0) => ({
+        duration: shouldReduceMotion ? 0 : 0.72,
+        ease: EASE_OUT_CUBIC,
+        delay: shouldReduceMotion ? 0 : delay,
+    });
+
     return (
         <section className="overflow-visible bg-[#fff8ed]">
-            <div className="mx-auto w-full max-w-[min(100%,1920px)] px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8 py-12 lg:pt-0 lg:pb-16">
-                <motion.div
-                    initial={hasVisited ? false : { opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.05 }}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start gap-px bg-[#222222]/[0.08] border border-[#222222]/[0.08]"
+            <div className="mx-auto w-full max-w-[min(100%,1920px)] px-3 py-12 sm:px-4 md:px-5 lg:px-6 lg:pt-0 lg:pb-16 xl:px-8">
+                <div
+                    className="grid grid-cols-1 items-start gap-px border border-[#222222]/[0.08] bg-[#222222]/[0.08] sm:grid-cols-2 lg:grid-cols-3"
                     style={{ overflowAnchor: "none" }}
                 >
-                    {items.map((item) => {
+                    {items.map((item, itemIndex) => {
                         const panelId = `${baseId}-${item.id}-panel`;
                         const isFocusedMobile = isMobile && activeId === item.id;
                         const isDimmedMobile = isMobile && activeId !== null && activeId !== item.id;
@@ -208,101 +203,100 @@ export default function ExperienciasListing() {
                         return (
                             <motion.div
                                 key={item.id}
-                                className={[
-                                    "bg-[#F6F0E8] p-2.5 sm:p-3 md:p-3.5 lg:p-4 flex flex-col min-w-0 w-full relative",
-                                    isFocusedMobile ? "z-[2]" : isMobile ? "z-0" : "",
-                                ]
-                                    .filter(Boolean)
-                                    .join(" ")}
-                                animate={
-                                    isMobile
-                                        ? { opacity: isDimmedMobile ? 0.9 : 1 }
-                                        : { opacity: 1 }
-                                }
-                                transition={{
-                                    opacity: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-                                }}
+                                initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-80px" }}
+                                transition={revealTransition((itemIndex % 6) * 0.045)}
+                                className="min-w-0"
                             >
-                                {isMobile && (
-                                    <motion.div
-                                        aria-hidden
-                                        className="pointer-events-none absolute inset-0 z-[1]"
-                                        initial={false}
-                                        style={{
-                                            boxShadow:
-                                                "inset 0 0 0 1px rgba(170, 125, 105, 0.2), 0 12px 36px rgba(34, 34, 34, 0.06)",
-                                        }}
-                                        animate={{
-                                            opacity: isFocusedMobile ? mobileFocusStrength : 0,
-                                            scale: isFocusedMobile ? 1 : 0.992,
-                                        }}
-                                        transition={{
-                                            opacity: {
-                                                type: "spring",
-                                                stiffness: 220,
-                                                damping: 26,
-                                                mass: 0.55,
-                                            },
-                                            scale: {
-                                                type: "spring",
-                                                stiffness: 260,
-                                                damping: 32,
-                                            },
-                                        }}
-                                    />
-                                )}
-                                <div
-                                    ref={(el) => {
-                                        if (el) anchorRefs.current.set(item.id, el);
-                                        else anchorRefs.current.delete(item.id);
+                                <motion.div
+                                    className={[
+                                        "relative flex min-w-0 w-full flex-col bg-[#F6F0E8] p-2.5 sm:p-3 md:p-3.5 lg:p-4",
+                                        isFocusedMobile ? "z-[2]" : isMobile ? "z-0" : "",
+                                    ]
+                                        .filter(Boolean)
+                                        .join(" ")}
+                                    animate={
+                                        isMobile
+                                            ? { opacity: isDimmedMobile ? 0.9 : 1 }
+                                            : { opacity: 1 }
+                                    }
+                                    transition={{
+                                        opacity: { duration: 0.32, ease: EASE_OUT_CUBIC },
                                     }}
-                                    className="w-full flex flex-col min-w-0 shrink-0"
                                 >
-                                    <GridCardMedia imageSrc={item.imageSrc} title={item.title} />
-
-                                    <p
-                                        id={`${baseId}-${item.id}-title`}
-                                        className="pt-3 text-base md:text-[17px] lg:text-2xl text-[#222222]/85 leading-snug min-w-0"
-                                        style={{ fontFamily: "var(--font-serif)" }}
+                                    {isMobile && (
+                                        <motion.div
+                                            aria-hidden
+                                            className="pointer-events-none absolute inset-0 z-[1]"
+                                            initial={false}
+                                            style={{
+                                                boxShadow:
+                                                    "inset 0 0 0 1px rgba(170, 125, 105, 0.2), 0 12px 36px rgba(34, 34, 34, 0.06)",
+                                            }}
+                                            animate={{
+                                                opacity: isFocusedMobile ? mobileFocusStrength : 0,
+                                                scale: isFocusedMobile ? 1 : 0.992,
+                                            }}
+                                            transition={{
+                                                opacity: { duration: 0.32, ease: EASE_OUT_CUBIC },
+                                                scale: { duration: 0.32, ease: EASE_OUT_CUBIC },
+                                            }}
+                                        />
+                                    )}
+                                    <div
+                                        ref={(el) => {
+                                            if (el) anchorRefs.current.set(item.id, el);
+                                            else anchorRefs.current.delete(item.id);
+                                        }}
+                                        className="flex w-full min-w-0 shrink-0 flex-col"
                                     >
-                                        {item.title}
-                                    </p>
-                                </div>
+                                        <GridCardMedia imageSrc={item.imageSrc} title={item.title} />
 
-                                <div
-                                    id={panelId}
-                                    role="region"
-                                    aria-labelledby={`${baseId}-${item.id}-title`}
-                                >
-                                    <p
-                                        className="pt-2.5 text-[13px] sm:text-[14px] leading-relaxed text-[#222]/72 border-t border-[#222222]/[0.08] mt-2.5"
-                                        style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
+                                        <p
+                                            id={`${baseId}-${item.id}-title`}
+                                            className="min-w-0 pt-3 text-base leading-snug text-[#222222]/85 md:text-[17px] lg:text-2xl"
+                                            style={{ fontFamily: "var(--font-serif)" }}
+                                        >
+                                            {item.title}
+                                        </p>
+                                    </div>
+
+                                    <div
+                                        id={panelId}
+                                        role="region"
+                                        aria-labelledby={`${baseId}-${item.id}-title`}
                                     >
-                                        {item.description}
-                                    </p>
-                                </div>
+                                        <p
+                                            className="mt-2.5 border-t border-[#222222]/[0.08] pt-2.5 text-[13px] leading-relaxed text-[#222]/72 sm:text-[14px]"
+                                            style={{ fontFamily: "var(--font-sans)", fontWeight: 400 }}
+                                        >
+                                            {item.description}
+                                        </p>
+                                    </div>
+                                </motion.div>
                             </motion.div>
                         );
                     })}
-                </motion.div>
+                </div>
 
-                <div className="flex justify-center mt-10 md:mt-12 w-full mb-12 md:mb-0">
+                <div className="mt-10 mb-12 flex w-full justify-center md:mt-12 md:mb-0">
                     <motion.div
-                        initial={hasVisited ? false : { opacity: 0, y: 20 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="w-full sm:w-[60%] lg:w-[50%] flex flex-col items-end"
+                        transition={revealTransition(0.18)}
+                        className="flex w-full flex-col items-end sm:w-[60%] lg:w-[50%]"
                     >
                         <p
-                            className="text-[#222] text-xl font-medium leading-relaxed mb-4"
+                            className="mb-4 text-xl font-medium leading-relaxed text-[#222]"
                             style={{ fontFamily: "var(--font-serif)" }}
                         >
                             {t("footerText")}
                         </p>
                         <Link
                             href="/propiedades"
-                            className="inline-block text-[#222] text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] border-b border-[#222] pb-1 hover:opacity-60 transition-opacity"
+                            className="inline-block border-b border-[#222] pb-1 text-[10px] font-bold uppercase tracking-[0.15em] text-[#222] transition-opacity hover:opacity-60 lg:text-[11px]"
                             style={{ fontFamily: "var(--font-sans)" }}
                         >
                             {t("cta")}

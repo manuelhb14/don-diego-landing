@@ -640,6 +640,10 @@
       "title": "Historias y Experiencias | Don Diego",
       "description": "Un cuaderno visual con momentos del entorno, las caminatas y lo cotidiano en Don Diego."
     },
+    "experiencias": {
+      "title": "Experiencias | Don Diego",
+      "description": "Amenidades residenciales, granja, bienestar, agua y servicios que dan ritmo a la vida diaria en Don Diego."
+    },
     "propertiesIndex": {
       "title": "Propiedades | Don Diego",
       "description": "Explora tipologías, plantas e interiores para vivir en conexión en Don Diego."
@@ -1298,7 +1302,7 @@
     },
     "farm": {
       "hero": {
-        "eyebrow": "[EL PAISAJE PRODUCTIVO]",
+        "eyebrow": "El paisaje productivo",
         "tagline": "La tierra como parte de la vida diaria.",
         "description": "Organic Farm & Flowers es una granja viva con huertos, frutales, flores, restaurante y clases de cocina alrededor de lo que se cultiva.",
         "imageAlt": "Organic Farm"
@@ -1374,32 +1378,32 @@
         }
       },
       "products": {
-        "eyebrow": "[Producción]",
+        "eyebrow": "Producción",
         "title": {
           "base": "Ciclo",
           "accent": "Natural"
         },
         "items": {
           "invernaderos": {
-            "kicker": "[CULTIVO]",
+            "kicker": "Cultivo",
             "titleBase": "Invernaderos y",
             "titleAccent": "zonas de cultivo",
             "description": "Espacios organizados en terrazas con tecnología de agricultura sostenible que garantizan el origen más fresco posible."
           },
           "andadoresCicloruta": {
-            "kicker": "[RECORRIDOS]",
+            "kicker": "Recorridos",
             "titleBase": "Andadores y",
             "titleAccent": "cicloruta",
             "description": "Recorrer a pie o en bici la vasta extensión productiva permite integrarse físicamente al proceso natural."
           },
           "experienciaComunitaria": {
-            "kicker": "[COMUNIDAD]",
+            "kicker": "Comunidad",
             "titleBase": "Experiencia",
             "titleAccent": "comunitaria",
             "description": "Clases de cocina, programas y recorridos hacia el mirador de la Presa de la Cantera para que la cosecha también se vuelva encuentro."
           },
           "origenLocal": {
-            "kicker": "[ORIGEN LOCAL]",
+            "kicker": "Origen local",
             "titleBase": "El origen de",
             "titleAccent": "lo local",
             "description": "Productos locales, flores de temporada y cosechas que alimentan la operación diaria y mantienen viva la identidad de Don Diego."
@@ -1549,7 +1553,7 @@
       },
       "areas": {
         "sectionAriaLabel": "Áreas del desarrollo en la Presa de la Cantera",
-        "eyebrow": "[Master plan]",
+        "eyebrow": "Master plan",
         "title": {
           "base": "Zonas de la",
           "accent": "primera experiencia"
@@ -1557,14 +1561,14 @@
         "intro": "Desde la primera etapa, el recorrido cruzará Organic Farm & Flowers hasta llegar a un mirador con terraza café/bar. Después, esta zona crecerá hacia un frente de agua más completo con malecón, tiendas, restaurantes, zonas de descanso y actividades ligeras.",
         "rows": {
           "restaurantes": {
-            "eyebrow": "[GASTRONOMÍA]",
+            "eyebrow": "Gastronomía",
             "title": "Zona de",
             "titleItalic": "restaurantes",
             "description": "En la visión completa, terrazas gastronómicas y restaurantes frente al agua darán vida al malecón y al recorrido de la presa.",
             "alt": "Zona gastronómica junto a la presa"
           },
           "estacionamiento": {
-            "eyebrow": "[ACCESO]",
+            "eyebrow": "Acceso",
             "title": "Estacionamiento",
             "titleItalic": "",
             "description": "Cajones y circulación pensados para visitantes y residentes, facilitando la llegada a restaurantes, comercios y amenidades sin fricción.",
@@ -1578,21 +1582,21 @@
             "alt": "Locales comerciales en el desarrollo"
           },
           "departamentos": {
-            "eyebrow": "[MIRADOR]",
+            "eyebrow": "Mirador",
             "title": "Mirador",
             "titleItalic": "a la presa",
             "description": "El primer destino de esta etapa: una pausa elevada para contemplar el agua, tomar algo y reconocer la escala natural de Don Diego.",
             "alt": "Mirador hacia la Presa de la Cantera"
           },
           "parques": {
-            "eyebrow": "[FAMILIA]",
+            "eyebrow": "Familia",
             "title": "Parques",
             "titleItalic": "infantiles",
             "description": "Áreas de juego seguras y al aire libre para que los más pequeños exploren, corran y compartan el entorno con otras familias.",
             "alt": "Parques infantiles"
           },
           "nautico": {
-            "eyebrow": "[AGUA]",
+            "eyebrow": "Agua",
             "title": "Kayak",
             "titleItalic": "y actividades ligeras",
             "description": "Kayak, paseos ligeros y actividades de bajo impacto para disfrutar la presa con una operación sencilla e integrada al paisaje.",
@@ -1650,11 +1654,38 @@
     },
     "experiencias": {
       "hero": {
-        "eyebrow": "[Actividades para disfrutar]",
+        "eyebrow": "Actividades para disfrutar",
         "svgAriaLabel": "Experiencias",
         "description": "Actividades pensadas para que la comunidad se use todos los días: deporte, descanso, comida, granja, agua y conexiones prácticas con San Miguel."
       },
       "listing": {
+        "groups": {
+          "residential": {
+            "kicker": "Club Residencial",
+            "title": "La vida diaria del club",
+            "description": "Espacios cercanos a casa para moverse, comer, trabajar, descansar y convivir."
+          },
+          "water": {
+            "kicker": "Presa de la Cantera",
+            "title": "Rituales junto al agua",
+            "description": "Pausas, miradores y experiencias ligeras que conectan el proyecto con la presa."
+          },
+          "farm": {
+            "kicker": "Organic Farm & Flowers",
+            "title": "El paisaje productivo",
+            "description": "Recorridos, cultivos y experiencias ligadas a lo que crece dentro de Don Diego."
+          },
+          "wellness": {
+            "kicker": "Wellness Center",
+            "title": "Cuidado y recuperación",
+            "description": "Servicios pensados para bienestar, acompañamiento y descanso en distintas etapas de vida."
+          },
+          "connectivity": {
+            "kicker": "Servicios",
+            "title": "Conexiones prácticas",
+            "description": "Movilidad y conectividad para que la vida diaria funcione con menos fricción."
+          }
+        },
         "toggle": {
           "openAriaLabel": "Abrir descripción de {title}",
           "closeAriaLabel": "Cerrar descripción de {title}"

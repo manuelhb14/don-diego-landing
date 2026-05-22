@@ -111,13 +111,13 @@ export default function TrabajoFloresFarm() {
                         transition={revealTransition(0.12)}
                         className="order-1 lg:order-2"
                     >
-                        <div className="relative aspect-[5/4] w-full overflow-hidden shadow-[0_20px_44px_rgba(26,25,23,0.12)] ring-1 ring-[#1a1917]/[0.08] sm:aspect-[4/3] lg:aspect-[5/4]">
+                        <div className="relative aspect-[5/4] w-full overflow-hidden shadow-[0_20px_44px_rgba(26,25,23,0.12)] ring-1 ring-[#1a1917]/[0.08] sm:aspect-[4/3] lg:ml-auto lg:aspect-auto lg:h-[clamp(430px,43vw,540px)] lg:w-[88%]">
                             <Image
                                 src={heroImage.src}
                                 alt={heroImage.alt}
                                 fill
                                 className="object-cover object-center"
-                                sizes="(min-width: 1024px) 45vw, 100vw"
+                                sizes="(min-width: 1024px) 40vw, 100vw"
                             />
                             <div
                                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1a1917]/30 via-transparent to-transparent"

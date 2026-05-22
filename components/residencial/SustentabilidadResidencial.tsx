@@ -117,13 +117,13 @@ export default function SustentabilidadResidencial() {
                         transition={revealTransition(0.12)}
                         className="order-2"
                     >
-                        <div className="relative aspect-[4/3] w-full overflow-hidden shadow-[0_24px_48px_rgba(26,25,23,0.12)] sm:aspect-[16/10] lg:aspect-[16/10]">
+                        <div className="relative aspect-[4/3] w-full overflow-hidden shadow-[0_24px_48px_rgba(26,25,23,0.12)] sm:aspect-[16/10] lg:ml-auto lg:aspect-auto lg:h-[clamp(350px,37vw,540px)] lg:w-[88%]">
                             <Image
                                 src={HERO_IMAGE.src}
                                 alt={t("imageAlt")}
                                 fill
                                 className="object-cover object-center"
-                                sizes="(min-width: 1024px) 45vw, 100vw"
+                                sizes="(min-width: 1024px) 40vw, 100vw"
                             />
                             <div
                                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1a1917]/35 via-transparent to-transparent"

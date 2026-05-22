@@ -15,7 +15,7 @@ export default async function EquipoPage({ params }: Props) {
 
     return (
         <>
-            <Navbar locale={locale} theme="dark" />
+            <Navbar locale={locale} theme="light" />
             <main>
                 <HeroEquipo />
                 <DetailsEquipo />

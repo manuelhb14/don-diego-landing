@@ -77,13 +77,13 @@ export default function Contact() {
                         transition={revealTransition()}
                     >
                         <h2
-                            className="mb-6 text-[#1C1713] leading-[0.98]"
+                            className="mb-6 text-balance text-[#1C1713] leading-[0.98]"
                             style={{
                                 fontFamily: "var(--font-serif)",
                                 fontSize: "clamp(2.4rem, 4.6vw, 4.5rem)",
                             }}
                         >
-                            {t("joinLine1")} <br /><em className="text-[#AA7D69]">{t("joinEm")}</em>
+                            {t("joinLine1")} <em className="text-[#AA7D69]">{t("joinEm")}</em>
                         </h2>
 
                         <p

@@ -177,7 +177,7 @@ export default function GridProyecto() {
                                 <div className="absolute inset-x-0 bottom-0 z-10 p-5 md:p-8 lg:p-10">
                                     <div className="max-w-[560px]">
                                         <h3
-                                            className="max-w-[18ch] text-[2rem] leading-[0.98] text-[#FFF3E1] md:text-[clamp(2.25rem,3.7vw,4.5rem)]"
+                                            className="max-w-[18ch] text-[1.75rem] leading-[1.05] text-[#FFF3E1] md:text-[clamp(1.75rem,3vw,2.75rem)]"
                                             style={{ fontFamily: "var(--font-serif)", letterSpacing: "0" }}
                                         >
                                             {item.title}

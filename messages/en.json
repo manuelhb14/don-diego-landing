@@ -545,6 +545,10 @@
       "title": "Stories & Experiences | Don Diego",
       "description": "A visual notebook of the landscape, walks, and everyday life at Don Diego."
     },
+    "experiencias": {
+      "title": "Experiences | Don Diego",
+      "description": "Residential amenities, farm life, wellbeing, water, and services shaping everyday life at Don Diego."
+    },
     "propertiesIndex": {
       "title": "Properties | Don Diego",
       "description": "Explore layouts, floor plans, and interiors designed for life in connection at Don Diego."
@@ -1203,7 +1207,7 @@
     },
     "farm": {
       "hero": {
-        "eyebrow": "[THE PRODUCTIVE LANDSCAPE]",
+        "eyebrow": "The productive landscape",
         "tagline": "A farm built to harvest community.",
         "description": "Organic orchards, fruit trees, and seasonal flowers. A community connected to the cycles of the land.",
         "imageAlt": "Organic Farm"
@@ -1279,32 +1283,32 @@
         }
       },
       "products": {
-        "eyebrow": "[Production]",
+        "eyebrow": "Production",
         "title": {
           "base": "Natural",
           "accent": "Cycle"
         },
         "items": {
           "invernaderos": {
-            "kicker": "[GROWING]",
+            "kicker": "Growing",
             "titleBase": "Greenhouses and",
             "titleAccent": "growing zones",
             "description": "Terraced spaces with sustainable agriculture technology that ensure the freshest possible origin."
           },
           "andadoresCicloruta": {
-            "kicker": "[PATHWAYS]",
+            "kicker": "Pathways",
             "titleBase": "Walkways and",
             "titleAccent": "cycle route",
             "description": "Exploring the productive extension on foot or by bike lets you connect physically with the natural process."
           },
           "experienciaComunitaria": {
-            "kicker": "[COMMUNITY]",
+            "kicker": "Community",
             "titleBase": "Community",
             "titleAccent": "experience",
             "description": "Educational programs around what is grown to teach residents the value of harvesting what they plant."
           },
           "origenLocal": {
-            "kicker": "[LOCAL ORIGIN]",
+            "kicker": "Local origin",
             "titleBase": "The origin of",
             "titleAccent": "local",
             "description": "Pure sustainability: a closed ecosystem where products directly nourish people and the Don Diego environment."
@@ -1454,7 +1458,7 @@
       },
       "areas": {
         "sectionAriaLabel": "Development areas at Presa de la Cantera",
-        "eyebrow": "[Master plan]",
+        "eyebrow": "Master plan",
         "title": {
           "base": "Development",
           "accent": "zones"
@@ -1462,49 +1466,49 @@
         "intro": "Frontage organization on the site: location and function of each component.",
         "rows": {
           "restaurantes": {
-            "eyebrow": "[GASTRONOMY]",
+            "eyebrow": "Gastronomy",
             "title": "Restaurant",
             "titleItalic": "zone",
             "description": "Terraces and food concepts by the water: the natural place to close the day or host visitors.",
             "alt": "Waterfront dining zone"
           },
           "estacionamiento": {
-            "eyebrow": "[ACCESS]",
+            "eyebrow": "Access",
             "title": "Parking",
             "titleItalic": "",
             "description": "Parking and circulation designed for visitors and residents, making arrival to restaurants, retail, and amenities frictionless.",
             "alt": "Access and parking"
           },
           "comerciales": {
-            "eyebrow": "[RETAIL]",
+            "eyebrow": "Retail",
             "title": "Retail",
             "titleItalic": "spaces",
             "description": "Retail fronts integrated into the waterfront promenade: services, boutiques, and experiences that activate daily life by the water.",
             "alt": "Retail spaces in the development"
           },
           "departamentos": {
-            "eyebrow": "[RESIDENTIAL]",
+            "eyebrow": "Residential",
             "title": "Apartments",
             "titleItalic": "with views",
             "description": "Vertical living with reservoir panoramas: privacy, light, and permanent connection to the waterfront landscape.",
             "alt": "Apartments with reservoir view"
           },
           "parques": {
-            "eyebrow": "[FAMILY]",
+            "eyebrow": "Family",
             "title": "Children",
             "titleItalic": "parks",
             "description": "Safe outdoor play areas where children can explore, run, and share the environment with other families.",
             "alt": "Children parks"
           },
           "nautico": {
-            "eyebrow": "[NAUTICAL]",
+            "eyebrow": "Nautical",
             "title": "Nautical",
             "titleItalic": "club",
             "description": "Moorings and water activities at Presa La Cantera: the nautical heart of the project for those who live the lake every day.",
             "alt": "Nautical club and dock"
           },
           "anfiteatro": {
-            "eyebrow": "[CULTURE]",
+            "eyebrow": "Culture",
             "title": "Open-air",
             "titleItalic": "amphitheater",
             "description": "An open stage for concerts, cinema, and community gatherings by the water: the cultural pulse of the waterfront.",
@@ -1555,16 +1559,43 @@
     },
     "experiencias": {
       "hero": {
-        "eyebrow": "[Activities to enjoy]",
+        "eyebrow": "Activities to enjoy",
         "svgAriaLabel": "Experiences",
-        "description": "The club offers a wide range of activities to enjoy, from gyms to restaurants and spa."
+        "description": "Activities designed for daily community life: movement, rest, food, farm, water, and practical connections with San Miguel."
       },
       "listing": {
+        "groups": {
+          "residential": {
+            "kicker": "Club Residencial",
+            "title": "Daily life at the club",
+            "description": "Spaces close to home for movement, dining, work, rest, and community life."
+          },
+          "water": {
+            "kicker": "Presa de la Cantera",
+            "title": "Rituals by the water",
+            "description": "Pauses, lookouts, and light experiences connecting the project with the reservoir."
+          },
+          "farm": {
+            "kicker": "Organic Farm & Flowers",
+            "title": "The productive landscape",
+            "description": "Walks, crops, and experiences tied to what grows within Don Diego."
+          },
+          "wellness": {
+            "kicker": "Wellness Center",
+            "title": "Care and recovery",
+            "description": "Services shaped for wellbeing, support, and rest across different life stages."
+          },
+          "connectivity": {
+            "kicker": "Services",
+            "title": "Practical connections",
+            "description": "Mobility and connectivity so everyday life works with less friction."
+          }
+        },
         "toggle": {
           "openAriaLabel": "Open description for {title}",
           "closeAriaLabel": "Close description for {title}"
         },
-        "footerText": "The club offers a wide range of activities to enjoy, from gyms to restaurants and spa. Most amenities are exclusive to residents and their guests.",
+        "footerText": "Don Diego combines residential amenities, farm experiences, wellbeing, shuttles, Wi-Fi in common areas, and routes toward Presa de la Cantera. Each access and use will depend on the corresponding operation and stage.",
         "cta": "Go to properties",
         "items": {
           "clubhouse": {
@@ -1572,8 +1603,8 @@
             "description": "The social heart of the club: spaces to gather, dine, and connect with views over San Miguel surroundings."
           },
           "piscina": {
-            "title": "Private pool",
-            "description": "Residential club pool for swimming and relaxing in a controlled environment exclusive to residents and guests."
+            "title": "Garden pool",
+            "description": "Pool set at garden level to connect more naturally with the clubhouse, jacuzzis, and outdoor areas."
           },
           "gimnasio": {
             "title": "Outdoor gym",
@@ -1596,16 +1627,16 @@
             "description": "Safe outdoor play areas where children can explore, run, and share with other families."
           },
           "clubNautico": {
-            "title": "Nautical club",
-            "description": "Moorings and water activities at Presa La Cantera: the nautical heart of the project for those who live the lake every day."
+            "title": "Kayak at the reservoir",
+            "description": "Light water activities to enjoy Presa de la Cantera without marina language or large boats."
           },
           "localesComerciales": {
-            "title": "Retail spaces",
-            "description": "Retail fronts integrated into the waterfront promenade, activating everyday life by the water."
+            "title": "Cafe/bar by the water",
+            "description": "A pause point at the end of the route: coffee, bar, and views toward Presa de la Cantera."
           },
           "anfiteatro": {
-            "title": "Open-air amphitheater",
-            "description": "An open stage for concerts, cinema, and community gatherings by the water: the cultural pulse of the waterfront."
+            "title": "Reservoir lookout",
+            "description": "A place to reach on foot from Organic Farm & Flowers, look at the water, and understand the scale of the land."
           },
           "gastronomiaLacustre": {
             "title": "Waterfront gastronomy",
@@ -1668,8 +1699,8 @@
             "description": "Green and leisure areas integrated with nature as part of the wellbeing program."
           },
           "beachClub": {
-            "title": "Beach club by the reservoir",
-            "description": "Beach-style amenities at Presa Allende: a leisure and gathering pole by the water."
+            "title": "Wellness Clubhouse",
+            "description": "Common areas linked to wellbeing, rest, and life near the water, integrated into Don Diego's broader program."
           },
           "wifiAreasComunes": {
             "title": "Wi-Fi in common areas",
