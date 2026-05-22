@@ -201,26 +201,26 @@
     "cta": "Ver equipo",
     "headingLine1": "Maestros de su",
     "headingEm": "oficio.",
-    "subtitle": "Desarrollo, arquitectura, paisaje, marketing y estrategia trabajando bajo una misma visión.",
+    "subtitle": "Dirección general, desarrollo, arquitectura, paisaje y estrategia comercial trabajando bajo una misma visión.",
     "cimenta": {
       "name": "Grupo Cimienta",
-      "role": "Desarrollo",
-      "description": "+30 años estructurando y ejecutando proyectos inmobiliarios con visión de largo plazo."
+      "role": "Dirección General y Desarrollo",
+      "description": "+30 años de experiencia en ciclo completo inmobiliario: planeación, desarrollo, operación y ejecución de proyectos habitacionales."
     },
     "barragan": {
       "name": "Barragán Arquitectos",
-      "role": "Arquitectura",
-      "description": "Arquitectura de autor con oficio, proporción y una mirada contemporánea para crear espacios memorables."
+      "role": "Diseño Arquitectónico",
+      "description": "Despacho responsable del diseño integral del desarrollo, con una visión que equilibra estética contemporánea, materialidad y arraigo con el paisaje natural."
     },
     "arredarq": {
       "name": "Espacios Verdes / Arredarq",
-      "role": "Paisajismo",
-      "description": "Paisajismo que ordena recorridos, sombra, agua y vegetación para construir una experiencia natural y memorable."
+      "role": "Paisajismo y Sustentabilidad",
+      "description": "Despacho fundador de la Sociedad de Arquitectos Paisajistas de México. Lidera la integración del entorno natural con diseño sustentable y arquitectura de paisaje."
     },
     "artemisa": {
-      "name": "Equipo Comercial y Marketing",
-      "role": "Comercial y Marketing",
-      "description": "Estrategia comercial, comunicación y posicionamiento para conectar el proyecto con el mercado correcto."
+      "name": "Mesa Directiva Comercial",
+      "role": "Dirección Comercial y Estrategia",
+      "description": "Equipo comercial y de marketing con experiencia en posicionamiento, comunicación, alianzas y venta de proyectos inmobiliarios de alto valor."
     }
   },
   "contact": {
@@ -1611,7 +1611,7 @@
     "equipo": {
       "hero": {
         "eyebrow": "El Equipo",
-        "description": "Desarrollo, arquitectura, paisaje y estrategia comercial trabajando bajo una misma visión: construir una comunidad clara, coherente y bien operada."
+        "description": "Don Diego reúne dirección general, desarrollo, arquitectura, paisaje y estrategia comercial bajo una misma visión: construir una comunidad clara, coherente y bien operada."
       },
       "details": {
         "members": {
