@@ -167,7 +167,7 @@ export default function Manifesto() {
             <section
                 ref={containerRef}
                 className="hidden md:block relative bg-[#fff8ed] w-full"
-                style={{ height: "160vh" }}
+                style={{ height: "200vh" }}
             >
                 <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
 

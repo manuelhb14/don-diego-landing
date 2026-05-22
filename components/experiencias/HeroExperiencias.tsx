@@ -1,37 +1,46 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
 
 import { EXPERIENCIAS_TITLE_PATHS } from "./experienciasTitlePaths";
 
 const OUTER_G_TRANSFORM = "matrix(1,0,0,1,-462.7,-1485.2)";
 const LETTER_G_TRANSFORM = "matrix(1.744749,0,0,0.681499,-1704.100573,263.976581)";
+const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 const pathReveal = {
-    hidden: { pathLength: 0, fill: "rgba(34, 34, 34, 0)" },
+    hidden: { pathLength: 0, fill: "rgba(28, 23, 19, 0)" },
     visible: {
         pathLength: 1,
-        fill: "rgba(34, 34, 34, 1)",
+        fill: "rgba(28, 23, 19, 1)",
         transition: {
-            pathLength: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
-            fill: { duration: 0.6, ease: [0.33, 1, 0.68, 1] as const },
+            pathLength: { duration: 0.92, ease: EASE_OUT_CUBIC },
+            fill: { duration: 0.78, ease: EASE_OUT_CUBIC },
         },
     },
 };
 
 export default function HeroExperiencias() {
     const t = useTranslations("pages.experiencias.hero");
+    const shouldReduceMotion = useReducedMotion() ?? false;
+
     return (
-        <section className="relative flex min-h-[40vh] md:min-h-[30vh] w-full py-14 md:py-20 items-center justify-center overflow-hidden bg-[#fff8ed]">
-            <div className="relative z-10 flex flex-col items-center justify-center px-4 w-full max-w-7xl text-center mt-12 md:mt-16">
-                <div className="w-full flex flex-col items-center mb-6">
-                    <p
-                        className="text-[10px] sm:text-xs tracking-[0.3em] text-[#AA7D69] uppercase mb-6 sm:mb-8"
+        <section className="relative flex min-h-[38vh] w-full items-center justify-center overflow-hidden bg-[#FFF8ED] px-6 pt-24 pb-10 md:min-h-[48vh] md:px-10 md:pt-32 md:pb-20 lg:px-16 lg:pt-36">
+            <div className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-col items-center justify-center text-center">
+                <div className="mb-6 flex w-full flex-col items-center md:mb-8">
+                    <motion.p
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                            duration: shouldReduceMotion ? 0 : 0.62,
+                            ease: EASE_OUT_CUBIC,
+                        }}
+                        className="mb-6 text-xs uppercase tracking-[0.3em] text-[#AA7D69] md:mb-8"
                         style={{ fontFamily: "var(--font-sans)" }}
                     >
                         {t("eyebrow")}
-                    </p>
+                    </motion.p>
 
                     <motion.svg
                         role="img"
@@ -41,15 +50,15 @@ export default function HeroExperiencias() {
                             visible: {
                                 opacity: 1,
                                 transition: {
-                                    staggerChildren: 0.08,
+                                    staggerChildren: shouldReduceMotion ? 0 : 0.07,
                                     delayChildren: 0.05,
                                 },
                             },
                         }}
-                        initial="hidden"
+                        initial={shouldReduceMotion ? false : "hidden"}
                         animate="visible"
                         viewBox="0 0 2496 221"
-                        className="w-full h-auto max-w-[680px] pb-2 px-4 sm:px-8"
+                        className="h-auto w-full max-w-[780px] px-1 pb-2 sm:px-8"
                         preserveAspectRatio="xMidYMid meet"
                     >
                         <g transform={OUTER_G_TRANSFORM}>
@@ -57,8 +66,9 @@ export default function HeroExperiencias() {
                                 <g key={i} transform={LETTER_G_TRANSFORM}>
                                     <motion.path
                                         d={d}
-                                        variants={pathReveal}
-                                        stroke="#222222"
+                                        variants={shouldReduceMotion ? undefined : pathReveal}
+                                        fill={shouldReduceMotion ? "#1C1713" : undefined}
+                                        stroke="#1C1713"
                                         strokeWidth="2"
                                     />
                                 </g>
@@ -68,13 +78,13 @@ export default function HeroExperiencias() {
                 </div>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    className="max-w-md"
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.78, delay: shouldReduceMotion ? 0 : 0.38, ease: EASE_OUT_CUBIC }}
+                    className="max-w-[620px]"
                 >
                     <p
-                        className="text-[#222222]/80 text-lg md:text-xl font-medium leading-relaxed mb-4"
+                        className="mb-4 text-base font-medium leading-relaxed text-[#1C1713]/78 md:text-xl"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
                         {t("description")}

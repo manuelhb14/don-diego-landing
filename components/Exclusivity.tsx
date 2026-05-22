@@ -39,7 +39,17 @@ export default function Exclusivity() {
 
   return (
     <section className="relative overflow-hidden bg-[#F6F0E8]">
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 md:hidden">
+        <EditableImage
+          contentKey="home.exclusivity.imageMobile"
+          fallbackSrc="/final/banner-5-mobile.png"
+          alt={tx("imageAlt")}
+          fill
+          className="object-cover object-[right_bottom]"
+          sizes="100vw"
+        />
+      </div>
+      <div className="absolute inset-0 hidden md:block">
         <EditableImage
           contentKey="home.exclusivity.image"
           fallbackSrc="/final/banner-5-wide.png"
@@ -50,14 +60,14 @@ export default function Exclusivity() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-[220px] w-full max-w-[1440px] items-center md:min-h-[260px] lg:min-h-[350px]">
-        <div className="max-w-[760px] px-6 py-10 md:px-10 lg:pl-16 lg:pr-12">
+      <div className="relative z-10 mx-auto flex min-h-[160px] w-full max-w-[1440px] items-center md:min-h-[260px] lg:min-h-[350px]">
+        <div className="max-w-[760px] px-6 py-4 md:px-10 md:py-10 lg:pl-16 lg:pr-12">
           <motion.h2
             initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={revealTransition()}
-            className="mb-5 leading-[1.04] text-[#222222]"
+            className="mb-2 leading-[1.04] text-[#222222] md:mb-5"
             style={{
               fontFamily: "var(--font-serif)",
               fontSize: "clamp(2rem, 3.4vw, 3.25rem)",
@@ -85,7 +95,7 @@ export default function Exclusivity() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={revealTransition(0.24)}
-            className="mt-12 mb-4 flex flex-col items-start gap-2.5"
+            className="mt-4 mb-0 flex flex-col items-start gap-2.5 md:mt-12 md:mb-4"
           >
             <div className="flex items-center gap-4">
               {socialLinks.map((social) => (

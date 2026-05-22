@@ -33,26 +33,28 @@ export default function Team() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
-                    className="mb-10 max-w-[980px] lg:mb-14"
+                    className="mb-10 flex flex-col gap-5 md:items-end md:justify-between md:flex-row lg:mb-14"
                 >
+                    <div>
+                        <p
+                            className="mb-3 text-xs uppercase tracking-[0.3em] text-[#AA7D69]"
+                            style={{ fontFamily: "var(--font-sans)" }}
+                        >
+                            {t("kicker")}
+                        </p>
+                        <h2
+                            className="leading-none text-[#111111]"
+                            style={{
+                                fontFamily: "var(--font-serif)",
+                                fontSize: "clamp(3rem, 6vw, 6rem)",
+                            }}
+                        >
+                            {t("headingLine1")}{" "}
+                            <em className="text-[#AA7D69]">{t("headingEm")}</em>
+                        </h2>
+                    </div>
                     <p
-                        className="mb-3 text-xs uppercase tracking-[0.3em] text-[#AA7D69]"
-                        style={{ fontFamily: "var(--font-sans)" }}
-                    >
-                        {t("kicker")}
-                    </p>
-                    <h2
-                        className="leading-none text-[#111111]"
-                        style={{
-                            fontFamily: "var(--font-serif)",
-                            fontSize: "clamp(3rem, 6vw, 6rem)",
-                        }}
-                    >
-                        {t("headingLine1")}{" "}
-                        <em className="text-[#AA7D69]">{t("headingEm")}</em>
-                    </h2>
-                    <p
-                        className="mt-5 max-w-[820px] text-base font-medium leading-relaxed text-[#111111] md:text-xl"
+                        className="max-w-md text-base font-medium leading-relaxed text-[#111111]/72 md:text-right md:text-xl"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
                         {t("subtitle")}

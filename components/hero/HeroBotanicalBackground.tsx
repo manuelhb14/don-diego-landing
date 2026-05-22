@@ -16,7 +16,28 @@ type BotanicalPngAsset = {
     height: number;
     className: string;
     sizes: string;
+    style?: CSSProperties;
 };
+
+type SetTwoBird = {
+    key: string;
+    style: CSSProperties;
+};
+
+const cssVars = (vars: Record<string, string>): CSSProperties => vars as CSSProperties;
+
+const randomRange = (rand: () => number, min: number, max: number, precision = 1) =>
+    Number((min + rand() * (max - min)).toFixed(precision));
+
+const FLOCK_FORMATION = [
+    { x: 0, y: 0 },
+    { x: -2.6, y: 7 },
+    { x: 2.4, y: 6 },
+    { x: -4.8, y: 14 },
+    { x: 4.6, y: 13 },
+    { x: -1.4, y: 19 },
+    { x: 1.8, y: 18 },
+] as const;
 
 const SKY_ASSETS: BotanicalPngAsset[] = [
     {
@@ -98,6 +119,110 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
         sizes: "(min-width: 1280px) 350px, 27vw",
     },
     {
+        key: "partly-wisp-high",
+        src: "/hero/clean/02_cloud_wisp_1.png",
+        width: 1133,
+        height: 185,
+        className: "hero-cloud-asset cloud-wisp partly-extra-cloud partly-wisp-high",
+        sizes: "(min-width: 1280px) 280px, 22vw",
+    },
+    {
+        key: "partly-wisp-soft",
+        src: "/hero/clean/02_cloud_wisp_2.png",
+        width: 1008,
+        height: 265,
+        className: "hero-cloud-asset cloud-wisp partly-extra-cloud partly-wisp-soft",
+        sizes: "(min-width: 1280px) 300px, 24vw",
+    },
+    {
+        key: "partly-wisp-trailing",
+        src: "/hero/clean/02_cloud_wisp_3.png",
+        width: 1153,
+        height: 373,
+        className: "hero-cloud-asset cloud-wisp partly-extra-cloud partly-wisp-trailing",
+        sizes: "(min-width: 1280px) 310px, 24vw",
+    },
+    {
+        key: "partly-wisp-distant",
+        src: "/hero/clean/02_cloud_wisp_1.png",
+        width: 1133,
+        height: 185,
+        className: "hero-cloud-asset cloud-wisp partly-extra-cloud",
+        sizes: "(min-width: 1280px) 235px, 18vw",
+        style: cssVars({
+            "--cloud-top": "3.5%",
+            "--cloud-left": "-42vw",
+            "--cloud-width": "clamp(130px, 17vw, 235px)",
+            "--cloud-rotate": "-1deg",
+            "--cloud-mid-x": "82vw",
+            "--cloud-end-x": "154vw",
+            "--cloud-mid-y": "2px",
+            "--cloud-end-y": "-3px",
+            "--cloud-duration": "154s",
+            "--cloud-delay": "-128s",
+        }),
+    },
+    {
+        key: "partly-wisp-low",
+        src: "/hero/clean/02_cloud_wisp_3.png",
+        width: 1153,
+        height: 373,
+        className: "hero-cloud-asset cloud-wisp partly-extra-cloud",
+        sizes: "(min-width: 1280px) 320px, 25vw",
+        style: cssVars({
+            "--cloud-top": "29%",
+            "--cloud-left": "-46vw",
+            "--cloud-width": "clamp(180px, 25vw, 320px)",
+            "--cloud-rotate": "1deg",
+            "--cloud-mid-x": "86vw",
+            "--cloud-end-x": "158vw",
+            "--cloud-mid-y": "-5px",
+            "--cloud-end-y": "2px",
+            "--cloud-duration": "118s",
+            "--cloud-delay": "-32s",
+        }),
+    },
+    {
+        key: "partly-wisp-small",
+        src: "/hero/clean/02_cloud_wisp_2.png",
+        width: 1008,
+        height: 265,
+        className: "hero-cloud-asset cloud-wisp partly-extra-cloud",
+        sizes: "(min-width: 1280px) 220px, 17vw",
+        style: cssVars({
+            "--cloud-top": "9%",
+            "--cloud-left": "-18vw",
+            "--cloud-width": "clamp(125px, 16vw, 220px)",
+            "--cloud-rotate": "3deg",
+            "--cloud-mid-x": "58vw",
+            "--cloud-end-x": "128vw",
+            "--cloud-mid-y": "-2px",
+            "--cloud-end-y": "3px",
+            "--cloud-duration": "146s",
+            "--cloud-delay": "-18s",
+        }),
+    },
+    {
+        key: "partly-wisp-wide",
+        src: "/hero/clean/02_cloud_wisp_1.png",
+        width: 1133,
+        height: 185,
+        className: "hero-cloud-asset cloud-wisp partly-extra-cloud",
+        sizes: "(min-width: 1280px) 340px, 26vw",
+        style: cssVars({
+            "--cloud-top": "24%",
+            "--cloud-left": "-52vw",
+            "--cloud-width": "clamp(190px, 26vw, 340px)",
+            "--cloud-rotate": "-2deg",
+            "--cloud-mid-x": "94vw",
+            "--cloud-end-x": "166vw",
+            "--cloud-mid-y": "4px",
+            "--cloud-end-y": "-2px",
+            "--cloud-duration": "136s",
+            "--cloud-delay": "-108s",
+        }),
+    },
+    {
         key: "cloudy-wisp-high",
         src: "/hero/clean/02_cloud_wisp_1.png",
         width: 1133,
@@ -146,6 +271,122 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
         sizes: "(min-width: 1280px) 260px, 21vw",
     },
     {
+        key: "cloudy-wisp-distant",
+        src: "/hero/clean/02_cloud_wisp_1.png",
+        width: 1133,
+        height: 185,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud cloudy-wisp-distant",
+        sizes: "(min-width: 1280px) 250px, 20vw",
+    },
+    {
+        key: "cloudy-wisp-veil",
+        src: "/hero/clean/02_cloud_wisp_2.png",
+        width: 1008,
+        height: 265,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud cloudy-wisp-veil",
+        sizes: "(min-width: 1280px) 320px, 25vw",
+    },
+    {
+        key: "cloudy-wisp-shelf",
+        src: "/hero/clean/02_cloud_wisp_3.png",
+        width: 1153,
+        height: 373,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
+        sizes: "(min-width: 1280px) 350px, 27vw",
+        style: cssVars({
+            "--cloud-top": "0.5%",
+            "--cloud-left": "-50vw",
+            "--cloud-width": "clamp(210px, 28vw, 360px)",
+            "--cloud-rotate": "2deg",
+            "--cloud-mid-x": "92vw",
+            "--cloud-end-x": "164vw",
+            "--cloud-mid-y": "2px",
+            "--cloud-end-y": "-4px",
+            "--cloud-duration": "162s",
+            "--cloud-delay": "-146s",
+        }),
+    },
+    {
+        key: "cloudy-wisp-lower-drift",
+        src: "/hero/clean/02_cloud_wisp_1.png",
+        width: 1133,
+        height: 185,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
+        sizes: "(min-width: 1280px) 300px, 23vw",
+        style: cssVars({
+            "--cloud-top": "28%",
+            "--cloud-left": "-36vw",
+            "--cloud-width": "clamp(170px, 23vw, 300px)",
+            "--cloud-rotate": "-1.5deg",
+            "--cloud-mid-x": "74vw",
+            "--cloud-end-x": "146vw",
+            "--cloud-mid-y": "-4px",
+            "--cloud-end-y": "1px",
+            "--cloud-duration": "122s",
+            "--cloud-delay": "-54s",
+        }),
+    },
+    {
+        key: "cloudy-wisp-thread",
+        src: "/hero/clean/02_cloud_wisp_2.png",
+        width: 1008,
+        height: 265,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
+        sizes: "(min-width: 1280px) 245px, 19vw",
+        style: cssVars({
+            "--cloud-top": "6.5%",
+            "--cloud-left": "-16vw",
+            "--cloud-width": "clamp(140px, 18vw, 245px)",
+            "--cloud-rotate": "4deg",
+            "--cloud-mid-x": "54vw",
+            "--cloud-end-x": "126vw",
+            "--cloud-mid-y": "-1px",
+            "--cloud-end-y": "4px",
+            "--cloud-duration": "172s",
+            "--cloud-delay": "-24s",
+        }),
+    },
+    {
+        key: "cloudy-wisp-deep",
+        src: "/hero/clean/02_cloud_wisp_3.png",
+        width: 1153,
+        height: 373,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
+        sizes: "(min-width: 1280px) 330px, 25vw",
+        style: cssVars({
+            "--cloud-top": "18.5%",
+            "--cloud-left": "-58vw",
+            "--cloud-width": "clamp(190px, 26vw, 340px)",
+            "--cloud-rotate": "0.5deg",
+            "--cloud-mid-x": "98vw",
+            "--cloud-end-x": "170vw",
+            "--cloud-mid-y": "3px",
+            "--cloud-end-y": "-3px",
+            "--cloud-duration": "138s",
+            "--cloud-delay": "-96s",
+        }),
+    },
+    {
+        key: "cloudy-wisp-high-thread",
+        src: "/hero/clean/02_cloud_wisp_1.png",
+        width: 1133,
+        height: 185,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
+        sizes: "(min-width: 1280px) 260px, 20vw",
+        style: cssVars({
+            "--cloud-top": "12.5%",
+            "--cloud-left": "-30vw",
+            "--cloud-width": "clamp(150px, 20vw, 260px)",
+            "--cloud-rotate": "-3deg",
+            "--cloud-mid-x": "68vw",
+            "--cloud-end-x": "140vw",
+            "--cloud-mid-y": "-5px",
+            "--cloud-end-y": "2px",
+            "--cloud-duration": "148s",
+            "--cloud-delay": "-78s",
+        }),
+    },
+    {
         key: "rain-cloud-left",
         src: "/hero/clean/02_cloud_wisp_rain_1.png",
         width: 912,
@@ -170,6 +411,82 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
         sizes: "(min-width: 1280px) 320px, 25vw",
     },
 ];
+
+const createSetTwoBirdFlocks = (): SetTwoBird[] => {
+    const rand = mulberry32(HERO_BOTANICAL_SEED ^ 0x62697264);
+    const groups = [
+        { count: 5, top: 8, spread: 1.4, phase: -7, duration: 56 },
+        { count: 4, top: 15, spread: 1.8, phase: -22, duration: 63 },
+        { count: 4, top: 24, spread: 1.6, phase: -39, duration: 72 },
+        { count: 5, top: 31, spread: 1.5, phase: -57, duration: 78 },
+        { count: 3, top: 11, spread: 2, phase: -69, duration: 86 },
+    ];
+
+    return groups.flatMap((group, groupIndex) => {
+        const baseDuration = randomRange(rand, group.duration - 5, group.duration + 7);
+        const baseDelay = randomRange(rand, group.phase - 4, group.phase + 4);
+        const baseStartX = randomRange(rand, -24, -14);
+        const baseQuarterX = randomRange(rand, 18, 30);
+        const baseMidX = randomRange(rand, 44, 62);
+        const baseLateX = randomRange(rand, 78, 94);
+        const baseEndX = randomRange(rand, 114, 124);
+        const baseStartY = randomRange(rand, -12, 12);
+        const baseQuarterY = randomRange(rand, -18, 14);
+        const baseMidY = randomRange(rand, -24, 18);
+        const baseLateY = randomRange(rand, -20, 16);
+        const baseEndY = randomRange(rand, -18, 12);
+        const flockSize = randomRange(rand, 0.68, 1.08, 2);
+        const flockWidth = `clamp(${randomRange(rand, 9, 15)}px, ${randomRange(rand, 0.82, 1.38, 2)}vw, ${randomRange(rand, 17, 29)}px)`;
+        const flockStartScale = randomRange(rand, 0.38, 0.58, 2) * flockSize;
+        const flockQuarterScale = randomRange(rand, 0.45, 0.64, 2) * flockSize;
+        const flockMidScale = randomRange(rand, 0.48, 0.68, 2) * flockSize;
+        const flockLateScale = randomRange(rand, 0.43, 0.62, 2) * flockSize;
+        const flockEndScale = randomRange(rand, 0.34, 0.54, 2) * flockSize;
+
+        return Array.from({ length: group.count }, (_, birdIndex) => {
+            const formation = FLOCK_FORMATION[birdIndex % FLOCK_FORMATION.length];
+            const jitterX = randomRange(rand, -0.8, 0.8, 1);
+            const jitterY = randomRange(rand, -2.2, 2.2, 1);
+            const top = randomRange(rand, group.top - group.spread, group.top + group.spread) + formation.y * 0.12;
+            const opacity = randomRange(rand, 0.26, 0.48, 2);
+
+            return {
+                key: `set-two-bird-${groupIndex}-${birdIndex}`,
+                style: cssVars({
+                    "--bird-top": `${top}%`,
+                    "--bird-width": flockWidth,
+                    "--bird-opacity": `${opacity}`,
+                    "--bird-duration": `${baseDuration + randomRange(rand, -3.5, 3.5)}s`,
+                    "--bird-delay": `${baseDelay + randomRange(rand, -1.8, 1.8, 1)}s`,
+                    "--bird-wing-delay": `${randomRange(rand, -0.76, -0.04, 2)}s`,
+                    "--bird-wing-duration": `${randomRange(rand, 0.7, 0.94, 2)}s`,
+                    "--bird-start-x": `${baseStartX + formation.x + jitterX}vw`,
+                    "--bird-quarter-x": `${baseQuarterX + formation.x + jitterX}vw`,
+                    "--bird-mid-x": `${baseMidX + formation.x + jitterX}vw`,
+                    "--bird-late-x": `${baseLateX + formation.x + jitterX}vw`,
+                    "--bird-end-x": `${baseEndX + formation.x + jitterX}vw`,
+                    "--bird-start-y": `${baseStartY + formation.y + jitterY}px`,
+                    "--bird-quarter-y": `${baseQuarterY + formation.y + jitterY}px`,
+                    "--bird-mid-y": `${baseMidY + formation.y + jitterY}px`,
+                    "--bird-late-y": `${baseLateY + formation.y + jitterY}px`,
+                    "--bird-end-y": `${baseEndY + formation.y + jitterY}px`,
+                    "--bird-start-scale": `${flockStartScale}`,
+                    "--bird-quarter-scale": `${flockQuarterScale}`,
+                    "--bird-mid-scale": `${flockMidScale}`,
+                    "--bird-late-scale": `${flockLateScale}`,
+                    "--bird-end-scale": `${flockEndScale}`,
+                    "--bird-start-rotate": `${randomRange(rand, -3, 3)}deg`,
+                    "--bird-quarter-rotate": `${randomRange(rand, -5, 4)}deg`,
+                    "--bird-mid-rotate": `${randomRange(rand, -4, 5)}deg`,
+                    "--bird-late-rotate": `${randomRange(rand, -5, 4)}deg`,
+                    "--bird-end-rotate": `${randomRange(rand, -3, 3)}deg`,
+                }),
+            };
+        });
+    });
+};
+
+const SET_TWO_BIRDS = createSetTwoBirdFlocks();
 
 const HILL_ASSETS: BotanicalPngAsset[] = [
     {
@@ -616,14 +933,16 @@ export default function HeroBotanicalBackground({
                         width={asset.width}
                         height={asset.height}
                         sizes={asset.sizes}
+                        style={asset.style}
                     />
                 ))}
             </div>
-            <div className="set-two-bird set-two-bird-a" aria-hidden>
-                <span />
-            </div>
-            <div className="set-two-bird set-two-bird-b" aria-hidden>
-                <span />
+            <div className="set-two-bird-flocks" aria-hidden>
+                {SET_TWO_BIRDS.map((bird) => (
+                    <div key={bird.key} className="set-two-bird" style={bird.style}>
+                        <span />
+                    </div>
+                ))}
             </div>
             <div className="hero-08-assets" aria-hidden>
                 {HERO_08_ASSETS.map((asset) => (
@@ -670,12 +989,6 @@ export default function HeroBotanicalBackground({
                         }}
                     />
                 ))}
-            </div>
-            <div className="sprite-bird sprite-bird-a" aria-hidden>
-                <span />
-            </div>
-            <div className="sprite-bird sprite-bird-b" aria-hidden>
-                <span />
             </div>
         </>
     );
