@@ -78,7 +78,7 @@
         },
         "farm": {
           "label": "Organic Farm & Flowers",
-          "summary": "Organic Farm & Flowers es paisaje productivo sin residencias: huertos, frutales, flores, restaurante y experiencias de cocina ligadas a lo que se cosecha ahí mismo.",
+          "summary": "Organic Farm & Flowers es un paisaje productivo: huertos, frutales, flores, restaurante y experiencias de cocina ligadas a lo que se cosecha ahí mismo.",
           "amenities": [
             "Huertos orgánicos",
             "Invernadero",
@@ -146,7 +146,7 @@
     "location": "San Miguel de Allende, Guanajuato",
     "cta": "Conoce más",
     "eyebrow": "[DESARROLLO RESIDENCIAL]",
-    "bodyLine1": "Un club residencial donde la vida se organiza alrededor de la tierra, el agua, los jardines y una comunidad cuidada.",
+    "bodyLine1": "Un club residencial donde la vida se organiza alrededor de la tierra, el agua, los jardines y una comunidad que se forma con intención.",
     "bodyLine2": "",
     "explore": "Explorar"
   },
@@ -166,15 +166,15 @@
     },
     "farm": {
       "name": "Organic Farm & Flowers",
-      "description": "Una granja viva, sin residencias, con huertos, frutales, flores, restaurante y experiencias alrededor de la tierra."
+      "description": "Un paisaje productivo con huertos, frutales, flores, restaurante y experiencias alrededor de la tierra."
     },
     "wellness": {
       "name": "Wellness Center",
-      "description": "Una etapa dedicada al bienestar, la rehabilitación y el retiro activo, integrada al paisaje y a la comunidad."
+      "description": "Una etapa dedicada al bienestar integral, la rehabilitación, el manejo del dolor y el retiro activo, integrada al paisaje y a la comunidad."
     },
     "presa": {
       "name": "Presa de la Cantera",
-      "description": "El recorrido continúa hacia el agua, con malecón, mirador, café/bar y actividades ligeras como kayak."
+      "description": "El recorrido continúa hacia el agua, con malecón, mirador, café/bar, tiendas y actividades ligeras como kayak."
     },
     "comingSoon": "Próximamente"
   },
@@ -205,22 +205,22 @@
     "cimenta": {
       "name": "Grupo Cimienta",
       "role": "Desarrollo",
-      "description": "+30 años creando proyectos inmobiliarios eficientes, sólidos y bien ejecutados."
+      "description": "+30 años estructurando y ejecutando proyectos inmobiliarios con visión de largo plazo."
     },
     "barragan": {
       "name": "Barragán Arquitectos",
       "role": "Arquitectura",
-      "description": "Diseño integral con identidad sanmiguelense, escala humana y visión contemporánea."
+      "description": "Arquitectura de autor con oficio, proporción y una mirada contemporánea para crear espacios memorables."
     },
     "arredarq": {
       "name": "Espacios Verdes / Arredarq",
       "role": "Paisajismo",
-      "description": "Arquitectura de paisaje que integra vegetación, agua y recorridos al entorno natural."
+      "description": "Paisajismo que ordena recorridos, sombra, agua y vegetación para construir una experiencia natural y memorable."
     },
     "artemisa": {
       "name": "Equipo Comercial y Marketing",
       "role": "Comercial y Marketing",
-      "description": "Dirección comercial, comunicación, alianzas y posicionamiento para proyectos inmobiliarios de alto valor."
+      "description": "Estrategia comercial, comunicación y posicionamiento para conectar el proyecto con el mercado correcto."
     }
   },
   "contact": {
@@ -315,9 +315,9 @@
   "servicesPage": {
     "kicker": "Componentes",
     "heading": "El Proyecto",
-    "intro": "El proyecto se entiende en cuatro partes que se complementan: vivir, producir, cuidar y disfrutar el agua.",
+    "intro": "Don Diego se estructura en cuatro experiencias que se conectan de forma natural: vivir, cultivar la tierra, cuidar el bienestar y encontrarse con el agua.",
     "phaseNote": "",
-    "closing": "La primera etapa busca que la vida se sienta completa desde el inicio: Casa Club, jardines, Organic Farm & Flowers y conexiones verdes mientras el proyecto crece.",
+    "closing": "La primera etapa está pensada para vivirse completa desde el inicio: Casa Club, jardines y un circuito verde que sale del Club Residencial, cruza Organic Farm & Flowers y llega al mirador de la Presa de la Cantera.",
     "cta": "EXPLORAR EL DESARROLLO",
     "status": {
       "inDevelopment": "En desarrollo",
@@ -344,7 +344,7 @@
     },
     "farm": {
       "title": "Organic Farm & Flowers",
-      "description": "Una granja viva, sin residencias, con huertos, frutales, flores, restaurante y clases de cocina.",
+      "description": "Un paisaje productivo con huertos, frutales, flores, restaurante y clases de cocina alrededor de la tierra.",
       "supporting": "Produce para el proyecto, abastece la vida diaria y convierte la tierra en una experiencia cercana.",
       "d1": "Huertos orgánicos",
       "d2": "Restaurante de la granja",
@@ -353,20 +353,20 @@
     },
     "wellness": {
       "title": "Wellness Center",
-      "description": "Bienestar integral, rehabilitación y retiro activo en una etapa pensada para cuidado, calma y vida en comunidad.",
+      "description": "Bienestar integral, rehabilitación, manejo del dolor y retiro activo en una etapa pensada para cuidado, calma y vida en comunidad.",
       "supporting": "Su configuración final sigue en desarrollo; la intención es clara: salud, descanso, naturaleza y acompañamiento.",
       "d1": "Bienestar integral",
-      "d2": "Retiro activo",
-      "d3": "Cerca de Presa Allende",
+      "d2": "Rehabilitación y manejo del dolor",
+      "d3": "Cuidado y vida en comunidad",
       "cta": "Descubrir"
     },
     "presa": {
       "title": "Presa de la Cantera",
-      "description": "La extensión junto al agua: malecón, mirador, café/bar y actividades ligeras en la Presa de la Cantera.",
+      "description": "La extensión junto al agua: malecón, mirador, café/bar, tiendas y actividades ligeras en la Presa de la Cantera.",
       "supporting": "Se llega atravesando Organic Farm & Flowers para vivir el territorio completo, del desarrollo a la presa.",
       "d1": "Malecón y mirador",
       "d2": "Kayak y naturaleza",
-      "d3": "Etapa futura",
+      "d3": "Tiendas y actividades",
       "cta": "Visitar"
     }
   },
@@ -377,15 +377,15 @@
     "titleAccent": "comunidad",
     "title1": "Actividades y comunidad",
     "title2": "en Don Diego",
-    "body": "El día a día combina deporte, descanso, restaurantes, jardines y encuentros entre vecinos. Un club pensado para usarse, no solo para verse.",
+    "body": "El club está pensado para usarse todos los días: entrenar, nadar, comer bien, descansar, caminar entre jardines y encontrarte con vecinos de forma natural.",
     "cta": "EXPLORAR LAS EXPERIENCIAS",
     "carouselPrevAria": "Elementos anteriores",
     "carouselNextAria": "Elementos siguientes",
     "nextAria": "Ver más",
     "items": {
-      "clubhouse": "Clubhouse",
+      "clubhouse": "Casas Club",
       "pool": "Alberca en jardín",
-      "gym": "Gimnasio exterior",
+      "gym": "Gimnasio interior",
       "spa": "Spa",
       "restaurant": "Restaurantes",
       "padel": "Pádel"
@@ -396,7 +396,7 @@
     "title": "La vida, a tu alcance",
     "titleLead": "La vida,",
     "titleAccent": "a tu alcance",
-    "subtitle": "Una capa práctica para que la comunidad funcione fácil: reservas, invitados, productos de la granja, eventos, shuttles y operación diaria en una sola experiencia.",
+    "subtitle": "Don Diego contará con una aplicación para resolver la operación diaria con facilidad: reservas, accesos para invitados, pedidos de la granja, eventos, shuttles y administración en un solo lugar.",
     "cards": {
       "paddle": {
         "title": "Reserva de actividades",
@@ -502,7 +502,7 @@
     "kicker": "El Lugar",
     "title1": "Cerca de todo",
     "title2": "Lejos de lo común",
-    "body": "Cerca del centro, pero con la calma del campo: shuttles a San Miguel, caminos verdes, agua y paisaje para sentir distancia sin desconectarte.",
+    "body": "Conexión directa con San Miguel y una vida diaria más amplia: shuttles, caminos verdes, agua y paisaje para estar cerca sin vivir encima del ritmo de la ciudad.",
     "centroLabel": "Centro Histórico",
     "centroSub": "Encanto Colonial",
     "proximityTitle": "Proximidad",
@@ -802,11 +802,11 @@
           },
           "farm": {
             "title": "Organic Farm & Flowers",
-            "description": "Una granja viva, sin residencias, con huertos, flores, restaurante y clases de cocina."
+            "description": "Un paisaje productivo con huertos, flores, restaurante y clases de cocina."
           },
           "wellness": {
             "title": "Wellness Center",
-            "description": "Una etapa para bienestar, rehabilitación y retiro activo, con propiedades integradas todavía en definición."
+            "description": "Una etapa para bienestar integral, rehabilitación, manejo del dolor y retiro activo, con propiedades integradas todavía en definición."
           },
           "presa": {
             "title": "Presa de la Cantera",
@@ -923,7 +923,7 @@
     "ubicacion": {
       "hero": {
         "kicker": "[El Entorno]",
-        "body": "Cerca del centro, pero con la calma del campo: Don Diego conecta ciudad, paisaje, agua y vida diaria sin perder privacidad."
+        "body": "Don Diego conecta San Miguel, paisaje, agua y vida diaria con una sensación de amplitud, privacidad y calma."
       },
       "locationMexico": {
         "kicker": "[San Miguel de Allende]",
@@ -1223,7 +1223,7 @@
         "body": "No solo tienes acceso a los espacios: te integras a una comunidad de vecinos que comparten el mismo entorno, el mismo cuidado y el mismo ritmo de vida. Participas del club como quien pertenece, con voz, encuentros y una experiencia que se construye en conjunto.",
         "cta": "EXPLORAR LAS EXPERIENCIAS",
         "alts": {
-          "clubhouse": "Clubhouse Don Diego",
+          "clubhouse": "Casa Club Don Diego",
           "spa": "Spa y bienestar",
           "restaurant": "Restaurante"
         }
@@ -1611,7 +1611,7 @@
     "equipo": {
       "hero": {
         "eyebrow": "El Equipo",
-        "description": "Desarrollo, arquitectura, paisaje y estrategia comercial trabajando bajo una misma visión: construir una comunidad cuidada, clara y bien operada."
+        "description": "Desarrollo, arquitectura, paisaje y estrategia comercial trabajando bajo una misma visión: construir una comunidad clara, coherente y bien operada."
       },
       "details": {
         "members": {
@@ -1671,8 +1671,8 @@
             "description": "Alberca ubicada a nivel jardín para conectar mejor con Casa Club, jacuzzis y zonas exteriores."
           },
           "gimnasio": {
-            "title": "Gimnasio exterior",
-            "description": "Entrenamiento al aire libre integrado al paisaje, pensado para moverte sin renunciar al contacto con la naturaleza."
+            "title": "Gimnasio interior",
+            "description": "Entrenamiento en un espacio interior cómodo, conectado con la vida del club y pensado para moverte con facilidad."
           },
           "spa": {
             "title": "Spa",
