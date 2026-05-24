@@ -135,7 +135,7 @@ export default function Contact() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-80px" }}
                     transition={revealTransition()}
-                    className="mb-10 grid gap-5 md:mb-14 md:grid-cols-[minmax(0,1fr)_minmax(18rem,28rem)] md:items-start"
+                    className="mb-10 grid gap-5 md:mb-14 md:grid-cols-[minmax(0,1fr)_minmax(18rem,28rem)] md:items-center"
                 >
                     <div>
                         <p
@@ -160,7 +160,7 @@ export default function Contact() {
                         <SocialIconLinks className="mt-5" />
                     </div>
                     <p
-                        className="max-w-md text-base font-medium leading-relaxed text-[#222222]/72 md:pt-8 md:text-right md:text-xl"
+                        className="max-w-md text-base font-medium leading-relaxed text-[#222222]/72 md:text-right md:text-xl"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
                         <EditableText contentKey="home.exclusivity.subtitle" fallback={tx("subtitle")} />

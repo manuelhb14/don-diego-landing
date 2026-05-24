@@ -112,7 +112,7 @@ export default function CookieBanner() {
                 <motion.aside
                     {...bannerMotion}
                     aria-live="polite"
-                    className="fixed right-3 bottom-3 z-[70] w-[calc(100vw-1.5rem)] max-w-[360px] rounded-[2px] border border-[#AA7D69]/18 bg-[#F6F0E8] p-3 text-[#1C1713] shadow-[0_12px_30px_rgba(47,39,33,0.1)] sm:right-5 sm:w-fit sm:max-w-[calc(100vw-2.5rem)] md:max-w-[420px] md:p-4"
+                    className="fixed right-3 bottom-3 z-[70] w-[calc(100vw-1.5rem)] max-w-[360px] rounded-[2px] border border-[#AA7D69]/18 bg-[#F6F0E8] p-3 text-[#1C1713] shadow-[0_2px_6px_rgba(47,39,33,0.06),0_10px_28px_rgba(47,39,33,0.11)] sm:right-5 sm:w-fit sm:max-w-[calc(100vw-2.5rem)] md:max-w-[420px] md:p-4"
                 >
                     <div className="grid w-full gap-2.5 text-[12px] sm:w-[39ch] md:w-[42ch] md:gap-3 md:text-[14px]">
                         <div className="min-w-0">
