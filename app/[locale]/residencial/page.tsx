@@ -7,7 +7,6 @@ import ClubAccessResidencial from "@/components/residencial/ClubAccessResidencia
 import RentalsPoolResidencial from "@/components/residencial/RentalsPoolResidencial";
 import ConnectivityCommonAreasResidencial from "@/components/residencial/ConnectivityCommonAreasResidencial";
 import SustentabilidadResidencial from "@/components/residencial/SustentabilidadResidencial";
-import Exclusivity from "@/components/Exclusivity";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -30,7 +29,6 @@ export default async function ResidencialPage({ params }: Props) {
                 <RentalsPoolResidencial />
                 <ConnectivityCommonAreasResidencial />
                 <SustentabilidadResidencial />
-                <Exclusivity />
                 <Contact />
             </main>
             <Footer />

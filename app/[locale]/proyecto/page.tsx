@@ -5,7 +5,6 @@ import GridProyecto from "@/components/proyecto/GridProyecto";
 import LocationSummaryProyecto from "@/components/proyecto/LocationSummaryProyecto";
 import Footer from "@/components/Footer";
 import ThingsToDo from "@/components/ThingsToDo";
-import Exclusivity from "@/components/Exclusivity";
 import Contact from "@/components/Contact";
 
 type Props = {
@@ -24,7 +23,6 @@ export default async function ProyectoPage({ params }: Props) {
                 <GridProyecto />
                 <LocationSummaryProyecto />
                 <ThingsToDo />
-                <Exclusivity />
                 <Contact />
             </main>
             <Footer />

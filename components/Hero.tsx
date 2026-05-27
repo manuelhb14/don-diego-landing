@@ -188,7 +188,7 @@ export default function Hero({ initialWeather }: HeroProps) {
 
             {/* Centered content block */}
             <motion.div
-                className="relative z-10 flex w-full max-w-4xl flex-col items-center justify-center px-4 text-center [text-shadow:none] md:px-8 md:[text-shadow:0_1px_2px_rgba(0,0,0,0.42),0_2px_18px_rgba(0,0,0,0.18)]"
+                className="relative top-8 z-10 flex w-full max-w-4xl flex-col items-center justify-center px-4 text-center [text-shadow:0_1px_2px_rgba(0,0,0,0.42),0_2px_18px_rgba(0,0,0,0.18)] md:top-0 md:px-8"
                 style={{ y: shouldReduceMotion ? 0 : contentY }}
             >
                 <motion.div

@@ -5,7 +5,6 @@ import Hero from "@/components/Hero";
 import Manifesto from "@/components/Manifesto";
 import Vision from "@/components/Vision";
 import Location from "@/components/Location";
-import Exclusivity from "@/components/Exclusivity";
 import Services from "@/components/Services";
 import ServicesV2 from "@/components/ServicesV2";
 import Team from "@/components/Team";
@@ -42,7 +41,6 @@ export default async function Page({ params }: Props) {
                 <Location />
                 {/* <Blogs /> */}
                 <InstagramPostsContacto />
-                <Exclusivity />
                 <Contact />
                 <Faq />
             </main>
