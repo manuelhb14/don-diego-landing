@@ -18,17 +18,41 @@ type CookieConsent = {
     decidedAt: string;
 };
 
-function hasStoredConsent() {
-    try {
-        const stored = window.localStorage.getItem(CONSENT_STORAGE_KEY);
-        if (!stored) return false;
+function isValidConsentValue(value: string) {
+    const parsed = JSON.parse(value) as Partial<CookieConsent>;
+    return (
+        parsed.necessary === true &&
+        typeof parsed.analytics === "boolean" &&
+        parsed.version === CONSENT_VERSION
+    );
+}
 
-        const parsed = JSON.parse(stored) as Partial<CookieConsent>;
-        return (
-            parsed.necessary === true &&
-            typeof parsed.analytics === "boolean" &&
-            parsed.version === CONSENT_VERSION
-        );
+function getConsentCookie() {
+    if (typeof document === "undefined") return null;
+
+    const cookie = document.cookie
+        .split("; ")
+        .find((item) => item.startsWith(`${CONSENT_COOKIE_NAME}=`));
+
+    if (!cookie) return null;
+
+    return decodeURIComponent(cookie.slice(CONSENT_COOKIE_NAME.length + 1));
+}
+
+function hasStoredConsent() {
+    let stored: string | null = null;
+
+    try {
+        stored = window.localStorage.getItem(CONSENT_STORAGE_KEY);
+    } catch {
+        stored = null;
+    }
+
+    try {
+        const consentValue = stored ?? getConsentCookie();
+        if (!consentValue) return false;
+
+        return isValidConsentValue(consentValue);
     } catch {
         return false;
     }
@@ -44,11 +68,18 @@ function storeConsent(analytics: boolean) {
 
     try {
         window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(consent));
-        document.cookie = `${CONSENT_COOKIE_NAME}=${analytics ? "all" : "necessary"}; Max-Age=${CONSENT_MAX_AGE_SECONDS}; Path=/; SameSite=Lax`;
-        window.dispatchEvent(new CustomEvent(CONSENT_EVENT_NAME, { detail: consent }));
     } catch {
-        // If storage is unavailable, the user's current choice still dismisses the banner.
+        // The cookie fallback still preserves the user's choice when storage is unavailable.
     }
+
+    try {
+        const secureAttribute = process.env.NODE_ENV === "production" ? "; Secure" : "";
+        document.cookie = `${CONSENT_COOKIE_NAME}=${encodeURIComponent(JSON.stringify(consent))}; Max-Age=${CONSENT_MAX_AGE_SECONDS}; Path=/; SameSite=Lax${secureAttribute}`;
+    } catch {
+        // If persistence is unavailable, the user's current choice still dismisses the banner.
+    }
+
+    window.dispatchEvent(new CustomEvent(CONSENT_EVENT_NAME, { detail: consent }));
 }
 
 function subscribeToConsentChanges(onStoreChange: () => void) {
