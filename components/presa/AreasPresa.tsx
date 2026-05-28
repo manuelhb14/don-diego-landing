@@ -6,11 +6,10 @@ import type { LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import {
     Anchor,
-    Building2,
     CircleParking,
-    Mic2,
+    Coffee,
+    Mountain,
     PlayCircle,
-    Store,
     UtensilsCrossed,
 } from "lucide-react";
 
@@ -64,7 +63,7 @@ const rowStyleMap = {
         },
     },
     comerciales: {
-        Icon: Store,
+        Icon: Coffee,
         imageLeft: false,
         card: {
             border: "border-[#5a7a8a]/16",
@@ -77,7 +76,7 @@ const rowStyleMap = {
         },
     },
     departamentos: {
-        Icon: Building2,
+        Icon: Mountain,
         imageLeft: true,
         card: {
             border: "border-[#6B6358]/18",
@@ -113,19 +112,6 @@ const rowStyleMap = {
             iconBg: "bg-[#DDEBF0]",
             iconBorder: "border-[#5a7a8a]/25",
             iconColor: "text-[#3d5a6b]",
-        },
-    },
-    anfiteatro: {
-        Icon: Mic2,
-        imageLeft: false,
-        card: {
-            border: "border-[#6B6358]/18",
-            bg: "bg-[#EEEAE1]",
-            eyebrowClass: "text-[#6B6358]",
-            titleAccent: "text-[#6B6358]/95",
-            iconBg: "bg-[#E5E0D6]",
-            iconBorder: "border-[#7A7268]/25",
-            iconColor: "text-[#4A453E]",
         },
     },
 } as const;
@@ -237,22 +223,14 @@ export default function AreasPresa() {
     };
     const rows: AreaRow[] = [
         {
-            id: "restaurantes",
-            eyebrow: t("rows.restaurantes.eyebrow"),
-            title: t("rows.restaurantes.title"),
-            titleItalic: t("rows.restaurantes.titleItalic"),
-            description: t("rows.restaurantes.description"),
-            image: { src: "/babylon/presa-5.webp", alt: t("rows.restaurantes.alt") },
-            ...rowStyleMap.restaurantes,
-        },
-        {
-            id: "estacionamiento",
-            eyebrow: t("rows.estacionamiento.eyebrow"),
-            title: t("rows.estacionamiento.title"),
-            titleItalic: t("rows.estacionamiento.titleItalic"),
-            description: t("rows.estacionamiento.description"),
-            image: { src: "/babylon/presa-6.webp", alt: t("rows.estacionamiento.alt") },
-            ...rowStyleMap.estacionamiento,
+            id: "departamentos",
+            eyebrow: t("rows.departamentos.eyebrow"),
+            title: t("rows.departamentos.title"),
+            titleItalic: t("rows.departamentos.titleItalic"),
+            description: t("rows.departamentos.description"),
+            image: { src: "/babylon/presa-8.webp", alt: t("rows.departamentos.alt") },
+            ...rowStyleMap.departamentos,
+            imageLeft: false,
         },
         {
             id: "comerciales",
@@ -262,15 +240,7 @@ export default function AreasPresa() {
             description: t("rows.comerciales.description"),
             image: { src: "/babylon/presa-7.webp", alt: t("rows.comerciales.alt") },
             ...rowStyleMap.comerciales,
-        },
-        {
-            id: "departamentos",
-            eyebrow: t("rows.departamentos.eyebrow"),
-            title: t("rows.departamentos.title"),
-            titleItalic: t("rows.departamentos.titleItalic"),
-            description: t("rows.departamentos.description"),
-            image: { src: "/babylon/presa-8.webp", alt: t("rows.departamentos.alt") },
-            ...rowStyleMap.departamentos,
+            imageLeft: true,
         },
         {
             id: "nautico",
@@ -280,6 +250,17 @@ export default function AreasPresa() {
             description: t("rows.nautico.description"),
             image: { src: "/babylon/presa-10.webp", alt: t("rows.nautico.alt") },
             ...rowStyleMap.nautico,
+            imageLeft: false,
+        },
+        {
+            id: "restaurantes",
+            eyebrow: t("rows.restaurantes.eyebrow"),
+            title: t("rows.restaurantes.title"),
+            titleItalic: t("rows.restaurantes.titleItalic"),
+            description: t("rows.restaurantes.description"),
+            image: { src: "/babylon/presa-5.webp", alt: t("rows.restaurantes.alt") },
+            ...rowStyleMap.restaurantes,
+            imageLeft: true,
         },
         {
             id: "parques",
@@ -289,15 +270,17 @@ export default function AreasPresa() {
             description: t("rows.parques.description"),
             image: { src: "/babylon/presa-9.webp", alt: t("rows.parques.alt") },
             ...rowStyleMap.parques,
+            imageLeft: false,
         },
         {
-            id: "anfiteatro",
-            eyebrow: t("rows.anfiteatro.eyebrow"),
-            title: t("rows.anfiteatro.title"),
-            titleItalic: t("rows.anfiteatro.titleItalic"),
-            description: t("rows.anfiteatro.description"),
-            image: { src: "/babylon/presa-11.webp", alt: t("rows.anfiteatro.alt") },
-            ...rowStyleMap.anfiteatro,
+            id: "estacionamiento",
+            eyebrow: t("rows.estacionamiento.eyebrow"),
+            title: t("rows.estacionamiento.title"),
+            titleItalic: t("rows.estacionamiento.titleItalic"),
+            description: t("rows.estacionamiento.description"),
+            image: { src: "/babylon/presa-6.webp", alt: t("rows.estacionamiento.alt") },
+            ...rowStyleMap.estacionamiento,
+            imageLeft: true,
         },
     ];
 
