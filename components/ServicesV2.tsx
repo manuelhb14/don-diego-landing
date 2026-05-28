@@ -127,7 +127,7 @@ export default function ServicesV2() {
                     {cards.map((card, index) => (
                         <article
                             key={card.id}
-                            className={`relative flex flex-col gap-5 py-7 lg:py-9 ${index % 2 === 0 ? "lg:pr-9" : "lg:pl-9 lg:border-l"} border-b`}
+                            className={`relative flex h-full flex-col gap-5 py-7 lg:py-9 ${index % 2 === 0 ? "lg:pr-9" : "lg:pl-9 lg:border-l"} border-b`}
                             style={{ borderColor: "#22222215" }}
                         >
                             <Link
@@ -142,7 +142,7 @@ export default function ServicesV2() {
                                 {card.cta}
                             </Link>
 
-                            <div className="grid grid-cols-[2.25rem_1fr] gap-x-4 gap-y-4 md:gap-x-5">
+                            <div className="grid grid-cols-[2.25rem_1fr] content-start gap-x-4 gap-y-4 md:gap-x-5">
                                 <span
                                     className="mt-1 flex h-9 w-9 items-center justify-center border text-[10px] font-bold tracking-[0.1em]"
                                     style={{
@@ -187,42 +187,44 @@ export default function ServicesV2() {
                                 </p>
                             </div>
 
-                            <EnvironmentCarousel
-                                slides={card.slides}
-                                accent={card.accent}
-                                className="aspect-[16/9] min-h-[220px] md:min-h-[340px] lg:min-h-[300px] xl:min-h-[340px]"
-                                imageClassName={`object-center ${card.pending ? "saturate-[0.82] brightness-[0.95]" : ""}`}
-                                sizes="(min-width: 1280px) 760px, (min-width: 1024px) 48vw, 100vw"
-                            />
+                            <div className="mt-auto flex flex-col gap-5">
+                                <EnvironmentCarousel
+                                    slides={card.slides}
+                                    accent={card.accent}
+                                    className="aspect-[16/9] min-h-[220px] md:min-h-[340px] lg:min-h-[300px] xl:min-h-[340px]"
+                                    imageClassName={`object-center ${card.pending ? "saturate-[0.82] brightness-[0.95]" : ""}`}
+                                    sizes="(min-width: 1280px) 760px, (min-width: 1024px) 48vw, 100vw"
+                                />
 
-                            <div
-                                className="grid grid-cols-1 gap-2 border-t pt-4 sm:grid-cols-[1fr_1fr_1fr_auto]"
-                                style={{ borderColor: `${card.accent}30` }}
-                            >
-                                {card.details.map((detail) => (
-                                    <span
-                                        key={detail}
-                                        className="text-xs leading-[1.45] text-[#222222]/62"
-                                        style={{ fontFamily: "var(--font-sans)" }}
-                                    >
-                                        {detail}
-                                    </span>
-                                ))}
-                                <div className="pt-2 sm:pt-0 sm:text-right">
-                                    <Link
-                                        href={card.href}
-                                        className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] border-b pb-0.5 transition-opacity hover:opacity-60 active:translate-y-[1px] sm:hidden"
-                                        style={{
-                                            color: card.accent,
-                                            borderColor: card.accent,
-                                            fontFamily: "var(--font-sans)",
-                                        }}
-                                    >
-                                        {card.cta}
-                                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                                            <path d="M1 9L9 1M9 1H3.5M9 1V6.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                                        </svg>
-                                    </Link>
+                                <div
+                                    className="grid grid-cols-3 items-start gap-2 border-t pt-4 sm:min-h-[2.25rem] sm:grid-cols-[1fr_1fr_1fr_auto] sm:content-start sm:pt-0"
+                                    style={{ borderColor: `${card.accent}30` }}
+                                >
+                                    {card.details.map((detail) => (
+                                        <span
+                                            key={detail}
+                                            className="min-w-0 text-[10px] leading-[1.3] text-[#222222]/62 sm:text-xs sm:leading-[1.45]"
+                                            style={{ fontFamily: "var(--font-sans)" }}
+                                        >
+                                            {detail}
+                                        </span>
+                                    ))}
+                                    <div className="col-span-3 pt-2 sm:col-span-1 sm:pt-0 sm:text-right">
+                                        <Link
+                                            href={card.href}
+                                            className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] border-b pb-0.5 transition-opacity hover:opacity-60 active:translate-y-[1px] sm:hidden"
+                                            style={{
+                                                color: card.accent,
+                                                borderColor: card.accent,
+                                                fontFamily: "var(--font-sans)",
+                                            }}
+                                        >
+                                            {card.cta}
+                                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                                                <path d="M1 9L9 1M9 1H3.5M9 1V6.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </article>

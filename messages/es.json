@@ -887,6 +887,8 @@
         "titleLine1": "Don Diego",
         "titleLine2": "en Instagram.",
         "cta": "Ver Instagram",
+        "carouselPrevAria": "Publicación anterior",
+        "carouselNextAria": "Publicación siguiente",
         "posts": {
           "farm": {
             "label": "Huerto orgánico",
@@ -1141,7 +1143,169 @@
         "kicker": "Amenidades residenciales",
         "titleLine1": "Comunidad y",
         "titleAccent": "vida",
-        "intro": "Más que amenidades, creamos espacios para compartir, cuidar de ti y disfrutar cada día. Todo diseñado para una vida plena, conectada y con sentido.",
+        "intro": "El Club Residencial concentra los espacios de convivencia, deporte, bienestar y servicio diario. Casa Club, jardines, agua y movimiento se leen como un sistema completo, no como piezas aisladas.",
+        "features": {
+          "clubhouse": {
+            "kicker": "El corazón social",
+            "title": "Casa Club de clase mundial",
+            "body": "Un punto de encuentro para la vida diaria: restaurante, coffee bars, coworking y terrazas que invitan a convivir sin salir del entorno.",
+            "highlights": {
+              "restaurant": "Restaurante de Casa Club",
+              "rooftopBar": "Rooftop bar",
+              "businessCenter": "Business Center",
+              "ludoteca": "Ludoteca"
+            },
+            "media": {
+              "restaurant": "Restaurante de Casa Club",
+              "rooftopBar": "Rooftop bar",
+              "businessCenter": "Business Center",
+              "ludoteca": "Ludoteca"
+            }
+          },
+          "sports": {
+            "kicker": "Deporte y fitness",
+            "title": "Canchas y entrenamiento bajo techo",
+            "body": "Pádel, pickleball y gimnasio interior techado forman el núcleo activo del club: clases, partidos y rutinas cotidianas conectadas a jardines, sombra y recorridos peatonales.",
+            "highlights": {
+              "padel": "Pádel",
+              "pickleball": "Pickleball",
+              "coveredGym": "Gimnasio interior techado"
+            }
+          },
+          "water": {
+            "kicker": "Agua, jardines y calma",
+            "title": "Alberca, jacuzzis y bienestar en jardín",
+            "body": "La alberca se vive a nivel de jardín y se conecta con jacuzzis, yoga y spa. El agua no aparece como remate decorativo: ordena pausas, sombra y recorridos dentro del Club Residencial.",
+            "highlights": {
+              "gardenPool": "Alberca en jardín",
+              "gardens": "Jardines",
+              "jacuzzis": "Jacuzzis",
+              "spaYoga": "Spa y yoga"
+            }
+          }
+        },
+        "compact": {
+          "kicker": "Deportes y relajación",
+          "title": "Espacios activos, agua y calma",
+          "body": "Un resumen visual de las amenidades principales del lado activo del club, con menos peso y lectura más directa.",
+          "groups": {
+            "sports": "Deportes",
+            "relaxation": "Relajación"
+          },
+          "rows": {
+            "padel": {
+              "title": "Pádel",
+              "body": "Canchas para partidos, clases y juego social."
+            },
+            "pickleball": {
+              "title": "Pickleball",
+              "body": "Actividad accesible para jugar y convivir entre generaciones."
+            },
+            "coveredGym": {
+              "title": "Gimnasio",
+              "body": "Entrenamiento interior techado, cómodo y cercano a Casa Club."
+            },
+            "waterWellness": {
+              "title": "Alberca",
+              "body": "Agua y jardines conectados al paisaje residencial."
+            },
+            "yoga": {
+              "title": "Yoga",
+              "body": "Movimiento, respiración y calma junto al entorno."
+            },
+            "spa": {
+              "title": "Spa",
+              "body": "Pausas de bienestar para recuperar energía."
+            },
+            "jacuzzis": {
+              "title": "Jacuzzis",
+              "body": "Relax integrado al agua, jardines y privacidad."
+            }
+          }
+        },
+        "matrix": {
+          "title": "Amenidades completas del Club",
+          "body": "La lista se mantiene visible y ordenada para entender el alcance real del Club Residencial: espacios sociales, agua y jardines, y actividades de movimiento para distintas edades y rutinas.",
+          "groups": {
+            "casaClub": {
+              "label": "Casa Club"
+            },
+            "waterLandscape": {
+              "label": "Agua y jardines"
+            },
+            "movement": {
+              "label": "Movimiento"
+            }
+          },
+          "items": {
+            "rooftopBar": {
+              "title": "Rooftop bar",
+              "body": "Terraza elevada para cerrar el día con vistas, coctelería y una vida social más clara dentro de la Casa Club."
+            },
+            "businessCenter": {
+              "title": "Business Center",
+              "body": "Espacios de trabajo y reunión para alternar productividad, residencia y comunidad sin salir del club."
+            },
+            "ludoteca": {
+              "title": "Ludoteca",
+              "body": "Un espacio pensado para niños y familias, integrado a la vida cotidiana de la Casa Club."
+            },
+            "gardens": {
+              "title": "Jardines",
+              "body": "Áreas verdes, sombra y recorridos que conectan residencia, Casa Club y amenidades a pie."
+            },
+            "gardenPool": {
+              "title": "Alberca",
+              "body": "Alberca a nivel de jardín, conectada con zonas exteriores, jacuzzis y la vida social del club."
+            },
+            "jacuzzis": {
+              "title": "Jacuzzis",
+              "body": "Puntos de relajación integrados al paisaje para pausas más privadas junto al agua."
+            },
+            "spa": {
+              "title": "Spa",
+              "body": "Tratamientos y rutinas de bienestar en un espacio sereno dentro del Club Residencial."
+            },
+            "padel": {
+              "title": "Pádel",
+              "body": "Canchas para partidos, clases y encuentros entre residentes, rodeadas por vegetación."
+            },
+            "pickleball": {
+              "title": "Pickleball",
+              "body": "Cancha y actividad social de bajo umbral para jugar, aprender y convivir con distintas generaciones."
+            },
+            "coveredGym": {
+              "title": "Gimnasio interior techado",
+              "body": "Rutinas de fuerza y acondicionamiento en un espacio protegido, cómodo y cercano a Casa Club."
+            },
+            "yoga": {
+              "title": "Yoga",
+              "body": "Sesiones de movimiento y respiración conectadas con el paisaje, el spa y la calma del club."
+            }
+          }
+        },
+        "spaces": {
+          "kicker": "Sistema de espacios",
+          "body": "El Club Residencial es el punto de partida de cuatro espacios conectados por actividades, paisaje y recorridos.",
+          "items": {
+            "club": {
+              "title": "Club Residencial",
+              "body": "Casa Club, residencia, deporte, agua y vida cotidiana."
+            },
+            "farm": {
+              "title": "Organic Farm & Flowers",
+              "body": "Huertos, flores, invernaderos, paseos y cicloruta."
+            },
+            "wellness": {
+              "title": "Wellness Center",
+              "body": "Cuidado, rehabilitación, retiro activo y jardines terapéuticos."
+            },
+            "presa": {
+              "title": "Presa de la Cantera",
+              "body": "Mirador, agua, terraza café/bar y actividades ligeras."
+            }
+          }
+        },
         "socialHeart": {
           "title": "El Corazón Social",
           "kicker": "El corazón social",
@@ -1175,7 +1339,7 @@
               "body": "Tratamientos personalizados para cuerpo, mente y alma."
             },
             "jacuzzi": {
-              "title": "Jacuzzi",
+              "title": "Jacuzzis",
               "body": "Relájate y disfruta del paisaje en total privacidad."
             }
           }
@@ -1192,14 +1356,23 @@
         "labels": {
           "spa": "SPA",
           "yoga": "YOGA",
-          "jacuzzi": "JACUZZI"
+          "jacuzzi": "JACUZZIS"
         },
         "alts": {
           "casaClub": "Casa Club",
+          "rooftopBar": "Rooftop bar de Casa Club",
+          "restaurant": "Restaurante de Casa Club",
+          "coffee": "Coffee bars",
+          "businessCenter": "Business Center",
+          "ludoteca": "Ludoteca",
           "restaurante": "Restaurante",
           "coworking": "Business Center",
           "terrazas": "Terrazas",
+          "sports": "Canchas deportivas del Club Residencial",
+          "pickleball": "Cancha de pickleball",
           "piscina": "Alberca",
+          "pool": "Alberca en jardín",
+          "jacuzzis": "Jacuzzis integrados al paisaje",
           "spa": "Spa",
           "yoga": "Yoga",
           "relax": "Relax",
