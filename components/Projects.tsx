@@ -5,21 +5,21 @@ import { Link } from "@/i18n/navigation";
 import { motion, useScroll, useTransform } from "motion/react";
 import type { MotionValue } from "motion/react";
 import { useRef } from "react";
-import { Footprints, Utensils, Sparkles, Dumbbell, Sprout, Sun, Bike, Home, HeartPulse, Users, Waves, Mountain, Sailboat, Theater, Smile, Store } from "lucide-react";
+import { Footprints, Utensils, Sparkles, Dumbbell, Sprout, Sun, Bike, Home, HeartPulse, Users, Waves, Mountain, Sailboat, Theater, Smile, Coffee } from "lucide-react";
 
 const projects = [
     {
         id: 1,
         label: "01",
         title: "Club Residencial",
-        description: "364 residencias en un entorno 100% peatonal con casa club, restaurantes, spa, deportes y amenidades de primer nivel.",
+        description: "367 residencias en un entorno peatonal con Casa Club, Restaurante de Casa Club, ludoteca, Business Center, spa, deportes y amenidades.",
         image: "/images/renders/render-5.png",
         accent: "#cc8767",
         features: [
             { icon: Footprints, text: "100% Peatonal" },
-            { icon: Utensils, text: "Casa Club & Restaurantes" },
+            { icon: Utensils, text: "Restaurante de Casa Club" },
             { icon: Sparkles, text: "Spa & Alberca" },
-            { icon: Dumbbell, text: "Deportes & Amenidades" }
+            { icon: Dumbbell, text: "Deporte y recreación" }
         ],
         href: "/residencial"
     },
@@ -27,14 +27,14 @@ const projects = [
         id: 2,
         label: "02",
         title: "Organic Farm & Flowers",
-        description: "Componente sostenible que recupera la vocación agrícola original con huertos orgánicos, frutales y flores de temporada.",
+        description: "Espacio productivo con huertos orgánicos, frutales, flores, aves, granja para niños y experiencias culinarias.",
         image: "/babylon/organic-farm.jpeg",
         accent: "#DEBEBF",
         features: [
             { icon: Sprout, text: "Huertos Orgánicos" },
             { icon: Sun, text: "Invernaderos y Terrazas" },
             { icon: Bike, text: "Andadores y Cicloruta" },
-            { icon: Home, text: "Baja Densidad Residencial" }
+            { icon: Home, text: "Granja para niños" }
         ],
         href: "/farm"
     },
@@ -42,13 +42,13 @@ const projects = [
         id: 3,
         label: "03",
         title: "Wellness Center",
-        description: "Centro especializado para rehabilitación, retiro activo y bienestar integral con acceso directo a la Presa Allende.",
+        description: "Espacio pensado para rehabilitación, manejo del dolor, bienestar y retiro activo, integrado al paisaje y a la comunidad.",
         image: "/images/gallery/gallery-3.png",
         accent: "#D7D7AA",
         features: [
-            { icon: HeartPulse, text: "Rehabilitación y Salud" },
+            { icon: HeartPulse, text: "Rehabilitación y dolor" },
             { icon: Users, text: "Senior Living Especializado" },
-            { icon: Waves, text: "Beach Club Privado" },
+            { icon: Waves, text: "Cuidado integral" },
             { icon: Mountain, text: "Vistas a la Presa" }
         ],
         href: "/wellness"
@@ -57,14 +57,14 @@ const projects = [
         id: 4,
         label: "04",
         title: "Presa de la Cantera",
-        description: "Un gran espacio público-privado que integra naturaleza, comunidad y vida social junto al agua.",
+        description: "Un espacio público-privado junto al agua con mirador, malecón, terraza café/bar, restaurantes y actividades ligeras.",
         image: "/images/renders/presa-1.png",
         accent: "#C8D7E6",
         features: [
-            { icon: Sailboat, text: "Parque Acuático y Náutico" },
-            { icon: Theater, text: "Anfiteatro y Eventos" },
-            { icon: Smile, text: "Day Care Comunitario" },
-            { icon: Store, text: "Vida Comercial" }
+            { icon: Sailboat, text: "Kayak y actividades" },
+            { icon: Theater, text: "Malecón y paseo" },
+            { icon: Smile, text: "Actividades infantiles" },
+            { icon: Coffee, text: "Terraza café/bar" }
         ],
         href: "/presa"
     },

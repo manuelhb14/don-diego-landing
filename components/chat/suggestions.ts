@@ -92,8 +92,8 @@ const RESIDENTIAL_SUGGESTIONS: SuggestionDef[] = [
             en: "Pros and cons for a family",
         },
         prompt: {
-            es: "Con base en esta página, dame pros y contras del componente Residencial para una familia.",
-            en: "Based on this page, list pros and cons of the Residential component for a family.",
+            es: "Con base en esta página, dame pros y contras del Club Residencial para una familia.",
+            en: "Based on this page, list pros and cons of the Residential Club for a family.",
         },
     },
     {
@@ -122,14 +122,14 @@ const RESIDENTIAL_SUGGESTIONS: SuggestionDef[] = [
 
 const PROJECT_SUGGESTIONS: SuggestionDef[] = [
     {
-        id: "project-components",
+        id: "project-spaces",
         label: {
-            es: "Compara los 4 componentes",
-            en: "Compare the 4 components",
+            es: "Compara los 4 espacios",
+            en: "Compare the 4 spaces",
         },
         prompt: {
-            es: "Compárame los 4 componentes de Don Diego en una tabla simple: objetivo, perfil ideal y beneficios.",
-            en: "Compare Don Diego's 4 components in a simple table: goal, ideal profile, and benefits.",
+            es: "Compárame los 4 espacios de Don Diego en una tabla simple: objetivo, perfil ideal y beneficios.",
+            en: "Compare Don Diego's 4 spaces in a simple table: goal, ideal profile, and benefits.",
         },
     },
     {

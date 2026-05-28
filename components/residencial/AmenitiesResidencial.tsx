@@ -168,8 +168,8 @@ export default function AmenitiesResidencial() {
                             initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={revealTransition(0.16)}
-                            className="bg-[#FFF9F2]/86 p-4 shadow-[0_18px_48px_rgba(67,52,42,0.06)] sm:p-6"
+                            transition={revealTransition(0.24)}
+                            className="order-2 bg-[#FFF9F2]/86 p-4 shadow-[0_18px_48px_rgba(67,52,42,0.06)] sm:p-6"
                         >
                             <div className="mb-5 flex items-start gap-5">
                                 <span className="flex h-14 w-14 shrink-0 items-center justify-center border border-[#c9947e]/25 text-[#b76d4b]">
@@ -231,8 +231,8 @@ export default function AmenitiesResidencial() {
                             initial={shouldReduceMotion ? false : { opacity: 0, y: 32 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={revealTransition(0.24)}
-                            className="overflow-hidden bg-[#FFF9F2]/86 p-3 shadow-[0_18px_48px_rgba(67,52,42,0.06)] sm:p-6"
+                            transition={revealTransition(0.16)}
+                            className="order-1 overflow-hidden bg-[#FFF9F2]/86 p-3 shadow-[0_18px_48px_rgba(67,52,42,0.06)] sm:p-6"
                         >
                             <div className="mb-5 flex items-start gap-4 sm:gap-5">
                                 <span className="flex h-14 w-14 shrink-0 items-center justify-center border border-[#c9947e]/25 text-[#b76d4b]">
