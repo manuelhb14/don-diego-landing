@@ -394,11 +394,10 @@ def clean_asset(path: Path) -> Image.Image | None:
     keep_full = path.name.startswith("02_hills") or path.name == "06_pond.png"
     output = crop_alpha(output, pad=8, keep_full=keep_full)
 
-    if path.name.startswith(CLOUD_TOKENS):
-        output = crop_alpha(clean_cloud_bias(output), pad=8, keep_full=keep_full)
-
     if path.name.startswith(RAIN_CLOUD_TOKENS):
         output = crop_alpha(clean_rain_cloud_bias(output), pad=8, keep_full=keep_full)
+    elif path.name.startswith(CLOUD_TOKENS):
+        output = crop_alpha(clean_cloud_bias(output), pad=8, keep_full=keep_full)
 
     if path.name == "03_lantern_scone_on.png":
         output = crop_alpha(clean_lantern_on(output), pad=8, keep_full=keep_full)

@@ -924,7 +924,7 @@ export default function HeroBotanicalBackground({
     const [weatherCondition, setWeatherCondition] = useState<WeatherCondition>(initialWeatherCondition);
     const [weatherMode, setWeatherMode] = useState<WeatherPreviewMode>("auto");
     const resolvedWeatherCondition = weatherMode === "auto" ? weatherCondition : weatherMode;
-    const [cloudSeed, setCloudSeed] = useState(HERO_CLOUD_SEED);
+    const [cloudSeed] = useState(() => HERO_CLOUD_SEED);
 
     useEffect(() => {
         const updateTimeOfDay = () => setAutoTimeOfDay(getTimeOfDay());
@@ -952,13 +952,6 @@ export default function HeroBotanicalBackground({
             ignore = true;
             window.clearInterval(interval);
         };
-    }, []);
-
-    useEffect(() => {
-        const frame = window.requestAnimationFrame(() => {
-            setCloudSeed((Date.now() ^ Math.floor(Math.random() * 0xffffffff)) >>> 0);
-        });
-        return () => window.cancelAnimationFrame(frame);
     }, []);
 
     const randomizedCloudAssets = useMemo(

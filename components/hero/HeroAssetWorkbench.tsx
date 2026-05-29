@@ -243,7 +243,8 @@ export default function HeroAssetWorkbench() {
 
     useEffect(() => {
         if (!hasLoadedScene) return;
-        saveScene({ placed, clouds });
+        const timeout = window.setTimeout(() => saveScene({ placed, clouds }), 300);
+        return () => window.clearTimeout(timeout);
     }, [clouds, hasLoadedScene, placed]);
 
     useEffect(() => {
@@ -303,15 +304,14 @@ export default function HeroAssetWorkbench() {
     );
 
     const replaceMovingClouds = useCallback((asset: WorkbenchAsset) => {
-        setClouds((items) =>
-            (items.length ? items : DEFAULT_CLOUDS).map((cloud) => ({
-                ...cloud,
-                assetId: asset.id,
-                src: asset.src,
-            })),
-        );
-        setSelection((current) => current ?? { type: "cloud", id: DEFAULT_CLOUDS[0].id });
-    }, []);
+        const nextClouds = (clouds.length ? clouds : DEFAULT_CLOUDS).map((cloud) => ({
+            ...cloud,
+            assetId: asset.id,
+            src: asset.src,
+        }));
+        setClouds(nextClouds);
+        setSelection((current) => current ?? { type: "cloud", id: nextClouds[0].id });
+    }, [clouds]);
 
     const handleAssetDragStart = (event: DragEvent<HTMLButtonElement>, asset: WorkbenchAsset) => {
         event.dataTransfer.setData("application/x-don-diego-asset", asset.id);
