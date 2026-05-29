@@ -76,16 +76,25 @@ export default function Team() {
                             }}
                         >
                             <div
-                                className="flex h-full min-h-[260px] flex-col border-b border-[#111111]/10 bg-[#fffdf9] px-5 py-5 transition-colors duration-500 group-hover:bg-[#fbf5ee] lg:min-h-[300px] lg:px-6 lg:py-6"
+                                className="flex h-full min-h-[200px] flex-col border-b border-[#111111]/10 bg-[#fffdf9] px-4 py-4 transition-colors duration-500 group-hover:bg-[#fbf5ee] sm:min-h-[220px] md:px-5 md:py-5 lg:min-h-[300px] lg:px-6 lg:py-6"
                             >
-                                {/* Top accent line & Icon */}
-                                <div className="mb-4 flex h-10 items-start justify-between">
+                                {/* Top accent line, mobile number, and desktop logo */}
+                                <div className="flex h-8 items-start justify-between lg:mb-4 lg:h-10">
                                     <div
-                                        className="mt-2 h-px w-10 transition-all duration-500 group-hover:w-16"
+                                        className="mt-2 h-px w-8 transition-all duration-500 group-hover:w-12 lg:w-10 lg:group-hover:w-16"
                                         style={{ backgroundColor: member.color }}
                                     />
+                                    <p
+                                        className="pointer-events-none select-none text-4xl leading-none text-[#111111]/[0.055] transition-colors duration-500 group-hover:text-[#111111]/[0.085] lg:hidden"
+                                        style={{
+                                            fontFamily: "var(--font-serif)",
+                                            lineHeight: "0.8",
+                                        }}
+                                    >
+                                        {String(i + 1).padStart(2, "0")}
+                                    </p>
                                     {member.logo && (
-                                        <div className="relative -mt-1 h-10 w-10 flex-shrink-0">
+                                        <div className="relative -mt-1 hidden flex-shrink-0 lg:block lg:h-10 lg:w-10">
                                             <Image
                                                 src={member.logo}
                                                 alt={member.name}
@@ -99,7 +108,7 @@ export default function Team() {
 
                                 {/* Role */}
                                 <p
-                                    className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em]"
+                                    className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] lg:mb-3"
                                     style={{
                                         fontFamily: "var(--font-sans)",
                                         color: member.color,
@@ -110,7 +119,7 @@ export default function Team() {
 
                                 {/* Name */}
                                 <h3
-                                    className="mb-3 text-[1.45rem] leading-[1.08] text-[#111111] lg:text-[1.7rem]"
+                                    className="mb-2 text-[1.3rem] leading-[1.08] text-[#111111] lg:mb-3 lg:text-[1.7rem]"
                                     style={{ fontFamily: "var(--font-serif)" }}
                                 >
                                     {member.name}
@@ -118,16 +127,16 @@ export default function Team() {
 
                                 {/* Description */}
                                 <p
-                                    className="mb-5 text-sm leading-relaxed text-[#111111]/62"
+                                    className="text-[13px] leading-[1.55] text-[#111111]/62 lg:mb-5 lg:text-sm lg:leading-relaxed"
                                     style={{ fontFamily: "var(--font-sans)" }}
                                 >
                                     {member.description}
                                 </p>
 
-                                {/* Number - aligned bottom right */}
-                                <div className="mt-auto flex justify-end">
+                                {/* Number - aligned bottom right on desktop */}
+                                <div className="mt-auto hidden justify-end lg:flex">
                                     <p
-                                        className="pointer-events-none select-none text-5xl leading-none text-[#111111]/[0.055] transition-colors duration-500 group-hover:text-[#111111]/[0.085] lg:text-6xl"
+                                        className="pointer-events-none select-none text-4xl leading-none text-[#111111]/[0.055] transition-colors duration-500 group-hover:text-[#111111]/[0.085] lg:text-6xl"
                                         style={{
                                             fontFamily: "var(--font-serif)",
                                             lineHeight: "0.8",

@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { Instagram, Heart, MessageCircle, Send } from "lucide-react";
+import { ChevronLeft, ChevronRight, Instagram, Heart, MessageCircle, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { motion, useReducedMotion } from "motion/react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const INSTAGRAM_URL = "https://www.instagram.com/dondiegosma/";
 const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
@@ -34,6 +35,80 @@ const posts = [
 export default function InstagramPostsContacto() {
     const t = useTranslations("pages.contacto.instagram");
     const shouldReduceMotion = useReducedMotion() ?? false;
+    const scrollerRef = useRef<HTMLDivElement | null>(null);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(false);
+
+    const updateScrollState = useCallback(() => {
+        const el = scrollerRef.current;
+        if (!el) return;
+
+        const edgeTolerance = 8;
+        const maxScroll = Math.max(el.scrollWidth - el.clientWidth, 0);
+        const safeScrollLeft = Math.min(Math.max(el.scrollLeft, 0), maxScroll);
+        const hasOverflow = maxScroll > edgeTolerance;
+
+        setCanScrollLeft(hasOverflow && safeScrollLeft > edgeTolerance);
+        setCanScrollRight(hasOverflow && safeScrollLeft < maxScroll - edgeTolerance);
+    }, []);
+
+    useEffect(() => {
+        const el = scrollerRef.current;
+        if (!el) return;
+
+        const frame = window.requestAnimationFrame(updateScrollState);
+        el.addEventListener("scroll", updateScrollState, { passive: true });
+        window.addEventListener("resize", updateScrollState);
+
+        const resizeObserver = new ResizeObserver(updateScrollState);
+        resizeObserver.observe(el);
+
+        return () => {
+            window.cancelAnimationFrame(frame);
+            el.removeEventListener("scroll", updateScrollState);
+            window.removeEventListener("resize", updateScrollState);
+            resizeObserver.disconnect();
+        };
+    }, [updateScrollState]);
+
+    const scrollCarousel = useCallback(
+        (direction: "left" | "right") => {
+            const el = scrollerRef.current;
+            if (!el) return;
+
+            const leadingPadding = parseFloat(getComputedStyle(el).paddingLeft) || 0;
+            const maxScroll = Math.max(el.scrollWidth - el.clientWidth, 0);
+            const scrollTargets = Array.from(el.children)
+                .map((child) => {
+                    if (!(child instanceof HTMLElement)) return null;
+                    return Math.min(Math.max(child.offsetLeft - leadingPadding, 0), maxScroll);
+                })
+                .filter((target): target is number => target !== null);
+
+            const edgeTolerance = 8;
+            const currentScroll = el.scrollLeft;
+            let target: number | undefined;
+
+            if (direction === "right") {
+                target = scrollTargets.find((position) => position > currentScroll + edgeTolerance);
+            } else {
+                for (let i = scrollTargets.length - 1; i >= 0; i -= 1) {
+                    if (scrollTargets[i] < currentScroll - edgeTolerance) {
+                        target = scrollTargets[i];
+                        break;
+                    }
+                }
+            }
+
+            if (target === undefined) return;
+
+            el.scrollTo({
+                left: target,
+                behavior: shouldReduceMotion ? "auto" : "smooth",
+            });
+        },
+        [shouldReduceMotion],
+    );
 
     const revealTransition = (delay = 0) => ({
         duration: shouldReduceMotion ? 0 : 0.78,
@@ -70,20 +145,33 @@ export default function InstagramPostsContacto() {
                     </div>
                 </motion.div>
 
-                <div
+                <motion.div
+                    ref={scrollerRef}
                     className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-3 scroll-px-6 [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 md:scroll-px-0 xl:grid-cols-4 [&::-webkit-scrollbar]:hidden"
                     role="region"
                     aria-roledescription="carousel"
                     aria-label={`${t("titleLine1")} ${t("titleLine2")}`}
+                    initial={shouldReduceMotion ? false : "hidden"}
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-80px" }}
+                    variants={{
+                        hidden: {},
+                        visible: {
+                            transition: {
+                                staggerChildren: 0.06,
+                            },
+                        },
+                    }}
                 >
-                    {posts.map((post, index) => (
+                    {posts.map((post) => (
                         <motion.article
                             key={post.key}
                             className="w-[82vw] max-w-[380px] shrink-0 snap-start snap-always overflow-hidden border border-[#1C1713]/10 bg-[#FFF9F2] sm:w-[56vw] sm:max-w-[420px] md:w-auto md:max-w-none md:shrink"
-                            initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-80px" }}
-                            transition={revealTransition(index * 0.06)}
+                            variants={{
+                                hidden: { opacity: 0, y: 24 },
+                                visible: { opacity: 1, y: 0 },
+                            }}
+                            transition={revealTransition()}
                         >
                             <div className="flex items-center gap-3 border-b border-[#1C1713]/10 px-4 py-3">
                                 <div
@@ -137,6 +225,27 @@ export default function InstagramPostsContacto() {
                             </div>
                         </motion.article>
                     ))}
+                </motion.div>
+
+                <div className="mt-1 flex items-center gap-2 md:hidden">
+                    <button
+                        type="button"
+                        aria-label={t("carouselPrevAria")}
+                        onClick={() => scrollCarousel("left")}
+                        disabled={!canScrollLeft}
+                        className="grid h-10 w-10 place-items-center border border-[#AA7D69]/24 bg-[#FFF9F2] text-[#8C5F4D] transition-colors duration-200 hover:border-[#AA7D69]/45 hover:bg-[#F4E6DB] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#AA7D69]/35 disabled:pointer-events-none disabled:opacity-40"
+                    >
+                        <ChevronLeft className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
+                    </button>
+                    <button
+                        type="button"
+                        aria-label={t("carouselNextAria")}
+                        onClick={() => scrollCarousel("right")}
+                        disabled={!canScrollRight}
+                        className="grid h-10 w-10 place-items-center border border-[#AA7D69]/24 bg-[#FFF9F2] text-[#8C5F4D] transition-colors duration-200 hover:border-[#AA7D69]/45 hover:bg-[#F4E6DB] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#AA7D69]/35 disabled:pointer-events-none disabled:opacity-40"
+                    >
+                        <ChevronRight className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
+                    </button>
                 </div>
 
                 <motion.div

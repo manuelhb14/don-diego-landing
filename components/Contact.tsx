@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { MessageCircle } from "lucide-react";
 import { SITE_CONTACT } from "@/lib/site-contact";
-import EditableImage from "@/components/editor/EditableImage";
 import EditableText from "@/components/editor/EditableText";
 
 const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
@@ -167,26 +166,7 @@ export default function Contact() {
                     </p>
                 </motion.div>
 
-                <div className="grid items-center lg:grid-cols-[0.82fr_1.18fr]">
-                    <motion.div
-                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={revealTransition(0.12)}
-                        className="flex min-w-0 flex-col"
-                    >
-                        <div className="relative aspect-[91/61] w-full overflow-visible bg-[#fff8ed]">
-                            <EditableImage
-                                contentKey="home.contact.image"
-                                fallbackSrc="/final/contact-elements.png"
-                                alt={tx("imageAlt")}
-                                fill
-                                className="object-contain object-center"
-                                sizes="(min-width: 1024px) 38vw, 100vw"
-                            />
-                        </div>
-                    </motion.div>
-
+                <div className="mx-auto grid w-full max-w-3xl items-center">
                     <motion.div
                         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
                         whileInView={{ opacity: 1, y: 0 }}

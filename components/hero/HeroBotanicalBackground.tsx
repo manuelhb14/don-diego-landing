@@ -7,6 +7,8 @@ import type { WeatherCondition } from "@/lib/weather";
 import "./hero-botanical-background.css";
 
 const HERO_BOTANICAL_SEED = 0x646f6e64; // "dond" — stable layout
+const HERO_CLOUD_SEED = 0x636c6473; // "clds"
+const HERO_CLOUD_ASSET_VERSION = "cloud-neutral-2";
 const SHOW_PREVIEW_TOGGLE = process.env.NODE_ENV === "development";
 
 type BotanicalPngAsset = {
@@ -24,10 +26,61 @@ type SetTwoBird = {
     style: CSSProperties;
 };
 
+type CloudVariant = {
+    src: string;
+    width: number;
+    height: number;
+};
+
 const cssVars = (vars: Record<string, string>): CSSProperties => vars as CSSProperties;
 
 const randomRange = (rand: () => number, min: number, max: number, precision = 1) =>
     Number((min + rand() * (max - min)).toFixed(precision));
+
+const cleanCloudSrc = (fileName: string) => `/hero/clean/${fileName}?v=${HERO_CLOUD_ASSET_VERSION}`;
+
+const CLOUD_VARIANTS: CloudVariant[] = [
+    { src: cleanCloudSrc("nube_1.png"), width: 1054, height: 383 },
+    { src: cleanCloudSrc("nube_2.png"), width: 922, height: 333 },
+    { src: cleanCloudSrc("nube_3.png"), width: 1058, height: 170 },
+    { src: cleanCloudSrc("nube_4.png"), width: 1170, height: 570 },
+    { src: cleanCloudSrc("nube_5.png"), width: 1031, height: 445 },
+];
+
+const RAIN_CLOUD_VARIANTS: CloudVariant[] = [
+    { src: cleanCloudSrc("nube_lluvia_1.png"), width: 1081, height: 309 },
+    { src: cleanCloudSrc("nube_lluvia_2.png"), width: 1154, height: 202 },
+    { src: cleanCloudSrc("nube_lluvia_3.png"), width: 931, height: 388 },
+    { src: cleanCloudSrc("nube_lluvia_4.png"), width: 1151, height: 269 },
+    { src: cleanCloudSrc("nube_lluvia_5.png"), width: 1106, height: 199 },
+];
+
+const WEATHER_CLOUD_SEED: Record<WeatherCondition, number> = {
+    clear: 0x636c6561,
+    "partly-cloudy": 0x70617274,
+    cloudy: 0x636c6f75,
+    fog: 0x666f6720,
+    drizzle: 0x6472697a,
+    rain: 0x7261696e,
+    thunderstorm: 0x73746f72,
+    windy: 0x77696e64,
+    unknown: 0x756e6b6e,
+};
+
+const DEFAULT_CLOUD_VARIANT_POOL = [0, 1, 2, 3, 4];
+const CLOUD_VARIANT_POOLS: Partial<Record<WeatherCondition, number[]>> = {
+    clear: [0, 1, 2, 2],
+    "partly-cloudy": [0, 1, 2, 3, 4, 0, 1],
+    cloudy: [0, 1, 3, 4, 3, 4, 0, 1],
+    fog: [0, 1, 3, 4, 1],
+    drizzle: [0, 1, 2, 3, 4, 1],
+    rain: [0, 1, 2, 3, 4, 3, 4],
+    thunderstorm: [0, 1, 2, 3, 4, 0, 2],
+    windy: [0, 1, 2, 3, 4],
+    unknown: DEFAULT_CLOUD_VARIANT_POOL,
+};
+
+const RAIN_CLOUD_WEATHER = new Set<WeatherCondition>(["drizzle", "rain", "thunderstorm"]);
 
 const FLOCK_FORMATION = [
     { x: 0, y: 0 },
@@ -150,7 +203,7 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
         className: "hero-cloud-asset cloud-wisp partly-extra-cloud",
         sizes: "(min-width: 1280px) 235px, 18vw",
         style: cssVars({
-            "--cloud-top": "3.5%",
+            "--cloud-top": "2%",
             "--cloud-left": "-42vw",
             "--cloud-width": "clamp(130px, 17vw, 235px)",
             "--cloud-rotate": "-1deg",
@@ -170,7 +223,7 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
         className: "hero-cloud-asset cloud-wisp partly-extra-cloud",
         sizes: "(min-width: 1280px) 320px, 25vw",
         style: cssVars({
-            "--cloud-top": "29%",
+            "--cloud-top": "18%",
             "--cloud-left": "-46vw",
             "--cloud-width": "clamp(180px, 25vw, 320px)",
             "--cloud-rotate": "1deg",
@@ -190,7 +243,7 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
         className: "hero-cloud-asset cloud-wisp partly-extra-cloud",
         sizes: "(min-width: 1280px) 220px, 17vw",
         style: cssVars({
-            "--cloud-top": "9%",
+            "--cloud-top": "5%",
             "--cloud-left": "-18vw",
             "--cloud-width": "clamp(125px, 16vw, 220px)",
             "--cloud-rotate": "3deg",
@@ -210,7 +263,7 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
         className: "hero-cloud-asset cloud-wisp partly-extra-cloud",
         sizes: "(min-width: 1280px) 340px, 26vw",
         style: cssVars({
-            "--cloud-top": "24%",
+            "--cloud-top": "15%",
             "--cloud-left": "-52vw",
             "--cloud-width": "clamp(190px, 26vw, 340px)",
             "--cloud-rotate": "-2deg",
@@ -220,6 +273,66 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
             "--cloud-end-y": "-2px",
             "--cloud-duration": "136s",
             "--cloud-delay": "-108s",
+        }),
+    },
+    {
+        key: "partly-wisp-horizon",
+        src: "/hero/clean/02_cloud_wisp_2.png",
+        width: 1008,
+        height: 265,
+        className: "hero-cloud-asset cloud-wisp partly-extra-cloud",
+        sizes: "(min-width: 1280px) 300px, 23vw",
+        style: cssVars({
+            "--cloud-top": "10%",
+            "--cloud-left": "-58vw",
+            "--cloud-width": "clamp(170px, 23vw, 300px)",
+            "--cloud-rotate": "-1deg",
+            "--cloud-mid-x": "102vw",
+            "--cloud-end-x": "174vw",
+            "--cloud-mid-y": "2px",
+            "--cloud-end-y": "-2px",
+            "--cloud-duration": "142s",
+            "--cloud-delay": "-118s",
+        }),
+    },
+    {
+        key: "partly-wisp-upper-thread",
+        src: "/hero/clean/02_cloud_wisp_1.png",
+        width: 1133,
+        height: 185,
+        className: "hero-cloud-asset cloud-wisp partly-extra-cloud",
+        sizes: "(min-width: 1280px) 245px, 19vw",
+        style: cssVars({
+            "--cloud-top": "3%",
+            "--cloud-left": "-28vw",
+            "--cloud-width": "clamp(145px, 19vw, 245px)",
+            "--cloud-rotate": "2deg",
+            "--cloud-mid-x": "68vw",
+            "--cloud-end-x": "140vw",
+            "--cloud-mid-y": "-4px",
+            "--cloud-end-y": "2px",
+            "--cloud-duration": "166s",
+            "--cloud-delay": "-52s",
+        }),
+    },
+    {
+        key: "partly-wisp-garden-low",
+        src: "/hero/clean/02_cloud_wisp_3.png",
+        width: 1153,
+        height: 373,
+        className: "hero-cloud-asset cloud-wisp partly-extra-cloud",
+        sizes: "(min-width: 1280px) 280px, 22vw",
+        style: cssVars({
+            "--cloud-top": "19%",
+            "--cloud-left": "-62vw",
+            "--cloud-width": "clamp(160px, 22vw, 280px)",
+            "--cloud-rotate": "1.5deg",
+            "--cloud-mid-x": "104vw",
+            "--cloud-end-x": "176vw",
+            "--cloud-mid-y": "-3px",
+            "--cloud-end-y": "3px",
+            "--cloud-duration": "126s",
+            "--cloud-delay": "-86s",
         }),
     },
     {
@@ -314,7 +427,7 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
         className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
         sizes: "(min-width: 1280px) 300px, 23vw",
         style: cssVars({
-            "--cloud-top": "28%",
+            "--cloud-top": "17%",
             "--cloud-left": "-36vw",
             "--cloud-width": "clamp(170px, 23vw, 300px)",
             "--cloud-rotate": "-1.5deg",
@@ -334,7 +447,7 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
         className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
         sizes: "(min-width: 1280px) 245px, 19vw",
         style: cssVars({
-            "--cloud-top": "6.5%",
+            "--cloud-top": "3.5%",
             "--cloud-left": "-16vw",
             "--cloud-width": "clamp(140px, 18vw, 245px)",
             "--cloud-rotate": "4deg",
@@ -354,7 +467,7 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
         className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
         sizes: "(min-width: 1280px) 330px, 25vw",
         style: cssVars({
-            "--cloud-top": "18.5%",
+            "--cloud-top": "11%",
             "--cloud-left": "-58vw",
             "--cloud-width": "clamp(190px, 26vw, 340px)",
             "--cloud-rotate": "0.5deg",
@@ -374,7 +487,7 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
         className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
         sizes: "(min-width: 1280px) 260px, 20vw",
         style: cssVars({
-            "--cloud-top": "12.5%",
+            "--cloud-top": "7%",
             "--cloud-left": "-30vw",
             "--cloud-width": "clamp(150px, 20vw, 260px)",
             "--cloud-rotate": "-3deg",
@@ -384,6 +497,146 @@ const CLOUD_ASSETS: BotanicalPngAsset[] = [
             "--cloud-end-y": "2px",
             "--cloud-duration": "148s",
             "--cloud-delay": "-78s",
+        }),
+    },
+    {
+        key: "cloudy-wisp-crown",
+        src: "/hero/clean/02_cloud_wisp_2.png",
+        width: 1008,
+        height: 265,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
+        sizes: "(min-width: 1280px) 310px, 24vw",
+        style: cssVars({
+            "--cloud-top": "0.5%",
+            "--cloud-left": "-54vw",
+            "--cloud-width": "clamp(180px, 24vw, 310px)",
+            "--cloud-rotate": "-2deg",
+            "--cloud-mid-x": "94vw",
+            "--cloud-end-x": "166vw",
+            "--cloud-mid-y": "2px",
+            "--cloud-end-y": "-2px",
+            "--cloud-duration": "176s",
+            "--cloud-delay": "-158s",
+        }),
+    },
+    {
+        key: "cloudy-wisp-main-fill",
+        src: "/hero/clean/02_cloud_wisp_3.png",
+        width: 1153,
+        height: 373,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
+        sizes: "(min-width: 1280px) 380px, 29vw",
+        style: cssVars({
+            "--cloud-top": "8%",
+            "--cloud-left": "-64vw",
+            "--cloud-width": "clamp(220px, 29vw, 380px)",
+            "--cloud-rotate": "1deg",
+            "--cloud-mid-x": "106vw",
+            "--cloud-end-x": "178vw",
+            "--cloud-mid-y": "-3px",
+            "--cloud-end-y": "2px",
+            "--cloud-duration": "118s",
+            "--cloud-delay": "-104s",
+        }),
+    },
+    {
+        key: "cloudy-wisp-close-soft",
+        src: "/hero/clean/02_cloud_wisp_1.png",
+        width: 1133,
+        height: 185,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
+        sizes: "(min-width: 1280px) 340px, 26vw",
+        style: cssVars({
+            "--cloud-top": "15%",
+            "--cloud-left": "-48vw",
+            "--cloud-width": "clamp(200px, 26vw, 340px)",
+            "--cloud-rotate": "-1deg",
+            "--cloud-mid-x": "88vw",
+            "--cloud-end-x": "160vw",
+            "--cloud-mid-y": "4px",
+            "--cloud-end-y": "-2px",
+            "--cloud-duration": "104s",
+            "--cloud-delay": "-18s",
+        }),
+    },
+    {
+        key: "cloudy-wisp-low-bank",
+        src: "/hero/clean/02_cloud_wisp_2.png",
+        width: 1008,
+        height: 265,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
+        sizes: "(min-width: 1280px) 320px, 25vw",
+        style: cssVars({
+            "--cloud-top": "18%",
+            "--cloud-left": "-58vw",
+            "--cloud-width": "clamp(190px, 25vw, 320px)",
+            "--cloud-rotate": "2deg",
+            "--cloud-mid-x": "98vw",
+            "--cloud-end-x": "170vw",
+            "--cloud-mid-y": "-4px",
+            "--cloud-end-y": "2px",
+            "--cloud-duration": "134s",
+            "--cloud-delay": "-62s",
+        }),
+    },
+    {
+        key: "cloudy-wisp-steady-veil",
+        src: "/hero/clean/02_cloud_wisp_3.png",
+        width: 1153,
+        height: 373,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
+        sizes: "(min-width: 1280px) 440px, 34vw",
+        style: cssVars({
+            "--cloud-top": "5%",
+            "--cloud-left": "-72vw",
+            "--cloud-width": "clamp(250px, 34vw, 440px)",
+            "--cloud-rotate": "-1deg",
+            "--cloud-mid-x": "124vw",
+            "--cloud-end-x": "196vw",
+            "--cloud-mid-y": "-4px",
+            "--cloud-end-y": "2px",
+            "--cloud-duration": "210s",
+            "--cloud-delay": "-74s",
+        }),
+    },
+    {
+        key: "cloudy-wisp-steady-bank",
+        src: "/hero/clean/02_cloud_wisp_1.png",
+        width: 1133,
+        height: 185,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
+        sizes: "(min-width: 1280px) 390px, 30vw",
+        style: cssVars({
+            "--cloud-top": "14%",
+            "--cloud-left": "-20vw",
+            "--cloud-width": "clamp(230px, 30vw, 390px)",
+            "--cloud-rotate": "1deg",
+            "--cloud-mid-x": "70vw",
+            "--cloud-end-x": "142vw",
+            "--cloud-mid-y": "3px",
+            "--cloud-end-y": "-3px",
+            "--cloud-duration": "188s",
+            "--cloud-delay": "-86s",
+        }),
+    },
+    {
+        key: "cloudy-wisp-gap-cover",
+        src: "/hero/clean/02_cloud_wisp_2.png",
+        width: 1008,
+        height: 265,
+        className: "hero-cloud-asset cloud-wisp cloudy-extra-cloud",
+        sizes: "(min-width: 1280px) 360px, 28vw",
+        style: cssVars({
+            "--cloud-top": "9%",
+            "--cloud-left": "-20vw",
+            "--cloud-width": "clamp(210px, 28vw, 360px)",
+            "--cloud-rotate": "2deg",
+            "--cloud-mid-x": "60vw",
+            "--cloud-end-x": "134vw",
+            "--cloud-mid-y": "-3px",
+            "--cloud-end-y": "2px",
+            "--cloud-duration": "152s",
+            "--cloud-delay": "-72s",
         }),
     },
     {
@@ -584,185 +837,16 @@ const BUILDING_ASSETS: BotanicalPngAsset[] = [
 
 const FOREGROUND_ASSETS: BotanicalPngAsset[] = [
     {
-        key: "round-tree-left",
-        src: "/hero/clean/05_rounded_tree.png",
-        width: 834,
-        height: 1363,
-        className: "png-asset round-tree round-tree-left",
-        sizes: "(min-width: 1280px) 150px, 13vw",
-    },
-    {
-        key: "edge-tree-left",
-        src: "/hero/clean/05_rounded_tree.png",
-        width: 834,
-        height: 1363,
-        className: "png-asset edge-tree edge-tree-left",
-        sizes: "(min-width: 1280px) 260px, 20vw",
-    },
-    {
-        key: "airy-tree-left-edge",
-        src: "/hero/clean/05_airy_tree.png",
-        width: 906,
-        height: 1423,
-        className: "png-asset airy-tree airy-tree-left-edge",
-        sizes: "(min-width: 1280px) 310px, 24vw",
-    },
-    {
-        key: "airy-tree-right",
-        src: "/hero/clean/05_airy_tree.png",
-        width: 906,
-        height: 1423,
-        className: "png-asset airy-tree airy-tree-right",
-        sizes: "(min-width: 1280px) 190px, 16vw",
-    },
-    {
-        key: "cypress-right",
-        src: "/hero/clean/05_cypress_tree.png",
-        width: 265,
-        height: 1419,
-        className: "png-asset cypress-tree cypress-tree-right",
-        sizes: "(min-width: 1280px) 88px, 7vw",
-    },
-    {
-        key: "agave-cluster-left",
-        src: "/hero/clean/05_agave_cluster.png",
-        width: 1143,
-        height: 759,
-        className: "png-asset agave-cluster agave-cluster-left",
-        sizes: "(min-width: 1280px) 310px, 28vw",
-    },
-    {
-        key: "agave-single-front",
-        src: "/hero/clean/05_agave_single.png",
-        width: 1101,
-        height: 870,
-        className: "png-asset agave-single agave-single-front",
-        sizes: "(min-width: 1280px) 220px, 20vw",
-    },
-    {
-        key: "grass-left",
-        src: "/hero/clean/05_grass_tuft.png",
-        width: 935,
-        height: 826,
-        className: "png-asset grass-tuft grass-tuft-left",
-        sizes: "(min-width: 1280px) 220px, 20vw",
-    },
-    {
-        key: "succulent-right",
-        src: "/hero/clean/05_succulent_rossete.png",
-        width: 1006,
-        height: 795,
-        className: "png-asset succulent succulent-right",
-        sizes: "(min-width: 1280px) 210px, 19vw",
-    },
-    {
-        key: "orange-flowers-left",
-        src: "/hero/clean/05_orange_flower_bush.png",
-        width: 979,
-        height: 852,
-        className: "png-asset flower-bush orange-flower-left",
-        sizes: "(min-width: 1280px) 160px, 15vw",
-    },
-    {
-        key: "pink-flowers-right",
-        src: "/hero/clean/05_pink_flower_bush.png",
-        width: 1021,
-        height: 818,
-        className: "png-asset flower-bush pink-flower-right",
-        sizes: "(min-width: 1280px) 170px, 15vw",
-    },
-    {
-        key: "white-flower-front",
-        src: "/hero/clean/05_white_flower_clump.png",
-        width: 1002,
-        height: 969,
-        className: "png-asset white-flower white-flower-front",
-        sizes: "(min-width: 1280px) 110px, 10vw",
-    },
-    {
-        key: "cattail-front",
-        src: "/hero/clean/05_cattail_reed.png",
-        width: 582,
-        height: 1232,
-        className: "png-asset cattail cattail-front",
-        sizes: "(min-width: 1280px) 92px, 8vw",
-    },
-    {
-        key: "rock-front",
-        src: "/hero/clean/05_rock_set.png",
-        width: 982,
-        height: 503,
-        className: "png-asset rock-set rock-set-front",
-        sizes: "(min-width: 1280px) 170px, 15vw",
+        key: "side-plant-right",
+        src: "/hero/clean/plants_02.png",
+        width: 1045,
+        height: 1405,
+        className: "png-asset side-plant side-plant-right",
+        sizes: "(min-width: 1280px) 380px, 27vw",
     },
 ];
 
-const HERO_08_ASSETS: BotanicalPngAsset[] = [
-    {
-        key: "hero-08-tree",
-        src: "/hero/clean/08_arbol.png",
-        width: 936,
-        height: 1363,
-        className: "hero-08-asset hero-08-tree",
-        sizes: "(min-width: 1280px) 250px, 18vw",
-    },
-    {
-        key: "hero-08-left-rose",
-        src: "/hero/clean/08_left_rose.png",
-        width: 520,
-        height: 1416,
-        className: "hero-08-asset hero-08-left-rose",
-        sizes: "(min-width: 1280px) 110px, 8vw",
-    },
-    {
-        key: "hero-08-flower-1",
-        src: "/hero/clean/08_flower_1.png",
-        width: 1363,
-        height: 777,
-        className: "hero-08-asset hero-08-flower hero-08-flower-1",
-        sizes: "(min-width: 1280px) 300px, 24vw",
-    },
-    {
-        key: "hero-08-flower-2",
-        src: "/hero/clean/08_flower_2.png",
-        width: 1271,
-        height: 893,
-        className: "hero-08-asset hero-08-flower hero-08-flower-2",
-        sizes: "(min-width: 1280px) 280px, 22vw",
-    },
-    {
-        key: "hero-08-flower-3",
-        src: "/hero/clean/08_flower_3.png",
-        width: 1225,
-        height: 1052,
-        className: "hero-08-asset hero-08-flower hero-08-flower-3",
-        sizes: "(min-width: 1280px) 310px, 24vw",
-    },
-    {
-        key: "hero-08-flower-4",
-        src: "/hero/clean/08_flower_4.png",
-        width: 1325,
-        height: 867,
-        className: "hero-08-asset hero-08-flower hero-08-flower-4",
-        sizes: "(min-width: 1280px) 320px, 25vw",
-    },
-    {
-        key: "hero-08-flower-5",
-        src: "/hero/clean/08_flower_5.png",
-        width: 1313,
-        height: 1035,
-        className: "hero-08-asset hero-08-flower hero-08-flower-5",
-        sizes: "(min-width: 1280px) 290px, 23vw",
-    },
-    {
-        key: "hero-08-flower-6",
-        src: "/hero/clean/08_flower_6.png",
-        width: 760,
-        height: 1396,
-        className: "hero-08-asset hero-08-flower hero-08-flower-6",
-        sizes: "(min-width: 1280px) 120px, 9vw",
-    },
-];
+const HERO_08_ASSETS: BotanicalPngAsset[] = [];
 
 type ResolvedTimeOfDay = "morning" | "sunset" | "night";
 
@@ -789,6 +873,40 @@ function stageBackgroundStyle(): CSSProperties {
     };
 }
 
+function getRandomizedCloudAssets(
+    seed: number,
+    weatherCondition: WeatherCondition,
+): BotanicalPngAsset[] {
+    const rng = mulberry32(seed ^ (WEATHER_CLOUD_SEED[weatherCondition] ?? 0));
+    const variants = RAIN_CLOUD_WEATHER.has(weatherCondition) ? RAIN_CLOUD_VARIANTS : CLOUD_VARIANTS;
+    const variantPool = CLOUD_VARIANT_POOLS[weatherCondition] ?? DEFAULT_CLOUD_VARIANT_POOL;
+    let lastVariantIndex = -1;
+
+    return CLOUD_ASSETS.map((asset, index) => {
+        let variantIndex = variantPool[Math.floor(rng() * variantPool.length)] ?? 0;
+        let attempts = 0;
+
+        while (variantIndex === lastVariantIndex && attempts < 3) {
+            variantIndex = variantPool[Math.floor(rng() * variantPool.length)] ?? 0;
+            attempts += 1;
+        }
+
+        if (variantIndex === lastVariantIndex) {
+            variantIndex = (variantIndex + 1 + (index % (variants.length - 1))) % variants.length;
+        }
+
+        lastVariantIndex = variantIndex;
+        const variant = variants[variantIndex] ?? variants[0];
+
+        return {
+            ...asset,
+            src: variant.src,
+            width: variant.width,
+            height: variant.height,
+        };
+    });
+}
+
 export type HeroBotanicalBackgroundProps = {
     className?: string;
     initialWeatherCondition?: WeatherCondition;
@@ -806,6 +924,7 @@ export default function HeroBotanicalBackground({
     const [weatherCondition, setWeatherCondition] = useState<WeatherCondition>(initialWeatherCondition);
     const [weatherMode, setWeatherMode] = useState<WeatherPreviewMode>("auto");
     const resolvedWeatherCondition = weatherMode === "auto" ? weatherCondition : weatherMode;
+    const [cloudSeed] = useState(() => HERO_CLOUD_SEED);
 
     useEffect(() => {
         const updateTimeOfDay = () => setAutoTimeOfDay(getTimeOfDay());
@@ -834,6 +953,11 @@ export default function HeroBotanicalBackground({
             window.clearInterval(interval);
         };
     }, []);
+
+    const randomizedCloudAssets = useMemo(
+        () => getRandomizedCloudAssets(cloudSeed, resolvedWeatherCondition),
+        [cloudSeed, resolvedWeatherCondition],
+    );
 
     const scene = useMemo(() => {
         const rng = mulberry32(HERO_BOTANICAL_SEED);
@@ -924,7 +1048,7 @@ export default function HeroBotanicalBackground({
     const atmosphere = (
         <>
             <div className="hero-cloud-assets" aria-hidden>
-                {CLOUD_ASSETS.map((asset) => (
+                {randomizedCloudAssets.map((asset) => (
                     <Image
                         key={asset.key}
                         src={asset.src}
@@ -946,6 +1070,19 @@ export default function HeroBotanicalBackground({
             </div>
             <div className="hero-08-assets" aria-hidden>
                 {HERO_08_ASSETS.map((asset) => (
+                    <Image
+                        key={asset.key}
+                        src={asset.src}
+                        alt=""
+                        className={asset.className}
+                        width={asset.width}
+                        height={asset.height}
+                        sizes={asset.sizes}
+                    />
+                ))}
+            </div>
+            <div className="png-foreground-assets" aria-hidden>
+                {FOREGROUND_ASSETS.map((asset) => (
                     <Image
                         key={asset.key}
                         src={asset.src}
@@ -1094,19 +1231,6 @@ export default function HeroBotanicalBackground({
                                 top: `${s.top}%`,
                                 animationDelay: `-${s.delay}s`,
                             }}
-                        />
-                    ))}
-                </div>
-                <div className="png-foreground-assets" aria-hidden>
-                    {FOREGROUND_ASSETS.map((asset) => (
-                        <Image
-                            key={asset.key}
-                            src={asset.src}
-                            alt=""
-                            className={asset.className}
-                            width={asset.width}
-                            height={asset.height}
-                            sizes={asset.sizes}
                         />
                     ))}
                 </div>

@@ -32,6 +32,12 @@ PROTECTED_TOKENS = (
 MAGENTA_NEUTRALIZE_TOKENS = (
     "airy_tree",
 )
+CLOUD_TOKENS = (
+    "nube_",
+)
+RAIN_CLOUD_TOKENS = (
+    "nube_lluvia_",
+)
 
 
 def key_stats(arr: np.ndarray) -> tuple[np.ndarray, float]:
@@ -180,6 +186,132 @@ def neutralize_magenta_bias(cleaned: np.ndarray, source: np.ndarray, path_name: 
     return cleaned
 
 
+def clean_cloud_bias(image: Image.Image) -> Image.Image:
+    """Remove hot magenta halos and color spill left on soft cloud edges."""
+
+    arr = np.array(image.convert("RGBA")).astype(np.float32)
+    rgb = arr[..., :3]
+    alpha = arr[..., 3]
+    red, green, blue = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    magenta_score = (red + blue) / 2 - green
+
+    transparent = alpha < 16
+    fringe_zone = dilate(transparent, 17) & (alpha > 0)
+    hot_magenta = (
+        (magenta_score > 28)
+        & (red > 112)
+        & (blue > 90)
+        & (green < 205)
+    )
+    hard_fringe = fringe_zone & hot_magenta
+    alpha[hard_fringe] = 0
+
+    soft_zone = dilate(transparent, 35) & (alpha > 0)
+    soft_fringe = (
+        soft_zone
+        & (magenta_score > 18)
+        & (red > 100)
+        & (blue > 80)
+        & (green < 218)
+    )
+    if soft_fringe.any():
+        fringe_strength = np.clip((magenta_score - 18) / 80, 0, 1)
+        alpha[soft_fringe] = np.minimum(
+            alpha[soft_fringe],
+            255 * (1 - 0.65 * fringe_strength[soft_fringe]),
+        )
+
+    remaining = (
+        (alpha > 0)
+        & (magenta_score > 4)
+        & (red > 85)
+        & (blue > 68)
+    )
+    if remaining.any():
+        luminance = 0.299 * red + 0.587 * green + 0.114 * blue
+        warm_cloud = np.stack(
+            [
+                np.minimum(255, luminance + 42),
+                np.minimum(255, luminance + 36),
+                np.maximum(0, luminance + 8),
+            ],
+            axis=2,
+        )
+        neutral_edge = np.stack(
+            [
+                np.minimum(255, luminance + 24),
+                np.minimum(255, luminance + 23),
+                np.minimum(255, luminance + 18),
+            ],
+            axis=2,
+        )
+        soft_edge = dilate(alpha < 220, 15)
+        target = np.where(soft_edge[..., None], neutral_edge, warm_cloud)
+        blend = np.clip((magenta_score - 4) / 62, 0, 0.96)[..., None]
+        arr[..., :3] = np.where(
+            remaining[..., None],
+            arr[..., :3] * (1 - blend) + target * blend,
+            arr[..., :3],
+        )
+
+        green_lift = np.clip((magenta_score - 2) / 80, 0, 0.21)
+        arr[..., 1] = np.where(
+            alpha > 0,
+            np.minimum(255, arr[..., 1] + green_lift * 36),
+            arr[..., 1],
+        )
+
+    arr[..., 3] = alpha
+    arr[arr[..., 3] < 2, :3] = 0
+    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGBA")
+
+
+def clean_rain_cloud_bias(image: Image.Image) -> Image.Image:
+    """Keep rain clouds neutral gray after removing the magenta matte."""
+
+    arr = np.array(image.convert("RGBA")).astype(np.float32)
+    rgb = arr[..., :3]
+    alpha = arr[..., 3]
+    red, green, blue = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    magenta_score = (red + blue) / 2 - green
+    visible = alpha > 0
+
+    hot_edge = (
+        visible
+        & (alpha < 230)
+        & (magenta_score > 4)
+        & (red > green + 2)
+        & (blue > green + 2)
+    )
+    alpha[hot_edge & (alpha < 34)] = 0
+    alpha[hot_edge & (alpha >= 34)] *= 0.72
+
+    tinted = (
+        (alpha > 0)
+        & (magenta_score > -1)
+        & ((red > green + 1) | (blue > green + 2))
+    )
+    if tinted.any():
+        luminance = 0.299 * red + 0.587 * green + 0.114 * blue
+        cool_gray = np.stack(
+            [
+                np.clip(luminance + 7, 0, 255),
+                np.clip(luminance + 10, 0, 255),
+                np.clip(luminance + 13, 0, 255),
+            ],
+            axis=2,
+        )
+        edge = alpha < 230
+        strength = np.clip((magenta_score + 1) / 16, 0.28, 0.92)
+        strength = np.where(edge, np.maximum(strength, 0.78), strength)
+        blend = np.where(tinted, strength, 0)[..., None]
+        arr[..., :3] = arr[..., :3] * (1 - blend) + cool_gray * blend
+
+    arr[..., 3] = alpha
+    arr[arr[..., 3] < 2, :3] = 0
+    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGBA")
+
+
 def clean_asset(path: Path) -> Image.Image | None:
     image = Image.open(path).convert("RGBA")
     arr = np.array(image).astype(np.float32)
@@ -261,6 +393,11 @@ def clean_asset(path: Path) -> Image.Image | None:
     output = Image.fromarray(np.clip(cleaned, 0, 255).astype(np.uint8), "RGBA")
     keep_full = path.name.startswith("02_hills") or path.name == "06_pond.png"
     output = crop_alpha(output, pad=8, keep_full=keep_full)
+
+    if path.name.startswith(RAIN_CLOUD_TOKENS):
+        output = crop_alpha(clean_rain_cloud_bias(output), pad=8, keep_full=keep_full)
+    elif path.name.startswith(CLOUD_TOKENS):
+        output = crop_alpha(clean_cloud_bias(output), pad=8, keep_full=keep_full)
 
     if path.name == "03_lantern_scone_on.png":
         output = crop_alpha(clean_lantern_on(output), pad=8, keep_full=keep_full)

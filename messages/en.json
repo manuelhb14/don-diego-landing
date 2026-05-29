@@ -793,6 +793,8 @@
         "titleLine1": "Don Diego",
         "titleLine2": "on Instagram.",
         "cta": "View Instagram",
+        "carouselPrevAria": "Previous post",
+        "carouselNextAria": "Next post",
         "posts": {
           "farm": {
             "label": "Organic farm",
@@ -1047,7 +1049,169 @@
         "kicker": "Residential amenities",
         "titleLine1": "Community and",
         "titleAccent": "life",
-        "intro": "More than amenities, we create spaces for gathering, caring for yourself, and enjoying every day. Everything is designed for a full, connected, and meaningful way of life.",
+        "intro": "Club Residencial brings daily gathering, sport, wellbeing, and service into one readable system. Clubhouse, gardens, water, and movement work together rather than appearing as isolated amenities.",
+        "features": {
+          "clubhouse": {
+            "kicker": "The social heart",
+            "title": "World-class Clubhouse",
+            "body": "A gathering point for daily life: restaurant, coffee bars, coworking, and terraces that invite residents to gather without leaving the setting.",
+            "highlights": {
+              "restaurant": "Clubhouse restaurant",
+              "rooftopBar": "Rooftop bar",
+              "businessCenter": "Business Center",
+              "ludoteca": "Playroom"
+            },
+            "media": {
+              "restaurant": "Clubhouse restaurant",
+              "rooftopBar": "Rooftop bar",
+              "businessCenter": "Business Center",
+              "ludoteca": "Playroom"
+            }
+          },
+          "sports": {
+            "kicker": "Sport and fitness",
+            "title": "Courts and covered training",
+            "body": "Padel, pickleball, and an indoor covered gym shape the club's active core: classes, matches, and everyday routines connected to gardens, shade, and pedestrian routes.",
+            "highlights": {
+              "padel": "Padel",
+              "pickleball": "Pickleball",
+              "coveredGym": "Indoor covered gym"
+            }
+          },
+          "water": {
+            "kicker": "Water, gardens, and calm",
+            "title": "Pool, jacuzzis, and garden wellbeing",
+            "body": "The pool lives at garden level and connects with jacuzzis, yoga, and spa. Water is not a decorative endpoint: it organizes pauses, shade, and movement inside Club Residencial.",
+            "highlights": {
+              "gardenPool": "Garden pool",
+              "gardens": "Gardens",
+              "jacuzzis": "Jacuzzis",
+              "spaYoga": "Spa and yoga"
+            }
+          }
+        },
+        "compact": {
+          "kicker": "Sports and relaxation",
+          "title": "Active spaces, water, and calm",
+          "body": "A tighter visual summary of the club's active side, keeping the read direct and lighter.",
+          "groups": {
+            "sports": "Sports",
+            "relaxation": "Relaxation"
+          },
+          "rows": {
+            "padel": {
+              "title": "Padel",
+              "body": "Courts for matches, lessons, and social play."
+            },
+            "pickleball": {
+              "title": "Pickleball",
+              "body": "Accessible activity for playing and gathering across generations."
+            },
+            "coveredGym": {
+              "title": "Gym",
+              "body": "Indoor covered training, comfortable and close to the Clubhouse."
+            },
+            "waterWellness": {
+              "title": "Pool",
+              "body": "Water and gardens connected to the residential landscape."
+            },
+            "yoga": {
+              "title": "Yoga",
+              "body": "Movement, breath, and calm close to the landscape."
+            },
+            "spa": {
+              "title": "Spa",
+              "body": "Wellbeing pauses for recovering energy."
+            },
+            "jacuzzis": {
+              "title": "Jacuzzis",
+              "body": "Relaxation integrated with water, gardens, and privacy."
+            }
+          }
+        },
+        "matrix": {
+          "title": "The full Club amenity list",
+          "body": "The list stays visible and ordered so the real scope of Club Residencial is easy to understand: social spaces, water and gardens, and movement activities for different ages and routines.",
+          "groups": {
+            "casaClub": {
+              "label": "Clubhouse"
+            },
+            "waterLandscape": {
+              "label": "Water and gardens"
+            },
+            "movement": {
+              "label": "Movement"
+            }
+          },
+          "items": {
+            "rooftopBar": {
+              "title": "Rooftop bar",
+              "body": "An elevated terrace for ending the day with views, cocktails, and a clearer social life within the Clubhouse."
+            },
+            "businessCenter": {
+              "title": "Business Center",
+              "body": "Work and meeting spaces for blending productivity, residence, and community without leaving the club."
+            },
+            "ludoteca": {
+              "title": "Playroom",
+              "body": "A dedicated space for children and families, integrated into the everyday life of the Clubhouse."
+            },
+            "gardens": {
+              "title": "Gardens",
+              "body": "Green areas, shade, and walkable routes connecting residences, Clubhouse, and amenities."
+            },
+            "gardenPool": {
+              "title": "Pool",
+              "body": "A garden-level pool connected with outdoor areas, jacuzzis, and the social life of the club."
+            },
+            "jacuzzis": {
+              "title": "Jacuzzis",
+              "body": "Relaxation points integrated into the landscape for more private pauses near the water."
+            },
+            "spa": {
+              "title": "Spa",
+              "body": "Wellbeing treatments and routines in a calm space within Club Residencial."
+            },
+            "padel": {
+              "title": "Padel",
+              "body": "Courts for matches, lessons, and resident gatherings, surrounded by greenery."
+            },
+            "pickleball": {
+              "title": "Pickleball",
+              "body": "A low-barrier social court activity for playing, learning, and gathering across generations."
+            },
+            "coveredGym": {
+              "title": "Indoor covered gym",
+              "body": "Strength and conditioning routines in a protected, comfortable space close to the Clubhouse."
+            },
+            "yoga": {
+              "title": "Yoga",
+              "body": "Movement and breathing sessions connected with the landscape, spa, and quieter pace of the club."
+            }
+          }
+        },
+        "spaces": {
+          "kicker": "System of spaces",
+          "body": "Club Residencial is the starting point for four spaces connected by activities, landscape, and walkable routes.",
+          "items": {
+            "club": {
+              "title": "Club Residencial",
+              "body": "Clubhouse, residences, sport, water, and daily life."
+            },
+            "farm": {
+              "title": "Organic Farm & Flowers",
+              "body": "Orchards, flowers, greenhouses, walks, and cycle route."
+            },
+            "wellness": {
+              "title": "Wellness Center",
+              "body": "Care, rehabilitation, active retirement, and therapeutic gardens."
+            },
+            "presa": {
+              "title": "Presa de la Cantera",
+              "body": "Lookout, water, cafe/bar terrace, and light activities."
+            }
+          }
+        },
         "socialHeart": {
           "title": "The Social Heart",
           "kicker": "The social heart",
@@ -1081,7 +1245,7 @@
               "body": "Personalized treatments for body, mind, and soul."
             },
             "jacuzzi": {
-              "title": "Jacuzzi",
+              "title": "Jacuzzis",
               "body": "Relax and enjoy the landscape in total privacy."
             }
           }
@@ -1098,14 +1262,23 @@
         "labels": {
           "spa": "SPA",
           "yoga": "YOGA",
-          "jacuzzi": "JACUZZI"
+          "jacuzzi": "JACUZZIS"
         },
         "alts": {
           "casaClub": "Clubhouse",
+          "rooftopBar": "Clubhouse rooftop bar",
+          "restaurant": "Clubhouse restaurant",
+          "coffee": "Coffee bars",
+          "businessCenter": "Business Center",
+          "ludoteca": "Playroom",
           "restaurante": "Restaurant",
           "coworking": "Coworking",
           "terrazas": "Terraces",
+          "sports": "Sports courts at Club Residencial",
+          "pickleball": "Pickleball court",
           "piscina": "Pool",
+          "pool": "Garden pool",
+          "jacuzzis": "Jacuzzis integrated into the landscape",
           "spa": "Spa",
           "yoga": "Yoga",
           "relax": "Relax",
