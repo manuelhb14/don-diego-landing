@@ -803,7 +803,7 @@ export default function HeroWellness() {
                                 {t("tagline")}
                             </p>
                             <p
-                                className="hidden lg:block text-[#222222]/70 text-sm lg:text-base leading-relaxed max-w-sm"
+                                className="max-w-sm text-sm leading-relaxed text-[#222222]/70 lg:text-base"
                                 style={{ fontFamily: "var(--font-sans)" }}
                             >
                                 {t("description")}

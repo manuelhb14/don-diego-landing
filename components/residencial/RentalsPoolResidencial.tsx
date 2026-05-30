@@ -39,6 +39,7 @@ export default function RentalsPoolResidencial() {
                                 fill
                                 className="object-cover"
                                 sizes="(min-width: 1024px) 42vw, 100vw"
+                                unoptimized
                             />
                         </div>
                     </motion.div>

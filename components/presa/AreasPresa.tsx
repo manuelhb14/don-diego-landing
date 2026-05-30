@@ -11,6 +11,8 @@ import {
     Mountain,
     PlayCircle,
     UtensilsCrossed,
+    Users,
+    Waves,
 } from "lucide-react";
 
 const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
@@ -75,8 +77,34 @@ const rowStyleMap = {
             iconColor: "text-[#3d5a6b]",
         },
     },
+    malecon: {
+        Icon: Waves,
+        imageLeft: false,
+        card: {
+            border: "border-[#5a7a8a]/16",
+            bg: "bg-[#EEF4F6]",
+            eyebrowClass: "text-[#5a7a8a]",
+            titleAccent: "text-[#5a7a8a]",
+            iconBg: "bg-[#DDEBF0]",
+            iconBorder: "border-[#5a7a8a]/25",
+            iconColor: "text-[#3d5a6b]",
+        },
+    },
     departamentos: {
         Icon: Mountain,
+        imageLeft: true,
+        card: {
+            border: "border-[#6B6358]/18",
+            bg: "bg-[#EEEAE1]",
+            eyebrowClass: "text-[#6B6358]",
+            titleAccent: "text-[#6B6358]/95",
+            iconBg: "bg-[#E5E0D6]",
+            iconBorder: "border-[#7A7268]/25",
+            iconColor: "text-[#4A453E]",
+        },
+    },
+    centroComunitario: {
+        Icon: Users,
         imageLeft: true,
         card: {
             border: "border-[#6B6358]/18",
@@ -233,6 +261,16 @@ export default function AreasPresa() {
             imageLeft: false,
         },
         {
+            id: "malecon",
+            eyebrow: t("rows.malecon.eyebrow"),
+            title: t("rows.malecon.title"),
+            titleItalic: t("rows.malecon.titleItalic"),
+            description: t("rows.malecon.description"),
+            image: { src: "/babylon/presa-3.webp", alt: t("rows.malecon.alt") },
+            ...rowStyleMap.malecon,
+            imageLeft: true,
+        },
+        {
             id: "comerciales",
             eyebrow: t("rows.comerciales.eyebrow"),
             title: t("rows.comerciales.title"),
@@ -261,6 +299,16 @@ export default function AreasPresa() {
             image: { src: "/babylon/presa-5.webp", alt: t("rows.restaurantes.alt") },
             ...rowStyleMap.restaurantes,
             imageLeft: true,
+        },
+        {
+            id: "centro-comunitario",
+            eyebrow: t("rows.centroComunitario.eyebrow"),
+            title: t("rows.centroComunitario.title"),
+            titleItalic: t("rows.centroComunitario.titleItalic"),
+            description: t("rows.centroComunitario.description"),
+            image: { src: "/babylon/presa-11.webp", alt: t("rows.centroComunitario.alt") },
+            ...rowStyleMap.centroComunitario,
+            imageLeft: false,
         },
         {
             id: "parques",
