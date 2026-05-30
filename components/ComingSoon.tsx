@@ -13,7 +13,7 @@ export default function ComingSoon() {
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="/images/gallery/gallery-6.jpg"
+                    src="/images/gallery/gallery-6.png"
                     alt="San Miguel de Allende"
                     fill
                     className="object-cover object-center opacity-20 scale-105"

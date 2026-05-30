@@ -12,7 +12,7 @@ const projects = [
         id: 1,
         label: "01",
         title: "Club Residencial",
-        description: "367 residencias en un entorno peatonal con Casa Club, Restaurante de Casa Club, ludoteca, Business Center, spa, deportes y amenidades.",
+        description: "El proyecto reúne 367 residencias, Casa Club, jardines, alberca, ludoteca, spa, Business Center, canchas de pádel y amenidades conectadas por recorridos verdes hacia las áreas comunes y la Presa de la Cantera.",
         image: "/images/renders/render-5.png",
         accent: "#cc8767",
         features: [
@@ -57,14 +57,14 @@ const projects = [
         id: 4,
         label: "04",
         title: "Presa de la Cantera",
-        description: "Un espacio público-privado junto al agua con mirador, malecón, terraza café/bar, restaurantes y actividades ligeras.",
+        description: "La extensión junto al agua con mirador, malecón, café-bar, restaurantes y un centro comunitario con actividades gratuitas para niños y adultos.",
         image: "/images/renders/presa-1.png",
         accent: "#C8D7E6",
         features: [
-            { icon: Sailboat, text: "Kayak y actividades" },
-            { icon: Theater, text: "Malecón y paseo" },
-            { icon: Smile, text: "Actividades infantiles" },
-            { icon: Coffee, text: "Terraza café/bar" }
+            { icon: Sailboat, text: "Mirador y malecón" },
+            { icon: Theater, text: "Centro comunitario" },
+            { icon: Smile, text: "Actividades gratuitas" },
+            { icon: Coffee, text: "Café-bar" }
         ],
         href: "/presa"
     },

@@ -3,8 +3,6 @@
 import { motion, useReducedMotion } from "motion/react";
 import {
     CircleParking,
-    DoorOpen,
-    KeyRound,
     Leaf,
     type LucideIcon,
     Route,
@@ -15,10 +13,8 @@ import { useTranslations } from "next-intl";
 const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
 
 const detailItems = [
-    { key: "parkingCircuit", icon: CircleParking },
     { key: "pedestrianPaths", icon: Route },
-    { key: "rentalModel", icon: KeyRound },
-    { key: "partialRental", icon: DoorOpen },
+    { key: "parkingCircuit", icon: CircleParking },
     { key: "maintenance", icon: ShieldCheck },
     { key: "outdoorLiving", icon: Leaf },
 ] as const;
@@ -77,7 +73,7 @@ export default function ResidentialDetailsHighlight() {
                     duration: shouldReduceMotion ? 0 : 0.78,
                     ease: EASE_OUT_CUBIC,
                 }}
-                className="grid grid-cols-1 gap-px overflow-hidden border border-[#B76D4B]/18 bg-[#B76D4B]/16 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
+                className="grid grid-cols-1 gap-px overflow-hidden border border-[#B76D4B]/18 bg-[#B76D4B]/16 sm:grid-cols-2 lg:grid-cols-4"
             >
                 {detailItems.map(({ key, icon: Icon }) => (
                     <DetailCard

@@ -66,9 +66,9 @@ const ITEM_DEFS = [
     { id: "rehabilitacion", imageSrc: "/babylon/wellness-5.webp" },
     { id: "seniorLiving", imageSrc: "/babylon/wellness-6.webp" },
     { id: "hospedajeFamiliar", imageSrc: "/babylon/wellness-7.webp" },
-    { id: "jardinesTerapeuticos", imageSrc: "/babylon/wellness-8.webp" },
+    { id: "jardinesTerapeuticos", imageSrc: "/babylon/comunidad-2.webp" },
     { id: "beachClub", imageSrc: "/babylon/presa-4.webp" },
-    { id: "wifiAreasComunes", imageSrc: "/babylon/wifi.webp" },
+    { id: "wifiAreasComunes", imageSrc: "/images/renders/terrace.jpeg" },
 ] as const;
 
 export default function ExperienciasListing() {

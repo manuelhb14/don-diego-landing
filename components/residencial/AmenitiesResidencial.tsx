@@ -39,6 +39,11 @@ const compactAmenityRows = [
         altKey: "gym",
     },
     {
+        key: "gardens",
+        image: "/final/naturaleza.jpg",
+        altKey: "gardens",
+    },
+    {
         key: "waterWellness",
         image: "/images/renders/pool.jpeg",
         altKey: "pool",
@@ -64,12 +69,12 @@ const compactAmenityGroups = [
     {
         key: "sports",
         icon: Dumbbell,
-        rows: compactAmenityRows.slice(0, 3),
+        rows: compactAmenityRows.slice(0, 4),
     },
     {
         key: "relaxation",
         icon: Waves,
-        rows: compactAmenityRows.slice(3),
+        rows: compactAmenityRows.slice(4),
     },
 ] as const;
 
@@ -138,7 +143,7 @@ export default function AmenitiesResidencial() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={revealTransition(0.08 + index * 0.08)}
-            className="min-w-0 border border-[#B76D4B]/16 bg-[#FFF9F2] p-3 shadow-[0_18px_48px_rgba(67,52,42,0.06)] sm:p-4 lg:p-5"
+            className="h-full min-w-0 border border-[#B76D4B]/16 bg-[#FFF9F2] p-3 shadow-[0_18px_48px_rgba(67,52,42,0.06)] sm:p-4 lg:p-5"
         >
             <div className="grid min-w-0 w-full max-w-full grid-cols-[minmax(0,1fr)] gap-5">
                 {renderMainMedia(story)}
@@ -175,36 +180,15 @@ export default function AmenitiesResidencial() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={revealTransition(0.16)}
-            className="min-w-0 border border-[#B76D4B]/16 bg-[#FFF9F2] p-4 shadow-[0_18px_48px_rgba(67,52,42,0.06)]"
+            className="h-full min-w-0 border border-[#B76D4B]/16 bg-[#FFF9F2] p-4 shadow-[0_18px_48px_rgba(67,52,42,0.06)]"
         >
-            <div className="mb-3 px-1 py-1 sm:px-2">
-                <p
-                    className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-[#B76D4B]"
-                    style={{ fontFamily: "var(--font-sans)" }}
-                >
-                    {t("compact.kicker")}
-                </p>
-                <h3
-                    className="max-w-[760px] text-[1.7rem] leading-[1.05] text-[#242322] lg:text-[2.05rem]"
-                    style={{ fontFamily: "var(--font-serif)", letterSpacing: "0" }}
-                >
-                    {t("compact.title")}
-                </h3>
-                <p
-                    className="mt-3 max-w-[720px] text-pretty text-[15px] leading-[1.65] text-[#1F1D1B]/68"
-                    style={{ fontFamily: "var(--font-sans)" }}
-                >
-                    {t("compact.body")}
-                </p>
-            </div>
-
-            <div className="grid gap-2.5">
+            <div className="grid h-full min-h-0 gap-3 lg:grid-rows-2">
                 {compactAmenityGroups.map((group) => {
                     const Icon = group.icon;
 
                     return (
-                        <div key={group.key} className="grid gap-2">
-                            <div className="flex items-center gap-2 px-1 pt-2">
+                        <div key={group.key} className="flex min-h-0 flex-col gap-2">
+                            <div className="flex shrink-0 items-center gap-2 px-1">
                                 <span className="flex h-7 w-7 shrink-0 items-center justify-center border border-[#B76D4B]/22 text-[#B76D4B]">
                                     <Icon className="h-3.5 w-3.5 stroke-[1.5]" aria-hidden />
                                 </span>
@@ -216,11 +200,11 @@ export default function AmenitiesResidencial() {
                                 </h4>
                             </div>
 
-                            <div className="grid gap-2">
+                            <div className="flex min-h-0 flex-1 flex-col gap-2">
                                 {group.rows.map((row) => (
                                     <div
                                         key={row.key}
-                                        className="grid min-h-[78px] grid-cols-[minmax(96px,0.34fr)_minmax(0,1fr)] overflow-hidden bg-[#F8EFE6] sm:grid-cols-[minmax(122px,0.34fr)_minmax(0,1fr)]"
+                                        className="grid min-h-[76px] flex-1 grid-cols-[118px_minmax(0,1fr)] overflow-hidden bg-[#F8EFE6] sm:grid-cols-[184px_minmax(0,1fr)]"
                                     >
                                         <div className="relative min-h-0 overflow-hidden bg-[#EDE5DA]">
                                             <Image
@@ -228,7 +212,7 @@ export default function AmenitiesResidencial() {
                                                 alt={t(`alts.${row.altKey}`)}
                                                 fill
                                                 className="object-cover transition duration-500 hover:scale-[1.03]"
-                                                sizes="(min-width: 1024px) 12vw, (min-width: 640px) 22vw, 34vw"
+                                                sizes="(min-width: 1024px) 15vw, (min-width: 640px) 28vw, 40vw"
                                             />
                                         </div>
                                         <div className="flex min-w-0 items-center px-3 py-2 sm:px-4">
@@ -240,7 +224,7 @@ export default function AmenitiesResidencial() {
                                                     {t(`compact.rows.${row.key}.title`)}
                                                 </h5>
                                                 <p
-                                                    className="mt-1 text-pretty text-[11.5px] leading-[1.35] text-[#1F1D1B]/60"
+                                                    className="mt-1 text-pretty text-[11px] leading-[1.3] text-[#1F1D1B]/60"
                                                     style={{ fontFamily: "var(--font-sans)" }}
                                                 >
                                                     {t(`compact.rows.${row.key}.body`)}
@@ -269,7 +253,7 @@ export default function AmenitiesResidencial() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={revealTransition()}
-                    className="mb-10 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.72fr)] lg:items-end"
+                    className="mb-10 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(340px,0.72fr)] lg:items-start"
                 >
                     <div>
                         <p
@@ -292,14 +276,14 @@ export default function AmenitiesResidencial() {
                         </h2>
                     </div>
                     <p
-                        className="max-w-[680px] text-pretty text-base font-medium leading-relaxed text-[#1F1D1B]/78 md:text-xl"
+                        className="max-w-[680px] text-pretty text-base font-medium leading-relaxed text-[#1F1D1B]/78 md:text-xl lg:pt-11"
                         style={{ fontFamily: "var(--font-serif)" }}
                     >
                         {t("intro")}
                     </p>
                 </motion.div>
 
-                <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)]">
+                <div className="grid items-stretch gap-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)]">
                     {renderClubhouseStory(clubhouseStory, 0)}
                     {renderCompactAmenitiesPanel()}
                 </div>
