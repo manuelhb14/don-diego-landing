@@ -258,7 +258,7 @@ export default function AreasPresa() {
             description: t("rows.departamentos.description"),
             image: { src: "/babylon/presa-8.webp", alt: t("rows.departamentos.alt") },
             ...rowStyleMap.departamentos,
-            imageLeft: false,
+            imageLeft: true,
         },
         {
             id: "malecon",
@@ -268,7 +268,7 @@ export default function AreasPresa() {
             description: t("rows.malecon.description"),
             image: { src: "/babylon/presa-3.webp", alt: t("rows.malecon.alt") },
             ...rowStyleMap.malecon,
-            imageLeft: true,
+            imageLeft: false,
         },
         {
             id: "comerciales",
@@ -318,16 +318,6 @@ export default function AreasPresa() {
             description: t("rows.parques.description"),
             image: { src: "/babylon/presa-9.webp", alt: t("rows.parques.alt") },
             ...rowStyleMap.parques,
-            imageLeft: false,
-        },
-        {
-            id: "estacionamiento",
-            eyebrow: t("rows.estacionamiento.eyebrow"),
-            title: t("rows.estacionamiento.title"),
-            titleItalic: t("rows.estacionamiento.titleItalic"),
-            description: t("rows.estacionamiento.description"),
-            image: { src: "/babylon/presa-6.webp", alt: t("rows.estacionamiento.alt") },
-            ...rowStyleMap.estacionamiento,
             imageLeft: true,
         },
     ];

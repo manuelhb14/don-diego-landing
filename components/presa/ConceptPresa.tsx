@@ -1,107 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useRef, useState, type TouchEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Coffee, Mountain, PlayCircle } from "lucide-react";
 
 const EASE_OUT_CUBIC: [number, number, number, number] = [0.215, 0.61, 0.355, 1];
-const MOBILE_SWIPE_MIN_DISTANCE = 48;
-const MOBILE_SWIPE_DIRECTION_LOCK = 1.25;
 
 export default function ConceptPresa() {
     const t = useTranslations("pages.presa.concept");
     const shouldReduceMotion = useReducedMotion() ?? false;
-    const touchGestureRef = useRef<{
-        startX: number;
-        startY: number;
-        currentX: number;
-        currentY: number;
-    } | null>(null);
-    const features = useMemo(
-        () => [
-            {
-                id: "vistas",
-                title: t("features.vistas.title"),
-                shortTitle: t("features.vistas.shortTitle"),
-                description: t("features.vistas.description"),
-                image: "/babylon/presa-1.webp",
-            },
-            {
-                id: "aire-libre",
-                title: t("features.aireLibre.title"),
-                shortTitle: t("features.aireLibre.shortTitle"),
-                description: t("features.aireLibre.description"),
-                image: "/babylon/presa-2.webp",
-            },
-            {
-                id: "identidad",
-                title: t("features.identidad.title"),
-                shortTitle: t("features.identidad.shortTitle"),
-                description: t("features.identidad.description"),
-                image: "/babylon/presa-3.webp",
-            },
-            {
-                id: "encuentro",
-                title: t("features.encuentro.title"),
-                shortTitle: t("features.encuentro.shortTitle"),
-                description: t("features.encuentro.description"),
-                image: "/babylon/presa-4.webp",
-            },
-        ],
-        [t],
-    );
-
-    const [activeFeature, setActiveFeature] = useState(features[0].id);
-    const activeFeatureIndex = features.findIndex((feature) => feature.id === activeFeature);
-    const activeFeatureData = features[activeFeatureIndex] ?? features[0];
-
-    const selectAdjacentFeature = (direction: -1 | 1) => {
-        const currentIndex = activeFeatureIndex === -1 ? 0 : activeFeatureIndex;
-        const nextIndex = (currentIndex + direction + features.length) % features.length;
-        setActiveFeature(features[nextIndex].id);
-    };
-
-    const isMobileViewport = () =>
-        typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches;
-
-    const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-        if (!isMobileViewport()) return;
-
-        const touch = event.touches[0];
-        if (!touch) return;
-
-        touchGestureRef.current = {
-            startX: touch.clientX,
-            startY: touch.clientY,
-            currentX: touch.clientX,
-            currentY: touch.clientY,
-        };
-    };
-
-    const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
-        const touch = event.touches[0];
-        if (!touch || !touchGestureRef.current) return;
-
-        touchGestureRef.current.currentX = touch.clientX;
-        touchGestureRef.current.currentY = touch.clientY;
-    };
-
-    const handleTouchEnd = () => {
-        const gesture = touchGestureRef.current;
-        touchGestureRef.current = null;
-        if (!gesture || !isMobileViewport()) return;
-
-        const deltaX = gesture.currentX - gesture.startX;
-        const deltaY = gesture.currentY - gesture.startY;
-        const absX = Math.abs(deltaX);
-        const absY = Math.abs(deltaY);
-
-        if (absX < MOBILE_SWIPE_MIN_DISTANCE || absX < absY * MOBILE_SWIPE_DIRECTION_LOCK) return;
-
-        selectAdjacentFeature(deltaX < 0 ? 1 : -1);
-    };
 
     const revealTransition = (delay = 0) => ({
         duration: shouldReduceMotion ? 0 : 0.78,
@@ -109,29 +17,29 @@ export default function ConceptPresa() {
         delay: shouldReduceMotion ? 0 : delay,
     });
 
-    const arrowButtonClassName =
-        "grid h-10 w-10 place-items-center border border-[#5A7A8A]/24 bg-[#FFF9F2] text-[#3d5a6b] transition-colors duration-200 hover:border-[#5A7A8A]/45 hover:bg-[#edf5f7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5A7A8A]/35";
-
-    const renderFeatureControls = (className: string) => (
-        <div className={className}>
-            <button
-                type="button"
-                aria-label={t("previousFeatureAria")}
-                onClick={() => selectAdjacentFeature(-1)}
-                className={arrowButtonClassName}
-            >
-                <ChevronLeft className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
-            </button>
-            <button
-                type="button"
-                aria-label={t("nextFeatureAria")}
-                onClick={() => selectAdjacentFeature(1)}
-                className={arrowButtonClassName}
-            >
-                <ChevronRight className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
-            </button>
-        </div>
-    );
+    const featureCards = [
+        {
+            id: "vistas",
+            eyebrow: t("features.vistas.shortTitle"),
+            title: t("features.vistas.title"),
+            description: t("features.vistas.description"),
+            Icon: Mountain,
+        },
+        {
+            id: "encuentro",
+            eyebrow: t("features.encuentro.shortTitle"),
+            title: t("features.encuentro.title"),
+            description: t("features.encuentro.description"),
+            Icon: PlayCircle,
+        },
+        {
+            id: "aire-libre",
+            eyebrow: t("features.aireLibre.shortTitle"),
+            title: t("features.aireLibre.title"),
+            description: t("features.aireLibre.description"),
+            Icon: Coffee,
+        },
+    ] as const;
 
     return (
         <section
@@ -139,15 +47,7 @@ export default function ConceptPresa() {
             className="overflow-hidden bg-[#fff8ed] py-12 text-[#1a221f] lg:py-20"
             aria-label={t("sectionAriaLabel")}
         >
-            <div
-                className="mx-auto w-full max-w-[1400px] touch-pan-y px-6 lg:touch-auto lg:px-16"
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
-                onTouchCancel={() => {
-                    touchGestureRef.current = null;
-                }}
-            >
+            <div className="mx-auto w-full max-w-[1280px] px-6 lg:px-16">
                 <motion.div
                     initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -174,40 +74,24 @@ export default function ConceptPresa() {
                     </div>
                 </motion.div>
 
-                <div className="grid gap-x-5 gap-y-5 lg:grid-cols-[minmax(0,1fr)_minmax(330px,390px)] lg:gap-x-8 lg:gap-y-3 xl:grid-cols-[minmax(0,1fr)_minmax(360px,420px)]">
+                <div className="presa-concept-layout">
                     <motion.div
                         initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={revealTransition(0.04)}
-                        className="relative min-h-[280px] w-full overflow-hidden bg-[#EDE5DA] shadow-[0_24px_54px_rgba(26,25,23,0.12)] ring-1 ring-[#1a1917]/10 sm:min-h-[360px] lg:min-h-[500px]"
+                        className="presa-concept-media"
                     >
-                        <motion.div
-                            key={activeFeatureData.id}
-                            initial={shouldReduceMotion ? false : { opacity: 0, scale: 1.015 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={revealTransition()}
-                            className="absolute inset-0"
-                        >
-                            <Image
-                                src={activeFeatureData.image}
-                                alt={activeFeatureData.title}
-                                fill
-                                className="object-cover object-center"
-                                priority
-                                sizes="(min-width: 1024px) 62vw, 100vw"
-                            />
-                        </motion.div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#172025]/72 via-[#172025]/10 to-transparent" />
-                        <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between gap-4 sm:right-6 sm:bottom-6 sm:left-6">
-                            <p
-                                className="text-[10px] tracking-[0.3em] text-[#E8F0F6] uppercase"
-                                style={{ fontFamily: "var(--font-sans)" }}
-                            >
-                                {String(activeFeatureIndex + 1).padStart(2, "0")} / {String(features.length).padStart(2, "0")}
-                            </p>
-                            <div className="h-px w-16 bg-[#E8F0F6]/45" />
-                        </div>
+                        <Image
+                            src="/final/presa.png"
+                            alt={t("features.vistas.title")}
+                            width={2400}
+                            height={1340}
+                            unoptimized
+                            className="presa-concept-image"
+                            priority
+                            sizes="(min-width: 768px) 58vw, 100vw"
+                        />
                     </motion.div>
 
                     <motion.div
@@ -215,72 +99,125 @@ export default function ConceptPresa() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={revealTransition(0.08)}
-                        className="flex min-h-[280px] flex-col self-start border border-[#5A7A8A]/18 bg-[#F2EFE8] p-1 sm:min-h-[300px] sm:p-7 lg:h-[500px] lg:min-h-0 lg:p-8 lg:pt-2"
+                        className="presa-concept-cards"
                     >
-                        <div className="mb-6 grid w-full grid-cols-4 gap-1 overflow-visible p-1 sm:mb-8 sm:p-2 lg:-mx-6 lg:flex lg:w-[calc(100%+3rem)] lg:flex-nowrap lg:justify-center lg:gap-0 lg:p-0">
-                            {features.map((feature, index) => {
-                                const isActive = feature.id === activeFeature;
-                                const featureNumber = String(index + 1).padStart(2, "0");
+                        {featureCards.map((feature, index) => {
+                            const Icon = feature.Icon;
 
-                                return (
-                                    <button
-                                        key={feature.id}
-                                        type="button"
-                                        onClick={() => setActiveFeature(feature.id)}
-                                        className={`relative flex min-w-0 items-center justify-center overflow-hidden whitespace-nowrap border px-0.5 py-2.5 text-[9px] tracking-[0.06em] uppercase transition-colors duration-200 sm:px-1 sm:text-[10px] sm:tracking-[0.08em] md:px-2 md:text-[10.5px] md:tracking-[0.12em] lg:flex-1 lg:px-1 lg:py-3 lg:text-[8.5px] lg:tracking-[0.14em] xl:px-2 xl:text-[9.5px] xl:tracking-[0.18em] ${
-                                            isActive
-                                                ? "border-[#5A7A8A] bg-[#5A7A8A] text-[#FFF9F2]"
-                                                : "border-[#5A7A8A]/18 bg-[#FFF9F2] text-[#3d5a6b] hover:border-[#5A7A8A]/38"
-                                        }`}
-                                        style={{ fontFamily: "var(--font-sans)" }}
-                                    >
+                            return (
+                                <article
+                                    key={feature.id}
+                                    className="presa-concept-card"
+                                >
+                                    <div className="mb-4 flex items-center justify-between gap-4">
                                         <span
-                                            className={`pointer-events-none absolute left-1 top-0.5 text-[9px] leading-none tracking-normal lg:hidden ${
-                                                isActive ? "text-[#FFF9F2]/30" : "text-[#5A7A8A]/28"
-                                            }`}
-                                            aria-hidden="true"
+                                            className="text-[10px] tracking-[0.26em] text-[#5A7A8A] uppercase"
+                                            style={{ fontFamily: "var(--font-sans)" }}
                                         >
-                                            {featureNumber}
+                                            {String(index + 1).padStart(2, "0")} {feature.eyebrow}
                                         </span>
-                                        <span className="relative z-10 lg:hidden">{feature.shortTitle}</span>
-                                        <span className="relative z-10 hidden lg:inline">
-                                            {featureNumber} {feature.shortTitle}
+                                        <span className="grid h-9 w-9 shrink-0 place-items-center border border-[#5A7A8A]/20 bg-[#FFF9F2] text-[#3d5a6b]">
+                                            <Icon className="h-4.5 w-4.5" strokeWidth={1.6} aria-hidden />
                                         </span>
-                                    </button>
-                                );
-                            })}
-                        </div>
-
-                        <div className="mt-auto px-4 pb-5 sm:px-0 sm:pb-0">
-                            <p
-                                className="mb-4 text-xs tracking-[0.3em] text-[#5A7A8A] uppercase"
-                                style={{ fontFamily: "var(--font-sans)" }}
-                            >
-                                {activeFeatureData.shortTitle}
-                            </p>
-                            <h3
-                                className="max-w-[28rem] text-[#1a221f]"
-                                style={{
-                                    fontFamily: "var(--font-serif)",
-                                    fontSize: "clamp(1.75rem, 2.8vw, 2.75rem)",
-                                    lineHeight: 1.03,
-                                }}
-                            >
-                                {activeFeatureData.title}
-                            </h3>
-                            <p
-                                className="mt-5 max-w-[34rem] text-base leading-relaxed text-[#1a1917]/72 md:text-lg"
-                                style={{ fontFamily: "var(--font-serif)", fontWeight: 400 }}
-                            >
-                                {activeFeatureData.description}
-                            </p>
-                            {renderFeatureControls("hidden items-center gap-2 lg:mt-8 lg:flex")}
-                        </div>
+                                    </div>
+                                    <h3
+                                        className="text-[#1a221f]"
+                                        style={{
+                                            fontFamily: "var(--font-serif)",
+                                            fontSize: "clamp(1.35rem, 1.65vw, 1.75rem)",
+                                            lineHeight: 1.06,
+                                        }}
+                                    >
+                                        {feature.title}
+                                    </h3>
+                                    <p
+                                        className="mt-3 text-[0.95rem] leading-relaxed text-[#1a1917]/70 lg:text-base lg:leading-relaxed"
+                                        style={{ fontFamily: "var(--font-serif)", fontWeight: 400 }}
+                                    >
+                                        {feature.description}
+                                    </p>
+                                </article>
+                            );
+                        })}
                     </motion.div>
-
-                    {renderFeatureControls("flex items-center gap-2 lg:hidden")}
                 </div>
             </div>
+
+            <style>{`
+                .presa-concept-layout {
+                    display: grid;
+                    gap: 20px;
+                    align-items: stretch;
+                }
+
+                .presa-concept-media {
+                    width: 100%;
+                    overflow: hidden;
+                    background: #ede5da;
+                    box-shadow: 0 24px 54px rgba(26, 25, 23, 0.12);
+                    box-shadow: 0 24px 54px rgba(26, 25, 23, 0.12), inset 0 0 0 1px rgba(26, 25, 23, 0.1);
+                }
+
+                .presa-concept-image {
+                    display: block;
+                    width: 100%;
+                    height: 300px;
+                    object-fit: cover;
+                    object-position: center;
+                }
+
+                .presa-concept-cards {
+                    display: grid;
+                    gap: 12px;
+                    min-width: 0;
+                }
+
+                .presa-concept-card {
+                    display: flex;
+                    min-height: 190px;
+                    flex-direction: column;
+                    border: 1px solid rgba(90, 122, 138, 0.18);
+                    background: #f2efe8;
+                    padding: 20px;
+                    min-width: 0;
+                }
+
+                @media (min-width: 720px) {
+                    .presa-concept-layout {
+                        grid-template-columns: calc(58% - 14px) calc(42% - 14px);
+                        gap: 28px;
+                    }
+
+                    .presa-concept-media {
+                        min-height: 620px;
+                    }
+
+                    .presa-concept-image {
+                        height: 100%;
+                        min-height: 620px;
+                    }
+
+                    .presa-concept-card {
+                        min-height: 0;
+                    }
+                }
+
+                @media (min-width: 1180px) {
+                    .presa-concept-layout {
+                        grid-template-columns: calc(58% - 16px) calc(42% - 16px);
+                        gap: 32px;
+                    }
+
+                    .presa-concept-media,
+                    .presa-concept-image {
+                        min-height: 600px;
+                    }
+
+                    .presa-concept-card {
+                        padding: 24px;
+                    }
+                }
+            `}</style>
         </section>
     );
 }
